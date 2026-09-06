@@ -35,12 +35,6 @@ jobs:
           Mathlib.Tactic.Ring
           Mathlib.Tactic.NormNum
           Mathlib.Data.Nat.Basic
-      - name: Build library
-        run: lake build
-      - name: Check theorem source and regression evidence
-        run: |
-          lake env lean Math/A071999.lean
-          lake env lean Tests/A071999.lean
-          lake env lean Tests/A071999Audit.lean
-      - name: Check public API example
-        run: lake env lean Examples/ReusingA071999.lean
+      - name: Verify library, audits, and examples
+        shell: pwsh
+        run: ./scripts/verify.ps1

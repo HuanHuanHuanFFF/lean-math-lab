@@ -58,3 +58,21 @@ determinant infrastructure where possible.
 后续优先寻找另一类能共享“索引配对后分块求行列式”的矩阵，再提炼通用引理。
 这一步能让复用范围超过 A071999；目前它是计划，不是已有成果。
 社区收录和独立的人类审阅可以增加可发现性，但不作为当前依赖使用的前提。
+
+## Reuse the research process
+
+The repository also includes a self-contained [Lean research skill](../.agents/skills/lean-research/SKILL.md)
+and its [task template](../.agents/skills/lean-research/assets/task.md). Copy the
+whole `lean-research` folder into another repository's `.agents/skills/` and
+adapt repository-specific paths and verification commands. The skill does not
+require the owner's personal skills, accounts, models, or Windows installation.
+See [official Codex skill discovery](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills).
+Local creation and validation do not establish that a running session has
+already refreshed its skill selector.
+
+For mathematical API reuse, keep examples executable and preserve old imports
+when moving implementations. Promote private helpers into a public module only
+after a concrete second application establishes useful assumptions. Skill
+sharing and lemma generalization are separate forms of reuse.
+
+Browse the [online theorem API](https://huanhuanhuanfff.github.io/lean-math-lab/Math/A071999.html) for complete types and source links. The [API guide](API.md) distinguishes the deployed main snapshot from the pinned v0.1.0 release.

@@ -7,6 +7,19 @@ Local build, regression checks, independent audit checks, and a separate consume
 Lean 4 formalizations of concrete mathematical results, with source references,
 explicit theorem statements, and reproducible checks. 中文说明见下方及研究记录。
 
+## Repository navigation
+
+- [Repository structure and task workflow](docs/STRUCTURE.md)
+- [Research task index](research/README.md)
+- [Reusable research skill](.agents/skills/lean-research/SKILL.md)
+
+## Online API documentation
+
+Browse [A071999](https://huanhuanhuanfff.github.io/lean-math-lab/Math/A071999.html),
+[search declarations](https://huanhuanhuanfff.github.io/lean-math-lab/search.html),
+or read the [documentation and version guide](docs/API.md). The site tracks main;
+use v0.1.0 or an exact commit for a reproducible library dependency.
+
 ## Available results
 
 | Result | Import | Public theorem | Status |
@@ -43,6 +56,11 @@ The Windows scripts in `scripts/` use a pre-existing repository-local elan
 installation under `.tools/elan` and keep caches on the same drive. They are
 convenience entry points for this workspace, not an installer. For a fresh
 checkout with a regular elan installation, use the standard commands above.
+
+For the complete suite on Windows or a machine with PowerShell 7 installed, run
+`pwsh -File scripts/verify.ps1`. It builds the library and automatically checks
+all Lean files in `Math/`, `Tests/`, and `Examples/`; CI uses the same script.
+Use `-List` to inspect the scope without running Lean.
 
 ## Use in another Lean project
 

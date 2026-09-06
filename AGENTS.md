@@ -1,47 +1,34 @@
 # Repository Guidelines
 
-## Purpose
+## Purpose and Entry Points
 
-Pursue original mathematical results with Lean-checked proofs. Explain decisions, progress, and limitations to the non-specialist owner in accessible Chinese. Distinguish discoveries, partial results, and formalizations of known mathematics.
+Pursue mathematical results checked by Lean. Explain progress and limitations in accessible Chinese; distinguish original discoveries from formalizations of known results. Read `docs/STRUCTURE.md` when organizing tasks or adding modules, and `research/README.md` when selecting or resuming research. For research execution, statement verification, or proof packaging, use `.agents/skills/lean-research/SKILL.md`.
 
-## Agent Delegation
+## Task Ownership and Delegation
 
-When delegation is authorized, default to `gpt-5.6-luna` with reasoning effort `max`, unless the user specifies otherwise. Set `fork_turns: "none"` or a bounded history fork; full-history forks inherit parent settings. Provide the task, context, file ownership, and acceptance checks. Review changes and verification evidence before reporting completion.
+Give each selected task a stable ID and a record under `research/tasks/<id>-<slug>/`. Record owned files, the last proved result, failed approaches, next subgoal, and an effort checkpoint. Keep research, proof, review, novelty, and publication states separate. Preserve other tasks' untracked or modified files.
 
-## Project Structure & Module Organization
+When delegation is authorized, default to `gpt-5.6-luna` with reasoning effort `max`, unless the user specifies otherwise. Use a fresh or bounded history fork; full-history forks inherit parent settings. Specify file ownership and acceptance checks. Coordinate edits to shared modules, dependencies, and entry points through the primary task.
 
-Use this layout as the project grows:
+## Structure and Style
 
-- `Math/`, `Math.lean`: proofs grouped by topic and their library entry point.
-- `Tests/` (when needed): regression examples.
-- `research/` (when needed): candidates, sources, informal arguments, and attempt logs.
-- `scripts/`: tool entry points and reproducible experiments.
-- `.tools/`, `.lake/`: local tools/caches and project dependencies; exclude from Git.
+- `Math/` and `Math.lean`: accepted library modules and imports; preserve published module paths and theorem names.
+- `Tests/`: source correspondence, boundary checks, and executable axiom audits.
+- `Examples/`: compilable uses of public APIs.
+- `research/`: candidate surveys, task records, and evidence; unfinished Lean experiments stay here or under `.tools/`.
+- `.agents/skills/`: repository workflows and templates.
+- `scripts/`: verification and local tool entry points.
 
-Keep installations, downloads, caches, and temporary files on D:, including during future invocations. Pin Lean/mathlib using `lean-toolchain`, Lake configuration, and `lake-manifest.json`.
+Use two-space indentation, `UpperCamelCase` modules/types, `lowerCamelCase` definitions, and `snake_case` theorems. Prefer focused imports and explicit assumptions; follow nearby mathlib conventions.
 
-## Build, Test, and Development Commands
+## Verification and Environment
 
-Run from the repository root using the project wrappers:
+Run `pwsh -File scripts/verify.ps1` to build and check every Lean file in `Math/`, `Tests/`, and `Examples/`; `-List` shows the scope. For focused checks use `scripts/lake.ps1 env lean <path>` with the local installation, or standard Lake elsewhere.
 
-- `.\scripts\lake.ps1 exe cache get Mathlib.Data.Nat.Basic`: fetch a module and its dependencies from cache.
-- `.\scripts\lake.ps1 build`: build the library.
-- `.\scripts\lake.ps1 env lean Math/Smoke.lean`: check the environment acceptance proof; substitute other proof or regression paths as needed.
+Completed results require source-aligned statements, no placeholder proofs or unjustified axioms, and an executable check of transitive axiom dependencies. Numerical examples do not prove unrestricted theorems. Record actual commands, results, and versions.
 
-If caches are unreachable, build focused imports from source and report this limitation.
+On this Windows workstation keep new installations, downloads, caches, and temporary files on D:. Preserve pinned dependencies and process-local Git trust exceptions. If caches fail, report source-build costs rather than claiming cache success.
 
-## Coding Style & Naming Conventions
+## Contributions and Publication
 
-Use two-space indentation: `UpperCamelCase` for modules/types, `lowerCamelCase` for definitions, and `snake_case` for theorems. Match mathlib names; prefer focused imports, explicit assumptions, and reusable lemmas.
-
-## Testing & Proof Acceptance
-
-Check changed proofs and relevant regression files, then build the library. Import completed modules through `Math.lean`. Accepted results require proofs without `sorry`, `admit`, or dependencies on `sorryAx`; inspect `#print axioms theoremName` and justify any project-specific axioms. Verify that definitions, quantifiers, and hypotheses match the original claim. Numerical experiments alone do not prove unrestricted theorems.
-
-## Research Workflow
-
-Before attacking a candidate, record its precise statement, source, dated status search, tractable subgoal, and attempt budget. Treat unverified open status as uncertain. Preserve useful failed approaches and reassess when the budget expires. Verify novelty separately from Lean acceptance.
-
-## Commit & Pull Request Guidelines
-
-Use focused imperative commit messages, e.g. `proof: establish finite-case bound`; no historical convention exists yet. PRs must state claims, sources, changed assumptions, verification commands/results, and remaining gaps. Label conjectures and incomplete work explicitly.
+Use focused commit messages; existing examples use `feat:` and `ci:` with Chinese descriptions. Changes should state the claim, source, assumptions, verification, and remaining gaps. Commit, push, release, and contact others only within explicit authorization. Preserve published tags; verify the exact remote commit and CI outcome when publishing.

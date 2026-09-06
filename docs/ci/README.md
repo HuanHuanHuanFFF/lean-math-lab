@@ -24,3 +24,8 @@ changing the required imports. Workflow updates require GitHub credentials
 with permission to write workflow files, such as the OAuth `workflow` scope.
 The initial release stored this configuration as a template because that
 permission was absent; subsequent authorization enabled it on `main`.
+
+The workflow now delegates verification to [scripts/verify.ps1](../../scripts/verify.ps1).
+That script discovers every Lean file under `Math/`, `Tests/`, and `Examples/`.
+Add completed checks in those directories; unfinished experiments belong elsewhere.
+The focused cache list remains a separate performance setting.

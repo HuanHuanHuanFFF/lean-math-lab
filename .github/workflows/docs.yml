@@ -1,0 +1,74 @@
+name: API documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: api-docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      pages: read
+    env:
+      LEAN_NUM_THREADS: '2'
+      MATHLIB_NO_CACHE_ON_UPDATE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596 # v1
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Fetch proof dependencies
+        run: >-
+          lake exe cache get
+          Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+          Mathlib.Data.Fintype.EquivFin
+          Mathlib.Algebra.BigOperators.Fin
+          Mathlib.Algebra.BigOperators.Intervals
+          Mathlib.Tactic.FinCases
+          Mathlib.Tactic.Ring
+          Mathlib.Tactic.NormNum
+          Mathlib.Data.Nat.Basic
+      - name: Verify proofs and usage examples
+        shell: pwsh
+        run: ./scripts/verify.ps1
+      - name: Build pinned API documentation
+        run: |
+          cmp lean-toolchain docbuild/lean-toolchain
+          lake -d docbuild build Math:docs
+      - name: Check documentation and stamp source version
+        run: python3 scripts/check-docs.py docbuild/.lake/build/doc --commit "$GITHUB_SHA"
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: docbuild/.lake/build/doc
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy API documentation
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
