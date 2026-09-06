@@ -1,0 +1,16 @@
+/-- The scalar polynomial occurring in the Sylvester determinant. -/
+def resultantCore (c1 c2 c3 c4 : K) : K :=
+  c1 ^ 3 * c3 ^ 3 + c1 ^ 2 * c2 ^ 3 * c4 - c1 ^ 2 * c2 ^ 2 * c3 ^ 2 -
+  3 * c1 ^ 2 * c3 ^ 2 * c4 - c1 * c2 ^ 2 * c3 * c4 + 3 * c1 * c3 * c4 ^ 2 -
+  c2 ^ 4 * c4 + c2 ^ 3 * c3 ^ 2 + 2 * c2 ^ 2 * c4 ^ 2 - c4 ^ 3
+
+/- Exact substitution identity connecting the quartic coefficients to the sign certificate. -/
+theorem resultant_substitution (a e s : K) :
+    resultantCore (2 * (2 * a + 1 + e) + s)
+      ((2 * a + 1 + e) ^ 2 + 2 * a * (a + 1) + s * (a + 1))
+      (2 * a * (a + 1) * (2 * a + 1 + e)) (a ^ 2 * (a + 1) ^ 2) =
+    -(a ^ 2 * (a + 1) ^ 2) * certificate a e s := by
+  unfold resultantCore certificate h j f2 f3Inner g4 g5
+  ring
+
+#print axioms resultant_substitution
