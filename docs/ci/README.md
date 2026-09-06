@@ -1,15 +1,26 @@
-# Enable GitHub verification
+# GitHub verification
 
-The [workflow template](lean.yml) contains the library build, direct theorem
-check, regression checks, independent audit checks, and public API example.
-It is not active while stored in this directory. All of these checks passed
-locally for the initial publication; no successful GitHub run is claimed.
+The [active workflow](../../.github/workflows/lean.yml) runs on pushes and pull
+requests to `main`, and can also be started manually from GitHub Actions.
+See the [run history](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/workflows/lean.yml)
+for the result associated with a particular commit. A green result for an old
+commit does not certify newer changes.
 
-To enable it, use GitHub credentials authorized to write workflow files, move
-`docs/ci/lean.yml` to `.github/workflows/lean.yml`, and commit and push the move.
-The first push to `main` then starts a Linux verification run. Check that run
-before adding a passing CI badge or describing cloud verification as complete.
+## Checks
 
-The initial publication credentials were accepted for repository writes but
-GitHub rejected workflow writes because their OAuth `workflow` scope was absent.
-The template is preserved so enabling CI does not require recreating it.
+The Linux job installs the pinned Lean toolchain, fetches the relevant mathlib
+cache, builds the library, directly checks the theorem source, runs both
+regression and independent audit files, and checks the public API example.
+Any failed command fails the job. The workflow has read-only repository access.
+
+These checks supplement local verification. They do not establish global
+firstness, human peer review, or verification by an independent second kernel.
+The `v0.1.0` source tag predates CI activation and remains unchanged.
+
+## Maintenance
+
+Edit `.github/workflows/lean.yml` when adding verification entry points or
+changing the required imports. Workflow updates require GitHub credentials
+with permission to write workflow files, such as the OAuth `workflow` scope.
+The initial release stored this configuration as a template because that
+permission was absent; subsequent authorization enabled it on `main`.

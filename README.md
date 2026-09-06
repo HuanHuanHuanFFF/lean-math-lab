@@ -1,6 +1,8 @@
 # Lean Math Lab
 
-**Verification:** local build, regression checks, independent audit checks, and a separate consumer project passed. GitHub Actions is not enabled yet; the [workflow template](docs/ci/README.md) is included.
+[![Lean verification](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/workflows/lean.yml/badge.svg)](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/workflows/lean.yml)
+
+Local build, regression checks, independent audit checks, and a separate consumer project passed. The badge links to the current GitHub verification status; see the [CI guide](docs/ci/README.md) for its scope.
 
 Lean 4 formalizations of concrete mathematical results, with source references,
 explicit theorem statements, and reproducible checks. 中文说明见下方及研究记录。
@@ -34,7 +36,7 @@ lake env lean Examples/ReusingA071999.lean
 ```
 
 `lake build` builds the library; run the other commands to check regressions,
-the independent transcription checks, and the usage example. The supplied [workflow template](docs/ci/README.md) includes these checks; it is not active yet. Cache download failure can be handled
+the independent transcription checks, and the usage example. The [GitHub workflow](.github/workflows/lean.yml) runs these checks explicitly on pushes and pull requests to main. Cache download failure can be handled
 by building from source, which takes longer.
 
 The Windows scripts in `scripts/` use a pre-existing repository-local elan

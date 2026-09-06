@@ -33,7 +33,7 @@ compatibility with other versions has not been tested. The `Math` module prefix
 must also be free in the consumer's dependency graph.
 
 The [usage example](../Examples/ReusingA071999.lean) demonstrates both the
-general theorem and a concrete application. It has passed local verification; the supplied CI template includes the same check when enabled. Standard Lake
+general theorem and a concrete application. It has passed local verification and is included in the GitHub verification workflow. Standard Lake
 commands work without this workspace's `.tools/` directory.
 
 ## Extension policy
