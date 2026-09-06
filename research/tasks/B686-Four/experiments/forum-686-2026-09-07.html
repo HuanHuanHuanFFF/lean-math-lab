@@ -1,0 +1,5367 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+
+<title>686 Discussion Thread | Erdős Problems</title>
+<meta property="og:title" content="686 Discussion Thread | Erdős Problems">
+<link rel="icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/static/style.css?v=a13e2aa7">
+
+<script>
+document.addEventListener('click', (e) => {
+  // Toggle reply form
+  const toggle = e.target.closest('.reply-toggle');
+  if (toggle) {
+    const id = toggle.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (form) form.classList.toggle('hidden');
+  }
+  // Reply with quote
+  const quoteBtn = e.target.closest('.reply-quote');
+  if (quoteBtn) {
+    const id = quoteBtn.getAttribute('data-target');
+    const form = document.getElementById(id);
+    if (!form) return;
+    const ta = form.querySelector('textarea');
+    const raw = quoteBtn.getAttribute('data-raw') || '';
+    const quoted = raw.split('\n').map(l => '> ' + l).join('\n') + '\n\n';
+    ta.value = quoted;
+    form.classList.remove('hidden');
+    ta.focus();
+    const len = ta.value.length;
+    ta.setSelectionRange(len, len);
+  }
+});
+</script>
+
+<!-- This creates the reference in the bibliography box. -->
+
+<script>
+function addNewBox(key, problem_id, shouldScroll = false) {
+  const local_id = 'bib-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  fetch(`/bibs/${encodeURIComponent(key)}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.text();
+    })
+    .then(html => {
+      container.innerHTML = html;
+
+      if (shouldScroll) {
+        requestAnimationFrame(() => {
+          container.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Failed to load bib:", err);
+      container.textContent = "Unable to load reference.";
+
+      if (shouldScroll) {
+        container.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    });
+}
+</script>
+
+<script>
+const filledSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" class="fav-icon">
+  <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
+</svg>
+                `;
+const outlineSVG = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="black" fill="white" class="fav-icon">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.610l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.840-.610l1.285-5.386a.563.563 0 0 0-.182-.557L3.041 10.385a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+</svg>
+                `;
+
+document.addEventListener("click", async (e) => {
+  const btn = e.target.closest(".fav-btn");
+  if (!btn) return;
+
+  e.preventDefault();
+  const problemId = btn.dataset.problemId;
+
+  try {
+    const res = await fetch(`/forum/toggle_favourite/${problemId}`, { method: "POST" });
+    const data = await res.json();
+
+    btn.dataset.favourited = data.favourited ? "true" : "false";
+    btn.innerHTML = data.favourited ? filledSVG : outlineSVG;
+  } catch (err) {
+    console.error("Toggle failed:", err);
+  }
+});
+</script>
+
+    
+<script>
+function addImageBox(X, problem_id, shouldScroll = true) {
+  const local_id = 'image-container' + String(problem_id);
+  const container = document.getElementById(local_id);
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const newBox = document.createElement("div");
+
+  const img = document.createElement("img");
+  img.src = `/static/${encodeURIComponent(X)}.png`;
+  img.className = "responsive-image";
+  img.alt = String(X);
+
+  newBox.appendChild(img);
+  container.appendChild(newBox);
+
+  if (shouldScroll) {
+    requestAnimationFrame(() => {
+      container.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  }
+}
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('searchForm');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    const input = form.querySelector('.searchTerm');
+    if (!input) return;
+    const value = input.value.trim();
+    if (!value) return;
+    const path = '/search/' + encodeURIComponent(value);
+    const inDual = window.location.pathname.startsWith("/dual");
+    if (inDual) {
+      e.preventDefault(); 
+      const selected = document.querySelector('input[name="targetPanel"]:checked');
+      const panel = selected ? selected.value : "left";
+      const iframe = document.getElementById(`iframe-${panel}`);
+      if (iframe) {
+        const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+        iframe.src = url;
+        const box = document.querySelector(`#panel-${panel} input`);
+        if (box) box.value = path;
+      } else {
+        window.location.href = path;
+      }
+    } else {
+      form.action = path;
+      form.method = "GET";
+    }
+  });
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.location.pathname.startsWith("/dual")) return;
+
+  var form = document.getElementById('idsearchForm');
+  if (!form) return;
+
+  form.onsubmit = function() {
+    var input = document.querySelector('.idsearchTerm').value.trim();
+    var searchUrl;
+
+    if (/^\d+$/.test(input)) {
+        searchUrl = '/' + encodeURIComponent(input);
+    } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/.test(input.toLowerCase())) {
+        let parts = input.split(/\s+/).filter(Boolean);
+        searchUrl = '/range/' + parts.map(encodeURIComponent).join('/');
+    } else {
+        alert("Enter either a single integer or a space-separated list of numbers/ranges...");
+        return false;
+    }
+    window.location.href = searchUrl;
+    return false;
+  };
+});
+</script>
+
+<script>
+  window.CURRENT_USERNAME = "";
+</script>
+
+
+<script>
+document.addEventListener("click", async (ev) => {
+  const btn = ev.target.closest(".reaction-btn");
+  if (!btn) return;
+  const you = window.CURRENT_USERNAME || "";
+  const bar = btn.closest(".reaction-bar");
+  const postId = bar?.dataset.postId;
+  const rtype = btn.dataset.type;
+  const reactUrl = bar?.dataset.reactUrl; 
+  if (!postId || !rtype || !reactUrl) return;
+
+  try {
+    const res = await fetch(reactUrl, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({type: rtype})
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      alert(data.error || "Could not update reaction.");
+      return;
+    }
+    const summary = data.summary;
+    
+    bar.querySelectorAll(".reaction-btn").forEach(b => {
+      const t = b.dataset.type;
+      const countSpan = bar.querySelector(`.reaction-count[data-type="${t}"]`);
+      if (countSpan && summary[t]) {
+        countSpan.textContent = summary[t].count;
+    const desc = b.dataset.desc || "";
+    const usersTitle = summary[t].users_title || "No one yet.";
+    b.title = `${desc}\n\n${usersTitle}`;
+      }
+        const iReacted = you && (summary[t].users_title || "").includes(you);
+  b.classList.toggle("active", !!iReacted);
+  b.setAttribute("aria-pressed", iReacted ? "true" : "false");
+    });
+  } catch (e) {
+    console.error(e);
+    alert("Only registered users with 5+ posts can react.");
+  }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.body.addEventListener("click", function (e) {
+    const link = e.target.closest(".problem-reaction-link");
+    if (!link) return;
+
+    e.preventDefault();
+
+    const row = link.closest(".problem-reaction-row");
+    if (!row) return;
+
+    const form = row.querySelector(".problem-reaction-form");
+    if (!form) return;
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    })
+      .then(resp => resp.json())
+      .then(data => {
+        if (!data.ok) {
+          console.error(data.error || "Problem reaction update failed");
+          return;
+        }
+
+        const summary = data.summary;
+
+        // Update users text for each reaction type
+        for (const [type, info] of Object.entries(summary)) {
+          const r = document.querySelector(
+            `.problem-reaction-row[data-reaction-type="${type}"]`
+          );
+          if (!r) continue;
+
+          const usersCell = r.querySelector(".problem-reaction-users");
+          if (usersCell) {
+            usersCell.textContent = info.users_title || "None yet";
+          }
+        }
+        link.classList.toggle("active");
+        if (link.classList.contains("active")) {
+          link.textContent = "(no)";
+        } else {
+          link.textContent = "(yes)";
+        }
+      })
+      .catch(err => {
+        console.error("Problem reaction AJAX error", err);
+      });
+  });
+});
+</script>
+
+
+
+
+
+
+</head>
+
+<body>
+
+<div class="topnav">
+
+  <div class="left">
+    <div class="logo">
+      <a class="dual-aware" href="/"><img src="/static/EPLogo.png" alt="Logo" height="50"></a>
+    </div>
+    <div class="links dual-aware desktop-nav">
+      <a href="/forum">Forum</a>
+      <a href="/dm">Inbox</a> 
+      <a href="/favourites">Favourites</a>
+      <a href="/tags">Tags</a> 
+      <div class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">More</a>
+        <div class="dropdown-content">
+          <a href="/faq">FAQ</a>
+          <a href="/prizes">Prizes</a>
+          <a href="/lists">Problem Lists</a>
+          <a href="/definitions">Definitions</a>
+          <a href="/links">Links</a>
+        </div>
+      </div> 
+    </div>
+    <div class="mobile-nav">
+    
+        <a class="forumlink" href="/forum">Forum</a>
+    <div class="dropdown">
+      <button class="dropbtn" id="mobileMenuButton">Menu</button>
+      <div class="dropdown-content">
+        <a href="/dm">Inbox</a> 
+        <a href="/favourites">Favourites</a>
+        <a href="/tags">Tags</a>  
+        <a href="/faq">FAQ</a>
+        <a href="/prizes">Prizes</a>
+        <a href="/lists">Problem Lists</a>
+        <a href="/definitions">Definitions</a>
+        <a href="/links">Links</a>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <div class = "middle">
+    <div class="button-container" style="max-width: 50%;">
+      <form id="idsearchForm">
+        <input required type="text" name="query" class="idsearchTerm" placeholder="# (or range #-#)" title="Enter either a single integer or a space-separated list of numbers/ranges, optionally ending with 'open' or 'solved'.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+    <div class="button-container" style="max-width: 50%;">
+      <form id="searchForm">
+        <input required type="text" name="query" class="searchTerm" placeholder="Search" title="Search all problems.">
+        <button type="submit" class="searchButton">Go</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="right">
+    <a href="#" id="dualViewLink" class="split_all">Dual View</a>
+    <a href="/random_solved" class="split_solved dual-aware">Random Solved</a>
+    <a href="/random_open" class="split_open dual-aware">Random Open</a>
+  </div>
+
+</div>
+
+<div id="notifications-slot"></div>
+
+
+
+
+<div class="container">
+<div class="problem-box">
+
+        
+<div class="problem-text" id="open"> 
+ 
+    <div id="prize">
+    
+
+<span class="tooltip">
+OPEN
+<span class="tooltiptext">
+This is open, and cannot be resolved with a finite computation.
+</span>
+</span>
+
+
+
+    </div>
+    
+
+
+
+    <div id="content">
+Can every integer $N\geq 2$ be written as\[N=\frac{\prod_{1\leq i\leq k}(m+i)}{\prod_{1\leq i\leq k}(n+i)}\]for some $k\geq 2$ and $m\geq n+k$?
+    </div>
+
+    <div id="problem_id">
+<a href="/686">#686</a>: <a href="#bib-container686" onclick="event.preventDefault();addNewBox('Er79d', '686', true);return false;">[Er79d]</a>
+    </div>
+
+ 
+    <div id="tags">
+
+<a href="/tags/number theory">number theory</a>
+
+    </div>
+
+</div>  
+
+<div class="problem-additional-text"> 
+
+If $n$ and $k$ are fixed then can one say anything about the set of integers so represented?<br><br>See also <a href="/388" rel="nofollow noopener noreferrer ugc" target="_blank">[388]</a> and <a href="/677" rel="nofollow noopener noreferrer ugc" target="_blank">[677]</a>.
+
+
+    <div id="bib-container686"></div>
+ 
+
+    
+    <div class="image-container" id="image-container686"></div>
+</div>
+
+<div class="problem-info">
+
+
+
+<details class="problem-info-section">
+  <summary class="problem-info-row">
+    <span>Proof expositions (0)</span>
+  </summary>
+
+  <div class="problem-info-content problem-expositions">
+If you would like to contribute an exposition of a proof related to this problem, please message a moderator or leave your exposition as a comment.<p>
+
+
+    
+      <div class="problem-info-muted">
+        No proof expositions yet.
+      </div>
+    
+
+  </div>
+</details>
+
+<a class="problem-info-row problem-info-link" href="/forum/discuss/686">
+    <span>Comments (36)</span>
+  </a>
+
+  <a class="problem-info-row problem-info-link"
+     href="/forum/thread/686/proof-claims">
+    <span>Proof claims (0)</span>
+  </a>
+
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>More information and links</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      <div class="problem-info-small">
+
+This page was last edited 11 April 2026.
+ (<a href="/history/686">View history</a>) (<a href="/latex/686">View the LaTeX source</a>)<p>
+
+When referring to this problem, please use the original sources of Erd&#337;s. If you wish to acknowledge this website, the recommended citation format is:
+<p>
+T. F. Bloom, Erd&#337;s Problem #686, https://www.erdosproblems.com/686, accessed 2026-09-06
+</div>
+      <div class="problem-info-small">
+From the <a href="https://github.com/teorth/erdosproblems">external database</a>. (You can
+        <a href="https://github.com/teorth/erdosproblems">
+          help update
+        </a> this.)
+      </div>
+
+      
+
+        <div class="problem-info-data-row">
+          <span class="problem-info-label">Formalised statement?</span>
+          <span>
+            
+              <a href="https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/686.lean">
+                Yes
+              </a>
+            
+          </span>
+        </div>
+
+        
+
+        
+
+        
+
+      
+
+    </div>
+  </details>
+
+
+  
+  
+
+  <details class="problem-info-section">
+    <summary class="problem-info-row">
+      <span>Reactions</span>
+    </summary>
+
+    <div class="problem-info-content">
+
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="like">
+
+          <span class="problem-info-label">
+            Likes
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="collab">
+
+          <span class="problem-info-label">
+            Open to collaboration
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_on">
+
+          <span class="problem-info-label">
+            Currently working on
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="hard">
+
+          <span class="problem-info-label">
+            Looks difficult
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="easy">
+
+          <span class="problem-info-label">
+            Looks tractable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="formalisable">
+
+          <span class="problem-info-label">
+            Could be formalisable
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+        
+
+        <div class="problem-info-data-row problem-reaction-row"
+             data-reaction-type="working_form">
+
+          <span class="problem-info-label">
+            Working on formalising
+          </span>
+
+          <span>
+            <span class="problem-reaction-users">
+              
+                <span class="problem-info-muted">None</span>
+              
+            </span>
+
+            
+          </span>
+
+        </div>
+      
+
+    </div>
+  </details>
+
+</div>
+               
+
+
+<div class="problem-additional-text"> 
+
+
+<div class="thread-sort">
+Order by
+  <a href="/forum/thread/686?order=oldest"
+     class="order active">oldest first</a> or
+  <a href="/forum/thread/686?order=newest"
+     class="order ">newest first</a>. (The most recent comments are highlighted in a red border.)
+</div>
+
+
+
+
+<ul class="post-list">
+  
+    
+    
+
+
+
+
+
+
+<li id="post-4553"
+    class="post depth-0
+           
+           even">
+    <div class="post-body" id="post-4553">
+    
+
+
+
+      
+      <p>If we do not require \(n\geq0\), <a href="https://www.doubao.com/thread/wcde49dd23e88245c" rel="nofollow noopener noreferrer ugc" target="_blank">Seed 2.0 Pro</a> gives an explicit construction for all integers \(N\geq2\): simply take \(k=2N-2\), \(m=2\) and \(n=-2N\).</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Quanyu_Tang">Quanyu Tang</a></strong>
+      
+      — <a href="/forum/thread/686#post-4553">08:19 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4553" data-react-url="/forum/post/4553/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4554"
+    class="post depth-1
+           
+           odd">
+    <div class="post-body" id="post-4554">
+    
+
+
+
+      
+      <p>We probably require that as is common with other problems.<br><br>For the wiki, we'll probably not record trivial solves that are not the intended versions and do not meaningfully contribute to the understanding of the problem. That seems to roughly be the precedent; I'll just state it here so it becomes clear from now on.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4554">09:54 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4554" data-react-url="/forum/post/4554/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Quanyu Tang"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4564"
+    class="post depth-2
+           
+           even">
+    <div class="post-body" id="post-4564">
+    
+
+
+
+      
+      <p>OK.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Quanyu_Tang">Quanyu Tang</a></strong>
+      
+      — <a href="/forum/thread/686#post-4564">13:36 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4564" data-react-url="/forum/post/4564/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-1205"
+    class="post depth-0
+           
+           odd">
+    <div class="post-body" id="post-1205">
+    
+
+
+
+      
+      <p>I asked Gemini Deep Research to find references on the problem (the main formulation), Gemini Deep Think to actually represent as many integers $2\leq N\leq100$ as possible, and then also ChatGPT to find some references on the problem.<br><br>In about 10 mins Gemini Deep Research <a href="https://gemini.google.com/share/8a65afa26217" rel="nofollow noopener noreferrer ugc" target="_blank">made the following report</a> on the problem. It made a big deal reformulating the quotient as the quotient of binomial coefficients, but it did not make much use of that. It also mentioned the Sylvester-Schur theorem that, among any $k$ consecutive integers $&gt;k$, at least one has a prime divisor $&gt;k$. Then it mentioned the Erdős-Selfridge theorem that the product of two or more consecutive positive integers is never a perfect power. All this was just to argue that the representations are not easy to achieve in general, but no concrete implications were shown. In fact, it incorrectly conjectured that perfect powers $N\geq2$ cannot be represented, which is clearly wrong (see the above comment), take for instance $N=9$ or $N=32$. It also realized that the particular case '$k=2$ and $N$ is not a perfect square' is equivalent to solving a generalized Pell equation, but it did not succeed in characterizing when it is actually solvable.<br><br>Gemini Deep Think ran for about 30 mins and <a href="https://gemini.google.com/share/877b793ff0ab" rel="nofollow noopener noreferrer ugc" target="_blank">it was able to represent</a> all $2\leq N\leq100$ except for $4, 25, 49, 64, 81$. These are exactly the same exceptions mentioned in the previous post, where I reported what Stijn and I found experimentally! (Previously, I had simply performed straightforward brute-force search in Mathematica.) Then it claimed to have proven that these 5 numbers cannot be represented using $k=2$ factors.<br><br>I could only run ChatGPT for a very short period of time. It did not find any references that would say something actually useful for the main formulation of the problem, but it <a href="https://arxiv.org/abs/2408.01306" rel="nofollow noopener noreferrer ugc" target="_blank">found a paper</a> on the case $k=3$, and in its references there is <a href="https://msp.org/pjm/1971/37-2/p05.xhtml" rel="nofollow noopener noreferrer ugc" target="_blank">a paper</a> on a very special case of the case $k=4$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Vjeko_Kovac">Vjeko_Kovac</a></strong>
+      
+      — <a href="/forum/thread/686#post-1205">08:20 on 18 Oct 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="1205" data-react-url="/forum/post/1205/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao, Quanyu Tang, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4565"
+    class="post depth-1
+           
+           even">
+    <div class="post-body" id="post-4565">
+    
+
+
+
+      
+      <p>Inspired by your data and extensive numerical experiments, I now conjecture that $N = p^2$ (where $p \geq 5$ is prime) constitutes a sequence of integers that cannot be represented! I haven't found a counterexample so far!</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Quanyu_Tang">Quanyu Tang</a></strong>
+      
+      — <a href="/forum/thread/686#post-4565">13:37 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4565" data-react-url="/forum/post/4565/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, TerenceTao, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4567"
+    class="post depth-2
+           
+           odd">
+    <div class="post-body" id="post-4567">
+    
+
+
+
+      
+      <p>One can establish the $k=2$ case of this conjecture as $p^2 = \frac{m(m+1)}{n(n+1)}$ implies not only the obvious factorization identity $m(m+1) = p^2 n(n+1)$ - implying that one of $m,m+1$ must be divisible by $p^2$ - but also the additional identity $(2pn+p+2m+1) (2pn+p-2m-1) = (p-1)(p+1)$ - implying that $1 \leq 2pn+p-2m-1 &lt; p$.  (The Pell equation here has a discriminant a perfect square, so we can factor in the rational integers rather than a quadratic extension.)  Combining the two facts we see that $2pn+p-2m-1$ must be either $1$ or $p-1$.  The latter case gives $m=0$ which is absurd, the former gives $2m+1 = (p^2 - 2)/2$ which is also absurd for parity reasons.<br><br>(Disclosure: I first <a href="https://claude.ai/share/a1d7d6b1-9a0f-4d8e-9aa8-11f717600af4" rel="nofollow noopener noreferrer ugc" target="_blank">asked Claude on this</a>, and it got the argument started, but became very handwavy at the end.)<br><br>EDIT 1: It seems these sorts of arguments should also produce representations for almost all non-prime squares, but I did not work out the details (it's mostly trying to locate divisors of the square that obey suitable parity constraints).<br><br>EDIT 2: Heuristically, the higher $k$ equations should be much less likely to provide solutions (one is now trying to find integer points on a positive genus curve instead of a zero genus curve, which one expects to be unlikely thanks to <a href="https://en.wikipedia.org/wiki/Siegel%27s_theorem_on_integral_points" rel="nofollow noopener noreferrer ugc" target="_blank">Siegel's theorem</a>.  Actually making this intuition rigorous looks very difficult though.  (The $k=3$ case involves an elliptic curve and might possibly be tractable though.)</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/TerenceTao">TerenceTao</a></strong>
+      
+      — <a href="/forum/thread/686#post-4567">16:40 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4567" data-react-url="/forum/post/4567/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, Quanyu Tang, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4569"
+    class="post depth-3
+           
+           even">
+    <div class="post-body" id="post-4569">
+    
+
+
+
+      
+      <p>I think the following works: assume $m(m+1) = p^2n(n+1)$ and write $m = pn + l$ with $l &#62; 0$. We then get $$m(m+1) = (pn + l)(pn + l + 1) = p^2n^2 + (2l+1)pn + l(l+1) \equiv l(l+1) \equiv 0 \pmod{p},$$so that $l \equiv 0 \pmod{p}$ or $l \equiv -1 \pmod{p}$. In particular $l \ge p-1$ from which we see that $m(m+1)$ is too large.<br><br>Edit: ah, I see that you already solved it too.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Woett">Woett</a></strong>
+      
+      — <a href="/forum/thread/686#post-4569">17:05 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4569" data-react-url="/forum/post/4569/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, Quanyu Tang, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4570"
+    class="post depth-4
+           
+           odd">
+    <div class="post-body" id="post-4570">
+    
+
+
+
+      
+      <p>Waclaw Sierpinski posed as an exercise to prove that squares of odd prime powers cannot be expressed when $k=2$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Dogmachine">Dogmachine</a></strong>
+      
+      — <a href="/forum/thread/686#post-4570">17:56 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4570" data-react-url="/forum/post/4570/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4578"
+    class="post depth-4
+           
+           even">
+    <div class="post-body" id="post-4578">
+    
+
+
+
+      
+      <p>It's straightforward to extend this to $p^{2t}$ for any prime $p$ and $t\in\mathbb{N}$. Assume $m(m+1)=p^{2t}n(n+1)=p^tn(p^tn+p^t)$.<br>If $m\leq p^tn$ then $$m(m+1)\leq p^tn(p^tn+1)&lt;p^tn(p^tn+p^t).$$ If $m\geq p^tn+p^t-1$ then $$m(m+1)\geq (p^tn+p^t-1)(p^tn+p^t)&gt;p^tn(p^tn+p^t).$$ Clearly $p^tn&#60;m&#60;p^tn+p^t-1$, but then $m(m+1)$ is not divisible by $p^t$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Adenwalla">Adenwalla</a></strong>
+      
+      — <a href="/forum/thread/686#post-4578">07:56 on 04 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4578" data-react-url="/forum/post/4578/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, Woett, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4580"
+    class="post depth-5
+           
+           odd">
+    <div class="post-body" id="post-4580">
+    
+
+
+
+      
+      <p>As all non-square $n$ can be represented with $k=2$, the only $n$ where $k=2$ representability remains open is $n=t^2$ for composite $t$. The following was found using Claude Sonnet 4.6. I start from $m$ and $n$ instead of $m+1$ and $n+1$.<br><br>Consider $t^2n(n+1)=m(m+1)$. Then let $a=2n+1$ and $b=2m+1$. Substituting in we get $t^2 \frac{a^2-1}{4}=\frac{b^2-1}{4}$ and so $t^2(a^2-1)=b^2-1$. Therefore $(ta)^2-b^2=t^2-1$ and so $(ta-b)(ta+b)=t^2-1$. Set $u=ta-b$ and $v=ta+b$. Then we have a solution if and only if there exist integers $u\neq t-1$ and $v\neq t+1$ such that $uv=t^2-1$, and both $\frac{v-u}{2}$ and $\frac{v+u}{2t}$ are odd.<br><br>If $t\equiv 2\bmod 4$ then $m=\frac{t^2}{4}-1$ and $n=\frac{t-2}{4}$ suffice.<br><br>EDIT: Claude notes that $t$ can represented if and only if there exists $n$ such that $4n(n+1)t^2+1$ is a square.<br><br>Claude also makes the claim that when $r$ is odd, $t=r(r+2)$ is representable for $k=2$ if and only if $r\equiv 1\bmod 4$. The if direction is shown in the comment below by Quanyu Tang.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Adenwalla">Adenwalla</a></strong>
+      
+      — <a href="/forum/thread/686#post-4580">15:09 on 04 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4580" data-react-url="/forum/post/4580/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4581"
+    class="post depth-6
+           
+           even">
+    <div class="post-body" id="post-4581">
+    
+
+
+
+      
+      <p>You are right. Let us consider \( N = t^2 \). Let $u\ge 3$ be an odd integer. In fact, we can also find two more families of \( t \) for which solutions exist when \( k = 2 \):<br>1. \( t = 4u^2 - 1 \). In this case, take \( n = \frac{u-3}{2}\), \(m = \frac{u(4u^2-3)-3}{2} \).<br>2. \( t = 4u(2u^2 - 1) \). In this case, take \( n = \frac{u-3}{2}\), \(m = 4u^4 - 4u^2 - 1 \).</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Quanyu_Tang">Quanyu Tang</a></strong>
+      
+      — <a href="/forum/thread/686#post-4581">16:50 on 04 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4581" data-react-url="/forum/post/4581/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4583"
+    class="post depth-7
+           
+           odd">
+    <div class="post-body" id="post-4583">
+    
+
+
+
+      
+      <p>I have GPT with near-autonomous process work on the $k=2$ problem for a little bit. Here is <a href="https://drive.google.com/file/d/1lq4Ji091okPnOETY7MIFb7ykINhsMAFB/view" rel="nofollow noopener noreferrer ugc" target="_blank">the writeup</a>.<br><br>At the time of work, only the non-square $N$ and $N = (p^t)^2$ cases were on the forum. GPT reproduces the $N = t^2$, $t \equiv 2 \pmod 4$ case, and it proves a divisibility result which can give more examples of representable square $N$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4583">17:22 on 04 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4583" data-react-url="/forum/post/4583/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4582"
+    class="post depth-6
+           
+           odd">
+    <div class="post-body" id="post-4582">
+    
+
+
+
+      
+      <p>I don't know how useful this is, but here is an argument which shows that when $k = 2$ and $N = a^2$, $n$ has to be small (&lt; $\tfrac{a}{8}$ except for the family of parametric solutions from the above post). In particular, there is only a finite number of solutions for fixed $a$, and there is an algorithm which is (quasi-)linear in $a$ for deciding wether $a^2$ is representable with $k=2$.<br>Let $a \geq 2$ and fix $n \geq \tfrac{a}{8}$. Assume that $m$ gives a solution to $a^2n(n+1) = m(m+1)$ . We can locate $m$ to within one unit using the following inequalities, true for all $x &gt; 0$ :<br>$$1 + \dfrac{x}{2} - \dfrac{x^2}{8} &lt; \sqrt{1+x} &lt; 1 + \dfrac{x}{2}$$<br>Setting $x= \tfrac{1}{n}$, we get $$n+ \dfrac{1}{2} - \dfrac{1}{8n} &lt; \sqrt{n(n+1)} = n\sqrt{1 +\dfrac{1}{n}} &lt; n + \dfrac{1}{2}$$<br>Hence<br>$$m &lt; \sqrt{m(m+1)} &lt; a\left(n + \dfrac{1}{2}\right)$$<br>and $$m+1 &gt; \sqrt{m(m+1)} &#62; a\left(n + \dfrac{1}{2} - \dfrac{1}{8n}\right)$$<br>So $$an + \dfrac{a}{2} - 1 - \dfrac{a}{8n} &lt; m &lt; an + \dfrac{a}{2}$$<br>Now, if $a$ is even then $an + \tfrac{a}{2}$ is an integer. Since $\tfrac{a}{8n} \leq 1$ and the inequalities are strict, we get $m = an + \tfrac{a}{2} - 1$. Injecting this in the original equation gives $n = \tfrac{a - 2}{4}$ and $m = \tfrac{a^2}{4} - 1$. These are integers exactly when $a\equiv 2 \pmod{4}$. If $a$ is odd, we must have $m = an + \tfrac{a-1}{2}$ since $m$ is an integer, thus $m(m+1) = a^2n^2+a^2n+\tfrac{a^2-1}{4} &gt; a^2n(n+1)$, so there is no such solution.<br>A similar methor should work anytime $N$ is a $k$-th power.<br>I also did some computations for $k = 2$. For $N$ up to $613$, I can confirm that only the squares of odd numbers and multiples of four are not representable with $k=2$. The largest solutions include (notation is $N : (n,m)$, with $Nn(n+1)= m(m+1)$):<br>349 : (80283570, 1499820869)<br>464 : (91600145, 1973127519)<br>524 : (107654364, 2464321040)<br>Beyond $m=2^{32}$ my program gets integer overflows so I had to stop there. The first few unknowns are :<br>614 ; 634 ; 662<br>I investigated the case of the squares more deeply and found some more parametric solutions by looking at the patterns in the program's results (both verified with Xcas) :<br>$$(a=(4n+1)(4n+3), n, m=n(4n+3)^2)$$<br>$$(a=4(2n+1)(8n^2+8n+1), n, m=16n(n+1)(2n+1)^2)$$<br>[Edit: I didn't see Tang's answer. These look like the same families, up to notation.]<br>The following sequence of odd squares with solutions could have a similar parametrisation, or they could even belong to a two-parameters family.<br>1413721 : (1, 1682)<br>94109401 : (2, 23762)<br>1431033241 : (3, 131043)<br>10817040025 : (4, 465124)<br>Two solutions which do not appear to belong to a family, the only ones I think for $a$ up to $1,000,000$ or so (I got some overflow issues around there so I am not entirely sure) :<br>1631432881 : (1, 57120)<br>277613072100 : (3, 1825200)<br>In all these solutions $n$ is quite small. Must $n$ be $O(\sqrt{a})$ except for the $n= \tfrac{a - 2}{4}$ case ?</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/vilc">vilc</a></strong>
+      
+      — <a href="/forum/thread/686#post-4582">16:54 on 04 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4582" data-react-url="/forum/post/4582/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-8"
+    class="post depth-0
+           
+           even">
+    <div class="post-body" id="post-8">
+    
+
+
+
+      
+      <p>Stijn Cambie and I were both able to represent all numbers $N\leq100$ except for\[ 4, 25, 49, 64, 81. \]For example\[ 32=\frac{(1919+1)(1919+2)}{(338+1)(338+2)}. \]Thus the smallest "problematic" number seems to be $N=4$.<br>In practice, numbers $N$ that are not perfect squares can be easily represented with only $k=2$ factors using the theory of generalized Pell's equation. I did not try to make this observation completely general.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Vjeko_Kovac">Vjeko_Kovac</a></strong>
+      
+      — <a href="/forum/thread/686#post-8">13:43 on 09 Aug 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="8" data-react-url="/forum/post/8/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Quanyu Tang, old-bielefelder"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-13"
+    class="post depth-1
+           
+           odd">
+    <div class="post-body" id="post-13">
+    
+
+
+
+      
+      <p>The case of $N$ being a perfect square is particularly interesting because It can shed some light on problem <a href="/930" rel="nofollow noopener noreferrer ugc" target="_blank">[930]</a>.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Dogmachine">Dogmachine</a></strong>
+      
+      — <a href="/forum/thread/686#post-13">16:57 on 09 Aug 2025</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="13" data-react-url="/forum/post/13/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4568"
+    class="post depth-1
+           
+           even">
+    <div class="post-body" id="post-4568">
+    
+
+
+
+      
+      <p>That's a great observation! AlphaProof formalized the non-square case using k=2 and Pell's equation here: https://github.com/google-deepmind/formal-conjectures/pull/2398/</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Miklos">Miklos</a></strong>
+      
+      — <a href="/forum/thread/686#post-4568">17:00 on 03 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4568" data-react-url="/forum/post/4568/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, vilc"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4598"
+    class="post depth-2
+           
+           odd">
+    <div class="post-body" id="post-4598">
+    
+
+
+
+      
+      <p>I don't know if the formal proof is based on the same idea, but there is a deterministic algorithm for finding a representation with $k=2$ when $N$ is not a square.<br>Find a solution $(z, w)$ of $z^2 - Nw^2 = 1$, which is always possible by standard methods when $N$ is not a square. If $z-w$ and $z-Nw$ are both odd (always true for odd $N$, and will be true for the "squared" solution $(z^2+Nw^2, 2zw)$ if $N$ is even), then by elementary calculations $n=\dfrac{|z-w|-1}{2}$ and $m=\dfrac{|z-Nw|-1}{2}$ verify $Nn(n+1)=m(m+1)$. If $n$ and $m$ are too close, a larger initial solution $(z',w')$ will work. This also shows that there is an infinite number of solutions.<br>As a demonstration of the method, a representation, probably the smallest, of $N=614$ with $k=2$ is $(n = 167117648945, m = 4141012131555)$ (Pell equation solved with <a href="https://www.alpertron.com.ar/QUAD.HTM" rel="nofollow noopener noreferrer ugc" target="_blank">Dario Alpern's online calculator</a>).</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/vilc">vilc</a></strong>
+      
+      — <a href="/forum/thread/686#post-4598">17:14 on 05 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4598" data-react-url="/forum/post/4598/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-4596"
+    class="post depth-0
+           
+           odd">
+    <div class="post-body" id="post-4596">
+    
+
+
+
+      
+      <p>The <a href="https://arxiv.org/abs/2408.01306" rel="nofollow noopener noreferrer ugc" target="_blank">paper of Chan</a> Vjeko found by literature seach shows that for any fixed $N$ and $k=3$ there are only finitely many solutions.  Here is the proof sketch, using the current notation. Writing $m+1 = Dv$ and $n+1 = Du$ where $D$ is the greatest common divisor of $m+1,n+1$, the equation can be rewritten as<br>$$ D^2 (v^3 - N u^3) = v - Nu.$$<br>Since $v-Nu$ already divides $v^3 - N^3 u^3$, the gcd of $v-Nu$ and $v^3-Nu^3$ must divide $N^3-N$ and hence $v^3 - N u^3$ also divides $N^3 - N$.  If $N$ is a perfect cube we are already done by the gaps between cubes.  Otherwise, we get a Diophantine approximation $v/u = N^{1/3} + O(u^{-3})$ which, when combined with the Thue-Siegel-Roth theorem, gives an ineffective bound on $u,v$.  Using instead a Baker type theorem one can get effective bounds (of exponential type in $N$).<br><br>For higher $k$, one could hopefully apply Siegel's theorem on integer points to show (ineffective) finiteness; one just needs to show that the curve $(y+1) \dots (y+k) = N (x+1) \dots (x+k)$ contains no genus zero curves, which should be some elementary algebraic geometry.<br><br>EDIT: it seems plausible that by adapting the proof of Theorem 1 of Chan's paper one can rule out $k=3$ solutions to specific $N$ such as  $N=4,25,49,64,81$.  To do this one has to do some numerical computations with the <a href="https://personal.math.ubc.ca/~bennett/paper8.pdf" rel="nofollow noopener noreferrer ugc" target="_blank">results of Bennett</a> on explicit lower bounds on rational approximants to expressions such as $N^{1/3}$; the case $N=2$ is worked out explicitly in Bennett (and hence in Chan) but one has to update all the numbers to handle for instance $N=4$.  This might be a suitable task for some AI workflow. EDIT: <a href="https://www.cambridge.org/core/journals/journal-of-the-australian-mathematical-society/article/effective-measures-of-irrationality-for-certain-algebraic-numbers/9514B1BC73EBF0C72B9B470D62C448A9" rel="nofollow noopener noreferrer ugc" target="_blank">this earlier paper of Bennett</a> may also be usable, although the later paper seems to slightly sharpen the results of this earlier paper as far as numerical constants are concerned.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/TerenceTao">TerenceTao</a></strong>
+      
+      — <a href="/forum/thread/686#post-4596">16:40 on 05 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4596" data-react-url="/forum/post/4596/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4599"
+    class="post depth-1
+           
+           even">
+    <div class="post-body" id="post-4599">
+    
+
+
+
+      
+      <p>This was done in <a href="https://www.degruyterbrill.com/document/doi/10.1515/9783110285581.11/html" rel="nofollow noopener noreferrer ugc" target="_blank">a paper by Beukers, Shorey and Tijdeman</a> from 2001 (which I could not access) on a generalisation of Erdös's problem, according to <a href="https://www.impan.pl/shop/publication/transaction/download/product/83210?download.pdf" rel="nofollow noopener noreferrer ugc" target="_blank">this other paper by Rakaczki</a> [direct download link] on an even broader generalisation (Rakaczki's paper was briefly mentionned in Chan's paper). For problem 686, Theorem B in Rakaczki's paper implies that there are only a finite number of solutions for fixed $N$ and $k&gt;2$.<br><br>EDIT:<br>I proved that none of $4$, $49$, $64$ have a representation for $k = 3$. First, based on my attempts here are some general remarks on applying Bennett's estimates with Chan's method :<br>- if two irrationnals generate the same field, an explicit estimate for one yields an estimate for the other. This fact is actually often used by Bennett (see the values of $a,N$ in the tables)<br>- in practice, one can get much better estimates (with an arbitrarily large constant) when $q$ is above some adequate threshold by using more computations to study the continued fraction. A larger constant dramatically improves the final bound. The main limiting factor for our purposes is therefore to obtain an exponent $&lt;3$.<br>- in Bennett's formulas for $\kappa(a,n)$ the notation $ord_p(n)$ is a divisibility order, not a multiplicative order (this confused me for some time)<br><br>Chan shows that $\left|N - \dfrac{v^3}{u^3}\right| \leq \dfrac{N^{3}}{u^3}$ and $\left|\sqrt[3]{N} - \dfrac{v}{u}\right| \leq \dfrac{N^{\tfrac{7}{3}}}{u^3}$. For sufficiently large $u$, the first one is better by a factor of nearly $3$, but I will only need the second one for what follows. A bound on $x$ follows from a bound on $u$ since $D^2 \leq Nu - v \leq Nu$.<br>When $N$ is a cube (as for $N=64$), $\left|\sqrt[3]{N} - \dfrac{v}{u}\right| \geq \dfrac{1}{u}$ since equality does not hold. Therefore $u \leq N^{\tfrac{7}{6}}$ and $x \leq N^{\tfrac{9}{4}}$. For $64$, we need to check for $x$ up to $12000$, which I did.<br>$N = 4$ is an example where adapting the bound for $\sqrt[3]{2}$ works without trouble. Since $\sqrt[3]{4} = \dfrac{2}{\sqrt[3]{2}}$, Bennett's estimate yields for all $p,q$ $$\left|\sqrt[3]{4} - \dfrac{p}{q}\right| \geq \dfrac{\sqrt[3]{4}\times 2^{1-2.45}}{8} q^{-2.45} &gt; 0.072 q^{-2.45}$$ This gives in turn $x \leq 2 \times 10^7$, and no further improvement was needed since I had already searched up to $2\times 10^9$.<br>For $N = 49$ I used Bennett's values of $a=15$ and $N = 7 \times 23^3$ [notation conflict, not the same $N$ as ours] for $\sqrt[3]{7}$, to benefit from the later paper's improved exponents (which turned out to be nearly irrelevant). By studying the continued fraction with Pari/GP, I found that if $q \geq 11004$, then $\left|\sqrt[3]{49} - \dfrac{p}{q}\right| &gt; 223\times q^{-2.69}$. The $223$ could be improved easily for larger $q$, but this already yields $x &lt; 4\times 10^8$, which again I could check in a reasonnable amount of time. Compare with bounds on the order of $x\leq 10^{20}$ if a general bound such as $0.1 q^{-2.69}$ had been used.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/vilc">vilc</a></strong>
+      
+      — <a href="/forum/thread/686#post-4599">18:24 on 05 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4599" data-react-url="/forum/post/4599/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, TerenceTao"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+    
+    
+
+
+
+
+
+
+<li id="post-4686"
+    class="post depth-0
+           
+           even">
+    <div class="post-body" id="post-4686">
+    
+
+
+
+      
+      <p>The $k=2$ case is now settled by GPT-5.4 Thinking with near-autonomous process in <a href="https://drive.google.com/file/d/1cxyR_5oIs9o9tV8XlgfURJhE0sNUJnRf/view" rel="nofollow noopener noreferrer ugc" target="_blank">this note</a>. The solution uses Pell theory.<br><br>Combined with the previously known non-square $N$ case, the classification of representable $N$ for $k=2$ is as follows.<br><br>1. $N$ is non-square.<br>2. $N=a^2$, where $a = A_r(y)$ for some odd integer $y \ge 3$ and integer $r \ge 2$, and $A_r(y)$ is defined by $(y + \sqrt{y^2-1})^r = X_r(y) + A_r(y) \sqrt{y^2-1}$.<br><br>The first few polynomials $A_r(y)$ are: $A_2(y) = 2y$, $A_3(y) = 4y^2-1$, $A_4(y) = 4y(2y^2-1)$, coinciding with known parametrizations.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4686">19:17 on 08 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4686" data-react-url="/forum/post/4686/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao, Moritz Firsching, Quanyu Tang, marinov, vilc"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">5</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4696"
+    class="post depth-1
+           
+           odd">
+    <div class="post-body" id="post-4696">
+    
+
+
+
+      
+      <p>I also note that $k=4$ cannot give any more representable $N$: if $(m,n)$ is a solution for $N$ and $k=4$, then $((m^2+5m)/2+1, (n^2+5n)/2+1)$ is a solution for $N$ and $k=2$.<br><br>However, finding all representable $N$ for $k=4$ appears tricky. On the plus side, Vjeko has linked a <a href="https://msp.org/pjm/1971/37-2/p05.xhtml" rel="nofollow noopener noreferrer ugc" target="_blank">paper by Cohn</a> which shows that $N=2$ is not representable for $k=4$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4696">12:34 on 09 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4696" data-react-url="/forum/post/4696/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao, Quanyu Tang"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+  
+</ul>
+
+
+  <div id="more-posts" class="post-list hidden" aria-hidden="true">
+    <ul class="post-list">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4724"
+    class="post depth-0
+           
+           odd">
+    <div class="post-body" id="post-4724">
+    
+
+
+
+      
+      <p>Building on Tao's and vilc's results based on Chan's and Bennett's papers, GPT-5.4 Thinking has extended the $k=3$ results as follows. Here is <a href="https://drive.google.com/file/d/1YmV9oWARnUW2pGY7tP_BWuhSOreiquCS/view" rel="nofollow noopener noreferrer ugc" target="_blank">the writeup</a>.<br><br>- For square $N\le 100$ and $k=3$: $N = 9, 16$ are representable, while $N = 4, 25, 36, 49, 64, 81, 100$ are NOT representable.<br><br>- For general $N\le 20$ and $k=3$: $N = 6, 7, 9, 10, 11, 12, 13, 14, 16, 18, 19, 20$ are representable, while $N = 2, 3, 4, 5, 8, 15, 17$ are NOT representable.<br><br>- Also, $N = 27$ and $k=3$ is NOT representable. (Cubic $N$ are easier to prove.)<br><br>Among these $N = 25, 100$ are especially difficult from the computational perspective.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4724">18:43 on 12 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4724" data-react-url="/forum/post/4724/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, TerenceTao, vilc"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4725"
+    class="post depth-1
+           
+           even">
+    <div class="post-body" id="post-4725">
+    
+
+
+
+      
+      <p>Current status: We now know that $N = 4, 25, 49, 64, 81$ cannot be represented when $k \le 4$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4725">18:44 on 12 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4725" data-react-url="/forum/post/4725/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4739"
+    class="post depth-2
+           
+           odd">
+    <div class="post-body" id="post-4739">
+    
+
+
+
+      
+      <p>Speaking of special cases, $N=64$ cannot be represented using $k=6$. Namely, expanding into a series and estimating errors explicitly, we get\[ \big((m+1)\cdots(m+6)\big)^{1/6} = m + \frac{7}{2} + f(m), \quad |f(m)|\leq\frac{2}{m}, \]\[ \big(64(n+1)\cdots(n+6)\big)^{1/6} = 2n + 7 + g(n), \quad |g(n)|\leq\frac{3}{n}. \]Therefore, if these two are equal, then $f(m)-g(n)+\frac{1}{2}\in\mathbb{Z}$. Since the equation also forces $2n-6\leq m\leq 2n+12$, we see that it is sufficient to check the cases, say, $0\leq m,n\leq100$, which is easily done.<br><br>A very similar idea was used in vilc's post. As mentioned there, in principle it takes a finite amount of computation to rule out any particular pair $(N,k)$, where $N$ is a perfect $k$-th power. Thus, numbers like $N=u^{v!}$ have very slim chances of being representable, but some effective variants of Siegel's theorem would likely be needed to rule out the cases $k&#62;v$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Vjeko_Kovac">Vjeko_Kovac</a></strong>
+      
+      — <a href="/forum/thread/686#post-4739">11:32 on 13 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4739" data-react-url="/forum/post/4739/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao, Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4757"
+    class="post depth-3
+           
+           even">
+    <div class="post-body" id="post-4757">
+    
+
+
+
+      
+      <p>More generally, here is an explicit bound on $n$ when $N = a^k$. For $n \geq 1$ and $k \geq 2$:<br>$$n + \dfrac{k-1}{2} - \dfrac{k^2 - 1}{24n} &#60; (n(n+1) \ldots (n+k-1))^{1/k} &#60; n + \dfrac{k-1}{2} - \dfrac{k^2 - 1}{24n} + \dfrac{(k^2-1)(k-1)}{48n^2}$$<br>Applying these to $n$ and $m$, one can show the following disjunction:<br>- If $n\leq \dfrac{2k}{3}$ and one of $a, k$ is odd, then $m = an + \dfrac{(a-1)(k-1)}{2}$ may be a solution.<br>- Else, if one of $a, k$ is odd then $n &#60; \dfrac{a(k^2 - 1)}{24}$<br>- Else $n &#60; \dfrac{a(k^2 - 1)}{12}$<br>(the bound $n\leq \tfrac{2k}{3}$ in the first case could be marginally improved to $n\leq ck$ for some $c$ dependant on $a$ but greater than $\tfrac{1}{2}$)<br>We can get a lower bound on $n$ using some elementary arithmetic.<br>Assume that $a\geq 2$ is such that $N=a^k$ is representable for $k$. If $p$ is prime and $p^l \mid a$ then $p^{lk} \leq C_k a^2$, where $C_k = max(k, \tfrac{(k^2 + 9k - 4)}{12})$ [EDIT : fixed typo, thanks natso26].<br>Proof :<br>One has $v_p(n(n+1) \ldots (n+k-1)) \geq v_p(k!)$ for any $n \geq 1$. Moreover, if $p^j$ is the largest power of $p$ which divides one of $m, m+1, \ldots, m+k-1$, then $v_p(m(m+1) \ldots (m+k-1)) \leq j + v_p((k-1)!)$. This implies that :<br>$$v_p(N) = v_p(m(m+1) \ldots (m+k-1)) - v_p(n(n+1) \ldots (n+k-1)) \leq j - v_p(k) \leq j$$<br>Since $p^l$ divides $a$, we get $lk \leq j$, so $p^{lk} \leq m + k - 1$. Based on the above disjunction, one has (since $a \geq 2$):<br>- either $m+k-1 \leq ak + \dfrac{(a+1)(k-1)}{2} &#60; 2ak \leq k a^2$<br>- or $m + k - 1 &#60; a(n+k) + k - 1 \leq a\left(\dfrac{a(k^2 - 1)}{12} + k\right) + k - 1 \leq \dfrac{a^2(k^2 + 9k - 4)}{12}$<br>This completes the proof.<br>When $a = p^l$ is a prime power and $k \geq 3$, one has $a \leq C_k^{\tfrac{1}{k-2}}$. But it is easily verified that if $k \geq 5$, $C_k^{\tfrac{1}{k-2}} &#60; 2$ ( $&#60;3$ for $k = 4$, $&#60;4$ for $k=3$). Therefore, since the remaining cases for small $k$ were already covered, if $a$ is a prime power, then $a^k$ is not representable with $k$ (this can be generalised easily to cases where $\omega(a)$ is small enough compared to $k$).</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/vilc">vilc</a></strong>
+      
+      — <a href="/forum/thread/686#post-4757">18:11 on 13 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4757" data-react-url="/forum/post/4757/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Nat Sothanaphan"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4763"
+    class="post depth-4
+           
+           odd">
+    <div class="post-body" id="post-4763">
+    
+
+
+
+      
+      <p>Small typo: $C_k = \max(k, \frac{k^2+9k-4}{12})$ (without the $a^2$).<br><br>Thanks Vjeko and vilc for great results! In particular, we now know that it is possible to avoid $k$-representation for any $k$ in a finite set by using $N = p^{v!}$, $p$ prime and $v$ large.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4763">20:27 on 13 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4763" data-react-url="/forum/post/4763/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4764"
+    class="post depth-4
+           
+           even">
+    <div class="post-body" id="post-4764">
+    
+
+
+
+      
+      <p>Another typo: the first displayed equation should have $-\frac{k^2-1}{24n}$ instead of $-\frac{k^2-1}{2n}$ (two places).</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4764">23:01 on 13 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4764" data-react-url="/forum/post/4764/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: vilc"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4771"
+    class="post depth-4
+           
+           odd">
+    <div class="post-body" id="post-4771">
+    
+
+
+
+      
+      <p>GPT-5.4 Thinking has expanded vilc's argument into <a href="https://drive.google.com/file/d/16S_vIEg8iBykfopaxtw5_qfZFS-gaVfA/view" rel="nofollow noopener noreferrer ugc" target="_blank">this note</a>.<br><br>Technically it was concurrent work that started before vilc's post, but later they merged. The note's calculations are slightly stronger. Moreover, we state an explicit generalization for $k &gt; 2\omega(a)$ as follows:<br><br>Fix $r \ge 1$ and a finite set $S$ such that $k &gt; 2r$ for every $k \in S$. Then for all sufficiently large $a$ with $\omega(a) \le r$, we have that $N = a^{\text{lcm}(S)}$ is not $k$-representable for any $k \in S$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4771">20:43 on 14 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4771" data-react-url="/forum/post/4771/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4740"
+    class="post depth-2
+           
+           even">
+    <div class="post-body" id="post-4740">
+    
+
+
+
+      
+      <p>In fact, a similar trick can often rule out a perfect square $N$ (which are all numbers we care about) and an even $k$. Let me only sketch that $N=4$ is not representable using $k=6$.<br>Now we expand\[ 8\big((m+1)\cdots(m+6)\big)^{1/2} = 8m^3 + 84m^2 + 259m + \frac{441}{2} + O\Big(\frac{1}{m}\Big), \]\[ 8\big(4(n+1)\cdots(n+6)\big)^{1/2} = 16n^3 + 168n^2 + 518n + 441 + O\Big(\frac{1}{n}\Big). \]In all but finitely many cases of $(m,n)$ we arrive at a contradiction with $O(1/m)-O(1/n)+1/2\in\mathbb{Z}$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Vjeko_Kovac">Vjeko_Kovac</a></strong>
+      
+      — <a href="/forum/thread/686#post-4740">11:47 on 13 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4740" data-react-url="/forum/post/4740/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: TerenceTao, Nat Sothanaphan, vilc"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4785"
+    class="post depth-0
+           
+           even">
+    <div class="post-body" id="post-4785">
+    
+
+
+
+      
+      <p>Building on natso26's results on exact $k$th-power multipliers and Vjeko Kovač's <br>computational data, I'd like to note two observations.<br><br>**1. An infinite family of representable perfect squares.**<br><br>For every $n \geq 0$, the perfect square $N = 4(2n+3)^2$ is representable with $k = 2$. <br>Set $m = (2n+3)^2 - 2$. Then:<br><br>$$\frac{(m+1)(m+2)}{(n+1)(n+2)} = \frac{((2n+3)^2 - 1) \cdot (2n+3)^2}{(n+1)(n+2)} = \frac{4(n+1)(n+2) \cdot (2n+3)^2}{(n+1)(n+2)} = 4(2n+3)^2.$$<br><br>The key step is the factorization $(2n+3)^2 - 1 = 4(n+1)(n+2)$, which creates exact <br>cancellation. The non-overlap condition $m \geq n + 2$ holds for all $n \geq 0$.<br><br>This gives $N = 36, 100, 196, 324, 484, 676, 900, 1156, \ldots$ — all perfect squares, <br>all representable. Additional representable perfect squares arise from Pell equation <br>families (e.g., $N = 1225 = 35^2$ via $49 \cdot 50 / (1 \cdot 2)$, and $N = 9801 = 99^2$ <br>via $242 \cdot 243 / (2 \cdot 3)$).<br><br>In particular, the obstruction for $\{4, 25, 49, 64, 81\}$ cannot be simply "perfect <br>powers are not representable."<br><br>**2. Computational extension: perfect powers up to 10,000.**<br><br>I ran a systematic search over all perfect powers $N \leq 10{,}000$ with $k \leq 80$ <br>and $n \leq 1000$. Results:<br><br>- **Representable** (39 values): $8, 9, 16, 27, 32, 36, 100, 125, 196, 216, 243, 324, 343, 484, 676, 900, 1000, 1156, 1225, 1331, 1444, 1764, 2048, 2116, 2197, 2500, 2916, 3364, 3844, 4356, 4900, 5476, 6084, 6724, 7396, 8100, 8836, 9604, 9801$<br><br>- **Not representable within search bounds** (85 values): $4, 25, 49, 64, 81, 121, 128, 144, 169, 225, 256, 289, 361, 400, 441, 512, 529, 576, 625, 729, \ldots$<br><br>All representable perfect powers found representations with $k = 2$ (some also with <br>$k = 3$). No perfect power that failed at $k = 2$ was rescued by a larger $k$ within <br>the search bounds.<br><br>Among perfect squares specifically: the representable square roots include <br>$3, 4, 6, 10, 14, 18, 22, 26, 30, 34, 35, \ldots$ while non-representable square roots <br>include $2, 5, 7, 8, 9, 11, 12, 13, 15, \ldots$. The $4(2n+3)^2$ family accounts for <br>the regular spacing (roots $\equiv 2 \pmod{4}$ starting from 6), while the Pell families <br>contribute sporadic additional values (35, 99, $\ldots$).<br><br>**Open question:** Is there a clean characterization of which perfect powers are <br>representable? The data suggests the answer depends on solvability of specific <br>generalized Pell equations for $k = 2$, but I don't see a simple closed-form criterion.<br><br>---<br><br>**Some speculative directions (not verified, flagging for discussion):**<br><br>- The Khanduja-Bhatia irreducibility criterion suggests that <br>  $f_k(x) - N \cdot f_k(y)$ is irreducible over $\mathbb{Q}$ <br>  whenever $N$ is not a perfect $d$th power for any $d \mid k$ <br>  with $d \geq 2$. If correct, this would mean the curve <br>  $C_{k,N}: f_k(x) = N \cdot f_k(y)$ is irreducible for <br>  non-perfect-power $N$, and genus bounds (Faltings for $k \geq 4$, <br>  Siegel for $k = 3$) give per-$k$ finiteness. Does this observation <br>  survive scrutiny?<br><br>- The computational data shows no perfect power that failed at <br>  $k = 2$ was rescued by any larger $k \leq 80$. Is there a <br>  structural reason why $k = 2$ should be the "best chance" for <br>  perfect powers, or could larger $k$ eventually succeed?<br><br>- By Kummer's theorem, the problem can be rephrased in terms of <br>  carry-count differences in base-$p$ arithmetic. Is there a <br>  characterization of which valuation profiles $(v_p(N))_p$ are <br>  achievable as such differences across all $(k, m, n)$?<br><br>---<br><br>*Disclosure: This work used a multi-model AI pipeline (Claude for analysis and <br>orchestration, GPT-5.4 for mathematical reasoning). The algebraic identity was <br>discovered by pattern recognition in computational output, then verified by hand. <br>All mathematical content has been checked by me.<br>Thanks in advance.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/MalekZ">MalekZ</a></strong>
+      
+      — <a href="/forum/thread/686#post-4785">03:14 on 15 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4785" data-react-url="/forum/post/4785/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    
+
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4787"
+    class="post depth-1
+           
+           odd">
+    <div class="post-body" id="post-4787">
+    
+
+
+
+      
+      <p>$9$ is a power that cannot be represented for $k=2$ but can be for $k=3$, so the statement that no perfect power that failed for $k=2$ was rescued by a larger $k$ is not true.<br><br>The family of $2\bmod 4$ squares was previously found to be representable with $k=2$ in the comments below. Natso has a characterisation for the case $k=2$ in a comment from 08/03/26.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/Adenwalla">Adenwalla</a></strong>
+      
+      — <a href="/forum/thread/686#post-4787">04:14 on 15 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4787" data-react-url="/forum/post/4787/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+  
+    <ul class="replies">
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4788"
+    class="post depth-2
+           
+           even">
+    <div class="post-body" id="post-4788">
+    
+
+
+
+      
+      <p>Thanks for the corrections.<br>You're right that the claim about no perfect power being rescued at larger k was wrong; I had N=9 (rescued at k=3) in my own data and failed to reconcile it with the statement. That's been retracted.<br>On the 2 mod 4 family: I see it was already observed in the earlier comments. The identity I posted (setting m = (2n+3)² − 2 and using (2n+3)² − 1 = 4(n+1)(n+2)) was intended as an algebraic proof of why the family works, but I should have checked the prior discussion more carefully before framing it as new.<br>I'll look at natso26's k=2 characterization from 08/03. Thanks for pointing me to it.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/MalekZ">MalekZ</a></strong>
+      
+      — <a href="/forum/thread/686#post-4788">04:43 on 15 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4788" data-react-url="/forum/post/4788/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  
+
+
+  </li>
+
+      
+    </ul>
+
+    
+  
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4793"
+    class="post depth-0
+           
+           odd">
+    <div class="post-body" id="post-4793">
+    
+
+
+
+      
+      <p>For the 'k=3' case, writing 'X=m+2' and 'Y=n+2', Problem 686 becomes<br><br>'X^3 - X = N(Y^3 - Y),'<br><br>with admissibility conditions 'Y &#62;= 2' and 'X &#62;= Y+3'.<br><br>I checked the square values 'N in {4,9,16,25,49,64,81}' from two angles:<br><br>| N | Elliptic curve data | Original cubic search |<br>|---|---|---|<br>| 4 | '135a1', rank '1' | only nontrivial point found was '(X,Y)=(3,2)', not admissible |<br>| 9 | '19440s1', rank '2' | admissible point '(27,13)' giving 'm=25, n=11' |<br>| 16 | '9180a1', rank '2' | admissible point '(15,6)' giving 'm=13, n=4' |<br>| 25 | '140400dd1', rank '2' | no admissible point found in my search |<br>| 49 | '105840cu1', rank '2' | no admissible point found in my search |<br>| 64 | '16380d1', rank '2' | no admissible point found in my search |<br>| 81 | rank '3' on a Weierstrass model | no admissible point found in my search |<br><br>The important caveat is that my first proof strategy here was wrong: the birational map from the cubic 'X^3-X=N(Y^3-Y)' to a Weierstrass model does not preserve integrality in general. For example, for 'N=16', the admissible cubic point '(15,6)' maps to a non-integral point on the Weierstrass model. So 'integral_points()' on the Weierstrass model is not enough to prove that the original cubic has no admissible integer points.<br><br>What I can say safely is:<br><br>1. These 'k=3' curves all have positive rank, so the obstruction is not “no rational points.”<br>2. A brute-force search on the original cubic found the expected admissible points for 'N=9,16'.<br>3. The same search found no admissible points for 'N=4,25,49,64,81' up to my search bounds ('Y &#60;= 500', and separately 'n &#60;= 50,000').<br><br>So this is only computational evidence, not a proof, for the stuck values at 'k=3'.<br><br>If anyone knows a clean way to compute integral points directly on the cubic model 'X^3-X=N(Y^3-Y)' for these specific 'N' (for example via MAGMA on the cubic itself, or via a systematic reduction to Thue equations), I would be interested.<br><br>Disclosure: I used computer algebra / database lookup for the elliptic-curve identifications and brute-force search on the original cubic. The failed “integral points on the Weierstrass model imply integral points on the cubic” argument was caught before posting.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/MalekZ">MalekZ</a></strong>
+      
+      — <a href="/forum/thread/686#post-4793">14:06 on 15 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4793" data-react-url="/forum/post/4793/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Moritz Firsching"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">1</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4795"
+    class="post depth-0
+           recent recent-3
+           even">
+    <div class="post-body" id="post-4795">
+    
+
+
+
+      
+      <p>I did some computations (in Python) for $3 \leq k \leq 100$ and $N=a^2$ (there is some overlap with MalekZ's searches from below, only I searched up to larger values of $N$). The only results were (in the format $a^2 : (k, n, m)$, starting the products at exactly $n$ and $m$):<br>$3^2 : (3, 12, 26)$<br>$4^2 : (3, 5, 14)$<br>$70^2 : (3, 2, 48)$<br>$140^2 : (3, 1, 48)$<br>$1189^2 : (3, 14, 1680)$<br>$1798^2 : (3, 90, 13454)$<br>$4756^2 : (3, 5, 1680)$<br>$6214^2 : (3, 168, 57120)$<br>$2378^2 : (4, 33, 1680)$<br>Search bounds :<br>$k = 3$ : $n \leq 1000, a \leq 1000000$ or $n \leq 10000, a \leq 400000$<br>$k = 4$ : $n \leq 200, a \leq 50000$ (search aborted since it would be more efficient to search among solutions for $k=2$)<br>$k = 5$ : $n \leq 10000, a \leq 250000$<br>$k = 6$ : $n \leq 10000, a \leq 250000$<br>$7 \leq k \leq 100$ : $n \leq 1000, a \leq 1000$<br>This makes me wonder if there are a finite number of representable squares for $k\geq 3$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/vilc">vilc</a></strong>
+      
+      — <a href="/forum/thread/686#post-4795">15:41 on 15 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4795" data-react-url="/forum/post/4795/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, Moritz Firsching, old-bielefelder"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4796"
+    class="post depth-0
+           recent recent-2
+           odd">
+    <div class="post-body" id="post-4796">
+    
+
+
+
+      
+      <p>Following up with a small amount of computational data for Problem 686.<br><br>For 'k=3', writing 'X = m+2' and 'Y = n+2' gives<br><br>'X^3 - X = N(Y^3 - Y).'<br><br>Using SageMath's 'EllipticCurve_from_cubic' with the rational point '(1:1:1)', I obtained the following Weierstrass models:<br><br>| 'N' | Cremona label | rank | torsion |<br>|---|---|---|---|<br>| '4' | '135a1' | '1' | trivial |<br>| '9' | '19440s1' | '2' | trivial |<br>| '16' | '9180a1' | '2' | trivial |<br>| '25' | '140400dd1' | '2' | trivial |<br>| '49' | '105840cu1' | '2' | trivial |<br>| '64' | '16380d1' | '2' | 'Z/2Z' |<br>| '81' | conductor '797040' | '3' | trivial |<br><br>All seven curves have positive rank. On the original cubic, a direct search for 'Y in [-50,500]' gives:<br><br>- 'N=9': admissible point '(X,Y) = (27,13)', i.e. '(m,n) = (25,11)'.<br>- 'N=16': admissible point '(X,Y) = (15,6)', i.e. '(m,n) = (13,4)'.<br>- 'N=4': the nontrivial point '(X,Y) = (3,2)', but it is not admissible.<br>- 'N in {25,49,64,81}': only the 9 trivial points '{-1,0,1}^2'.<br><br>Important caveat: the birational map to the Weierstrass model does not preserve integrality in general. For example, the known 'N=16' solution '(X,Y) = (15,6)' maps to a non-integral Weierstrass point. So integral points on the Weierstrass model do not by themselves prove non-representability on the original cubic.<br><br>For 'k=5' and 'N=4', let<br><br>'F(t) = (t+1)(t+2)(t+3)(t+4)(t+5).'<br><br>Then 'F(x) = 4F(y)' has no rational points at infinity, since this would require a rational root of 'u^5 - 4', which is irreducible over 'Q'. A brute-force search for '|x|, |y| &lt;= 10000' finds only the 25 trivial zero-product points '{-5,-4,-3,-2,-1}^2', and no admissible solutions.<br><br>A congruence obstruction also cannot prove non-representability here. For every modulus 'M', the congruence<br><br>'F(m) ≡ 4F(n) (mod M)'<br><br>has admissible solutions with 'm &gt;= n+5': for 'M &#62;= 5', take 'n = M-1' and 'm = 3M-5', so 'F(n) ≡ F(m) ≡ 0 (mod M)' and 'm-n = 2M-4 &#62;= 6'; for 'M &#60;= 4', the pair '(n,m) = (0,5)' already works.<br><br>For 'N=4', this leaves the following status:<br><br>| 'k' | status | method |<br>|---|---|---|<br>| '2' | not representable | Tao |<br>| '3' | no admissible solution found for 'Y &#60;= 500' | direct search on 'X^3-X = 4(Y^3-Y)'; '135a1' has rank '1' |<br>| '4' | not representable | natso26 |<br>| '5' | no admissible solution found for '|x|,|y| &#60;= 10000' | direct search; no congruence obstruction exists |<br>| '6' | not representable | Vjeko |<br><br>AI disclosure: the computations were run in SageMath/CoCalc. The computational claims above were checked by me.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/MalekZ">MalekZ</a></strong>
+      
+      — <a href="/forum/thread/686#post-4796">15:58 on 15 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4796" data-react-url="/forum/post/4796/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, Moritz Firsching"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">2</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+        
+        
+
+
+
+
+
+
+<li id="post-4878"
+    class="post depth-0
+           recent recent-1
+           even">
+    <div class="post-body" id="post-4878">
+    
+
+
+
+      
+      <p>Since we have reduced the problem to the $N$ being square case, it turns out there is some interesting literature concerning $n=0$, i.e. binomial coefficients that are squares.<br><br>Lucas' <a href="https://en.wikipedia.org/wiki/Cannonball_problem" rel="nofollow noopener noreferrer ugc" target="_blank">square-pyramid problem</a> shows that $\binom{50}{3} = 140^2$ is the only nontrivial solution when $k=3$ ($n=0$, square $N$).<br><br>Erdos <a href="https://math.stackexchange.com/questions/778233/is-there-any-perfect-squares-that-are-also-binomial-coefficients" rel="nofollow noopener noreferrer ugc" target="_blank">proved</a> that $\binom{m}{k} = n^\ell$ has no solution when $\ell \ge 2$ and $4 \le k \le m-4$. This rules out $k \ge 4$ as well.<br><br>Hence, $N = 140^2$ is the *only* square with a representation with $k \ge 3$ and $n=0$.</p>
+      
+      
+
+    </div>
+
+    <div class="post-meta">
+    
+
+
+      
+      <strong><a href="/forum/user/natso26">Nat Sothanaphan</a></strong>
+      
+      — <a href="/forum/thread/686#post-4878">16:14 on 18 Mar 2026</a>
+
+      
+      
+      
+
+      
+      
+
+
+
+
+      
+      
+
+
+<div class="reaction-bar" data-post-id="4878" data-react-url="/forum/post/4878/react">
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="like"
+  data-desc="I like this post." 
+  title="I like this post.&#10;&#10;Users: Vjeko_Kovac, marinov, MalekZ"
+>
+  <span class="reaction-icon">👍</span>
+  <span class="reaction-count" data-type="like">3</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="needs_update"
+  data-desc="The main problem discussion needs to be updated based on this comment." 
+  title="The main problem discussion needs to be updated based on this comment.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">📝</span>
+  <span class="reaction-count" data-type="needs_update">0</span>
+</button>
+
+   
+  
+
+    
+<button
+  type="button"
+    class="reaction-btn"
+    aria-pressed="false"
+  data-type="flag"
+  data-desc="This post looks like it contains undisclosed AI." 
+  title="This post looks like it contains undisclosed AI.&#10;&#10;Users: No one yet."
+>
+  <span class="reaction-icon">🤖</span>
+  <span class="reaction-count" data-type="flag">0</span>
+</button>
+
+  
+  
+  
+</div>
+    </div>
+    
+    
+
+
+
+
+
+
+  </li>
+
+      
+    </ul>
+  </div>
+
+<div class="post-list-actions" style="text-align: center;">
+  <a href="#"
+     id="toggle-posts"
+     class="show-more-link"
+     aria-expanded="false"
+     aria-controls="more-posts"
+     data-remaining="6">
+    Show 6 more comments
+  </a>
+</div>
+
+
+
+
+
+<p>
+                        <div style="text-align:center;">
+<strong>All comments are the responsibility of the user. Comments appearing on this page are not verified for correctness. Please keep posts mathematical and on topic.</strong>
+</div>
+<p>
+
+
+<div style="text-align:center; margin: 1em">
+
+
+  <p><a href="/forum/login?next=%2Fforum%2Fthread%2F686">Log in</a> to add a comment.</p>
+
+
+    </div>
+<p><div style="text-align: center; margin: 1em 0;">
+<a href="/forum/">Back to the forum</a>
+</div>
+                </div>
+            </div>
+            
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".reply-form");
+  if (!form) return;
+  const btn = form.querySelector('button[type="submit"]');
+  if (btn?.dataset.submitting === "1") {
+    e.preventDefault(); // already submitted
+    return;
+  }
+  if (btn) {
+    btn.dataset.submitting = "1";
+    btn.disabled = true;
+    btn.textContent = "Posting…";
+  }
+});
+</script>
+
+<script>
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest(".thread-sort .order");
+  if (!a) return;
+});
+</script>
+
+<script>
+document.addEventListener("submit", (e) => {
+  const form = e.target.closest(".comment-form");
+  if (!form) return;
+
+  const btn = form.querySelector('button[type="submit"]');
+  if (!btn) return;
+
+  // Already submitting? Block.
+  if (btn.dataset.submitting === "1") {
+    e.preventDefault();
+    return;
+  }
+
+  // First submit: lock UI
+  btn.dataset.submitting = "1";
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.dataset.originalText = original;
+  btn.textContent = "Posting…";
+});
+</script>
+           
+
+
+
+
+<script>
+window.MathJax = {
+  output: {
+    font: 'mathjax-tex'
+  },
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+};
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4.1.2/tex-chtml-nofont.js"></script>
+
+
+<!-- Previewing forum posts -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[m]);
+  }
+
+  function normalizeHref(href) {
+    href = href.trim();
+    if (!/^https?:\/\//i.test(href) && !href.startsWith("/")) {
+      href = "https://" + href;
+    }
+
+    return href;
+  }
+
+  let mathJaxQueue = Promise.resolve();
+
+  function clearMathJax(element) {
+    if (window.MathJax && MathJax.typesetClear) {
+      MathJax.typesetClear([element]);
+    }
+  }
+
+  function typesetMath(element) {
+    if (!window.MathJax) return;
+
+    if (MathJax.typesetPromise) {
+      mathJaxQueue = mathJaxQueue
+        .then(() => {
+          if (MathJax.startup && MathJax.startup.promise) {
+            return MathJax.startup.promise;
+          }
+        })
+        .then(() => MathJax.typesetPromise([element]))
+        .catch(err => {
+          console.error("MathJax typeset failed:", err);
+        });
+
+      return;
+    }
+
+    if (MathJax.Hub) {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+    }
+  }
+
+  function renderPreview(textarea, preview, label) {
+    let raw = textarea.value;
+    const anchors = [];
+    let idx = 0;
+
+    raw = raw.replace(
+      /<a\s+href=("(?:[^"]*)"|'(?:[^']*)')\s*>([\s\S]*?)<\/a>/gi,
+      (match, qHref, labelText) => {
+        const href = qHref.slice(1, -1);
+        const token = `__A_TAG_${idx++}__`;
+
+        anchors.push({
+          token,
+          href: normalizeHref(href),
+          label: labelText
+        });
+
+        return token;
+      }
+    );
+
+    let safe = escapeHtml(raw);
+
+    anchors.forEach(a => {
+      const html = `<a href="${escapeHtml(a.href)}">${escapeHtml(a.label)}</a>`;
+      safe = safe.replace(a.token, html);
+    });
+
+    safe = safe.replace(/\{PROBLEM=(.+?)\}/g, (_, p1) =>
+      `<a href="/${escapeHtml(p1)}">[${escapeHtml(p1)}]</a>`
+    );
+
+    safe = safe.replace(/\n/g, "<br>");
+    clearMathJax(preview);
+
+    if (!safe.trim()) {
+      preview.innerHTML = "";
+      preview.classList.add("hidden");
+      label.classList.add("hidden");
+      return;
+    }
+
+    preview.innerHTML = safe;
+    preview.classList.remove("hidden");
+    label.classList.remove("hidden");
+
+    typesetMath(preview);
+  }
+
+function initialisePreview(textarea) {
+  const form = textarea.closest("form");
+  const preview = form && form.querySelector(".post-preview");
+  const label = form && form.querySelector(".preview-label");
+
+  if (!preview || !label) {
+    return;
+  }
+
+  renderPreview(textarea, preview, label);
+}
+
+document.addEventListener("input", function (event) {
+  if (!event.target.matches("form textarea")) {
+    return;
+  }
+
+  initialisePreview(event.target);
+});
+
+document.querySelectorAll("form textarea").forEach(function (textarea) {
+  initialisePreview(textarea);
+});
+});
+</script>
+
+<!-- To handle the search bar -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function setFilterLink(linkId, newFilter) {
+        const link = document.getElementById(linkId);
+        if (!link) return;
+        const pathParts = window.location.pathname.split("/");
+        // Expect: /<section>/<entry> or /<section>/<entry>/<filter>
+        if (pathParts.length >= 3) {
+            const section = pathParts[1];
+            const entry = pathParts[2];
+            // Construct base: /tags/additive, /sources_bib/BL09, etc.
+            const baseUrl = "/" + section + "/" + entry;
+            link.href = baseUrl + "/" + newFilter;
+        }
+    }
+    setFilterLink("solvedLink", "solved");
+    setFilterLink("openLink", "open");
+    setFilterLink("yesLink", "yes");
+    setFilterLink("noLink", "no");
+});
+</script>
+
+<!-- Handle the dual view link -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const dualLink = document.getElementById("dualViewLink");
+  if (!dualLink) return;
+
+  const isInDualView = window.location.pathname.startsWith("/dual");
+  dualLink.textContent = isInDualView ? "Exit Dual View" : "Dual View";
+  dualLink.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (isInDualView) {
+      try {
+        const leftIframe = document.getElementById("iframe-left");
+        const src = leftIframe?.src || "/";
+        let clean = src.replace(window.location.origin, "");
+        clean = clean.replace(/[?&]embed=1/, "");
+
+        window.location.href = clean;
+      } catch (err) {
+        window.location.href = "/";
+      }
+    } else {
+      const currentPath = window.location.pathname + window.location.search;
+      const rightPanelDefault = "/";
+      const hash = `#left:${encodeURIComponent(currentPath)}&right:${encodeURIComponent(rightPanelDefault)}`;
+      window.location.href = `/dual${hash}`;
+    }
+  });
+});
+</script>
+
+<!-- Redirect links and searches when in dual view mode -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  if (!window.location.pathname.startsWith("/dual")) return;
+
+  function getTargetPanel() {
+    const selected = document.querySelector('input[name="targetPanel"]:checked');
+    return selected ? selected.value : "left";
+  }
+
+  function loadInPanel(panel, path) {
+    if (!path) return;
+    const iframe = document.getElementById(`iframe-${panel}`);
+    if (!iframe) return;
+    const url = path.includes("?") ? path + "&embed=1" : path + "?embed=1";
+    iframe.src = url;
+    const inputBox = document.querySelector(`#panel-${panel} input`);
+    if (inputBox) inputBox.value = path;
+    console.log(`Loaded "${url}" into panel "${panel}"`);
+  }
+  
+  document.querySelectorAll(".dual-aware a[href^='/'], a.dual-aware[href^='/']").forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const path = this.getAttribute("href");
+      loadInPanel(getTargetPanel(), path);
+    });
+  });
+
+  const idForm = document.getElementById("idsearchForm");
+  if (idForm) {
+    idForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = idForm.querySelector(".idsearchTerm").value.trim();
+      if (!input) return;
+
+      let path = null;
+
+      if (/^\d+$/.test(input)) {
+        path = "/go_to/" + encodeURIComponent(input);
+      } else if (/^((\d+|end)(-(\d+|end))?\s*)+(open|solved|yes|no)?$/i.test(input)) {
+        const parts = input.split(/\s+/).filter(Boolean);
+        path = "/range/" + parts.map(encodeURIComponent).join("/");
+      } else {
+        alert("Invalid input format.");
+        return;
+      }
+
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+
+  const searchForm = document.getElementById("searchForm");
+  if (searchForm) {
+    searchForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const input = searchForm.querySelector(".searchTerm").value.trim();
+      if (!input) return;
+
+      const path = "/search/" + encodeURIComponent(input);
+      loadInPanel(getTargetPanel(), path);
+    });
+  }
+});
+</script>
+
+<!-- Different menu on mobile -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("mobileMenuButton");
+  const dropdown = document.getElementById("mobileDropdown");
+
+  if (button && dropdown) {
+    button.addEventListener("click", function () {
+      dropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!button.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.classList.remove("show");
+      }
+    });
+  }
+});
+</script>
+
+<!-- For expanding threads -->
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('#toggle-posts');
+  if (!link) return;
+  e.preventDefault(); 
+
+  const box = document.getElementById('more-posts');
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Show only the top five comments'
+    : `Show ${link.dataset.remaining} more comments`;
+});
+</script>
+
+
+<script>
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.toggle-replies');
+  if (!link) return;
+  e.preventDefault();
+
+  const pid = link.dataset.postId;
+  const box = document.getElementById(`more-replies-${pid}`);
+  if (!box) return;
+
+  const isHidden = box.classList.toggle('hidden');
+  const expanded = !isHidden;
+
+  link.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  box.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+
+  link.textContent = expanded
+    ? 'Hide replies'
+    : `Show ${link.dataset.remaining} more replies`;
+});
+</script>
+
+
+<script>
+document.addEventListener("click", async function (event) {
+    const button = event.target.closest(".problem-status-option");
+    if (!button) return;
+
+    const widget = button.closest(".problem-status-widget");
+    if (!widget) return;
+
+    if (widget.dataset.canEdit !== "1") return;
+
+    const status = button.dataset.status;
+    const url = widget.dataset.setUrl;
+
+    widget.classList.add("is-saving");
+
+    const buttons = widget.querySelectorAll(".problem-status-option");
+    buttons.forEach(btn => btn.disabled = true);
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                "X-Requested-With": "fetch"
+            },
+            body: JSON.stringify({ status: status })
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.ok) {
+            throw new Error(data.error || "Could not update problem status.");
+        }
+
+        widget.dataset.currentStatus = data.status;
+
+        buttons.forEach(btn => {
+            const active = btn.dataset.status === data.status;
+            btn.classList.toggle("is-active", active);
+            btn.setAttribute("aria-checked", active ? "true" : "false");
+        });
+
+        const label = widget.querySelector(".js-problem-status-label");
+        const description = widget.querySelector(".js-problem-status-description");
+
+        if (label) label.textContent = data.label || button.dataset.label;
+        if (description) description.textContent = data.description || button.dataset.description;
+          widget.style.setProperty("--status-progress", button.dataset.progress);
+
+    } catch (err) {
+        alert(err.message || "Could not update problem status.");
+    } finally {
+        widget.classList.remove("is-saving");
+
+        if (widget.dataset.canEdit === "1") {
+            buttons.forEach(btn => btn.disabled = false);
+        }
+    }
+});
+</script>
+  
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a36f03edadc1d13f',t:'MTc4ODcxMzg3Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495" integrity="sha512-iIg7k2xntmwu6/uSb5tpc/hySgZc4eoL31yB29W6tJFo2akwjPWcEqnCEdJvGexCL0KEQwVYv5BlowfhVz26hg==" data-cf-beacon='{"version":"2024.11.0","token":"b8844510a8d24cfb9a8920cc04221446","r":1,"spa":2}' crossorigin="anonymous"></script>
+</body>
+</html>

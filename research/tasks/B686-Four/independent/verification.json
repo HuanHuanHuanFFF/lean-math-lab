@@ -1,0 +1,55 @@
+{
+  "checked_at_utc": "2026-09-06T17:12:25.6452742Z",
+  "scope": "Fixed k=6 and k=8 only; no solution of arbitrary-k Erdos 686",
+  "lean": "leanprover/lean4:v4.33.1",
+  "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "published_baseline": "29a01f166fb631d849fc9ba5536c19a1744f576d",
+  "files": [
+    {
+      "file": "lean/K6.lean",
+      "sha256": "843E4B902A08063039333BE3591F6EB3BE3B12E60E823BC3E549C254C3F7F420",
+      "command": "scripts/lake.ps1 env lean research/tasks/B686-Four/lean/K6.lean",
+      "exit_code": 0,
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "executable_axiom_guard": true
+    },
+    {
+      "file": "independent/K8.lean",
+      "sha256": "1138E86EB6D9683E38EF2A367C75774B327FCF5EDDB3E35A0E0B15604F96615E",
+      "command": "scripts/lake.ps1 env lean research/tasks/B686-Four/independent/K8.lean",
+      "exit_code": 0,
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "executable_axiom_guard": true
+    }
+  ],
+  "independent_checks": [
+    "check_k6.py: symbolic identities, n<44 residual 946 pairs, exit 0",
+    "check_k8.py: original product identity, n<5 residual 10 pairs, exit 0",
+    "check_search.py: 242 sequential binomial vs bisection crossing checks, exit 0"
+  ],
+  "review": "Within-task AI cross-check: root reran K6; child reviewed and reran K8. No external human peer review.",
+  "remaining": [
+    "Find a valid arbitrary-k witness or exclude all k",
+    "Complete mathematical and Lean novelty search",
+    "Rebuild exact platform task bundle and run official verification if a full solution is found"
+  ],
+  "publication": "B686 files local only; prior repository snapshot pushed before exploration",
+  "published_baseline_ci": {
+    "docs": {
+      "conclusion": "success",
+      "id": 34046956642
+    },
+    "lean": {
+      "conclusion": "success",
+      "id": 34046958317
+    }
+  }
+}
