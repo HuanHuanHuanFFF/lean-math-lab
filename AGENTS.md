@@ -22,6 +22,20 @@ Before allocating substantial open-problem effort or resuming a research round, 
 
 The primary agent proactively develops alternative approaches and reformulations, looks for transferable tools across mathematical fields, and explores new definitions, auxiliary constructions, and mathematical or computational tools when useful. Record the obstacle each proposal addresses and how it could be tested; distinguish an untested idea, a useful local construction, an established general method, and a novelty claim.
 
+### Research Leverage
+
+For open-ended research, allocate effort by expected reduction of the unresolved frontier relative to cost. Before starting a lemma, ask: **if it succeeds, what unknown region will it eliminate, or which route to the full target will it unlock?** Apply the same question to estimates, finite cases, formalizations, and auxiliary tools.
+
+Use this priority when selecting and delegating work:
+
+1. Settle the target or eliminate an infinite or large family through a uniform bound, monotonicity argument, asymptotic contradiction, structural reduction, reusable invariant, or reduction to bounded finite verification.
+2. Unlock a specifically identified route capable of such a reduction; name the dependency and remaining obstacles.
+3. Reserve substantial effort on isolated small cases, weak estimates, easy formalizations, or improved local constants for work required by such a route or explicitly requested by the user. Visible Lean output alone does not justify priority.
+
+Use bounded exploratory tests, including counterexample searches, to assess uncertain routes before committing to proofs. Before substantial work, briefly record the expected frontier change, assumptions, remaining unknown region, and effort checkpoint in the owning task record. For example: `k ≥ 5 unknown → only 5 ≤ k < K remains` or `one isolated case solved → global frontier unchanged`. Identify any other unbounded parameters that remain; use qualitative uncertainty instead of invented completion percentages.
+
+Report expected versus actual frontier reduction separately from local proof output. If completed lemmas or cases leave the global unknown region essentially unchanged, state that explicitly and reassess the next allocation of effort. Counts of proved lemmas, Lean-checked files, or completed cases do not measure progress toward the full target.
+
 ## Research Memory
 
 Treat research records as a deliverable for the next human or agent. Maintain them in the owning task directory while working, at each material new route, result, failed attempt, change of direction, and before handoff or stopping; do not rely on an end-of-session reconstruction.

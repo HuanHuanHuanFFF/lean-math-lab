@@ -34,10 +34,12 @@ Keep this section compact, or link a task-local `frontier.md` for a multi-round 
 |---|---|---|---|---|
 
 - Full-target completion condition and remaining unbounded parameters:
+- Expected frontier change before substantial work: exact scope before → after success, assumptions, and remaining cases or unbounded parameters:
+- Priority decision under `AGENTS.md` / Research Leverage: proof work / bounded probe / defer; connection to the full-target route, expected cost relative to alternatives, and effort checkpoint:
 - Alternative formulations, cross-domain tools, or new constructions: motivating obstacle, implication direction/applicability, smallest useful test, and status (including promising but untried):
 - Next discriminating test; how each possible outcome changes the route:
 - Current branch owners, input packets, and first exchange checkpoint, if delegated:
-- Continue / change / pause decision and evidence; revisit condition for failed routes:
+- Actual versus expected frontier change; local proof output; continue / change / pause decision and evidence; revisit condition for failed routes:
 
 ## Acceptance evidence
 

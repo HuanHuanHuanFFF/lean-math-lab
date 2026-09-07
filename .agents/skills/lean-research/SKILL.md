@@ -13,7 +13,7 @@ For a new task, adapt [assets/task.md](assets/task.md). Follow the host reposito
 
 ## Select open-problem work
 
-For open-ended exploration, branch selection, or a research checkpoint, read [open-problem-workflow.md](references/open-problem-workflow.md). The primary task also reads the current frontier before allocating substantial effort; a deliberately isolated explorer uses its designated statement-and-facts packet until the first exchange. Use that reference to maintain global gaps, choose independent exploration where useful, and assess whether another stage would change a research decision. Known-result formalization and routine proof packaging can proceed directly to the sections below.
+For open-ended exploration, lemma or route selection, formalization serving an open problem, or a research checkpoint, read [open-problem-workflow.md](references/open-problem-workflow.md). The primary task also reads the current frontier before allocating substantial effort; a deliberately isolated explorer uses its designated statement-and-facts packet until the first exchange. Use that reference to apply the repository's research priorities before proof commitments, choose independent exploration where useful, and compare expected versus actual frontier changes. Standalone known-result formalization and routine proof packaging can proceed directly to the sections below.
 
 ## Work to a checkpoint
 

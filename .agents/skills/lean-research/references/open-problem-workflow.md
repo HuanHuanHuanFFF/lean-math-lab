@@ -1,12 +1,10 @@
 # Open-problem research decisions
 
-Use this reference for open-ended mathematical exploration and its checkpoints. Scale the process to the work; roles are responsibilities, not a fixed agent roster. Follow the active user budget, model limits, and publication authority. In this repository, [AGENTS.md](../../../../AGENTS.md) is the source of defaults for delegation and time extensions; carry the applicable shared deadline and extension rule into worker briefs.
+Use this reference for open-ended mathematical exploration and its checkpoints. Scale the process to the work; roles are responsibilities, not a fixed agent roster. Follow the active user budget, model limits, and publication authority. In this repository, [AGENTS.md](../../../../AGENTS.md) is the source of research priorities, delegation defaults, and time extensions; carry applicable rules into worker briefs as described below.
 
 ## Keep the whole target visible
 
 The primary task maintains a concise frontier in the task record, or `frontier.md` for multi-round work. Initialize it from the latest verified records when absent, and link it from the task entry. Include the exact target and success condition, established coverage with evidence links, all remaining cases or unbounded parameters, and the next decision-changing test. Distinguish a witness that settles an existence claim from exclusions that must cover every case to establish nonexistence.
-
-Before extending a local result, explain its possible connection to completing the target, an explicit obstruction it tests, or a concrete reuse objective. Leave an unknown connection marked unknown. A smaller restatement of the original hard step is still a gap; show the dependencies rather than hiding it inside a helper lemma.
 
 Evaluate outcomes on separate axes:
 
@@ -17,6 +15,14 @@ Evaluate outcomes on separate axes:
 | Reuse | An identified consumer or other problem that can use the result or method. |
 
 Record novelty separately. A known theorem can be the most valuable next tool. Do not infer a completion percentage from lemma counts, audit counts, larger search cutoffs, or overlapping exclusions of an infinite domain. A finite checklist may have its own explicitly scoped progress count.
+
+## Assess a subgoal before committing to proof
+
+Apply [Research Leverage](../../../../AGENTS.md#research-leverage) when selecting a lemma, estimate, finite case, formalization, or auxiliary tool. Before substantial effort, briefly record its expected frontier change in the task's frontier or route entry: exact scope before and after success, required assumptions, the dependency connecting it to the full target, remaining obstacles, and an effort checkpoint. An existing assessment can cover routine proof steps within that route; update it when the scope or expected cost changes.
+
+Compare candidates against the same current frontier and their expected cost. Account for every unbounded parameter: bounding one alone does not establish finiteness of the remaining search. If a reduction does leave a finite verification, estimate its feasibility before treating it as a route to completion. A restatement of the original hard step inside a helper lemma remains an unresolved dependency.
+
+Choose proof work, a bounded probe, or deferral, with a reason tied to the repository priorities. When the connection or feasibility is unknown, identify a small test that could change this choice, including a counterexample search. Uncertainty can justify exploration; it does not by itself justify a large proof-engineering commitment.
 
 ## Develop alternatives and tools
 
@@ -36,9 +42,11 @@ When route diversity is useful, give an exploratory worker the raw problem, requ
 
 The primary agent checks existing work before dispatch. Distinguish an intentional blind replication from accidental repetition. Give each branch an objective, owned files, accessible evidence, checkpoint, and an output that would change a decision. Let the worker choose the mathematical method. After the first exchange, share only relevant findings, objections, and artifacts; request another branch when a concrete uncertainty can be investigated independently.
 
+Every worker brief carries the applicable shared deadline and extension rule. For a selected route, include its expected frontier change and remaining dependency. For an isolated explorer, carry the priority criteria without the preferred route or its expected answer; request its own frontier assessment at the first exchange before committing substantial proof effort.
+
 ## Decide whether to continue
 
-At the agreed checkpoint, record what was learned, what it changes, the next test, and the reason to continue, redirect, consolidate, or pause. Compare plausible bottleneck reduction, evidence, additional cost, and reuse against alternative routes. Use qualitative reasoning where numerical scores would be invented.
+At the agreed checkpoint, compare the expected frontier change with what the evidence actually establishes. Record local proof output separately, all remaining global gaps, the next test, and the reason to continue, redirect, consolidate, or pause. If the global unknown region is essentially unchanged, state that explicitly. Reapply the repository priorities to further work, comparing expected frontier reduction and additional cost against alternative routes; evidence strength and concrete reuse inform this decision. Use qualitative reasoning where numerical scores would be invented.
 
 Reserve room for uncertain exploration within the user's budget. A stage can earn continuation by settling applicability of a source theorem, finding a counterexample to a proposed lemma, exposing a method's obstruction, or designing a discriminating test. It need not produce a new theorem. An attempted strategy is not refuted merely because its allotted time expired.
 
