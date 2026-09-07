@@ -3,7 +3,8 @@ import Mathlib.Tactic.NormNum
 
 /-!
 Research draft: algebraic reduction of B686 / Four at k=5.
-NOT KERNEL-CHECKED in the 2026-09-07 Work session: Lean cannot locate itself.
+Kernel-checked with Lean 4.33.1 in the 2026-09-07 Work session after
+repairing the Work container's /proc executable-path lookup.
 These identities do not assert nonexistence of the requested natural triple.
 The gcd/positivity bridge and exhaustive quotient-curve analysis remain open.
 -/

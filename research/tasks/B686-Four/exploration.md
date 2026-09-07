@@ -112,14 +112,19 @@ Python 3.14.0；Sympy 1.14.0；Lean 4.33.1（commit 819816b2e0a3bf405af45ae5c7af
 
 ### 环境与验证层级
 
-运行环境为 Linux、Python 3.12.13，仓库固定 Lean 4.33.1。Python 实验仅用标准库，不安装软件，不改依赖锁文件。当前没有 `.lake/` 依赖缓存。实际命令：
+运行环境为 Linux、Python 3.12.13，仓库固定 Lean 4.33.1。Python 实验仅用标准库，不安装软件，不改依赖锁文件。
 
-- `lean --version`：退出 1，`error: failed to locate application`。
-- `lake --version`：输出 Lake 5.0.0-src+819816b / Lean 4.33.1；这不代表 Lean 编译可用。
-- `lake env lean research/tasks/B686-Four/lean/K6.lean`：无法检测 Lake 安装配置。
-- `lake env lean research/tasks/B686-Four/lean/K5Reduction.lean`：退出 1，`error: could not detect the configuration of the Lake installation`。
+本轮首次检查时，Work 容器的 `/proc` 与当前进程 PID 命名空间错位。Lean 通过 `/proc/<pid>/exe` 定位自身失败，因而出现 `failed to locate application`；Lake 随之报告无法检测安装配置。这是执行容器问题，不是仓库的 Lean 版本或 `lakefile.toml` 配置问题。
 
-因此第二轮所有新增结果均 **非 kernel-checked**。`lean/K5Reduction.lean` 只是一份无占位代数草稿，尚未验证 elaboration、定理传递公理或平台目标连接。第一轮已有的 k=6/8 内核证据保持原样，本轮没有成功重跑它们。
+随后完成了以下工具链恢复：
+
+- 使用进程级 `LD_PRELOAD` 兼容层修正当前容器的 `/proc/<pid>/exe` 查找；正常 Linux/服务器环境不需要该前缀。
+- 按锁定的 `lake-manifest.json` 补齐 Qq、Batteries、Cli 等依赖，并重建损坏的 Aesop checkout；依赖 revision 未改变。
+- `env LD_PRELOAD=/tmp/lean-proc-shim.so lake build` 成功，完成 1432 个目标。
+- `lake env lean` 逐个检查两个新增研究文件，均退出 0；其 `#print axioms` 只报告 mathlib 常见的 `propext`、`Classical.choice`、`Quot.sound`，没有 `sorry` 或额外公理。
+- 按仓库验证范围逐个检查 `Math/`、`Tests/`、`Examples/` 下 5 个 Lean 文件，全部退出 0。当前容器没有 `pwsh`，因此使用等价的 Linux Lake 命令执行同一组文件。
+
+因此第二轮新增的两个 Lean 文件现在均为 **kernel-checked**。它们仍只形式化局部代数/格点引理，尚未连接平台完整目标；第一轮已有的 k=6/8 内核证据保持原样。
 
 ### 路线 A：偶数长度的奇值格点证书
 
@@ -226,7 +231,7 @@ Ug⁴−5Vg²+4W=0，故 Ug²<5V≤5Vg²。特别 U<5V。
 
 失败/障碍：未得到 b 的有效全局上界，也未求尽 genus-2 商曲线的有理点。一般判别式扫描中的 mod 256 平方筛没有拒绝任何既约候选，不能继续把它当有效剪枝。非平凡有理点说明仅做无整性还原的曲线搜索会产生伪候选。
 
-Lean 草稿 `lean/K5Reduction.lean` 保存中心化、缩放、g² 整除、判别式平方和 norm 恒等式及有理点例子；无占位，但本轮未成功编译，不能视为已证明 Lean 引理。
+Lean 文件 `lean/K5Reduction.lean` 保存中心化、缩放、g² 整除、判别式平方和 norm 恒等式及有理点例子；本轮已通过 Lean 4.33.1 内核检查，但不能视为原题完整证明。
 
 ### 路线 C：位移窗口与逐因子估值约束
 
@@ -265,6 +270,6 @@ python3 research/tasks/B686-Four/experiments/verify_checkpoint2.py --even resear
 
 精确先例查询记录：2026-09-07 Web 查询 `"Erdos" "686" "genus 2"`、`"686" "four" "square root" "polynomial"` 等未取得直接相关先例；这是很窄的检索，不作首次性声明。平方根方法沿用[首轮引用的公开讨论](https://www.erdosproblems.com/forum/thread/686)，新增的是本地证书组织、固定整除因子及 k=5 的具体归约与剪枝。
 
-研究：新增结构与可复现算法，原题未解。证明：精确系数证书/独立整数复算，新 Lean 文件未编译。审阅：同一 Agent 的不同实现交叉检查，不冒充独立 AI 或人类同行评审。新颖性：未确认。公开/提交：无 commit、push、平台提交或外部联络。
+研究：新增结构与可复现算法，原题未解。证明：精确系数证书/独立整数复算；两个新增 Lean 文件已通过内核检查，但未连接平台完整目标。审阅：同一 Agent 的不同实现交叉检查，不冒充独立 AI 或人类同行评审。新颖性：未确认。公开/提交：研究阶段记录当时未自行 commit/push；主任务随后已将阶段性成果推送到远端，未作平台提交或外部联络。
 
 阶段性停止点：已把偶数奇值判据、k=5 逼近界、商曲线扫描和位移估值筛选保存为可复用草稿；未找到能压缩未界定参数的全局桥梁。后续应优先形式化通用判据并接通 Lean 工具链，不以继续扩大有限搜索替代全局证明。

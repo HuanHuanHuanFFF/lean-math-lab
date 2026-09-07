@@ -3,7 +3,8 @@ import Mathlib.Tactic.NormNum
 
 /-!
 Reusable integer square-gap criterion for B686 / Four.
-Draft only: NOT KERNEL-CHECKED in the 2026-09-07 Work environment.
+Kernel-checked with Lean 4.33.1 in the 2026-09-07 Work session after
+repairing the Work container's /proc executable-path lookup.
 No assertion is made about arbitrary k, nor about the unbuilt dependencies.
 The quantities wn, wm may be instantiated by L^2 * P_k(n), L^2 * P_k(m).
 -/
