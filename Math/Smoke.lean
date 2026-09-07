@@ -11,6 +11,8 @@ namespace Math
 theorem smoke_add_comm (a b : ℕ) : a + b = b + a := by
   exact Nat.add_comm a b
 
+/-- info: 'Math.smoke_add_comm' does not depend on any axioms -/
+#guard_msgs in
 #print axioms smoke_add_comm
 
 end Math

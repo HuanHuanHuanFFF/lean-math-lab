@@ -34,8 +34,16 @@ example : ∀ n : ℕ, (matrix n).det =
 
 #print Math.A071999.matrix
 #check @Math.A071999.det_matrix
+/-- info: 'Math.A071999.det_matrix_range' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
 #print axioms Math.A071999.det_matrix_range
+/-- info: 'Math.A071999.det_matrix' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
 #print axioms Math.A071999.det_matrix
+/-- info: 'ReviewF1.source_agreement' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs in
 #print axioms source_agreement
+/-- info: 'ReviewF1.direct_three' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
 #print axioms direct_three
 end ReviewF1

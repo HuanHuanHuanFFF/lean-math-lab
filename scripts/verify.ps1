@@ -25,8 +25,23 @@ function Invoke-ProjectLake {
   }
 }
 
+function Invoke-SourcePolicy {
+  $pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+  if (-not $pythonCommand) {
+    $pythonCommand = Get-Command python3 -ErrorAction SilentlyContinue
+  }
+  if (-not $pythonCommand) {
+    throw 'Python is required for scripts/check-lean-policy.py.'
+  }
+  & $pythonCommand.Source (Join-Path $repoRoot 'scripts/check-lean-policy.py') --roots Math Tests Examples
+  if ($LASTEXITCODE -ne 0) {
+    throw "Lean source policy failed with exit code ${LASTEXITCODE}."
+  }
+}
+
 Push-Location $repoRoot
 try {
+  Invoke-SourcePolicy
   Invoke-ProjectLake -Arguments @('build')
   foreach ($checkFile in $checkFiles) {
     Write-Host "Checking $checkFile"

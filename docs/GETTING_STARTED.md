@@ -32,7 +32,13 @@ checkout with a regular elan installation, use the standard commands above.
 For the complete suite on Windows or a machine with PowerShell 7 installed, run
 `pwsh -File scripts/verify.ps1`. It builds the library and automatically checks
 all Lean files in `Math/`, `Tests/`, and `Examples/`; CI uses the same script.
-Use `-List` to inspect the scope without running Lean.
+Use `-List` to inspect the scope without running Lean. Before the build, this
+entry point runs `scripts/check-lean-policy.py`; it lexically removes Lean
+comments and strings, then rejects `sorry`, `admit`, `sorryAx`, `native_decide`,
+and source-level `axiom`/`constant` declarations in the accepted directories.
+The policy gate is not a substitute for kernel checking or transitive
+`#print axioms` audits. Research tasks remain outside the standard build and
+use their own recorded verifiers, such as the B686 round-5 checker.
 
 In a Linux Work container where Lean reports `failed to locate application`
 because `/proc/<own PID>/exe` is unavailable, use the scoped launcher:
