@@ -125,7 +125,7 @@ compile_one() {
   local source_path="$repo_root/$relative_path"
   [[ -f "$source_path" ]] || die "Lean source does not exist: $relative_path"
   case "$root_kind" in
-    proof|diagnostic) ;;
+    proof|diagnostic|legacy) ;;
     *) die "unknown accepted-root kind for $relative_path: $root_kind" ;;
   esac
   check_source_policy "$source_path" "$relative_path"
@@ -168,12 +168,17 @@ compile_one() {
     printf 'compiled: %s (%s); #guard_msgs output accepted by Lean; source-sha256=%s; output=%s; log=%s\n' \
       "$relative_path" "$root_kind" "$source_after" "$output_path" "$compile_log"
   else
-    printf 'compiled development root: %s; raw #print axioms output is in %s\n' \
-      "$relative_path" "$compile_log"
+    printf 'compiled non-accepted root: %s (%s); raw Lean output is in %s; source-sha256=%s\n' \
+      "$relative_path" "$root_kind" "$compile_log" "$source_after"
     printf '%s\n' '# development-root Lean output:'
     cat "$compile_log"
   fi
 }
+
+target_bridge_path='research/tasks/B686-Four/independent/TargetBridge.lean'
+size_bounds_path='research/tasks/B686-Four/round8/continuation/SizeBounds.lean'
+compile_one "$target_bridge_path" 0 legacy
+compile_one "$size_bounds_path" 0 legacy
 
 hit_path='research/tasks/B686-Four/round9/main/HitSemantics.lean'
 prime_path='research/tasks/B686-Four/round9/main/PrimeSynchronization.lean'
@@ -239,6 +244,38 @@ if [[ -f "$repo_root/$phase_geometry_path" ]]; then
   compile_one "$phase_geometry_path" 1 proof
 else
   printf 'required accepted root absent: %s\n' "$phase_geometry_path" >&2
+  exit 1
+fi
+
+weighted_geometry_path='research/tasks/B686-Four/round9/main/WeightedGeometry.lean'
+if [[ -f "$repo_root/$weighted_geometry_path" ]]; then
+  compile_one "$weighted_geometry_path" 1 proof
+else
+  printf 'required accepted root absent: %s\n' "$weighted_geometry_path" >&2
+  exit 1
+fi
+
+periodic_smooth_path='research/tasks/B686-Four/round9/main/PeriodicSmooth.lean'
+if [[ -f "$repo_root/$periodic_smooth_path" ]]; then
+  compile_one "$periodic_smooth_path" 1 proof
+else
+  printf 'required accepted root absent: %s\n' "$periodic_smooth_path" >&2
+  exit 1
+fi
+
+smooth_test_function_path='research/tasks/B686-Four/round9/main/SmoothTestFunction.lean'
+if [[ -f "$repo_root/$smooth_test_function_path" ]]; then
+  compile_one "$smooth_test_function_path" 1 proof
+else
+  printf 'required accepted root absent: %s\n' "$smooth_test_function_path" >&2
+  exit 1
+fi
+
+original_discrepancy_path='research/tasks/B686-Four/round9/main/OriginalDiscrepancy.lean'
+if [[ -f "$repo_root/$original_discrepancy_path" ]]; then
+  compile_one "$original_discrepancy_path" 1 proof
+else
+  printf 'required accepted root absent: %s\n' "$original_discrepancy_path" >&2
   exit 1
 fi
 

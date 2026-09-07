@@ -1,0 +1,27 @@
+# validation-start: 2026-09-07T22:52:34Z
+# step: source-policy
+# command: python3 scripts/check-lean-policy.py --roots Math Tests Examples
+Lean source policy passed for 5 file(s).
+# step-exit: source-policy=0
+# step: lake-build
+# command: bash scripts/lean-work.sh lake build
+✔ [1421/1424] Built Math.Smoke (807ms)
+ℹ [1422/1424] Built Math.A071999 (3.0s)
+info: Math/A071999.lean:190:0: 'Math.A071999.det_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [1423/1424] Built Math (1.2s)
+Build completed successfully (1424 jobs).
+# step-exit: lake-build=0
+# step: check-A071999
+# command: bash scripts/lean-work.sh lake env lean Tests/A071999.lean
+# step-exit: check-A071999=0
+# step: check-A071999Audit
+# command: bash scripts/lean-work.sh lake env lean Tests/A071999Audit.lean
+def Math.A071999.matrix : (n : ℕ) → Matrix (Fin n) (Fin n) ℤ :=
+fun n i j => if i = j then 1 else if ↑i + ↑j + 2 = n then ↑↑i + 1 else 0
+det_matrix : ∀ (n : ℕ), (matrix n).det = ∏ i ∈ Finset.Icc 1 ((n - 1) / 2), (1 - ↑i * (↑n - ↑i))
+# step-exit: check-A071999Audit=0
+# step: check-ReusingA071999
+# command: bash scripts/lean-work.sh lake env lean Examples/ReusingA071999.lean
+# step-exit: check-ReusingA071999=0
+# validation-end: 2026-09-07T22:52:48Z
+# validation-exit: 0

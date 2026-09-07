@@ -29,12 +29,12 @@
 
 ## 当前状态
 
-检查点：2026-09-07 22:38 UTC / 上海06:38，整轮继续进行。
+检查点：2026-09-07 23:05 UTC / 上海07:05，整轮继续进行。
 
 - 两个独立起步分支分别重现了旧偶数长度Runge界、旧k=5亏格2改写；交流后识别为重复，不计新前沿。
 - 主任务提出M9-3，B修复单向函数在D=2处的失败，A独立复核全D版本并独立直接核读出版源/整条应用；当前[整合纸面论证](main/prime-synchronization-theorem.md)给出所有固定多项式高度区域的大k排除，更精确界是 `log m>(log(2k))^(3/2−δ)`。依赖MRSTT2022分析定理，尚非Lean全链。
-- 十个独立Lean根已实际编译并加公理守卫：除算术零和、CRT实例外，现已核到实际Lebesgue积分、四分格累计、真实相位平台到全D积分下界。详见[验证账本](main/verification.md)；W的明确假设、光滑构造、权重换元和分析采样边界分别保留。环境任务的[独立验收脚本](environment/verify-round9.sh)逐根冷输出重编，日志不等于GitHub CI。
-- [固定局部筛障碍](b/crt-obstruction.md)保留非零赋值和任意有限单位精度，可制造任意高的非解。[运输矩阵](a/transport-matrix-checkpoint.md)给更精细局部约束但无全局闭合；[二次两对数转移](b/two-log-transfer.md)改善至多两位置子族的高度上界，仍不足闭合主路线。A继续检查高素数幂相位，B追究原余因子的额外约束，不无结构增大筛表。
+- [OriginalDiscrepancy.lean](main/OriginalDiscrepancy.lean)现已由原题自然数条件和k≥802，无额外分析假设地证明固定光滑W的采样误差≥`k/(160 log(4k))`。光滑构造、真实积分、权重换元和旧大小界均已接通；外部MRSTT误差上界、范数接口及渐近高度组装仍未全Lean化。14个新验收根含1个diagnostic，另2个旧依赖不算新成果。详见[验证账本](main/verification.md)与[独立验收脚本](environment/verify-round9.sh)，文件计数不等于完成度。
+- [固定局部筛障碍](b/crt-obstruction.md)可制造任意高的非解。[运输矩阵](a/transport-matrix-checkpoint.md)没有全局闭合；[二次两对数转移](b/two-log-transfer.md)仍留高度缺口。但[原余因子的额外单位系数](b/cofactor-structure-and-pell.md)给固定中心两位置带、A≤k^B的多项式高度，独立审查进行中。[高幂窗口审计](a/prime-power-window-audit.md)记录精确方法障碍而非新排除。A转审中心两位置，B试中心三位置，不无结构增大筛表。
 - 固定基础工具链及当前积分根定向缓存已恢复，包revision逐项核对；缓存成功和数学编译成功分列。
-- 前两次检查点已推送，第二次为 `849693e093b1edaeb5d11c2fb3b0c7bb7ecfbb87`，本地与远端tree一致。现有CI只由main推送/PR/手动触发，分支推送不触发；工具对首次commit返回空workflow列表，该接口仅查询PR触发记录，未据此声称覆盖全部Actions状态。后续推送记录写入交流账本。
+- 三次检查点已推送，第三次为 `77c1bfa3e3c8f4be6f7312c8a1158fd73311c901`，本地与远端tree一致。原仓库policy/build/Tests/Example的等价本地验证已全部exit0。现有CI只由main推送/PR/手动触发，分支推送不触发；不能把本地通过或PR-workflow查询空列表当作GitHub Actions绿色。后续推送写入交流账本。
 - 研究、Lean、独立审查、新颖性与发布状态分开报告；新颖性未确立，原题未解决。初步成果不会提前终止用户指定的整轮预算。

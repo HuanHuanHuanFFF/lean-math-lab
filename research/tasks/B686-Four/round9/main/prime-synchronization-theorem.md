@@ -2,7 +2,7 @@
 
 Assembled 2026-09-07, round 9. This supersedes the single-rectangle draft while preserving that draft as a record of the failed small-distance extension.
 
-**Evidence status:** a paper argument using a published analytic theorem. The all-distance geometry passed [A's independent audit](../a/all-D-independent-audit.md); the complete application and actual published source also passed [A's separate source-and-chain audit](../a/independent-source-chain-audit.md), read by the main task at 22:35 UTC. Arithmetic interfaces and the actual unweighted geometric integral bound are checked in Lean, with the test-function properties explicit. Neither the imported analytic theorem nor this complete height statement is a Lean theorem. No conjectural number-theoretic hypothesis is introduced. No priority/novelty claim is made.
+**Evidence status:** a paper argument using a published analytic theorem. The all-distance geometry passed [A's independent audit](../a/all-D-independent-audit.md); the complete application and actual published source also passed [A's separate source-and-chain audit](../a/independent-source-chain-audit.md), read by the main task at 22:35 UTC. As of 23:02 UTC, Lean checks an unconditional original-solution sampling-discrepancy lower bound, including the explicit fixed smooth function, real integrals, weighted substitution, and natural-number parameter bridge. Neither the imported analytic theorem nor this complete height statement is a Lean theorem. No conjectural number-theoretic hypothesis is introduced. No priority/novelty claim is made.
 
 ## 1. Statement and actual change of frontier
 
@@ -71,7 +71,7 @@ Set \(W(u,v)=A(u)B(v)+B(u)A(v)\). Fixed smooth cutoff construction and endpoint 
 \sum_{\substack{2k\le p\le4k\\p\ \mathrm{prime}}}W(n/p,m/p)=0. \tag{3}
 \]
 
-The actual kernel-checked interfaces are `HitSemantics.lean`, `PrimeSynchronization.lean`, and `PhaseInterface.lean`; the last uses a support hypothesis on an arbitrary test function, not an unproved definition claiming to be a smooth bump. Standard classical choice in real-valued definitions is not a new number-theoretic axiom.
+The kernel-checked arithmetic interfaces are `HitSemantics.lean`, `PrimeSynchronization.lean`, and `PhaseInterface.lean`. The generic support hypothesis in the last file is now discharged by `SmoothTestFunction.lean`: its explicit `mismatchTest` is smooth of every order, one-periodic in each coordinate, bounded between 0 and 1, and has the required support and plateaus. `PeriodicSmooth.lean` proves the integer seams locally constant, rather than assuming that composition with fractional part preserves smoothness. Standard classical choice in real-valued definitions is not a new number-theoretic axiom.
 
 ## 4. Geometry: a lower bound at every allowed distance
 
@@ -121,7 +121,7 @@ I:=\int_{2k}^{4k}W(n/t,m/t)\frac{dt}{\log t}
 
 All constants and the function \(W\) are independent of \(D,L,n,m,k\). No rationality, irrationality, or generic-orbit assumption is used.
 
-### Kernel-checked geometric implementation (22:37 UTC checkpoint)
+### Kernel-checked implementation (23:02 UTC checkpoint)
 
 The Lean proof uses a clipped quarter-grid instead of representing connected components. `WindowIntegral.lean` proves the exact high-window integral formula and its error on every real interval. `QuarterGeometry.lean` assigns frequency \(L\) to quarter type 1, \(L+1\) to type 2, and charges a conservative error even on zero-stripe cells. `GridGeometry.lean` clips grid points to \([q,2q]\), telescopes actual interval integrals, and proves that the number of charged cells is at most \(16q\). Consequently
 
@@ -130,7 +130,17 @@ The Lean proof uses a clipped quarter-grid instead of representing connected com
 -\frac{16q}{8L}\ge\frac q{80}-\frac q{200}\ge\frac q{160}
 \]
 
-for \(L\ge400\). The implementation uses the weaker error bound \(q/160\), which still yields the last inequality. `PhaseGeometry.lean` proves the two fractional-part implications, then gives (4) for every nonnegative \(W\) having the stated plateaus and an interval-integrable orbit. These are explicit, satisfiable hypotheses, not an assumed version of (4). Construction of a smooth fixed \(W\), the weighted substitution in (5), and analytic sampling remain separate obligations.
+for \(L\ge400\). The implementation uses the weaker error bound \(q/160\), which still yields the last inequality. `PhaseGeometry.lean` proves the two fractional-part implications and gives (4) under explicit nonnegativity, plateau, and integrability hypotheses. `WeightedGeometry.lean` proves the reciprocal substitution and logarithmic weight comparison, giving the actual integral in (5). `SmoothTestFunction.lean` discharges the function hypotheses with one fixed construction.
+
+Finally, `OriginalDiscrepancy.lean` reuses the existing kernel-checked `SizeBounds.lean` and proves, for every original natural-number solution with \(k\ge802\),
+
+\[
+\left|\sum_{\substack{2k\le p\le4k\\p\ \mathrm{prime}}}
+W(n/p,m/p)-\int_{2k}^{4k}W(n/t,m/t)\frac{dt}{\log t}\right|
+\ge\frac{k}{160\log(4k)}. \tag{6}
+\]
+
+There is **no sampling-estimate hypothesis or added analytic axiom** in this Lean theorem. Its hypotheses are exactly the original equation/domain and the stated large-length threshold; \(W\) is the explicit fixed function. This is an obstruction forced by an original solution, not an assertion that all \(k\ge802\) have already been excluded. Combining it with the published upper error estimate and its height conditions is still the paper step below.
 
 ## 5. Uniform contradiction and quantifiers
 
@@ -151,7 +161,7 @@ For (2), take \(\delta=\min(1/4,\eta/4)\), and set \(r=1/(3/2-\delta)\). Then \(
 ## 6. Remaining obligations and stopped extrapolations
 
 - Mathematical acceptance: primary and independent direct source audits plus independent all-distance geometry and full-application audits; these are AI research checks, not human review.
-- Lean acceptance: arithmetic zero-sum interface, actual stripe/window integral formulas, clipped-grid accounting, and uniform unweighted phase integral are checked partial layers. Smooth cutoff construction, weighted substitution, analytic sampling, and asymptotic threshold assembly are not checked as one Lean chain. See the [verification ledger](verification.md) and the separately run accepted-root verifier.
+- Lean acceptance: the original-solution discrepancy obstruction (6), including the fixed smooth function, arithmetic, real integration, weighted substitution, and original-parameter bounds, is checked. The MRSTT analytic estimate, its derivative-norm/error interface, and asymptotic height-threshold assembly have not been formalized into the complete height conclusion. See the [verification ledger](verification.md) and the independently run accepted-root verifier. No extra project axiom was introduced to bridge this gap.
 - Global gap: arbitrarily high \(m\), with \(k\) still unbounded. A fixed-length Runge bound cannot be combined with (1) to conclude a universal bound on \(k\) without an additional quantitative comparison that is currently absent.
 - Novelty: the exponent comes from the published MRSTT input, and the broad method is inspired by Tao's application. This repository records an application attempt, not a claim to have invented a new exponent or a new analytic theorem.
 - Publication: branch checkpoint only; no external problem submission or claim of solving #686.
