@@ -20,9 +20,24 @@ State domains, quantifiers, hypotheses, indexing, arithmetic types, and empty or
 
 - Last proved result:
 - Next subgoal and intended evidence:
-- Effort checkpoint or user-provided budget:
+- User-provided duration; start time; original deadline; latest allowed deadline under current rules:
+- Effort checkpoint and shared worker deadline:
+- Extension, if used: decisive evidence, remaining step, reason, revised deadline, and actual elapsed time:
 - Attempts that failed and why:
 - Remaining uncertainty or external dependency:
+
+## Frontier and next decision (open problems)
+
+Keep this section compact, or link a task-local `frontier.md` for a multi-round project. Omit it for straightforward known-result formalization.
+
+| Claim or route | Exact scope and remaining cases | Evidence and dependencies | Contribution to full target | Concrete reuse |
+|---|---|---|---|---|
+
+- Full-target completion condition and remaining unbounded parameters:
+- Alternative formulations, cross-domain tools, or new constructions: motivating obstacle, implication direction/applicability, smallest useful test, and status (including promising but untried):
+- Next discriminating test; how each possible outcome changes the route:
+- Current branch owners, input packets, and first exchange checkpoint, if delegated:
+- Continue / change / pause decision and evidence; revisit condition for failed routes:
 
 ## Acceptance evidence
 

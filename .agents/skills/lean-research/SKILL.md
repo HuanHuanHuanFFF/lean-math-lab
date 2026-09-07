@@ -11,11 +11,17 @@ Read repository instructions and the current task record before starting a new a
 
 For a new task, adapt [assets/task.md](assets/task.md). Follow the host repository's task layout. Where `research/README.md` defines the registry, create `research/tasks/<stable-id>-<slug>/README.md` and register it there. Resume an existing task from its last proved result and failed approaches rather than repeating the initial search.
 
+## Select open-problem work
+
+For open-ended exploration, branch selection, or a research checkpoint, read [open-problem-workflow.md](references/open-problem-workflow.md). The primary task also reads the current frontier before allocating substantial effort; a deliberately isolated explorer uses its designated statement-and-facts packet until the first exchange. Use that reference to maintain global gaps, choose independent exploration where useful, and assess whether another stage would change a research decision. Known-result formalization and routine proof packaging can proceed directly to the sections below.
+
 ## Work to a checkpoint
 
 Record the next falsifiable subgoal and an effort checkpoint consistent with the user's budget. Separate exact computation, informal reasoning, and kernel-checked results. A computed counterexample needs an independent check against the original definition. If progress stalls, preserve useful lemmas and failure reasons, then narrow the claim or report what would unlock progress; do not silently weaken the target.
 
 Keep experiments outside the accepted library until ready. Map source notation to Lean types explicitly, including indexing, natural versus integer subtraction, and empty cases. Check whether hypotheses are satisfiable and whether a new definition assumes the desired conclusion. Reuse existing library lemmas; expose general helpers only when their assumptions and a concrete reuse case justify the API.
+
+Choose formalization effort by the current uncertainty: use early Lean probes for risky definitions, pivotal lemmas, and exact certificates; undertake larger proof engineering when its mathematical role or concrete reuse justifies the cost. A compilation failure needs a diagnosis: mathematical counterexample/gap, statement mismatch, library gap, tactic/API failure, resource limit, or unknown. Preserve the locked target when reporting a partial result.
 
 ## Establish acceptance
 

@@ -1,0 +1,53 @@
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:29:4: error: linarith failed to find a contradiction
+case succ
+x : ℚ
+hx : 0 ≤ x
+k : ℕ
+ih : 1 + ↑k * x + ↑k * (↑k - 1) / 2 * x ^ 2 ≤ (1 + x) ^ k
+hmul : (1 + ↑k * x + ↑k * (↑k - 1) / 2 * x ^ 2) * (1 + x) ≤ (1 + x) ^ k * (1 + x)
+hc : 0 ≤ ↑k * (↑k - 1)
+hextra : 0 ≤ ↑k * (↑k - 1) * x ^ 3
+a✝ : (1 + x) ^ (k + 1) < 1 + (↑k + 1) * x + (↑k + 1) * (↑k + 1 - 1) / 2 * (x ^ 1 * x)
+⊢ False
+failed
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:35:50: error: failed to prove positivity/nonnegativity/nonzeroness
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:40:38: error(lean.unknownIdentifier): Unknown identifier `div_le_one`
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:51:36: error(lean.unknownIdentifier): Unknown identifier `sum_nonneg`
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:59:17: error(lean.unknownIdentifier): Unknown constant `Nat.cast_prod`
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:58:45: error: unsolved goals
+k a b : ℕ
+⊢ (∏ x ∈ Icc 1 k, (↑a + ↑x)) / ∏ x ∈ Icc 1 k, (↑b + ↑x) = ↑(∏ i ∈ Icc 1 k, (a + i)) / ↑(∏ i ∈ Icc 1 k, (b + i))
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:65:41: error: mod_cast has type
+  n < m
+but is expected to have type
+  0 < Int.subNatNat m n
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:74:6: error: failed to prove positivity/nonnegativity/nonzeroness
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:75:13: error(lean.unknownIdentifier): Unknown identifier `div_le_one`
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:76:6: error: No goals to be solved
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:88:44: error: No goals to be solved
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:92:14: error(lean.unknownIdentifier): Unknown constant `Finset.sum_lt_sum`
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:93:8: error: No goals to be solved
+'B686Size.quadratic_bernoulli' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B686Size.four_le_one_add_two_div_pow' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B686Size.one_sub_sum_le_prod' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B686Size.upper_size' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:126:6: error: failed to prove positivity/nonnegativity/nonzeroness
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:137:37: error: Type mismatch
+  add_le_add_left hf ?m.352
+has type
+  2 * (↑n + ↑i) / ↑k + ?m.352 ≤ ↑m - ↑n + ?m.352
+but is expected to have type
+  ↑n + ↑i + 2 * (↑n + ↑i) / ↑k ≤ ↑n + ↑i + (↑m - ↑n)
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:147:37: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (800000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:112:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (800000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+research/tasks/B686-Four/round8/continuation/SizeBounds.lean:157:8: error: (kernel) unknown constant 'B686Size.lower_size'
+'B686Size.lower_size' does not depend on any axioms
+'B686Size.size_bounds_nat' depends on axioms: [propext, size_bounds_nat, Classical.choice, Quot.sound]

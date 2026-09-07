@@ -1,0 +1,12 @@
+import Mathlib.NumberTheory.PrimeCounting
+import Mathlib.Tactic.NormNum
+#check Nat.Prime.dvd_mul
+#check Nat.prime_dvd_prime_iff_eq
+#check Nat.Prime.dvd_iff_not_coprime
+#check Finset.card_union_le
+#check Finset.card_mono
+#check Nat.count_eq_card_filter_range
+#check Nat.primeCounting
+#check Nat.primeCounting'
+#check Nat.prime_two
+#check Nat.prime_three

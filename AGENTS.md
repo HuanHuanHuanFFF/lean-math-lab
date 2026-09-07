@@ -8,7 +8,19 @@ Pursue mathematical results checked by Lean. Explain progress and limitations in
 
 Give each selected task a stable ID and a record under `research/tasks/<id>-<slug>/`. Record owned files, the last proved result, failed approaches, next subgoal, and an effort checkpoint. Keep research, proof, review, novelty, and publication states separate. Preserve other tasks' untracked or modified files.
 
-When delegation is authorized, default to `gpt-5.6-luna` with reasoning effort `max`, unless the user specifies otherwise. Use a fresh or bounded history fork; full-history forks inherit parent settings. Specify file ownership and acceptance checks. Coordinate edits to shared modules, dependencies, and entry points through the primary task.
+Unless the user specifies otherwise, delegate substantive mathematical research to `gpt-6-astra` with reasoning effort `max`, with at most two such research subagents active concurrently across the task tree, excluding the primary agent. This is a ceiling, not a required roster. Delegate routine organization, documentation, and bounded support work to `gpt-5.6-luna` with reasoning effort `max`. Use a fresh or bounded history fork; full-history forks inherit parent settings. Specify file ownership and acceptance checks. Coordinate edits to shared modules, dependencies, and entry points through the primary task.
+
+## Research Time Budget
+
+Use the duration supplied by the user for each research round; there is no default total duration. Record the start time and original deadline. The budget covers elapsed time for the whole round, including coordination, verification, and handoff; subagents share that deadline.
+
+Stop at the original deadline unless a concrete important breakthrough is close to completion. In that case, the default authorization permits a cumulative extension of at most one quarter of the original duration. Record the evidence, remaining step, reason, and revised deadline before extending, and tell the user. Calculate the cap from the original duration, never from an extended budget: for duration T, the final deadline is start + 1.25T. Plan verification and records within this limit; an unfinished proof remains pending at the deadline. Explicit user timing or extension instructions override this default.
+
+## Research Direction
+
+Before allocating substantial open-problem effort or resuming a research round, the primary task reads the current frontier: the full target, verified coverage, unresolved gaps, and next decision. Deliberately isolated explorers use their designated statement-and-facts packet until the first exchange. The open-problem branch of the Lean research skill defines how to update it and compare routes. Keep evidence strength, contribution to the full target, and reuse value separate; report novelty independently.
+
+The primary agent proactively develops alternative approaches and reformulations, looks for transferable tools across mathematical fields, and explores new definitions, auxiliary constructions, and mathematical or computational tools when useful. Record the obstacle each proposal addresses and how it could be tested; distinguish an untested idea, a useful local construction, an established general method, and a novelty claim.
 
 ## Research Memory
 
@@ -20,7 +32,7 @@ Treat research records as a deliverable for the next human or agent. Maintain th
 - For collaboration, preserve substantive proposals, objections, tests, and resulting decisions with their provenance. Link existing logs and artifacts instead of copying full conversations. Keep corrections traceable, label superseded conclusions, and never invent a retrospective success story.
 - Before stopping, leave the last verified result, remaining gap, reusable artifacts, untried branches, and a concrete next check. Record elapsed effort or the budget checkpoint; a session with no new theorem still needs a usable handoff.
 
-Explore new definitions, auxiliary constructions, and reusable tools when the problem suggests them. Record the obstacle each proposal addresses and how it could be tested; distinguish a useful local construction from an established general method or a novelty claim. Keep mutable progress and results in task records and the research index; the root README states the project's motivation and stable entry points.
+Keep mutable progress and results in task records and the research index; the root README states the project's motivation and stable entry points.
 
 ## Structure and Style
 

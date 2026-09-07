@@ -1,0 +1,155 @@
+{
+  "success": true,
+  "finished_utc": "2026-09-07T18:41:55.558186+00:00",
+  "seconds": 75.78,
+  "full_displacement_bound_lean_verified": false,
+  "formal_modules": 4,
+  "audited_declarations": 9,
+  "axioms": {
+    "B686Round8.common_prime_divides_cross_difference": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "B686Round8.large_prime_hits_block_unique": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "B686Round8.large_prime_power_dvd_one_factor": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "B686Round8.large_prime_power_divides_cross_difference": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "B686Round8Independent.sqrt_approx10_residual": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "B686Round8Independent.sqrt_approx10_squared_bracket_at_cubic_scale": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "B686Round8Independent.pell_pair_ratio_two": [
+      "propext"
+    ],
+    "B686Round8Independent.pell_pair_gap_grows": [
+      "Quot.sound",
+      "propext"
+    ],
+    "B686Round8Main.wheel_certificate": []
+  },
+  "records": [
+    {
+      "label": "source-policy",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "scripts/check-lean-policy.py",
+        "--roots",
+        "research/tasks/B686-Four/round8"
+      ],
+      "exit_code": 0,
+      "seconds": 0.14,
+      "log": "research/tasks/B686-Four/round8/main/verification/source-policy.log",
+      "log_sha256": "03ac303e8f0da733708a67cd84cb1461b4855b79817bfec6cc7dc71c167ed1a3",
+      "source": null,
+      "source_sha256": null
+    },
+    {
+      "label": "lean-version",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-Command",
+        "& './scripts/lake.ps1' -LakeArgs @('env','lean','--version')"
+      ],
+      "exit_code": 0,
+      "seconds": 4.12,
+      "log": "research/tasks/B686-Four/round8/main/verification/lean-version.log",
+      "log_sha256": "89c79d9c5b24343255f93bb0203ae89e6b8715c652def77008a34f37656c9c82",
+      "source": null,
+      "source_sha256": null
+    },
+    {
+      "label": "BigPrimeSupport",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-Command",
+        "& './scripts/lake.ps1' -LakeArgs @('env','lean','-o','research/tasks/B686-Four/round8/lean/BigPrimeSupport.olean','research/tasks/B686-Four/round8/lean/BigPrimeSupport.lean')"
+      ],
+      "exit_code": 0,
+      "seconds": 14.84,
+      "log": "research/tasks/B686-Four/round8/main/verification/BigPrimeSupport.log",
+      "log_sha256": "f2fae3078683f84335aba9b7da2a34000c1e47a2c1cdf23bafb30b7d890d4786",
+      "source": "research/tasks/B686-Four/round8/lean/BigPrimeSupport.lean",
+      "source_sha256": "cd3b1e0fd5282723597acaa2d5f3290917d9756a9e2c1d682668ac77a6b98d2e"
+    },
+    {
+      "label": "Wheel2310",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-Command",
+        "& './scripts/lake.ps1' -LakeArgs @('env','lean','-o','research/tasks/B686-Four/round8/main/Wheel2310.olean','research/tasks/B686-Four/round8/main/Wheel2310.lean')"
+      ],
+      "exit_code": 0,
+      "seconds": 13.36,
+      "log": "research/tasks/B686-Four/round8/main/verification/Wheel2310.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "research/tasks/B686-Four/round8/main/Wheel2310.lean",
+      "source_sha256": "95fce0ec715a70b75280d2b75fd384eefbef496ee72ce5d3e69238374c65a05f"
+    },
+    {
+      "label": "SqrtRoundingBoundary",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-Command",
+        "& './scripts/lake.ps1' -LakeArgs @('env','lean','-o','research/tasks/B686-Four/round8/independent/SqrtRoundingBoundary.olean','research/tasks/B686-Four/round8/independent/SqrtRoundingBoundary.lean')"
+      ],
+      "exit_code": 0,
+      "seconds": 14.61,
+      "log": "research/tasks/B686-Four/round8/main/verification/SqrtRoundingBoundary.log",
+      "log_sha256": "999200addffadb70073e6a54074d91186e7301908d8c0135f44e68082af0facf",
+      "source": "research/tasks/B686-Four/round8/independent/SqrtRoundingBoundary.lean",
+      "source_sha256": "3918e33939a061f9352ac1f1a8a28c9a45009bdb9c777db62557a6a70d96d3bb"
+    },
+    {
+      "label": "PellCapacityBoundary",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-Command",
+        "& './scripts/lake.ps1' -LakeArgs @('env','lean','-o','research/tasks/B686-Four/round8/independent/PellCapacityBoundary.olean','research/tasks/B686-Four/round8/independent/PellCapacityBoundary.lean')"
+      ],
+      "exit_code": 0,
+      "seconds": 14.0,
+      "log": "research/tasks/B686-Four/round8/main/verification/PellCapacityBoundary.log",
+      "log_sha256": "0a14564d595d39d1cc6e75f79bc896353ea483215aee90ffad1ebb3dae8b2997",
+      "source": "research/tasks/B686-Four/round8/independent/PellCapacityBoundary.lean",
+      "source_sha256": "4316b69542d14025c46875bdbac0037e6afc713d3f468b8b322cc5acb75c0a50"
+    },
+    {
+      "label": "joint-audit",
+      "command": [
+        "pwsh",
+        "-NoProfile",
+        "-Command",
+        "& './scripts/lake.ps1' -LakeArgs @('env','lean','research/tasks/B686-Four/round8/main/verification/JointAudit.lean')"
+      ],
+      "exit_code": 0,
+      "seconds": 14.69,
+      "log": "research/tasks/B686-Four/round8/main/verification/joint-audit.log",
+      "log_sha256": "d50a16d6148e754af406b950da19d18416e8424e162ac97f8b5f43fb11ce7288",
+      "source": "research/tasks/B686-Four/round8/main/verification/JointAudit.lean",
+      "source_sha256": "0659c1214219c5ed8f0a5839804c50fa80197e1987fce756ef15c1b6edacc612"
+    }
+  ]
+}
