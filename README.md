@@ -62,6 +62,20 @@ For the complete suite on Windows or a machine with PowerShell 7 installed, run
 all Lean files in `Math/`, `Tests/`, and `Examples/`; CI uses the same script.
 Use `-List` to inspect the scope without running Lean.
 
+In a Linux Work container where Lean reports `failed to locate application`
+because `/proc/<own PID>/exe` is unavailable, use the scoped launcher:
+
+```sh
+bash scripts/lean-work.sh lake build
+bash scripts/lean-work.sh lake env lean research/tasks/B686-Four/lean/K5Reduction.lean
+```
+
+It uses the selected elan toolchain and, only for that startup failure, compiles
+a small compatibility library with a local C compiler. The library retries a
+unavailable own-process executable link through `/proc/self/exe`; it leaves other
+paths and the Lean kernel unchanged. Build outputs remain in ignored `.tools/`.
+Ordinary environments use the selected tool directly.
+
 ## Use in another Lean project
 
 Use the same Lean version, then add this to your project's `lakefile.toml`:

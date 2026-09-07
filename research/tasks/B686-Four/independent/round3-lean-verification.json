@@ -1,0 +1,229 @@
+{
+  "started_at": "2026-09-07T07:33:08.986494+00:00",
+  "status": "passed",
+  "full_original_target_solved": false,
+  "external_literature_formalized": false,
+  "repository_pins": {
+    "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+    "lake-manifest.json": "fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0",
+    "scripts/lean-work.sh": "1e7f07e98c4f179677cb40cdb84993738782e5ab47907ee8e70314ba607791ab",
+    "scripts/lean-proc-self.c": "44b1a436ea29e45da83bb39ca411b529e2881f4f7c5093d2e9ccf05ff4c8e30d",
+    "research/tasks/B686-Four/independent/verify_round3.py": "2050f3918c41e1551609e21107f3101aed4de02125e06f1af0fd79bd027fb3dc"
+  },
+  "checks": [
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lean",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n",
+      "source_sha256": null,
+      "source_stable_during_check": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "build",
+        "Mathlib.Algebra.BigOperators.Associated",
+        "Mathlib.Algebra.BigOperators.Intervals",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.Order.Ring.Pow",
+        "Mathlib.Algebra.Ring.Divisibility.Basic",
+        "Mathlib.Data.Finset.Card",
+        "Mathlib.Data.Nat.Prime.Basic",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.GCongr",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Positivity.Basic",
+        "Mathlib.Tactic.Ring"
+      ],
+      "exit_code": 0,
+      "output": "Build completed successfully (1127 jobs).\n",
+      "source_sha256": null,
+      "source_stable_during_check": true
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "research/tasks/B686-Four/independent/check_k12.py"
+      ],
+      "exit_code": 0,
+      "output": "{\"k\": 12, \"finite_pairs\": 703, \"tail_certificate_checked\": true}\n",
+      "source_sha256": "3ee12beec4b0ff0387b405f0d96bd6ba5749ed277c8e9b3f1737413fec6b7a20",
+      "source_stable_during_check": true
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "research/tasks/B686-Four/independent/check_round3_even.py",
+        "research/tasks/B686-Four/experiments/round3-even-effective-bound-2026-09-07.json",
+        "--output",
+        "research/tasks/B686-Four/independent/round3-even-verification.json"
+      ],
+      "exit_code": 0,
+      "output": "{\"checked_k\": [2, 4, 6, 8, 10, 12, 14, 16, 24, 32, 64, 128], \"tail_inequalities_certified\": 84, \"kernel_checked_instances\": false}\n",
+      "source_sha256": "731942055c136a1bec4a2bdfdec4bae357a36aaa8c9dddeccdcc77279dcb7842",
+      "source_stable_during_check": true
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "research/tasks/B686-Four/independent/check_round3_frobenius.py"
+      ],
+      "exit_code": 0,
+      "output": "{\"N1\": 17, \"N2\": 127, \"howe_zhu_exception_checks_passed\": true}\n",
+      "source_sha256": "b565dd441dcd35aa428bdb4d0af4693d5607793348c08208d4fac66d94d33653",
+      "source_stable_during_check": true
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "research/tasks/B686-Four/independent/check_round3_small_gap.py"
+      ],
+      "exit_code": 0,
+      "output": "{\"direct_original_box\": 69120, \"crossing_certificates\": 160, \"h_zero_one_small_cases\": 39, \"all_passed\": true}\n",
+      "source_sha256": "5790861655dfdaaece13e314dc9fbee909bb79f266d4f6056b85d5b4c4d89318",
+      "source_stable_during_check": true
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "research/tasks/B686-Four/independent/check_round3_gap_support.py"
+      ],
+      "exit_code": 0,
+      "output": "{\"bound_fixtures\": 9, \"diagnostic_checked\": true, \"diagnostic_is_original_solution\": false}\n",
+      "source_sha256": "13aec4ae93da23b398077b230f34a70bedf82067a991776dab00fad268b12ea4",
+      "source_stable_during_check": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/independent/TargetBridge.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "b26c40df78c176105d86d8d01789a927f2a3d9ba1855afde14120c38b2234c57",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/independent/PrimeSupport.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "e221c5854fd8004e5756d1f65a2068457c18667ebed9ca6edeb2f411ab1aedca",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/independent/GapBounds.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "e698dae0d2b0966d4b4b04cf8b76dbfa10903b4c16662bd9cddd8c8bf76bb7dc",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/independent/K12.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "0c64af0e5f3d63b99be4fa46aab3b8c71db231071e9eff521d5c4f14aaf06968",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/lean/Round3TwoScaleGap.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "74a34e6baff218665cc8eb4adadd4f127d5303b1e45943730f0eac00b3b4791a",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/lean/Round3K5PointWitnesses.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "0e9602ec3ddc6a3270297e94b007a4e627d494589af0fc76bf236ea62c358618",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/lean/Round3SmallGapCertificates.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "6614cf5cd343f6fd3603baf34ee86bda5af5802a7b0093f9baf8a65e11fa8781",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    },
+    {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "research/tasks/B686-Four/lean/Round3GapDivisibility.lean"
+      ],
+      "exit_code": 0,
+      "output": "",
+      "source_sha256": "1ea5859fd462325381c6f893086ed0b6faa541a650e53b4372b9890b07fca036",
+      "source_stable_during_check": true,
+      "embedded_axiom_guards": true
+    }
+  ],
+  "finished_at": "2026-09-07T07:33:37.004417+00:00"
+}
