@@ -1,0 +1,51 @@
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:19:64: error: `ring_nf` made no progress on the goal
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:21:64: error: `ring_nf` made no progress on the goal
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:23:64: error: `ring_nf` made no progress on the goal
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:41:35: error: Application type mismatch: The argument
+  hcontact
+has type
+  M ^ 6 ∣ combination (error n d 3) d
+but is expected to have type
+  M ^ 6 ∣ combination (error n (s * M) 3) (s * M)
+in the application
+  mul_dvd_mul_left (s ^ 6) hcontact
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:65:44: error: typeclass instance problem is stuck
+  CommSemigroup ?m.222
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `CommSemigroup` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:56:29: error: unsolved goals
+case neg
+n m s P Q R : ℕ
+hm : n + 5 ≤ m
+hs : 0 < s
+hd : m - n = s * (P * Q * R)
+hP : P ∣ n + 1
+hQ : Q ∣ n + 2
+hR : R ∣ n + 4
+hPQ : P.Coprime Q
+hPR : P.Coprime R
+hQR : Q.Coprime R
+hP6 : P.Coprime 6
+hQ6 : Q.Coprime 6
+hR6 : R.Coprime 6
+heq : 4 = ↑(B686Target.product 5 m) / ↑(B686Target.product 5 n)
+hsmall : ¬m - n < 20000
+hadd : n + (m - n) = m
+heqN : B686Target.product 5 m = 4 * B686Target.product 5 n
+heqS : natProduct 5 (n + (m - n)) = 4 * natProduct 5 n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPd : P ∣ m - n
+⊢ m - n < 20000 * s ^ 6
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:66:4: error: unexpected token '('; expected command
+'B686Round5Residual.group_contact' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:80:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Round5Residual.group_contact' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Round5Residual.group_contact' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B686Round5Residual.residual_position_bound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/round5/worker/ResidualPositionBound.lean:83:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Round5Residual.residual_position_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Round5Residual.residual_position_bound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
