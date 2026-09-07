@@ -1,0 +1,213 @@
+research/tasks/B686-Four/round6/b/SumTwoPositions.lean:34:20: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+research/tasks/B686-Four/round6/b/SumTwoPositions.lean:161:63: error: unsolved goals
+case e'_2
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ Int.instDvd = semigroupDvd
+
+case e'_3
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ 2 * ↑n + ↑(m - n) + 6 = ↑n + (↑n + ↑(m - n)) + 6
+
+case e'_4.e'_5
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ 5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6) = 5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)
+
+case e'_4.e'_6
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ 5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6) = 5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6)
+case e'_2
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ Int.instDvd = semigroupDvd
+case e'_3
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ 2 * ↑n + ↑(m - n) + 6 = ↑n + (↑n + ↑(m - n)) + 6
+case e'_4.e'_5
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ 5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6) = 5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)
+case e'_4.e'_6
+n m P Q i j : ℕ
+hm : n + 5 ≤ m
+hi : i ∈ Finset.Icc 1 5
+hj : j ∈ Finset.Icc 1 5
+hS : n + m + 6 = P * Q
+hP : P ∣ n + i
+hQ : Q ∣ n + j
+h6 : (n + m + 6).Coprime 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hd : 600 ≤ m - n
+heqZ : product 5 (↑n + ↑(m - n)) = 4 * product 5 ↑n
+hPS : P ∣ n + m + 6
+hQS : Q ∣ n + m + 6
+hP2 : ↑P ^ 2 ∣ 5 * (↑n + ↑i) - (↑n + ↑m + 6)
+hQ2 : ↑Q ^ 2 ∣ 5 * (↑n + ↑j) - (↑n + ↑m + 6)
+hmul :
+  (↑n + (↑n + ↑(m - n)) + 6) ^ 2 ∣
+    (5 * (↑n + ↑i) - (↑n + (↑n + ↑(m - n)) + 6)) * (5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6))
+hSZ : ↑n + ↑m + 6 = ↑P * ↑Q
+hmn : ↑m = ↑n + ↑(m - n)
+htail :
+  (2 * ↑n + ↑(m - n) + 6) ^ 2 ∣ (5 * (↑n + ↑i) - (2 * ↑n + ↑(m - n) + 6)) * (5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6)) →
+    p5 (↑n + ↑(m - n)) ≠ 4 * p5 ↑n
+⊢ 5 * (↑n + ↑j) - (2 * ↑n + ↑(m - n) + 6) = 5 * (↑n + ↑j) - (↑n + (↑n + ↑(m - n)) + 6)

@@ -1,0 +1,118 @@
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:54:23: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:54:35: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:70:20: error: omega could not prove the goal:
+No usable constraints found. You may need to unfold definitions so `omega` can see linear arithmetic facts about `Nat` and `Int`, which may also involve multiplication, division, and modular remainder by constants.
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:107:33: error: unsolved goals
+case e'_2
+n m : ℕ
+h5 : 5 ∣ n + m + 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+s : ℤ := ↑n + ↑m + 6
+y : ℤ := ↑n + 3
+D : ℤ := 5 * y ^ 4 - 15 * y ^ 2 + 4
+heqZ : product 5 ↑m = 4 * product 5 ↑n
+href : centered (y - s) = -4 * centered y
+hy5 : 5 ∣ centered y
+hs5 : 5 ∣ s
+⊢ Int.instDvd = semigroupDvd
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:108:41: error: unsolved goals
+case e'_2
+n m : ℕ
+h5 : 5 ∣ n + m + 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+s : ℤ := ↑n + ↑m + 6
+y : ℤ := ↑n + 3
+D : ℤ := 5 * y ^ 4 - 15 * y ^ 2 + 4
+heqZ : product 5 ↑m = 4 * product 5 ↑n
+href : centered (y - s) = -4 * centered y
+hy5 : 5 ∣ centered y
+hs5 : 5 ∣ s
+hsq : 25 ∣ s ^ 2
+⊢ Int.instDvd = semigroupDvd
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:154:10: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  LocallyFiniteOrder ℤ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:156:18: error: Expected type must not contain metavariables
+  1 ∈ Finset.Icc 1 5
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:163:15: error: Application type mismatch: The argument
+  hi
+has type
+  i ∈ Finset.Icc (1 : ℕ) 5
+but is expected to have type
+  ↑i ∈ Finset.Icc (1 : ℤ) 5
+in the application
+  And.intro hi
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:165:46: error: unsolved goals
+case e'_2
+n m a : ℕ
+hS : 5 ^ a ∣ n + m + 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+ha0 : ¬a = 0
+h5S : 5 ∣ n + m + 6
+h25S : 25 ∣ n + m + 6
+ha1 : a = 1
+i : ℕ
+hi : i ∈ Finset.Icc 1 5
+hpi : 5 ^ 1 ∣ n + i
+hy : 5 ∣ ↑n + ↑i
+⊢ Int.instDvd = semigroupDvd
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:204:11: error: unsolved goals
+n m a : ℕ
+hS : 5 ^ a ∣ n + m + 6
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+ha0 : ¬a = 0
+h5S : 5 ∣ n + m + 6
+h25S : 25 ∣ n + m + 6
+ha1 : ¬a = 1
+ha2 : 2 ≤ a
+heqZ : product 5 ↑m = 4 * product 5 ↑n
+hsprodZ : 5 ^ a ∣ 5 * product 5 ↑n
+hsprod : 5 * 5 ^ (a - 1) ∣ 5 * natProduct 5 n
+hpa : 5 ^ a = 5 * 5 ^ (a - 1)
+hprod : 5 ^ (a - 1) ∣ natProduct 5 n
+i : ℕ
+hi : i ∈ Finset.Icc 1 5
+hpi : 5 ^ (a - 1) ∣ n + i
+hpa2 : 5 ^ a = 25 * 5 ^ (a - 2)
+hpa1 : 5 ^ (a - 1) = 5 * 5 ^ (a - 2)
+hSz : 25 * 5 ^ (a - 2) ∣ ↑n + ↑m + 6
+hyz : 5 * 5 ^ (a - 2) ∣ ↑n + ↑i
+hpow : 5 ^ a = 25 * 5 ^ (a - 2)
+⊢ IsCoprime 5 6
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:206:13: error: Application type mismatch: The argument
+  hi
+has type
+  i ∈ Finset.Icc (1 : ℕ) 5
+but is expected to have type
+  ↑i ∈ Finset.Icc (1 : ℤ) 5
+in the application
+  And.intro hi
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:214:10: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  LocallyFiniteOrder ℤ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:217:10: error(lean.unknownIdentifier): Unknown identifier `five_power_sum_square`
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:218:22: error: unsolved goals
+n m a : ℕ
+heq : B686Target.product 5 m = 4 * B686Target.product 5 n
+hp : Nat.Prime 6
+hp5 : 5 ≤ 6
+hS : 6 ^ a ∣ n + m + 6
+hpEq : ¬6 = 5
+hnot : ¬7 ≤ 6
+⊢ False
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:231:13: error: Application type mismatch: The argument
+  hi
+has type
+  i ∈ Finset.Icc (1 : ℕ) 5
+but is expected to have type
+  ↑i ∈ Finset.Icc (1 : ℤ) 5
+in the application
+  And.intro hi
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:267:25: error(lean.unknownIdentifier): Unknown identifier `prime_power_sum_square_ge_five`
+research/tasks/B686-Four/round6/b/SumFiveAdic.lean:267:9: error: Tactic `rcases` failed: `x✝ : ?m.102` is not an inductive datatype
