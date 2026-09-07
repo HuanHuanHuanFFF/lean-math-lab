@@ -6,7 +6,7 @@
 |---|---|---|---|---|---|
 | F1 / A071999 | 已知结果形式化 | 已闭合 | 完整通式通过 | AI 独立审查；v0.1.0 已公开；首次性未确认 | [任务记录](tasks/F1-A071999/README.md) |
 | M1 / Hypercomb | 开放问题探索 | 候选完整论证；当前暂停 | 部分关键引理通过 | 同任务AI交叉核验；完整Lean链及新颖性待确认 | [任务记录](tasks/M1-Hypercomb/README.md) |
-| B686 / Four | 开放问题探索 | 第八轮及续段已按额度要求收尾；原题未解 | 完整通用gcd、全局线性π与大小界已Lean验证；完整250000界仍缺分析层与合并 | AI交叉与联合公理审计，无外部评审，新颖性未确认 | [全局缺口](tasks/B686-Four/frontier.md)、[最新续段报告](tasks/B686-Four/round8/continuation/report.md)、[前段报告](tasks/B686-Four/round8/report.md) |
+| B686 / Four | 开放问题探索 | 第九轮进行中：素数同步的全局高度限制纸面链；原题未解 | 新精确零和与封闭式条带接口通过；完整采样/积分链及旧250000链均未完成 | 原始文献核对、独立AI几何审计；无外部评审，新颖性未确认 | [全局缺口](tasks/B686-Four/frontier.md)、[第九轮](tasks/B686-Four/round9/README.md)、[前轮续段](tasks/B686-Four/round8/continuation/report.md) |
 
 ## 候选与新任务
 

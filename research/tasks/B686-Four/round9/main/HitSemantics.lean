@@ -41,11 +41,24 @@ theorem rectangle_hit_miss (k n m p : Nat)
   rw [block_hits_iff k n p hkp, block_hits_iff k m p hkp]
   omega
 
+/-- Wider margins needed by the bidirectional all-distance test function. -/
+theorem wide_rectangle_hit_miss (k n m p : Nat)
+    (_hk : 2 ≤ k) (hlo : 2 * k ≤ p) (hhi : p ≤ 4 * k)
+    (hn : 3 * p < 4 * (n % p)) (hm : 2 * (m % p) < p) :
+    (∃ i, 1 ≤ i ∧ i ≤ k ∧ p ∣ n + i) ∧
+      ¬ (∃ j, 1 ≤ j ∧ j ≤ k ∧ p ∣ m + j) := by
+  have hkp : k < p := by omega
+  rw [block_hits_iff k n p hkp, block_hits_iff k m p hkp]
+  omega
+
 /-- info: 'B686Round9.block_hits_iff' depends on axioms: [propext, Quot.sound] -/
 #guard_msgs in
 #print axioms block_hits_iff
 /-- info: 'B686Round9.rectangle_hit_miss' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs in
 #print axioms rectangle_hit_miss
+/-- info: 'B686Round9.wide_rectangle_hit_miss' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms wide_rectangle_hit_miss
 
 end B686Round9
