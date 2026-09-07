@@ -10,6 +10,18 @@ Give each selected task a stable ID and a record under `research/tasks/<id>-<slu
 
 When delegation is authorized, default to `gpt-5.6-luna` with reasoning effort `max`, unless the user specifies otherwise. Use a fresh or bounded history fork; full-history forks inherit parent settings. Specify file ownership and acceptance checks. Coordinate edits to shared modules, dependencies, and entry points through the primary task.
 
+## Research Memory
+
+Treat research records as a deliverable for the next human or agent. Maintain them in the owning task directory while working, at each material new route, result, failed attempt, change of direction, and before handoff or stopping; do not rely on an end-of-session reconstruction.
+
+- For each substantive route, record its motivating observation or source, the mathematical rationale, relevant assumptions, and a concrete test or proof obligation. Preserve promising untried ideas with their motivation and an explicit untested label. Write concise, evidence-linked research summaries rather than purported internal thought transcripts.
+- Record outcomes with the exact claim or experimental range and links to source, code, commands, and decisive output. Separate Lean-checked statements, paper arguments, finite computations, and conjectures; follow the verification requirements below before marking a proof accepted.
+- For failures, retain the attempted claim or construction, counterexample or diagnostic, and what actually failed: the claim, this method, a missing lemma, the environment, or the available budget. Mark unknown causes as unknown. State what would justify revisiting the route; do not turn one failed attempt into a general impossibility claim.
+- For collaboration, preserve substantive proposals, objections, tests, and resulting decisions with their provenance. Link existing logs and artifacts instead of copying full conversations. Keep corrections traceable, label superseded conclusions, and never invent a retrospective success story.
+- Before stopping, leave the last verified result, remaining gap, reusable artifacts, untried branches, and a concrete next check. Record elapsed effort or the budget checkpoint; a session with no new theorem still needs a usable handoff.
+
+Explore new definitions, auxiliary constructions, and reusable tools when the problem suggests them. Record the obstacle each proposal addresses and how it could be tested; distinguish a useful local construction from an established general method or a novelty claim. Keep mutable progress and results in task records and the research index; the root README states the project's motivation and stable entry points.
+
 ## Structure and Style
 
 - `Math/` and `Math.lean`: accepted library modules and imports; preserve published module paths and theorem names.
