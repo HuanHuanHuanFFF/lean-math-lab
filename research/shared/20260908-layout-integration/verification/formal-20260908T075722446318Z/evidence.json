@@ -1,0 +1,265 @@
+{
+  "kind": "official-equivalent-without-pwsh",
+  "scope": [
+    "Examples/CofactorCriterion.lean",
+    "Examples/IntervalLcm.lean",
+    "Examples/ReusingA071999.lean",
+    "Math/A071999.lean",
+    "Math/B677/IntervalLcm.lean",
+    "Math/B699/CofactorCriterion.lean",
+    "Math/Smoke.lean",
+    "Tests/A071999.lean",
+    "Tests/A071999Audit.lean",
+    "Tests/B677IntervalLcm.lean",
+    "Tests/B699CofactorCriterion.lean"
+  ],
+  "source_sha256_before": {
+    "Examples/CofactorCriterion.lean": "de4dc0921be6c90756ebea76d38a55b1ff57f59cead06f703b1271dda3a7ec29",
+    "Examples/IntervalLcm.lean": "730698743535ce76f7c12e2ab283d0307db141f95712c2aadbb19a6904218866",
+    "Examples/ReusingA071999.lean": "f9f7cc6c2572ddd3bb745bb104831145632b776acbd8a5d40cf10124742f49ba",
+    "Math/A071999.lean": "3b1a7d2dabe3577e5658047f30fff8ca12e0c71f230666a17aa42e8956a45324",
+    "Math/B677/IntervalLcm.lean": "1a1b686278747d6d5e1e731ecf826bb66c31c7906e4146d36647ee611daaaf44",
+    "Math/B699/CofactorCriterion.lean": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+    "Math/Smoke.lean": "9eb6168c5665af36b250a3d2b4bcbff45d03fe1d8c65269b7ba069a9fb807859",
+    "Tests/A071999.lean": "39023369ccb8c8a5a5370d96fa9dba9fc2d2c77c147e2e028e073d95935bafd7",
+    "Tests/A071999Audit.lean": "55f6b14cc76f794111e2b5a9afc85d6cdad7e3535548c54e27bee249a216b42a",
+    "Tests/B677IntervalLcm.lean": "cfad6066b5306b165f13c425623083e4b9859f1c3ac3470426f665fc29073b51",
+    "Tests/B699CofactorCriterion.lean": "f282409e41d5b7ddadbb006f5aa7e717840fc50869014b7cdcd7ae61951f633b"
+  },
+  "records": [
+    {
+      "label": "source-policy",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "scripts/check-lean-policy.py",
+        "--roots",
+        "Math",
+        "Tests",
+        "Examples"
+      ],
+      "started_utc": "2026-09-08T07:57:22.447692+00:00",
+      "ended_utc": "2026-09-08T07:57:22.480095+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/00-source-policy.log",
+      "log_sha256": "6bd70954b829b27ed13c5ae822e33604e542629a7dfb96910b97159fc42a14f4"
+    },
+    {
+      "label": "lean-version",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lean",
+        "--version"
+      ],
+      "started_utc": "2026-09-08T07:57:22.480427+00:00",
+      "ended_utc": "2026-09-08T07:57:22.622253+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/01-lean-version.log",
+      "log_sha256": "63f3e16bf0258e2cc0ab3010eb1830723df9bb85097b7b72b0137b9be25a78e9"
+    },
+    {
+      "label": "build",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "build"
+      ],
+      "started_utc": "2026-09-08T07:57:22.622720+00:00",
+      "ended_utc": "2026-09-08T07:57:31.119364+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/02-build.log",
+      "log_sha256": "291a232a850008085e495972f59d5dc275f9df83f311a7343546c1906c9166c6"
+    },
+    {
+      "label": "CofactorCriterion",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Examples/CofactorCriterion.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:31.120003+00:00",
+      "ended_utc": "2026-09-08T07:57:33.327563+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/03-CofactorCriterion.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "IntervalLcm",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Examples/IntervalLcm.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:33.329027+00:00",
+      "ended_utc": "2026-09-08T07:57:35.683236+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/04-IntervalLcm.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "ReusingA071999",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Examples/ReusingA071999.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:35.684115+00:00",
+      "ended_utc": "2026-09-08T07:57:38.311130+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/05-ReusingA071999.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "A071999",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Math/A071999.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:38.312222+00:00",
+      "ended_utc": "2026-09-08T07:57:42.094551+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/06-A071999.log",
+      "log_sha256": "f000e1446ed96cfeac22a079b02182f56a6f88ca61eb244b62adff164ade394b"
+    },
+    {
+      "label": "IntervalLcm",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Math/B677/IntervalLcm.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:42.095089+00:00",
+      "ended_utc": "2026-09-08T07:57:44.485950+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/07-IntervalLcm.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "CofactorCriterion",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Math/B699/CofactorCriterion.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:44.487141+00:00",
+      "ended_utc": "2026-09-08T07:57:47.353746+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/08-CofactorCriterion.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "Smoke",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Math/Smoke.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:47.354929+00:00",
+      "ended_utc": "2026-09-08T07:57:48.437559+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/09-Smoke.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "A071999",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Tests/A071999.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:48.438272+00:00",
+      "ended_utc": "2026-09-08T07:57:50.924396+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/10-A071999.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "A071999Audit",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Tests/A071999Audit.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:50.925310+00:00",
+      "ended_utc": "2026-09-08T07:57:53.453806+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/11-A071999Audit.log",
+      "log_sha256": "132548cd2020aa9230ee9fbb0698423723776de9644fcf7a6bdb51ced85b2850"
+    },
+    {
+      "label": "B677IntervalLcm",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Tests/B677IntervalLcm.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:53.454404+00:00",
+      "ended_utc": "2026-09-08T07:57:55.569455+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/12-B677IntervalLcm.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "B699CofactorCriterion",
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "env",
+        "lean",
+        "Tests/B699CofactorCriterion.lean"
+      ],
+      "started_utc": "2026-09-08T07:57:55.570274+00:00",
+      "ended_utc": "2026-09-08T07:57:57.945861+00:00",
+      "exit_code": 0,
+      "log": "research/shared/20260908-layout-integration/verification/formal-20260908T075722446318Z/13-B699CofactorCriterion.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "success": true,
+  "source_sha256_after": {
+    "Examples/CofactorCriterion.lean": "de4dc0921be6c90756ebea76d38a55b1ff57f59cead06f703b1271dda3a7ec29",
+    "Examples/IntervalLcm.lean": "730698743535ce76f7c12e2ab283d0307db141f95712c2aadbb19a6904218866",
+    "Examples/ReusingA071999.lean": "f9f7cc6c2572ddd3bb745bb104831145632b776acbd8a5d40cf10124742f49ba",
+    "Math/A071999.lean": "3b1a7d2dabe3577e5658047f30fff8ca12e0c71f230666a17aa42e8956a45324",
+    "Math/B677/IntervalLcm.lean": "1a1b686278747d6d5e1e731ecf826bb66c31c7906e4146d36647ee611daaaf44",
+    "Math/B699/CofactorCriterion.lean": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+    "Math/Smoke.lean": "9eb6168c5665af36b250a3d2b4bcbff45d03fe1d8c65269b7ba069a9fb807859",
+    "Tests/A071999.lean": "39023369ccb8c8a5a5370d96fa9dba9fc2d2c77c147e2e028e073d95935bafd7",
+    "Tests/A071999Audit.lean": "55f6b14cc76f794111e2b5a9afc85d6cdad7e3535548c54e27bee249a216b42a",
+    "Tests/B677IntervalLcm.lean": "cfad6066b5306b165f13c425623083e4b9859f1c3ac3470426f665fc29073b51",
+    "Tests/B699CofactorCriterion.lean": "f282409e41d5b7ddadbb006f5aa7e717840fc50869014b7cdcd7ae61951f633b"
+  }
+}

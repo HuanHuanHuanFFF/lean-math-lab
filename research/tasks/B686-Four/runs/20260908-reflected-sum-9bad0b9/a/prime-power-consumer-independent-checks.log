@@ -1,0 +1,44 @@
+A independent consumer audit
+UTC 2026-09-08
+Source: research/tasks/B686-Four/round9/main/SumPrimePowerExclusion.lean
+Source SHA256 before and after: bd136cad0859595367422146cac2976115052bb85750b29d139e8434a380df1e
+
+01:25:34 source compile
+Command:
+ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" LEAN_PATH="$PWD/.lake/round9-verify/olean:$PWD" bash scripts/lean-work.sh lake env lean research/tasks/B686-Four/round9/main/SumPrimePowerExclusion.lean
+exit_code=0
+(empty stdout/stderr; no warnings)
+
+Source policy (repository scanner self-test plus exact target scan; input via stdin)
+policy_failures: []
+guards: 5 axiom_prints: 5
+exit_code=0
+
+01:26:56 independent import / boundaries / rational source bridge
+Command:
+ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" LEAN_PATH="$PWD/.lake/round9-verify/olean:$PWD" bash scripts/lean-work.sh lake env lean --stdin <<'LEAN'
+import research.tasks.«B686-Four».round9.main.SumPrimePowerExclusion
+open B686Reflected B686Target
+#check not_four_prime_power_reflected_sum
+#print axioms not_four_prime_power_reflected_sum
+example (k n m p : ℕ) (hk : 2 ≤ k) (hsep : n+k ≤ m) (hp : p.Prime)
+    (hsum : reflectedSum k n m = p^0) : product k m ≠ 4*product k n :=
+  not_four_prime_power_reflected_sum k n m p 0 hk hsep hp hsum
+example (k n m a : ℕ) (hk : 2 ≤ k) (hsep : n+k ≤ m)
+    (hsum : reflectedSum k n m = 2^a) : product k m ≠ 4*product k n :=
+  not_four_prime_power_reflected_sum k n m 2 a hk hsep (by decide) hsum
+example (k n m p a : ℕ) (hk : 2 ≤ k) (hsep : n+k ≤ m) (hp : p.Prime)
+    (hsum : reflectedSum k n m = p^a) :
+    (4 : ℚ) ≠ (product k m : ℚ)/(product k n : ℚ) := by
+  intro h
+  exact not_four_prime_power_reflected_sum k n m p a hk hsep hp hsum
+    ((ratio_iff k n m).mp h)
+example : reflectedSum 1 0 3 = 5^1 ∧ product 1 3 = 4*product 1 0 ∧ 0+1 ≤ 3 := by decide
+example : reflectedSum 3 0 1 = 5^1 ∧ product 3 1 = 4*product 3 0 ∧ ¬ (0+3 ≤ 1) := by decide
+LEAN
+exit_code=0
+B686Reflected.not_four_prime_power_reflected_sum (k n m p a : ℕ) (hk : 2 ≤ k) (hsep : n + k ≤ m) (hp : Nat.Prime p)
+  (hsum : reflectedSum k n m = p ^ a) : product k m ≠ 4 * product k n
+'B686Reflected.not_four_prime_power_reflected_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Consumer olean SHA256: 96b8d9b2bf2ed0a4cd9a7669ad6acedbc9cf5b3394bd433879d2e1706186eb74

@@ -1,0 +1,121 @@
+B / James independent full-prime-power chain audit
+UTC date: 2026-09-08
+Repository: /workspace/scratch/0d28e8b53182/lean-math-lab
+Only b/ outputs. No source changes in a/ or main/; frozen norm unchanged.
+Runtime previously verified in this same session: Lean 4.33.1, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6.
+
+Command prefix (cwd=repository):
+ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" LEAN_PATH="$PWD/.lake/round9-verify/olean:$PWD" bash scripts/lean-work.sh lake env lean
+
+1. Fresh A compilation
+Arguments:
+-o research/tasks/B686-Four/round9/b/full-prime-power-review-A.olean research/tasks/B686-Four/round9/a/ReflectedPrimePower.lean
+Completion observed by 2026-09-08T01:26:05.559Z
+exit_code=0
+stdout/stderr: empty
+Five in-source #guard_msgs axiom checks executed.
+
+2. Fresh consumer compilation
+Arguments:
+-o research/tasks/B686-Four/round9/b/full-prime-power-review-main.olean research/tasks/B686-Four/round9/main/SumPrimePowerExclusion.lean
+Completion observed by 2026-09-08T01:28:07.793Z
+exit_code=0
+stdout/stderr: empty
+Five in-source #guard_msgs axiom checks executed.
+
+3. Source SHA-256, unchanged from 01:25 capture to 01:30 repeat
+0eb03b3d996f4a67c3b03466b36c3d24b02ff4e58195b594fddd2a07302ba717  a/ReflectedPrimePower.lean
+bd136cad0859595367422146cac2976115052bb85750b29d139e8434a380df1e  main/SumPrimePowerExclusion.lean
+
+4. Olean SHA-256
+A fresh b/full-prime-power-review-A.olean:
+c6186663a24e8e50bcb699b71e2c7205ce130ab5c5eb1dde4cd5505bd38680cd
+A loaded .lake/round9-verify/olean/research/tasks/B686-Four/round9/a/ReflectedPrimePower.olean:
+c6186663a24e8e50bcb699b71e2c7205ce130ab5c5eb1dde4cd5505bd38680cd
+Consumer fresh b/full-prime-power-review-main.olean:
+96b8d9b2bf2ed0a4cd9a7669ad6acedbc9cf5b3394bd433879d2e1706186eb74
+Consumer loaded .lake/round9-verify/olean/research/tasks/B686-Four/round9/main/SumPrimePowerExclusion.olean:
+96b8d9b2bf2ed0a4cd9a7669ad6acedbc9cf5b3394bd433879d2e1706186eb74
+Independent cmp -s comparisons: A exit_code=0, consumer exit_code=0 (observed 01:30).
+
+5. Initial probe
+Arguments: research/tasks/B686-Four/round9/b/FullPrimePowerChainReview.lean
+Completion observed 2026-09-08T01:28:20.045Z
+exit_code=0
+Actual definition/type printing and two decided boundary examples succeeded.
+Their printed axiom lists were [propext, Classical.choice, Quot.sound].
+The probe was then extended with the exact original-equation => S != p^a wrapper
+and executable guards for that wrapper and both boundary examples.
+
+6. Final probe
+Arguments: research/tasks/B686-Four/round9/b/FullPrimePowerChainReview.lean
+Completion observed 2026-09-08T01:30:28.255Z
+exit_code=0
+Six executable axiom guards passed. Exact stdout/stderr follows:
+def B686Target.product : ℕ → ℕ → ℕ :=
+fun k t => ∏ i ∈ Finset.Icc 1 k, (t + i)
+def B686Reflected.reflectedSum : ℕ → ℕ → ℕ → ℕ :=
+fun k n m => m + n + k + 1
+B686ReflectedA.original_high_contact_data : ∀ (k n m p L : ℕ),
+  Nat.Prime p →
+    2 ≤ k →
+      n + k ≤ m →
+        B686Target.product k m = 4 * B686Target.product k n →
+          k < p ^ (L + 1) →
+            ↑L + padicValRat p (B686ReflectedA.reflectedLambda k - 1) <
+                ↑(padicValNat p (B686Reflected.reflectedSum k n m)) →
+              ∃ i ∈ Finset.Icc 1 k,
+                ↑(padicValNat p (n + i)) =
+                    ↑(padicValNat p (B686Reflected.reflectedSum k n m)) -
+                      padicValRat p (B686ReflectedA.reflectedLambda k - 1) ∧
+                  0 < (B686ReflectedA.reflectedContact k n m i).natAbs ∧
+                    2 * ↑(padicValNat p (B686Reflected.reflectedSum k n m)) -
+                            padicValRat p (B686ReflectedA.reflectedLambda k - 1) -
+                          ↑L +
+                        ↑(padicValNat p 4) ≤
+                      ↑(padicValInt p (B686ReflectedA.reflectedContact k n m i))
+B686ReflectedA.original_high_contact_nat : ∀ (k n m p : ℕ),
+  Nat.Prime p →
+    2 ≤ k →
+      n + k ≤ m →
+        B686Target.product k m = 4 * B686Target.product k n →
+          Nat.log p k + padicValNat p (B686ReflectedA.reflectedCoefficient k) <
+              padicValNat p (B686Reflected.reflectedSum k n m) →
+            ∃ i ∈ Finset.Icc 1 k,
+              padicValNat p (n + i) =
+                  padicValNat p (B686Reflected.reflectedSum k n m) -
+                    padicValNat p (B686ReflectedA.reflectedCoefficient k) ∧
+                0 < (B686ReflectedA.reflectedContact k n m i).natAbs ∧
+                  p ^ (padicValNat p (B686Reflected.reflectedSum k n m) + 1 + padicValNat p 4) ∣
+                    (B686ReflectedA.reflectedContact k n m i).natAbs
+B686ReflectedA.original_high_contact_sharp_nat : ∀ (k n m p : ℕ),
+  Nat.Prime p →
+    2 ≤ k →
+      n + k ≤ m →
+        B686Target.product k m = 4 * B686Target.product k n →
+          Nat.log p k + padicValNat p (B686ReflectedA.reflectedCoefficient k) <
+              padicValNat p (B686Reflected.reflectedSum k n m) →
+            ∃ i ∈ Finset.Icc 1 k,
+              padicValNat p (n + i) =
+                  padicValNat p (B686Reflected.reflectedSum k n m) -
+                    padicValNat p (B686ReflectedA.reflectedCoefficient k) ∧
+                0 < (B686ReflectedA.reflectedContact k n m i).natAbs ∧
+                  p ^
+                      (2 * padicValNat p (B686Reflected.reflectedSum k n m) -
+                            padicValNat p (B686ReflectedA.reflectedCoefficient k) -
+                          Nat.log p k +
+                        padicValNat p 4) ∣
+                    (B686ReflectedA.reflectedContact k n m i).natAbs
+B686Reflected.not_four_prime_power_reflected_sum : ∀ (k n m p a : ℕ),
+  2 ≤ k →
+    n + k ≤ m →
+      Nat.Prime p → B686Reflected.reflectedSum k n m = p ^ a → B686Target.product k m ≠ 4 * B686Target.product k n
+original_equation_sum_ne_prime_power : ∀ (k n m p a : ℕ),
+  2 ≤ k →
+    n + k ≤ m →
+      B686Target.product k m = 4 * B686Target.product k n → Nat.Prime p → B686Reflected.reflectedSum k n m ≠ p ^ a
+
+7. Evidence limits
+No full-repository build, no new parameter search, no source review beyond
+the two assigned mathematical files. No mathematical blocker found.
+No failed Lean compilation occurred during this review stage.

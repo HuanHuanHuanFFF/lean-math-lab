@@ -1,0 +1,68 @@
+# source: research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/b/FullPrimePowerChainReview.lean
+# module: research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.b.FullPrimePowerChainReview
+# source_sha256_before: 4afaa83924b341fe7940a8ecee44523adf719408328f0941815899f34a3227ff
+# output: .lake/research-runs/20260908T081837Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/b/FullPrimePowerChainReview.olean
+# imports: research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.SumPrimePowerExclusion
+# command: bash /workspace/scratch/b2b84342d09f/lean-math-lab-layout/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/b2b84342d09f/lean-math-lab-layout -o /workspace/scratch/b2b84342d09f/lean-math-lab-layout/.lake/research-runs/20260908T081837Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/b/FullPrimePowerChainReview.olean /workspace/scratch/b2b84342d09f/lean-math-lab-layout/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/b/FullPrimePowerChainReview.lean
+def B686Target.product : ℕ → ℕ → ℕ :=
+fun k t => ∏ i ∈ Finset.Icc 1 k, (t + i)
+def B686Reflected.reflectedSum : ℕ → ℕ → ℕ → ℕ :=
+fun k n m => m + n + k + 1
+B686ReflectedA.original_high_contact_data : ∀ (k n m p L : ℕ),
+  Nat.Prime p →
+    2 ≤ k →
+      n + k ≤ m →
+        B686Target.product k m = 4 * B686Target.product k n →
+          k < p ^ (L + 1) →
+            ↑L + padicValRat p (B686ReflectedA.reflectedLambda k - 1) <
+                ↑(padicValNat p (B686Reflected.reflectedSum k n m)) →
+              ∃ i ∈ Finset.Icc 1 k,
+                ↑(padicValNat p (n + i)) =
+                    ↑(padicValNat p (B686Reflected.reflectedSum k n m)) -
+                      padicValRat p (B686ReflectedA.reflectedLambda k - 1) ∧
+                  0 < (B686ReflectedA.reflectedContact k n m i).natAbs ∧
+                    2 * ↑(padicValNat p (B686Reflected.reflectedSum k n m)) -
+                            padicValRat p (B686ReflectedA.reflectedLambda k - 1) -
+                          ↑L +
+                        ↑(padicValNat p 4) ≤
+                      ↑(padicValInt p (B686ReflectedA.reflectedContact k n m i))
+B686ReflectedA.original_high_contact_nat : ∀ (k n m p : ℕ),
+  Nat.Prime p →
+    2 ≤ k →
+      n + k ≤ m →
+        B686Target.product k m = 4 * B686Target.product k n →
+          Nat.log p k + padicValNat p (B686ReflectedA.reflectedCoefficient k) <
+              padicValNat p (B686Reflected.reflectedSum k n m) →
+            ∃ i ∈ Finset.Icc 1 k,
+              padicValNat p (n + i) =
+                  padicValNat p (B686Reflected.reflectedSum k n m) -
+                    padicValNat p (B686ReflectedA.reflectedCoefficient k) ∧
+                0 < (B686ReflectedA.reflectedContact k n m i).natAbs ∧
+                  p ^ (padicValNat p (B686Reflected.reflectedSum k n m) + 1 + padicValNat p 4) ∣
+                    (B686ReflectedA.reflectedContact k n m i).natAbs
+B686ReflectedA.original_high_contact_sharp_nat : ∀ (k n m p : ℕ),
+  Nat.Prime p →
+    2 ≤ k →
+      n + k ≤ m →
+        B686Target.product k m = 4 * B686Target.product k n →
+          Nat.log p k + padicValNat p (B686ReflectedA.reflectedCoefficient k) <
+              padicValNat p (B686Reflected.reflectedSum k n m) →
+            ∃ i ∈ Finset.Icc 1 k,
+              padicValNat p (n + i) =
+                  padicValNat p (B686Reflected.reflectedSum k n m) -
+                    padicValNat p (B686ReflectedA.reflectedCoefficient k) ∧
+                0 < (B686ReflectedA.reflectedContact k n m i).natAbs ∧
+                  p ^
+                      (2 * padicValNat p (B686Reflected.reflectedSum k n m) -
+                            padicValNat p (B686ReflectedA.reflectedCoefficient k) -
+                          Nat.log p k +
+                        padicValNat p 4) ∣
+                    (B686ReflectedA.reflectedContact k n m i).natAbs
+B686Reflected.not_four_prime_power_reflected_sum : ∀ (k n m p a : ℕ),
+  2 ≤ k →
+    n + k ≤ m →
+      Nat.Prime p → B686Reflected.reflectedSum k n m = p ^ a → B686Target.product k m ≠ 4 * B686Target.product k n
+original_equation_sum_ne_prime_power : ∀ (k n m p a : ℕ),
+  2 ≤ k →
+    n + k ≤ m →
+      B686Target.product k m = 4 * B686Target.product k n → Nat.Prime p → B686Reflected.reflectedSum k n m ≠ p ^ a

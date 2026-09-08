@@ -1,0 +1,76 @@
+A independent uniform cofactor audit
+UTC 2026-09-08
+Source: research/tasks/B686-Four/round9/main/SumCofactorBounds.lean
+Source SHA256 before/after: 77b6a20c300d0b3332bff7d1cba0f95132e10eccc6e7c8b5b0e598472f0a064c
+
+01:31:26 source recompile
+ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" LEAN_PATH="$PWD/.lake/round9-verify/olean:$PWD" bash scripts/lean-work.sh lake env lean research/tasks/B686-Four/round9/main/SumCofactorBounds.lean
+exit_code=0
+(empty stdout/stderr; no warnings)
+
+Repository policy scanner self-test and exact source scan:
+policy_failures: []
+guards: 4 axiom_prints: 4
+exit_code=0
+
+01:33:19 independent import/edge-case/rational-source interface check
+ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" LEAN_PATH="$PWD/.lake/round9-verify/olean:$PWD" bash scripts/lean-work.sh lake env lean --stdin <<'LEAN'
+import research.tasks.«B686-Four».round9.main.SumCofactorBounds
+open B686Reflected B686Target
+#check original_sum_cofactor_bounds
+#check original_sum_quotient_bounds
+#print axioms original_sum_quotient_bounds
+example (k n m p : ℕ) (hk : 2 ≤ k) (hsep : n+k ≤ m)
+    (heq : product k m = 4*product k n) (hp : p.Prime)
+    (hnot : ¬ p ∣ reflectedSum k n m) :
+    k ≤ 10*reflectedSum k n m ∧ reflectedSum k n m < 200*(reflectedSum k n m)^3 ∧
+      m < 200*(reflectedSum k n m)^3 := by
+  have h := original_sum_quotient_bounds k n m p hk hsep heq hp
+  simpa only [padicValNat.eq_zero_of_not_dvd hnot, pow_zero, Nat.div_one] using h
+example (k n m : ℕ) (hk : 2 ≤ k) (hsep : n+k ≤ m)
+    (heq : product k m = 4*product k n) :
+    let B := reflectedSum k n m / 2^(padicValNat 2 (reflectedSum k n m))
+    k ≤ 10*B ∧ reflectedSum k n m < 200*B^3 ∧ m < 200*B^3 :=
+  original_sum_quotient_bounds k n m 2 hk hsep heq (by decide)
+example (k n m p : ℕ) (hk : 2 ≤ k) (hsep : n+k ≤ m) (hp : p.Prime)
+    (heq : (4 : ℚ) = (product k m : ℚ)/(product k n : ℚ)) :
+    let B := reflectedSum k n m / p^(padicValNat p (reflectedSum k n m))
+    k ≤ 10*B ∧ reflectedSum k n m < 200*B^3 ∧ m < 200*B^3 :=
+  original_sum_quotient_bounds k n m p hk hsep ((ratio_iff k n m).mp heq) hp
+LEAN
+exit_code=0
+B686Reflected.original_sum_cofactor_bounds (k n m p B : ℕ) (hk : 2 ≤ k) (hsep : n + k ≤ m)
+  (heq : product k m = 4 * product k n) (hp : Nat.Prime p)
+  (hfactor : reflectedSum k n m = B * p ^ padicValNat p (reflectedSum k n m)) :
+  k ≤ 10 * B ∧ reflectedSum k n m < 200 * B ^ 3 ∧ m < 200 * B ^ 3
+B686Reflected.original_sum_quotient_bounds (k n m p : ℕ) (hk : 2 ≤ k) (hsep : n + k ≤ m)
+  (heq : product k m = 4 * product k n) (hp : Nat.Prime p) :
+  have B := reflectedSum k n m / p ^ padicValNat p (reflectedSum k n m);
+  k ≤ 10 * B ∧ reflectedSum k n m < 200 * B ^ 3 ∧ m < 200 * B ^ 3
+'B686Reflected.original_sum_quotient_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+Consumer olean SHA256: a2b592539aded3ba2fc9f6348085f17753047def1be632d2d6d79a0111abc3b3
+
+APPEND-ONLY RECHECK: 2026-09-08 01:36 comment clarification
+The prior source/olean checks above remain historical records and were not overwritten.
+git status: SumCofactorBounds.lean was untracked, so plain git diff did not display its change.
+Read current comment and frontier git diff: accepted explicit k,n,m,S bound, with auxiliary p unrestricted when p does not divide S.
+
+Read-only exact change check:
+set -o pipefail
+perl -0pe 's{\Q/-- For fixed B, the original variables k,n,m and S are bounded. An auxiliary
+prime not dividing S is unrestricted; bounding it additionally requires p | S.
+\E}{/-- All parameters of each fixed complementary-factor family are bounded.\n} or die "Expected revised comment not found\n"' research/tasks/B686-Four/round9/main/SumCofactorBounds.lean | sha256sum
+exit_code=0
+output: 77b6a20c300d0b3332bff7d1cba0f95132e10eccc6e7c8b5b0e598472f0a064c  -
+This stream was not written back to any file; it exactly recovers the earlier accepted whole-source hash.
+
+New source SHA256 before and after compilation:
+8126290dcd084ea05aa27f602674a5fdf220012dce469e008b47974ee28e8fa5
+2026-09-08 01:37:43 UTC source recompile:
+ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" LEAN_PATH="$PWD/.lake/round9-verify/olean:$PWD" bash scripts/lean-work.sh lake env lean research/tasks/B686-Four/round9/main/SumCofactorBounds.lean
+exit_code=0
+(empty stdout/stderr; no warnings; all 4 standard-axiom guards passed)
+A did not write/replace the main consumer olean in this recheck.
+A core SHA256 unchanged: 0eb03b3d996f4a67c3b03466b36c3d24b02ff4e58195b594fddd2a07302ba717
+Sole wording finding: CLOSED / ACCEPTED.

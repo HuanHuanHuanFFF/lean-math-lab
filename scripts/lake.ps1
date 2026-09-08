@@ -34,9 +34,24 @@ if ($env:GIT_CONFIG_COUNT -match "^\d+$") {
 }
 $packageDirs = @(Get-ChildItem -LiteralPath $packageRoot -Directory -ErrorAction SilentlyContinue)
 $trustedGitDirs = @($repoRoot) + @($packageDirs | ForEach-Object { $_.FullName })
+# Repeated calls from verify.ps1 share this process environment. Reuse existing
+# trust entries instead of making the child environment grow on every file.
+$seenTrustedPaths = [System.Collections.Generic.HashSet[string]]::new(
+  [StringComparer]::OrdinalIgnoreCase)
+for ($configIndex = 0; $configIndex -lt $gitConfigCount; $configIndex++) {
+  $configKey = [Environment]::GetEnvironmentVariable("GIT_CONFIG_KEY_$configIndex", "Process")
+  if ($configKey -eq "safe.directory") {
+    $configValue = [Environment]::GetEnvironmentVariable("GIT_CONFIG_VALUE_$configIndex", "Process")
+    if ($null -ne $configValue) {
+      [void]$seenTrustedPaths.Add($configValue.Replace([char]92, [char]47))
+    }
+  }
+}
 foreach ($trustedGitDir in $trustedGitDirs) {
+  $normalizedTrustedDir = $trustedGitDir.Replace([char]92, [char]47)
+  if (-not $seenTrustedPaths.Add($normalizedTrustedDir)) { continue }
   [Environment]::SetEnvironmentVariable("GIT_CONFIG_KEY_$gitConfigCount", "safe.directory", "Process")
-  [Environment]::SetEnvironmentVariable("GIT_CONFIG_VALUE_$gitConfigCount", $trustedGitDir.Replace('\', '/'), "Process")
+  [Environment]::SetEnvironmentVariable("GIT_CONFIG_VALUE_$gitConfigCount", $normalizedTrustedDir, "Process")
   $gitConfigCount++
 }
 $env:GIT_CONFIG_COUNT = [string]$gitConfigCount

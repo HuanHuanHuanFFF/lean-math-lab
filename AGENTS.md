@@ -2,11 +2,13 @@
 
 ## Purpose and Entry Points
 
-Pursue mathematical results checked by Lean. Explain progress and limitations in accessible Chinese; distinguish original discoveries from formalizations of known results. Read `docs/STRUCTURE.md` when organizing tasks or adding modules, and `research/README.md` when selecting or resuming research. For research execution, statement verification, or proof packaging, use `.agents/skills/lean-research/SKILL.md`.
+Pursue mathematical results checked by Lean. Explain progress and limitations in accessible Chinese; distinguish original discoveries from formalizations of known results. Read `docs/STRUCTURE.md` before creating or resuming a research run, changing concurrent ownership, moving research files, merging research branches, or adding modules. Read `research/README.md` when selecting a problem. For research execution, statement verification, or proof packaging, use `.agents/skills/lean-research/SKILL.md`.
 
 ## Task Ownership and Delegation
 
-Give each selected task a stable ID and a record under `research/tasks/<id>-<slug>/`. Record owned files, the last proved result, failed approaches, next subgoal, and an effort checkpoint. Keep research, proof, review, novelty, and publication states separate. Preserve other tasks' untracked or modified files.
+Give each mathematical problem one stable directory under `research/tasks/<id>-<slug>/`. Independent research runs belong in its `runs/<YYYYMMDD>-<topic>-<short-id>/` directories, using the naming and ownership rules in `docs/STRUCTURE.md`. A run's identity survives branch merges, model changes, handoffs, and changes in concurrency. Keep its changing frontier, reports, source, experiments, reviews, and verification evidence together. Problem-level files provide the target and navigation; preserve separate run records when merging.
+
+Record each run's owner, owned files, source baseline, reused results, last proved result, failed approaches, next subgoal, and effort checkpoint. Workers within a run own disjoint files or subdirectories. Coordinate changes to shared files through one owner; merge contributions without replacing another run's account. Keep research, proof, review, novelty, and publication states separate. Preserve other tasks' untracked or modified files.
 
 Unless the user specifies otherwise, delegate substantive mathematical research to `gpt-6-astra` with reasoning effort `max`, with at most two such research subagents active concurrently across the task tree, excluding the primary agent. This is a ceiling, not a required roster. Delegate routine organization, documentation, and bounded support work to `gpt-5.6-luna` with reasoning effort `max`. Use a fresh or bounded history fork; full-history forks inherit parent settings. Specify file ownership and acceptance checks. Coordinate edits to shared modules, dependencies, and entry points through the primary task.
 
@@ -18,7 +20,7 @@ Stop at the original deadline unless a concrete important breakthrough is close 
 
 ## Research Direction
 
-Before allocating substantial open-problem effort or resuming a research round, the primary task reads the current frontier: the full target, verified coverage, unresolved gaps, and next decision. Deliberately isolated explorers use their designated statement-and-facts packet until the first exchange. The open-problem branch of the Lean research skill defines how to update it and compare routes. Keep evidence strength, contribution to the full target, and reuse value separate; report novelty independently.
+Before allocating substantial open-problem effort or resuming a research run, the primary task reads the problem entry and relevant run frontiers: the full target, verified coverage, unresolved gaps, and next decision. Record which results and source versions the current run actually adopts. Deliberately isolated explorers use their designated statement-and-facts packet until the first exchange. The open-problem branch of the Lean research skill defines how to update the run's frontier and compare routes. Keep evidence strength, contribution to the full target, and reuse value separate; report novelty independently.
 
 The primary agent proactively develops alternative approaches and reformulations, looks for transferable tools across mathematical fields, and explores new definitions, auxiliary constructions, and mathematical or computational tools when useful. Record the obstacle each proposal addresses and how it could be tested; distinguish an untested idea, a useful local construction, an established general method, and a novelty claim.
 
@@ -46,7 +48,7 @@ Treat research records as a deliverable for the next human or agent. Maintain th
 - For collaboration, preserve substantive proposals, objections, tests, and resulting decisions with their provenance. Link existing logs and artifacts instead of copying full conversations. Keep corrections traceable, label superseded conclusions, and never invent a retrospective success story.
 - Before stopping, leave the last verified result, remaining gap, reusable artifacts, untried branches, and a concrete next check. Record elapsed effort or the budget checkpoint; a session with no new theorem still needs a usable handoff.
 
-Keep mutable progress and results in task records and the research index; the root README states the project's motivation and stable entry points.
+Keep mutable progress and results in the owning run. The research index and problem entries provide navigation, with links to run-local status rather than competing copies of it. The repository root README states the project's motivation and stable entry points.
 
 ## Structure and Style
 
