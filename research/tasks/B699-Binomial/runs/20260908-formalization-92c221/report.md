@@ -5,7 +5,7 @@
 精确范围为自然数 $n,i,j,a,b,p,q,e,f,u,v$，$i<j\le n/2$、$a,b<i$，$p,q$ 为大于 $i$ 的素数，$e,f\ge1$，
 
 $$
-n=up^e+a=vq^f+b,\qquad \gcd$u,v$=1,\qquad uv$a+b$<n.
+n=up^e+a=vq^f+b,\qquad \gcd(u,v)=1,\qquad uv(a+b)<n.
 $$
 
 则存在素数 $r\ge i$ 同时整除 $\binom ni$ 和 $\binom nj$。不需要 $p\ne q$，不需要 $e,f$ 是精确估值，$1\le i$ 由余数范围推出。现行 [CofactorCriterion.lean](../../../../../Math/B699/CofactorCriterion.lean) 已接通 Kummer 进位、余数、整数核心与 gcd 消费者；不存在遗漏的已接受无条件强迫步骤。
