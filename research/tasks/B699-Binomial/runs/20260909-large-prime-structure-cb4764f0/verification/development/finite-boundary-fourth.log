@@ -1,0 +1,54 @@
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:366:2: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (CertificateValid c)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:394:2: error: Tactic `decide` failed for proposition
+  lowCertificates.all CertificateValidBool = true
+because its `Decidable` instance
+  instDecidableEqBool (lowCertificates.all CertificateValidBool) true
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqBool` and `Bool.decEq`, reduction got stuck at the `Decidable` instance
+  match lowCertificates.all CertificateValidBool, true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:400:26: error: Application type mismatch: The argument
+  hall c hc
+has type
+  CertificateValidBool c = true
+but is expected to have type
+  decide (CertificateValid c) = true
+in the application
+  of_decide_eq_true (hall c hc)
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:400:8: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Decidable (CertificateValid c)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:412:10: error: Application type mismatch: The argument
+  h.left
+has type
+  3 ≤ i
+but is expected to have type
+  3 ≤ i ∧ 3 * i + 2 ≤ n
+in the application
+  And.intro h.left
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:412:9: error: Invalid `⟨...⟩` notation: The expected type
+  ∀ x ∈ List.range i, ¬Nat.Prime (n - x)
+is not an inductive type
+
+Note: This notation can only be used when the expected type is an inductive type with a single constructor
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:413:8: error: No goals to be solved
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:437:16: error: (kernel) excessive memory consumption detected
+research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean:463:32: warning: Variable name `hjn` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hjn
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'B699LargePrimeStructure.common_low_composite_boundary' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound,
+ B699LargePrimeStructure.low_certificates_cover_bool]

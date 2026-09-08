@@ -1,0 +1,145 @@
+{
+  "purpose": "Falsification of stronger-than-transfer candidates, not global B699 evidence",
+  "bounds": {
+    "n_min": 4,
+    "n_max": 200,
+    "indices": "1<=i<j<=n/2 and 3i<2j"
+  },
+  "definitions": {
+    "V": "full p>=i prime-power part of exact math.comb(n,i)",
+    "two_window": "V divides both C(j,i) and C(n-j,i)",
+    "low_residue": "j mod p^(e+delta) <= n mod p^(e+delta), all actual factors",
+    "no_common": "independent exact math.comb/gcd factor check for surviving candidates"
+  },
+  "counts": {
+    "rows": 6501,
+    "triples": 218889,
+    "radical_survivors": 330,
+    "full_survivors": 2,
+    "two_window_survivors": 0,
+    "low_residue_survivors": 0,
+    "no_common": 0
+  },
+  "examples": {
+    "radical_only": [
+      {
+        "n": 8,
+        "i": 1,
+        "j": 2,
+        "V": 8,
+        "radical": 2,
+        "B": 2
+      },
+      {
+        "n": 8,
+        "i": 1,
+        "j": 4,
+        "V": 8,
+        "radical": 2,
+        "B": 4
+      },
+      {
+        "n": 9,
+        "i": 1,
+        "j": 3,
+        "V": 9,
+        "radical": 3,
+        "B": 3
+      },
+      {
+        "n": 9,
+        "i": 2,
+        "j": 4,
+        "V": 36,
+        "radical": 6,
+        "B": 6
+      },
+      {
+        "n": 12,
+        "i": 1,
+        "j": 6,
+        "V": 12,
+        "radical": 6,
+        "B": 6
+      },
+      {
+        "n": 16,
+        "i": 1,
+        "j": 2,
+        "V": 16,
+        "radical": 2,
+        "B": 2
+      },
+      {
+        "n": 16,
+        "i": 1,
+        "j": 4,
+        "V": 16,
+        "radical": 2,
+        "B": 4
+      },
+      {
+        "n": 16,
+        "i": 1,
+        "j": 6,
+        "V": 16,
+        "radical": 2,
+        "B": 6
+      },
+      {
+        "n": 16,
+        "i": 1,
+        "j": 8,
+        "V": 16,
+        "radical": 2,
+        "B": 8
+      },
+      {
+        "n": 18,
+        "i": 1,
+        "j": 6,
+        "V": 18,
+        "radical": 6,
+        "B": 6
+      }
+    ],
+    "full_survivors": [
+      {
+        "n": 16,
+        "i": 3,
+        "j": 7,
+        "A": 560,
+        "V": 35,
+        "B": 35,
+        "C": 84,
+        "gcd": 80,
+        "gcd_factors": {
+          "2": 4,
+          "5": 1
+        }
+      },
+      {
+        "n": 57,
+        "i": 4,
+        "j": 22,
+        "A": 395010,
+        "V": 7315,
+        "B": 7315,
+        "C": 52360,
+        "gcd": 35910,
+        "gcd_factors": {
+          "2": 1,
+          "3": 3,
+          "5": 1,
+          "7": 1,
+          "19": 1
+        }
+      }
+    ],
+    "two_window_survivors": [],
+    "low_residue_survivors": [],
+    "no_common": []
+  },
+  "python": "3.14.0",
+  "elapsed_seconds": 0.09521365165710449
+}

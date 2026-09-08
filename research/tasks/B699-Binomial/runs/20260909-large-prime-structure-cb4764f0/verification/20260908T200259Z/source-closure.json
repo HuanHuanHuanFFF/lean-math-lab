@@ -1,0 +1,114 @@
+[
+  {
+    "source": "Math/B699/CofactorCriterion.lean",
+    "module": "Math.B699.CofactorCriterion",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Factorization",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Tactic.Ring",
+      "Mathlib.Tactic.Linarith"
+    ],
+    "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+    "source_sha256_after": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+    "imports": [
+      "Math.B699.CofactorCriterion"
+    ],
+    "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+    "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.GCD.BigOperators"
+    ],
+    "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+    "source_sha256_after": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Nat.Prime.Factorial"
+    ],
+    "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+    "source_sha256_after": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+    ],
+    "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+    "source_sha256_after": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SourceStatements.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SourceStatements",
+    "imports": [
+      "Mathlib.Data.Nat.Prime.Basic",
+      "Mathlib.Algebra.Ring.Parity"
+    ],
+    "source_sha256_before": "c12917867050fbb5f3c79eb064d4e5037720d6b0ba1fbeed32d7d3632633dc3e",
+    "source_sha256_after": "c12917867050fbb5f3c79eb064d4e5037720d6b0ba1fbeed32d7d3632633dc3e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/BandConsumer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.BandConsumer",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SourceStatements",
+      "Mathlib.Tactic.NormNum"
+    ],
+    "source_sha256_before": "6c74c89544f678ce502c016bfb9624164fbb01fa14739f2cbee4e3225ca138e5",
+    "source_sha256_after": "6c74c89544f678ce502c016bfb9624164fbb01fa14739f2cbee4e3225ca138e5"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/FiniteBoundary.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.FiniteBoundary",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge"
+    ],
+    "source_sha256_before": "e8b4d680895e115f36c733db438d5361bff28b0011b72537a64299964124543a",
+    "source_sha256_after": "e8b4d680895e115f36c733db438d5361bff28b0011b72537a64299964124543a"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/CompositeWindow.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.CompositeWindow",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.BandConsumer",
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.FiniteBoundary"
+    ],
+    "source_sha256_before": "53949a87f25856816642cbbe9e0594d1197d5db6ee7483a36b8602bc888c9514",
+    "source_sha256_after": "53949a87f25856816642cbbe9e0594d1197d5db6ee7483a36b8602bc888c9514"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SlopeThree.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SlopeThree",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer"
+    ],
+    "source_sha256_before": "18251dd705447bd626c45d27c22e7e88d2d6df40c138bf5d8c033fd41b36b596",
+    "source_sha256_after": "18251dd705447bd626c45d27c22e7e88d2d6df40c138bf5d8c033fd41b36b596"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SlopeThreeFiniteCases.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SlopeThreeFiniteCases",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge"
+    ],
+    "source_sha256_before": "13e964f29c4a21b2f9e9b03213e9bfe54701eb8482ca0723789307b1441f9c1b",
+    "source_sha256_after": "13e964f29c4a21b2f9e9b03213e9bfe54701eb8482ca0723789307b1441f9c1b"
+  }
+]
