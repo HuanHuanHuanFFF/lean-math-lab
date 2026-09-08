@@ -1,0 +1,9 @@
+# Checkpoints
+
+2026-09-08T17:46Z: stopped consumer draft migrated; only final Decidable example repaired by explicit predicate unfolding. New acceptance `verification/20260908T174604Z/evidence.json`: success, exact four-project-source closure rebuilt, 9 guarded audit declarations; only fixed package cache reused. Historical failure remains a failure; new acceptance belongs to new source hashes.
+
+2026-09-08T17:51Z: choose substantive Region I elementary route. Missing global EEES remains exact U<V outside the twelve pairs, n≥2i,i≥1. Primary paper divides proof into five regions using explicit prime estimates and historical finite/smooth-number tables. Dependency agent identified accepted B686 wheel count `77π(N)≤16N+616`; primary adopts this fixed baseline theorem and three minimally sliced MIT power lemmas. Expected new coverage: prove actual U<V for all i≥185,n>i² and feed original gcd/Vandermonde consumer; global EEES at i<185 or 2i≤n≤i² remains. Fresh compile begun; no proof accepted from implementation text alone.
+
+The first feasibility decision is within 40min: pursue the elementary unconditional tail because its complete dependency chain is available and narrowly reusable; do not start a full analytic-number-theory redevelopment. A count/power inequality mismatch or substantive missing proof in this chain would trigger reassessment. Scope and actual frontier will be updated after successful compilation.
+
+2026-09-08T18:04:29.763742+00:00: Final 9-project-source closure accepted with 21 run-local axiom guards and inherited dependency guards. All current source hashes match. Both mathematical subagents have completed; no Lean pipeline remains. Full EEES regions II/IV/V remain substantive missing inputs as described in the source memo. Consolidate and publish the concrete results; do not spend the remaining budget on weaker constants or duplicate finite searches.
