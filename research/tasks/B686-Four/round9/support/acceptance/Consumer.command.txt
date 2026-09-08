@@ -1,0 +1,17 @@
+PowerShell command executed from D:\CodingProject\Math:
+
+$root=(Get-Location).Path
+$mirror=Join-Path $root 'research/tasks/B686-Four/round9/uniform/verification/build'
+$paths=@($mirror,$root,(Join-Path $root '.lake/build/lib/lean'))
+$pkgRoot=Join-Path $root '.lake/packages'
+$pkgDirs=@(Get-ChildItem -LiteralPath $pkgRoot -Directory -ErrorAction SilentlyContinue)
+$paths += @($pkgDirs | ForEach-Object { Join-Path $_.FullName '.lake/build/lib/lean' })
+$env:LEAN_PATH=[string]::Join([IO.Path]::PathSeparator,$paths)
+$lean=Join-Path $root '.tools/elan/toolchains/leanprover--lean4---v4.33.1/bin/lean.exe'
+$out=Join-Path $root 'research/tasks/B686-Four/round9/support/acceptance/Consumer.olean'
+$src=Join-Path $root 'research/tasks/B686-Four/round9/uniform/Consumer.lean'
+& $lean '-DautoImplicit=false' '-DrelaxedAutoImplicit=false' '-o' $out $src
+exit $LASTEXITCODE
+
+LEAN_PATH order (mirror first):
+D:/CodingProject/Math/research/tasks/B686-Four/round9/uniform/verification/build;D:/CodingProject/Math;D:/CodingProject/Math/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/aesop/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/batteries/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/BibtexQuery/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/Cli/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/doc-gen4/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/importGraph/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/lean_math_lab/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/LeanSearchClient/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/leansqlite/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/mathlib/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/MD4Lean/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/plausible/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/proofwidgets/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/Qq/.lake/build/lib/lean;D:/CodingProject/Math/.lake/packages/UnicodeBasic/.lake/build/lib/lean

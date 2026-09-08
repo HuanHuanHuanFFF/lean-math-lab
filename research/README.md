@@ -6,7 +6,7 @@
 |---|---|---|---|---|---|
 | F1 / A071999 | 已知结果形式化 | 已闭合 | 完整通式通过 | AI 独立审查；v0.1.0 已公开；首次性未确认 | [任务记录](tasks/F1-A071999/README.md) |
 | M1 / Hypercomb | 开放问题探索 | 候选完整论证；当前暂停 | 部分关键引理通过 | 同任务AI交叉核验；完整Lean链及新颖性待确认 | [任务记录](tasks/M1-Hypercomb/README.md) |
-| B686 / Four | 开放问题探索 | 第八轮及续段已按额度要求收尾；原题未解 | 完整通用gcd、全局线性π与大小界已Lean验证；完整250000界仍缺分析层与合并 | AI交叉与联合公理审计，无外部评审，新颖性未确认 | [全局缺口](tasks/B686-Four/frontier.md)、[最新续段报告](tasks/B686-Four/round8/continuation/report.md)、[前段报告](tasks/B686-Four/round8/report.md) |
+| B686 / Four | 开放问题探索 | 第九轮收束并整理发布；原题未解，尚未排除全部大长度 | 全长度 `k²<64d` 与旧250000界已Lean闭合；两项偶数高度界仅纸面，非零辅助族未完成 | 完整重编译、公理及消费者审计；独立纸面复核；无新颖性声明 | [全局缺口](tasks/B686-Four/frontier.md)、[第九轮报告](tasks/B686-Four/round9/report.md)、[验收](tasks/B686-Four/round9/support/acceptance/README.md) |
 
 ## 候选与新任务
 

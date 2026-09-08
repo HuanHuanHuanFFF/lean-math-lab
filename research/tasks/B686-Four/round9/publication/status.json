@@ -1,0 +1,89 @@
+{
+  "round": "B686-Four round9",
+  "policy_scan": {"lean_files": 18, "violations": 0, "is_compilation": false},
+  "complete_lean": [
+    {
+      "scope": "uniform LCM64 chain and original 250000 corollary",
+      "claim": "k^2 < 64*(m-n), hence k^2 < 250000*(m-n)",
+      "evidence": [
+        "research/tasks/B686-Four/round9/uniform/verification.json",
+        "research/tasks/B686-Four/round9/uniform/freeze.json",
+        "research/tasks/B686-Four/round9/support/acceptance/README.md"
+      ],
+      "boundary": "does not prove full B686 nonexistence; k and d remain unbounded"
+    },
+    {
+      "scope": "MatchingLcm reusable compression and size bridge",
+      "evidence": ["research/tasks/B686-Four/round9/main/matching-verification.json"],
+      "boundary": "not the full distance theorem by itself"
+    },
+    {
+      "scope": "RankProduct finite prime-rank product bridge",
+      "evidence": ["research/tasks/B686-Four/round9/main/rank-verification.json"],
+      "boundary": "not the full distance theorem or B686"
+    },
+    {
+      "scope": "Algebraic and Choose reusable fragments",
+      "evidence": ["research/tasks/B686-Four/round9/uniform/README.md", "research/tasks/B686-Four/round9/uniform/logs/algebraic-attempt2.json", "research/tasks/B686-Four/round9/uniform/logs/choose-attempt2.json"],
+      "boundary": "separately verified; Constants/ElementaryWeighted/WeightedPrime are not accepted main-chain roots"
+    }
+  ],
+  "paper_or_source_audit": [
+    {
+      "scope": "external Will Blair LCM/18-constant material",
+      "evidence": ["research/tasks/B686-Four/round9/reuse/README.md", "research/tasks/B686-Four/round9/independent/external/README.md", "research/tasks/B686-Four/round9/uniform/README.md"],
+      "boundary": "source and conditions are recorded; external 18 is not locally verified"
+    },
+    {
+      "scope": "main sparse-section, height, window and route analyses",
+      "evidence": ["research/tasks/B686-Four/round9/main/sparse-section-budget.md", "research/tasks/B686-Four/round9/main/routes.md", "research/tasks/B686-Four/round9/independent/external/large_k_findings.md"],
+      "boundary": "paper reasoning and route records retain nonzero/basepoint and global closure gaps"
+    }
+  ],
+  "finite_computation": [
+    {
+      "scope": "k=5, mu=6, D=8 highjet base-locus",
+      "evidence": ["research/tasks/B686-Four/round9/independent/highjet-acceptance/base-locus-audit.json", "research/tasks/B686-Four/round9/independent/highjet-acceptance/README.md"],
+      "result": "rank 24, Q-kernel dimension 11, integer Q-spanning family, exact resultant gcd and no common zero with X>=0 for this fixed support",
+      "boundary": "finite fixed example; not all k or a saturated/optimal lattice claim"
+    },
+    {
+      "scope": "J1/J2 Fraction transcription",
+      "evidence": ["research/tasks/B686-Four/round9/support/jet-check/README.md", "research/tasks/B686-Four/round9/support/jet-check/jet-results.json"],
+      "result": "18/18 finite cases pass",
+      "boundary": "small k and fixed D=k*mu only"
+    },
+    {
+      "scope": "SNF toy/k5 mu1 D2 and highjet LLL subbasis",
+      "evidence": ["research/tasks/B686-Four/round9/support/smith-check/README.md", "research/tasks/B686-Four/round9/support/smith-highjet/README.md"],
+      "result": "toy and small matrix SNF pass; highjet primitive Q-kernel LLL pass",
+      "boundary": "highjet SNF/HNF timed out; LLL result is a sublattice, not saturated"
+    }
+  ],
+  "uncompiled_or_not_locally_verified": [
+    {
+      "scope": "uniform Constants.lean, ElementaryWeighted.lean, WeightedPrime.lean",
+      "evidence": ["research/tasks/B686-Four/round9/uniform/README.md"],
+      "status": "stopped/uncompiled candidates; not main accepted roots"
+    },
+    {
+      "scope": "six independent/external Lean files",
+      "evidence": ["research/tasks/B686-Four/round9/independent/verification.json", "research/tasks/B686-Four/round9/independent/external/README.md"],
+      "status": "external/source material; independent verifier records lean_run=false"
+    }
+  ],
+  "release_boundary": {
+    "original_B686_nonexistence_proved": false,
+    "external_peer_review": false,
+    "independent_kernel_checker": false,
+    "publication_action": "not performed"
+  },
+  "diff_check": {
+    "command_file": "diff-check-command.txt",
+    "diagnostic_file": "diff-check.log",
+    "exit_code": 2,
+    "exit_code_correction": "Primary subprocess.run recheck returned 2; the earlier summary value 1 was incorrect. The ten diagnostics are unchanged.",
+    "warnings": 10,
+    "interpretation": "only new blank lines at EOF under core.whitespace=...cr-at-eol; no real trailing-space warning; frozen bytes retained"
+  }
+}

@@ -1,0 +1,71 @@
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:23:19: error(lean.invalidField): Invalid field `lcm`: The environment does not contain `Finset.lcm`, so it is not possible to project the field `lcm` from an expression
+  Finset.range N
+of type `Finset ℕ`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:28:6: error(lean.unknownIdentifier): Unknown constant `Finset.lcm_eq_zero_iff`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:25:55: error: unsolved goals
+N : ℕ
+hzero : sorry = 0
+⊢ False
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:38:15: error(lean.unknownIdentifier): Unknown constant `Finset.dvd_lcm`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:33:24: error: unsolved goals
+x N : ℕ
+hx : 1 ≤ x
+hxN : x ≤ N
+hj : x - 1 ∈ Finset.range N
+⊢ x ∣ sorry
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:78:8: error(lean.unknownIdentifier): Unknown constant `Finset.lcm_dvd`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:79:8: error: No goals to be solved
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:127:29: error: Tactic `decide` failed for proposition
+  initialLcm 0 ≤ 4 ^ 0
+because its `Decidable` instance
+  (initialLcm 0).decLe (4 ^ 0)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqBool`, `Bool.decEq`, and `Nat.decLe`, reduction got stuck at the `Decidable` instance
+  match (initialLcm 0).ble (4 ^ 0), true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:127:29: error: Tactic `decide` failed for proposition
+  initialLcm 1 ≤ 4 ^ 1
+because its `Decidable` instance
+  (initialLcm 1).decLe (4 ^ 1)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqBool`, `Bool.decEq`, and `Nat.decLe`, reduction got stuck at the `Decidable` instance
+  match (initialLcm 1).ble (4 ^ 1), true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:188:19: error(lean.invalidField): Invalid field `lcm`: The environment does not contain `Finset.lcm`, so it is not possible to project the field `lcm` from an expression
+  Finset.range m
+of type `Finset ℕ`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:194:6: error(lean.unknownIdentifier): Unknown constant `Finset.lcm_eq_zero_iff`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:191:27: error: unsolved goals
+a m : ℕ
+ha : 1 ≤ a
+hzero : sorry = 0
+⊢ False
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:250:36: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:279:8: error(lean.unknownIdentifier): Unknown constant `Finset.lcm_dvd`
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:280:8: error: No goals to be solved
+'B686LcmBounds.initialLcm_le_four_pow' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:296:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686LcmBounds.initialLcm_le_four_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686LcmBounds.initialLcm_le_four_pow' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B686LcmBounds.factorial_mul_intervalLcm_dvd_ascFactorial_mul_initialLcm' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+D:\CodingProject\Math\research\tasks\B686-Four\round9\uniform\InitialLcm.lean:299:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686LcmBounds.factorial_mul_intervalLcm_dvd_ascFactorial_mul_initialLcm' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686LcmBounds.factorial_mul_intervalLcm_dvd_ascFactorial_mul_initialLcm' depends on axioms: [propext,
++  sorryAx,
++  Classical.choice,
++  Quot.sound]

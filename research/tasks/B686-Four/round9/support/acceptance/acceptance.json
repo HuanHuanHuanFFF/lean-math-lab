@@ -1,0 +1,64 @@
+{
+  "acceptance_time": "2026-09-08T06:04:20+08:00",
+  "scope": "read-only audit of uniform freeze/verification evidence plus mirror-first independent Consumer compile",
+  "result": "pass_with_scoped_gaps",
+  "toolchain": "leanprover/lean4:v4.33.1",
+  "lean_version": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "mathlib_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "freeze_audit": {
+    "source_total": 14,
+    "source_sha_matches": 14,
+    "source_missing": 0,
+    "source_sha_mismatches": 0,
+    "verification_report_sha": "match",
+    "verification_report_sha256": "3204514ef9deef5c46a1dfee4d2266006c6a0d558b2dc0d21bdbcbfbbd5a940e"
+  },
+  "verification_source_closure_audit": {
+    "total": 11,
+    "sha_matches": 11,
+    "missing": 0,
+    "sha_mismatches": 0
+  },
+  "record_audit": {
+    "record_total": 13,
+    "log_sha_matches": 13,
+    "log_missing": 0,
+    "log_sha_mismatches": 0,
+    "all_record_exit_codes_zero": true,
+    "all_record_outputs_present_and_matching": true
+  },
+  "independent_consumer": {
+    "source": "research/tasks/B686-Four/round9/uniform/Consumer.lean",
+    "source_sha256": "c81ad9ee2e517c7f880bc0f146b5f853c987bfa8ade3f8f1b8ba77f341253a29",
+    "output": "research/tasks/B686-Four/round9/support/acceptance/Consumer.olean",
+    "output_sha256": "91d28a00664d0a9fdbfe8c5b1e9e4eb7f5700582848c33c5b4da94499c34223f",
+    "exit_code": 0,
+    "stdout_stderr": "empty",
+    "lean_path_first": "research/tasks/B686-Four/round9/uniform/verification/build",
+    "axiom_guards": {
+      "status": "passed",
+      "roots": [
+        "B686UniformRound9.Consumer.original_statement_sixty_four",
+        "B686UniformRound9.Consumer.original_statement",
+        "B686UniformRound9.Consumer.rational_ratio_statement"
+      ],
+      "allowed_transitive_axioms": ["propext", "Classical.choice", "Quot.sound"]
+    }
+  },
+  "statement_correspondence": {
+    "quantifiers": "∀ k n m : ℕ",
+    "conclusions": ["k^2 < 64 * (m - n)", "k^2 < 250000 * (m - n)"],
+    "natural_statement_hypotheses": ["2 ≤ k", "n + k ≤ m", "Icc 1 k product equality with ratio 4"],
+    "rational_statement_hypotheses": ["2 ≤ k", "n + k ≤ m", "4 = B686Target.product k m / B686Target.product k n over ℚ"],
+    "rational_bridge": "B686Target.ratio_iff followed by rational_bound_of_nat_bound and displacement_cast"
+  },
+  "gaps": [
+    "verify.py writes accepted_roots as a report field; this audit relies on the source #guard_msgs blocks and an independent Consumer compile for the three final consumer roots",
+    "this acceptance does not recompile the complete closure",
+    "external_constant_18_locally_verified is false",
+    "original_B686_nonexistence_proved is false",
+    "independent_kernel_checker_used is false"
+  ],
+  "local_only_outputs": ["Consumer.olean (generated locally; gitignored)"],
+  "files": ["README.md", "acceptance.json", "Consumer.command.txt", "Consumer.log", "lean-version.log", "Consumer.olean"]
+}

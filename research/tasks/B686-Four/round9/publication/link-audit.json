@@ -1,0 +1,53 @@
+{
+  "scope": "round9 Markdown local-link and workspace hygiene audit",
+  "markdown_files": 58,
+  "link_targets": 102,
+  "local_existing": 82,
+  "local_missing": 0,
+  "absolute_local_paths": 0,
+  "remote_targets": 20,
+  "remote_unique_targets": 16,
+  "anchor_targets": 0,
+  "link_parser": "Markdown inline/reference links after removing fenced and inline code spans; code arithmetic such as (1+i) is excluded",
+  "workspace_hygiene": {
+    "round9_files_seen": 219,
+    "compiled_cache_files": 19,
+    "compiled_cache_bytes": 9481720,
+    "compiled_cache_staged": 0,
+    "large_files_over_10MB": 0,
+    "staged_files": 177,
+    "staged_compile_cache_files": 0,
+    "staged_pdf_or_image_files": 0,
+    "staged_credential_named_files": 0,
+    "staged_high_confidence_credential_hits": 0,
+    "workspace_high_confidence_credential_hits": 0
+  },
+  "external_assets": {
+    "present_workspace_files": [
+      "independent/external/ELS-1988-26.pdf",
+      "independent/external/ELS-page-1.png",
+      "independent/external/ELS-page-15.png",
+      "independent/external/ELS-page-2.png",
+      "independent/external/ELS-jpeg-1.jpg",
+      "independent/external/ELS-jpeg-2.jpg",
+      "independent/external/ELS-jpeg-15.jpg"
+    ],
+    "gitignore": "independent/external/.gitignore explicitly excludes ELS-1988-26.pdf, ELS-page-*.png and ELS-jpeg-*.jpg",
+    "staged": false,
+    "classification": "explicitly excluded reference PDF/renderings; source README records remote URL and SHA, so not a lost repository source"
+  },
+  "rebuildable_cache": {
+    "classification": "uniform verification/build and local .olean objects are workspace build outputs, not publication source",
+    "new_machine_action": "rebuild with the recorded verify.py command; missing .olean alone is not source loss"
+  },
+  "remote_links": {
+    "unique_count": 16,
+    "classification": "external sources or documentation; require network on a new machine",
+    "not_local_loss": true
+  },
+  "obstacles": [
+    "External ELS PDF/page visual audits require redownload from the recorded remote source and SHA check because the files are intentionally gitignored.",
+    "Lean verification outputs are not staged; a new machine must rebuild the recorded verification mirror and may need the pinned dependencies/cache.",
+    "No true missing local Markdown link, absolute original-machine path, staged PDF/image, or high-confidence credential pattern was found."
+  ]
+}

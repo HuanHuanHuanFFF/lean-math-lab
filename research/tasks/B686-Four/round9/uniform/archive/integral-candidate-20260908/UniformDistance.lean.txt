@@ -1,0 +1,137 @@
+import research.tasks.«B686-Four».round9.uniform.Algebraic
+import research.tasks.«B686-Four».round9.uniform.Choose
+import research.tasks.«B686-Four».round9.uniform.WeightedPrime
+
+namespace B686UniformRound9
+
+open Finset Real
+
+set_option maxHeartbeats 1200000
+
+theorem small_factor_le_exp (k n m : ℕ) (hk : 250000 ≤ k)
+    (hsep : n + k ≤ m) (hm : m < k ^ 3) :
+    ((n+k : ℕ) : ℝ) ^ (2*k-1).primeCounting ≤ (Real.exp 9)^k := by
+  have hkpos : (0 : ℝ) < k := by exact_mod_cast (show 0 < k by omega)
+  have hnk : ((n+k : ℕ) : ℝ) ≤ (k : ℝ)^3 := by exact_mod_cast hsep.trans hm.le
+  have hpi := prime_counting_weighted k hk
+  calc
+    _ ≤ ((k : ℝ)^3) ^ (2*k-1).primeCounting :=
+      pow_le_pow_left₀ (Nat.cast_nonneg _) hnk _
+    _ = Real.exp ((Nat.primeCounting (2*k-1) : ℝ) * (3 * Real.log k)) := by
+      rw [← Real.exp_log (pow_pos (pow_pos hkpos 3) _), Real.log_pow, Real.log_pow]
+      norm_num
+    _ ≤ Real.exp ((k : ℝ)*9) := Real.exp_le_exp.mpr (by nlinarith)
+    _ = (Real.exp 9)^k := Real.exp_nat_mul 9 k
+
+theorem product_le_exp_distance_pow (k n m : ℕ) (hk : 250000 ≤ k)
+    (hsep : n + k ≤ m) (heq : B686Target.product k m = 4 * B686Target.product k n)
+    (hm : m < k ^ 3) :
+    (B686Target.product k n : ℝ) ≤
+      (Real.exp 11 * ((m-n : ℕ) : ℝ)^2 / k)^k := by
+  have hk2 : 2 ≤ k := by omega
+  have hkpos : (0 : ℝ) < k := by exact_mod_cast (show 0 < k by omega)
+  have hkd : k ≤ m-n := by omega
+  have hg : (B686Target.product k n : ℝ) ≤
+      ((k-1).factorial : ℝ) * ((n+k : ℕ) : ℝ) ^ (2*k-1).primeCounting *
+        (Nat.choose (m-n+k-1) (2*k-1) : ℝ) := by
+    exact_mod_cast product_le_factorial_pow_choose k n m hk2 hsep heq
+  have hf : ((k-1).factorial : ℝ) ≤ (k : ℝ)^k := by
+    exact_mod_cast factorial_pred_le_pow k
+  have hs := small_factor_le_exp k n m hk hsep hm
+  have hb := block_choose_le k (m-n) hk2 hkd
+  have hexp : Real.exp 9 * (Real.exp 1)^2 = Real.exp 11 := by
+    rw [show (Real.exp 1)^2 = Real.exp 2 by
+      simpa using (Real.exp_nat_mul 1 2).symm, ← Real.exp_add]
+    norm_num
+  have hbase : (k : ℝ) * Real.exp 9 * (Real.exp 1 * ((m-n : ℕ) : ℝ) / k)^2 =
+      Real.exp 11 * ((m-n : ℕ) : ℝ)^2 / k := by
+    calc
+      _ = (Real.exp 9 * (Real.exp 1)^2) * ((m-n : ℕ) : ℝ)^2 / k := by
+        field_simp
+        ring
+      _ = _ := by rw [hexp]
+  calc
+    _ ≤ ((k-1).factorial : ℝ) * ((n+k : ℕ) : ℝ) ^ (2*k-1).primeCounting *
+        (Nat.choose (m-n+k-1) (2*k-1) : ℝ) := hg
+    _ ≤ (k : ℝ)^k * (Real.exp 9)^k *
+        (Real.exp 1 * ((m-n : ℕ) : ℝ) / k)^(2*k) := by
+      exact mul_le_mul (mul_le_mul hf hs (by positivity) (by positivity)) hb
+        (by positivity) (by positivity)
+    _ = ((k : ℝ) * Real.exp 9 * (Real.exp 1 * ((m-n : ℕ) : ℝ) / k)^2)^k := by
+      simp only [mul_pow, pow_mul]
+    _ = _ := by rw [hbase]
+
+theorem uniform_distance_bound_small_m (k n m : ℕ) (hk : 250000 ≤ k)
+    (hsep : n + k ≤ m) (heq : B686Target.product k m = 4 * B686Target.product k n)
+    (hm : m < k ^ 3) :
+    k ^ 2 < 250000 * (m - n) := by
+  have hk2 : 2 ≤ k := by omega
+  have hkpos : (0 : ℝ) < k := by exact_mod_cast (show 0 < k by omega)
+  have hdpos : (0 : ℝ) < ((m-n : ℕ) : ℝ) := by exact_mod_cast (show 0 < m-n by omega)
+  let A : ℝ := Real.exp 11 * ((m-n : ℕ) : ℝ)^2 / k
+  have hApos : 0 < A := by dsimp [A]; positivity
+  have hg : (B686Target.product k n : ℝ) ≤ A^k :=
+    product_le_exp_distance_pow k n m hk hsep heq hm
+  have hfour : (4 : ℝ) ≤ (2 : ℝ)^k := by
+    exact_mod_cast (Nat.pow_le_pow_right (by decide : 0 < 2) hk2)
+  have hpow : (m : ℝ)^k < (2*A)^k := by
+    calc
+      (m : ℝ)^k < (B686Target.product k m : ℝ) := by
+        exact_mod_cast pow_lt_product k m (by omega) (by omega)
+      _ = 4 * (B686Target.product k n : ℝ) := by exact_mod_cast heq
+      _ ≤ 4 * A^k := mul_le_mul_of_nonneg_left hg (by norm_num)
+      _ ≤ (2*A)^k := by
+        rw [mul_pow]
+        exact mul_le_mul_of_nonneg_right hfour (pow_nonneg hApos.le k)
+  have hmA : (m : ℝ) < 2*A :=
+    (pow_lt_pow_iff_left₀ (Nat.cast_nonneg m) (by positivity) (by omega : k ≠ 0)).mp hpow
+  have hsize : (k : ℝ)*((m-n : ℕ) : ℝ) < 2*(m : ℝ) := by
+    exact_mod_cast (B686Size.size_bounds_nat k n m hk2 hsep heq).1
+  have hratio : (k : ℝ)*((m-n : ℕ) : ℝ) <
+      (4 * Real.exp 11 * ((m-n : ℕ) : ℝ)^2) / k := by
+    have : (k : ℝ)*((m-n : ℕ) : ℝ) < 4*A := by linarith
+    simpa only [A, mul_div_assoc, mul_assoc] using this
+  have hmul := (lt_div_iff₀ hkpos).mp hratio
+  have hmul' : (k : ℝ)^2 * ((m-n : ℕ) : ℝ) <
+      (4 * Real.exp 11 * ((m-n : ℕ) : ℝ)) * ((m-n : ℕ) : ℝ) := by
+    nlinarith only [hmul]
+  have hcancel := (mul_lt_mul_right hdpos).mp hmul'
+  have hfinal : (k : ℝ)^2 < 250000 * ((m-n : ℕ) : ℝ) :=
+    hcancel.trans (mul_lt_mul_of_pos_right four_exp_eleven_lt hdpos)
+  exact_mod_cast hfinal
+
+/-- Every legal ratio-four pair satisfies the explicit quadratic distance bound. -/
+theorem uniform_distance_bound (k n m : ℕ) (hk : 2 ≤ k)
+    (hsep : n + k ≤ m) (heq : B686Target.product k m = 4 * B686Target.product k n) :
+    k ^ 2 < 250000 * (m - n) := by
+  by_cases hsmall : k < 250000
+  · exact B686UniformDistance.uniform_distance_bound_small k n m hk hsmall hsep
+  · have hklarge : 250000 ≤ k := by omega
+    by_cases hmlarge : k^3 ≤ m
+    · exact uniform_distance_bound_large_m k n m hk hsep heq hmlarge
+    · exact uniform_distance_bound_small_m k n m hklarge hsep heq (by omega)
+
+/-- The accepted root displayed directly in the original finite-product notation. -/
+theorem uniform_distance_bound_products (k n m : ℕ) (hk : 2 ≤ k)
+    (hsep : n + k ≤ m)
+    (heq : (∏ i ∈ Finset.Icc 1 k, (m+i)) = 4 * (∏ i ∈ Finset.Icc 1 k, (n+i))) :
+    k ^ 2 < 250000 * (m - n) :=
+  uniform_distance_bound k n m hk hsep heq
+
+/-- info: 'B686UniformRound9.small_factor_le_exp' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms small_factor_le_exp
+/-- info: 'B686UniformRound9.product_le_exp_distance_pow' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms product_le_exp_distance_pow
+/-- info: 'B686UniformRound9.uniform_distance_bound_small_m' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms uniform_distance_bound_small_m
+/-- info: 'B686UniformRound9.uniform_distance_bound' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms uniform_distance_bound
+/-- info: 'B686UniformRound9.uniform_distance_bound_products' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms uniform_distance_bound_products
+
+end B686UniformRound9

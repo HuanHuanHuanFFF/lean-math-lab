@@ -1,0 +1,125 @@
+import research.tasks.«B686-Four».round9.uniform.Constants
+import LinearPrimeCounting
+import Mathlib.NumberTheory.Chebyshev
+import Mathlib.Tactic.FunProp
+
+namespace B686UniformRound9
+
+open Finset Real MeasureTheory
+
+set_option maxHeartbeats 1200000
+
+theorem prime_counting_log_le_theta (k q : ℕ) (hk : 2 ≤ k) (hkq : k ≤ q) :
+    (Nat.primeCounting q : ℝ) * Real.log k ≤
+      Chebyshev.theta q + (Nat.primeCounting k : ℝ) * Real.log k - Chebyshev.theta k := by
+  have hkpos : (0 : ℝ) < k := by exact_mod_cast (show 0 < k by omega)
+  have hfilter : (Nat.primesLE q).filter (fun p => p ≤ k) = Nat.primesLE k := by
+    ext p
+    simp only [Finset.mem_filter, Nat.mem_primesLE]
+    constructor
+    · rintro ⟨⟨hpq, hp⟩, hpk⟩
+      exact ⟨hpk, hp⟩
+    · rintro ⟨hpk, hp⟩
+      exact ⟨⟨hpk.trans hkq, hp⟩, hpk⟩
+  calc
+    _ = ∑ p ∈ Nat.primesLE q, Real.log (k : ℝ) := by
+      simp [Nat.primesLE_card_eq_primeCounting]
+    _ ≤ ∑ p ∈ Nat.primesLE q,
+        (Real.log (p : ℝ) + if p ≤ k then Real.log (k : ℝ) - Real.log (p : ℝ) else 0) := by
+      apply Finset.sum_le_sum
+      intro p hp
+      by_cases hpk : p ≤ k
+      · simp [hpk]
+      · simp only [hpk, ↓reduceIte, add_zero]
+        exact Real.log_le_log hkpos (by exact_mod_cast (show k ≤ p by omega))
+    _ = _ := by
+      rw [Finset.sum_add_distrib, ← Finset.sum_filter, hfilter, Finset.sum_sub_distrib]
+      rw [← Chebyshev.theta_eq_sum_primesLE_log q, ← Chebyshev.theta_eq_sum_primesLE_log k]
+      simp [Nat.primesLE_card_eq_primeCounting] <;> ring
+
+theorem real_prime_counting_mono :
+    Monotone (fun t : ℝ => (Nat.primeCounting ⌊t⌋₊ : ℝ)) := by
+  intro x y hxy
+  exact_mod_cast Nat.monotone_primeCounting (Nat.floor_le_floor hxy)
+
+theorem inv_continuous_on (x : ℝ) (hx : 2 ≤ x) :
+    ContinuousOn (fun t : ℝ => t⁻¹) (Set.uIcc 2 x) := by
+  rw [Set.uIcc_of_le hx]
+  intro t ht
+  have ht0 : t ≠ 0 := by linarith [ht.1]
+  exact ContinuousAt.continuousWithinAt (by fun_prop)
+
+theorem prime_div_interval_integrable (x : ℝ) (hx : 2 ≤ x) :
+    IntervalIntegrable (fun t : ℝ => (Nat.primeCounting ⌊t⌋₊ : ℝ) / t) volume 2 x := by
+  simpa only [div_eq_mul_inv] using
+    (real_prime_counting_mono.intervalIntegrable (a := 2) (b := x)).mul_continuousOn
+      (inv_continuous_on x hx)
+
+theorem integral_inv_two (x : ℝ) (hx : 2 ≤ x) :
+    (∫ t in (2 : ℝ)..x, t⁻¹) = Real.log x - Real.log 2 := by
+  apply intervalIntegral.integral_eq_sub_of_hasDerivAt (f := Real.log)
+  · intro t ht
+    rw [Set.uIcc_of_le hx] at ht
+    exact Real.hasDerivAt_log (by linarith [ht.1])
+  · exact (inv_continuous_on x hx).intervalIntegrable
+
+theorem prime_counting_integral_le (x : ℝ) (hx : 2 ≤ x) :
+    (∫ t in (2 : ℝ)..x, (Nat.primeCounting ⌊t⌋₊ : ℝ) / t) ≤
+      (16 / 77 : ℝ) * x + 8 * Real.log x := by
+  have hinv : IntervalIntegrable (fun t : ℝ => t⁻¹) volume 2 x :=
+    (inv_continuous_on x hx).intervalIntegrable
+  have hupper : IntervalIntegrable (fun t : ℝ => (16 / 77 : ℝ) + 8 * t⁻¹) volume 2 x :=
+    intervalIntegrable_const.add (hinv.const_mul 8)
+  have hmono := intervalIntegral.integral_mono_on hx (prime_div_interval_integrable x hx) hupper
+    (show ∀ t ∈ Set.Icc (2 : ℝ) x,
+        (Nat.primeCounting ⌊t⌋₊ : ℝ) / t ≤ (16 / 77 : ℝ) + 8 * t⁻¹ from by
+      intro t ht
+      have htpos : 0 < t := by linarith [ht.1]
+      have hnat := B686PrimeCounting.prime_counting_linear ⌊t⌋₊
+      have hreal : 77 * (Nat.primeCounting ⌊t⌋₊ : ℝ) ≤ 16 * (⌊t⌋₊ : ℝ) + 616 := by
+        exact_mod_cast hnat
+      have hfloor := Nat.floor_le htpos.le
+      have hlin : (Nat.primeCounting ⌊t⌋₊ : ℝ) ≤ (16 / 77 : ℝ) * t + 8 := by linarith
+      calc
+        _ ≤ ((16 / 77 : ℝ) * t + 8) / t := div_le_div_of_nonneg_right hlin htpos.le
+        _ = _ := by field_simp; ring)
+  have heval : (∫ t in (2 : ℝ)..x, (16 / 77 : ℝ) + 8 * t⁻¹) =
+      (x - 2) * (16 / 77 : ℝ) + 8 * (Real.log x - Real.log 2) := by
+    rw [intervalIntegral.integral_add intervalIntegrable_const (hinv.const_mul 8),
+      intervalIntegral.integral_const, intervalIntegral.integral_const_mul, integral_inv_two x hx]
+    simp only [smul_eq_mul]
+  rw [heval] at hmono
+  have hlog2 : (0 : ℝ) ≤ Real.log 2 := Real.log_nonneg (by norm_num)
+  linarith
+
+theorem prime_counting_weighted (k : ℕ) (hk : 250000 ≤ k) :
+    (Nat.primeCounting (2 * k - 1) : ℝ) * Real.log k < 3 * (k : ℝ) := by
+  have hk2 : 2 ≤ k := by omega
+  have hkpos : (0 : ℝ) < k := by exact_mod_cast (show 0 < k by omega)
+  have hk2R : (2 : ℝ) ≤ k := by exact_mod_cast hk2
+  have hkR : (250000 : ℝ) ≤ k := by exact_mod_cast hk
+  have hsum := prime_counting_log_le_theta k (2*k-1) hk2 (by omega)
+  have hid := Chebyshev.theta_eq_primeCounting_mul_log_sub_integral hk2R
+  simp only [Nat.floor_natCast] at hid
+  have hint := prime_counting_integral_le (k : ℝ) hk2R
+  have htheta := Chebyshev.theta_le_log4_mul_x (Nat.cast_nonneg (2*k-1) : (0 : ℝ) ≤ (2*k-1 : ℕ))
+  have hq : ((2*k-1 : ℕ) : ℝ) ≤ 2*(k : ℝ) := by exact_mod_cast Nat.sub_le (2*k) 1
+  have hlog4nonneg : (0 : ℝ) ≤ Real.log 4 := Real.log_nonneg (by norm_num)
+  have htheta' : Chebyshev.theta (2*k-1 : ℕ) ≤ Real.log 4 * (2*(k : ℝ)) :=
+    htheta.trans (mul_le_mul_of_nonneg_left hq hlog4nonneg)
+  have hlog := log_le_scaled (k : ℝ) hkR
+  have hcoef := mul_lt_mul_of_pos_right log_four_lt hkpos
+  nlinarith
+
+/-- info: 'B686UniformRound9.prime_counting_log_le_theta' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms prime_counting_log_le_theta
+/-- info: 'B686UniformRound9.prime_counting_integral_le' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms prime_counting_integral_le
+/-- info: 'B686UniformRound9.prime_counting_weighted' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms prime_counting_weighted
+
+end B686UniformRound9
+
