@@ -1,0 +1,28 @@
+Lean source policy passed for 11 file(s).
+ℹ [1422/1471] Replayed Math.A071999
+info: Math/A071999.lean:190:0: 'Math.A071999.det_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [1469/1471] Built Math.B699.CofactorCriterion (7.0s)
+✔ [1470/1471] Built Math (8.3s)
+Build completed successfully (1471 jobs).
+Checking Math/A071999.lean
+'Math.A071999.det_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking Math/B677/IntervalLcm.lean
+Checking Math/B699/CofactorCriterion.lean
+Checking Math/Smoke.lean
+Checking Tests/A071999.lean
+Checking Tests/A071999Audit.lean
+def Math.A071999.matrix : (n : ℕ) → Matrix (Fin n) (Fin n) ℤ :=
+fun n i j => if i = j then 1 else if ↑i + ↑j + 2 = n then ↑↑i + 1 else 0
+det_matrix : ∀ (n : ℕ), (matrix n).det = ∏ i ∈ Finset.Icc 1 ((n - 1) / 2), (1 - ↑i * (↑n - ↑i))
+Checking Tests/B677IntervalLcm.lean
+Checking Tests/B699CofactorCriterion.lean
+Checking Examples/CofactorCriterion.lean
+Examples/CofactorCriterion.lean:1:0: error: unknown module prefix 'Math'
+
+No directory 'Math' or file 'Math.olean' in the search path entries:
+WORKTREE\.tools\elan\toolchains\leanprover--lean4---v4.33.1\lib\lean
+Exception: WORKTREE\scripts\verify.ps1:24
+Line |
+  24 |      throw "Lake failed with exit code ${LASTEXITCODE}: $($Arguments - …
+     |      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Lake failed with exit code 1: env lean Examples/CofactorCriterion.lean

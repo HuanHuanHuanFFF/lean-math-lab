@@ -1,0 +1,18 @@
+Lean source policy passed for 7 file(s).
+ℹ [1422/1443] Replayed Math.A071999
+info: Math/A071999.lean:190:0: 'Math.A071999.det_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [1441/1443] Built Math.B677.IntervalLcm (10s)
+✔ [1442/1443] Built Math (10s)
+Build completed successfully (1443 jobs).
+Checking Math/A071999.lean
+'Math.A071999.det_matrix' depends on axioms: [propext, Classical.choice, Quot.sound]
+Checking Math/B677/IntervalLcm.lean
+Checking Math/Smoke.lean
+Checking Tests/A071999.lean
+Checking Tests/A071999Audit.lean
+def Math.A071999.matrix : (n : ℕ) → Matrix (Fin n) (Fin n) ℤ :=
+fun n i j => if i = j then 1 else if ↑i + ↑j + 2 = n then ↑↑i + 1 else 0
+det_matrix : ∀ (n : ℕ), (matrix n).det = ∏ i ∈ Finset.Icc 1 ((n - 1) / 2), (1 - ↑i * (↑n - ↑i))
+Checking Tests/B677IntervalLcm.lean
+Checking Examples/ReusingA071999.lean
+Verified library build and 7 Lean files.
