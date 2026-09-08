@@ -71,4 +71,6 @@ On this Windows workstation keep new installations, downloads, caches, and tempo
 
 ## Contributions and Publication
 
-Use focused commit messages; existing examples use `feat:` and `ci:` with Chinese descriptions. Changes should state the claim, source, assumptions, verification, and remaining gaps. Commit, push, release, and contact others only within explicit authorization. Preserve published tags; verify the exact remote commit and CI outcome when publishing.
+Use focused commit messages; existing examples use `feat:` and `ci:` with Chinese descriptions. Changes should state the claim, source, assumptions, verification, and remaining gaps. Commit, push, release, and contact others only within explicit authorization. Preserve published tags; verify the exact remote commit and report the observed CI status when publishing.
+
+API documentation CI is non-blocking for merge or push handoff. Once the required code/proof checks for the change pass, report the documentation build/deployment's current status and run link when available, then hand off without waiting or repeatedly polling for it. Report pending documentation CI as pending. Wait for documentation completion only when explicitly requested by the user.
