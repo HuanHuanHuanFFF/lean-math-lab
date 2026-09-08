@@ -122,3 +122,20 @@ bash scripts/lean-work.sh lake env lean \
 01:11:50补记：环境线已按ReflectedGeometry→PrimeReflectedSum独立重编两新根，源码policy、Lean和6+3个传递guards全部exit0，无输出/warning，前后源码SHA一致；精确日志及97项交付SHA检查见恢复记录。这是恢复后两根的最终独立验收，不改原14+2集合。
 
 01:11主任务为A的高阶接触尝试补`Mathlib.NumberTheory.Padics.PadicVal.Basic`的精确缓存，仅下载/解压2文件，exit0。第一次误把模块名写成相对源码路径，cache以不存在路径退出1；第二次用已有模块名接口成功。固定pins未改；缓存成功本身不算A的源码编译通过。
+
+## 01:19—01:35 UTC：完整素数幂原题链与统一余因子界
+
+- A的`ReflectedPrimePower.lean`从原题完整推出全p高分支接触。主任务读完全部代码、实际声明和验证记录；不存在将高位置或所需接触作为调用方前提的弱化。原题T非零来自严格反射几何，倍率4在p2处的估值保留。五个关键根有标准传递guard，原始失败和最后编译日志在a/。
+- 主任务`SumPrimePowerExclusion.lean`于01:23最终exit0、五guard通过；对所有k,n,m,p,a，hk≥2、分离、p素数、S=p^a直接推出原等式不成立。a=0和p2均覆盖。第一版只因p^1规范化不匹配被guard拒绝，修复后通过。A读最终消费者，B独立读A核心及消费者、复编并比对实际导入olean，均无数学修复项。对应审查边界由各审查者明示，不称人工同行评审。
+- 主任务`SumCofactorBounds.lean`三个定理于01:28前通过，直接B=S/p^v_p(S)的第4推论于01:29通过；标准四guard。结论为k≤10B、S,m<200B³，无调用者因子证书，无MRSTT前提。第一版错误为B>0的自动算术未展开、Nat.dvd_sub旧拼写和一个多余中间比较；全部修复后验收，未变更数学结论。A独立实际重编并检查原有理商、p2和p不整除S的接口。
+- B的`SumTwoPositionGap.lean`共十一guard已实际通过。主任务完整读代码与报告；原题几何/符号已接通，但完整因子分组和实际误差平方接触仍显式输入，所以是条件Lean界，不冒充完整粗支持构造。B额外的`FullPrimePowerChainReview.lean`是审查探针与假设诊断，不另包装成研究前沿。
+
+环境线[最终四根验收](../environment/final-integration.md)于01:30:56—01:31:15使用独立新输出前缀实际重编，policy/Lean全exit0，守卫5/5/11/4通过，源SHA稳定，复用依赖按既有验收SHA核对。原14+2、恢复后2根、最终4根分别记账，不靠数目衡量题目完成度。主任务另有[实际Lean边界检查](reflected-boundary-checks.md)和恢复后三个原探针完整输出；有限诊断不替代无界证明。
+
+01:36仅文案修正：A指出Cofactor注释“固定B全部参数有界”若包括p∤S时任意选取的辅助p则过宽。已改为固定B使原题k,n,m,S有界，辅助p须另有p∣S才有界；数学声明与证明没改。源SHA从`77b6a20c300d0b3332bff7d1cba0f95132e10eccc6e7c8b5b0e598472f0a064c`变为`8126290dcd084ea05aa27f602674a5fdf220012dce469e008b47974ee28e8fa5`。已通知A和环境线对新源码再次实际验收，旧日志不覆盖；最终以其补记的实际结果为准。
+
+01:43最终补齐：A于01:37:43独立重编新注释版exit0，环境于01:38:42—01:38:48定点复验exit0、4guard通过；两者均确认移除指定注释后源码与原已验收版本逐字节相同。唯一意见关闭，其余三个最终根沿用未变化源码和01:31真实执行证据，不虚构再次执行。主任务完整读回两份补记及新SHA。
+
+主任务再次运行全round9与Math/Tests/Examples源码policy，27个源码文件通过；最终环境63项SHA清单校验exit0。对基线9d40393比较根README、AGENTS、固定pins、正式数学库、测试示例及CI，无变化。文档相对链接扫描涉及60份Markdown、166处链接；4个未按当前位置解析的链接全部位于原样保留的历史环境报告快照，其基准应为原environment目录，当前研究入口无缺失文件链接。为保留原始证据，没有重写该快照或其SHA。另修复frontier表格的空行和完整p幂记法，避免Markdown将竖线误分列。
+
+01:46最终暂存检查：全文件`git diff --cached --check`只报告两份原始失败log中Lean警告自带的行末空格，以及原样docstring.diff的一条空上下文行；它们作为原始证据保留，不改写以伪造空白绿灯。排除`.log`与`.diff`后的同一检查exit0，当前数学源、脚本、报告及入口无空白诊断。未将这一检查称作Lean或CI验证。

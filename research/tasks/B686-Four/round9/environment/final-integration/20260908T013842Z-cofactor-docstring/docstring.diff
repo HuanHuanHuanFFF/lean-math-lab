@@ -1,0 +1,12 @@
+--- verified-20260908T013056Z/SumCofactorBounds.lean
++++ current/SumCofactorBounds.lean
+@@ -130,7 +130,8 @@
+     change S<4*c*k*B^2
+     nlinarith [Nat.mul_pos hck (pow_pos hB 2)]
+ 
+-/-- All parameters of each fixed complementary-factor family are bounded.
++/-- For fixed B, the original variables k,n,m and S are bounded. An auxiliary
++prime not dividing S is unrestricted; bounding it additionally requires p | S.
+ The complementary factor B remains unrestricted across the full problem. -/
+ theorem original_sum_cofactor_bounds (k n m p B : ℕ)
+     (hk : 2≤k) (hsep : n+k≤m) (heq : product k m=4*product k n)

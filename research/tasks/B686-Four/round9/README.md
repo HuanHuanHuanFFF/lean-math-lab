@@ -27,15 +27,15 @@
 
 各分支保留简洁、带来源的研究摘要、实际命令、反例及方法失败诊断，不保存声称逐字还原的内部思考。研究状态、Lean状态、审查、新颖性、发布分开记录。
 
-## 当前状态
+## 当前状态与接续入口
 
-检查点：2026-09-08 01:02 UTC / 上海09:02；正常截止仍02:00 UTC，未延期。原题未解，新颖性未确认。
+2026-09-08 01:45 UTC交付记录；数学源码和独立验收已冻结，正常上海10:00截止不变，未延期。[本轮完整报告](report.md)给出结果、失败、证据和下一检查，最新发布提交以本分支历史为准。
 
-- **纸面高度限制 M9-3**：[整合证明](main/prime-synchronization-theorem.md)使用MRSTT2022出版Prop1.13(ii)，给固定δ∈(0,1/2)时充分大k原解的 `log m>(log(2k))^(3/2−δ)`。完整高度结论尚未Lean。
-- **原题Lean应用链**：[OriginalDiscrepancy.lean](main/OriginalDiscrepancy.lean)从原自然数等式及k≥802推出固定C∞函数的真实素数采样误差≥`k/(160 log(4k))`，无外加分析前提。外部估计及渐近组装仍缺失；不能称所有k≥802无解。14个先前新验收根含一个diagnostic，另2个旧依赖不计新增。
-- **对称和的完整子族排除 M9-8（纸面）**：[主证明](main/sum-structure-theorems.md)令 `S=m+n+k+1`，证明全k≥2下S既非素数幂，也非其两倍；对任意p^a||S、B=S/p^a，有 `k≤10B,S<200B³`。A、B分别独立重证，主任务读完两份全文。无未知阈值，不依赖MRSTT，但全p接触尚未Lean。
-- **任意素数的距离平衡 M9-7（纸面）**：[证明](main/all-prime-power-balance.md)及[A独审](a/all-prime-distance-independent-audit.md)给p^a||d时 `d<12(d/p^a)²k²,m<16(d/p^a)²k³`，包括2、3。固定多项式余因子子族可接M9-3，余因子无界仍未排除。
-- **两位置与方法障碍**：中心两位置单位校正已经A独审；[真实矩系数高度障碍](main/central-coefficient-height-general.md)已经B独审，阻止固定次数、低系数高度、统一接触优势这一具体模板；并非所有辅助式都失败。[运输秩二反例](b/offline-three-position-and-transport-checkpoint.md)、[阶乘比适用性](main/factorial-ratio-checkpoint.md)保留失败条件与可重启理由。
-- **恢复后的Lean任务**：[ReflectedGeometry.lean](main/ReflectedGeometry.lean)已实际证明原题反射位置窗、S>k²+1和k5/S50完整有限尾；[PrimeReflectedSum.lean](main/PrimeReflectedSum.lean)已从原题完整排除S本身为素数的子族。两个根共9项传递公理守卫与独立重编于01:11前通过。指数>1的完整素数幂结论仍未Lean。A攻全p接触接口，B验证M9-9两位置整数间隙，01:40冻结，不以堆积容易引理替代缺口。
-- **环境和保存**：23:21左右执行器掉线，其间继续纸面及可用V8精确计算，通过GitHub保存到第六检查点 `25b25fa9bddd77386223d9e7c6b94ad1497ff365`。00:54正常只读重试成功；主任务将8个dirty路径存入可恢复stash，fetch/ff远端后逐文件还原原始资料，未覆盖远端新增记录。已恢复固定工具链验证，见[恢复记录](environment/runtime-recovery.md)。
-- **发布边界**：未改main分支、根README、固定依赖或CI，未创建PR/投稿。分支push不触发现有CI，不能声称GitHub Actions绿灯。已推送检查点与后续实际验证见[交流账本](exchanges.md)和[验证账本](main/verification.md)。
+- **已Lean：**原题反射和S=m+n+k+1不可能是任何素数幂p^a；对任意素数p，B=S/p^v_p(S)满足k≤10B、S,m<200B³。没有额外高阶接触或因子证书前提。固定B界的是原题变量，B本身仍无界。
+- **已Lean的另一条应用链：**原解k≥802强迫固定C∞函数的真实素数采样误差≥k/(160 log(4k))；MRSTT外部估计与完整渐近高度结论仍为纸面层，不能称所有k≥802无解。
+- **纸面／条件边界：**S非两倍素数幂的完整归约尚未Lean；两粗位置的跨k界已有Lean整数终结器和原题几何，但完整分组及平方接触仍显式输入；全p距离界与真实矩系数高度障碍有独立纸面审计，未Lean。
+- **复核：**全素数幂链由B独立读源、重编并比对导入；两个消费者由A独审；环境线使用固定依赖、独立输出目录、源码SHA和可失败公理guard。最终审查只改了一处辅助p量词的注释，不改证明；修改后再次验收。
+- **保存：**第七检查点a552887已推送并本地/远端对齐；本次提交在其上保存最后四根及独审、验证和交接记录，确切提交见分支历史。23:21—00:54掉线期间只做纸面/V8，恢复后原资料和检查均已补齐。保留可恢复stash，不强推、不覆盖；过程见[交流账本](exchanges.md)。
+- **未做：**未解完整686，未确认新颖性，未改根README/main分支/固定pins/CI，未创建PR或投稿，分支push没有远端CI绿灯。
+
+按[最终验收入口](environment/final-integration.md)、[恢复验收](environment/runtime-recovery.md)、[验证账本](main/verification.md)复验；按[全局前沿](../frontier.md)选择下一方向，不默认继承旧k5扫描路线。

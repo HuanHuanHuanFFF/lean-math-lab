@@ -6,7 +6,7 @@
 |---|---|---|---|---|---|
 | F1 / A071999 | 已知结果形式化 | 已闭合 | 完整通式通过 | AI 独立审查；v0.1.0 已公开；首次性未确认 | [任务记录](tasks/F1-A071999/README.md) |
 | M1 / Hypercomb | 开放问题探索 | 候选完整论证；当前暂停 | 部分关键引理通过 | 同任务AI交叉核验；完整Lean链及新颖性待确认 | [任务记录](tasks/M1-Hypercomb/README.md) |
-| B686 / Four | 开放问题探索 | 第九轮进行中：素数同步的全局高度限制纸面链；原题未解 | 新精确零和与封闭式条带接口通过；完整采样/积分链及旧250000链均未完成 | 原始文献核对、独立AI几何审计；无外部评审，新颖性未确认 | [全局缺口](tasks/B686-Four/frontier.md)、[第九轮](tasks/B686-Four/round9/README.md)、[前轮续段](tasks/B686-Four/round8/continuation/report.md) |
+| B686 / Four | 开放问题探索 | 第九轮已形成交付：反射和结构与全局高度限制；原题未解 | 原题S为任意素数幂已排除；任意固定余因子族的原题变量显式有界；完整光滑采样应用链已核，外部分析和旧250000链仍未完成 | 固定工具链重编、公理守卫、源对齐与独立AI审查；无外部评审，新颖性未确认 | [全局缺口](tasks/B686-Four/frontier.md)、[第九轮报告](tasks/B686-Four/round9/report.md)、[前轮续段](tasks/B686-Four/round8/continuation/report.md) |
 
 ## 候选与新任务
 
