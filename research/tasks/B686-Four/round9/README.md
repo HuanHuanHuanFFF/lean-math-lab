@@ -29,12 +29,13 @@
 
 ## 当前状态
 
-检查点：2026-09-07 23:05 UTC / 上海07:05，整轮继续进行。
+检查点：2026-09-08 00:00 UTC / 上海08:00，整轮继续，正常截止仍02:00 UTC。
 
-- 两个独立起步分支分别重现了旧偶数长度Runge界、旧k=5亏格2改写；交流后识别为重复，不计新前沿。
-- 主任务提出M9-3，B修复单向函数在D=2处的失败，A独立复核全D版本并独立直接核读出版源/整条应用；当前[整合纸面论证](main/prime-synchronization-theorem.md)给出所有固定多项式高度区域的大k排除，更精确界是 `log m>(log(2k))^(3/2−δ)`。依赖MRSTT2022分析定理，尚非Lean全链。
-- [OriginalDiscrepancy.lean](main/OriginalDiscrepancy.lean)现已由原题自然数条件和k≥802，无额外分析假设地证明固定光滑W的采样误差≥`k/(160 log(4k))`。光滑构造、真实积分、权重换元和旧大小界均已接通；外部MRSTT误差上界、范数接口及渐近高度组装仍未全Lean化。14个新验收根含1个diagnostic，另2个旧依赖不算新成果。详见[验证账本](main/verification.md)与[独立验收脚本](environment/verify-round9.sh)，文件计数不等于完成度。
-- [固定局部筛障碍](b/crt-obstruction.md)可制造任意高的非解。[运输矩阵](a/transport-matrix-checkpoint.md)没有全局闭合；[二次两对数转移](b/two-log-transfer.md)仍留高度缺口。但[原余因子的额外单位系数](b/cofactor-structure-and-pell.md)给固定中心两位置带、A≤k^B的多项式高度，独立审查进行中。[高幂窗口审计](a/prime-power-window-audit.md)记录精确方法障碍而非新排除。A转审中心两位置，B试中心三位置，不无结构增大筛表。
-- 固定基础工具链及当前积分根定向缓存已恢复，包revision逐项核对；缓存成功和数学编译成功分列。
-- 三次检查点已推送，第三次为 `77c1bfa3e3c8f4be6f7312c8a1158fd73311c901`，本地与远端tree一致。原仓库policy/build/Tests/Example的等价本地验证已全部exit0。现有CI只由main推送/PR/手动触发，分支推送不触发；不能把本地通过或PR-workflow查询空列表当作GitHub Actions绿色。后续推送写入交流账本。
-- 研究、Lean、独立审查、新颖性与发布状态分开报告；新颖性未确立，原题未解决。初步成果不会提前终止用户指定的整轮预算。
+- M9-3的[整合纸面证明](main/prime-synchronization-theorem.md)给固定多项式高度区域的大k排除；更精确界为 `log m>(log(2k))^(3/2−δ)`。使用MRSTT2022出版定理，全D几何、原源与应用链已独立AI审查；完整高度结论尚非Lean定理。
+- [OriginalDiscrepancy.lean](main/OriginalDiscrepancy.lean)已经由原题自然数条件与k≥802，无额外分析假设地证明固定C∞测试函数的采样误差≥`k/(160 log(4k))`。真实积分、权重换元、周期接缝、原参数均接通；外部MRSTT分析估计、范数接口和渐近组装仍未完成。14个新验收根含1个diagnostic，另2个旧依赖不算新成果；文件计数不衡量题目完成度。
+- 中心两位置的[单位校正](b/cofactor-structure-and-pell.md)已经通过A独立纸面审查；准确范围仍为固定中心带和多项式光滑部分A。[A的离线交付](a/offline-audit-and-smooth-part-checkpoint.md)还给无界A的局部非解族，明确不满足实比例窗，没有去掉A假设。
+- 三位置自由矩障碍不排除真实矩辅助空间。[主任务独立检查](main/three-moment-independent.md)确认D5/R6真实核维3；[系数高度候选](main/central-coefficient-height.md)追查实际小素数造成的分母代价，仍在独审，未Lean。[B运输秩二模板](b/offline-three-position-and-transport-checkpoint.md)达到停止条件：局部平方、短循环和秩二不能单独给高度上限。
+- 新优先候选[全素数幂平衡](main/all-prime-power-balance.md)试图对任意p|d给 `p^(2v_p(d))<12k²d`，从而排除大k的近素数幂距离族。A正在独审，不能提前当作已接受或Lean结果。
+- 固定工具链、14根及2旧依赖的冷输出验收、原仓库等价本地验证均在掉线前实际通过；依赖版本没改。23:21左右exec-server掉线，至23:55正常只读检查仍409，见[故障记录](environment/runtime-disconnection.md)。此后做的是纸面/可用V8精确诊断，不是新的Lean执行。
+- 四次代码检查点已本地/远端对齐推送，第四次 `2a216ebaf1d3fb0e8b72de0d34043bf61d31bf79`。第五次 `fef27142de61d4b8a1f53b83b3c7d93e5300e430` 经GitHub直接保存离线记录并核对远端；不能声称本地同步。分支push不触发当前CI，没有GitHub Actions绿色结论。后续提交见[交流账本](exchanges.md)。
+- 原题未解，新颖性未确立，未改根README/main分支/固定依赖/CI，未创建PR或对外投稿。记录与结果继续按用户授权保护到正常截止。
