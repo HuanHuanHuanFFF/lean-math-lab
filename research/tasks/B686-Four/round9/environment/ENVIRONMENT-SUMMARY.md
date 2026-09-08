@@ -183,8 +183,9 @@ C∞ 窗口下的无条件自然数桥接结论；MRSTT 外部分析和渐近高
   `Math/Tests/Examples` validation 已通过，未运行 research 全仓库 build。
 - 9 个 manifest package 的 checkout revision 已逐项核对为 `OK`，详见 `package-pin-verification.log`。
 - 一次初始 package-revision 汇总命令因 Python 内联引号错误失败，随后用 heredoc 重跑成功；不是 Lean/cache 失败，保留在最终命令输出记录中。
-- 除上述记录的 focused roots 外，没有执行其它 cache 请求；`OriginalDiscrepancy` 与后续
-  main 开发根仍未纳入 verifier。
+- 除上述记录的 focused roots 外，没有执行其它 cache 请求。更正旧尾注：`OriginalDiscrepancy`
+  已在23:02:35–23:03:26的最终14根验收中通过（见上方实际日志）；掉线后新增的纸面候选
+  没有进入 verifier，也没有被称为新Lean结果。此文案更正于2026-09-08 00:27 UTC，不是新执行。
 
 ## 官方仓库验证命令与本地成本估计（只读）
 

@@ -29,13 +29,13 @@
 
 ## 当前状态
 
-检查点：2026-09-08 00:00 UTC / 上海08:00，整轮继续，正常截止仍02:00 UTC。
+检查点：2026-09-08 01:02 UTC / 上海09:02；正常截止仍02:00 UTC，未延期。原题未解，新颖性未确认。
 
-- M9-3的[整合纸面证明](main/prime-synchronization-theorem.md)给固定多项式高度区域的大k排除；更精确界为 `log m>(log(2k))^(3/2−δ)`。使用MRSTT2022出版定理，全D几何、原源与应用链已独立AI审查；完整高度结论尚非Lean定理。
-- [OriginalDiscrepancy.lean](main/OriginalDiscrepancy.lean)已经由原题自然数条件与k≥802，无额外分析假设地证明固定C∞测试函数的采样误差≥`k/(160 log(4k))`。真实积分、权重换元、周期接缝、原参数均接通；外部MRSTT分析估计、范数接口和渐近组装仍未完成。14个新验收根含1个diagnostic，另2个旧依赖不算新成果；文件计数不衡量题目完成度。
-- 中心两位置的[单位校正](b/cofactor-structure-and-pell.md)已经通过A独立纸面审查；准确范围仍为固定中心带和多项式光滑部分A。[A的离线交付](a/offline-audit-and-smooth-part-checkpoint.md)还给无界A的局部非解族，明确不满足实比例窗，没有去掉A假设。
-- 三位置自由矩障碍不排除真实矩辅助空间。[主任务独立检查](main/three-moment-independent.md)确认D5/R6真实核维3；[系数高度候选](main/central-coefficient-height.md)追查实际小素数造成的分母代价，仍在独审，未Lean。[B运输秩二模板](b/offline-three-position-and-transport-checkpoint.md)达到停止条件：局部平方、短循环和秩二不能单独给高度上限。
-- 新优先候选[全素数幂平衡](main/all-prime-power-balance.md)试图对任意p|d给 `p^(2v_p(d))<12k²d`，从而排除大k的近素数幂距离族。A正在独审，不能提前当作已接受或Lean结果。
-- 固定工具链、14根及2旧依赖的冷输出验收、原仓库等价本地验证均在掉线前实际通过；依赖版本没改。23:21左右exec-server掉线，至23:55正常只读检查仍409，见[故障记录](environment/runtime-disconnection.md)。此后做的是纸面/可用V8精确诊断，不是新的Lean执行。
-- 四次代码检查点已本地/远端对齐推送，第四次 `2a216ebaf1d3fb0e8b72de0d34043bf61d31bf79`。第五次 `fef27142de61d4b8a1f53b83b3c7d93e5300e430` 经GitHub直接保存离线记录并核对远端；不能声称本地同步。分支push不触发当前CI，没有GitHub Actions绿色结论。后续提交见[交流账本](exchanges.md)。
-- 原题未解，新颖性未确立，未改根README/main分支/固定依赖/CI，未创建PR或对外投稿。记录与结果继续按用户授权保护到正常截止。
+- **纸面高度限制 M9-3**：[整合证明](main/prime-synchronization-theorem.md)使用MRSTT2022出版Prop1.13(ii)，给固定δ∈(0,1/2)时充分大k原解的 `log m>(log(2k))^(3/2−δ)`。完整高度结论尚未Lean。
+- **原题Lean应用链**：[OriginalDiscrepancy.lean](main/OriginalDiscrepancy.lean)从原自然数等式及k≥802推出固定C∞函数的真实素数采样误差≥`k/(160 log(4k))`，无外加分析前提。外部估计及渐近组装仍缺失；不能称所有k≥802无解。14个先前新验收根含一个diagnostic，另2个旧依赖不计新增。
+- **对称和的完整子族排除 M9-8（纸面）**：[主证明](main/sum-structure-theorems.md)令 `S=m+n+k+1`，证明全k≥2下S既非素数幂，也非其两倍；对任意p^a||S、B=S/p^a，有 `k≤10B,S<200B³`。A、B分别独立重证，主任务读完两份全文。无未知阈值，不依赖MRSTT，但全p接触尚未Lean。
+- **任意素数的距离平衡 M9-7（纸面）**：[证明](main/all-prime-power-balance.md)及[A独审](a/all-prime-distance-independent-audit.md)给p^a||d时 `d<12(d/p^a)²k²,m<16(d/p^a)²k³`，包括2、3。固定多项式余因子子族可接M9-3，余因子无界仍未排除。
+- **两位置与方法障碍**：中心两位置单位校正已经A独审；[真实矩系数高度障碍](main/central-coefficient-height-general.md)已经B独审，阻止固定次数、低系数高度、统一接触优势这一具体模板；并非所有辅助式都失败。[运输秩二反例](b/offline-three-position-and-transport-checkpoint.md)、[阶乘比适用性](main/factorial-ratio-checkpoint.md)保留失败条件与可重启理由。
+- **恢复后的Lean任务**：[ReflectedGeometry.lean](main/ReflectedGeometry.lean)已实际证明原题反射位置窗、S>k²+1和k5/S50完整有限尾；[PrimeReflectedSum.lean](main/PrimeReflectedSum.lean)已从原题完整排除S本身为素数的子族。两个根共9项传递公理守卫与独立重编于01:11前通过。指数>1的完整素数幂结论仍未Lean。A攻全p接触接口，B验证M9-9两位置整数间隙，01:40冻结，不以堆积容易引理替代缺口。
+- **环境和保存**：23:21左右执行器掉线，其间继续纸面及可用V8精确计算，通过GitHub保存到第六检查点 `25b25fa9bddd77386223d9e7c6b94ad1497ff365`。00:54正常只读重试成功；主任务将8个dirty路径存入可恢复stash，fetch/ff远端后逐文件还原原始资料，未覆盖远端新增记录。已恢复固定工具链验证，见[恢复记录](environment/runtime-recovery.md)。
+- **发布边界**：未改main分支、根README、固定依赖或CI，未创建PR/投稿。分支push不触发现有CI，不能声称GitHub Actions绿灯。已推送检查点与后续实际验证见[交流账本](exchanges.md)和[验证账本](main/verification.md)。

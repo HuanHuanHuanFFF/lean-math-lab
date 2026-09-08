@@ -89,3 +89,36 @@ ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" \
 ## 仓库原有验证范围
 
 环境任务的 `official-validation-equivalent.log`：pwsh不可用，按脚本相同顺序运行源码policy、原 `lake build`、两个Tests及一个Example。2026-09-07 22:52:34—22:52:48 UTC，各步exit0，总exit0。固定依赖未改。这是真实本地标准验证，不是研究根全覆盖或GitHub Actions通过的代称。
+
+## 2026-09-08 00:27 UTC：补齐最终验收与掉线边界
+
+上面22:52—23:02条目的“13根、OriginalDiscrepancy待纳入”是当时状态，现明确补齐：环境任务23:02:35—23:03:26实际完成14个新根及2个旧依赖的冷输出验收，exit0，所有新根有标准传递公理guard，前后源码hash相同。证据已在第四检查点的环境逐根日志内。没有因文案补记而虚构一次新的执行。
+
+23:21左右exec-server掉线，后续正常检查持续409。此后没有新Lean或shell验证；主任务和研究agent确实使用仍可用的code-mode V8执行了另行标记的精确BigInt/有理数诊断，它们不是Lean内核验证。
+
+环境辅助对第六检查点的只读声明审计确认14+2验收集合未混入新的纸面候选，CI分支不触发、本地未同步也均明确保留；它发现本账本上述历史条目缺最终补记、环境摘要尾部有一句过时声明。主任务亲自读回文件后补齐，未改旧命令输出、源文件、固定版本、验收集合或CI规则。
+
+## 01:01—01:08 UTC：恢复后的原题反射链
+
+00:54主任务正常只读检查成功，运行器恢复。环境线独立重编此前14根及2个旧依赖，全exit0；四份V8诊断用Node重跑与保存JSON逐字节一致，见[恢复记录](../environment/runtime-recovery.md)。没有改固定依赖。
+
+主任务实际运行（两文件分别使用相应basename）：
+
+```sh
+ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" \
+LEAN_PATH="$PWD/.lake/round9-verify/olean:$PWD" \
+bash scripts/lean-work.sh lake env lean \
+  -o .lake/round9-verify/olean/research/tasks/B686-Four/round9/main/ReflectedGeometry.olean \
+  research/tasks/B686-Four/round9/main/ReflectedGeometry.lean
+```
+
+- `ReflectedGeometry.lean`：原题反射乘积重排、每个位置的严格窗口 `2z<S<5z`、`S>k²+1`、差量窗口，以及原始乘积下全部k5/S50有限尾。最终6个传递公理guard实际通过，01:01前exit0，无输出。
+- `PrimeReflectedSum.lean`：先证一般反射 `S∣15P_k(n)²`，再从原题k≥2、分离、S为素数直接排除倍率4。最终3个传递公理guard于01:08前实际通过，exit0，无输出；没有把高阶接触写成前提。这完整覆盖素数幂指数1的无限子族，指数>1仍未在这里形式化。
+
+两个新根与之前14根分组计账，独立环境重编正在进行。原`blockProduct`和`B686Target.product`定义相同，桥接由Lean接受；有限尾直接检查原产品而非代理多项式。没有新增公理、本机决策捷径或已接受的占位证明。
+
+开发失败：PrimeReflectedSum首次使用`convert ... <;> ring`碰到整数整除实例的命题相等，改为先证显式环恒等式再改写；`Finset.prod_pow`方向曾写反，查实际定义后修复。首次失败产生的`#guard_msgs`拒绝了含sorryAx的临时失败依赖，失败版本未验收。目录检索还需要`rg --hidden --no-ignore`才能搜索被忽略的隐藏依赖目录；空搜索不等于库中没有引理。
+
+01:11:50补记：环境线已按ReflectedGeometry→PrimeReflectedSum独立重编两新根，源码policy、Lean和6+3个传递guards全部exit0，无输出/warning，前后源码SHA一致；精确日志及97项交付SHA检查见恢复记录。这是恢复后两根的最终独立验收，不改原14+2集合。
+
+01:11主任务为A的高阶接触尝试补`Mathlib.NumberTheory.Padics.PadicVal.Basic`的精确缓存，仅下载/解压2文件，exit0。第一次误把模块名写成相对源码路径，cache以不存在路径退出1；第二次用已有模块名接口成功。固定pins未改；缓存成功本身不算A的源码编译通过。
