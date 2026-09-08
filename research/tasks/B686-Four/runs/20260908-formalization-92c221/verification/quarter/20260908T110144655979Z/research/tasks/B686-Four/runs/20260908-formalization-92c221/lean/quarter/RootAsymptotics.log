@@ -1,0 +1,61 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:21:2: error: failed to prove positivity/nonnegativity/nonzeroness
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:20:42: warning: This simp argument is unused:
+  zero_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im,
+    mul_zero, sub_self, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:20:52: warning: This simp argument is unused:
+  sub_self
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im,
+    mul_zero, zero_mul, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:20:62: warning: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im,
+    mul_zero, zero_mul, sub_self]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:33:2: error: Type mismatch
+  div_nonneg
+    (add_nonneg (mul_nonneg (complex_sqrt_re_nonneg ?m.39) (complex_sqrt_re_nonneg ?m.40))
+      (mul_nonneg (complex_sqrt_im_nonneg z hz) (complex_sqrt_im_nonneg z hz)))
+    (normSq_nonneg ?m.50)
+has type
+  0 ≤ ((sqrt ?m.39).re * (sqrt ?m.40).re + z.sqrt.im * z.sqrt.im) / normSq ?m.50
+but is expected to have type
+  0 ≤ (z - ↑a).sqrt.re * z.sqrt.re / normSq z.sqrt + (z - ↑a).sqrt.im * z.sqrt.im / normSq z.sqrt
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:43:65: error: Type mismatch: After simplification, term
+  gt_mem_nhds
+    (Mathlib.Meta.NormNum.isNat_lt_true (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero)
+      (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_one) (Eq.refl false))
+ has type
+  ∀ᶠ (x : ℝ) in 𝓝 0, x < 1
+but is expected to have type
+  ∀ᶠ (y : ℝ) in 𝓝 1, 0 < y
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:52:4: error: Type mismatch: After simplification, term
+  Tendsto.comp
+    (ContinuousAt.tendsto
+      (continuousAt_sqrt
+        (of_eq_true
+          (Eq.trans (congr (congrArg Or zero_le_one._simp_1) (Eq.trans (congrArg Not (eq_self 0)) not_true_eq_false))
+            (or_false True)))))
+    hsq
+ has type
+  @Tendsto α ℂ (sqrt ∘ fun x => f x ^ 2) l (𝓝 1)
+but is expected to have type
+  @Tendsto α ℂ (fun x => (f x ^ 2).sqrt) l (𝓝 1)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean:98:2: error: failed to synthesize
+  HasDistribNeg ℂ
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

@@ -1,0 +1,28 @@
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/b/SumTwoPositionGap.lean
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwoPositionSupport.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwoPositionSupport.lean:34:2: error: Tactic `apply` failed: could not unify the conclusion of `prod_congr rfl`
+  Finset.prod ?m.25 ?m.22 = Finset.prod ?m.25 ?m.23
+with the goal
+  ∏ p ∈ (∏ p ∈ S.primeFactors, p ^ S.factorization p).primeFactors,
+      p ^ padicValNat p (∏ p ∈ S.primeFactors, p ^ S.factorization p) =
+    ∏ p ∈ S.primeFactors, p ^ S.factorization p
+
+Note: The full type of `prod_congr rfl` is
+  (∀ x ∈ ?m.25, ?m.22 x = ?m.23 x) → Finset.prod ?m.25 ?m.22 = Finset.prod ?m.25 ?m.23
+
+S : ℕ
+hS : S ≠ 0
+⊢ ∏ p ∈ (∏ p ∈ S.primeFactors, p ^ S.factorization p).primeFactors,
+      p ^ padicValNat p (∏ p ∈ S.primeFactors, p ^ S.factorization p) =
+    ∏ p ∈ S.primeFactors, p ^ S.factorization p
+'B686Formalization.original_two_position_support_bounds' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwoPositionSupport.lean:148:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Formalization.original_two_position_support_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Formalization.original_two_position_support_bounds' depends on axioms: [propext,
++  sorryAx,
++  Classical.choice,
++  Quot.sound]

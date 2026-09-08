@@ -1,0 +1,22 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/AnalyticRemainder.lean:30:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/AnalyticRemainder.lean:59:4: error: Type mismatch: After simplification, term
+  Tendsto.div hEt hden
+    (Mathlib.Meta.NormNum.isNat_eq_false (Mathlib.Meta.NormNum.isNat_ofNat ℂ (Eq.refl 2))
+      (Mathlib.Meta.NormNum.isNat_ofNat ℂ Nat.cast_zero) (Eq.refl false))
+ has type
+  @Tendsto ℂ ℂ ((fun z => -eval z (P ^ 2 - B) / z ^ s) / fun z => (f z + eval z P) / z ^ s) l (𝓝 0)
+but is expected to have type
+  @Tendsto ℂ ℂ (fun z => -eval z (P ^ 2 - B) / z ^ s / ((f z + eval z P) / z ^ s)) l (𝓝 0)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/AnalyticRemainder.lean:106:35: error(lean.unknownIdentifier): Unknown identifier `eval₂_prod`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/AnalyticRemainder.lean:104:85: error: unsolved goals
+s : ℕ
+z : ℂ
+⊢ eval₂ (Int.castRingHom ℂ) z (∏ x ∈ range (2 * s), (X - (2 * ↑x + 1) ^ 2)) =
+    ∏ x ∈ range (2 * s), (z - (2 * ↑x + 1) ^ 2)

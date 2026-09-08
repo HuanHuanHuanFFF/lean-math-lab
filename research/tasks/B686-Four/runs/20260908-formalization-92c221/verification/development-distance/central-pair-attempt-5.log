@@ -1,0 +1,12 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/DistanceRoughSupport.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/DistanceRoughSupport.lean:21:2: error: Tactic `apply` failed: could not unify the conclusion of `@prod_pos`
+  0 < ∏ i ∈ ?s, ?f i
+with the goal
+  0 < distanceSmoothPart k d
+
+Note: The full type of `@prod_pos` is
+  ∀ {ι : Type ?u.8} {R : Type ?u.7} [inst : CommMonoidWithZero R] [inst_1 : PartialOrder R] [ZeroLEOneClass R]
+    [PosMulStrictMono R] [Nontrivial R] {f : ι → R} {s : Finset ι}, (∀ i ∈ s, 0 < f i) → 0 < ∏ i ∈ s, f i
+
+k d : ℕ
+⊢ 0 < distanceSmoothPart k d

@@ -1,0 +1,33 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:54:75: error: unsolved goals
+j : ℕ
+⊢ (PowerSeries.coeff j) (2 * integerCatalan) = 2 * ↑(catalan j)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:67:19: error(lean.unknownIdentifier): Unknown identifier `abs_ofNat`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:78:55: error: unsolved goals
+a : ℤ
+⊢ (PowerSeries.rescale (a ^ 2)) 4 * (↑a ^ 2 * PowerSeries.X) = 4 * (↑a ^ 2 * PowerSeries.X)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:106:27: warning: This simp argument is unused:
+  PowerSeries.coeff_zero_eq_constantCoeff_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [squareRootProduct, ← PowerSeries.coeff_zero_eq_constantCoeff_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:139:31: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ ij ∈ antidiagonal ?n, ?f ij.1 ij.2
+in the target expression
+  |∑ p ∈ antidiagonal j,
+        (PowerSeries.coeff p.1) (squareRootProduct a r) * (PowerSeries.coeff p.2) (factorSquareRoot (a r))| ≤
+    2 ^ (r + 1 + j) * (4 * k ^ 2) ^ j
+
+case succ
+a : ℕ → ℤ
+k : ℤ
+hk : 0 ≤ k
+j r : ℕ
+ih : (∀ i < r, |a i| ≤ k) → |(PowerSeries.coeff j) (squareRootProduct a r)| ≤ 2 ^ (r + j) * (4 * k ^ 2) ^ j
+ha : ∀ i < r + 1, |a i| ≤ k
+hD : 0 ≤ 4 * k ^ 2
+hprev : |(PowerSeries.coeff j) (squareRootProduct a r)| ≤ 2 ^ (r + j) * (4 * k ^ 2) ^ j
+⊢ |∑ p ∈ antidiagonal j,
+        (PowerSeries.coeff p.1) (squareRootProduct a r) * (PowerSeries.coeff p.2) (factorSquareRoot (a r))| ≤
+    2 ^ (r + 1 + j) * (4 * k ^ 2) ^ j

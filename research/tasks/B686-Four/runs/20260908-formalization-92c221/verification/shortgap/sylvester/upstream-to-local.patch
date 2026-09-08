@@ -1,0 +1,119 @@
+--- research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/shortgap/sylvester/upstream/ErdosProblems__Erdos686SylvesterSchur.lean.txt
++++ research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean
+@@ -1,3 +1,42 @@
++/-
++Vendored from williamjblair/lean-proofs at aff1d30b3b1c6bd705810fa4d588b03940fb31df.
++Original formalization provenance is preserved below.
++Distribution license from that fixed upstream commit:
++
++MIT License
++
++Copyright (c) 2026 Will Blair
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
++
++---
++
++NOTICE — third-party files
++
++ErdosProblems/Erdos154.lean is a third-party formalization included as a build
++dependency for the 154 sumset proof. It is the Lean formalization of Lindström's
++residue-distribution theorem for Sidon sets (formal authors Aristotle and Wouter
++van Doorn), hosted via plby/lean-proofs, and is used under its original license
++as stated in its file header. Mathlib is licensed under Apache-2.0.
++
++-/
++
+ import Mathlib.Data.Nat.Factorial.BigOperators
+ import Mathlib.NumberTheory.Bertrand
+ import Mathlib.Order.Interval.Finset.Nat
+@@ -328,7 +367,7 @@
+   have hprod :
+       HasDerivAt (fun t : ℝ => √t * log t)
+         (√y * (1 / y) + (1 / (2 * √y)) * log y) y :=
+-    by simpa [mul_comm, add_comm, add_left_comm] using hsqrt.mul hlog
++    by convert! hsqrt.mul hlog using 1 <;> ring
+   have hdiv :
+       HasDerivAt (fun t : ℝ => t / (2 * x)) (1 / (2 * x)) y := by
+     simpa using (hasDerivAt_id y).div_const (2 * x)
+@@ -336,7 +375,7 @@
+       HasDerivAt (fun t : ℝ => log (t / (2 * x))) (1 / y) y := by
+     have hydiv : y / (2 * x) ≠ 0 := by positivity
+     have hcomp := (hasDerivAt_log hydiv).comp y hdiv
+-    convert hcomp using 1
++    convert! hcomp using 1
+     field_simp [hy.ne', hne2x]
+   have hmain :
+       HasDerivAt (fun t : ℝ => log x + √t * log t - x * log (t / (2 * x)))
+@@ -344,9 +383,9 @@
+     by
+       have hmain0 := ((hasDerivAt_const y (log x)).add hprod).sub
+         ((hasDerivAt_const y x).mul hlogdiv)
+-      convert hmain0 using 1
++      convert! hmain0 using 1
+       ring
+-  convert hmain using 1
++  convert! hmain using 1
+   · field_simp [sqrt_sq_eq_abs, abs_of_pos (sqrt_pos_of_pos hy)]
+     rw [sq_sqrt hy.le]
+     ring
+@@ -3377,9 +3416,7 @@
+     {n i p j : ℕ} (hi_le_n : i ≤ n) (hp : p.Prime) (hip : i < p)
+     (hj : j ∈ Set.Ico (n - i + 1) (n + 1)) (hpj : p ∣ j) :
+     p ∣ Nat.choose n i := by
+-  have htop : n - i + 1 + i = n + 1 := by
+-    simpa [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using
+-      congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
++  have htop : n - i + 1 + i = n + 1 := by omega
+   have hj_dvd : j ∣ (n - i + 1).ascFactorial i := by
+     have hhi : j < n - i + 1 + i := by simpa [htop] using hj.2
+     exact dvd_ascFactorial_of_mem hj.1 hhi
+@@ -3400,9 +3437,7 @@
+   have hi_le_n : i ≤ n := le_trans hi_half (Nat.div_le_self n 2)
+   have hm : i < n - i + 1 := by omega
+   obtain ⟨j, p, hj, hp, hip, hpj⟩ := hSS hi_pos hm
+-  have htop : n - i + 1 + i = n + 1 := by
+-    simpa [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using
+-      congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
++  have htop : n - i + 1 + i = n + 1 := by omega
+   have hj' : j ∈ Set.Ico (n - i + 1) (n + 1) := by
+     simpa [htop] using hj
+   exact ⟨p, hp, hip, prime_dvd_choose_of_dvd_mem_interval hi_le_n hp hip hj' hpj⟩
+@@ -3415,9 +3450,7 @@
+   have hm : i < n - i + 1 := by omega
+   obtain ⟨j, p, hj, hp, hip, hpj⟩ :=
+     sylvester_schur_interval_le_twenty hi_pos hi20 hm
+-  have htop : n - i + 1 + i = n + 1 := by
+-    simpa [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using
+-      congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
++  have htop : n - i + 1 + i = n + 1 := by omega
+   have hj' : j ∈ Set.Ico (n - i + 1) (n + 1) := by
+     simpa [htop] using hj
+   exact ⟨p, hp, hip, prime_dvd_choose_of_dvd_mem_interval hi_le_n hp hip hj' hpj⟩
+@@ -3430,9 +3463,7 @@
+   have hm : i < n - i + 1 := by omega
+   obtain ⟨j, p, hj, hp, hip, hpj⟩ :=
+     sylvester_schur_interval_le_forty_eight hi_pos hi48 hm
+-  have htop : n - i + 1 + i = n + 1 := by
+-    simpa [Nat.add_assoc, Nat.add_comm, Nat.add_left_comm] using
+-      congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
++  have htop : n - i + 1 + i = n + 1 := by omega
+   have hj' : j ∈ Set.Ico (n - i + 1) (n + 1) := by
+     simpa [htop] using hj
+   exact ⟨p, hp, hip, prime_dvd_choose_of_dvd_mem_interval hi_le_n hp hip hj' hpj⟩

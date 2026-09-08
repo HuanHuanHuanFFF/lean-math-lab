@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "kind": "pinned-package-cache-build",
+  "created_utc": "2026-09-08T11:59:20.018528+00:00",
+  "repository": "/workspace/scratch/75a17f226d3b/lean-math-lab",
+  "toolchain": {
+    "lean_version_command": {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lean",
+        "--version"
+      ],
+      "exit_code": 127,
+      "stdout": "",
+      "stderr": "scripts/lean-work.sh: line 11: elan: command not found\n"
+    },
+    "lake_version_command": {
+      "command": [
+        "bash",
+        "scripts/lean-work.sh",
+        "lake",
+        "--version"
+      ],
+      "exit_code": 127,
+      "stdout": "",
+      "stderr": "scripts/lean-work.sh: line 11: elan: command not found\n"
+    },
+    "lean_commit": "819816b2e0a3bf405af45ae5c7af2491d8f5bee6"
+  },
+  "manifest": {
+    "path": "lake-manifest.json",
+    "sha256": "fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0"
+  },
+  "mathlib_pin": {
+    "path": ".lake/packages/mathlib",
+    "head": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "expected": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "clean": true
+  },
+  "build_method": {
+    "wrapper": ".tools/lean-single-bin/lean",
+    "wrapper_sha256": "8dcbaa218251b7d0dfe332c47831eccac9f2e5384aaadda16a1c9af8868f0676",
+    "wrapper_effect": "adds Lean -j 1 to each package compile; Lake dependency jobs remain standard",
+    "commands": [
+      "ELAN_HOME=\"$PWD/.tools/elan\" PATH=\"$PWD/.tools/lean-single-bin:$PWD/.tools/elan/bin:$PATH\" MATHLIB_CACHE_DIR=\"$PWD/.lake/mathlib-cache\" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.NumberTheory.Bertrand:olean",
+      "ELAN_HOME=\"$PWD/.tools/elan\" PATH=\"$PWD/.tools/lean-single-bin:$PWD/.tools/elan/bin:$PATH\" MATHLIB_CACHE_DIR=\"$PWD/.lake/mathlib-cache\" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.NumberTheory.SmoothNumbers:olean"
+    ]
+  },
+  "modules": [
+    {
+      "module": "Mathlib.NumberTheory.Bertrand",
+      "source": {
+        "path": ".lake/packages/mathlib/Mathlib/NumberTheory/Bertrand.lean",
+        "bytes": 11842,
+        "sha256": "0cffcd48b6053957b3b1c5503a1bddbbff037267f5438305728137b989c70f71"
+      },
+      "artifacts": [
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.ilean",
+          "bytes": 28305,
+          "sha256": "39d59dab283ce680ce4a824b59573816710e84648559ea71931501067e6ecef9"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.ilean.hash",
+          "bytes": 16,
+          "sha256": "e48c7db92aac52949c027f1dacfbffada9a5526a87ff2ae451ec52ce5da19290"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.ir",
+          "bytes": 2528,
+          "sha256": "da09a6e16a337a0fb3f412141300c53eeb8639afae06f806109575786554ab3d"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.ir.hash",
+          "bytes": 16,
+          "sha256": "79c38bca77545fa5f4bac391486a3b9eae4d89a617d8299f25a67eac01b98fbd"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.ir.sig",
+          "bytes": 176,
+          "sha256": "c7820ab167c78237594f96d99965fea4b48f2d608a4ce971cc481f28b1b4606c"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.ir.sig.hash",
+          "bytes": 16,
+          "sha256": "13d8f6f623621f5e5c739e638525171c7870f0336705db6d0c7504ab7b290d84"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.olean",
+          "bytes": 25504,
+          "sha256": "92c0aa0fe6676de5d01fcb02de610f945af3c373eeed688948ccba81931d8d7c"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.olean.hash",
+          "bytes": 16,
+          "sha256": "c03fa527e49809532144550aac04691ad7740423582662b587156fb9bc8791b7"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.olean.private",
+          "bytes": 333232,
+          "sha256": "c4bc1f3bc4fcf697bebeee00c300211d8545a934dc22f3e38acede6672060d6b"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.olean.private.hash",
+          "bytes": 16,
+          "sha256": "fe9f1861100b3a75ea4a9c1ec42231b0896cbf66abed63f7c2f45df0aec65764"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.olean.server",
+          "bytes": 6264,
+          "sha256": "5b11168be6c27befc7ba0e5c91250269344c979cd35513f06954dc34ff22327c"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.olean.server.hash",
+          "bytes": 16,
+          "sha256": "8e24c4d645b6825273af48abf51e83d117951832f3427545d340162a06846365"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/Bertrand.trace",
+          "bytes": 4287,
+          "sha256": "db0b7c17e9fc7da9e2e88706a8a30bf6f95c6dfa92808ebbd34f00efca0faf70"
+        }
+      ],
+      "imports": [
+        "public import Mathlib.Data.Nat.Choose.Factorization",
+        "public import Mathlib.NumberTheory.Primorial",
+        "public import Mathlib.Analysis.Convex.SpecificFunctions.Basic",
+        "public import Mathlib.Analysis.Convex.SpecificFunctions.Deriv",
+        "public import Mathlib.Tactic.NormNum.Prime"
+      ],
+      "build_log": {
+        "path": "research/shared/20260909-formalization-environment/package-cache-20260908T1155Z-bertrand.log",
+        "bytes": 1264,
+        "sha256": "d2ca6cd33bcc4ebfae5e5f509cf4cdb14472f067e7974444417927b92d60f4ad"
+      }
+    },
+    {
+      "module": "Mathlib.NumberTheory.SmoothNumbers",
+      "source": {
+        "path": ".lake/packages/mathlib/Mathlib/NumberTheory/SmoothNumbers.lean",
+        "bytes": 25086,
+        "sha256": "14360e533dc3587f536741b45b0d7559071d9e7ace6f2e47449067297bafda8c"
+      },
+      "artifacts": [
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.ilean",
+          "bytes": 66004,
+          "sha256": "b287729a45c5d0731958c7ac3a399606a9f38885aa80aeb7899b92fb7c8949cf"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.ilean.hash",
+          "bytes": 16,
+          "sha256": "290175dfee8b4b401e12a4019cb6777e277484a1e50ae378c6094a31b20bc7c8"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.ir",
+          "bytes": 23744,
+          "sha256": "5199e6dc3328d0c7f6b3e15e3fcf7f3483f56d6c842ec720291bf61bf52b60d4"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.ir.hash",
+          "bytes": 16,
+          "sha256": "58a6d60e2e710e4f8fea5bc51a8ad41eb34acfdcb5eeadd17a3e4bc724fa0e7f"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.ir.sig",
+          "bytes": 176,
+          "sha256": "08742fd5d727f44cb8eec4f290bc16d9d21cc79e46a9c0e7a181da36ac3b5c6f"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.ir.sig.hash",
+          "bytes": 16,
+          "sha256": "01bbcf519c24002a28eb1f0615ec9410a75a5661e199b5889e0e674c04d30061"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.olean",
+          "bytes": 112032,
+          "sha256": "69e545d23b99e8c8152eb66131159cc9496e42d0ffb48e83b74e1763adad080b"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.olean.hash",
+          "bytes": 16,
+          "sha256": "b8f22825e964eb242b783ecd1dfadfd6b3c8fd2f7505842e731aeb49e3464194"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.olean.private",
+          "bytes": 509624,
+          "sha256": "95bae9d2e56362049ea125e2496db78e20995f4e622b81aa9de62e4d1aec1e75"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.olean.private.hash",
+          "bytes": 16,
+          "sha256": "4f8839e7d6b8c70032cad396bf699510856f84bf7802c1aa1bb882f7fd1adf40"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.olean.server",
+          "bytes": 23280,
+          "sha256": "f723ad42cd5fc960b12577abfce49f54b5bdd4aa9e002dcf8e4032b940cbc53a"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.olean.server.hash",
+          "bytes": 16,
+          "sha256": "0ec128a60dcda60f6ea19c0c1cc1fa5c9459c072cffd05aa869b57c36720451f"
+        },
+        {
+          "path": ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/NumberTheory/SmoothNumbers.trace",
+          "bytes": 3902,
+          "sha256": "a87981b13943f5f69b86d415c35c1a356df743014108fef1a58caf0b686358a6"
+        }
+      ],
+      "imports": [
+        "public import Mathlib.Data.Nat.Factorization.Defs",
+        "public import Mathlib.Data.Nat.Squarefree",
+        "public import Mathlib.NumberTheory.PrimeCounting"
+      ],
+      "build_log": {
+        "path": "research/shared/20260909-formalization-environment/package-cache-20260908T1158Z-smooth-numbers.log",
+        "bytes": 335,
+        "sha256": "293c32b361a6029de89f7ffaa634a3f2930c0f448c44926d61b0676bfdff678f"
+      }
+    }
+  ],
+  "smoke": {
+    "source": {
+      "path": "research/shared/20260909-formalization-environment/module-cache-smoke-bertrand-smooth.lean",
+      "bytes": 307,
+      "sha256": "e33cfa2c68d56e97cda750ad25e7211945833b29aa483a7049f06c83d8d30071"
+    },
+    "evidence": {
+      "path": "research/shared/20260909-formalization-environment/runs/20260908T115757Z/evidence.json",
+      "bytes": 14177,
+      "sha256": "c49c615d5ed760f79caa4bf16ff47d54b823bd1d914c9904b2100e0c6cad0563"
+    },
+    "success": true,
+    "guards": 1,
+    "print_axioms": 1,
+    "expected_axioms": [
+      []
+    ],
+    "fresh_object_root": ".lake/formalization-environment/20260908T115757Z",
+    "linked_package_objects": 37529
+  },
+  "source_policy": "Only pinned package source and build/cache outputs changed; no lake-manifest, math source, research task source, or history files modified. Fresh smoke uses a new object root and retained evidence."
+}

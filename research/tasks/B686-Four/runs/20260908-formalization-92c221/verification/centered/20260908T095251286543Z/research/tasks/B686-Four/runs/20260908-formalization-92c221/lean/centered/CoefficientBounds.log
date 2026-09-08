@@ -1,0 +1,59 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CoefficientBounds.lean:25:41: error: No goals to be solved
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CoefficientBounds.lean:25:9: error: unsolved goals
+case zero
+a : ℕ → ℤ
+k : ℤ
+hk : 0 ≤ k
+h : ℕ
+ha : ∀ i < 0, |a i| ≤ k
+hh : h ≤ 2 * 0
+hz : h = 0
+⊢ |(radicand a 0).coeff h| ≤ 2 ^ 0 * k ^ (2 * 0 - h)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CoefficientBounds.lean:27:21: error: Application type mismatch: The argument
+  fun i hi => ha i ?m.83
+has type
+  ∀ (i : ℕ) (hi : ?m.84 i), |a i| ≤ k
+of sort `Prop` but is expected to have type
+  ℕ
+of sort `Type` in the application
+  ih fun i hi => ha i ?m.83
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CoefficientBounds.lean:34:26: error: Type mismatch
+  h - 2
+has type
+  ℕ
+of sort `Type` but is expected to have type
+  ∀ i < r, |a i| ≤ k
+of sort `Prop`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CoefficientBounds.lean:46:30: error: Application type mismatch: The argument
+  h
+has type
+  ℕ
+of sort `Type` but is expected to have type
+  ∀ i < r, |a i| ≤ k
+of sort `Prop` in the application
+  hprev h
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CoefficientBounds.lean:66:4: error: linarith failed to find a contradiction
+case succ
+a : ℕ → ℤ
+k : ℤ
+hk : 0 ≤ k
+r : ℕ
+ih : ∀ (h : ℕ), (∀ i < r, |a i| ≤ k) → h ≤ 2 * r → |(radicand a r).coeff h| ≤ 2 ^ r * k ^ (2 * r - h)
+h : ℕ
+ha : ∀ i < r + 1, |a i| ≤ k
+hh : h ≤ 2 * (r + 1)
+hprev : (∀ i < r, |a i| ≤ k) → sorry ≤ 2 * r → |(radicand a r).coeff sorry| ≤ 2 ^ r * k ^ (2 * r - sorry)
+ha2 : a r ^ 2 ≤ k ^ 2
+hfirst : |if 2 ≤ h then (radicand a r).coeff (h - 2) else 0| ≤ 2 ^ r * k ^ (2 * (r + 1) - h)
+hsecond : |(radicand a r).coeff h * a r ^ 2| ≤ 2 ^ r * k ^ (2 * (r + 1) - h)
+ht :
+  |(if 2 ≤ h then (radicand a r).coeff (h - 2) else 0) + -(radicand a r).coeff h * a r ^ 2| ≤
+    |if 2 ≤ h then (radicand a r).coeff (h - 2) else 0| + |-(radicand a r).coeff h * a r ^ 2|
+ht' :
+  |(if 2 ≤ h then (radicand a r).coeff (h - 2) else 0) - (radicand a r).coeff h * a r ^ 2| ≤
+    |if 2 ≤ h then (radicand a r).coeff (h - 2) else 0| + |(radicand a r).coeff h * a r ^ 2|
+a✝ :
+  2 ^ (r + 1) * k ^ (2 * (r + 1) - h) <
+    |(if 2 ≤ h then (radicand a r).coeff (h - 2) else 0) - (radicand a r).coeff h * (a r ^ 1 * a r)|
+⊢ False
+failed

@@ -1,0 +1,60 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:1:0: error: object file '/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-dev-reflected/olean/Mathlib/NumberTheory/Harmonic/Defs.olean' of module Mathlib.NumberTheory.Harmonic.Defs does not exist
+
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:26:6: error(lean.unknownIdentifier): Unknown constant `Finset.sum_div`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:20:63: error: unsolved goals
+k i : ℕ
+hc0 : ↑((rootCofactor k i).coeff 0) ≠ 0
+⊢ (∑ x ∈ (Icc 1 k).erase i, ∏ x ∈ ((Icc 1 k).erase i).erase x, (↑x - ↑i)) / ↑((rootCofactor k i).coeff 0) =
+    ∑ a ∈ (Icc 1 k).erase i, 1 / (↑a - ↑i)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:75:38: error: unexpected token ')'; expected term
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:75:35: error: Application type mismatch: The argument
+  a
+has type
+  ℕ
+of sort `Type` but is expected to have type
+  Type ?u.130
+of sort `Type (?u.130 + 1)` in the application
+  @InitialSeg a
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:75:27: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  d ≥ 0
+  c ≥ 1
+  c - d ≤ 0
+  b ≥ 0
+  b - d ≥ 1
+where
+ b := ↑k
+ c := ↑a
+ d := ↑(i - 1)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:46:55: error: unsolved goals
+k i : ℕ
+hi : i ∈ Icc 1 k
+hi' : 1 ≤ i ∧ i ≤ k
+hsets : (Icc 1 k).erase i = Icc 1 (i - 1) ∪ Icc (i + 1) k
+hdis : Disjoint (Icc 1 (i - 1)) (Icc (i + 1) k)
+hlo : ∑ a ∈ Icc 1 (i - 1), 1 / (↑a - ↑i) = -harmonic (i - 1)
+⊢ harmonicRatio k i = harmonic (k - i) - harmonic (i - 1)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:107:2: error: not a positivity goal
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:116:12: error(lean.unknownIdentifier): Unknown identifier `inv_le_one_div₀`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:117:6: error: No goals to be solved
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:120:4: error: linarith failed to find a contradiction
+case succ
+s : ℕ
+hr : 1 ≤ 1 + (s + 1)
+ih : 1 ≤ 1 + s → harmonic (1 + s) ≤ (1 + ↑s + 1) / 2
+ht : (1 + ↑s + 1)⁻¹ ≤ 1 / 2
+a✝ : (1 + ↑s + 1 + 1) / 2 < harmonic (1 + s) + (1 + ↑s + 1)⁻¹
+⊢ False
+failed
+'B686Harmonic.harmonic_ratio_eq_sum' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:138:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Harmonic.harmonic_ratio_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Harmonic.harmonic_ratio_eq_sum' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B686Harmonic.harmonic_ratio_abs_le_half' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/HarmonicSum.lean:141:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Harmonic.harmonic_ratio_abs_le_half' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Harmonic.harmonic_ratio_abs_le_half' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+

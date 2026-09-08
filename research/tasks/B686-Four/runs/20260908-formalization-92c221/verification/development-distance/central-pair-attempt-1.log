@@ -1,0 +1,68 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:40:71: error: No goals to be solved
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:45:22: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∏ k ∈ Icc ?m.131 (?m.132 + 1), ?f k
+in the target expression
+  (↑n + 1) * ((↑(n + 1) + ↑r + 1) * (↑(n + 1) + 2 * (↑r + 1)) * ∏ a ∈ Icc 1 r, ((↑(n + 1) + ↑r + 1) ^ 2 - ↑a ^ 2)) *
+      (↑n + 2 * (↑r + 1) + 2) =
+    (↑n + (↑r + 1) + 1) * (↑n + 2 * (↑r + 1 + 1)) * centralKernel (r + 1) (↑n + (↑r + 1) + 1)
+
+case succ
+r : ℕ
+ih : ∀ (n : ℕ), ↑(product (2 * (r + 1)) n) = (↑n + ↑r + 1) * (↑n + 2 * (↑r + 1)) * centralKernel r (↑n + ↑r + 1)
+n : ℕ
+⊢ (↑n + 1) * ((↑(n + 1) + ↑r + 1) * (↑(n + 1) + 2 * (↑r + 1)) * ∏ a ∈ Icc 1 r, ((↑(n + 1) + ↑r + 1) ^ 2 - ↑a ^ 2)) *
+      (↑n + 2 * (↑r + 1) + 2) =
+    (↑n + (↑r + 1) + 1) * (↑n + 2 * (↑r + 1 + 1)) * centralKernel (r + 1) (↑n + (↑r + 1) + 1)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:45:44: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  a ≥ 0
+  a - b ≥ 2
+where
+ a := ↑?m.131
+ b := ↑?m.132
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:61:22: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∏ k ∈ Icc ?m.122 (?m.123 + 1), ?f k
+in the target expression
+  (↑n + 1) * ((↑(n + 1) + ↑r + 2) * (↑(n + 1) + 1) * ∏ a ∈ Icc 1 r, ((↑(n + 1) + ↑r + 2) ^ 2 - ↑a ^ 2)) *
+      (↑n + 2 * (↑r + 1) + 2) =
+    (↑n + (↑r + 1) + 2) * (↑n + 1) * centralKernel (r + 1) (↑n + (↑r + 1) + 2)
+
+case succ
+r : ℕ
+ih : ∀ (n : ℕ), ↑(product (2 * (r + 1)) n) = (↑n + ↑r + 2) * (↑n + 1) * centralKernel r (↑n + ↑r + 2)
+n : ℕ
+⊢ (↑n + 1) * ((↑(n + 1) + ↑r + 2) * (↑(n + 1) + 1) * ∏ a ∈ Icc 1 r, ((↑(n + 1) + ↑r + 2) ^ 2 - ↑a ^ 2)) *
+      (↑n + 2 * (↑r + 1) + 2) =
+    (↑n + (↑r + 1) + 2) * (↑n + 1) * centralKernel (r + 1) (↑n + (↑r + 1) + 2)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:61:44: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  a ≥ 0
+  a - b ≥ 2
+where
+ a := ↑?m.122
+ b := ↑?m.123
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:71:2: error: Tactic `apply` failed: could not unify the conclusion of `Function.prod`
+  ?m.20 ?i × ?m.21 ?i
+with the goal
+  ∏ a ∈ Icc 1 r, (z ^ 2 - ↑a ^ 2) ≡ ∏ a ∈ Icc 1 r, (0 ^ 2 - ↑a ^ 2) [ZMOD q ^ 2]
+
+Note: The full type of `Function.prod` is
+  ((i : ?m.18) → ?m.20 i) → ((i : ?m.18) → ?m.21 i) → (i : ?m.18) → ?m.20 i × ?m.21 i
+
+r : ℕ
+z q : ℤ
+hq : q ∣ z
+⊢ ∏ a ∈ Icc 1 r, (z ^ 2 - ↑a ^ 2) ≡ ∏ a ∈ Icc 1 r, (0 ^ 2 - ↑a ^ 2) [ZMOD q ^ 2]
+'B686Formalization.product_central_left' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:78:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Formalization.product_central_left' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Formalization.product_central_left' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B686Formalization.product_central_right' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:81:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Formalization.product_central_right' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Formalization.product_central_right' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

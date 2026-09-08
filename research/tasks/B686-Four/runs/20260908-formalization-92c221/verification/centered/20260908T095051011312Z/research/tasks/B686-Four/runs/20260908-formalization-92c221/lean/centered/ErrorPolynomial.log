@@ -1,0 +1,89 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:25:18: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (reflect ?N ?f).coeff ?i
+in the target expression
+  p.coeff ((revAt r) (h / 2)) = p.coeff ((revAt r) (h / 2))
+
+case pos
+p : ℤ[X]
+r h : ℕ
+heven : 2 ∣ (revAt (2 * r)) h ↔ 2 ∣ h
+hhalf : 2 ∣ h → (revAt (2 * r)) h / 2 = (revAt r) (h / 2)
+he : 2 ∣ h
+⊢ p.coeff ((revAt r) (h / 2)) = p.coeff ((revAt r) (h / 2))
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:33:14: error: unsolved goals
+case succ
+a : ℕ → ℤ
+r : ℕ
+ih : reflect r (reversedRadicand a r) = ∏ i ∈ range r, (X - C (4 * a i ^ 2))
+hf : (1 - C (4 * a r ^ 2) * X).natDegree ≤ 1
+⊢ reflect 1 (4 * ↑(a r) ^ 2 * X) = 4 * ↑(a r) ^ 2 ∨ ∏ x ∈ range r, (X - 4 * ↑(a x) ^ 2) = 0
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:56:17: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?a ^ ?m) ^ ?n
+in the target expression
+  C (4 ^ r) * ∏ x ∈ range r, (X ^ 2 - C (a x ^ 2)) = C (2 ^ (2 * r)) * radicand a r
+
+a : ℕ → ℤ
+r : ℕ
+hf : ∀ (i : ℕ), ((expand ℤ 2) (X - C (4 * a i ^ 2))).comp (C 2 * X) = C 4 * (X ^ 2 - C (a i ^ 2))
+⊢ C (4 ^ r) * ∏ x ∈ range r, (X ^ 2 - C (a x ^ 2)) = C (2 ^ (2 * r)) * radicand a r
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:69:55: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  reflect (r + r) ((expand ℤ 2) (rootTruncation a r) * (expand ℤ 2) (rootTruncation a r))
+in the target expression
+  (reflect r ((expand ℤ 2) (rootTruncation a r)) * reflect r ((expand ℤ 2) (rootTruncation a r))).comp (C 2 * X) =
+    (reflect (r + r) ((expand ℤ 2) (rootTruncation a r) ^ 2)).comp (C 2 * X)
+
+a : ℕ → ℤ
+r : ℕ
+h : ((expand ℤ 2) (rootTruncation a r)).natDegree ≤ r
+⊢ (reflect r ((expand ℤ 2) (rootTruncation a r)) * reflect r ((expand ℤ 2) (rootTruncation a r))).comp (C 2 * X) =
+    (reflect (r + r) ((expand ℤ 2) (rootTruncation a r) ^ 2)).comp (C 2 * X)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:81:52: warning: Variable name `hr` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hr
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:123:33: error: Application type mismatch: The argument
+  Eq.symm hder
+has type
+  c * eval x (derivative R) = ↑2 * 0 ^ (2 - 1) * eval x (derivative A)
+but is expected to have type
+  c * eval x (derivative R) = 0
+in the application
+  mul_ne_zero hc hsimple (Eq.symm hder)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:122:39: warning: This simp argument is unused:
+  pow_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [derivative_pow, derivative_mul, derivative_C, zero_mul, zero_add, eval_mul, eval_C, eval_pow,
+    hAval, mul_zero, zero_mul] at hder
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:122:48: warning: This simp argument is unused:
+  mul_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [derivative_pow, derivative_mul, derivative_C, zero_mul, zero_add, eval_mul, eval_C, eval_pow,
+    hAval, pow_one, zero_mul] at hder
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:132:2: error: Tactic `apply` failed: could not unify the conclusion of `congrArg fun x => (X ^ 2 - 1) * x`
+  (X ^ 2 - 1) * ?m.121 = (X ^ 2 - 1) * ?m.122
+with the goal
+  (∏ k ∈ range r, (X ^ 2 - C ((2 * ↑(k + 1) + 1) ^ 2))) * (X ^ 2 - 1) =
+    (X ^ 2 - 1) * ∏ i ∈ range r, (X ^ 2 - C ((2 * ↑i + 3) ^ 2))
+
+Note: The full type of `congrArg fun x => (X ^ 2 - 1) * x` is
+  ?m.121 = ?m.122 → (X ^ 2 - 1) * ?m.121 = (X ^ 2 - 1) * ?m.122
+
+r : ℕ
+⊢ (∏ k ∈ range r, (X ^ 2 - C ((2 * ↑(k + 1) + 1) ^ 2))) * (X ^ 2 - 1) =
+    (X ^ 2 - 1) * ∏ i ∈ range r, (X ^ 2 - C ((2 * ↑i + 3) ^ 2))
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:148:45: warning: This simp argument is unused:
+  eval_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [derivative_mul, derivative_sub, derivative_pow, derivative_X, derivative_one, mul_one, sub_zero,
+    eval_add, eval_mul, eval_sub, eval_pow, eval_X, eval_one, one_pow, sub_self, zero_mul, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

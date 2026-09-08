@@ -1,0 +1,110 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:1:0: error: object file '/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-dev-reflected/olean/Mathlib/Analysis/SpecialFunctions/Integrals/Basic.olean' of module Mathlib.Analysis.SpecialFunctions.Integrals.Basic does not exist
+
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:29:10: error: Ambiguous term
+  integral_const_mul
+Possible interpretations:
+  intervalIntegral.integral_const_mul : ∀ (r : ?m.244) (f : ℝ → ?m.244),
+    ∫ (x : ℝ) in ?m.245..?m.246, r * f x ∂?m.247 = r * ∫ (x : ℝ) in ?m.245..?m.246, f x ∂?m.247
+  
+  MeasureTheory.integral_const_mul : ∀ (r : ?m.247) (f : ?m.244 → ?m.247),
+    ∫ (a : ?m.244), r * f a ∂?m.246 = r * ∫ (a : ?m.244), f a ∂?m.246
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:21:43: error: unsolved goals
+R : ℝ
+hR : 0 < R
+hid : (fun x => R / (x ^ 2 + R ^ 2)) = fun x => R⁻¹ * (1 + (x / R) ^ 2)⁻¹
+⊢ ∫ (x : ℝ) in -R..R, R⁻¹ * (1 + (x / R) ^ 2)⁻¹ = Real.pi / 2
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:56:41: error: unsolved goals
+R y : ℝ
+hR : R ≠ 0
+h1 : ↑R + ↑y * I ≠ 0
+h2 : ↑y - ↑R * I ≠ 0
+⊢ I * (I * ↑y + ↑R)⁻¹ = (-(I * ↑R) + ↑y)⁻¹
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:60:12: warning: This simp argument is unused:
+  I_sq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:64:42: error: unsolved goals
+R y : ℝ
+hR : R ≠ 0
+h1 : -↑R + ↑y * I ≠ 0
+h2 : ↑y + ↑R * I ≠ 0
+⊢ I * (I * ↑y - ↑R)⁻¹ = (I * ↑R + ↑y)⁻¹
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:68:12: warning: This simp argument is unused:
+  I_sq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:80:17: error(lean.unknownIdentifier): Unknown identifier `I_pow_bit1`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:80:28: error(lean.unknownIdentifier): Unknown identifier `I_pow_bit0`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:73:36: error: unsolved goals
+R x : ℝ
+hR : 0 < R
+h1 : ↑x - ↑R * I ≠ 0
+h2 : ↑x + ↑R * I ≠ 0
+hsq : x ^ 2 + R ^ 2 ≠ 0
+⊢ ↑R * I * 2 = ↑x ^ 2 * ↑R * I * (↑x ^ 2 + ↑R ^ 2)⁻¹ * 2 + ↑R ^ 3 * I * (↑x ^ 2 + ↑R ^ 2)⁻¹ * 2
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:80:12: warning: This simp argument is unused:
+  I_sq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [I_pow_bit1, I_pow_bit0]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:90:9: error: Ambiguous term
+  integral_const_mul
+Possible interpretations:
+  intervalIntegral.integral_const_mul : ∀ (r : ?m.156) (f : ℝ → ?m.156),
+    ∫ (x : ℝ) in ?m.157..?m.158, r * f x ∂?m.159 = r * ∫ (x : ℝ) in ?m.157..?m.158, f x ∂?m.159
+  
+  MeasureTheory.integral_const_mul : ∀ (r : ?m.159) (f : ?m.156 → ?m.159),
+    ∫ (a : ?m.156), r * f a ∂?m.158 = r * ∫ (a : ?m.156), f a ∂?m.158
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:96:9: error: Ambiguous term
+  integral_const_mul
+Possible interpretations:
+  intervalIntegral.integral_const_mul : ∀ (r : ?m.210) (f : ℝ → ?m.210),
+    ∫ (x : ℝ) in ?m.211..?m.212, r * f x ∂?m.213 = r * ∫ (x : ℝ) in ?m.211..?m.212, f x ∂?m.213
+  
+  MeasureTheory.integral_const_mul : ∀ (r : ?m.213) (f : ?m.210 → ?m.213),
+    ∫ (a : ?m.210), r * f a ∂?m.212 = r * ∫ (a : ?m.210), f a ∂?m.212
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:104:9: error: overloaded, errors 
+  104:22 Application type mismatch: The argument
+    Continuous.intervalIntegrable hc1
+  has type
+    ∀ (a b : ℝ), IntervalIntegrable (fun x => (↑x - ↑R * I)⁻¹) ?m.279 a b
+  but is expected to have type
+    IntervalIntegrable ?m.274 ?m.276 ?m.272 ?m.273
+  in the application
+    intervalIntegral.integral_sub (Continuous.intervalIntegrable hc1)
+  
+  104:22 Application type mismatch: The argument
+    Continuous.intervalIntegrable hc1
+  has type
+    ∀ (a b : ℝ), IntervalIntegrable (fun x => (↑x - ↑R * I)⁻¹) ?m.279 a b
+  but is expected to have type
+    Integrable ?m.275 ?m.274
+  in the application
+    MeasureTheory.integral_sub (Continuous.intervalIntegrable hc1)
+'B686QuarterCauchy.square_boundary_inverse' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:116:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686QuarterCauchy.square_boundary_inverse' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686QuarterCauchy.square_boundary_inverse' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+

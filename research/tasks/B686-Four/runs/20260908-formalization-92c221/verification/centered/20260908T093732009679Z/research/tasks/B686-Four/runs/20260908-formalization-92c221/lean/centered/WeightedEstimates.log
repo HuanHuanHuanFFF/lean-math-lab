@@ -1,0 +1,14 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/WeightedEstimates.lean:33:4: error: linarith failed to find a contradiction
+case succ
+k t : ℤ
+hk : 0 ≤ k
+ht : 2 * k ≤ t
+ht0 : 0 ≤ t
+d : ℕ
+ih : ∑ i ∈ range (d + 1), k ^ (d - i) * t ^ i ≤ 2 * t ^ d
+hsum : ∑ i ∈ range (d + 1), k ^ (d + 1 - i) * t ^ i = k * ∑ i ∈ range (d + 1), k ^ (d - i) * t ^ i
+hmul : k * ∑ i ∈ range (d + 1), k ^ (d - i) * t ^ i ≤ k * (2 * t ^ d)
+hpow : 2 * k * t ^ d ≤ t * t ^ d
+a✝ : 2 * (t ^ d * t) < k * ∑ i ∈ range (d + 1), k ^ (d - i) * t ^ i + k ^ (d + 1 - (d + 1)) * (t ^ d * t)
+⊢ False
+failed

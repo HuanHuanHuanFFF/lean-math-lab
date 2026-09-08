@@ -1,0 +1,757 @@
+{
+  "schema_version": 1,
+  "success": true,
+  "exit_code": 0,
+  "argv": [
+    "research/shared/20260909-formalization-environment/fresh-root.py",
+    "--root",
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean",
+    "--root",
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.lean",
+    "--root",
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.lean",
+    "--guards",
+    "0",
+    "--guards",
+    "0",
+    "--guards",
+    "1"
+  ],
+  "repository": "/workspace/scratch/75a17f226d3b/lean-math-lab",
+  "roots": [
+    {
+      "path": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean",
+      "source_sha256": "b6bdae846b71de19f7c8068c127376071d1f97d152351294e7243417c2919e79",
+      "print_axioms": 0,
+      "guard_msgs": 0,
+      "expected_guards": 0,
+      "audit": {
+        "print_axioms": 0,
+        "guard_msgs": 0,
+        "expected_axioms": [],
+        "source_sha256": "b6bdae846b71de19f7c8068c127376071d1f97d152351294e7243417c2919e79"
+      }
+    },
+    {
+      "path": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.lean",
+      "source_sha256": "6190d057d5f234063799c53b32fe4b37b689145a8f73026b8dd1359c09dfd78e",
+      "print_axioms": 0,
+      "guard_msgs": 0,
+      "expected_guards": 0,
+      "audit": {
+        "print_axioms": 0,
+        "guard_msgs": 0,
+        "expected_axioms": [],
+        "source_sha256": "6190d057d5f234063799c53b32fe4b37b689145a8f73026b8dd1359c09dfd78e"
+      }
+    },
+    {
+      "path": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.lean",
+      "source_sha256": "623202cfafff54a2f03f08edefa266c14f1e19057ffdcc1ef86cfeea3d99364a",
+      "print_axioms": 1,
+      "guard_msgs": 1,
+      "expected_guards": 1,
+      "audit": {
+        "print_axioms": 1,
+        "guard_msgs": 1,
+        "expected_axioms": [
+          [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        ],
+        "source_sha256": "623202cfafff54a2f03f08edefa266c14f1e19057ffdcc1ef86cfeea3d99364a"
+      }
+    }
+  ],
+  "source_closure": [
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.centered.CatalanConstruction",
+      "source_sha256": "b6bdae846b71de19f7c8068c127376071d1f97d152351294e7243417c2919e79",
+      "imports": [
+        "Mathlib.RingTheory.PowerSeries.Catalan",
+        "Mathlib.RingTheory.PowerSeries.Trunc",
+        "Mathlib.Algebra.Polynomial.Reverse",
+        "Mathlib.Algebra.Polynomial.Eval.Degree",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Positivity",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/lean/Round3TwoScaleGap.lean",
+      "module": "research.tasks.B686-Four.lean.Round3TwoScaleGap",
+      "source_sha256": "74a34e6baff218665cc8eb4adadd4f127d5303b1e45943730f0eac00b3b4791a",
+      "imports": [
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.centered.CenteredRunge",
+      "source_sha256": "6190d057d5f234063799c53b32fe4b37b689145a8f73026b8dd1359c09dfd78e",
+      "imports": [
+        "Mathlib.Algebra.BigOperators.Intervals",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Positivity",
+        "research.tasks.B686-Four.lean.Round3TwoScaleGap"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/independent/TargetBridge.lean",
+      "module": "research.tasks.B686-Four.independent.TargetBridge",
+      "source_sha256": "b26c40df78c176105d86d8d01789a927f2a3d9ba1855afde14120c38b2234c57",
+      "imports": [
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/round8/continuation/SizeBounds.lean",
+      "module": "research.tasks.B686-Four.round8.continuation.SizeBounds",
+      "source_sha256": "7da4f63de39ca33f7817e4b8c5d208c293cbb6b34f6d128128826d0544ee01d1",
+      "imports": [
+        "research.tasks.B686-Four.independent.TargetBridge",
+        "Mathlib.Algebra.Order.Field.Basic",
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.GCongr"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/ReflectedGeometry.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.ReflectedGeometry",
+      "source_sha256": "c43dc912029ab0a2e4b630c0b53d24497b0a3012cb993ececbbbfe827d5922e4",
+      "imports": [
+        "research.tasks.B686-Four.round8.continuation.SizeBounds",
+        "Mathlib.Tactic.IntervalCases"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/a/ReflectedPrimePower.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.a.ReflectedPrimePower",
+      "source_sha256": "96443d3c658fef76ddd4561f3ea9de5dc8f41889f071b46c674ceea163c4e21e",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.ReflectedGeometry",
+        "Mathlib.NumberTheory.Padics.PadicVal.Basic",
+        "Mathlib.Tactic.FieldSimp"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SumPrimePowerExclusion.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.SumPrimePowerExclusion",
+      "source_sha256": "1ea5b41b3319bb1e7d8b32529d3681a439a80be78ac31ffe2510ddeb6ddd5fa2",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.a.ReflectedPrimePower"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.reflected.TwicePrimePower",
+      "source_sha256": "623202cfafff54a2f03f08edefa266c14f1e19057ffdcc1ef86cfeea3d99364a",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.SumPrimePowerExclusion"
+      ]
+    }
+  ],
+  "compile_records": [
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.centered.CatalanConstruction",
+      "imports": [
+        "Mathlib.RingTheory.PowerSeries.Catalan",
+        "Mathlib.RingTheory.PowerSeries.Trunc",
+        "Mathlib.Algebra.Polynomial.Reverse",
+        "Mathlib.Algebra.Polynomial.Eval.Degree",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Positivity",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "source_sha256_before": "b6bdae846b71de19f7c8068c127376071d1f97d152351294e7243417c2919e79",
+      "source_sha256_after": "b6bdae846b71de19f7c8068c127376071d1f97d152351294e7243417c2919e79",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean",
+      "started_utc": "2026-09-08T09:37:56.396215Z",
+      "finished_utc": "2026-09-08T09:37:58.302674Z",
+      "seconds": 1.906,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0001-research_tasks_B686-Four_runs_20260908-formalization-92c221_lean_centered_CatalanConstruction.lean.log",
+      "log_sha256": "b50de15e1fb7c75b1584b7ad8bdaf4086b45ef71f9ffedcb194faaafa45c8a24",
+      "output_exists": true,
+      "output_sha256": "f47ca1be61419b13ad98680f270db39266e1e4c7c1a0681ae023ebacfb4b8e56"
+    },
+    {
+      "source": "research/tasks/B686-Four/lean/Round3TwoScaleGap.lean",
+      "module": "research.tasks.B686-Four.lean.Round3TwoScaleGap",
+      "imports": [
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "source_sha256_before": "74a34e6baff218665cc8eb4adadd4f127d5303b1e45943730f0eac00b3b4791a",
+      "source_sha256_after": "74a34e6baff218665cc8eb4adadd4f127d5303b1e45943730f0eac00b3b4791a",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/lean/Round3TwoScaleGap.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/lean/Round3TwoScaleGap.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/lean/Round3TwoScaleGap.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/lean/Round3TwoScaleGap.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/lean/Round3TwoScaleGap.lean",
+      "started_utc": "2026-09-08T09:37:58.304867Z",
+      "finished_utc": "2026-09-08T09:38:00.042361Z",
+      "seconds": 1.738,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0002-research_tasks_B686-Four_lean_Round3TwoScaleGap.lean.log",
+      "log_sha256": "b1cad83c93ce9bb8c1a1c171431c600c1de4cc6ee3226c678d49755a0bf64f1d",
+      "output_exists": true,
+      "output_sha256": "47d87fe5b013595761d1923f61deeb173b762f7c184500bd12194765af19b118"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.centered.CenteredRunge",
+      "imports": [
+        "Mathlib.Algebra.BigOperators.Intervals",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Positivity",
+        "research.tasks.B686-Four.lean.Round3TwoScaleGap"
+      ],
+      "source_sha256_before": "6190d057d5f234063799c53b32fe4b37b689145a8f73026b8dd1359c09dfd78e",
+      "source_sha256_after": "6190d057d5f234063799c53b32fe4b37b689145a8f73026b8dd1359c09dfd78e",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CenteredRunge.lean",
+      "started_utc": "2026-09-08T09:38:00.046984Z",
+      "finished_utc": "2026-09-08T09:38:01.632638Z",
+      "seconds": 1.586,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0003-research_tasks_B686-Four_runs_20260908-formalization-92c221_lean_centered_CenteredRunge.lean.log",
+      "log_sha256": "ec0a692ea492cf5bfa47c0101e181f2f23ee954df085f61eb2044e840adcacb0",
+      "output_exists": true,
+      "output_sha256": "c0ded491b7646356728008009b8a020a6984496b950b3eab999784973c29d3bc"
+    },
+    {
+      "source": "research/tasks/B686-Four/independent/TargetBridge.lean",
+      "module": "research.tasks.B686-Four.independent.TargetBridge",
+      "imports": [
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "source_sha256_before": "b26c40df78c176105d86d8d01789a927f2a3d9ba1855afde14120c38b2234c57",
+      "source_sha256_after": "b26c40df78c176105d86d8d01789a927f2a3d9ba1855afde14120c38b2234c57",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/independent/TargetBridge.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/independent/TargetBridge.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/independent/TargetBridge.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/independent/TargetBridge.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/independent/TargetBridge.lean",
+      "started_utc": "2026-09-08T09:38:01.634692Z",
+      "finished_utc": "2026-09-08T09:38:03.521098Z",
+      "seconds": 1.886,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0004-research_tasks_B686-Four_independent_TargetBridge.lean.log",
+      "log_sha256": "1c5ad4a183fb6b2c4e5cbcc35c888f47dacf940405795377256e6666f90c1b94",
+      "output_exists": true,
+      "output_sha256": "5ca8a045d077ca451a6532fd01cf6c67d73a7c7f90180c300316896a44b57b55"
+    },
+    {
+      "source": "research/tasks/B686-Four/round8/continuation/SizeBounds.lean",
+      "module": "research.tasks.B686-Four.round8.continuation.SizeBounds",
+      "imports": [
+        "research.tasks.B686-Four.independent.TargetBridge",
+        "Mathlib.Algebra.Order.Field.Basic",
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.GCongr"
+      ],
+      "source_sha256_before": "7da4f63de39ca33f7817e4b8c5d208c293cbb6b34f6d128128826d0544ee01d1",
+      "source_sha256_after": "7da4f63de39ca33f7817e4b8c5d208c293cbb6b34f6d128128826d0544ee01d1",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/round8/continuation/SizeBounds.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/round8/continuation/SizeBounds.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/round8/continuation/SizeBounds.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/round8/continuation/SizeBounds.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/round8/continuation/SizeBounds.lean",
+      "started_utc": "2026-09-08T09:38:03.525084Z",
+      "finished_utc": "2026-09-08T09:38:07.570214Z",
+      "seconds": 4.045,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0005-research_tasks_B686-Four_round8_continuation_SizeBounds.lean.log",
+      "log_sha256": "c5b2d01d00bcc1dbcb4167c50c89e3bd7fd4ee0a41e98904ab844642cddb342a",
+      "output_exists": true,
+      "output_sha256": "7f30ac5ccc429a49b158ef449c53991b19ec72754c81efa086c8800a9e280998"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/ReflectedGeometry.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.ReflectedGeometry",
+      "imports": [
+        "research.tasks.B686-Four.round8.continuation.SizeBounds",
+        "Mathlib.Tactic.IntervalCases"
+      ],
+      "source_sha256_before": "c43dc912029ab0a2e4b630c0b53d24497b0a3012cb993ececbbbfe827d5922e4",
+      "source_sha256_after": "c43dc912029ab0a2e4b630c0b53d24497b0a3012cb993ececbbbfe827d5922e4",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/ReflectedGeometry.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/ReflectedGeometry.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/ReflectedGeometry.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/ReflectedGeometry.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/ReflectedGeometry.lean",
+      "started_utc": "2026-09-08T09:38:07.572994Z",
+      "finished_utc": "2026-09-08T09:38:10.845882Z",
+      "seconds": 3.273,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0006-research_tasks_B686-Four_runs_20260908-reflected-sum-9bad0b9_main_ReflectedGeometry.lean.log",
+      "log_sha256": "8b8b249811ffa96a59462b581f17786e04b78ea4a2b7bd46916482a5d8625f60",
+      "output_exists": true,
+      "output_sha256": "c7025ecec78f447eb27d9f7a41683868b6a277876fe11cfc886e95d8b9665e9c"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/a/ReflectedPrimePower.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.a.ReflectedPrimePower",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.ReflectedGeometry",
+        "Mathlib.NumberTheory.Padics.PadicVal.Basic",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "source_sha256_before": "96443d3c658fef76ddd4561f3ea9de5dc8f41889f071b46c674ceea163c4e21e",
+      "source_sha256_after": "96443d3c658fef76ddd4561f3ea9de5dc8f41889f071b46c674ceea163c4e21e",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/a/ReflectedPrimePower.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/a/ReflectedPrimePower.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/a/ReflectedPrimePower.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/a/ReflectedPrimePower.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/a/ReflectedPrimePower.lean",
+      "started_utc": "2026-09-08T09:38:10.854233Z",
+      "finished_utc": "2026-09-08T09:38:13.297604Z",
+      "seconds": 2.443,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0007-research_tasks_B686-Four_runs_20260908-reflected-sum-9bad0b9_a_ReflectedPrimePower.lean.log",
+      "log_sha256": "2c3435a22a8f0d6aac5ba59cee8e7817cbb300911222e7d1286dfcb7f8513af8",
+      "output_exists": true,
+      "output_sha256": "6675449d22d7db02200bb8fcb7bf059bd743c3bb6aeebb70cccafb7d3f3a535e"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SumPrimePowerExclusion.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.SumPrimePowerExclusion",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.a.ReflectedPrimePower"
+      ],
+      "source_sha256_before": "1ea5b41b3319bb1e7d8b32529d3681a439a80be78ac31ffe2510ddeb6ddd5fa2",
+      "source_sha256_after": "1ea5b41b3319bb1e7d8b32529d3681a439a80be78ac31ffe2510ddeb6ddd5fa2",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SumPrimePowerExclusion.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SumPrimePowerExclusion.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SumPrimePowerExclusion.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SumPrimePowerExclusion.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SumPrimePowerExclusion.lean",
+      "started_utc": "2026-09-08T09:38:13.300036Z",
+      "finished_utc": "2026-09-08T09:38:15.766219Z",
+      "seconds": 2.466,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0008-research_tasks_B686-Four_runs_20260908-reflected-sum-9bad0b9_main_SumPrimePowerExclusion.lean.log",
+      "log_sha256": "05f9e580b27ca27a69932e2343b6022c3e7f331bd709af3c3f9652cf165e54ec",
+      "output_exists": true,
+      "output_sha256": "7aa175ef227f2f72eb2c3dda42e69976d5cc2d109bab6f7bba5fd24964f3e936"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.reflected.TwicePrimePower",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-reflected-sum-9bad0b9.main.SumPrimePowerExclusion"
+      ],
+      "source_sha256_before": "623202cfafff54a2f03f08edefa266c14f1e19057ffdcc1ef86cfeea3d99364a",
+      "source_sha256_after": "623202cfafff54a2f03f08edefa266c14f1e19057ffdcc1ef86cfeea3d99364a",
+      "output": ".lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/TwicePrimePower.lean",
+      "started_utc": "2026-09-08T09:38:15.771052Z",
+      "finished_utc": "2026-09-08T09:38:21.509729Z",
+      "seconds": 5.739,
+      "exit_code": 0,
+      "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/compile-0009-research_tasks_B686-Four_runs_20260908-formalization-92c221_lean_reflected_TwicePrimePower.lean.log",
+      "log_sha256": "fc4894ffdfe8079f4fc78f62e6e3921d1617b9787a59c73c02eeb6f4ad1c5fb0",
+      "output_exists": true,
+      "output_sha256": "855bceaec642be7df6809c02446b0f7d0a7be12e867702b68f6b80e85db8b392"
+    }
+  ],
+  "package_compiles": [],
+  "failure": null,
+  "started_utc": "2026-09-08T09:37:51.227774Z",
+  "output_directory": "research/shared/20260909-formalization-environment/runs/20260908T093751Z",
+  "build": {
+    "root": ".lake/formalization-environment/20260908T093751Z",
+    "olean": ".lake/formalization-environment/20260908T093751Z/olean",
+    "fresh": true,
+    "lean_path": [
+      "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T093751Z/olean"
+    ],
+    "linked_package_objects": 35943
+  },
+  "allowed_run_directories": [
+    "research/tasks/B677-Lcm/runs/20260908-formalization-92c221",
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221",
+    "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e",
+    "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9",
+    "research/tasks/B699-Binomial/runs/20260908-formalization-92c221"
+  ],
+  "root_run_directories": [
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221"
+  ],
+  "pins": [
+    {
+      "name": "mathlib",
+      "path": ".lake/packages/mathlib",
+      "manifestRev": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "observedHead": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/mathlib4",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "plausible",
+      "path": ".lake/packages/plausible",
+      "manifestRev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "observedHead": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/plausible",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": ".lake/packages/LeanSearchClient",
+      "manifestRev": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "observedHead": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/LeanSearchClient",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "importGraph",
+      "path": ".lake/packages/importGraph",
+      "manifestRev": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "observedHead": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/import-graph",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "proofwidgets",
+      "path": ".lake/packages/proofwidgets",
+      "manifestRev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "observedHead": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/ProofWidgets4",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "aesop",
+      "path": ".lake/packages/aesop",
+      "manifestRev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "observedHead": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/aesop",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "Qq",
+      "path": ".lake/packages/Qq",
+      "manifestRev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "observedHead": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/quote4",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "batteries",
+      "path": ".lake/packages/batteries",
+      "manifestRev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "observedHead": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/batteries",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "Cli",
+      "path": ".lake/packages/Cli",
+      "manifestRev": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "observedHead": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover/lean4-cli",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    }
+  ],
+  "manifest_pin_records": [
+    {
+      "name": "mathlib",
+      "path": ".lake/packages/mathlib",
+      "expected_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "url": "https://github.com/leanprover-community/mathlib4",
+      "input_rev": "v4.33.1",
+      "exit_code": 0,
+      "actual_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "command_output": "0df444a360eaa60ab8c11dca51a86af692955474\n",
+      "matches_pin": true
+    },
+    {
+      "name": "plausible",
+      "path": ".lake/packages/plausible",
+      "expected_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "url": "https://github.com/leanprover-community/plausible",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "command_output": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n",
+      "matches_pin": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": ".lake/packages/LeanSearchClient",
+      "expected_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "url": "https://github.com/leanprover-community/LeanSearchClient",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "command_output": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n",
+      "matches_pin": true
+    },
+    {
+      "name": "importGraph",
+      "path": ".lake/packages/importGraph",
+      "expected_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "url": "https://github.com/leanprover-community/import-graph",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "command_output": "16f02aa7642864af59f1ff0e384a015994db9118\n",
+      "matches_pin": true
+    },
+    {
+      "name": "proofwidgets",
+      "path": ".lake/packages/proofwidgets",
+      "expected_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "url": "https://github.com/leanprover-community/ProofWidgets4",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "command_output": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n",
+      "matches_pin": true
+    },
+    {
+      "name": "aesop",
+      "path": ".lake/packages/aesop",
+      "expected_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "url": "https://github.com/leanprover-community/aesop",
+      "input_rev": "master",
+      "exit_code": 0,
+      "actual_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "command_output": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n",
+      "matches_pin": true
+    },
+    {
+      "name": "Qq",
+      "path": ".lake/packages/Qq",
+      "expected_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "url": "https://github.com/leanprover-community/quote4",
+      "input_rev": "master",
+      "exit_code": 0,
+      "actual_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "command_output": "92c15be17b7caf78c2ad767ec40f89052d908d81\n",
+      "matches_pin": true
+    },
+    {
+      "name": "batteries",
+      "path": ".lake/packages/batteries",
+      "expected_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "url": "https://github.com/leanprover-community/batteries",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "command_output": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n",
+      "matches_pin": true
+    },
+    {
+      "name": "Cli",
+      "path": ".lake/packages/Cli",
+      "expected_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "url": "https://github.com/leanprover/lean4-cli",
+      "input_rev": "v4.33.0",
+      "exit_code": 0,
+      "actual_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "command_output": "6130a47896ce867c6a4a55373441e59e565bad0f\n",
+      "matches_pin": true
+    }
+  ],
+  "toolchain": {
+    "declared_toolchain": "leanprover/lean4:v4.33.1",
+    "commands": [
+      {
+        "command": [
+          "/usr/bin/bash",
+          "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+          "lean",
+          "--version"
+        ],
+        "command_shell": "/usr/bin/bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean --version",
+        "started_utc": "2026-09-08T09:37:51.319581Z",
+        "finished_utc": "2026-09-08T09:37:51.455083Z",
+        "exit_code": 0,
+        "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/lean-version.log",
+        "log_sha256": "63f3e16bf0258e2cc0ab3010eb1830723df9bb85097b7b72b0137b9be25a78e9",
+        "stdout": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n"
+      },
+      {
+        "command": [
+          "/usr/bin/bash",
+          "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+          "lake",
+          "--version"
+        ],
+        "command_shell": "/usr/bin/bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lake --version",
+        "started_utc": "2026-09-08T09:37:51.455829Z",
+        "finished_utc": "2026-09-08T09:37:51.560394Z",
+        "exit_code": 0,
+        "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/lake-version.log",
+        "log_sha256": "e475ba02fef5717a6caa256e1e25ac50268497b7d1e36955357f37b4701ee4a0",
+        "stdout": "Lake version 5.0.0-src+819816b (Lean version 4.33.1)\n"
+      }
+    ]
+  },
+  "policy": {
+    "exit_code": 0,
+    "files": 9,
+    "log": "research/shared/20260909-formalization-environment/runs/20260908T093751Z/policy/source-policy.log",
+    "log_sha256": "f3c1a01fc17070a06ecee9cb7295212383706c52513fe2a8f400a9fe29fd965a",
+    "violations": []
+  },
+  "package_imports": [
+    "Mathlib.Algebra.BigOperators.Intervals",
+    "Mathlib.Algebra.BigOperators.Ring.Finset",
+    "Mathlib.Algebra.BigOperators.Ring.Nat",
+    "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+    "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+    "Mathlib.Algebra.Order.Field.Basic",
+    "Mathlib.Algebra.Polynomial.Eval.Degree",
+    "Mathlib.Algebra.Polynomial.Reverse",
+    "Mathlib.Data.Nat.Factorial.BigOperators",
+    "Mathlib.NumberTheory.Padics.PadicVal.Basic",
+    "Mathlib.Order.Interval.Finset.Nat",
+    "Mathlib.RingTheory.PowerSeries.Catalan",
+    "Mathlib.RingTheory.PowerSeries.Trunc",
+    "Mathlib.Tactic.FieldSimp",
+    "Mathlib.Tactic.GCongr",
+    "Mathlib.Tactic.IntervalCases",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.NormNum",
+    "Mathlib.Tactic.Positivity",
+    "Mathlib.Tactic.Ring"
+  ],
+  "compiled_count": 9,
+  "finished_utc": "2026-09-08T09:38:21.512437Z"
+}

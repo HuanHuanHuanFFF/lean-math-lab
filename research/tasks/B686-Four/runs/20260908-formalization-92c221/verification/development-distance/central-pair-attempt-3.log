@@ -1,0 +1,74 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:48:74: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:48:74: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:63:70: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:80:55: error: `ring_nf` made no progress on the goal
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:108:7: error: unknown tactic
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:101:39: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  centralKernel r w - centralKernel r 0
+in the target expression
+  q * u * (q * u + b) * (centralKernel r (q * u) - centralKernel r 0) = q ^ 3 * (u * (q * u + b) * v)
+
+r : ℕ
+z d q b : ℤ
+hz : q ∣ z
+hd : q ∣ d
+hR : q ^ 2 ∣ 3 * z - d
+hcop : IsCoprime q (centralKernel r 0)
+heq : (z + d) * (z + d + b) * centralKernel r (z + d) = 4 * (z * (z + b) * centralKernel r z)
+w u : ℤ
+hu : w = q * u
+v : ℤ
+hv : centralKernel r w - centralKernel r 0 = q ^ 2 * v
+⊢ q * u * (q * u + b) * (centralKernel r (q * u) - centralKernel r 0) = q ^ 3 * (u * (q * u + b) * v)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:107:58: error: unsolved goals
+r : ℕ
+z d q b : ℤ
+hz : q ∣ z
+hd : q ∣ d
+hR : q ^ 2 ∣ 3 * z - d
+hcop : IsCoprime q (centralKernel r 0)
+heq : (z + d) * (z + d + b) * centralKernel r (z + d) = 4 * (z * (z + b) * centralKernel r z)
+herr : ∀ (w : ℤ), q ∣ w → q ^ 3 ∣ w * (w + b) * centralKernel r w - w * (w + b) * centralKernel r 0
+ha :
+  q ^ 3 ∣
+    (z + d) * (z + d + b) * centralKernel r (z + d) - (z + d) * (z + d + b) * centralKernel r 0 -
+      4 * (z * (z + b) * centralKernel r z - z * (z + b) * centralKernel r 0)
+⊢ (z + d) * (z + d + b) * centralKernel r (z + d) - (z + d) * (z + d + b) * centralKernel r 0 -
+      4 * (z * (z + b) * centralKernel r z - z * (z + b) * centralKernel r 0) =
+    -(centralKernel r 0 * ((z + d) * (z + d + b) - 4 * z * (z + b)))
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:102:63: error: unsolved goals
+r : ℕ
+z d q b : ℤ
+hz : q ∣ z
+hd : q ∣ d
+hR : q ^ 2 ∣ 3 * z - d
+hcop : IsCoprime q (centralKernel r 0)
+heq : (z + d) * (z + d + b) * centralKernel r (z + d) = 4 * (z * (z + b) * centralKernel r z)
+herr : ∀ (w : ℤ), q ∣ w → q ^ 3 ∣ w * (w + b) * centralKernel r w - w * (w + b) * centralKernel r 0
+ha :
+  q ^ 3 ∣
+    (z + d) * (z + d + b) * centralKernel r (z + d) - (z + d) * (z + d + b) * centralKernel r 0 -
+      4 * (z * (z + b) * centralKernel r z - z * (z + b) * centralKernel r 0)
+hid :
+  (z + d) * (z + d + b) * centralKernel r (z + d) - (z + d) * (z + d + b) * centralKernel r 0 -
+      4 * (z * (z + b) * centralKernel r z - z * (z + b) * centralKernel r 0) =
+    -(centralKernel r 0 * ((z + d) * (z + d + b) - 4 * z * (z + b)))
+⊢ q ^ 3 ∣ centralKernel r 0 * ((z + d) * (z + d + b) - 4 * z * (z + b))
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:92:29: error: unsolved goals
+r : ℕ
+z d q b : ℤ
+hz : q ∣ z
+hd : q ∣ d
+hR : q ^ 2 ∣ 3 * z - d
+hcop : IsCoprime q (centralKernel r 0)
+heq : (z + d) * (z + d + b) * centralKernel r (z + d) = 4 * (z * (z + b) * centralKernel r z)
+herr : ∀ (w : ℤ), q ∣ w → q ^ 3 ∣ w * (w + b) * centralKernel r w - w * (w + b) * centralKernel r 0
+ht : q ^ 3 ∣ centralKernel r 0 * ((z + d) * (z + d + b) - 4 * z * (z + b))
+⊢ q ^ 3 ∣ 4 * d ^ 2 - 3 * b * (3 * z - d)

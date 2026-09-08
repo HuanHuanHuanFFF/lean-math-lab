@@ -8,6 +8,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260908-formalization-92c221](runs/20260908-formalization-92c221/README.md) | 已采用条件判据的完整消费者复验 | [前沿](runs/20260908-formalization-92c221/frontier.md) |
 | [20260908-binomial-cofactors-f0a6539](runs/20260908-binomial-cofactors-f0a6539/README.md) | 二项式系数的小互素余因子判据 | [前沿](runs/20260908-binomial-cofactors-f0a6539/frontier.md) |
 
 同题研究放在本目录。新独立推进放入 `runs/日期-主题-短标识/`；换模型、会话或并发数量不改变既有批次身份。详见[目录规则](../../../docs/STRUCTURE.md)。各批独立维护进度和报告，本页仅作题面与导航。
