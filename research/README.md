@@ -15,3 +15,4 @@
 - 新建或接续遵循[目录与批次规则](../docs/STRUCTURE.md)，数学目标和验收字段参考[任务模板](../.agents/skills/lean-research/assets/task.md)，变化字段写到本批。
 - [候选优先级](赏金猎人候选优先级.md)、[首批候选调查](2026-09-06-数学研究候选清单.md)、[基础设施候选](2026-09-06-Lean基础设施候选.md)保留调查当时的状态，已立项题目以上表为入口。
 - [本次目录迁移与验证](shared/20260908-layout-integration/README.md)。
+- [外部开源研究成果](external-results/README.md)：原始快照、来源署名与本仓接入对照。
