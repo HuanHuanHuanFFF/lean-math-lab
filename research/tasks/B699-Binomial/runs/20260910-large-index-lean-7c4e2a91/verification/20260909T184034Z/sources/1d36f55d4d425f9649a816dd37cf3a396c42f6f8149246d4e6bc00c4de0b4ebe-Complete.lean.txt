@@ -21,8 +21,7 @@ theorem common_prime_dvd_both_1000_4882 {n i j : ℕ}
     (hi : 1000 ≤ i) (hiUpper : i ≤ 4882) (hij : i < j) (hjn : j ≤ n / 2) :
     ∃ p : ℕ, p.Prime ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j := by
   rcases common_1000_4882 hi hiUpper hij hjn with ⟨p, hp, hip, hdiv⟩
-  exact ⟨p, hp, hip, dvd_trans hdiv (Nat.gcd_dvd_left _ _),
-    dvd_trans hdiv (Nat.gcd_dvd_right _ _)⟩
+  exact ⟨p, hp, hip, Nat.dvd_of_dvd_gcd_left hdiv, Nat.dvd_of_dvd_gcd_right hdiv⟩
 end B699LargeIndex
 
 #check @B699LargeIndex.common_1000_4882
