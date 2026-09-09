@@ -8,6 +8,9 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260909-low-index-bounds-a5b51cea](runs/20260909-low-index-bounds-a5b51cea/README.md) | 七项具体数值高度与 i=4 非有效绝对有限性；**未 Lean 化**，未完成高度内排除 | [前沿](runs/20260909-low-index-bounds-a5b51cea/frontier.md) · [原报告](runs/20260909-low-index-bounds-a5b51cea/delivery/REPORT.md) |
+| [20260909-prime-optimization-a81baaab](runs/20260909-prime-optimization-a81baaab/README.md) | 初等计数包装及115／41行替代证书；短区间供应仍有依赖，**未 Lean 化** | [前沿](runs/20260909-prime-optimization-a81baaab/frontier.md) · [原报告](runs/20260909-prime-optimization-a81baaab/delivery/REPORT.md) |
+| [20260909-reuse-notes-292cede7](runs/20260909-reuse-notes-292cede7/README.md) | 保留 jk 的判别式递推备用接口；不收录“领先”调查全文，**未 Lean 化** | [技术摘录](runs/20260909-reuse-notes-292cede7/notes/technical-extract.md) |
 | [20260909-middle-index-b96965a8](runs/20260909-middle-index-b96965a8/README.md) | 全部 i≥185 的网页纸面／精确证书闭合；**未 Lean 化** | [前沿](runs/20260909-middle-index-b96965a8/frontier.md) · [原报告](runs/20260909-middle-index-b96965a8/delivery/REPORT.md) |
 | [20260909-proof-reuse-survey-0621d239](runs/20260909-proof-reuse-survey-0621d239/README.md) | 证明复用调查与素数估计替代；**未 Lean 化** | [前沿](runs/20260909-proof-reuse-survey-0621d239/frontier.md) |
 | [20260909-low-index-structure-b41a5a63](runs/20260909-low-index-structure-b41a5a63/README.md) | 上一轮154项纸面全域排除；151项高度与通用链已 Lean，完整覆盖数据未验 | [前沿](runs/20260909-low-index-structure-b41a5a63/frontier.md) · [报告](runs/20260909-low-index-structure-b41a5a63/report.md) · [验收](runs/20260909-low-index-structure-b41a5a63/acceptance.md) |
@@ -20,7 +23,7 @@
 | [20260908-formalization-92c221](runs/20260908-formalization-92c221/README.md) | 已采用条件判据的完整消费者复验 | [前沿](runs/20260908-formalization-92c221/frontier.md) |
 | [20260908-binomial-cofactors-f0a6539](runs/20260908-binomial-cofactors-f0a6539/README.md) | 二项式系数的小互素余因子判据 | [前沿](runs/20260908-binomial-cofactors-f0a6539/frontier.md) |
 
-本次已完成交付的固定提交、网页原件和分层接收说明见[接收快照](../../external-results/20260909-b699-proof-reuse-b96965a8/README.md)。进行中的新任务未纳入该快照。
+最新纸面成果见[20260909 接收快照](../../external-results/20260909-b699-paper-a5b51cea/README.md)。此前完成分支、调查原件和中指标纸面成果见[上一接收快照](../../external-results/20260909-b699-proof-reuse-b96965a8/README.md)。两次快照均未整合主机当前工作分支；各历史前沿按其交付时间解释，低指标新变化以最新批次为准。
 
 同题研究放在本目录。新独立推进放入 `runs/日期-主题-短标识/`；换模型、会话或并发数量不改变既有批次身份。详见[目录规则](../../../docs/STRUCTURE.md)。各批独立维护进度和报告，本页仅作题面与导航。
 
