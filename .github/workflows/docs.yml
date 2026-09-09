@@ -1,10 +1,21 @@
 name: API documentation
 
 on:
+  # Research-only changes do not affect the public API documentation.
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+    paths:
+      - 'Math/**'
+      - 'Math.lean'
+      - 'lean-toolchain'
+      - 'lakefile.toml'
+      - 'lakefile.lean'
+      - 'lake-manifest.json'
+      - 'docbuild/**'
+      - 'scripts/check-docs.py'
+      - 'scripts/verify.ps1'
+      - 'scripts/check-lean-policy.py'
+      - '.github/workflows/docs.yml'
   workflow_dispatch:
 
 permissions:
