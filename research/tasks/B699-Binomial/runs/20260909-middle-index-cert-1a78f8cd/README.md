@@ -15,3 +15,5 @@
 价值是既有纸面结果的形式化，不开展Dusart、Schoenfeld、Matveev或旧151项整表任务；不联系Chat、不等待其优化。最终必须通过具体数据及最终消费者的完整源码依赖闭包和真实传递公理检查。
 
 当前恢复入口：[成本与诊断](notes/checkpoint-1210.md)、[验收边界](acceptance.md)、[素数链接口](notes/prime-chain-interface.md)。
+
+13:24里程碑：完整两百万正素数链和i=323全部合法n,j的原题消费者已在verification/20260909T130116Z通过（72源闭包、51新编/21一致复用，实际标准公理）。当前已验全域指标{323}；677项最终MiddleComplete仍在执行。
