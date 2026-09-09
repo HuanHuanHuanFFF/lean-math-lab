@@ -45,7 +45,7 @@
 首编失败后，主任务授予本子任务一次独占 Lean 编译窗口。实际复验命令（从隔离项目根执行）：
 
 ```powershell
-& 'C:\Python314\python.exe' -u -B 'research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/runner/extend.py' --project-root . --lean 'D:\CodingProject\Math\.tools\elan\toolchains\leanprover--lean4---v4.33.1\bin\lean.exe' --package-root 'D:\CodingProject\Math\.lake\packages' --root 'research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/PowerTrace.lean' --base-evidence 'research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181632Z/evidence.json' --memory-mb 1280 --timeout 180
+& $Python -u -B 'research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/runner/extend.py' --project-root . --lean $Lean --package-root $PackageRoot --root 'research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/PowerTrace.lean' --base-evidence 'research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181632Z/evidence.json' --memory-mb 1280 --timeout 180
 ```
 
 新证据为 [verification/20260909T183409Z/evidence.json](../verification/20260909T183409Z/evidence.json)，实际日志为 [PowerTrace 编译日志](../verification/20260909T183409Z/logs/compile-0002-research_tasks_B699-Binomial_runs_20260910-large-index-lean-7c4e2a91_lean_PowerTrace.lean.log)。`success=true`、`exit_code=0`、`all_project_closure_verified=true`；本次新编 PowerTrace，Base 按验证器逐项核对的源码、对象、日志与来源证据哈希复用，不能表述为依赖全部重新编译。
@@ -57,3 +57,5 @@
 - 8 个模块内小规模正反例随本次源文件实际编译通过。
 
 当前接受状态：通用幂轨迹检查器上下界声音性已经本批 Lean 4.33.1 内核检查；原题目标及大指数代表性证书仍由主任务接通并验收。本引理本身没有新排除 B699 的未知区域，也没有建立研究新颖性。独占 Lean 计算窗口已在向主任务发送成功证据时明确释放；子任务此后不再启动 Lean。
+
+发布记录中的 $Python、$Lean、$PackageRoot 是同一次实际命令的路径别名；完整本机命令保留在忽略的原始诊断日志。仅整理文档路径，证明源码和验收日志字节未变。

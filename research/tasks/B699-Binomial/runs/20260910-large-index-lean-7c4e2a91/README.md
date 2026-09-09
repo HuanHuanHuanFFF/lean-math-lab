@@ -1,15 +1,15 @@
-# B699 1000..4882 原题消费者
+# B699 1000..4882 完整原题消费者
 
-本批负责人：Codex 主任务。只写本批目录；历史批次以固定源码导入复用。独立分支 `GPT-work/b699-1000-4882-20260910-7c4e2a91`，固定来源 `12c31b8b5729b0017cf8e1423cd98ed5230aaaae`。不采用其它并行会话本轮新成果，不依赖 EC、Dusart 或其它未证出版输入。
+本批已完成：对所有自然数n,i,j，1000≤i≤4882且i<j≤n/2，存在素数p≥i同时整除C(n,i)、C(n,j)。保留p=i，n,j无上界，没有证书真值、结构或出版定理前提。共3883个指标。
 
-目标：对所有自然数 n,i,j，1000≤i≤4882、i<j≤n/2，存在素数 p≥i 整除两个实际二项式系数（等价写为整除 gcd）。保留 p=i；n,j 无上界；无证书或结构前提。3883 项在本批开始时均未新增验收。
+[报告](report.md) · [前沿](frontier.md) · [正式验收](acceptance.md) · [交接/恢复](handoff.md) · [最终消费者](lean/Complete.lean) · [原题直接转录](lean/Acceptance.lean)
 
-预算：2026-09-09 17:59:27 UTC（上海 2026-09-10 01:59:27）开始；第五小时收束评估 22:59:27 UTC；计划截止 23:59:27 UTC；仅核心证明/最终验收接近完成时可记录依据延长，绝对截止 2026-09-10 00:59:27 UTC。所有子任务共享此预算，不自动继承其他任务预算。
+最终证明根：[20260909T185800Z](verification/20260909T185800Z/evidence.json)，391源完整闭包通过；最后调用2源新编、389源逐项绑定复用。391源均与证明源提交b9b51897f3c614c9295a7e7527057e2ec86f00bb原始Git blob、实际编译对象和日志一致。[完整性复核](verification/final-integrity.json)与[源码/原工作区复核](verification/final-source-binding.json)均通过。恢复脚本也已实际运行，见[190240Z](verification/20260909T190240Z/evidence.json)，该次391源全量绑定复用、0新编，不冒充再次内核运行。
 
-已读固定材料：仓库 AGENTS、STRUCTURE、Lean research skill 与 open-problem workflow；题目入口；middle-index 815 项验收、frontier、HeightRows、RawHeight、HeightApprox、extension/primeChain/Complete；low-index acceptance、ThreeWindowSize、HeightCertificate；prime-optimization REPORT 第1/3/4/6节、previous-report 第4节、整数表。
+采用固定来源12c31b8b5729b0017cf8e1423cd98ed5230aaaae；只复用启动时已交付材料，未读取或等待其它并行会话本轮新成果。路线B以67段统一高度N=20,000,000接固定有限n消费者；不依赖EC、Dusart或新的对数归一化。旧草稿的修订、失败诊断和来源映射保存在本批；历史批次源码完全保留。
 
-源版本采用：以上均为本批固定来源提交。815项完整根 20260909T145049Z 用作固定项目对象复用候选，必须逐源、依赖、对象与实际日志绑定。HeightApprox/DyadicBounds 在旧交接明确为未验草稿，本批若采用需实际验证。
+负责人和所有权：主任务负责本批整合、生成器、消费者与验收。独立子任务分别拥有HeightBlock/FactorialTrace及各自记录、PowerTrace及记录；fresh审查者只写reviews/trace-statement-audit.md。旧批次、共享入口和main未改动。分支GPT-work/b699-1000-4882-20260910-7c4e2a91，仅向该分支提交推送。
 
-启动工作区：main 在固定提交上，仅 B686-Four/round9 未跟踪；已在忽略的本机目录保存原文件 SHA256 清单。未改变原文件。启动约16GB总内存、1.3至2.5GB可用，D盘约6.0GB可用；无既有 Lean/lake 进程。相关非研究进程不停止。重计算串行，Lean -j1，缓存和临时输出在D盘。
+预算开始2026-09-09 17:59:27 UTC（上海9月10日01:59:27），计划6小时截止23:59:27 UTC，第5小时评估22:59:27 UTC，绝对上限次日00:59:27 UTC。证明于18:58:35 UTC通过，耗时59分8秒；随后完成审查、恢复测试和发布交接。提前完成，未达到第5小时，未启用延长。总耗时以最终结束记录为准。
 
-当前状态：准备阶段，尚无本批已验定理。[前沿](frontier.md)记录范围和下一检查；[路线记录](notes/routes.md)记录 A/B 比较。
+证据边界：实际Lean内核验收、公理审计、源对应和AI源码审读分别记录；未运行独立第二内核或人工同行评审，不宣称完整B699或原创性认证。

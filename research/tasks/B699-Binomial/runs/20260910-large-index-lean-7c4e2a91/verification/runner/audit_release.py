@@ -42,6 +42,7 @@ measurements=[c.get('memory_measurement') or {} for c in e['commands']]
 size_cache=a.package_root/'mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/Size.olean'
 # The public record keeps only a package-relative location.
 size_sha=sha(Path(size_cache))
+if size_sha!='3255799d78424e47ddfee6811b6b5cce1c3db3826e11a1ebe2067db778967663':fail.append('additional pinned cache mismatch')
 result={'checked_utc':datetime.now(timezone.utc).isoformat(),'success':not fail,'source_commit':a.source_commit,'current_head':git(['rev-parse','HEAD']),'runtime_evidence':a.evidence.as_posix(),'source_bindings':bindings,'original_workspace':{'head':head,'branch':branch,'tracked_clean':not tracked,'untracked_count':len(original),'files':original},'new_run_source_versions_compiled_successfully':len(new_accepted),'per_invocation':all_roots,'final_invocation_peak_working_set_bytes':max((m.get('peak_working_set_bytes',0) for m in measurements),default=0),'additional_pinned_cache':{'module':'Mathlib.Data.Nat.Size','current_olean_sha256':size_sha},'failures':fail}
 (run/'verification/final-source-binding.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8',newline='\n')
 print(json.dumps({'success':result['success'],'bound_sources':len(bindings),'original_untracked_checked':len(original),'new_run_source_versions_compiled_successfully':len(new_accepted),'failures':fail}))
