@@ -1,0 +1,62 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:28:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:33:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:84:6: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:84:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:82:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:83:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:244:46: error: No goals to be solved
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:245:64: error: No goals to be solved
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:309:2: error: linarith failed to find a contradiction
+fu fl : ℂ → ℂ
+R B : ℝ
+hR : 0 < R
+hu : ∀ (w : ℂ), 0 ≤ w.im → R ≤ ‖w‖ → ‖fu w‖ ≤ B
+hl : ∀ (w : ℂ), w.im ≤ 0 → R ≤ ‖w‖ → ‖fl w‖ ≤ B
+hnormh : ∀ (x : ℝ), R ≤ ‖↑x + ↑R * I‖ ∧ R ≤ ‖↑x - ↑R * I‖
+hnormv : ∀ (y : ℝ), R ≤ ‖↑R + ↑y * I‖ ∧ R ≤ ‖-↑R + ↑y * I‖
+hb : ‖∫ (x : ℝ) in -R..R, fl (↑x - ↑R * I)‖ ≤ B * (R + R)
+ht : ‖∫ (x : ℝ) in -R..R, fu (↑x + ↑R * I)‖ ≤ B * (R + R)
+hvrU : ‖∫ (x : ℝ) in 0..R, fu (↑R + ↑x * I)‖ ≤ B * R
+hvlU : ‖∫ (x : ℝ) in 0..R, fu (-↑R + ↑x * I)‖ ≤ B * R
+hvrL : ‖∫ (x : ℝ) in -R..0, fl (↑R + ↑x * I)‖ ≤ B * |0 + R|
+hvlL : ‖∫ (x : ℝ) in -R..0, fl (-↑R + ↑x * I)‖ ≤ B * |0 + R|
+hn :
+  ‖mixedBoundary fu fl R‖ ≤
+    ‖∫ (x : ℝ) in -R..R, fl (↑x - ↑R * I)‖ + ‖∫ (x : ℝ) in -R..R, fu (↑x + ↑R * I)‖ +
+            ‖∫ (y : ℝ) in -R..0, fl (↑R + ↑y * I)‖ +
+          ‖∫ (y : ℝ) in 0..R, fu (↑R + ↑y * I)‖ +
+        ‖∫ (y : ℝ) in -R..0, fl (-↑R + ↑y * I)‖ +
+      ‖∫ (y : ℝ) in 0..R, fu (-↑R + ↑y * I)‖
+a✝ : 8 * B * R < ‖mixedBoundary fu fl R‖
+⊢ False
+failed
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:306:28: warning: This simp argument is unused:
+  zero_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [sub_neg_eq_add, sub_zero, neg_neg, abs_of_pos hR,
+    abs_of_pos (by positivity : 0 < R + R)] at hb ht hvrU hvlU hvrL hvlL
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:306:46: warning: This simp argument is unused:
+  neg_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [sub_neg_eq_add, zero_sub, sub_zero, abs_of_pos hR,
+    abs_of_pos (by positivity : 0 < R + R)] at hb ht hvrU hvlU hvrL hvlL
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+

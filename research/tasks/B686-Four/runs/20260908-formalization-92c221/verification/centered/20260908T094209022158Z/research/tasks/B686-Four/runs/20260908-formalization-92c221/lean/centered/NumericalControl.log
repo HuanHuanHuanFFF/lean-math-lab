@@ -1,0 +1,150 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:21:10: error: typeclass instance problem is stuck
+  IsOrderedAddMonoid ?m.119
+
+Note: Lean will not try to resolve this typeclass instance problem because the first, second, and third type arguments to `IsOrderedAddMonoid` contain metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:31:30: warning: Variable name `hL` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hL
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:61:6: error: Type mismatch: After simplification, term
+  eq_C_of_natDegree_eq_zero hz
+ has type
+  E = ↑(E.coeff 0)
+but is expected to have type
+  E = ↑E.leadingCoeff
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:60:2: error: unsolved goals
+case pos
+E : ℤ[X]
+B k t : ℤ
+r : ℕ
+hB : 0 ≤ B
+hk : 1 ≤ k
+ht : 2 * k ≤ t
+hEnz : E ≠ 0
+hdeg : E.natDegree < r
+heven : ∀ (i : ℕ), ¬Even i → E.coeff i = 0
+hc : ∀ i ≤ 2 * r, |E.coeff i| ≤ B * k ^ (2 * r - i)
+hsize : 16 * B * k ^ (2 * r) ≤ t ^ 2
+ht0 : 0 ≤ t
+hlead : 1 ≤ |E.leadingCoeff|
+hz : E.natDegree = 0
+heq : E = C E.leadingCoeff
+⊢ 8 * |eval t (↑E.leadingCoeff).eraseLead| ≤ |(↑E.leadingCoeff).leadingCoeff|
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:132:17: error: don't know how to synthesize implicit argument `a`
+  @mul_lt_mul_of_pos_right ℤ Int.instMul instMulZeroClassOfSemiring.toZero instLatticeInt.toSemilatticeInf.toPreorder
+    (t ^ ?m.721 * t ^ E.natDegree) (48 * B * k ^ (r + 1)) (7 * L * t) Int.instIsStrictOrderedRing.toMulPosStrictMono
+    hgap (mul_pos (pow_pos htpos ?m.721) (pow_pos htpos E.natDegree))
+context:
+A E : ℤ[X]
+C B k L t : ℤ
+r : ℕ
+hr : 1 ≤ r
+hC : 0 ≤ C
+hB : 0 ≤ B
+hk : 1 ≤ k
+hL : 1 ≤ L
+ht : 2 * k ≤ t
+hAdeg : A.natDegree = r
+hAL : A.leadingCoeff = L
+hEcoef : ∀ i ≤ 2 * r, |E.coeff i| ≤ B * k ^ (2 * r - i)
+hAcoef : ∀ i ≤ r, |A.coeff i| ≤ C * k ^ (r - i)
+hEnz : E ≠ 0
+hEdeg : E.natDegree < r
+hEeven : ∀ (i : ℕ), ¬Even i → E.coeff i = 0
+hsizeA : 16 * C * k ≤ L * t
+hsizeE : 16 * B * k ^ (2 * r) ≤ t ^ 2
+hgap : 48 * B * k ^ (r + 1) < 7 * L * t
+htpos : 0 < t
+hAtail : 8 * |eval t A.eraseLead| ≤ L * t ^ r
+hAid : eval t A = eval t A.eraseLead + L * t ^ r
+hAlo : 7 * (L * t ^ r) ≤ 8 * eval t A
+hAhi : 8 * eval t A ≤ 9 * (L * t ^ r)
+hEtail : 8 * |eval t E.eraseLead| ≤ |E.leadingCoeff * t ^ E.natDegree|
+hElo : 7 * (|E.leadingCoeff| * t ^ E.natDegree) ≤ 8 * |eval t E|
+hEhi : 8 * |eval t E| ≤ 9 * (|E.leadingCoeff| * t ^ E.natDegree)
+hApos : 1 ≤ eval t A
+hEbound : |eval t E| ≤ 2 * B * k ^ (2 * r - E.natDegree) * t ^ E.natDegree
+hkt : k ≤ t
+hgrow : k ^ (r - E.natDegree - 1) ≤ t ^ (r - E.natDegree - 1)
+hpow : k ^ (2 * r - E.natDegree) = k ^ (r + 1) * k ^ (r - E.natDegree - 1)
+ht_pow : t * (t ^ (r - E.natDegree - 1) * t ^ E.natDegree) = t ^ r
+⊢ ℤ
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:133:7: error: don't know how to synthesize implicit argument `a`
+  @mul_pos ℤ instMulZeroClassOfSemiring (t ^ ?m.721) (t ^ E.natDegree) instLatticeInt.toSemilatticeInf.toPreorder
+    Int.instIsStrictOrderedRing.toPosMulStrictMono (pow_pos htpos ?m.721) (pow_pos htpos E.natDegree)
+context:
+A E : ℤ[X]
+C B k L t : ℤ
+r : ℕ
+hr : 1 ≤ r
+hC : 0 ≤ C
+hB : 0 ≤ B
+hk : 1 ≤ k
+hL : 1 ≤ L
+ht : 2 * k ≤ t
+hAdeg : A.natDegree = r
+hAL : A.leadingCoeff = L
+hEcoef : ∀ i ≤ 2 * r, |E.coeff i| ≤ B * k ^ (2 * r - i)
+hAcoef : ∀ i ≤ r, |A.coeff i| ≤ C * k ^ (r - i)
+hEnz : E ≠ 0
+hEdeg : E.natDegree < r
+hEeven : ∀ (i : ℕ), ¬Even i → E.coeff i = 0
+hsizeA : 16 * C * k ≤ L * t
+hsizeE : 16 * B * k ^ (2 * r) ≤ t ^ 2
+hgap : 48 * B * k ^ (r + 1) < 7 * L * t
+htpos : 0 < t
+hAtail : 8 * |eval t A.eraseLead| ≤ L * t ^ r
+hAid : eval t A = eval t A.eraseLead + L * t ^ r
+hAlo : 7 * (L * t ^ r) ≤ 8 * eval t A
+hAhi : 8 * eval t A ≤ 9 * (L * t ^ r)
+hEtail : 8 * |eval t E.eraseLead| ≤ |E.leadingCoeff * t ^ E.natDegree|
+hElo : 7 * (|E.leadingCoeff| * t ^ E.natDegree) ≤ 8 * |eval t E|
+hEhi : 8 * |eval t E| ≤ 9 * (|E.leadingCoeff| * t ^ E.natDegree)
+hApos : 1 ≤ eval t A
+hEbound : |eval t E| ≤ 2 * B * k ^ (2 * r - E.natDegree) * t ^ E.natDegree
+hkt : k ≤ t
+hgrow : k ^ (r - E.natDegree - 1) ≤ t ^ (r - E.natDegree - 1)
+hpow : k ^ (2 * r - E.natDegree) = k ^ (r + 1) * k ^ (r - E.natDegree - 1)
+ht_pow : t * (t ^ (r - E.natDegree - 1) * t ^ E.natDegree) = t ^ r
+⊢ ℤ
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:133:30: error: don't know how to synthesize placeholder for argument `n`
+context:
+A E : ℤ[X]
+C B k L t : ℤ
+r : ℕ
+hr : 1 ≤ r
+hC : 0 ≤ C
+hB : 0 ≤ B
+hk : 1 ≤ k
+hL : 1 ≤ L
+ht : 2 * k ≤ t
+hAdeg : A.natDegree = r
+hAL : A.leadingCoeff = L
+hEcoef : ∀ i ≤ 2 * r, |E.coeff i| ≤ B * k ^ (2 * r - i)
+hAcoef : ∀ i ≤ r, |A.coeff i| ≤ C * k ^ (r - i)
+hEnz : E ≠ 0
+hEdeg : E.natDegree < r
+hEeven : ∀ (i : ℕ), ¬Even i → E.coeff i = 0
+hsizeA : 16 * C * k ≤ L * t
+hsizeE : 16 * B * k ^ (2 * r) ≤ t ^ 2
+hgap : 48 * B * k ^ (r + 1) < 7 * L * t
+htpos : 0 < t
+hAtail : 8 * |eval t A.eraseLead| ≤ L * t ^ r
+hAid : eval t A = eval t A.eraseLead + L * t ^ r
+hAlo : 7 * (L * t ^ r) ≤ 8 * eval t A
+hAhi : 8 * eval t A ≤ 9 * (L * t ^ r)
+hEtail : 8 * |eval t E.eraseLead| ≤ |E.leadingCoeff * t ^ E.natDegree|
+hElo : 7 * (|E.leadingCoeff| * t ^ E.natDegree) ≤ 8 * |eval t E|
+hEhi : 8 * |eval t E| ≤ 9 * (|E.leadingCoeff| * t ^ E.natDegree)
+hApos : 1 ≤ eval t A
+hEbound : |eval t E| ≤ 2 * B * k ^ (2 * r - E.natDegree) * t ^ E.natDegree
+hkt : k ≤ t
+hgrow : k ^ (r - E.natDegree - 1) ≤ t ^ (r - E.natDegree - 1)
+hpow : k ^ (2 * r - E.natDegree) = k ^ (r + 1) * k ^ (r - E.natDegree - 1)
+ht_pow : t * (t ^ (r - E.natDegree - 1) * t ^ E.natDegree) = t ^ r
+⊢ ℕ
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:132:9: error: failed to infer `have` declaration type

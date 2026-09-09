@@ -1,0 +1,98 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:32:30: warning: Variable name `hL` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hL
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:82:17: error: don't know how to synthesize implicit argument `a`
+  @mul_le_mul_of_nonneg_left ℤ Int.instMul instMulZeroClassOfSemiring.toZero instLatticeInt.toSemilatticeInf.toPreorder
+    (16 * B * t ^ ?m.472) (k ^ (2 * r - (E.natDegree - 2))) (k ^ (2 * r))
+    IsStrictOrderedRing.toIsOrderedRing.toPosMulMono hkp
+    (mul_nonneg
+      (have this :=
+        mul_nonneg
+          (le_of_lt
+            (Mathlib.Meta.Positivity.pos_of_isNat (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 16))
+              (Eq.refl (Nat.ble 1 16))))
+          hB;
+      this)
+      (pow_nonneg ht0 ?m.472))
+context:
+E : ℤ[X]
+B k t : ℤ
+r : ℕ
+hB : 0 ≤ B
+hk : 1 ≤ k
+ht : 2 * k ≤ t
+hEnz : E ≠ 0
+hdeg : E.natDegree < r
+heven : ∀ (i : ℕ), ¬Even i → E.coeff i = 0
+hc : ∀ i ≤ 2 * r, |E.coeff i| ≤ B * k ^ (2 * r - i)
+hsize : 16 * B * k ^ (2 * r) ≤ t ^ 2
+ht0 : 0 ≤ t
+hlead : 1 ≤ |E.leadingCoeff|
+hz : ¬E.natDegree = 0
+hdeven : Even E.natDegree
+hd2 : 2 ≤ E.natDegree
+hd : E.eraseLead.natDegree ≤ E.natDegree - 2
+hc' : ∀ i ≤ E.natDegree - 2, |E.eraseLead.coeff i| ≤ B * k ^ (2 * r - i)
+he : |eval t E.eraseLead| ≤ 2 * B * k ^ (2 * r - (E.natDegree - 2)) * t ^ (E.natDegree - 2)
+hkp : k ^ (2 * r - (E.natDegree - 2)) ≤ k ^ (2 * r)
+⊢ ℤ
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:83:9: error: don't know how to synthesize implicit argument `b`
+  @mul_nonneg ℤ instMulZeroClassOfSemiring (16 * B) (t ^ ?m.472) instLatticeInt.toSemilatticeInf.toPreorder
+    IsStrictOrderedRing.toIsOrderedRing.toPosMulMono
+    (have this :=
+      mul_nonneg
+        (le_of_lt
+          (Mathlib.Meta.Positivity.pos_of_isNat (Mathlib.Meta.NormNum.isNat_ofNat ℤ (Eq.refl 16))
+            (Eq.refl (Nat.ble 1 16))))
+        hB;
+    this)
+    (pow_nonneg ht0 ?m.472)
+context:
+E : ℤ[X]
+B k t : ℤ
+r : ℕ
+hB : 0 ≤ B
+hk : 1 ≤ k
+ht : 2 * k ≤ t
+hEnz : E ≠ 0
+hdeg : E.natDegree < r
+heven : ∀ (i : ℕ), ¬Even i → E.coeff i = 0
+hc : ∀ i ≤ 2 * r, |E.coeff i| ≤ B * k ^ (2 * r - i)
+hsize : 16 * B * k ^ (2 * r) ≤ t ^ 2
+ht0 : 0 ≤ t
+hlead : 1 ≤ |E.leadingCoeff|
+hz : ¬E.natDegree = 0
+hdeven : Even E.natDegree
+hd2 : 2 ≤ E.natDegree
+hd : E.eraseLead.natDegree ≤ E.natDegree - 2
+hc' : ∀ i ≤ E.natDegree - 2, |E.eraseLead.coeff i| ≤ B * k ^ (2 * r - i)
+he : |eval t E.eraseLead| ≤ 2 * B * k ^ (2 * r - (E.natDegree - 2)) * t ^ (E.natDegree - 2)
+hkp : k ^ (2 * r - (E.natDegree - 2)) ≤ k ^ (2 * r)
+⊢ ℤ
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:83:68: error: don't know how to synthesize placeholder for argument `n`
+context:
+E : ℤ[X]
+B k t : ℤ
+r : ℕ
+hB : 0 ≤ B
+hk : 1 ≤ k
+ht : 2 * k ≤ t
+hEnz : E ≠ 0
+hdeg : E.natDegree < r
+heven : ∀ (i : ℕ), ¬Even i → E.coeff i = 0
+hc : ∀ i ≤ 2 * r, |E.coeff i| ≤ B * k ^ (2 * r - i)
+hsize : 16 * B * k ^ (2 * r) ≤ t ^ 2
+ht0 : 0 ≤ t
+hlead : 1 ≤ |E.leadingCoeff|
+hz : ¬E.natDegree = 0
+hdeven : Even E.natDegree
+hd2 : 2 ≤ E.natDegree
+hd : E.eraseLead.natDegree ≤ E.natDegree - 2
+hc' : ∀ i ≤ E.natDegree - 2, |E.eraseLead.coeff i| ≤ B * k ^ (2 * r - i)
+he : |eval t E.eraseLead| ≤ 2 * B * k ^ (2 * r - (E.natDegree - 2)) * t ^ (E.natDegree - 2)
+hkp : k ^ (2 * r - (E.natDegree - 2)) ≤ k ^ (2 * r)
+⊢ ℕ
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/NumericalControl.lean:82:11: error: failed to infer `have` declaration type

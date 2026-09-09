@@ -1,0 +1,31 @@
+# pinned package-cache module verification
+# repository: /workspace/scratch/75a17f226d3b/lean-math-lab
+# toolchain: leanprover/lean4:v4.33.1
+# mathlib HEAD: 0df444a360eaa60ab8c11dca51a86af692955474
+# manifest_sha256: fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0
+# package checkout status: ## HEAD (no branch), clean
+
+command: ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" MATHLIB_CACHE_DIR="$PWD/.lake/mathlib-cache" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.Analysis.SpecialFunctions.Integrals.Basic:olean
+result: Build completed successfully (2714 jobs).
+artifact: .lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/SpecialFunctions/Integrals/Basic.olean
+artifact_sha256: 00d51c7b2f5392cacd9197f4ca8cec897f12085b4570dc1126ee77aeb5480cee
+source: .lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Integrals/Basic.lean
+source_sha256: 58a81e8137bddf5cc43ae28f08ffa75ea3aa086e607cf70e70f70c3c8e935e81
+
+command: ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" MATHLIB_CACHE_DIR="$PWD/.lake/mathlib-cache" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.Analysis.SpecialFunctions.Stirling:olean
+result: Build completed successfully (2719 jobs).
+artifact: .lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/SpecialFunctions/Stirling.olean
+artifact_sha256: 476be520de02cc129f71db84533f8e602753a3a782c8d462475a673bb3ffbf2f
+source: .lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Stirling.lean
+source_sha256: 46849279daaa7b5a2800f4c3428b2c28066a235f1cb6623702312aa56ba50aac
+
+# fresh smoke (no old project .lake/build object is used for validation):
+smoke_source: research/shared/20260909-formalization-environment/module-cache-smoke-integrals-stirling.lean
+smoke_source_sha256: 6ca3568efdabe829e37882c22ccd6da756b3940d65c1c4de60363326b91dd461
+smoke_command: python3 research/shared/20260909-formalization-environment/fresh-root.py --root research/shared/20260909-formalization-environment/module-cache-smoke-integrals-stirling.lean
+smoke_output: research/shared/20260909-formalization-environment/runs/20260908T105747Z/evidence.json
+smoke_result: fresh-root success: True (exit 0)
+smoke_fresh_olean: .lake/formalization-environment/20260908T105747Z/olean/
+linked_package_objects: 37308
+package_imports: Mathlib.Analysis.SpecialFunctions.Integrals.Basic, Mathlib.Analysis.SpecialFunctions.Stirling
+all_pins_match_and_clean: true

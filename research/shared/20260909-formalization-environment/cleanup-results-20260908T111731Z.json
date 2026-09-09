@@ -1,0 +1,36 @@
+{
+  "kind": "cleanup-results",
+  "created_utc": "20260908T111731Z",
+  "worktree": ".",
+  "plans": [
+    {
+      "plan": "research/shared/20260909-formalization-environment/cleanup-20260908T110911Z.json",
+      "plan_sha256": "1ec36da35576ac9d9c61528e6403f3ba951299f7144aac02748431a5fa8c2a3f",
+      "result": {
+        "removed_count": 8,
+        "reclaimed_object_bytes": 1246740480,
+        "df_after_observed": "overlay 32G 27G 3.6G 89% /"
+      }
+    },
+    {
+      "plan": "research/shared/20260909-formalization-environment/cleanup-package-ir-20260908T111350Z.json",
+      "plan_sha256": "a196ae55b5d05cac33841000e17b1a5c5960c8c3a8d7d96566add3957022d154",
+      "result": {
+        "removed_count": 1,
+        "reclaimed_object_bytes": 317317120,
+        "df_after_observed": "overlay 32G 30G 619M 98% /"
+      }
+    },
+    {
+      "plan": "research/shared/20260909-formalization-environment/cleanup-fresh-success-20260908T111647Z.json",
+      "plan_sha256": "a16f23d5ecc5c9943081699863be4feca72b90f8e70fc320cc04d7e7978b638b",
+      "result": {
+        "removed_count": 24,
+        "logical_kib_following_links": 3654032,
+        "df_after_observed": "overlay 32G 25G 5.5G 82% /"
+      }
+    }
+  ],
+  "current_df": "Filesystem      Size  Used Avail Use% Mounted on\noverlay          32G   26G  4.6G  85% /",
+  "note": "Observed df changes include concurrent finite compilation; evidence and source files were retained. The first and IR plans report their allowlisted byte estimates; fresh-root cleanup reports du logical size because roots contain package symlinks."
+}

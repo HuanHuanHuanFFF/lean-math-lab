@@ -1,0 +1,18 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/SlitBranch.lean:28:2: warning: Unused tactic linter: `congr 1` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/SlitBranch.lean:37:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/SlitBranch.lean:67:46: error: Application type mismatch: The argument
+  DifferentiableAt.comp z ?m.155 hd
+has type
+  DifferentiableAt ℂ (?m.154 ∘ fun w => (w - ↑a) / (w - ↑b)) z
+but is expected to have type
+  DifferentiableAt ℂ (fun z => ((z - ↑a) / (z - ↑b)).sqrt) z
+in the application
+  DifferentiableAt.mul ?m.141 (DifferentiableAt.comp z ?m.155 hd)

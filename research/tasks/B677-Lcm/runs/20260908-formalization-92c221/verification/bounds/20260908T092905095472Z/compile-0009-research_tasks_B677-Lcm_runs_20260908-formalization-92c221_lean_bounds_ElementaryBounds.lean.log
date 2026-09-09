@@ -1,0 +1,54 @@
+# source: research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean
+# module: research.tasks.B677-Lcm.runs.20260908-formalization-92c221.lean.bounds.ElementaryBounds
+# source_sha256_before: c17d8a46f1dba61a629a5823217b5415c544b1ee5cbeb46c8a3ee6d755b5f427
+# output: .lake/research-runs/b677-bounds-20260908T092905095472Z/olean/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.olean
+# imports: Math.B677.IntervalLcm, research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.LcmDistance
+# command: bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/research-runs/b677-bounds-20260908T092905095472Z/olean/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:149:48: error: unsolved goals
+n m k : ℕ
+hk : 2 ≤ k
+heq : B677.intervalLcm n k = B677.intervalLcm m k
+hp : intervalProduct m k ≤ (k - 1).factorial * B677.intervalLcm n k
+hup : k.factorial * B677.intervalLcm n k ≤ intervalProduct n k * B677.intervalLcm 0 k
+⊢ k * (k - 1) * (k - 1 - 1).factorial * B677.intervalLcm n k = B677.intervalLcm n k * k.factorial
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:161:8: error(lean.unknownIdentifier): Unknown constant `Nat.lt_of_pow_lt_pow_left`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:218:16: error(lean.unknownIdentifier): Unknown constant `Nat.lt_of_pow_lt_pow_left`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:195:38: error: unsolved goals
+n m k : ℕ
+hk : 2 ≤ k
+hsep : n + k ≤ m
+heq : B677.intervalLcm n k = B677.intervalLcm m k
+hk0 : 0 < k
+hd : k ≤ m - n
+hdiv : B677.intervalLcm n k ∣ B686LcmScale.centeredDiffLcm k (m - n)
+hLle : B677.intervalLcm n k ≤ B686LcmScale.centeredDiffLcm k (m - n)
+hgap : (2 * k - 1).factorial * B686LcmScale.centeredDiffLcm k (m - n) < (4 * (m - n)) ^ (2 * k - 1)
+hproduct : intervalProduct n k ≤ (k - 1).factorial * B677.intervalLcm n k
+hpow : ((n + 1) * k) ^ k < ((4 * (m - n)) ^ 2) ^ k
+⊢ (n + 1) * k < 16 * (m - n) ^ 2
+'B677Bounds.later_start_lt_four_mul_end' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:269:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B677Bounds.later_start_lt_four_mul_end' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B677Bounds.later_start_lt_four_mul_end' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B677Bounds.start_mul_length_lt_sixteen_gap_sq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:272:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B677Bounds.start_mul_length_lt_sixteen_gap_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B677Bounds.start_mul_length_lt_sixteen_gap_sq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B677Bounds.later_start_lt_1032_mul_length' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:275:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B677Bounds.later_start_lt_1032_mul_length' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B677Bounds.later_start_lt_1032_mul_length' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B677Bounds.elementary_consumers' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B677-Lcm/runs/20260908-formalization-92c221/lean/bounds/ElementaryBounds.lean:278:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B677Bounds.elementary_consumers' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B677Bounds.elementary_consumers' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

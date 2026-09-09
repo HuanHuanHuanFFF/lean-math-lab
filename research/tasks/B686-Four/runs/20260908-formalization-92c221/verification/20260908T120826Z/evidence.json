@@ -1,0 +1,987 @@
+{
+  "schema_version": 1,
+  "success": true,
+  "exit_code": 0,
+  "argv": [
+    "research/shared/20260909-formalization-environment/fresh-root.py",
+    "--root",
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.lean",
+    "--guards",
+    "3"
+  ],
+  "repository": "/workspace/scratch/75a17f226d3b/lean-math-lab",
+  "roots": [
+    {
+      "path": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.lean",
+      "source_sha256": "aa6d16ec49d21a587d53369b5fdb8002aa5b77245cee611e475a16bb167951f6",
+      "print_axioms": 3,
+      "guard_msgs": 3,
+      "expected_guards": 3,
+      "audit": {
+        "print_axioms": 3,
+        "guard_msgs": 3,
+        "expected_axioms": [
+          [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ],
+          [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        ],
+        "source_sha256": "aa6d16ec49d21a587d53369b5fdb8002aa5b77245cee611e475a16bb167951f6"
+      }
+    }
+  ],
+  "source_closure": [
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/InitialLcm.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.InitialLcm",
+      "source_sha256": "81d87e1c0cb3d7cabfa4d2b620c2f6c48f8442a26d462efae020acf05db8920f",
+      "imports": [
+        "Mathlib.Algebra.GCDMonoid.Finset",
+        "Mathlib.Data.Nat.Choose.Bounds",
+        "Mathlib.Data.Nat.Choose.Factorization",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.IntervalCases"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/FactorialTail.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.FactorialTail",
+      "source_sha256": "ea37f4cc5df693d60d1edb41b5ebbd56fc08d876d1baa8289394f313cf5faae8",
+      "imports": [
+        "Mathlib.Data.Nat.GCD.BigOperators",
+        "Mathlib.Data.Nat.Choose.Bounds",
+        "Mathlib.Data.Nat.Choose.Factorization",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.IntervalCases"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/round8/lean/BigPrimeSupport.lean",
+      "module": "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+      "source_sha256": "cd3b1e0fd5282723597acaa2d5f3290917d9756a9e2c1d682668ac77a6b98d2e",
+      "imports": [
+        "Mathlib.Algebra.BigOperators.Associated",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Algebra.Order.Ring.Abs",
+        "Mathlib.Data.Nat.GCD.BigOperators",
+        "Mathlib.Data.Nat.GCD.Basic",
+        "Mathlib.Data.Nat.Prime.Basic",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Ring"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.lean",
+      "module": "research.tasks.B686-Four.formalization.UniformDistance.SmallPrime",
+      "source_sha256": "3d9140131479b10d35ccd87884381e225331b2b77c5c80ae211ab9fe19273a6f",
+      "imports": [
+        "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+        "Mathlib.Data.Nat.Factorization.Basic",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Data.Finset.Max",
+        "Mathlib.Data.Nat.Dist",
+        "Mathlib.Algebra.BigOperators.Intervals"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/independent/TargetBridge.lean",
+      "module": "research.tasks.B686-Four.independent.TargetBridge",
+      "source_sha256": "b26c40df78c176105d86d8d01789a927f2a3d9ba1855afde14120c38b2234c57",
+      "imports": [
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/round8/continuation/SizeBounds.lean",
+      "module": "research.tasks.B686-Four.round8.continuation.SizeBounds",
+      "source_sha256": "7da4f63de39ca33f7817e4b8c5d208c293cbb6b34f6d128128826d0544ee01d1",
+      "imports": [
+        "research.tasks.B686-Four.independent.TargetBridge",
+        "Mathlib.Algebra.Order.Field.Basic",
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.GCongr"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/main/MatchingLcm.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.main.MatchingLcm",
+      "source_sha256": "17cfb21891204df0eff8e4e6b33f9d25b4a4c2e462c524c1585aca9c8440ac37",
+      "imports": [
+        "research.tasks.B686-Four.formalization.UniformDistance.SmallPrime",
+        "research.tasks.B686-Four.round8.continuation.SizeBounds",
+        "Mathlib.Algebra.GCDMonoid.Finset"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/LcmDistance.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.LcmDistance",
+      "source_sha256": "8f3dc4e7d82e4e8ef123d12ac424c49054678a4283be05fa09a6657f2078e4e4",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.InitialLcm",
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.FactorialTail",
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.main.MatchingLcm"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/formalization/UniformDistance/Boundary.lean",
+      "module": "research.tasks.B686-Four.formalization.UniformDistance.Boundary",
+      "source_sha256": "324344c3d6b17ace5cc78289655324d70a6002c8c0bdfbb923b24b173a55ceac",
+      "imports": [
+        "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+        "Mathlib.Data.Rat.Cast.Order",
+        "Mathlib.Tactic.Linarith"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/UniformDistance.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.UniformDistance",
+      "source_sha256": "608912bb95b94d5c6ddef7cb8bd382e788042c5753959bd68a7be471d0dd008e",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.LcmDistance",
+        "research.tasks.B686-Four.formalization.UniformDistance.Boundary"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/Consumer.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.Consumer",
+      "source_sha256": "1cdc896b7b204b6b417ae943a33ef01000db9bb032ddd44ac7c0d66c1340db62",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.UniformDistance"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/independent/GapBounds.lean",
+      "module": "research.tasks.B686-Four.independent.GapBounds",
+      "source_sha256": "e698dae0d2b0966d4b4b04cf8b76dbfa10903b4c16662bd9cddd8c8bf76bb7dc",
+      "imports": [
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Algebra.Order.Ring.Pow",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.FieldSimp"
+      ]
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.shortgap.FixedGap",
+      "source_sha256": "aa6d16ec49d21a587d53369b5fdb8002aa5b77245cee611e475a16bb167951f6",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.Consumer",
+        "research.tasks.B686-Four.independent.GapBounds",
+        "Mathlib.NumberTheory.PrimeCounting",
+        "Mathlib.Data.Set.Finite.Lattice",
+        "Mathlib.Tactic.IntervalCases",
+        "Mathlib.Tactic.Linarith"
+      ]
+    }
+  ],
+  "compile_records": [
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/InitialLcm.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.InitialLcm",
+      "imports": [
+        "Mathlib.Algebra.GCDMonoid.Finset",
+        "Mathlib.Data.Nat.Choose.Bounds",
+        "Mathlib.Data.Nat.Choose.Factorization",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.IntervalCases"
+      ],
+      "source_sha256_before": "81d87e1c0cb3d7cabfa4d2b620c2f6c48f8442a26d462efae020acf05db8920f",
+      "source_sha256_after": "81d87e1c0cb3d7cabfa4d2b620c2f6c48f8442a26d462efae020acf05db8920f",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/InitialLcm.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/InitialLcm.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/InitialLcm.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/InitialLcm.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/InitialLcm.lean",
+      "started_utc": "2026-09-08T12:08:35.396992Z",
+      "finished_utc": "2026-09-08T12:08:40.542950Z",
+      "seconds": 5.146,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0001-research_tasks_B686-Four_runs_20260908-lcm-distance-7cab35e_uniform_InitialLcm.lean.log",
+      "log_sha256": "518ca43739e7a7c8ddc761815e424f6bc6e9bbd139033531737224d6a17a57bb",
+      "output_exists": true,
+      "output_sha256": "fe5d84911eb07bc884c830af0501a9db3f33fe219a519f02359c839242fdf174"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/FactorialTail.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.FactorialTail",
+      "imports": [
+        "Mathlib.Data.Nat.GCD.BigOperators",
+        "Mathlib.Data.Nat.Choose.Bounds",
+        "Mathlib.Data.Nat.Choose.Factorization",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.IntervalCases"
+      ],
+      "source_sha256_before": "ea37f4cc5df693d60d1edb41b5ebbd56fc08d876d1baa8289394f313cf5faae8",
+      "source_sha256_after": "ea37f4cc5df693d60d1edb41b5ebbd56fc08d876d1baa8289394f313cf5faae8",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/FactorialTail.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/FactorialTail.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/FactorialTail.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/FactorialTail.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/FactorialTail.lean",
+      "started_utc": "2026-09-08T12:08:40.545781Z",
+      "finished_utc": "2026-09-08T12:08:45.210291Z",
+      "seconds": 4.665,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0002-research_tasks_B686-Four_runs_20260908-lcm-distance-7cab35e_uniform_FactorialTail.lean.log",
+      "log_sha256": "8c0bb687cf0add524079017932489a2cecad1b7c5dca1e3d0b6e45c8e85c520c",
+      "output_exists": true,
+      "output_sha256": "52596691dbab4c050fc6e2ed8abd59e3291bcdc16c8c84e2777577cd50932838"
+    },
+    {
+      "source": "research/tasks/B686-Four/round8/lean/BigPrimeSupport.lean",
+      "module": "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+      "imports": [
+        "Mathlib.Algebra.BigOperators.Associated",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Algebra.Order.Ring.Abs",
+        "Mathlib.Data.Nat.GCD.BigOperators",
+        "Mathlib.Data.Nat.GCD.Basic",
+        "Mathlib.Data.Nat.Prime.Basic",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Ring"
+      ],
+      "source_sha256_before": "cd3b1e0fd5282723597acaa2d5f3290917d9756a9e2c1d682668ac77a6b98d2e",
+      "source_sha256_after": "cd3b1e0fd5282723597acaa2d5f3290917d9756a9e2c1d682668ac77a6b98d2e",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/round8/lean/BigPrimeSupport.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/round8/lean/BigPrimeSupport.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/round8/lean/BigPrimeSupport.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/round8/lean/BigPrimeSupport.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/round8/lean/BigPrimeSupport.lean",
+      "started_utc": "2026-09-08T12:08:45.212792Z",
+      "finished_utc": "2026-09-08T12:08:48.884718Z",
+      "seconds": 3.672,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0003-research_tasks_B686-Four_round8_lean_BigPrimeSupport.lean.log",
+      "log_sha256": "2b94e2341745b9f2400357e5ec959812f56a27f6db87a5e736ee369127406c94",
+      "output_exists": true,
+      "output_sha256": "c95b86d0d21570bf5f3644663956a8ddf9a3ecc9ff1510113c88587629793aa5"
+    },
+    {
+      "source": "research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.lean",
+      "module": "research.tasks.B686-Four.formalization.UniformDistance.SmallPrime",
+      "imports": [
+        "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+        "Mathlib.Data.Nat.Factorization.Basic",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Data.Finset.Max",
+        "Mathlib.Data.Nat.Dist",
+        "Mathlib.Algebra.BigOperators.Intervals"
+      ],
+      "source_sha256_before": "3d9140131479b10d35ccd87884381e225331b2b77c5c80ae211ab9fe19273a6f",
+      "source_sha256_after": "3d9140131479b10d35ccd87884381e225331b2b77c5c80ae211ab9fe19273a6f",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.lean",
+      "started_utc": "2026-09-08T12:08:48.889463Z",
+      "finished_utc": "2026-09-08T12:08:51.702442Z",
+      "seconds": 2.813,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0004-research_tasks_B686-Four_formalization_UniformDistance_SmallPrime.lean.log",
+      "log_sha256": "63aed6459219dfa4aa8b7ac2e7538b24b37406d8e4e74d4b6e333634419ee7af",
+      "output_exists": true,
+      "output_sha256": "e000153c88f0f996ce79c4ed2a13b9d662c753d65e1ad4545de5002b2a62dcf4"
+    },
+    {
+      "source": "research/tasks/B686-Four/independent/TargetBridge.lean",
+      "module": "research.tasks.B686-Four.independent.TargetBridge",
+      "imports": [
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "source_sha256_before": "b26c40df78c176105d86d8d01789a927f2a3d9ba1855afde14120c38b2234c57",
+      "source_sha256_after": "b26c40df78c176105d86d8d01789a927f2a3d9ba1855afde14120c38b2234c57",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/independent/TargetBridge.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/independent/TargetBridge.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/independent/TargetBridge.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/independent/TargetBridge.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/independent/TargetBridge.lean",
+      "started_utc": "2026-09-08T12:08:51.704779Z",
+      "finished_utc": "2026-09-08T12:08:54.055211Z",
+      "seconds": 2.35,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0005-research_tasks_B686-Four_independent_TargetBridge.lean.log",
+      "log_sha256": "e823c0aa0a93061c376b3b7c6fd8abf4f35b850add46291d9c3f044f322e9fbd",
+      "output_exists": true,
+      "output_sha256": "5ca8a045d077ca451a6532fd01cf6c67d73a7c7f90180c300316896a44b57b55"
+    },
+    {
+      "source": "research/tasks/B686-Four/round8/continuation/SizeBounds.lean",
+      "module": "research.tasks.B686-Four.round8.continuation.SizeBounds",
+      "imports": [
+        "research.tasks.B686-Four.independent.TargetBridge",
+        "Mathlib.Algebra.Order.Field.Basic",
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.GCongr"
+      ],
+      "source_sha256_before": "7da4f63de39ca33f7817e4b8c5d208c293cbb6b34f6d128128826d0544ee01d1",
+      "source_sha256_after": "7da4f63de39ca33f7817e4b8c5d208c293cbb6b34f6d128128826d0544ee01d1",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/round8/continuation/SizeBounds.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/round8/continuation/SizeBounds.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/round8/continuation/SizeBounds.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/round8/continuation/SizeBounds.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/round8/continuation/SizeBounds.lean",
+      "started_utc": "2026-09-08T12:08:54.056549Z",
+      "finished_utc": "2026-09-08T12:09:00.232202Z",
+      "seconds": 6.176,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0006-research_tasks_B686-Four_round8_continuation_SizeBounds.lean.log",
+      "log_sha256": "cc2e45db33d31a1ed9d7a9b57003efbba8bf76eb28ca4a5b419e1c524b1c0d15",
+      "output_exists": true,
+      "output_sha256": "7f30ac5ccc429a49b158ef449c53991b19ec72754c81efa086c8800a9e280998"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/main/MatchingLcm.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.main.MatchingLcm",
+      "imports": [
+        "research.tasks.B686-Four.formalization.UniformDistance.SmallPrime",
+        "research.tasks.B686-Four.round8.continuation.SizeBounds",
+        "Mathlib.Algebra.GCDMonoid.Finset"
+      ],
+      "source_sha256_before": "17cfb21891204df0eff8e4e6b33f9d25b4a4c2e462c524c1585aca9c8440ac37",
+      "source_sha256_after": "17cfb21891204df0eff8e4e6b33f9d25b4a4c2e462c524c1585aca9c8440ac37",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/main/MatchingLcm.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/main/MatchingLcm.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/main/MatchingLcm.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/main/MatchingLcm.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/main/MatchingLcm.lean",
+      "started_utc": "2026-09-08T12:09:00.234556Z",
+      "finished_utc": "2026-09-08T12:09:02.962150Z",
+      "seconds": 2.728,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0007-research_tasks_B686-Four_runs_20260908-lcm-distance-7cab35e_main_MatchingLcm.lean.log",
+      "log_sha256": "e30288a619f6461f047a0079a4bace4e7b1ae0c274da71600a2b2bdea9d6b20b",
+      "output_exists": true,
+      "output_sha256": "bcf8ffaecd8cba2dc2f22861d5cbac4082db8c0977d96a7e270c0170bea7c19d"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/LcmDistance.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.LcmDistance",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.InitialLcm",
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.FactorialTail",
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.main.MatchingLcm"
+      ],
+      "source_sha256_before": "8f3dc4e7d82e4e8ef123d12ac424c49054678a4283be05fa09a6657f2078e4e4",
+      "source_sha256_after": "8f3dc4e7d82e4e8ef123d12ac424c49054678a4283be05fa09a6657f2078e4e4",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/LcmDistance.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/LcmDistance.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/LcmDistance.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/LcmDistance.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/LcmDistance.lean",
+      "started_utc": "2026-09-08T12:09:02.963816Z",
+      "finished_utc": "2026-09-08T12:09:05.857864Z",
+      "seconds": 2.894,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0008-research_tasks_B686-Four_runs_20260908-lcm-distance-7cab35e_uniform_LcmDistance.lean.log",
+      "log_sha256": "cf23c7a764b4c7c8a9c6dee9c18e466d0ada3d2f4841e18155360b7b28d9ef11",
+      "output_exists": true,
+      "output_sha256": "c70857c43bbe47ee1bb57ace8ebe4cf56ee3e961a16254f99348843073d1b93e"
+    },
+    {
+      "source": "research/tasks/B686-Four/formalization/UniformDistance/Boundary.lean",
+      "module": "research.tasks.B686-Four.formalization.UniformDistance.Boundary",
+      "imports": [
+        "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+        "Mathlib.Data.Rat.Cast.Order",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "source_sha256_before": "324344c3d6b17ace5cc78289655324d70a6002c8c0bdfbb923b24b173a55ceac",
+      "source_sha256_after": "324344c3d6b17ace5cc78289655324d70a6002c8c0bdfbb923b24b173a55ceac",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/formalization/UniformDistance/Boundary.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/formalization/UniformDistance/Boundary.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/formalization/UniformDistance/Boundary.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/formalization/UniformDistance/Boundary.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/formalization/UniformDistance/Boundary.lean",
+      "started_utc": "2026-09-08T12:09:05.861614Z",
+      "finished_utc": "2026-09-08T12:09:08.120749Z",
+      "seconds": 2.259,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0009-research_tasks_B686-Four_formalization_UniformDistance_Boundary.lean.log",
+      "log_sha256": "c359181833e964a74e83211497610db5329fe5635c02c272e1b87eb286308ad6",
+      "output_exists": true,
+      "output_sha256": "d816eb3022bade3dacf3b5ccff673f6e3ac764443c0af2110f09d0c66aaeeaac"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/UniformDistance.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.UniformDistance",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.LcmDistance",
+        "research.tasks.B686-Four.formalization.UniformDistance.Boundary"
+      ],
+      "source_sha256_before": "608912bb95b94d5c6ddef7cb8bd382e788042c5753959bd68a7be471d0dd008e",
+      "source_sha256_after": "608912bb95b94d5c6ddef7cb8bd382e788042c5753959bd68a7be471d0dd008e",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/UniformDistance.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/UniformDistance.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/UniformDistance.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/UniformDistance.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/UniformDistance.lean",
+      "started_utc": "2026-09-08T12:09:08.122130Z",
+      "finished_utc": "2026-09-08T12:09:09.972556Z",
+      "seconds": 1.85,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0010-research_tasks_B686-Four_runs_20260908-lcm-distance-7cab35e_uniform_UniformDistance.lean.log",
+      "log_sha256": "35ed2829ab97aa00cdd92c2a9a9057946b87499b7e86e899b205dfa84a26ddca",
+      "output_exists": true,
+      "output_sha256": "2a3ef5cbc57bd6770b834011ab6c2c458d9d1b97e8c5cbcf1dc4a483aa918981"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/Consumer.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.Consumer",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.UniformDistance"
+      ],
+      "source_sha256_before": "1cdc896b7b204b6b417ae943a33ef01000db9bb032ddd44ac7c0d66c1340db62",
+      "source_sha256_after": "1cdc896b7b204b6b417ae943a33ef01000db9bb032ddd44ac7c0d66c1340db62",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/Consumer.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/Consumer.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/Consumer.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/Consumer.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e/uniform/Consumer.lean",
+      "started_utc": "2026-09-08T12:09:09.974841Z",
+      "finished_utc": "2026-09-08T12:09:11.940204Z",
+      "seconds": 1.965,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0011-research_tasks_B686-Four_runs_20260908-lcm-distance-7cab35e_uniform_Consumer.lean.log",
+      "log_sha256": "4f3ac2928adb1937ef0c9b02a72a2f62861dd884cfb7aba0117f5ff0f5d47844",
+      "output_exists": true,
+      "output_sha256": "5e05ede555d9b1a31bb4d3981cc21a3dfa057ff84c436f52d5ca4e8915b325fe"
+    },
+    {
+      "source": "research/tasks/B686-Four/independent/GapBounds.lean",
+      "module": "research.tasks.B686-Four.independent.GapBounds",
+      "imports": [
+        "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+        "Mathlib.Algebra.BigOperators.Ring.Nat",
+        "Mathlib.Algebra.BigOperators.Ring.Finset",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Algebra.Order.Ring.Pow",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.FieldSimp"
+      ],
+      "source_sha256_before": "e698dae0d2b0966d4b4b04cf8b76dbfa10903b4c16662bd9cddd8c8bf76bb7dc",
+      "source_sha256_after": "e698dae0d2b0966d4b4b04cf8b76dbfa10903b4c16662bd9cddd8c8bf76bb7dc",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/independent/GapBounds.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/independent/GapBounds.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/independent/GapBounds.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/independent/GapBounds.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/independent/GapBounds.lean",
+      "started_utc": "2026-09-08T12:09:11.941784Z",
+      "finished_utc": "2026-09-08T12:09:15.888791Z",
+      "seconds": 3.947,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0012-research_tasks_B686-Four_independent_GapBounds.lean.log",
+      "log_sha256": "77b61d6cdd829eb628efb5909962fd1b1284abb627224602616ad6a8358f0362",
+      "output_exists": true,
+      "output_sha256": "50d764c3e0531fc84194d98db2219163a8131e189a8a493a57fd58881814c9f1"
+    },
+    {
+      "source": "research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.lean",
+      "module": "research.tasks.B686-Four.runs.20260908-formalization-92c221.lean.shortgap.FixedGap",
+      "imports": [
+        "research.tasks.B686-Four.runs.20260908-lcm-distance-7cab35e.uniform.Consumer",
+        "research.tasks.B686-Four.independent.GapBounds",
+        "Mathlib.NumberTheory.PrimeCounting",
+        "Mathlib.Data.Set.Finite.Lattice",
+        "Mathlib.Tactic.IntervalCases",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "source_sha256_before": "aa6d16ec49d21a587d53369b5fdb8002aa5b77245cee611e475a16bb167951f6",
+      "source_sha256_after": "aa6d16ec49d21a587d53369b5fdb8002aa5b77245cee611e475a16bb167951f6",
+      "output": ".lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.olean /workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/FixedGap.lean",
+      "started_utc": "2026-09-08T12:09:15.892479Z",
+      "finished_utc": "2026-09-08T12:09:22.547777Z",
+      "seconds": 6.655,
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/compile-0013-research_tasks_B686-Four_runs_20260908-formalization-92c221_lean_shortgap_FixedGap.lean.log",
+      "log_sha256": "e1362d4521b88685ad09b59dfde7366c706b3a6095bd97660330976d8f3a1844",
+      "output_exists": true,
+      "output_sha256": "e2f7cceaf0cd174b247d469818b8a23592b1dfb6b3764910467908d4ede3128e"
+    }
+  ],
+  "package_compiles": [
+    {
+      "module": "Mathlib.Data.Nat.Dist",
+      "source": "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/packages/mathlib/Mathlib/Data/Nat/Dist.lean",
+      "source_sha256": "7f27a0ac541ef80192384f27fdef003bd17679e4e9dee70adebdadb13d39db3d",
+      "output": "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/Mathlib/Data/Nat/Dist.olean",
+      "command": [
+        "bash",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+        "lean",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/packages/mathlib",
+        "-o",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/Mathlib/Data/Nat/Dist.olean",
+        "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/packages/mathlib/Mathlib/Data/Nat/Dist.lean"
+      ],
+      "command_shell": "bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/packages/mathlib -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean/Mathlib/Data/Nat/Dist.olean /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/packages/mathlib/Mathlib/Data/Nat/Dist.lean",
+      "started_utc": "2026-09-08T12:08:33.327814Z",
+      "finished_utc": "2026-09-08T12:08:35.342199Z",
+      "exit_code": 0,
+      "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/package-Mathlib.Data.Nat.Dist.log",
+      "log_sha256": "72079c116a8d83f68992d3d2f3c7b08b910e98501b622a7010b390d1a2ab10ae",
+      "output_exists": true,
+      "output_sha256": "c0d4fa3e60266631a72bc04aab1cd2bb0bee4da0fc783c440f0a2f14eee072e6",
+      "status": "rebuilt"
+    }
+  ],
+  "failure": null,
+  "started_utc": "2026-09-08T12:08:26.778868Z",
+  "output_directory": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z",
+  "build": {
+    "root": ".lake/formalization-environment/20260908T120826Z",
+    "olean": ".lake/formalization-environment/20260908T120826Z/olean",
+    "fresh": true,
+    "lean_path": [
+      "/workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T120826Z/olean"
+    ],
+    "linked_package_objects": 37529
+  },
+  "allowed_run_directories": [
+    "research/tasks/B677-Lcm/runs/20260908-formalization-92c221",
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221",
+    "research/tasks/B686-Four/runs/20260908-lcm-distance-7cab35e",
+    "research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9",
+    "research/tasks/B699-Binomial/runs/20260908-formalization-92c221"
+  ],
+  "root_run_directories": [
+    "research/tasks/B686-Four/runs/20260908-formalization-92c221"
+  ],
+  "pins": [
+    {
+      "name": "mathlib",
+      "path": ".lake/packages/mathlib",
+      "manifestRev": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "observedHead": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/mathlib4",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "plausible",
+      "path": ".lake/packages/plausible",
+      "manifestRev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "observedHead": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/plausible",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": ".lake/packages/LeanSearchClient",
+      "manifestRev": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "observedHead": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/LeanSearchClient",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "importGraph",
+      "path": ".lake/packages/importGraph",
+      "manifestRev": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "observedHead": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/import-graph",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "proofwidgets",
+      "path": ".lake/packages/proofwidgets",
+      "manifestRev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "observedHead": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/ProofWidgets4",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "aesop",
+      "path": ".lake/packages/aesop",
+      "manifestRev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "observedHead": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/aesop",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "Qq",
+      "path": ".lake/packages/Qq",
+      "manifestRev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "observedHead": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/quote4",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "batteries",
+      "path": ".lake/packages/batteries",
+      "manifestRev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "observedHead": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover-community/batteries",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    },
+    {
+      "name": "Cli",
+      "path": ".lake/packages/Cli",
+      "manifestRev": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "observedHead": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "headMatches": true,
+      "origin": "https://github.com/leanprover/lean4-cli",
+      "originMatchesManifest": true,
+      "clean": true,
+      "statusChanges": []
+    }
+  ],
+  "manifest_pin_records": [
+    {
+      "name": "mathlib",
+      "path": ".lake/packages/mathlib",
+      "expected_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "url": "https://github.com/leanprover-community/mathlib4",
+      "input_rev": "v4.33.1",
+      "exit_code": 0,
+      "actual_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "command_output": "0df444a360eaa60ab8c11dca51a86af692955474\n",
+      "matches_pin": true
+    },
+    {
+      "name": "plausible",
+      "path": ".lake/packages/plausible",
+      "expected_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "url": "https://github.com/leanprover-community/plausible",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "command_output": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n",
+      "matches_pin": true
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": ".lake/packages/LeanSearchClient",
+      "expected_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "url": "https://github.com/leanprover-community/LeanSearchClient",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "command_output": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n",
+      "matches_pin": true
+    },
+    {
+      "name": "importGraph",
+      "path": ".lake/packages/importGraph",
+      "expected_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "url": "https://github.com/leanprover-community/import-graph",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "command_output": "16f02aa7642864af59f1ff0e384a015994db9118\n",
+      "matches_pin": true
+    },
+    {
+      "name": "proofwidgets",
+      "path": ".lake/packages/proofwidgets",
+      "expected_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "url": "https://github.com/leanprover-community/ProofWidgets4",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "command_output": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n",
+      "matches_pin": true
+    },
+    {
+      "name": "aesop",
+      "path": ".lake/packages/aesop",
+      "expected_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "url": "https://github.com/leanprover-community/aesop",
+      "input_rev": "master",
+      "exit_code": 0,
+      "actual_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "command_output": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n",
+      "matches_pin": true
+    },
+    {
+      "name": "Qq",
+      "path": ".lake/packages/Qq",
+      "expected_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "url": "https://github.com/leanprover-community/quote4",
+      "input_rev": "master",
+      "exit_code": 0,
+      "actual_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "command_output": "92c15be17b7caf78c2ad767ec40f89052d908d81\n",
+      "matches_pin": true
+    },
+    {
+      "name": "batteries",
+      "path": ".lake/packages/batteries",
+      "expected_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "url": "https://github.com/leanprover-community/batteries",
+      "input_rev": "main",
+      "exit_code": 0,
+      "actual_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "command_output": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n",
+      "matches_pin": true
+    },
+    {
+      "name": "Cli",
+      "path": ".lake/packages/Cli",
+      "expected_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "url": "https://github.com/leanprover/lean4-cli",
+      "input_rev": "v4.33.0",
+      "exit_code": 0,
+      "actual_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "command_output": "6130a47896ce867c6a4a55373441e59e565bad0f\n",
+      "matches_pin": true
+    }
+  ],
+  "toolchain": {
+    "declared_toolchain": "leanprover/lean4:v4.33.1",
+    "commands": [
+      {
+        "command": [
+          "/usr/bin/bash",
+          "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+          "lean",
+          "--version"
+        ],
+        "command_shell": "/usr/bin/bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean --version",
+        "started_utc": "2026-09-08T12:08:26.958061Z",
+        "finished_utc": "2026-09-08T12:08:27.078800Z",
+        "exit_code": 0,
+        "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/lean-version.log",
+        "log_sha256": "63f3e16bf0258e2cc0ab3010eb1830723df9bb85097b7b72b0137b9be25a78e9",
+        "stdout": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n"
+      },
+      {
+        "command": [
+          "/usr/bin/bash",
+          "/workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh",
+          "lake",
+          "--version"
+        ],
+        "command_shell": "/usr/bin/bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lake --version",
+        "started_utc": "2026-09-08T12:08:27.079327Z",
+        "finished_utc": "2026-09-08T12:08:27.299500Z",
+        "exit_code": 0,
+        "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/lake-version.log",
+        "log_sha256": "e475ba02fef5717a6caa256e1e25ac50268497b7d1e36955357f37b4701ee4a0",
+        "stdout": "Lake version 5.0.0-src+819816b (Lean version 4.33.1)\n"
+      }
+    ]
+  },
+  "policy": {
+    "exit_code": 0,
+    "files": 13,
+    "log": "research/tasks/B686-Four/runs/20260908-formalization-92c221/verification/20260908T120826Z/policy/source-policy.log",
+    "log_sha256": "d98ef95ae78981f4696d8420274e5de7b97c0527d160bfb7e53fba2b5978627e",
+    "violations": []
+  },
+  "package_imports": [
+    "Mathlib.Algebra.BigOperators.Associated",
+    "Mathlib.Algebra.BigOperators.Intervals",
+    "Mathlib.Algebra.BigOperators.Ring.Finset",
+    "Mathlib.Algebra.BigOperators.Ring.Nat",
+    "Mathlib.Algebra.GCDMonoid.Finset",
+    "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+    "Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset",
+    "Mathlib.Algebra.Order.Field.Basic",
+    "Mathlib.Algebra.Order.Ring.Abs",
+    "Mathlib.Algebra.Order.Ring.Pow",
+    "Mathlib.Data.Finset.Max",
+    "Mathlib.Data.Nat.Choose.Bounds",
+    "Mathlib.Data.Nat.Choose.Factorization",
+    "Mathlib.Data.Nat.Dist",
+    "Mathlib.Data.Nat.Factorial.BigOperators",
+    "Mathlib.Data.Nat.Factorization.Basic",
+    "Mathlib.Data.Nat.GCD.Basic",
+    "Mathlib.Data.Nat.GCD.BigOperators",
+    "Mathlib.Data.Nat.Prime.Basic",
+    "Mathlib.Data.Rat.Cast.Order",
+    "Mathlib.Data.Set.Finite.Lattice",
+    "Mathlib.NumberTheory.PrimeCounting",
+    "Mathlib.Order.Interval.Finset.Nat",
+    "Mathlib.Tactic.FieldSimp",
+    "Mathlib.Tactic.GCongr",
+    "Mathlib.Tactic.IntervalCases",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.NormNum",
+    "Mathlib.Tactic.Ring"
+  ],
+  "compiled_count": 13,
+  "finished_utc": "2026-09-08T12:09:22.554447Z"
+}

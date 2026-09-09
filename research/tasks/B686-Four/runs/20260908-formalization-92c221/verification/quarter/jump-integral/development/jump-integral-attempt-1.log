@@ -1,0 +1,126 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/SlitBranch.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/SlitBranch.lean:28:2: warning: Unused tactic linter: `congr 1` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/SlitBranch.lean:37:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/HalfPlaneRoots.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RootAsymptotics.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:82:32: warning: This simp argument is unused:
+  PowerSeries.coeff_rescale
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [PowerSeries.coeff_C, hj]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:82:59: warning: This simp argument is unused:
+  PowerSeries.coeff_C
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [PowerSeries.coeff_rescale, hj]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/CatalanConstruction.lean:115:27: warning: This simp argument is unused:
+  PowerSeries.coeff_zero_eq_constantCoeff_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [squareRootProduct, ← PowerSeries.coeff_zero_eq_constantCoeff_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/IntegerPairs.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/IntegerPairs.lean:43:25: warning: This simp argument is unused:
+  if_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [if_false, zero_add, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/RootPolynomial.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:83:52: warning: Variable name `hr` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hr
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:124:39: warning: This simp argument is unused:
+  pow_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [derivative_pow, derivative_mul, derivative_C, zero_mul, zero_add, eval_mul, eval_C, eval_pow,
+    hAval, mul_zero, zero_mul] at hder
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:124:48: warning: This simp argument is unused:
+  mul_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [derivative_pow, derivative_mul, derivative_C, zero_mul, zero_add, eval_mul, eval_C, eval_pow,
+    hAval, pow_one, zero_mul] at hder
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/ErrorPolynomial.lean:151:45: warning: This simp argument is unused:
+  eval_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [derivative_mul, derivative_sub, derivative_pow, derivative_X, derivative_one, mul_one, sub_zero,
+    eval_add, eval_mul, eval_sub, eval_pow, eval_X, eval_one, one_pow, sub_self, zero_mul, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/PairProduct.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/PairProduct.lean:19:26: warning: This simp argument is unused:
+  PowerSeries.coeff_zero_eq_constantCoeff_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pairedSquareRoot, ← PowerSeries.coeff_zero_eq_constantCoeff_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/QuarterPolynomial.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/AnalyticRemainder.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/AnalyticRemainder.lean:30:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/AnalyticRemainder.lean:59:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/BoundaryValues.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/BoundaryValues.lean:26:19: error: Type mismatch
+  h
+has type
+  ¬h✝ + 1 ≤ i
+of sort `Prop` but is expected to have type
+  ℕ
+of sort `Type`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/BoundaryValues.lean:26:27: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 0
+  b ≥ 0
+  b - c ≤ 0
+  a ≥ 0
+  a - b ≥ 1
+where
+ a := ↑r
+ b := ↑i
+ c := ↑h✝
+

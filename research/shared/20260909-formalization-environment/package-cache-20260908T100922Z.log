@@ -1,0 +1,39 @@
+# pinned package-cache module verification
+# repository: /workspace/scratch/75a17f226d3b/lean-math-lab
+# toolchain: leanprover/lean4:v4.33.1
+# mathlib HEAD: 0df444a360eaa60ab8c11dca51a86af692955474
+# manifest_sha256: fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0
+# package checkout status: ## HEAD (no branch), clean
+
+# Initial invocation without the repository-local elan PATH was rejected by
+# lean-work.sh; this did not modify sources or caches:
+#   bash scripts/lean-work.sh lake build @mathlib/+Mathlib.Analysis.Complex.ExponentialBounds:olean
+#   scripts/lean-work.sh: line 11: elan: command not found
+
+# ExponentialBounds source was present but its package .olean was absent before
+# this build.
+command: ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" MATHLIB_CACHE_DIR="$PWD/.lake/mathlib-cache" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.Analysis.Complex.ExponentialBounds:olean
+result: Build completed successfully (2202 jobs).
+artifact: .lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/Complex/ExponentialBounds.olean
+artifact_sha256: 42d800cbb58942eb9a648f8fe7b37ef2a3ca5a1d38fe1662ac816b8544cddb39
+source: .lake/packages/mathlib/Mathlib/Analysis/Complex/ExponentialBounds.lean
+source_sha256: 690c5e4fb7f5dcea80acf0ff8f22fb6c10c74ea61b3ac337fa801685be3e0e25
+
+# Log.Basic already had a package .olean before this request; the pinned
+# command rechecked its closure successfully.
+command: ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" MATHLIB_CACHE_DIR="$PWD/.lake/mathlib-cache" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.Analysis.SpecialFunctions.Log.Basic:olean
+result: Build completed successfully (1944 jobs).
+artifact: .lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/SpecialFunctions/Log/Basic.olean
+artifact_sha256: 3573a8a7daf859eb549ebd0909338a38253b7e926cda30169945fe2ff2504c98
+source: .lake/packages/mathlib/Mathlib/Analysis/SpecialFunctions/Log/Basic.lean
+source_sha256: 1f36a9802233e878953d809b16e020beaf0ace5afd4c8279d47b52af6ee186bf
+
+# Fresh import smoke (no old project .lake/build object is used for
+# validation):
+smoke_source: module-cache-smoke-exponential-log.lean
+smoke_imports: Mathlib.Analysis.Complex.ExponentialBounds, Mathlib.Analysis.SpecialFunctions.Log.Basic
+smoke_output: runs/20260908T100922Z/evidence.json
+smoke_result: fresh-root success: True (exit 0)
+smoke_fresh_olean: .lake/formalization-environment/20260908T100922Z/olean/
+smoke_source_sha256: c4adbb4e56a336f56adbc677db13c722781cca36e067d1fb4021cdd8405a57be
+smoke_output_sha256: 594c01ac5a3fd815f8384b274c774d45c8bbf258d60f9ccdf8b746cc221946dd

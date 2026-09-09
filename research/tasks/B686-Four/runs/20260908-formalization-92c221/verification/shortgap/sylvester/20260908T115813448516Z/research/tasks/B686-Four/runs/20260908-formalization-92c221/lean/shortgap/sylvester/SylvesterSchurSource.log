@@ -1,0 +1,71 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:370:7: error: Type mismatch: After simplification, term
+  HasDerivAt.mul hsqrt hlog
+ has type
+  @HasDerivAt ℝ DenselyNormedField.toNontriviallyNormedField ℝ normedCommRing.toAddCommGroup
+    (NormedAlgebra.toNormedSpace ℝ).toModule PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯
+    ((fun t => log t) * fun t => √t) (y⁻¹ * √y + log y * (2⁻¹ * (√y)⁻¹)) y
+but is expected to have type
+  @HasDerivAt ℝ DenselyNormedField.toNontriviallyNormedField ℝ instAddCommGroup Semiring.toModule
+    PseudoMetricSpace.toUniformSpace.toTopologicalSpace ⋯ (fun t => log t * √t) (y⁻¹ * √y + log y * (2⁻¹ * (√y)⁻¹)) y
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:379:4: error: `field_simp` made no progress on the goal
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:387:6: error: `ring_nf` made no progress on the goal
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:390:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √y ^ 2
+in the target expression
+  (fun y => scaledPowerLog x y) = fun t => log x + √t * log t - x * log (t / (x * 2))
+
+case e'_8
+x y : ℝ
+hx : 0 < x
+hy : 0 < y
+hne2x : 2 * x ≠ 0
+hlog : HasDerivAt (fun t => log t) (1 / y) y
+hsqrt : HasDerivAt (fun t => √t) (1 / (2 * √y)) y
+hprod : HasDerivAt (fun t => √t * log t) (√y * (1 / y) + 1 / (2 * √y) * log y) y
+hdiv : HasDerivAt (fun t => t / (2 * x)) (1 / (2 * x)) y
+hlogdiv : HasDerivAt (fun t => log (t / (2 * x))) (1 / y) y
+hmain :
+  HasDerivAt (fun t => log x + √t * log t - x * log (t / (2 * x))) (√y * (1 / y) + 1 / (2 * √y) * log y - x * (1 / y)) y
+⊢ (fun y => scaledPowerLog x y) = fun t => log x + √t * log t - x * log (t / (x * 2))
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:361:46: error: unsolved goals
+case e'_9
+x y : ℝ
+hx : 0 < x
+hy : 0 < y
+hne2x : 2 * x ≠ 0
+hlog : HasDerivAt (fun t => log t) (1 / y) y
+hsqrt : HasDerivAt (fun t => √t) (1 / (2 * √y)) y
+hprod : HasDerivAt (fun t => √t * log t) (√y * (1 / y) + 1 / (2 * √y) * log y) y
+hdiv : HasDerivAt (fun t => t / (2 * x)) (1 / (2 * x)) y
+hlogdiv : HasDerivAt (fun t => log (t / (2 * x))) (1 / y) y
+hmain :
+  HasDerivAt (fun t => log x + √t * log t - x * log (t / (2 * x))) (√y * (1 / y) + 1 / (2 * √y) * log y - x * (1 / y)) y
+⊢ (2 + log y) / (2 * √y) - x / y = √y * (1 / y) + 1 / (2 * √y) * log y - x * (1 / y)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:1684:4: warning: `primorial_le_4_pow` has been deprecated: Use `primorial_le_four_pow` instead
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:1824:43: warning: `primorial_le_4_pow` has been deprecated: Use `primorial_le_four_pow` instead
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:1862:43: warning: `primorial_le_4_pow` has been deprecated: Use `primorial_le_four_pow` instead
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:3420:4: error: Type mismatch: After simplification, term
+  congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
+ has type
+  @Eq ℕ (i + (n - i) + 1) (n + 1)
+but is expected to have type
+  @Eq ℕ (i + (n - i + 1)) (n + 1)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:3443:4: error: Type mismatch: After simplification, term
+  congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
+ has type
+  @Eq ℕ (i + (n - i) + 1) (n + 1)
+but is expected to have type
+  @Eq ℕ (i + (n - i + 1)) (n + 1)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:3458:4: error: Type mismatch: After simplification, term
+  congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
+ has type
+  @Eq ℕ (i + (n - i) + 1) (n + 1)
+but is expected to have type
+  @Eq ℕ (i + (n - i + 1)) (n + 1)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/shortgap/sylvester/SylvesterSchurSource.lean:3473:4: error: Type mismatch: After simplification, term
+  congrArg (fun t => t + 1) (Nat.sub_add_cancel hi_le_n)
+ has type
+  @Eq ℕ (i + (n - i) + 1) (n + 1)
+but is expected to have type
+  @Eq ℕ (i + (n - i + 1)) (n + 1)
+'Erdos699Formalization.sylvester_schur' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

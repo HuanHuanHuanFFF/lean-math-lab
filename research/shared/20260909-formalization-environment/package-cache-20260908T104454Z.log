@@ -1,0 +1,38 @@
+# pinned package-cache module verification
+# repository: /workspace/scratch/75a17f226d3b/lean-math-lab
+# toolchain: leanprover/lean4:v4.33.1
+# mathlib HEAD: 0df444a360eaa60ab8c11dca51a86af692955474
+# manifest_sha256: fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0
+# package checkout status: ## HEAD (no branch), clean
+
+command: ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" MATHLIB_CACHE_DIR="$PWD/.lake/mathlib-cache" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.Analysis.Complex.SqrtDeriv:olean
+result: Build completed successfully (2266 jobs).
+artifact: .lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/Complex/SqrtDeriv.olean
+artifact_sha256: d93fa54e692d9e4da6de6c1f0c5e11fa5074e707d22faa46b62e947bc363e60b
+source: .lake/packages/mathlib/Mathlib/Analysis/Complex/SqrtDeriv.lean
+source_sha256: 6ef61f17a2638443fa845d941e0eb2e769341c2f267da4634fc8f5b5ac877b58
+
+command: ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" MATHLIB_CACHE_DIR="$PWD/.lake/mathlib-cache" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.Analysis.Complex.CauchyIntegral:olean
+result: Build completed successfully (2714 jobs).
+artifact: .lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Analysis/Complex/CauchyIntegral.olean
+artifact_sha256: e7b9ac4d017486a2e6dc7fcc08d22f1fcd24562fae3bb2e5f68718c31e58f50e
+source: .lake/packages/mathlib/Mathlib/Analysis/Complex/CauchyIntegral.lean
+source_sha256: 7a2022a8a02dbef3b5466edd2ba9e4123a898f1e0b0dc5dc320104832405f14b
+
+command: ELAN_HOME="$PWD/.tools/elan" PATH="$PWD/.tools/elan/bin:$PATH" MATHLIB_CACHE_DIR="$PWD/.lake/mathlib-cache" bash scripts/lean-work.sh lake build @mathlib/+Mathlib.RingTheory.PowerSeries.NoZeroDivisors:olean
+result: Build completed successfully (1422 jobs).
+artifact: .lake/packages/mathlib/.lake/build/lib/lean/Mathlib/RingTheory/PowerSeries/NoZeroDivisors.olean
+artifact_sha256: 556af2ccfd806b62e21233197d1ff9091c12d0fa04f8349c1c361d1038e0235e
+source: .lake/packages/mathlib/Mathlib/RingTheory/PowerSeries/NoZeroDivisors.lean
+source_sha256: 41cd6461630267b7ab62deed3d5ddeebbd510bc719a372908bde8984eda679f2
+
+# fresh smoke (no old project .lake/build object is used for validation):
+smoke_source: research/shared/20260909-formalization-environment/module-cache-smoke-sqrt-cauchy-nozero.lean
+smoke_source_sha256: 9c7aebfcc974d13f4012300027965783b27411067c085aa12349231e10e9bca5
+smoke_command: python3 research/shared/20260909-formalization-environment/fresh-root.py --root research/shared/20260909-formalization-environment/module-cache-smoke-sqrt-cauchy-nozero.lean
+smoke_output: research/shared/20260909-formalization-environment/runs/20260908T104454Z/evidence.json
+smoke_result: fresh-root success: True (exit 0)
+smoke_fresh_olean: .lake/formalization-environment/20260908T104454Z/olean/
+linked_package_objects: 37087
+package_imports: Mathlib.Analysis.Complex.CauchyIntegral, Mathlib.Analysis.Complex.SqrtDeriv, Mathlib.RingTheory.PowerSeries.NoZeroDivisors
+all_pins_match_and_clean: true

@@ -1,0 +1,31 @@
+{
+  "schema": "B686 canonical sliced build manifest v1",
+  "recorded_at": "2026-09-08",
+  "lean_toolchain": "leanprover/lean4:v4.33.1",
+  "mathlib_sha": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "compiler_policy": {
+    "parallelism": 1,
+    "lean_threads": 1,
+    "lean_memory_mb": 6144,
+    "outer_virtual_memory": "8 GiB for helper/final first pass; 12 GiB for final Cleaning/Matrix/adapter pass",
+    "timeout_seconds": 180,
+    "overlay": "/tmp/b686-canonical-sliced-overlay-20260908"
+  },
+  "module_logs": {
+    "Mathlib.Data.Nat.Dist": {"log": "verification/canonical/compile-sliced-dist.log", "exit": 0},
+    "Mathlib.Tactic.NormNum.Prime": {"log": "verification/canonical/compile-sliced-normnum-prime.log", "exit": 0},
+    "B686CanonicalVendor.Sliced.Erdos686CanonicalPadicSlice": {"log": "verification/canonical/compile-sliced-padic.log", "exit": 0},
+    "B686CanonicalVendor.CanonicalOwnerDensityInterface": {"log": "verification/canonical/compile-sliced-interface.log", "exit": 0},
+    "B686CanonicalVendor.Sliced.Erdos686CanonicalOwnerCleaning": {"log": "verification/canonical/compile-sliced-cleaning.log", "exit": 0},
+    "B686CanonicalVendor.Sliced.Erdos686CanonicalOwnerMatrix": {"log": "verification/canonical/compile-sliced-matrix.log", "exit": 0},
+    "B686CanonicalVendor.Sliced.CanonicalOwnerMatrixAdapter": {"log": "verification/canonical/compile-sliced-adapter.log", "exit": 0}
+  },
+  "provider_axiom_guard": {
+    "target": "Erdos686.Erdos686Variant.exists_canonicalOwnerSystem",
+    "reported_axioms": ["propext", "Classical.choice", "Quot.sound"],
+    "forbidden_matches": ["sorryAx", "axiom", "admit", "native_decide"],
+    "status": "no forbidden proof axiom in final compile log"
+  },
+  "source_manifest": "lean/canonical/vendor/sliced/slice-manifest.json",
+  "history": "verification/canonical/sliced-compatibility-history.md"
+}

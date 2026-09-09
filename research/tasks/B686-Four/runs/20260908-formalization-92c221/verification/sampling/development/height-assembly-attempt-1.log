@@ -1,0 +1,66 @@
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/PeriodicSmooth.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/HitSemantics.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/PrimeSynchronization.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/PhaseInterface.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/StripePrimitive.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/StripeIntegral.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/WindowIntegral.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/QuarterGeometry.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/GridGeometry.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/PhaseGeometry.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/SmoothTestFunction.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/WeightedGeometry.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-reflected-sum-9bad0b9/main/OriginalDiscrepancy.lean
+
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/sampling/HeightAssembly.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/sampling/HeightAssembly.lean:54:60: error: linarith failed to find a contradiction
+δ : ℝ
+hδ : 0 < δ
+hδ2 : δ < 1 / 2
+C : ℝ
+hC : 0 ≤ C
+K₀ : ℕ
+hE :
+  ∀ (k n m : ℕ),
+    K₀ ≤ k →
+      2 ≤ k →
+        ↑n ≤ heightCutoff δ k → ↑m ≤ heightCutoff δ k → samplingDiscrepancy k n m ≤ C * (2 * ↑k) / Real.log (2 * ↑k) ^ 2
+K₁ : ℕ
+hK₁ : Real.exp (640 * C + 1) ≤ ↑K₁
+k n m : ℕ
+hk : 2 ≤ k
+hK : max 802 (max K₀ K₁) ≤ k
+hsep : n + k ≤ m
+heq : blockProduct k m = 4 * blockProduct k n
+hk802 : 802 ≤ k
+hk0 : K₀ ≤ k
+hk1 : K₁ ≤ k
+hkR : 0 < ↑k
+hmR : 0 < ↑m
+a✝ : 2 * ↑k ≤ 1
+⊢ False
+failed
+'B686SamplingClosure.height_bound_of_fixed_test_estimate' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/sampling/HeightAssembly.lean:80:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686SamplingClosure.height_bound_of_fixed_test_estimate' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686SamplingClosure.height_bound_of_fixed_test_estimate' depends on axioms: [propext,
++  sorryAx,
++  Classical.choice,
++  Quot.sound]
+

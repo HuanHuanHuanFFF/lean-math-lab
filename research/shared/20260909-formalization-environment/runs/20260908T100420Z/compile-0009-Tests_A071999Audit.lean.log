@@ -1,0 +1,9 @@
+# source: Tests/A071999Audit.lean
+# module: Tests.A071999Audit
+# source_sha256_before: 55f6b14cc76f794111e2b5a9afc85d6cdad7e3535548c54e27bee249a216b42a
+# output: .lake/formalization-environment/20260908T100420Z/olean/Tests/A071999Audit.olean
+# imports: Math.A071999
+# command: bash /workspace/scratch/75a17f226d3b/lean-math-lab/scripts/lean-work.sh lean -DautoImplicit=false -DrelaxedAutoImplicit=false --root=/workspace/scratch/75a17f226d3b/lean-math-lab -o /workspace/scratch/75a17f226d3b/lean-math-lab/.lake/formalization-environment/20260908T100420Z/olean/Tests/A071999Audit.olean /workspace/scratch/75a17f226d3b/lean-math-lab/Tests/A071999Audit.lean
+def Math.A071999.matrix : (n : ℕ) → Matrix (Fin n) (Fin n) ℤ :=
+fun n i j => if i = j then 1 else if ↑i + ↑j + 2 = n then ↑↑i + 1 else 0
+det_matrix : ∀ (n : ℕ), (matrix n).det = ∏ i ∈ Finset.Icc 1 ((n - 1) / 2), (1 - ↑i * (↑n - ↑i))

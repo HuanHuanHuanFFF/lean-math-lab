@@ -1,0 +1,37 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/PairProduct.lean:18:26: warning: This simp argument is unused:
+  PowerSeries.coeff_zero_eq_constantCoeff_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [pairedSquareRoot, ← PowerSeries.coeff_zero_eq_constantCoeff_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/PairProduct.lean:29:30: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∏ x ∈ range (?n + 1), ?f x
+in the target expression
+  (∏ i ∈ range (2 * s), (1 - PowerSeries.C (oddRoots i ^ 2) * PowerSeries.X)) *
+      ((1 - PowerSeries.C ((4 * ↑s + 1) ^ 2) * PowerSeries.X) *
+        (1 - PowerSeries.C ((4 * ↑s + 1 + 2) ^ 2) * PowerSeries.X)) =
+    unscaledRadicandSeries (2 * s + 1 + 1)
+
+case succ
+s : ℕ
+ih : pairedSquareRoot s ^ 2 = unscaledRadicandSeries (2 * s)
+⊢ (∏ i ∈ range (2 * s), (1 - PowerSeries.C (oddRoots i ^ 2) * PowerSeries.X)) *
+      ((1 - PowerSeries.C ((4 * ↑s + 1) ^ 2) * PowerSeries.X) *
+        (1 - PowerSeries.C ((4 * ↑s + 1 + 2) ^ 2) * PowerSeries.X)) =
+    unscaledRadicandSeries (2 * s + 1 + 1)
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/PairProduct.lean:40:9: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NoZeroDivisors (PowerSeries ℤ)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/PairProduct.lean:56:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?f (?x * ?y)
+in the target expression
+  1 - PowerSeries.C (oddRoots i ^ 2) * (PowerSeries.C 4 * PowerSeries.X) =
+    1 - PowerSeries.C 4 * PowerSeries.C (oddRoots i ^ 2) * PowerSeries.X
+
+case hsq
+s i : ℕ
+hi : i ∈ range (2 * s)
+⊢ 1 - PowerSeries.C (oddRoots i ^ 2) * (PowerSeries.C 4 * PowerSeries.X) =
+    1 - PowerSeries.C 4 * PowerSeries.C (oddRoots i ^ 2) * PowerSeries.X

@@ -1,0 +1,56 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:28:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:33:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:65:42: error: unsolved goals
+R y : ℝ
+hR : R ≠ 0
+h1 : -↑R + ↑y * I ≠ 0
+h2 : ↑y + ↑R * I ≠ 0
+⊢ I * ↑y + -↑R = I * ↑y - ↑R
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:84:6: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:84:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:82:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:83:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'B686QuarterCauchy.square_boundary_inverse' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:120:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686QuarterCauchy.square_boundary_inverse' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686QuarterCauchy.square_boundary_inverse' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/quarter/RectangleCauchy.lean:215:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  dslope fu z ↑x
+in the target expression
+  (fun x => (fu ↑x - fl ↑x) / (↑x - z)) x = (fun x => dslope fu z ↑x - (fl ↑x - fu z) / (↑x - z)) x
+
+fu fl : ℂ → ℂ
+z : ℂ
+hz : 0 < z.im
+hu : ContinuousOn fu {w | 0 ≤ w.im}
+hl : ContinuousOn fl {w | w.im ≤ 0}
+hdu : ∀ (w : ℂ), 0 < w.im → DifferentiableAt ℂ fu w
+hdl : ∀ (w : ℂ), w.im < 0 → DifferentiableAt ℂ fl w
+R : ℝ
+hR : 0 < R
+hnu : {w | 0 ≤ w.im} ∈ nhds z
+huc : ContinuousOn (dslope fu z) {w | 0 ≤ w.im}
+hnz : ∀ (w : ℂ), w.im ≤ 0 → w - z ≠ 0
+hlc : ContinuousOn (fun w => (fl w - fu z) / (w - z)) {w | w.im ≤ 0}
+hUZ : upperBoundary (dslope fu z) R = 0
+hLZ : lowerBoundary (fun w => (fl w - fu z) / (w - z)) R = 0
+hcu : Continuous fun x => dslope fu z ↑x
+hcl : Continuous fun x => (fl ↑x - fu z) / (↑x - z)
+x : ℝ
+hx : x ∈ Set.uIcc (-R) R
+⊢ (fun x => (fu ↑x - fl ↑x) / (↑x - z)) x = (fun x => dslope fu z ↑x - (fl ↑x - fu z) / (↑x - z)) x
+

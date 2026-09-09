@@ -1,0 +1,253 @@
+30:def SylvesterSchurInterval : Prop :=
+40:def SylvesterSchurChooseInequality : Prop :=
+50:def SylvesterSchurIntervalThreshold : Prop :=
+61:def SylvesterSchurSmallStart : Prop :=
+69:theorem real_central_gap_five_halves {x : ℝ} (hx_large : (4410 : ℝ) ≤ x) :
+176:theorem real_scaled_power_boundary_five_halves {x : ℝ} (hx_large : (4840 : ℝ) ≤ x) :
+317:noncomputable def scaledPowerLog (x y : ℝ) : ℝ :=
+320:lemma hasDerivAt_scaledPowerLog {x y : ℝ} (hx : 0 < x) (hy : 0 < y) :
+354:lemma deriv_scaledPowerLog_nonpos {x y : ℝ} (hx : 0 < x) (hy : 0 < y)
+364:lemma scaledPowerLog_eq_log_ratio {x y : ℝ} (hx : 0 < x) (hy : 0 < y) :
+372:theorem real_scaled_power_of_deriv_bound {x y : ℝ} (hx_large : (4840 : ℝ) ≤ x)
+424:theorem real_deriv_bound_four_thirds {x y : ℝ} (hx_large : (4840 : ℝ) ≤ x)
+502:lemma sylvester_schur_interval_one {m : ℕ} (hm : 1 < m) :
+507:lemma sylvester_schur_interval_boundary {k : ℕ} (hk : 0 < k) :
+513:lemma odd_has_prime_gt_two {j : ℕ} (hj_gt : 1 < j) (hj_odd : Odd j) :
+527:lemma sylvester_schur_interval_two {m : ℕ} (hm : 2 < m) :
+536:lemma odd_not_three_dvd_has_prime_gt_three {j : ℕ} (hj_gt : 1 < j) (hj_odd : Odd j)
+546:lemma odd_prime_dvd_not_three_has_prime_gt_three {j p : ℕ} (hp : p.Prime) (hpj : p ∣ j)
+556:lemma sylvester_schur_interval_three {m : ℕ} (hm : 3 < m) :
+601:lemma sylvester_schur_interval_four {m : ℕ} (hm : 4 < m) :
+614:lemma sylvester_schur_interval_le_four {m k : ℕ} (hk : 0 < k) (hk4 : k ≤ 4) (hm : k < m) :
+622:lemma sylvester_schur_interval_threshold_le_four {k : ℕ} (hk : 0 < k) (hk4 : k ≤ 4) :
+641:lemma dvd_ascFactorial_of_mem {m k j : ℕ} (hlo : m ≤ j) (hhi : j < m + k) :
+654:lemma prime_not_dvd_factorial_of_lt {p i : ℕ} (hp : p.Prime) (hpi : i < p) :
+659:lemma exists_mem_Ico_dvd_of_prime_dvd_ascFactorial {m k p : ℕ}
+676:lemma choose_le_pow_primesBelow_card_of_prime_factors_below
+716:theorem exists_large_prime_factor_of_choose_gt_pow_prime_count_direct
+732:theorem exists_large_prime_factor_of_choose_gt_pow_prime_count
+764:theorem sylvester_schur_interval_of_choose_inequality
+770:theorem sylvester_schur_of_choose_inequality
+780:lemma succ_pow_mul_sub_le_pow_mul_succ {N r : ℕ} (hr : r ≤ N + 1) :
+805:lemma choose_inequality_succ {N k r : ℕ} (hkN : k ≤ N) (hrk : r ≤ k)
+824:lemma pow_le_pow_mul_choose (n k : ℕ) (hk : k ≤ n) :
+842:lemma primesBelow_succ_card_le (k : ℕ) : (k + 1).primesBelow.card ≤ k := by
+852:lemma choose_inequality_succ_start {m k : ℕ} (hk : 0 < k) (hm : k < m)
+862:lemma choose_inequality_of_ge_start {m₀ m k : ℕ} (hk : 0 < k) (hm₀ : k < m₀)
+873:lemma primesBelow_succ_card_le_pred (k : ℕ) : (k + 1).primesBelow.card ≤ k - 1 := by
+889:lemma primesBelow_succ_card_le_half_add_one (k : ℕ) :
+919:lemma primesBelow_succ_card_le_half {k : ℕ} (hk : 8 ≤ k) :
+1005:lemma primesBelow_succ_card_le_third {k : ℕ} (hk : 49 ≤ k) :
+1159:lemma prime_coprime_210 {p : ℕ} (hp : p.Prime)
+1202:lemma coprime_mod_210 {p : ℕ} (hcop : p.Coprime 210) : (p % 210).Coprime 210 := by
+1207:lemma primesBelow_succ_card_le_fourth {k : ℕ} (hk : 2500 ≤ k) :
+1279:lemma pow_le_ascFactorial (m k : ℕ) : m ^ k ≤ m.ascFactorial k := by
+1288:lemma ascFactorial_eq_factorial_mul_choose_start {m k : ℕ} (hm : 0 < m) :
+1294:lemma choose_inequality_of_prime_count_bound {m k r : ℕ}
+1315:theorem sylvester_schur_of_prime_count_bound
+1335:theorem sylvester_schur_of_half_prime_count_bound
+1342:theorem sylvester_schur_of_power_gap
+1367:lemma choose_le_pow_sqrt_mul_primorial_third_of_no_large_prime
+1475:lemma choose_le_pow_sqrt_mul_primorial_index_of_no_large_prime
+1568:lemma centralBinom_le_choose_of_half {n i : ℕ} (hi_half : i ≤ n / 2) :
+1573:lemma pow_mul_ascFactorial_le_pow_mul_ascFactorial_of_twice_le
+1598:lemma pow_mul_centralBinom_le_pow_mul_choose_of_half
+1618:theorem sylvester_schur_of_central_primorial_gap
+1640:theorem sylvester_schur_of_central_gap
+1655:lemma central_gap_of_le_five_halves {n i : ℕ} (hi_large : 4410 ≤ i)
+1699:theorem sylvester_schur_of_central_five_halves
+1712:lemma scaled_power_gap_of_deriv_bound {n i : ℕ} (hi_large : 4840 ≤ i)
+1754:theorem sylvester_schur_of_factorial_primorial_gap
+1781:theorem sylvester_schur_of_factorial_gap
+1792:theorem sylvester_schur_of_scaled_central_primorial_gap
+1819:theorem sylvester_schur_of_scaled_central_gap
+1832:theorem sylvester_schur_of_scaled_central_power_gap
+1850:theorem sylvester_schur_of_scaled_power_deriv_bound
+1859:lemma scaled_power_gap_of_four_thirds_window {n i : ℕ} (hi_large : 4840 ≤ i)
+1875:theorem sylvester_schur_of_four_thirds_window
+1884:lemma pow_mul_pow_half_lt_pow_of_sq_lt {n i : ℕ} (hi : 0 < i) (hlarge : i ^ 2 < n) :
+1909:lemma pow_mul_pow_third_lt_pow_of_cube_lt_sq {n i : ℕ}
+1976:theorem sylvester_schur_of_third_prime_count_bound
+1984:theorem sylvester_schur_of_cube_lt_square
+1991:lemma pow_mul_pow_fourth_lt_pow_of_fourth_lt_cube {n i : ℕ}
+2077:theorem sylvester_schur_of_fourth_prime_count_bound
+2085:theorem sylvester_schur_of_fourth_lt_cube
+2092:theorem sylvester_schur_of_index_ge_four_thousand_eight_hundred_forty
+2103:theorem sylvester_schur_of_superquadratic_top
+2110:lemma factorial_mul_pow_half_lt_of_quadratic_large {n i : ℕ} (hi : 8 ≤ i)
+2166:theorem sylvester_schur_of_quadratic_large
+2173:theorem sylvester_schur_of_large_n {n i : ℕ} (hi : 1 < i) (hi_half : i ≤ n / 2)
+2202:lemma choose_inequality_of_large_start_with_prime_count_bound {m k r : ℕ}
+2224:lemma choose_inequality_of_large_start {m k : ℕ} (hk : 1 < k) (hm : k < m)
+2232:theorem sylvester_schur_interval_of_large_start {m k : ℕ} (hk : 1 < k) (hm : k < m)
+2238:theorem sylvester_schur_interval_of_large_start_with_prime_count_bound {m k r : ℕ}
+2247:lemma choose_inequality_of_large_start_half_bound {m k : ℕ} (hk : 2 < k) (hm : k < m)
+2253:theorem sylvester_schur_interval_of_large_start_half_bound {m k : ℕ} (hk : 2 < k)
+2260:theorem sylvester_schur_interval_of_small_start
+2271:lemma sylvester_schur_interval_five {m : ℕ} (hm : 5 < m) :
+2289:lemma sylvester_schur_interval_le_five {m k : ℕ} (hk : 0 < k) (hk5 : k ≤ 5) (hm : k < m) :
+2298:lemma sylvester_schur_interval_threshold_five :
+2307:lemma sylvester_schur_interval_threshold_le_five {k : ℕ} (hk : 0 < k) (hk5 : k ≤ 5) :
+2319:lemma sylvester_schur_interval_six {m : ℕ} (hm : 6 < m) :
+2333:lemma sylvester_schur_interval_threshold_six :
+2342:lemma sylvester_schur_interval_le_six {m k : ℕ} (hk : 0 < k) (hk6 : k ≤ 6) (hm : k < m) :
+2352:lemma sylvester_schur_interval_threshold_le_six {k : ℕ} (hk : 0 < k) (hk6 : k ≤ 6) :
+2365:lemma sylvester_schur_interval_seven {m : ℕ} (hm : 7 < m) :
+2387:lemma sylvester_schur_interval_threshold_seven :
+2396:lemma sylvester_schur_interval_le_seven {m k : ℕ} (hk : 0 < k) (hk7 : k ≤ 7) (hm : k < m) :
+2407:lemma sylvester_schur_interval_threshold_le_seven {k : ℕ} (hk : 0 < k) (hk7 : k ≤ 7) :
+2421:lemma sylvester_schur_interval_eight {m : ℕ} (hm : 8 < m) :
+2438:lemma sylvester_schur_interval_threshold_eight :
+2447:lemma sylvester_schur_interval_le_eight {m k : ℕ} (hk : 0 < k) (hk8 : k ≤ 8) (hm : k < m) :
+2459:lemma sylvester_schur_interval_threshold_le_eight {k : ℕ} (hk : 0 < k) (hk8 : k ≤ 8) :
+2474:lemma sylvester_schur_interval_nine {m : ℕ} (hm : 9 < m) :
+2488:lemma sylvester_schur_interval_threshold_nine :
+2497:lemma sylvester_schur_interval_ten {m : ℕ} (hm : 10 < m) :
+2506:lemma sylvester_schur_interval_threshold_ten :
+2515:lemma sylvester_schur_interval_le_ten {m k : ℕ} (hk : 0 < k) (hk10 : k ≤ 10) (hm : k < m) :
+2529:lemma sylvester_schur_interval_threshold_le_ten {k : ℕ} (hk : 0 < k) (hk10 : k ≤ 10) :
+2546:lemma sylvester_schur_interval_eleven {m : ℕ} (hm : 11 < m) :
+2564:lemma sylvester_schur_interval_threshold_eleven :
+2573:lemma sylvester_schur_interval_le_eleven {m k : ℕ} (hk : 0 < k) (hk11 : k ≤ 11)
+2589:lemma sylvester_schur_interval_threshold_le_eleven {k : ℕ} (hk : 0 < k) (hk11 : k ≤ 11) :
+2607:lemma sylvester_schur_interval_twelve {m : ℕ} (hm : 12 < m) :
+2622:lemma sylvester_schur_interval_threshold_twelve :
+2631:lemma sylvester_schur_interval_le_twelve {m k : ℕ} (hk : 0 < k) (hk12 : k ≤ 12)
+2648:lemma sylvester_schur_interval_threshold_le_twelve {k : ℕ} (hk : 0 < k) (hk12 : k ≤ 12) :
+2667:lemma sylvester_schur_interval_prime_witness {m k p : ℕ}
+2672:lemma sylvester_schur_interval_thirteen {m : ℕ} (hm : 13 < m) :
+2694:lemma sylvester_schur_interval_threshold_thirteen :
+2703:lemma sylvester_schur_interval_fourteen {m : ℕ} (hm : 14 < m) :
+2722:lemma sylvester_schur_interval_threshold_fourteen :
+2731:lemma sylvester_schur_interval_fifteen {m : ℕ} (hm : 15 < m) :
+2747:lemma sylvester_schur_interval_threshold_fifteen :
+2756:lemma sylvester_schur_interval_sixteen {m : ℕ} (hm : 16 < m) :
+2770:lemma sylvester_schur_interval_threshold_sixteen :
+2779:lemma sylvester_schur_interval_le_sixteen {m k : ℕ} (hk : 0 < k) (hk16 : k ≤ 16)
+2790:lemma sylvester_schur_interval_threshold_le_sixteen {k : ℕ} (hk : 0 < k) (hk16 : k ≤ 16) :
+2803:lemma sylvester_schur_interval_seventeen {m : ℕ} (hm : 17 < m) :
+2823:lemma sylvester_schur_interval_threshold_seventeen :
+2832:lemma sylvester_schur_interval_eighteen {m : ℕ} (hm : 18 < m) :
+2849:lemma sylvester_schur_interval_threshold_eighteen :
+2858:lemma sylvester_schur_interval_nineteen {m : ℕ} (hm : 19 < m) :
+2883:lemma sylvester_schur_interval_threshold_nineteen :
+2892:lemma sylvester_schur_interval_twenty {m : ℕ} (hm : 20 < m) :
+2914:lemma sylvester_schur_interval_threshold_twenty :
+2923:lemma sylvester_schur_interval_le_twenty {m k : ℕ} (hk : 0 < k) (hk20 : k ≤ 20)
+2934:lemma sylvester_schur_interval_threshold_le_twenty {k : ℕ} (hk : 0 < k) (hk20 : k ≤ 20) :
+2947:lemma sylvester_schur_interval_le_forty_eight {m k : ℕ} (hk : 0 < k) (hk48 : k ≤ 48)
+3366:theorem sylvester_schur_interval_of_threshold
+3376:lemma prime_dvd_choose_of_dvd_mem_interval
+3395:theorem sylvester_schur_of_interval
+3410:theorem sylvester_schur_of_index_le_twenty
+3425:theorem sylvester_schur_of_index_le_forty_eight
+3440:theorem sylvester_schur_of_prime_in_top_interval
+3451:theorem sylvester_schur_of_twice
+3458:theorem sylvester_schur_of_twice_add_one
+3476:lemma exists_prime_sub_49_le_of_le_600 (n : ℕ) (hlo : 98 ≤ n) (hhi : n ≤ 600) :
+3503:set_option maxHeartbeats 800000 in
+3504:lemma exists_prime_sub_72_block_0 (n : ℕ) (hlo : 144 ≤ n) (hhi : n ≤ 2500) :
+3576:set_option maxHeartbeats 800000 in
+3577:lemma exists_prime_sub_72_block_1 (n : ℕ) (hlo : 2501 ≤ n) (hhi : n ≤ 5000) :
+3655:set_option maxHeartbeats 800000 in
+3656:lemma exists_prime_sub_72_block_2 (n : ℕ) (hlo : 5001 ≤ n) (hhi : n ≤ 7500) :
+3734:set_option maxHeartbeats 800000 in
+3735:lemma exists_prime_sub_72_block_3 (n : ℕ) (hlo : 7501 ≤ n) (hhi : n ≤ 10000) :
+3813:set_option maxHeartbeats 800000 in
+3814:lemma exists_prime_sub_72_block_4 (n : ℕ) (hlo : 10001 ≤ n) (hhi : n ≤ 12500) :
+3894:set_option maxHeartbeats 800000 in
+3895:lemma exists_prime_sub_72_block_5 (n : ℕ) (hlo : 12501 ≤ n) (hhi : n ≤ 15000) :
+3973:set_option maxHeartbeats 800000 in
+3974:lemma exists_prime_sub_72_block_6 (n : ℕ) (hlo : 15001 ≤ n) (hhi : n ≤ 17500) :
+4052:set_option maxHeartbeats 800000 in
+4053:lemma exists_prime_sub_72_block_7 (n : ℕ) (hlo : 17501 ≤ n) (hhi : n ≤ 20000) :
+4133:set_option maxHeartbeats 800000 in
+4134:lemma exists_prime_sub_72_block_8 (n : ℕ) (hlo : 20001 ≤ n) (hhi : n ≤ 22500) :
+4212:set_option maxHeartbeats 800000 in
+4213:lemma exists_prime_sub_72_block_9 (n : ℕ) (hlo : 22501 ≤ n) (hhi : n ≤ 25000) :
+4293:set_option maxHeartbeats 800000 in
+4294:lemma exists_prime_sub_72_block_10 (n : ℕ) (hlo : 25001 ≤ n) (hhi : n ≤ 27500) :
+4372:set_option maxHeartbeats 800000 in
+4373:lemma exists_prime_sub_72_block_11 (n : ℕ) (hlo : 27501 ≤ n) (hhi : n ≤ 30000) :
+4453:set_option maxHeartbeats 800000 in
+4454:lemma exists_prime_sub_72_block_12 (n : ℕ) (hlo : 30001 ≤ n) (hhi : n ≤ 32500) :
+4534:set_option maxHeartbeats 800000 in
+4535:lemma exists_prime_sub_72_block_13 (n : ℕ) (hlo : 32501 ≤ n) (hhi : n ≤ 35000) :
+4615:set_option maxHeartbeats 800000 in
+4616:lemma exists_prime_sub_72_block_14 (n : ℕ) (hlo : 35001 ≤ n) (hhi : n ≤ 37500) :
+4696:set_option maxHeartbeats 800000 in
+4697:lemma exists_prime_sub_72_block_15 (n : ℕ) (hlo : 37501 ≤ n) (hhi : n ≤ 40000) :
+4777:set_option maxHeartbeats 800000 in
+4778:lemma exists_prime_sub_72_block_16 (n : ℕ) (hlo : 40001 ≤ n) (hhi : n ≤ 42500) :
+4858:set_option maxHeartbeats 800000 in
+4859:lemma exists_prime_sub_72_block_17 (n : ℕ) (hlo : 42501 ≤ n) (hhi : n ≤ 45000) :
+4939:set_option maxHeartbeats 800000 in
+4940:lemma exists_prime_sub_72_block_18 (n : ℕ) (hlo : 45001 ≤ n) (hhi : n ≤ 47500) :
+5018:set_option maxHeartbeats 800000 in
+5019:lemma exists_prime_sub_72_block_19 (n : ℕ) (hlo : 47501 ≤ n) (hhi : n ≤ 50000) :
+5097:set_option maxHeartbeats 800000 in
+5098:lemma exists_prime_sub_72_block_20 (n : ℕ) (hlo : 50001 ≤ n) (hhi : n ≤ 52500) :
+5178:set_option maxHeartbeats 800000 in
+5179:lemma exists_prime_sub_72_block_21 (n : ℕ) (hlo : 52501 ≤ n) (hhi : n ≤ 55000) :
+5257:set_option maxHeartbeats 800000 in
+5258:lemma exists_prime_sub_72_block_22 (n : ℕ) (hlo : 55001 ≤ n) (hhi : n ≤ 57500) :
+5336:set_option maxHeartbeats 800000 in
+5337:lemma exists_prime_sub_72_block_23 (n : ℕ) (hlo : 57501 ≤ n) (hhi : n ≤ 60000) :
+5417:set_option maxHeartbeats 800000 in
+5418:lemma exists_prime_sub_72_block_24 (n : ℕ) (hlo : 60001 ≤ n) (hhi : n ≤ 62500) :
+5502:set_option maxHeartbeats 800000 in
+5503:lemma exists_prime_sub_72_block_25 (n : ℕ) (hlo : 62501 ≤ n) (hhi : n ≤ 65000) :
+5583:set_option maxHeartbeats 800000 in
+5584:lemma exists_prime_sub_72_block_26 (n : ℕ) (hlo : 65001 ≤ n) (hhi : n ≤ 67500) :
+5664:set_option maxHeartbeats 800000 in
+5665:lemma exists_prime_sub_72_block_27 (n : ℕ) (hlo : 67501 ≤ n) (hhi : n ≤ 70000) :
+5747:set_option maxHeartbeats 800000 in
+5748:lemma exists_prime_sub_72_block_28 (n : ℕ) (hlo : 70001 ≤ n) (hhi : n ≤ 72500) :
+5828:set_option maxHeartbeats 800000 in
+5829:lemma exists_prime_sub_72_block_29 (n : ℕ) (hlo : 72501 ≤ n) (hhi : n ≤ 75000) :
+5909:set_option maxHeartbeats 800000 in
+5910:lemma exists_prime_sub_72_block_30 (n : ℕ) (hlo : 75001 ≤ n) (hhi : n ≤ 77500) :
+5990:set_option maxHeartbeats 800000 in
+5991:lemma exists_prime_sub_72_block_31 (n : ℕ) (hlo : 77501 ≤ n) (hhi : n ≤ 80000) :
+6071:set_option maxHeartbeats 800000 in
+6072:lemma exists_prime_sub_72_block_32 (n : ℕ) (hlo : 80001 ≤ n) (hhi : n ≤ 82500) :
+6152:set_option maxHeartbeats 800000 in
+6153:lemma exists_prime_sub_72_block_33 (n : ℕ) (hlo : 82501 ≤ n) (hhi : n ≤ 85000) :
+6233:set_option maxHeartbeats 800000 in
+6234:lemma exists_prime_sub_72_block_34 (n : ℕ) (hlo : 85001 ≤ n) (hhi : n ≤ 87500) :
+6316:set_option maxHeartbeats 800000 in
+6317:lemma exists_prime_sub_72_block_35 (n : ℕ) (hlo : 87501 ≤ n) (hhi : n ≤ 90000) :
+6399:set_option maxHeartbeats 800000 in
+6400:lemma exists_prime_sub_72_block_36 (n : ℕ) (hlo : 90001 ≤ n) (hhi : n ≤ 92500) :
+6480:set_option maxHeartbeats 800000 in
+6481:lemma exists_prime_sub_72_block_37 (n : ℕ) (hlo : 92501 ≤ n) (hhi : n ≤ 95000) :
+6563:set_option maxHeartbeats 800000 in
+6564:lemma exists_prime_sub_72_block_38 (n : ℕ) (hlo : 95001 ≤ n) (hhi : n ≤ 97500) :
+6644:set_option maxHeartbeats 800000 in
+6645:lemma exists_prime_sub_72_block_39 (n : ℕ) (hlo : 97501 ≤ n) (hhi : n ≤ 100000) :
+6725:set_option maxHeartbeats 800000 in
+6726:lemma exists_prime_sub_72_block_40 (n : ℕ) (hlo : 100001 ≤ n) (hhi : n ≤ 102500) :
+6806:set_option maxHeartbeats 800000 in
+6807:lemma exists_prime_sub_72_block_41 (n : ℕ) (hlo : 102501 ≤ n) (hhi : n ≤ 105000) :
+6889:set_option maxHeartbeats 800000 in
+6890:lemma exists_prime_sub_72_block_42 (n : ℕ) (hlo : 105001 ≤ n) (hhi : n ≤ 107500) :
+6970:set_option maxHeartbeats 800000 in
+6971:lemma exists_prime_sub_72_block_43 (n : ℕ) (hlo : 107501 ≤ n) (hhi : n ≤ 110000) :
+7051:set_option maxHeartbeats 800000 in
+7052:lemma exists_prime_sub_72_block_44 (n : ℕ) (hlo : 110001 ≤ n) (hhi : n ≤ 112500) :
+7130:set_option maxHeartbeats 800000 in
+7131:lemma exists_prime_sub_72_block_45 (n : ℕ) (hlo : 112501 ≤ n) (hhi : n ≤ 115000) :
+7209:set_option maxHeartbeats 800000 in
+7210:lemma exists_prime_sub_72_block_46 (n : ℕ) (hlo : 115001 ≤ n) (hhi : n ≤ 117500) :
+7290:set_option maxHeartbeats 800000 in
+7291:lemma exists_prime_sub_72_block_47 (n : ℕ) (hlo : 117501 ≤ n) (hhi : n ≤ 120000) :
+7371:set_option maxHeartbeats 800000 in
+7372:lemma exists_prime_sub_72_block_48 (n : ℕ) (hlo : 120001 ≤ n) (hhi : n ≤ 122500) :
+7456:set_option maxHeartbeats 800000 in
+7457:lemma exists_prime_sub_72_block_49 (n : ℕ) (hlo : 122501 ≤ n) (hhi : n ≤ 125000) :
+7539:lemma exists_prime_sub_72_le_of_le_125000 (n : ℕ) (hlo : 144 ≤ n)
+7642:lemma nat_le_600_of_sq_le_small {n i : ℕ} (hi49 : 49 ≤ i) (hi72 : i < 72)
+7651:lemma nat_le_125000_of_sq_le_index_lt_2500 {n i : ℕ} (hi2500 : i < 2500)
+7660:lemma nat_le_125000_of_cube_le_index_lt_4840 {n i : ℕ} (hi4840 : i < 4840)
+7669:theorem sylvester_schur_of_index_lt_four_thousand_eight_hundred_forty
+7695:theorem sylvester_schur

@@ -1,0 +1,152 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/DistancePrimePower.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/DistancePrimePower.lean:24:37: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  h ≤ 0
+  g ≥ 1
+  f ≥ 1
+  e ≥ 0
+  d ≥ 0
+  d - 3*g ≥ 0
+  c ≥ 0
+  b ≥ 0
+  b + g ≥ 0
+  b + f ≥ 0
+  2*b - d + 2*g ≥ 1
+  3*b - e + 3*g ≤ -1
+  3*b - e + 3*f ≤ -1
+  3*b + 3*f - g ≥ 1
+  a ≥ 3
+  a - f ≥ 0
+  a - g ≤ 0
+where
+ a := ↑k
+ b := ↑n
+ c := ↑(product k n)
+ d := ↑k * ↑(m - n)
+ e := ↑(4 * k) * ↑(m - n)
+ f := ↑i
+ g := ↑(m - n)
+ h := Int.subNatNat (3 * (n + i)) (m - n)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/DistancePrimePower.lean:24:37: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  g ≥ 1
+  f ≥ 1
+  e ≥ 0
+  e - h ≤ 0
+  d ≥ 0
+  d - 3*g ≥ 0
+  c ≥ 0
+  b ≥ 0
+  b + g ≥ 0
+  b + f ≥ 0
+  2*b - d + 2*g ≥ 1
+  3*b - e + 3*g ≤ -1
+  3*b - e + 3*f ≤ -1
+  3*b + 3*f - g ≥ 1
+  a ≥ 3
+  a - f ≥ 0
+  a - g ≤ 0
+where
+ a := ↑k
+ b := ↑n
+ c := ↑(product k n)
+ d := ↑k * ↑(m - n)
+ e := ↑(4 * k) * ↑(m - n)
+ f := ↑i
+ g := ↑(m - n)
+ h := Int.subNatNat (3 * (n + i)) (m - n)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/DistancePrimePower.lean:70:4: error: Type mismatch
+  Int.natCast_nonneg ?m.183
+has type
+  0 ≤ ↑?m.183
+but is expected to have type
+  0 ≤ padicValRat p 3
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/DistancePrimePower.lean:134:4: error: linarith failed to find a contradiction
+case h1
+k n m p L : ℕ
+hp : Nat.Prime p
+hk : 3 ≤ k
+hsep : n + k ≤ m
+heq : product k m = 4 * product k n
+hL : k < p ^ (L + 1)
+hhigh : ↑L + padicValRat p (4 - 1) < ↑(padicValNat p (m - n))
+this : Fact (Nat.Prime p)
+d : ℕ := m - n
+a : ℕ := padicValNat p d
+f : ℕ → ℚ := fun j => 1 + ↑d / ↑(n + j)
+hd : d ≠ 0
+hdQ : ↑d ≠ 0
+he0 : 0 ≤ padicValRat p (4 - 1)
+hH : 0 < ↑a - ↑L
+i : ℕ
+hi : i ∈ Icc 1 k
+hvi : L < padicValNat p (n + i)
+hz : n + i ≠ 0
+hzQ : ↑(n + i) ≠ 0
+U : ℚ := ∏ j ∈ (Icc 1 k).erase i, f j
+hnear : ValGE p (↑a - ↑L) (U - 1)
+hU0 : U ≠ 0
+hUv : padicValRat p U = 0
+hprod : f i * U = 4
+hdiff : 4 - U = ↑d / ↑(n + i) * U
+hd0 : 4 - U ≠ 0
+hdv : padicValRat p (4 - U) = padicValRat p (4 - 1)
+hb : ↑(padicValNat p (n + i)) = ↑a - padicValRat p (4 - 1)
+hRpos : 0 < distanceContact n m i
+hR0 : distanceContact n m i ≠ 0
+hRQ0 : ↑(distanceContact n m i) ≠ 0
+ht : (4 - U) * ↑(n + i) = U * ↑(m - n)
+a✝ : (3 * (↑n + ↑i) - ↑(m - n)) * U < 4 * (↑n + ↑i) * (U - 1)
+⊢ False
+failed
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/DistancePrimePower.lean:144:23: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  padicValRat ?m.938 ↑?m.939
+in the target expression
+  ↑(padicValInt p (distanceContact n m i)) + 0 = padicValRat p 4 + ↑(padicValNat p (n + i)) + padicValRat p (U - 1)
+
+k n m p L : ℕ
+hp : Nat.Prime p
+hk : 3 ≤ k
+hsep : n + k ≤ m
+heq : product k m = 4 * product k n
+hL : k < p ^ (L + 1)
+hhigh : ↑L + padicValRat p (4 - 1) < ↑(padicValNat p (m - n))
+this : Fact (Nat.Prime p)
+d : ℕ := m - n
+a : ℕ := padicValNat p d
+f : ℕ → ℚ := fun j => 1 + ↑d / ↑(n + j)
+hd : d ≠ 0
+hdQ : ↑d ≠ 0
+he0 : 0 ≤ padicValRat p (4 - 1)
+hH : 0 < ↑a - ↑L
+i : ℕ
+hi : i ∈ Icc 1 k
+hvi : L < padicValNat p (n + i)
+hz : n + i ≠ 0
+hzQ : ↑(n + i) ≠ 0
+U : ℚ := ∏ j ∈ (Icc 1 k).erase i, f j
+hnear : ValGE p (↑a - ↑L) (U - 1)
+hU0 : U ≠ 0
+hUv : padicValRat p U = 0
+hprod : f i * U = 4
+hdiff : 4 - U = ↑d / ↑(n + i) * U
+hd0 : 4 - U ≠ 0
+hdv : padicValRat p (4 - U) = padicValRat p (4 - 1)
+hb : ↑(padicValNat p (n + i)) = ↑a - padicValRat p (4 - 1)
+hRpos : 0 < distanceContact n m i
+hR0 : distanceContact n m i ≠ 0
+hRQ0 : ↑(distanceContact n m i) ≠ 0
+hcontact : ↑(distanceContact n m i) * U = 4 * ↑(n + i) * (U - 1)
+hUm0 : U - 1 ≠ 0
+hUml : ↑a - ↑L ≤ padicValRat p (U - 1)
+hv : ↑(padicValInt p (distanceContact n m i)) + 0 = padicValRat p 4 + ↑(padicValNat p (n + i)) + padicValRat p (U - 1)
+⊢ ∃ i ∈ Icc 1 k,
+    ↑(padicValNat p (n + i)) = ↑(padicValNat p (m - n)) - padicValRat p (4 - 1) ∧
+      0 < distanceContact n m i ∧
+        2 * ↑(padicValNat p (m - n)) - padicValRat p (4 - 1) - ↑L + ↑(padicValNat p 4) ≤
+          ↑(padicValInt p (distanceContact n m i))
+'B686Formalization.distance_high_contact_data' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/reflected/DistancePrimePower.lean:148:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Formalization.distance_high_contact_data' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Formalization.distance_high_contact_data' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

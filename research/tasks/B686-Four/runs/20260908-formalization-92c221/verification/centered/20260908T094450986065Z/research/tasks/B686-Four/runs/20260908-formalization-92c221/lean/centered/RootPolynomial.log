@@ -1,0 +1,31 @@
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/RootPolynomial.lean:108:42: error: unsolved goals
+a : ℕ → ℤ
+r : ℕ
+ih : (reversedRadicand a r).natDegree ≤ r
+⊢ (4 * ↑(a r) ^ 2 * X).natDegree ≤ 1
+/workspace/scratch/75a17f226d3b/lean-math-lab/research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/centered/RootPolynomial.lean:116:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?g (∏ x ∈ ?s, ?f x)
+in the target expression
+  ∏ i ∈ range r, (1 - PowerSeries.C (4 * a i ^ 2) * PowerSeries.X) =
+    coeToPowerSeries.ringHom
+      (Quot.lift (fun l => List.foldr (fun x1 x2 => x1 * x2) 1 l) ⋯
+        (Multiset.map (fun i => 1 - C (4 * a i ^ 2) * X) (range r).val))
+
+a : ℕ → ℤ
+r : ℕ
+⊢ ∏ i ∈ range r, (1 - PowerSeries.C (4 * a i ^ 2) * PowerSeries.X) =
+    coeToPowerSeries.ringHom
+      (Quot.lift (fun l => List.foldr (fun x1 x2 => x1 * x2) 1 l) ⋯
+        (Multiset.map (fun i => 1 - C (4 * a i ^ 2) * X) (range r).val))
+
+Note: The target expression is not type-correct under the `implicit` transparency level, which may have triggered the failure. This is usually caused by unfolding of semireducible definitions in prior tactic steps. Use `set_option linter.tacticCheckInstances true` to investigate the source of the issue.
+Full error:
+  Application type mismatch: The argument
+    Multiset.map (fun i => 1 - C (4 * a i ^ 2) * X) (range r).val
+  has type
+    Multiset ℤ[X]
+  but is expected to have type
+    Quot ⇑(List.isSetoid ℤ[X])
+  in the application
+    Quot.lift (fun l => List.foldr (fun x1 x2 => x1 * x2) 1 l) ⋯
+      (Multiset.map (fun i => 1 - C (4 * a i ^ 2) * X) (range r).val)

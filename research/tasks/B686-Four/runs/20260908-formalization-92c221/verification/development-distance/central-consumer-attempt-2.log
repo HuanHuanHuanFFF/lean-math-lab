@@ -1,0 +1,102 @@
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:148:26: warning: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:153:26: warning: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:148:22: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:148:36: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:148:61: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:153:22: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:153:36: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralPair.lean:153:61: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+COMPILE research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:20:22: error: mod_cast has type
+  p ^ padicValNat p (m - n) ∣ m - n
+but is expected to have type
+  q ∣ d
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:30:35: error: mod_cast has type
+  p ^ padicValNat p (m - n) ∣ n + r
+but is expected to have type
+  q ∣ ↑(n + r)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:46:37: error: mod_cast has type
+  p ^ padicValNat p (m - n) ∣ n + (r + 1)
+but is expected to have type
+  q ∣ ↑(n + r + 1)
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:83:29: error: mod_cast has type
+  m - n < n
+but is expected to have type
+  d < ↑n
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:86:46: error: Application type mismatch: The argument
+  hT
+has type
+  2 * d < T
+but is expected to have type
+  2 * d ≤ T
+in the application
+  mul_lt_mul hR hT
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:87:87: error: failed to prove positivity/nonnegativity/nonzeroness
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:92:4: error: linarith failed to find a contradiction
+r n m : ℕ
+hr : 2 ≤ r
+hsep : n + 2 * r ≤ m
+heq : product (2 * r) m = 4 * product (2 * r) n
+d : ℤ := ↑(m - n)
+R : ℤ := distanceContact n m r
+T : ℤ := distanceContact n m (r + 1)
+hd : 0 < d
+hrZ : 2 ≤ ↑r
+hwR : 0 < distanceContact n m r ∧ distanceContact n m r < 4 * ↑(2 * r) * ↑(m - n)
+hwT : 0 < distanceContact n m (r + 1) ∧ distanceContact n m (r + 1) < 4 * ↑(2 * r) * ↑(m - n)
+hsize : 2 * r * (m - n) < 2 * m ∧ 3 * m < 4 * (2 * r) * (m - n)
+hnd : m - n < n
+hnZ : d < ↑n
+hR : 2 * d < R
+hT : 2 * d < T
+hRT : 2 * d * (2 * d) < R * T
+hmul : 2 * (R * T) ≤ ↑r * (R * T)
+huR : R < 4 * (2 * ↑r) * d
+huT : T < 4 * (2 * ↑r) * d
+this : R * (T + 1) < 4 * (2 * ↑r) * d * (4 * (2 * ↑r) * d)
+a✝ : (4 * (2 * ↑r) * d) ^ 2 ≤ R * T
+⊢ False
+failed
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:129:27: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'B686Formalization.original_central_distance_support_bounds' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+research/tasks/B686-Four/runs/20260908-formalization-92c221/lean/distance/CentralConsumer.lean:136:0: error: ❌️ Docstring on `#guard_msgs` does not match generated message:
+
+- info: 'B686Formalization.original_central_distance_support_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
++ info: 'B686Formalization.original_central_distance_support_bounds' depends on axioms: [propext,
++  sorryAx,
++  Classical.choice,
++  Quot.sound]
