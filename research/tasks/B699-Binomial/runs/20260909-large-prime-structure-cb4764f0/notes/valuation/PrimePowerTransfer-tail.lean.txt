@@ -1,0 +1,149 @@
+/-- A divisor of a positive term in a descending factorial divides that factorial. -/
+theorem dvd_descFactorial_of_interval {N k t Q : ℕ}
+    (hk : k ≤ N) (hlo : N - k < t) (hhi : t ≤ N) (hQt : Q ∣ t) :
+    Q ∣ N.descFactorial k := by
+  rw [Nat.descFactorial_eq_prod_range]
+  have hmem : N - t ∈ Finset.range k := Finset.mem_range.mpr (by omega)
+  have hd := Finset.dvd_prod_of_mem (fun r : ℕ ↦ N - r) hmem
+  have heq : N - (N - t) = t := by omega
+  rw [heq] at hd
+  exact hQt.trans hd
+
+/-- A selected actual binomial prime power transfers to two gap binomials.
+The prime=i denominator factor is canceled using the extra numerator exponent. -/
+theorem prime_power_gap_dvd {n i j d p e : ℕ}
+    (hi : 2 ≤ i) (hij : i < j) (hnj : n = 2 * j + d) (hdi : i ≤ d)
+    (hp : p.Prime) (hpi : i ≤ p) (he : 0 < e)
+    (heval : e ≤ (n.choose i).factorization p) (havoid : ¬ p ∣ n.choose j) :
+    p ^ e ∣ d.choose i * (d + i - 1).choose (i - 1) := by
+  let Q := p ^ (e + if p = i then 1 else 0)
+  let a := n % Q
+  let b := j % Q
+  have hin : i ≤ n := by omega
+  have hjn : j ≤ n := by omega
+  have ha : a < i := prime_power_numerator_mod_lt hp hpi hin he heval
+  have hb : b ≤ a := by
+    by_contra h
+    apply havoid
+    apply B699.prime_dvd_choose_of_mod_lt hp hjn (by omega : 1 ≤ e + if p = i then 1 else 0)
+    change a < b
+    omega
+  have hmod : (d + 2 * b) % Q = a := by
+    have hnmod : (2 * j + d) % Q = a := by simpa only [← hnj] using (rfl : n % Q = a)
+    simpa [b, Nat.add_mod, Nat.mul_mod, Nat.add_comm] using hnmod
+  let t := d + 2 * b - a
+  have hQt : Q ∣ t := by
+    refine ⟨(d + 2 * b) / Q, ?_⟩
+    have hh := Nat.mod_add_div (d + 2 * b) Q
+    rw [hmod] at hh
+    dsimp only [t]
+    omega
+  have htlo : d - i < t := by dsimp only [t]; omega
+  have hthi : t ≤ d + i - 1 := by dsimp only [t]; omega
+  have hprod : Q ∣ d.descFactorial i * (d + i - 1).descFactorial (i - 1) := by
+    by_cases ht : t ≤ d
+    · exact dvd_mul_of_dvd_left (dvd_descFactorial_of_interval hdi htlo ht hQt) _
+    · apply dvd_mul_of_dvd_right
+      apply dvd_descFactorial_of_interval (by omega : i - 1 ≤ d + i - 1) ?_ hthi hQt
+      omega
+  have hnum : Q ∣ (i.factorial * (i - 1).factorial) *
+      (d.choose i * (d + i - 1).choose (i - 1)) := by
+    rw [Nat.descFactorial_eq_factorial_mul_choose,
+      Nat.descFactorial_eq_factorial_mul_choose] at hprod
+    convert hprod using 1 <;> ring
+  by_cases h : p = i
+  · subst p
+    have hf : i.factorial = i * (i - 1).factorial := by
+      simpa only [show i - 1 + 1 = i by omega] using Nat.factorial_succ (i - 1)
+    have hc : i ^ e ∣ ((i - 1).factorial * (i - 1).factorial) *
+        (d.choose i * (d + i - 1).choose (i - 1)) := by
+      apply Nat.dvd_of_mul_dvd_mul_left hp.pos
+      simp only [Q, ↓reduceIte, pow_succ, hf] at hnum
+      convert hnum using 1 <;> ring
+    have hcop : (i ^ e).Coprime ((i - 1).factorial * (i - 1).factorial) := by
+      apply Nat.coprime_mul_iff_right.mpr
+      constructor <;> exact (hp.coprime_factorial_of_lt (by omega)).pow_left e
+    exact hcop.dvd_of_dvd_mul_left hc
+  · have hip : i < p := by omega
+    have hcop : (p ^ e).Coprime (i.factorial * (i - 1).factorial) := by
+      apply Nat.coprime_mul_iff_right.mpr
+      constructor
+      · exact (hp.coprime_factorial_of_lt hip).pow_left e
+      · exact (hp.coprime_factorial_of_lt (by omega)).pow_left e
+    apply hcop.dvd_of_dvd_mul_left
+    simpa only [Q, h, ↓reduceIte, Nat.add_zero] using hnum
+
+/-- Pairwise distinct prime powers can be assembled without losing exponents. -/
+theorem prime_power_finset_prod_dvd (s : Finset ℕ) (f : ℕ → ℕ) (B : ℕ) :
+    (∀ p ∈ s, p.Prime) → (∀ p ∈ s, p ^ f p ∣ B) →
+      s.prod (fun p ↦ p ^ f p) ∣ B := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp
+  | @insert p s hps ih =>
+      intro hprime hdvd
+      rw [Finset.prod_insert hps]
+      have hcop : (p ^ f p).Coprime (s.prod (fun q ↦ q ^ f q)) := by
+        apply Nat.coprime_prod_right_iff.mpr
+        intro q hq
+        apply Nat.coprime_pow_primes _ _
+          (hprime p (Finset.mem_insert_self p s))
+          (hprime q (Finset.mem_insert_of_mem hq))
+        intro heq
+        subst q
+        exact hps hq
+      apply hcop.mul_dvd_of_dvd_of_dvd (hdvd p (Finset.mem_insert_self p s))
+      exact ih (fun q hq ↦ hprime q (Finset.mem_insert_of_mem hq))
+        (fun q hq ↦ hdvd q (Finset.mem_insert_of_mem hq))
+
+/-- The complete p>=i part of the first binomial whose primes avoid the second. -/
+def avoidingPart (n i j : ℕ) : ℕ :=
+  ((n.choose i).primeFactors.filter (fun p ↦ i ≤ p ∧ ¬ p ∣ n.choose j)).prod
+    (fun p ↦ p ^ (n.choose i).factorization p)
+
+/-- Nonvacuous actual-factor transfer, valid for every legal triple in d>=i. -/
+theorem actual_avoiding_part_gap_transfer {n i j d : ℕ}
+    (hi : 2 ≤ i) (hij : i < j) (hnj : n = 2 * j + d) (hdi : i ≤ d) :
+    avoidingPart n i j ∣ d.choose i * (d + i - 1).choose (i - 1) := by
+  classical
+  unfold avoidingPart
+  apply prime_power_finset_prod_dvd
+  · intro p hp
+    exact Nat.prime_of_mem_primeFactors (Finset.mem_filter.mp hp).1
+  · intro p hp
+    obtain ⟨hmem, hpi, havoid⟩ := Finset.mem_filter.mp hp
+    have hprime := Nat.prime_of_mem_primeFactors hmem
+    have hchoose : n.choose i ≠ 0 := Nat.ne_of_gt (Nat.choose_pos (by omega))
+    have he : 0 < (n.choose i).factorization p := by
+      have hh := (hprime.dvd_iff_one_le_factorization hchoose).mp
+        (Nat.dvd_of_mem_primeFactors hmem)
+      omega
+    exact prime_power_gap_dvd hi hij hnj hdi hprime hpi he le_rfl havoid
+
+/-- Under noCommon the avoiding part is exactly the accepted full primePart. -/
+theorem avoidingPart_eq_primePart_of_noCommon {n i j : ℕ}
+    (hno : ¬ Common n i j) :
+    avoidingPart n i j = B699BridgeAudit.primePart i (n.choose i) := by
+  classical
+  have hsets : (n.choose i).primeFactors.filter (fun p ↦ i ≤ p ∧ ¬ p ∣ n.choose j) =
+      (n.choose i).primeFactors.filter (fun p ↦ i ≤ p) := by
+    ext p
+    simp only [Finset.mem_filter]
+    constructor
+    · exact fun h ↦ ⟨h.1, h.2.1⟩
+    · rintro ⟨hmem, hpi⟩
+      refine ⟨hmem, hpi, ?_⟩
+      intro hpj
+      exact hno ⟨p, Nat.prime_of_mem_primeFactors hmem, hpi,
+        Nat.dvd_gcd (Nat.dvd_of_mem_primeFactors hmem) hpj⟩
+  unfold avoidingPart B699BridgeAudit.primePart
+  rw [hsets]
+
+/-- Original-target noCommon consumer using actual complete p>=i exponents. -/
+theorem actual_prime_part_gap_transfer {n i j : ℕ}
+    (hi : 2 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hdi : i ≤ n - 2 * j)
+    (hno : ¬ Common n i j) :
+    B699BridgeAudit.primePart i (n.choose i) ∣
+      (n - 2 * j).choose i * (n - 2 * j + i - 1).choose (i - 1) := by
+  rw [← avoidingPart_eq_primePart_of_noCommon hno]
+  exact actual_avoiding_part_gap_transfer hi hij (by omega) hdi
