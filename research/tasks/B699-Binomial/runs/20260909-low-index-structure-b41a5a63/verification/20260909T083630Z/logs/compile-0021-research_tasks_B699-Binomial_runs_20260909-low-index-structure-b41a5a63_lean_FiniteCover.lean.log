@@ -1,0 +1,32 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T083630Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/FiniteCover.olean research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/FiniteCover.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-09T08:43:50.395453Z
+# finished_utc: 2026-09-09T08:43:58.509135Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\FiniteCover.lean:89:13: error(lean.unknownIdentifier): Unknown constant `Bool.and_eq_true.mp`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\FiniteCover.lean:86:68: error: unsolved goals
+height : HeightCertificateDatum
+goods : List GoodSegment
+layer : CoverLayer
+hregistered : height ∈ heightCertificateData
+hgoods : goods.all (goodSegmentCheck height.i height.r height.s) = true
+hcheck : coverLayerCheck height goods layer = true
+n j : ℕ
+hlo : layer.lower ≤ n
+hup : n ≤ layer.upper - 1
+hij : height.i < j
+hjn : j ≤ n / 2
+hi : 2 ≤ height.i
+left✝² : height.r < height.i
+left✝¹ : 0 < height.s
+hsi : height.s < height.i
+hlambda : 0 < 2 * height.s - height.r
+left✝ : height.i ≤ height.n0
+hdegree : heightExponent height.i height.r height.s ≤ height.i * (2 * height.s - height.r)
+right✝ :
+  height.i.factorial ^ (2 * height.s - height.r) * height.n0 ^ heightExponent height.i height.r height.s <
+    windowConstant height.i height.r height.s * height.n0.descFactorial height.i ^ (2 * height.s - height.r)
+⊢ Common n height.i j
+'B699LowIndex.coverLayerCheck_sound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699LowIndex.common_of_finite_cover_row_checked' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

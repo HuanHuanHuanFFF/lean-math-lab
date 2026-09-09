@@ -1,0 +1,58 @@
+{
+  "archive_sha256": "b96965a898f6f097d66fbb0d8df4e12e5b03c8f238e43143cd32fe7c506e0cf0",
+  "checks": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "code/exact_height_certificate.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.416,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"i_min\": 185,\n  \"i_max\": 999,\n  \"rows_verified\": 815,\n  \"N\": 20000000,\n  \"log_scale\": \"1000000000000000000000000000000\",\n  \"atanh_terms\": 24,\n  \"small_prime_count\": 168,\n  \"minimum_margin_row\": {\n    \"i\": 200,\n    \"t\": 46,\n    \"r\": 66,\n    \"s\": 140,\n    \"ell\": 133,\n    \"lam\": 214,\n    \"E\": 28651,\n    \"delta\": 4305,\n    \"scaled_log_margin_lower\": \"774417867723445970502792550354367\"\n  },\n  \"minimum_log_margin_integer_floor\": 774,\n  \"elapsed_seconds_diagnostic\": 0.3539951929997187\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "code/independent_height_check.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.412,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"method\": \"prime-exponent cancellation and log(1-u) rational series\",\n  \"rows_verified\": 815,\n  \"N\": 20000000,\n  \"terms\": 110,\n  \"log_scale\": \"10000000000000000000000000000\",\n  \"minimum_i\": 200,\n  \"minimum_scaled_log_margin_lower\": \"7744178677234459705030184283400\",\n  \"minimum_log_margin_integer_floor\": 774,\n  \"unique_prime_logarithms\": 1088,\n  \"elapsed_seconds_diagnostic\": 1.3613188310009718\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "-O2",
+        "-std=c++17",
+        "code/check_prime_chain.cpp",
+        "-o",
+        "build/review_check_prime_chain"
+      ],
+      "returncode": 0,
+      "seconds": 0.521,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "build/review_check_prime_chain",
+        "outputs/prime_chain_20m.txt"
+      ],
+      "returncode": 0,
+      "seconds": 0.122,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"method\": \"complete trial division of every supplied witness\",\n  \"count\": 116667,\n  \"first\": 2,\n  \"last\": 20000093,\n  \"max_gap\": 184,\n  \"base_prime_count\": 607,\n  \"integer_divisions\": 49580021\n}\n",
+      "stderr": ""
+    }
+  ],
+  "rs_schoenfeld_substitution_arithmetic": {
+    "coefficient_margin": "23/37200",
+    "log_X_margin": "32/405",
+    "contradiction_margin": "4273/496000",
+    "interval_width_margin": 214,
+    "small_y_max_n": 4021520,
+    "small_y_below_shared_chain": true
+  },
+  "scope": "Finite certificate replay and exact substitution constants; no Lean run and no independent formal verification of paper reasoning."
+}

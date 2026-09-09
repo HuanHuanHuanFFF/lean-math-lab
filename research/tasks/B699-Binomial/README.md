@@ -8,13 +8,19 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260909-middle-index-b96965a8](runs/20260909-middle-index-b96965a8/README.md) | 全部 i≥185 的网页纸面／精确证书闭合；**未 Lean 化** | [前沿](runs/20260909-middle-index-b96965a8/frontier.md) · [原报告](runs/20260909-middle-index-b96965a8/delivery/REPORT.md) |
+| [20260909-proof-reuse-survey-0621d239](runs/20260909-proof-reuse-survey-0621d239/README.md) | 证明复用调查与素数估计替代；**未 Lean 化** | [前沿](runs/20260909-proof-reuse-survey-0621d239/frontier.md) |
+| [20260909-low-index-structure-b41a5a63](runs/20260909-low-index-structure-b41a5a63/README.md) | 上一轮154项纸面全域排除；151项高度与通用链已 Lean，完整覆盖数据未验 | [前沿](runs/20260909-low-index-structure-b41a5a63/frontier.md) · [报告](runs/20260909-low-index-structure-b41a5a63/report.md) · [验收](runs/20260909-low-index-structure-b41a5a63/acceptance.md) |
 | [20260909-slope-four-243425d5](runs/20260909-slope-four-243425d5/README.md) | n=4j 的纸面与有限证书链；**未 Lean 化** | [前沿](runs/20260909-slope-four-243425d5/frontier.md) · [交接](runs/20260909-slope-four-243425d5/HANDOFF.md) |
 | [20260909-prime-input-d2f7a636](runs/20260909-prime-input-d2f7a636/README.md) | 素数输入的条件简化；**未 Lean 化** | [前沿](runs/20260909-prime-input-d2f7a636/frontier.md) · [交接](runs/20260909-prime-input-d2f7a636/HANDOFF.md) |
+| [20260909-discriminant-height-9d40056a](runs/20260909-discriminant-height-9d40056a/README.md) | i≥185 的原题有效高度消费者；**已 Lean 验收** | [前沿](runs/20260909-discriminant-height-9d40056a/frontier.md) · [报告](runs/20260909-discriminant-height-9d40056a/report.md) |
 | [20260909-eees-chain-5a2e10](runs/20260909-eees-chain-5a2e10/README.md) | EEES 消费者与初等无条件区域 | [前沿](runs/20260909-eees-chain-5a2e10/frontier.md) · [报告](runs/20260909-eees-chain-5a2e10/report.md) · [验收](runs/20260909-eees-chain-5a2e10/verification/ACCEPTANCE.md) |
 | [20260908-external-reductions-b3c1b7](runs/20260908-external-reductions-b3c1b7/README.md) | 外部实际素数幂转移及原题消费者 | [前沿](runs/20260908-external-reductions-b3c1b7/frontier.md) |
 | [20260909-large-prime-structure-cb4764f0](runs/20260909-large-prime-structure-cb4764f0/README.md) | 完整素数幂转移、近中心区域与判别式路线 | [前沿](runs/20260909-large-prime-structure-cb4764f0/frontier.md) · [报告](runs/20260909-large-prime-structure-cb4764f0/report.md) · [验收](runs/20260909-large-prime-structure-cb4764f0/acceptance.md) |
 | [20260908-formalization-92c221](runs/20260908-formalization-92c221/README.md) | 已采用条件判据的完整消费者复验 | [前沿](runs/20260908-formalization-92c221/frontier.md) |
 | [20260908-binomial-cofactors-f0a6539](runs/20260908-binomial-cofactors-f0a6539/README.md) | 二项式系数的小互素余因子判据 | [前沿](runs/20260908-binomial-cofactors-f0a6539/frontier.md) |
+
+本次已完成交付的固定提交、网页原件和分层接收说明见[接收快照](../../external-results/20260909-b699-proof-reuse-b96965a8/README.md)。进行中的新任务未纳入该快照。
 
 同题研究放在本目录。新独立推进放入 `runs/日期-主题-短标识/`；换模型、会话或并发数量不改变既有批次身份。详见[目录规则](../../../docs/STRUCTURE.md)。各批独立维护进度和报告，本页仅作题面与导航。
 

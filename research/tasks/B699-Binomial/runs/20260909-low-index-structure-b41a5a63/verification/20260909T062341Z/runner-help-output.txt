@@ -1,0 +1,24 @@
+usage: verify.py [-h] --lean LEAN --package-root PACKAGE_ROOT --root ROOT
+                 [--memory-mb MEMORY_MB] [--timeout TIMEOUT]
+                 [--project-root PROJECT_ROOT]
+
+Fresh, focused Lean verification for one or more project roots. The verifier
+accepts an existing Lean 4.33.1 executable and an existing fixed package-cache
+root. It never invokes Lake, updates packages, or reuses old project objects.
+Every invocation allocates a new public evidence directory under this run and
+a diagnostic/object directory below ``.tools``.
+
+options:
+  -h, --help            show this help message and exit
+  --lean LEAN           existing Lean 4.33.1 executable
+  --package-root PACKAGE_ROOT
+                        existing fixed package checkout root, normally
+                        .lake/packages
+  --root ROOT           relative Lean project root below Math/ or research/;
+                        repeatable
+  --memory-mb MEMORY_MB
+                        Lean per-process memory limit in MB (default: 1536)
+  --timeout TIMEOUT     per-command timeout in seconds (default: 120)
+  --project-root PROJECT_ROOT
+                        explicit repository root; otherwise derive it from
+                        this script location

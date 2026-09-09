@@ -1,0 +1,169 @@
+[
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/HeightArithmetic.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.HeightArithmetic",
+    "imports": [
+      "Mathlib.NumberTheory.PrimeCounting",
+      "Mathlib.Tactic.Linarith",
+      "Mathlib.Tactic.Ring",
+      "Lean.Elab.Tactic.Omega"
+    ],
+    "source_sha256_before": "7bb02db35d37593843b2afa54de53c21a8a8cedb0528f373abd94b7a47175582",
+    "source_sha256_after": "7bb02db35d37593843b2afa54de53c21a8a8cedb0528f373abd94b7a47175582"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/FactorialHeight.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.FactorialHeight",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.HeightArithmetic",
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+    ],
+    "source_sha256_before": "f4686629e4a3e54b27583dcaa1e24b5c7ccd0d7ba5b12ecb73cc8acbf0f53681",
+    "source_sha256_after": "f4686629e4a3e54b27583dcaa1e24b5c7ccd0d7ba5b12ecb73cc8acbf0f53681"
+  },
+  {
+    "source": "Math/B699/CofactorCriterion.lean",
+    "module": "Math.B699.CofactorCriterion",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Factorization",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Tactic.Ring",
+      "Mathlib.Tactic.Linarith"
+    ],
+    "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+    "source_sha256_after": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+    "imports": [
+      "Math.B699.CofactorCriterion"
+    ],
+    "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+    "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.GCD.BigOperators"
+    ],
+    "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+    "source_sha256_after": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Nat.Prime.Factorial"
+    ],
+    "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+    "source_sha256_after": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/CoefficientContent.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.CoefficientContent",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "Mathlib.Algebra.Polynomial.Derivative",
+      "Mathlib.Algebra.Polynomial.Degree.Lemmas",
+      "Mathlib.Data.Nat.Choose.Vandermonde",
+      "Mathlib.Tactic.NormNum"
+    ],
+    "source_sha256_before": "230a00ba5261ca66f611bea8b9aac64a2529e86d1d359b6a64fdf1c66616cccd",
+    "source_sha256_after": "230a00ba5261ca66f611bea8b9aac64a2529e86d1d359b6a64fdf1c66616cccd"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/DiscriminantAlgebra.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.DiscriminantAlgebra",
+    "imports": [
+      "Mathlib.RingTheory.Polynomial.Resultant.Basic",
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Tactic.Ring"
+    ],
+    "source_sha256_before": "4b0209f4f97dc9981491751aca6301c9b4820028b5b8094f3c9d2577f08504ec",
+    "source_sha256_after": "4b0209f4f97dc9981491751aca6301c9b4820028b5b8094f3c9d2577f08504ec"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/ContentDiscriminant.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.ContentDiscriminant",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.CoefficientContent",
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.DiscriminantAlgebra",
+      "Mathlib.Data.Int.Basic"
+    ],
+    "source_sha256_before": "98e1cd352df2997f1a42d6ce343ed8792fce6354d5216b9efa05aedabbc305a1",
+    "source_sha256_after": "98e1cd352df2997f1a42d6ce343ed8792fce6354d5216b9efa05aedabbc305a1"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.JacobiIdentity",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.CoefficientContent",
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.DiscriminantAlgebra"
+    ],
+    "source_sha256_before": "d190a68ff4fdbb1d13ec9b74a072244021c5f2ad9fa93581f9c72ea7dd04b070",
+    "source_sha256_after": "d190a68ff4fdbb1d13ec9b74a072244021c5f2ad9fa93581f9c72ea7dd04b070"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/ScaledDiscriminant.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.ScaledDiscriminant",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.JacobiIdentity",
+      "Mathlib.Data.Nat.Factorial.BigOperators"
+    ],
+    "source_sha256_before": "56a3488ec01d50795c22711507fde1e71df8fcc6e27577a5c1cb975f818918e8",
+    "source_sha256_after": "56a3488ec01d50795c22711507fde1e71df8fcc6e27577a5c1cb975f818918e8"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+    ],
+    "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+    "source_sha256_after": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7"
+  },
+  {
+    "source": "research/tasks/B686-Four/formalization/PrimeCounting/LinearPrimeCounting.lean",
+    "module": "research.tasks.B686-Four.formalization.PrimeCounting.LinearPrimeCounting",
+    "imports": [
+      "Mathlib.NumberTheory.PrimeCounting",
+      "Mathlib.Data.Nat.Count",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Lean.Elab.Tactic.Omega"
+    ],
+    "source_sha256_before": "e5a6a6cc4d10206edbd4e226106d1862f720542f84aa4398b62a624fdab6902a",
+    "source_sha256_after": "e5a6a6cc4d10206edbd4e226106d1862f720542f84aa4398b62a624fdab6902a"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/OriginalHeight.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.OriginalHeight",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.FactorialHeight",
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.ContentDiscriminant",
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.ScaledDiscriminant",
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+      "research.tasks.B686-Four.formalization.PrimeCounting.LinearPrimeCounting"
+    ],
+    "source_sha256_before": "9060d8d18ac77901c671e9b325a04d486d84b4fe8876513f857c8d08dc75cb23",
+    "source_sha256_after": "9060d8d18ac77901c671e9b325a04d486d84b4fe8876513f857c8d08dc75cb23"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/Acceptance.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.Acceptance",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-discriminant-height-9d40056a.lean.OriginalHeight"
+    ],
+    "source_sha256_before": "cbcbe827176299f3a636d12adddbcaa0445cfb5924ba79162ce642dda2c3c78d",
+    "source_sha256_after": "cbcbe827176299f3a636d12adddbcaa0445cfb5924ba79162ce642dda2c3c78d"
+  }
+]
