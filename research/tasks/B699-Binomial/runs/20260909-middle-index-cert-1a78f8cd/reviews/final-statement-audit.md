@@ -112,3 +112,38 @@
 2026-09-09 13:19:31 UTC（本次耗时 14 分 03 秒）：本次源码、数组与日志核对再次通过，130 项联合源闭包摘要仍为 a25251a2190c34eaee4decfc98843edb0559ba50133dca65c3511004cec00d1e。最新 130116Z 证据类型为 evidence.partial.json，success=False，已完成且源/日志匹配 44/72 项，最后为 research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/primeChain/blocks/Block036.lean。全部被检查证据的 problems 均为空。当前仍无已结束的 common_323 最终成功根，B1 保留。
 
 首次有界审查已完成；此后只需随具体运行的完成或失败更新验收意见，不需重做数学源码审查，除非冻结源发生变化。
+
+## B1 最终处置：2026-09-09 13:56:00 UTC
+
+**B1 已解除，范围精确为 323≤i≤999 的全部合法自然数 n,j。** 本段补记取代前文“最终验证尚未结束”的当前状态判断；前文在各自观察时点成立，保留为历史记录。没有发现新增数学阻断。
+
+此次继续审查于 13:54:19 UTC 开始。重新独立读取两个最终 evidence.json、最终源码和实际编译日志；未运行 Lean、未重算素性或高度大整数、未修改任何 Lean 源或审计脚本。本轮仅追加本报告。
+
+| 最终根 | 开始→结束（UTC） | 实际项目闭包 | 新编/复用 | 独立核对 |
+|---|---|---:|---:|---|
+| [130116Z / FirstComplete](../verification/20260909T130116Z/evidence.json) | 13:01:16.990726→13:23:58.705331 | 72 | 51 / 21 | 72/72 当前源、对象及实际日志 SHA 对齐；104 项实际公理输出无异常 |
+| [132846Z / MiddleComplete](../verification/20260909T132846Z/evidence.json) | 13:28:46.785164→13:39:06.693890 | 129 | 44 / 85 | 129/129 当前源、对象及实际日志 SHA 对齐；163 项实际公理输出无异常 |
+
+两个根均实际 success=true、exit_code=0、finished_utc 非空、failure=null、all_project_closure_verified=true。不是将逐模块 partial 状态提升为整体成功。
+
+独立从两个最终源的 import 行递归重建项目闭包，其路径集合与 evidence 的 source_closure、compile_records 完全一致，无遗漏或重复编译记录。两根联合 130 个源的摘要仍精确等于此前审查快照 `a25251a2190c34eaee4decfc98843edb0559ba50133dca65c3511004cec00d1e`；FirstComplete、MiddleComplete 源 SHA 也保持不变。因此前文全部量词、边界、677 行参数、实际证明树及数组完整性审查继续适用，不需要从生成器信任结果。
+
+具体数据消费再次按 **132846Z 的实际源闭包** 独立核对：43 个 heightBlocks，加上 RawHeight323/999，恰好含 raw_323..raw_999 的 677 条具体高度；同时包含全部 16 个计数块、43 个素数链块与 3 个组。AllHeights 和 primeChain/Complete 均已进入该成功闭包，故已生成的数据和已接受的数据在锁定的 323..999 范围内完整接通。
+
+本次还直接读取并哈希每一个 .olean，而非仅采用主线程核对结果：130116Z 的 72 项对象共 21,229,360 字节，132846Z 的 129 项对象共 25,581,384 字节，全部匹配记录的 output_sha256。对每项复用，核对其 base evidence 的 SHA、同模块旧成功记录、源 before/after、imports、对象及日志 SHA，并重新核对原复用对象的实际 SHA；全部项目依赖在当前已验闭包内。21/85 项复用均符合这些边界，没有将未完成模块或失效旧对象计为接受。新编命令保持 -j1、-M1536，未使用跳过内核参数。
+
+版本与 policy：当前 manifest SHA 仍为 `fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0`；两个最终根均记录 Lean 4.33.1、Lean commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`，实际版本日志 SHA 对齐；9 个依赖包的 observed HEAD 均等于 manifest pin 且记录为干净。两个根各自的 source policy 文件数等于真实闭包，结果及日志 SHA 均通过。实际传递公理输出均属于 `{propext, Classical.choice, Quot.sound}`；最终两个原题消费者恰好依赖这三项。
+
+最终实际 `#check` 日志（直接读取，没有从源码自行模拟）：
+
+```lean
+@B699Middle.common_323 : ∀ {n j : ℕ},
+  323 < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ 323 ≤ p ∧ p ∣ (n.choose 323).gcd (n.choose j)
+
+@B699Middle.common_323_999 : ∀ {n i j : ℕ},
+  323 ≤ i → i ≤ 999 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ (n.choose i).gcd (n.choose j)
+```
+
+对应最终日志 SHA：FirstComplete 为 `4e5adf034c532dc4c25c1b008eae03fde7e39efe6bbc3f8d409d9cb3202caeaa`，MiddleComplete 为 `b1e9cc518a8b05b1c55d512047a998c6df749ab91803e4054a09554514615282`。最终 evidence SHA：130116Z 为 `590f1ef297df0a641398b17d9b0a4d8a2ad6f7061f53814de1c162638ceee163`；132846Z 为 `2b3c00e0c56e6f95a7d248997db74df071e2bf304e07a2aa7c79aea94785dcc9`。
+
+可采用的报告强度：**677 个指标下全部合法 n,j 的原题 Lean 定理已经验收，保留 p≥i，没有证书真值假设。** 这仍是既有成果的 Lean 认证，不是完整 B699 的解决、独立第二内核验收或新颖性认证。185..322 的后续成本试验不属于本次接受范围，也不改变本段所固定的 677 项接受证据。

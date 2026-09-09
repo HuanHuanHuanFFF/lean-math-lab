@@ -1,19 +1,17 @@
 # B699 中指标具体证书验收
 
-本批目标：对全部自然数 n,i,j，323≤i≤999 且 i<j≤n/2 时，存在素数 p≥i 整除 gcd(C(n,i),C(n,j))。首批 677 个指标全部验收后，成本支持时扩到185..999。
+**首批已完成：323≤i≤999的677个指标，全部合法n,j满足原题共同素数结论。**
+最终声明B699Middle.common_323_999无证书真值或出版参数，保留p≥i。
 
-状态：实际成本检查与证书分块中；末端256条素数边及其有限n原题消费者已开发实编通过，目前没有本批已接受的具体全域指标。采用附件 compact 的 N=2,000,000 高度证书与相邻差≤322的正素数链。外部证书通过不是Lean通过。
+[首批正式验收](acceptance-677.md) · [报告](report.md) · [前沿](frontier.md) · [最终源码](lean/MiddleComplete.lean) · [复现入口](verification/runner/extend.py)
 
-负责人：主线程 Astra/Max。仅写本批；辅助任务独占文件另记。重计算串行，Lean单线程，至多3个子任务（数学至多2个），新临时与缓存留D盘，保护旧批与原工作区。
+分支：GPT-work/b699-middle-lean-20260909-1a78f8cd。
+基线main23c4e21096cd711be08927c0c451627c832d64c2；固定接入旧高度接口63a04b064d62e7e8752b1edd75c186d07dc57a20。
+当前完整结果根verification/20260909T132846Z：129项目源闭包，44新编/85哈希及递归依赖一致复用，实际公理仅propext、Classical.choice、Quot.sound。
 
-分支：`GPT-work/b699-middle-lean-20260909-1a78f8cd`。从最新main `23c4e21096cd711be08927c0c451627c832d64c2` 创建隔离工作树，并在本分支固定接入 `63a04b064d62e7e8752b1edd75c186d07dc57a20`，复用其 HeightCertificate / ThreeWindowSize / ThreeWindowWeights。未修改旧批来源。
+主线程Astra/Max仅写本批；分工见notes/ownership.md。原工作区与旧批源不改。
+开始11:31:09 UTC（前有约31秒环境启动）；本轮未指定新总时长，不继承旧截止。重计算串行、Lean-j1，主批1536MiB，扩展资源试验当前1280MiB，D盘缓存与临时，不改pins和电源设置。
 
-开始：2026-09-09 11:31:09 UTC（首次可记录时点，前有约31秒环境启动）；本轮未指定总时长，不继承上一轮截止。首次成本检查目标是完整i=323（也是最小余量行）、i=999高度证书和末端素数块及拼接。
+条件扩展185..322另138项尚未验收，正在原N=20,000,000输入上做小样本成本试验。首批677项独立保留；未验扩展不改变其接受状态。
 
-[输入任务](inputs/TASKS.md) · [前沿](frontier.md) · [初始资源与来源](verification/initial-state.json)
-
-价值是既有纸面结果的形式化，不开展Dusart、Schoenfeld、Matveev或旧151项整表任务；不联系Chat、不等待其优化。最终必须通过具体数据及最终消费者的完整源码依赖闭包和真实传递公理检查。
-
-当前恢复入口：[成本与诊断](notes/checkpoint-1210.md)、[验收边界](acceptance.md)、[素数链接口](notes/prime-chain-interface.md)。
-
-13:24里程碑：完整两百万正素数链和i=323全部合法n,j的原题消费者已在verification/20260909T130116Z通过（72源闭包、51新编/21一致复用，实际标准公理）。当前已验全域指标{323}；677项最终MiddleComplete仍在执行。
+[任务输入](inputs/TASKS.md) · [初始资源/来源](verification/initial-state.json) · [独立审查](reviews/final-statement-audit.md)
