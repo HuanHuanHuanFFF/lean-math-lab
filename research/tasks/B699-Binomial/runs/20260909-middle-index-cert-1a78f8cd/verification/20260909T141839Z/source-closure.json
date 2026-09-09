@@ -1,0 +1,348 @@
+[
+  {
+    "source": "Math/B699/CofactorCriterion.lean",
+    "module": "Math.B699.CofactorCriterion",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Factorization",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Tactic.Ring",
+      "Mathlib.Tactic.Linarith"
+    ],
+    "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+    "source_sha256_after": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+    "imports": [
+      "Math.B699.CofactorCriterion"
+    ],
+    "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+    "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.GCD.BigOperators"
+    ],
+    "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+    "source_sha256_after": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Nat.Prime.Factorial"
+    ],
+    "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+    "source_sha256_after": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+    ],
+    "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+    "source_sha256_after": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowWeights",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+    ],
+    "source_sha256_before": "17ee0024b94bcb5e1ba0b05f5a0a4229dd8a0e5816c3a83385ba8c45eced6c99",
+    "source_sha256_after": "17ee0024b94bcb5e1ba0b05f5a0a4229dd8a0e5816c3a83385ba8c45eced6c99"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowSize.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowSize",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowWeights",
+      "Mathlib.Algebra.BigOperators.Intervals"
+    ],
+    "source_sha256_before": "4da6cb312eca31e38fb39bc88ff3bbce771ef0a5bb9c9278d925e36d4002c047",
+    "source_sha256_after": "4da6cb312eca31e38fb39bc88ff3bbce771ef0a5bb9c9278d925e36d4002c047"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-eees-chain-5a2e10/lean/PowerBounds.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-eees-chain-5a2e10.lean.PowerBounds",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Tactic.Ring",
+      "Lean.Elab.Tactic.Omega"
+    ],
+    "source_sha256_before": "3022f40997b3b9302343b99a8fa91a984228af348eb7b02f69fbd198016fee9a",
+    "source_sha256_after": "3022f40997b3b9302343b99a8fa91a984228af348eb7b02f69fbd198016fee9a"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/HeightCertificate.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.HeightCertificate",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowSize",
+      "research.tasks.B699-Binomial.runs.20260909-eees-chain-5a2e10.lean.PowerBounds"
+    ],
+    "source_sha256_before": "256a2e13903b7b2b42e5bea2b32c20e2c5df1af4019b9f05931b117ae462bc4d",
+    "source_sha256_after": "256a2e13903b7b2b42e5bea2b32c20e2c5df1af4019b9f05931b117ae462bc4d"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/HeightRows.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.HeightRows",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.HeightCertificate"
+    ],
+    "source_sha256_before": "0a496bb61a81492a017b6eb7b2dd9682bfd7ed51ebb71eadf25856d0a82a7cdb",
+    "source_sha256_after": "0a496bb61a81492a017b6eb7b2dd9682bfd7ed51ebb71eadf25856d0a82a7cdb"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+    "imports": [
+      "Mathlib.Data.Nat.Prime.Defs",
+      "Mathlib.Data.List.Basic",
+      "Lean.Elab.Tactic.Omega"
+    ],
+    "source_sha256_before": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d",
+    "source_sha256_after": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/SmallPrimeCount.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.SmallPrimeCount",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+    ],
+    "source_sha256_before": "28d699813cb116dbd042e0b15d7b43c900c84795c17c36361cc15bce41f9fa13",
+    "source_sha256_after": "28d699813cb116dbd042e0b15d7b43c900c84795c17c36361cc15bce41f9fa13"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/RawHeight.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.HeightRows",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.SmallPrimeCount"
+    ],
+    "source_sha256_before": "0e12facc1f442f15ee10c7f5a9c0dd1fb98cdf223f70d52ff0fc20d2fb45aea7",
+    "source_sha256_after": "0e12facc1f442f15ee10c7f5a9c0dd1fb98cdf223f70d52ff0fc20d2fb45aea7"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/TailRange.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.HeightRows"
+    ],
+    "source_sha256_before": "d72077f2238355d37cb230ff9ca0dd546479dce8f6d3061d33f2aa26cbaddcb8",
+    "source_sha256_after": "d72077f2238355d37cb230ff9ca0dd546479dce8f6d3061d33f2aa26cbaddcb8"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/counts/Count0000.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0000",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight"
+    ],
+    "source_sha256_before": "da0a8c731873198d31aaed4021a281dd81eac0673f2cd23d610a84011275cc5a",
+    "source_sha256_after": "da0a8c731873198d31aaed4021a281dd81eac0673f2cd23d610a84011275cc5a"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/counts/Count0064.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0064",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0000"
+    ],
+    "source_sha256_before": "7c6e225fef4e3e1022c2f94f83f467df10b2f862717eff15473fd11c6b90502e",
+    "source_sha256_after": "7c6e225fef4e3e1022c2f94f83f467df10b2f862717eff15473fd11c6b90502e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/counts/Count0128.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0128",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0064"
+    ],
+    "source_sha256_before": "479b155402e754d9d74d363463245e13f4bdc27168912536a3b71b488cfe1790",
+    "source_sha256_after": "479b155402e754d9d74d363463245e13f4bdc27168912536a3b71b488cfe1790"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/counts/Count0192.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0192",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0128"
+    ],
+    "source_sha256_before": "1dc9d56310985e84a606561bde2582f0c6bb887b5ab0e4cc15be77ec5dc180b2",
+    "source_sha256_after": "1dc9d56310985e84a606561bde2582f0c6bb887b5ab0e4cc15be77ec5dc180b2"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heights/Height185.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heights.Height185",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0128"
+    ],
+    "source_sha256_before": "672c6f3959e58796169ba0a25d8e3c74ae4f28e772927df5baa8517425e3bf41",
+    "source_sha256_after": "672c6f3959e58796169ba0a25d8e3c74ae4f28e772927df5baa8517425e3bf41"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heights/Height200.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heights.Height200",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0192"
+    ],
+    "source_sha256_before": "4cd1666f1bd522863d1fb5e687eb886badda13dc47ee5b3f090b2df8e76be5db",
+    "source_sha256_after": "4cd1666f1bd522863d1fb5e687eb886badda13dc47ee5b3f090b2df8e76be5db"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0185_0200.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0185_0200",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0192",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heights.Height185",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heights.Height200"
+    ],
+    "source_sha256_before": "4f16e7a7a1848a568a0f6fd455a41e8479e861b2239daaefd01d98fd98cb4eca",
+    "source_sha256_after": "4f16e7a7a1848a568a0f6fd455a41e8479e861b2239daaefd01d98fd98cb4eca"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0201_0216.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0201_0216",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0192"
+    ],
+    "source_sha256_before": "6393643d9aa2e01b52e7ac4e549ba6b8cc4d6f2c015bf1767564fb8cdb3aeba3",
+    "source_sha256_after": "6393643d9aa2e01b52e7ac4e549ba6b8cc4d6f2c015bf1767564fb8cdb3aeba3"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0217_0232.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0217_0232",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0192"
+    ],
+    "source_sha256_before": "d7f979c9601d11ebb41dcde9e79ade5f1d329c6127d2be94eaca2f20c57c86c8",
+    "source_sha256_after": "d7f979c9601d11ebb41dcde9e79ade5f1d329c6127d2be94eaca2f20c57c86c8"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0233_0248.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0233_0248",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0192"
+    ],
+    "source_sha256_before": "96954405629dcb83893f056fc22239b17b66442e0dc4215754ce297518e492a6",
+    "source_sha256_after": "96954405629dcb83893f056fc22239b17b66442e0dc4215754ce297518e492a6"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/counts/Count0256.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0256",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0192"
+    ],
+    "source_sha256_before": "087a964d3acfb41bd580023551a563936e7eac40b58a9a65f9c5da666a452fc9",
+    "source_sha256_after": "087a964d3acfb41bd580023551a563936e7eac40b58a9a65f9c5da666a452fc9"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0249_0264.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0249_0264",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0256"
+    ],
+    "source_sha256_before": "fcbcbb47653f751f410fc872bc0188b96805377f1e56418d8b375a6a3ab62f50",
+    "source_sha256_after": "fcbcbb47653f751f410fc872bc0188b96805377f1e56418d8b375a6a3ab62f50"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0265_0280.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0265_0280",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0256"
+    ],
+    "source_sha256_before": "83e29e387792692185152f25697ccc1a1ec8fe0ac8050911e4fde50ae73e054e",
+    "source_sha256_after": "83e29e387792692185152f25697ccc1a1ec8fe0ac8050911e4fde50ae73e054e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0281_0296.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0281_0296",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0256"
+    ],
+    "source_sha256_before": "45b329b622b085efcc7a21eb85eedcdf27a32017dad76c451b69f7e992b56e81",
+    "source_sha256_after": "45b329b622b085efcc7a21eb85eedcdf27a32017dad76c451b69f7e992b56e81"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0297_0312.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0297_0312",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0256"
+    ],
+    "source_sha256_before": "bbaa31936f1b8793fe63163d01027421f9dc75ae806bf363a519544d9a54ca3d",
+    "source_sha256_after": "bbaa31936f1b8793fe63163d01027421f9dc75ae806bf363a519544d9a54ca3d"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/counts/Count0320.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0320",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0256"
+    ],
+    "source_sha256_before": "50cf3d01c385cc205c91332ffc9f36e1f7c174d5f8d4b661d4163f15f93354b3",
+    "source_sha256_after": "50cf3d01c385cc205c91332ffc9f36e1f7c174d5f8d4b661d4163f15f93354b3"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heights/Height322.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heights.Height322",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0320"
+    ],
+    "source_sha256_before": "0ac02f621eaf6a2e611f02f889b7eea5c5e122674efcaa02c1beda40cb6487e7",
+    "source_sha256_after": "0ac02f621eaf6a2e611f02f889b7eea5c5e122674efcaa02c1beda40cb6487e7"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/heightBlocks/Height0313_0322.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0313_0322",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.RawHeight",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.TailRange",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.counts.Count0320",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heights.Height322"
+    ],
+    "source_sha256_before": "aab81164d9da8b350032ebfc3e331b181e763be9d10b59158dbcd693d3ef02ee",
+    "source_sha256_after": "aab81164d9da8b350032ebfc3e331b181e763be9d10b59158dbcd693d3ef02ee"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/AllExtensionHeights.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.AllExtensionHeights",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0185_0200",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0201_0216",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0217_0232",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0233_0248",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0249_0264",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0265_0280",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0281_0296",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0297_0312",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.heightBlocks.Height0313_0322"
+    ],
+    "source_sha256_before": "c904e5ee7b0d64aa44c510ce65d31227dd96bf963cd3bd69fc2c7787b70b76d0",
+    "source_sha256_after": "c904e5ee7b0d64aa44c510ce65d31227dd96bf963cd3bd69fc2c7787b70b76d0"
+  }
+]

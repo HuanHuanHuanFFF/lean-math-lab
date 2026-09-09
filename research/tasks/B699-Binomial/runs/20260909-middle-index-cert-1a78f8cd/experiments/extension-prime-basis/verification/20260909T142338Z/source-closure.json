@@ -1,0 +1,272 @@
+[
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+    "imports": [
+      "Mathlib.Data.Nat.Prime.Defs",
+      "Mathlib.Data.List.Basic",
+      "Lean.Elab.Tactic.Omega"
+    ],
+    "source_sha256_before": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d",
+    "source_sha256_after": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/PrimeBasis.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasis",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck"
+    ],
+    "source_sha256_before": "228a7e390c896914ae01b366ffca5e142655b4c86784e4feec55c4d556697de0",
+    "source_sha256_after": "228a7e390c896914ae01b366ffca5e142655b4c86784e4feec55c4d556697de0"
+  },
+  {
+    "source": "Math/B699/CofactorCriterion.lean",
+    "module": "Math.B699.CofactorCriterion",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Factorization",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Tactic.Ring",
+      "Mathlib.Tactic.Linarith"
+    ],
+    "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+    "source_sha256_after": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+    "imports": [
+      "Math.B699.CofactorCriterion"
+    ],
+    "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+    "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.GCD.BigOperators"
+    ],
+    "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+    "source_sha256_after": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Nat.Prime.Factorial"
+    ],
+    "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+    "source_sha256_after": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+    ],
+    "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+    "source_sha256_after": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/SmallPrimeCount.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.SmallPrimeCount",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+    ],
+    "source_sha256_before": "28d699813cb116dbd042e0b15d7b43c900c84795c17c36361cc15bce41f9fa13",
+    "source_sha256_after": "28d699813cb116dbd042e0b15d7b43c900c84795c17c36361cc15bce41f9fa13"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/PrimeBasisCoverage.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasis",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.SmallPrimeCount",
+      "Init.Data.List.Range"
+    ],
+    "source_sha256_before": "e1a39768055cbd3dceb09559335b2d6e50c61c05a0c2e0b0c59ec0e2be160c15",
+    "source_sha256_after": "e1a39768055cbd3dceb09559335b2d6e50c61c05a0c2e0b0c59ec0e2be160c15"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/BasisData.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasis"
+    ],
+    "source_sha256_before": "d2b5f8c5cd256a924d6b3fdea7ff062b53cf0b1def5ef37f5b12888f92bab91e",
+    "source_sha256_after": "d2b5f8c5cd256a924d6b3fdea7ff062b53cf0b1def5ef37f5b12888f92bab91e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage00.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage00",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "1cb1d951ff986edcd2424f35288181472e29f7e72b6b160c487fbf0f0ffddb31",
+    "source_sha256_after": "1cb1d951ff986edcd2424f35288181472e29f7e72b6b160c487fbf0f0ffddb31"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage01.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage01",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "423d29e3d75593e8988bdcde8b40b1207c8891e0ec8e8073cc0a627752d8fd25",
+    "source_sha256_after": "423d29e3d75593e8988bdcde8b40b1207c8891e0ec8e8073cc0a627752d8fd25"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage02.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage02",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "d83530d4dfbfd7525ce156ca4a603de96df7db47f5ed8a9de2a3a225a4372a2b",
+    "source_sha256_after": "d83530d4dfbfd7525ce156ca4a603de96df7db47f5ed8a9de2a3a225a4372a2b"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage03.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage03",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "68040c33f35e413edc171aa45f9704a7fb5381ba3043d860a0414842ad8b29b5",
+    "source_sha256_after": "68040c33f35e413edc171aa45f9704a7fb5381ba3043d860a0414842ad8b29b5"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage04.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage04",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "24919594d8db197f591a04c81b69542f3dbbb9d6f02f55cda94d85c6c15b6b2c",
+    "source_sha256_after": "24919594d8db197f591a04c81b69542f3dbbb9d6f02f55cda94d85c6c15b6b2c"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage05.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage05",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "4e51f0ac7715eba047f0c69dc36145721e9ed0dd34075e8c0431a6dd4da3ebae",
+    "source_sha256_after": "4e51f0ac7715eba047f0c69dc36145721e9ed0dd34075e8c0431a6dd4da3ebae"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage06.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage06",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "52743faa40680951e3021e9367f540f627efc3d3817620487311556e11b21b7b",
+    "source_sha256_after": "52743faa40680951e3021e9367f540f627efc3d3817620487311556e11b21b7b"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage07.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage07",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "6a06e62b1b993ecce980f65d8896ec9201fa7ab4fea5092f0cf5f83806aa1846",
+    "source_sha256_after": "6a06e62b1b993ecce980f65d8896ec9201fa7ab4fea5092f0cf5f83806aa1846"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage08.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage08",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "767e4e82232f1caa8b4518755208371f490bef727f04857b9cef5b822684c51a",
+    "source_sha256_after": "767e4e82232f1caa8b4518755208371f490bef727f04857b9cef5b822684c51a"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/Coverage09.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage09",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisCoverage",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.BasisData"
+    ],
+    "source_sha256_before": "2981136f7181082868fa9eda36bcaa09bb4ef5997080f3b7c92d6673aac4f4ba",
+    "source_sha256_after": "2981136f7181082868fa9eda36bcaa09bb4ef5997080f3b7c92d6673aac4f4ba"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/PrimeBasis4473.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasis4473",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage00",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage01",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage02",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage03",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage04",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage05",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage06",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage07",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage08",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.Coverage09"
+    ],
+    "source_sha256_before": "bd3547bdaf69d0783887ddb108e522b55d635ad38b9e1409b50ad6f00f4cd621",
+    "source_sha256_after": "bd3547bdaf69d0783887ddb108e522b55d635ad38b9e1409b50ad6f00f4cd621"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/primeChain/Core.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.primeChain.Core",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck"
+    ],
+    "source_sha256_before": "a3ba22ef6722148d56e811cdd1f8c9b275519705a1d73278c822182d42609718",
+    "source_sha256_after": "a3ba22ef6722148d56e811cdd1f8c9b275519705a1d73278c822182d42609718"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/PrimeChain.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.PrimeChain",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.primeChain.Core",
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge"
+    ],
+    "source_sha256_before": "14a8166ed2ff1e1192215be28eba15d4f912b74bb7a879aa9535a99480843e73",
+    "source_sha256_after": "14a8166ed2ff1e1192215be28eba15d4f912b74bb7a879aa9535a99480843e73"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/PrimeBasisChain.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisChain",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasis",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.PrimeChain"
+    ],
+    "source_sha256_before": "2a19e3941b43996257b008f58c758acc4d5b70195f5b192dd48e3d7af43b3706",
+    "source_sha256_after": "2a19e3941b43996257b008f58c758acc4d5b70195f5b192dd48e3d7af43b3706"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/End512Basis.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.End512Basis",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasis4473",
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.PrimeBasisChain"
+    ],
+    "source_sha256_before": "cfad166c144e7fc40c8dfb32939f818ad63dcb48f7c111dd2666065d940a95b6",
+    "source_sha256_after": "cfad166c144e7fc40c8dfb32939f818ad63dcb48f7c111dd2666065d940a95b6"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/extension/basis/End512BasisConsumer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.End512BasisConsumer",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.extension.basis.End512Basis"
+    ],
+    "source_sha256_before": "ee733e61255a5b08886ca6791d85265bfd403792213cd8e77f2dd0af2f3cf0dc",
+    "source_sha256_after": "ee733e61255a5b08886ca6791d85265bfd403792213cd8e77f2dd0af2f3cf0dc"
+  }
+]
