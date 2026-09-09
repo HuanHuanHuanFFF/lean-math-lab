@@ -1,0 +1,106 @@
+import research.tasks.«B699-Binomial».runs.«20260910-large-index-lean-7c4e2a91».lean.HeightBlock
+import research.tasks.«B699-Binomial».runs.«20260910-large-index-lean-7c4e2a91».lean.PowerTrace
+import research.tasks.«B699-Binomial».runs.«20260910-large-index-lean-7c4e2a91».lean.dyadic.Compare
+import research.tasks.«B699-Binomial».runs.«20260909-middle-index-cert-1a78f8cd».lean.TailRange
+
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option Elab.async false
+namespace B699TraceBlock
+open B699LowIndex B699LargePrimeStructure B699Middle B699Dyadic
+
+structure Row where
+  lo : ℕ
+  hi : ℕ
+  r : ℕ
+  s : ℕ
+  N : ℕ
+  t : ℕ
+  factorialUpper : B699Dyadic.Dyadic
+  windowS : B699Dyadic.Dyadic
+  windowM : B699Dyadic.Dyadic
+  descLower : B699Dyadic.Dyadic
+  factorialPower : B699Dyadic.Dyadic
+  nPower : B699Dyadic.Dyadic
+  descPower : B699Dyadic.Dyadic
+  factorialTrace : List PowState
+  nTrace : List PowState
+  descTrace : List PowState
+
+def power (row : Row) : ℕ := 2 * row.s - row.r
+
+def exponent (row : Row) : ℕ :=
+  row.t * power row + row.s * (row.s + 1) +
+    (row.hi - row.r - 1) * (row.hi - row.r) / 2
+
+def constantLower (bits s : ℕ) (ws wm : B699Dyadic.Dyadic) : B699Dyadic.Dyadic :=
+  mulDown bits
+    (mulDown bits ⟨1, s * (s + 1)⟩ (mulDown bits ws ws)) wm
+
+theorem constantLower_le {bits L r s : ℕ} {ws wm : B699Dyadic.Dyadic}
+    (hs : ws.value ≤ windowFactorials s)
+    (hm : wm.value ≤ windowFactorials (L - r - 1)) :
+    (constantLower bits s ws wm).value ≤ windowConstant L r s := by
+  have hsq : (mulDown bits ws ws).value ≤ windowFactorials s ^ 2 := by
+    exact (mulDown_le _ _ _).trans (by simpa only [pow_two] using Nat.mul_le_mul hs hs)
+  have htwo : (⟨1, s * (s + 1)⟩ : B699Dyadic.Dyadic).value = 2 ^ (s * (s + 1)) := by
+    simp [B699Dyadic.Dyadic.value]
+  have hfirst : (mulDown bits ⟨1, s * (s + 1)⟩ (mulDown bits ws ws)).value ≤
+      2 ^ (s * (s + 1)) * windowFactorials s ^ 2 := by
+    calc
+      _ ≤ (⟨1, s * (s + 1)⟩ : B699Dyadic.Dyadic).value * (mulDown bits ws ws).value := mulDown_le _ _ _
+      _ ≤ 2 ^ (s * (s + 1)) * windowFactorials s ^ 2 := by
+        rw [htwo]
+        exact Nat.mul_le_mul_left _ hsq
+  exact (mulDown_le _ _ _).trans (by
+    simpa only [window_constant_formula] using Nat.mul_le_mul hfirst hm)
+
+/-- Counting and factorial bounds are supplied by separate proved finite traces.
+This Boolean checks all remaining local exponentiation and comparison data. -/
+def rowCheck (bits : ℕ) (row : Row) : Bool :=
+  decide (2 ≤ row.lo ∧ row.lo ≤ row.hi ∧ row.s < row.lo ∧ row.hi ≤ row.N ∧
+    exponent row ≤ row.lo * power row) &&
+  powTraceUpCheck bits row.factorialUpper (power row) row.factorialPower row.factorialTrace &&
+  powTraceUpCheck bits (embed row.N) (exponent row) row.nPower row.nTrace &&
+  powTraceDownCheck bits row.descLower (power row) row.descPower row.descTrace &&
+  ltCheck (mulUp bits row.factorialPower row.nPower)
+    (mulDown bits (constantLower bits row.s row.windowS row.windowM) row.descPower)
+
+theorem tailRange_of_row_checked {bits : ℕ} {row : Row}
+    (hcount : smallPrimeCount row.hi ≤ row.t)
+    (hf : row.hi.factorial ≤ row.factorialUpper.value)
+    (hs : row.windowS.value ≤ windowFactorials row.s)
+    (hm : row.windowM.value ≤ windowFactorials (row.lo - row.r - 1))
+    (hd : row.descLower.value ≤ row.N.descFactorial row.lo)
+    (hcheck : rowCheck bits row = true) : TailRange row.lo row.hi row.N := by
+  have hc := hcheck
+  simp only [rowCheck, Bool.and_eq_true, decide_eq_true_eq] at hc
+  rcases hc with ⟨⟨⟨⟨hsmall, hpf⟩, hpn⟩, hpd⟩, hcompare⟩
+  rcases hsmall with ⟨hL, hLU, hsL, hUN, hdegree⟩
+  have he : exponent row = row.t * (2 * row.s - row.r) + windowDegree row.hi row.r row.s := by
+    simp only [exponent, power, window_degree_formula, Nat.add_assoc]
+  have hfp : row.hi.factorial ^ power row ≤ row.factorialPower.value :=
+    (Nat.pow_le_pow_left hf _).trans (powTraceUpCheck_sound hpf)
+  have hnp : row.N ^ exponent row ≤ row.nPower.value := by
+    simpa only [value_embed] using powTraceUpCheck_sound hpn
+  have hdp : row.descPower.value ≤ (row.N.descFactorial row.lo) ^ power row :=
+    (powTraceDownCheck_sound hpd).trans (Nat.pow_le_pow_left hd _)
+  have hleft : row.hi.factorial ^ power row * row.N ^ exponent row ≤
+      (mulUp bits row.factorialPower row.nPower).value :=
+    (Nat.mul_le_mul hfp hnp).trans (mul_le_mulUp _ _ _)
+  have hright :
+      (mulDown bits (constantLower bits row.s row.windowS row.windowM) row.descPower).value ≤
+        windowConstant row.lo row.r row.s * (row.N.descFactorial row.lo) ^ power row :=
+    (mulDown_le _ _ _).trans (Nat.mul_le_mul (constantLower_le hs hm) hdp)
+  have hcert : row.hi.factorial ^ (2 * row.s - row.r) *
+      row.N ^ (row.t * (2 * row.s - row.r) + windowDegree row.hi row.r row.s) <
+        windowConstant row.lo row.r row.s * (row.N.descFactorial row.lo) ^ (2 * row.s - row.r) := by
+    simpa only [he, power] using hleft.trans_lt ((ltCheck_sound hcompare).trans_le hright)
+  have hdeg : row.t * (2 * row.s - row.r) + windowDegree row.hi row.r row.s ≤
+      row.lo * (2 * row.s - row.r) := by simpa only [he, power] using hdegree
+  intro n i j hLi hiU hij hjn hNn
+  exact common_of_valid_height
+    (B699HeightBlock.heightValid_of_block hL hLi hiU hsL hUN hcount hdeg hcert) hij hjn hNn
+end B699TraceBlock
+#print axioms B699TraceBlock.constantLower_le
+#print axioms B699TraceBlock.tailRange_of_row_checked

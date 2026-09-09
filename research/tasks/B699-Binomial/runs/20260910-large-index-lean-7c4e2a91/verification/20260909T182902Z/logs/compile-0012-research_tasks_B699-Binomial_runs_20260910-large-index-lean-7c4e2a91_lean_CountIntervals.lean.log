@@ -1,0 +1,35 @@
+# command: LEAN -j1 -M1280 -DElab.async=false -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/large/verification/20260909T182902Z/olean/research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/CountIntervals.olean research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/CountIntervals.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-09T18:29:17.759156Z
+# finished_utc: 2026-09-09T18:29:25.783745Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\CountIntervals.lean:18:16: error: unsolved goals
+case succ
+start k : ℕ
+ih : fastSmallPrimeCount (start + k) = fastSmallPrimeCount start + intervalCount start k
+⊢ (fastSmallPrimeCount (start.add k) + if trialPrimeCheck (start.add k) = true then 1 else 0) =
+    fastSmallPrimeCount start + (intervalCount start k + if trialPrimeCheck (start + k) = true then 1 else 0)
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\CountIntervals.lean:19:17: warning: This simp argument is unused:
+  Nat.add_succ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [fastSmallPrimeCount, intervalCount, ih, Nat.add_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\CountIntervals.lean:19:67: warning: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Nat.add_succ, fastSmallPrimeCount, intervalCount, Nat.add_assoc]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\CountIntervals.lean:19:71: warning: This simp argument is unused:
+  Nat.add_assoc
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Nat.add_succ, fastSmallPrimeCount, intervalCount, ih]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'B699CountIntervals.smallPrimeCount_add' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699CountIntervals.count_extend' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
