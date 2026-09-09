@@ -1,0 +1,96 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.olean research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-09T06:35:56.015010Z
+# finished_utc: 2026-09-09T06:36:10.065543Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowWeights.lean:38:5: warning: Variable name `hi` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hi
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowWeights.lean:96:4: error: Application type mismatch: The argument
+  fun h => N.choose h
+has type
+  ℕ → ℕ
+but is expected to have type
+  Finset ?m.163
+in the application
+  Finset.prod_dvd_prod_of_subset fun h => N.choose h
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowWeights.lean:121:4: error: Application type mismatch: The argument
+  fun h => (n - i + h).choose h
+has type
+  ℕ → ℕ
+but is expected to have type
+  Finset ?m.262
+in the application
+  Finset.prod_dvd_prod_of_subset fun h => (n - i + h).choose h
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowWeights.lean:144:18: error: don't know how to synthesize implicit argument `r`
+  @prime_power_mother_windows n i ?m.149 a p e hp hpi
+    (Decidable.byContradiction fun a_1 => prime_power_three_window_dvd._proof_1_3 hij hjn a b c a_1) ha hn
+context:
+n i j r s p e : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+hp : Nat.Prime p
+hpi : i ≤ p
+he : 0 < e
+heval : e ≤ (n.choose i).factorization p
+havoid : ¬p ∣ n.choose j
+a b c : ℕ
+ha : a < i
+hsum : b + c = a
+hn : p ^ e ∣ n - a
+hj : p ^ e ∣ j - b
+hk : p ^ e ∣ n - j - c
+hleft : p ^ (e * (s - b)) ∣ childWindows j s
+hright : p ^ (e * (s - c)) ∣ childWindows (n - j) s
+⊢ ℕ
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowWeights.lean:144:7: error: failed to infer `have` declaration type
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowWeights.lean:139:60: error: unsolved goals
+n i j r s p e : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+hp : Nat.Prime p
+hpi : i ≤ p
+he : 0 < e
+heval : e ≤ (n.choose i).factorization p
+havoid : ¬p ∣ n.choose j
+a b c : ℕ
+ha : a < i
+hsum : b + c = a
+hn : p ^ e ∣ n - a
+hj : p ^ e ∣ j - b
+hk : p ^ e ∣ n - j - c
+hleft : p ^ (e * (s - b)) ∣ childWindows j s
+hright : p ^ (e * (s - c)) ∣ childWindows (n - j) s
+⊢ p ^ (e * (2 * s - r)) ∣ threeWindowProduct n i j r s
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowWeights.lean:159:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∏ x ∈ ?s, ?f x ^ ?n
+in the target expression
+  (∏ p ∈ (n.choose i).primeFactors with i ≤ p ∧ ¬p ∣ n.choose j, p ^ (n.choose i).factorization p) ^ (2 * s - r) ∣
+    threeWindowProduct n i j r s
+
+n i j r s : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+⊢ (∏ p ∈ (n.choose i).primeFactors with i ≤ p ∧ ¬p ∣ n.choose j, p ^ (n.choose i).factorization p) ^ (2 * s - r) ∣
+    threeWindowProduct n i j r s
+'B699LowIndex.prime_power_three_positions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699LowIndex.prime_power_three_window_dvd' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699LowIndex.actual_avoiding_part_three_window_transfer' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'B699LowIndex.actual_prime_part_three_window_transfer' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'B699LowIndex.common_of_three_window_not_dvd' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
