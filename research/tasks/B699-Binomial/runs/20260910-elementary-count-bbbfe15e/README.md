@@ -15,3 +15,5 @@
 
 
 [中文报告](report.md) · [真实验收状态](acceptance.md) · [恢复入口](handoff.md)
+
+源码与真实阻塞验收已发布：`bcd31c5cc9d5d91c7155b807aa3dd8eb806ba0d0`；[发布与耗时记录](verification/publication-checkpoint.json)。截至记录实际用时 24.1 分钟；最后元数据发布与远端复核包含在最终回复约数中。

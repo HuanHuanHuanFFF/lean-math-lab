@@ -70,3 +70,5 @@ Git blob：`d22a2fec4cfafa55e0f70d596a48f967b2cc85f3`。
 
 仅发布 `GPT-work/b699-elementary-count-20260910-bbbfe15e`。GitHub API commit/ref发布替代当前不可用的命令行Git传输；不合并main、不创建PR、不联系外部人员，不读取huan本轮成果。
 
+
+已推送源码检查点：`bcd31c5cc9d5d91c7155b807aa3dd8eb806ba0d0`，已重新读取远端ref核对。发布与耗时见 [publication-checkpoint.json](verification/publication-checkpoint.json)；本记录后续提交仅补充交接元数据。
