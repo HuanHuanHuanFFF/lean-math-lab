@@ -1356,7 +1356,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             report["completed_module_count"] = len(report["compile_records"])
             report["progress_utc"] = utc_now()
             write_json(public_root / "evidence.partial.json", report)
-            print(f"module {ordinal}/{len(closure)}: {reference.path.name}; exit={record['exit_code']}; seconds={record['seconds']}", flush=True)
+            if record.get("compiled_in_this_invocation", True):
+                print(f"module {ordinal}/{len(closure)}: {reference.path.name}; exit={record['exit_code']}; seconds={record['seconds']}", flush=True)
             if record["failure"]:
                 raise VerificationFailure(
                     f"compile failed for {record['source']}: {record['failure']}"

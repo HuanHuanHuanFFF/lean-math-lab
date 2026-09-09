@@ -104,3 +104,65 @@
 解除 E1 的最小后续检查：完整具体 `PrimeChain 184 2 20000093`、从中得到所有 n≤20m 的原题消费者，再与已验 AllExtensionHeights 按 n 分支接成扩展全域消费者；最后与旧 323..999 按 i 分支形成原题 815 项声明。核对最终真实 #check 的自然数 n,i,j 全量词、p≥i、没有 hcomplete/hcheck/hchain 等证书真值前提，并验收其完整源闭包和实际传递公理。
 
 复核脚本只读、不到一秒完成，不调用 Lean或生成器。首次运行只因专用样本使用完整命名空间与 raw_height_i 命名而漏识别三行；修正审计解析器后全部检查通过，该诊断不属于数学源码错误。源码、数据或最终证据变化时再更新此结论；本报告不评价完整 B699 或新颖性。
+
+## Primorial GCD 检查器及完整生成链续审：2026-09-09 14:50:37 UTC
+
+本次续审于 14:45:39 UTC 开始；仅向本报告追加，不修改原报告段落、辅助脚本或任何 Lean 源，不运行 Lean。**新 GCD 声音性、具体乘积、512 边已验对象及完整生成链的静态连接均未发现阻断；E1 仍保留到完整最终运行成功。** 原 677 项接受状态继续保留。
+
+### GCD 声音性与实际乘积
+
+[PrimePrimorial.lean](../lean/extension/PrimePrimorial.lean) 第 12–14 行对 p<B 继续调用旧 trialPrimeCheck；其余分支的真实条件为 `2≤p ∧ p<B*B ∧ Nat.gcd p P=1`。第 16–35 行的声音性同时要求完整基底与已证 `ps.prod=P`。若存在 2≤d≤sqrt(p) 且 d∣p，取素因子 q∣d 后仍有 q≤d≤sqrt(p)<B；基底完整性给 q∈ps。第 31–33 行使用 hprod 与 List.dvd_prod 给 q∣P，结合 q∣p 得 q∣gcd(p,P)=1，与 q.Prime 矛盾。没有删去 sqrt 界、严格 p<B²、p≥2 或基底完整性，也不需要把全部 ps 元素为素数作为额外前提。
+
+第 38–55 行 primorialChainCheck 逐个检查每个节点和相邻次序/gap；空尾检查终点。声音性把同一个已证 hcomplete/hprod 传入每一个素性叶子，没有为链尾或小 p 留下未证分支。
+
+[PrimorialData.lean](../lean/extension/primorial/PrimorialData.lean) 第 13 行 P 是 Nat literal；第 15–16 行的 `basis4473_prod_eq : basis4473.prod=primorial4473` 是实际 `decide +kernel` 定理。读取 607 个基底整数后做一次仅 6330 位的乘积核对，结果精确等于该 literal，未做素性重算或高度大整数计算。实际 Lean 日志中此等式 **不依赖任何公理**，不是把外部生成的数值当作额外假设。P 源 SHA 为 `366e45192a051e278294796b5767c71d51374a615b3b964dc39909e2c7b9d111`；通用检查器源 SHA 为 `dfa271b4523a3c18171c7205fd57c36c74a7b1224971a76bc5d4325ab53c6afa`。
+
+### 两个新的实际成功根
+
+| 成功根 | 结束 UTC | 实际闭包 | 新编/复用 | 独立核对 |
+|---|---|---:|---:|---|
+| [143618Z](../experiments/extension-primorial/verification/20260909T143618Z/evidence.json) | 14:37:06.161282 | 26 | 3 / 23 | 26/26 source/object/log SHA 对应；49 项实际公理输出无异常 |
+| [143846Z](../experiments/extension-primorial/verification/20260909T143846Z/evidence.json) | 14:39:05.689728 | 26 | 1 / 25 | 26/26 source/object/log SHA 对应；49 项实际公理输出无异常 |
+
+独立由实际 imports 重建两个闭包，与 compile_records/source_closure 集合一致；逐项读取当前源、实际 .olean 和实际日志并哈希。复用项再次核对 base evidence SHA、旧成功记录、相同源/imports/对象/日志，以及原复用对象的 SHA。实际版本、manifest、9 个 pins、source policy 的范围和日志均对应。新编命令为 -j1、-M1280，无跳过内核参数。声音性、链及原题消费者的传递公理只在标准三项内；完整乘积与单素数布尔真值检查本身的实际公理列表为空。
+
+证据 SHA：143618Z 为 `0b599c13f60c91ed4ae0f5f69722eb813483e96162f1639b6663c11568d408dd`；143846Z 为 `1f987b8a2a726374f4af6c031a3b273043efc19fad4bcd1b4e2920aaf4e48516`。
+
+[End512Primorial.lean](../lean/extension/primorial/End512Primorial.lean) 的实际证明树由 32 个 16 边段组成，每叶明确采用 basis4473_complete、basis4473_prod_eq 和本段 `check`。独立重建后恰为原 20m 输入最后 513 节点，亦即 512 边，首 19,912,523、末 20,000,093。其已验原题消费者覆盖 `185≤i、i<j≤n/2、19,912,523≤n≤20,000,000`，结论仍是 p≥i 整除真实 gcd，无证书真值参数。实际该新文件编译约 11.662 秒；整个 143846Z 验证根时间约 18.807 秒，两者不混记。
+
+### 完整 20m 生成链的独立静态重建
+
+14:50:37 UTC，未使用生成器的 manifest 或其静态 PASS 作为依据，直接解析所有实际生成源与证明引用：
+
+| 项目 | 观测 |
+|---|---:|
+| blocks/Block000..Block227 | 228 个 |
+| groups/Group000..Group014 | 15 个 |
+| 具体真值段 | 7,292 个 |
+| 16 边段 | 7,291 个 |
+| 最后一个段 | 10 边 |
+| 最后一个块 | 442 边 |
+| 全链节点/边 | 116,667 / 116,666 |
+| 首/末节点 | 2 / 20,000,093 |
+| 最大相邻差 | 184 |
+
+每个短段的实际证明均是 `primorialChainCheck ...=true := by decide +kernel`，再以匹配的 p/qs/B/P/gap、basis4473_complete、basis4473_prod_eq 和该段 check 调用声音性。每个 trans 的显式 lo/mid/hi 与两侧值精确一致。逐层解析全部块、组和 AllBlocks 后，最终有序节点数组 **逐项等于** 原 zip 的 116,667 节点数组，原输入 SHA 仍为 `a4954fc348879a5bff3bb91e8448f91437bd5220e80a1f1bc4cfb86ca8190414`。不存在缺段、未消费段、终点遗漏或用重复段代替缺项。
+
+228 块＋15 组＋AllBlocks 共 244 源的排序路径/源哈希摘要为 `3189133a183317bbb9d335a1e2c39c863c75171881c17e12e00099894b17e6f3`，审查前后各文件 SHA 不变。这项检查不计算任何链节点的 gcd/素性，也不宣称这些尚未整体编译的具体真值段已经成为 Lean 定理。
+
+[extension/primeChain/Complete.lean](../lean/extension/primeChain/Complete.lean) 以 PrimorialAllBlocks.joined 给出具体 `PrimeChain 184 2 20000093`，再接 `common_le_twenty_million`，其源码声明没有 hchain/hcomplete/hprod/hcheck 等参数。合法条件至少给 n≥372，从而满足链左端 2≤n；n≤20m 严格小于末端 20,000,093。原有 p≤n 的端点约定仍允许 p=n。该文件源 SHA 为 `1eeb11886f1525150b5955d4b2477d6eb557c794ff3fc4a81a7b3115ed5b8e67`。
+
+### ExtendedComplete 的 815 项声明与 E1 当前处置
+
+[ExtendedComplete.lean](../lean/ExtendedComplete.lean) 第 13–20 行的源码声明是：
+
+```lean
+∀ {n i j : ℕ}, 185 ≤ i → i ≤ 999 → i < j → j ≤ n / 2 →
+  ∃ p : ℕ, p.Prime ∧ i ≤ p ∧ p ∣ Nat.gcd (n.choose i) (n.choose j)
+```
+
+分段正确：323≤i 时直接使用已接受 common_323_999；否则自然数 i≤322，n≤20m 时采用新的具体全链消费者，其余 n>20m 时采用已经接受的 AllExtensionHeights。185、322、323、999 和 n=20m 均进入相应分支，没有缺口；n,j 保持原题全量词，没有额外真值前提或改动 p≥i。它直接完成所需逻辑连接，无须另行命名一个 185..322 全域定理才能满足任务。
+
+当前该最终源真实导入闭包为 **404 个项目源**，包含上述全部新链、9 个新高度块及旧 43 个高度块；全部旧 677 接受源仍与原 129 项快照一致。404 源的排序路径/源哈希摘要为 `1fa80bcae37c88b3481975ac56c46d607d642a3f22ad48528eed04f940e5a629`。ExtendedComplete 源 SHA 为 `9c66797c1039fa9bab20bd89abeb618f765bddb34665a3ac4033eb872c3f1b37`。
+
+**E1 继续保留，现只待 ExtendedComplete 的完整实际验收根及真实最终 #check/#print axioms 输出。** 源码结构、具体输入完整消费和泛化声音性均已完成本次审查；不能把这一状态写成“815 项已 Lean 通过”。已经验收的扩展有限带提高到 19,912,523≤n≤20m；结合已验无限尾部，剩余未验区域可能在 185≤i≤322、n<19,912,523 的合法输入内。该剩余边界属于当前接受证据，完整生成链的静态通过尚不改变它。
