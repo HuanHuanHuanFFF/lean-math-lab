@@ -8,6 +8,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260909-eees-chain-5a2e10](runs/20260909-eees-chain-5a2e10/README.md) | EEES 消费者与初等无条件区域 | [前沿](runs/20260909-eees-chain-5a2e10/frontier.md) · [报告](runs/20260909-eees-chain-5a2e10/report.md) · [验收](runs/20260909-eees-chain-5a2e10/verification/ACCEPTANCE.md) |
 | [20260908-external-reductions-b3c1b7](runs/20260908-external-reductions-b3c1b7/README.md) | 外部实际素数幂转移及原题消费者 | [前沿](runs/20260908-external-reductions-b3c1b7/frontier.md) |
 | [20260908-formalization-92c221](runs/20260908-formalization-92c221/README.md) | 已采用条件判据的完整消费者复验 | [前沿](runs/20260908-formalization-92c221/frontier.md) |
 | [20260908-binomial-cofactors-f0a6539](runs/20260908-binomial-cofactors-f0a6539/README.md) | 二项式系数的小互素余因子判据 | [前沿](runs/20260908-binomial-cofactors-f0a6539/frontier.md) |
