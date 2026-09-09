@@ -1,0 +1,357 @@
+import research.tasks.«B699-Binomial».runs.«20260909-low-index-structure-b41a5a63».lean.FiniteCover
+
+set_option maxRecDepth 65536
+set_option maxHeartbeats 0
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex
+
+def row177_height : HeightCertificateDatum := { i := 177, r := 58, s := 126, n0Power10 := 7 }
+
+def row177_goods : List GoodSegment := [
+  { lower := 356, upper := 529, witness := RowWitness.topPrime 353 },
+  { lower := 530, upper := 699, witness := RowWitness.topPrime 523 },
+  { lower := 700, upper := 867, witness := RowWitness.topPrime 691 },
+  { lower := 868, upper := 1039, witness := RowWitness.topPrime 863 },
+  { lower := 1040, upper := 1215, witness := RowWitness.topPrime 1039 },
+  { lower := 1216, upper := 1389, witness := RowWitness.topPrime 1213 },
+  { lower := 1390, upper := 1557, witness := RowWitness.topPrime 1381 },
+  { lower := 1558, upper := 1729, witness := RowWitness.topPrime 1553 },
+  { lower := 1730, upper := 1899, witness := RowWitness.topPrime 1723 },
+  { lower := 1900, upper := 2065, witness := RowWitness.topPrime 1889 },
+  { lower := 2066, upper := 2239, witness := RowWitness.topPrime 2063 },
+  { lower := 2240, upper := 2415, witness := RowWitness.topPrime 2239 },
+  { lower := 2416, upper := 2587, witness := RowWitness.topPrime 2411 },
+  { lower := 2588, upper := 2755, witness := RowWitness.topPrime 2579 },
+  { lower := 2756, upper := 2929, witness := RowWitness.topPrime 2753 },
+  { lower := 2930, upper := 3103, witness := RowWitness.topPrime 2927 },
+  { lower := 3104, upper := 3265, witness := RowWitness.topPrime 3089 },
+  { lower := 3266, upper := 3435, witness := RowWitness.topPrime 3259 },
+  { lower := 3436, upper := 3609, witness := RowWitness.topPrime 3433 },
+  { lower := 3610, upper := 3783, witness := RowWitness.topPrime 3607 },
+  { lower := 3784, upper := 3955, witness := RowWitness.topPrime 3779 },
+  { lower := 3956, upper := 4123, witness := RowWitness.topPrime 3947 },
+  { lower := 4124, upper := 4287, witness := RowWitness.topPrime 4111 },
+  { lower := 4288, upper := 4459, witness := RowWitness.topPrime 4283 },
+  { lower := 4460, upper := 4633, witness := RowWitness.topPrime 4457 },
+  { lower := 4634, upper := 4797, witness := RowWitness.topPrime 4621 },
+  { lower := 4798, upper := 4969, witness := RowWitness.topPrime 4793 },
+  { lower := 4970, upper := 5145, witness := RowWitness.topPrime 4969 },
+  { lower := 5146, upper := 5295, witness := RowWitness.topPrime 5119 },
+  { lower := 5296, upper := 5457, witness := RowWitness.topPrime 5281 },
+  { lower := 5458, upper := 5625, witness := RowWitness.topPrime 5449 },
+  { lower := 5626, upper := 5799, witness := RowWitness.topPrime 5623 },
+  { lower := 5800, upper := 5967, witness := RowWitness.topPrime 5791 },
+  { lower := 5968, upper := 6129, witness := RowWitness.topPrime 5953 },
+  { lower := 6130, upper := 6297, witness := RowWitness.topPrime 6121 },
+  { lower := 6298, upper := 6463, witness := RowWitness.topPrime 6287 },
+  { lower := 6464, upper := 6627, witness := RowWitness.topPrime 6451 },
+  { lower := 6628, upper := 6795, witness := RowWitness.topPrime 6619 },
+  { lower := 6796, upper := 6969, witness := RowWitness.topPrime 6793 },
+  { lower := 6970, upper := 7143, witness := RowWitness.topPrime 6967 },
+  { lower := 7144, upper := 7305, witness := RowWitness.topPrime 7129 },
+  { lower := 7306, upper := 7473, witness := RowWitness.topPrime 7297 },
+  { lower := 7474, upper := 7635, witness := RowWitness.topPrime 7459 },
+  { lower := 7636, upper := 7797, witness := RowWitness.topPrime 7621 },
+  { lower := 7798, upper := 7969, witness := RowWitness.topPrime 7793 },
+  { lower := 7970, upper := 8139, witness := RowWitness.topPrime 7963 },
+  { lower := 8140, upper := 8299, witness := RowWitness.topPrime 8123 },
+  { lower := 8300, upper := 8473, witness := RowWitness.topPrime 8297 },
+  { lower := 8474, upper := 8643, witness := RowWitness.topPrime 8467 },
+  { lower := 8644, upper := 8817, witness := RowWitness.topPrime 8641 },
+  { lower := 8818, upper := 8983, witness := RowWitness.topPrime 8807 },
+  { lower := 8984, upper := 9147, witness := RowWitness.topPrime 8971 },
+  { lower := 9148, upper := 9313, witness := RowWitness.topPrime 9137 },
+  { lower := 9314, upper := 9487, witness := RowWitness.topPrime 9311 },
+  { lower := 9488, upper := 9655, witness := RowWitness.topPrime 9479 },
+  { lower := 9656, upper := 9825, witness := RowWitness.topPrime 9649 },
+  { lower := 9826, upper := 9993, witness := RowWitness.topPrime 9817 },
+  { lower := 9994, upper := 10149, witness := RowWitness.topPrime 9973 },
+  { lower := 10150, upper := 10317, witness := RowWitness.topPrime 10141 },
+  { lower := 10318, upper := 10489, witness := RowWitness.topPrime 10313 },
+  { lower := 10490, upper := 10663, witness := RowWitness.topPrime 10487 },
+  { lower := 10664, upper := 10839, witness := RowWitness.topPrime 10663 },
+  { lower := 10840, upper := 11013, witness := RowWitness.topPrime 10837 },
+  { lower := 11014, upper := 11179, witness := RowWitness.topPrime 11003 },
+  { lower := 11180, upper := 11353, witness := RowWitness.topPrime 11177 },
+  { lower := 11354, upper := 11529, witness := RowWitness.topPrime 11353 },
+  { lower := 11530, upper := 11703, witness := RowWitness.topPrime 11527 },
+  { lower := 11704, upper := 11877, witness := RowWitness.topPrime 11701 },
+  { lower := 11878, upper := 12043, witness := RowWitness.topPrime 11867 },
+  { lower := 12044, upper := 12219, witness := RowWitness.topPrime 12043 },
+  { lower := 12220, upper := 12387, witness := RowWitness.topPrime 12211 },
+  { lower := 12388, upper := 12555, witness := RowWitness.topPrime 12379 },
+  { lower := 12556, upper := 12729, witness := RowWitness.topPrime 12553 },
+  { lower := 12730, upper := 12897, witness := RowWitness.topPrime 12721 },
+  { lower := 12898, upper := 13069, witness := RowWitness.topPrime 12893 },
+  { lower := 13070, upper := 13239, witness := RowWitness.topPrime 13063 },
+  { lower := 13240, upper := 13405, witness := RowWitness.topPrime 13229 },
+  { lower := 13406, upper := 13575, witness := RowWitness.topPrime 13399 },
+  { lower := 13576, upper := 13743, witness := RowWitness.topPrime 13567 },
+  { lower := 13744, upper := 13905, witness := RowWitness.topPrime 13729 },
+  { lower := 13906, upper := 14079, witness := RowWitness.topPrime 13903 },
+  { lower := 14080, upper := 14247, witness := RowWitness.topPrime 14071 },
+  { lower := 14248, upper := 14419, witness := RowWitness.topPrime 14243 },
+  { lower := 14420, upper := 14595, witness := RowWitness.topPrime 14419 },
+  { lower := 14596, upper := 14769, witness := RowWitness.topPrime 14593 },
+  { lower := 14770, upper := 14943, witness := RowWitness.topPrime 14767 },
+  { lower := 14944, upper := 15115, witness := RowWitness.topPrime 14939 },
+  { lower := 15116, upper := 15283, witness := RowWitness.topPrime 15107 },
+  { lower := 15284, upper := 15453, witness := RowWitness.topPrime 15277 },
+  { lower := 15454, upper := 15627, witness := RowWitness.topPrime 15451 },
+  { lower := 15628, upper := 15795, witness := RowWitness.topPrime 15619 },
+  { lower := 15796, upper := 15967, witness := RowWitness.topPrime 15791 },
+  { lower := 15968, upper := 16135, witness := RowWitness.topPrime 15959 },
+  { lower := 16136, upper := 16303, witness := RowWitness.topPrime 16127 },
+  { lower := 16304, upper := 16477, witness := RowWitness.topPrime 16301 },
+  { lower := 16478, upper := 16653, witness := RowWitness.topPrime 16477 },
+  { lower := 16654, upper := 16827, witness := RowWitness.topPrime 16651 },
+  { lower := 16828, upper := 16999, witness := RowWitness.topPrime 16823 },
+  { lower := 17000, upper := 17169, witness := RowWitness.topPrime 16993 },
+  { lower := 17170, upper := 17343, witness := RowWitness.topPrime 17167 },
+  { lower := 17344, upper := 17517, witness := RowWitness.topPrime 17341 },
+  { lower := 17518, upper := 17685, witness := RowWitness.topPrime 17509 },
+  { lower := 17686, upper := 17859, witness := RowWitness.topPrime 17683 },
+  { lower := 17860, upper := 18027, witness := RowWitness.topPrime 17851 },
+  { lower := 18028, upper := 18189, witness := RowWitness.topPrime 18013 },
+  { lower := 18190, upper := 18357, witness := RowWitness.topPrime 18181 },
+  { lower := 18358, upper := 18529, witness := RowWitness.topPrime 18353 },
+  { lower := 18530, upper := 18699, witness := RowWitness.topPrime 18523 },
+  { lower := 18700, upper := 18867, witness := RowWitness.topPrime 18691 },
+  { lower := 18868, upper := 19035, witness := RowWitness.topPrime 18859 },
+  { lower := 19036, upper := 19207, witness := RowWitness.topPrime 19031 },
+  { lower := 19208, upper := 19383, witness := RowWitness.topPrime 19207 },
+  { lower := 19384, upper := 19557, witness := RowWitness.topPrime 19381 },
+  { lower := 19558, upper := 19729, witness := RowWitness.topPrime 19553 },
+  { lower := 19730, upper := 19903, witness := RowWitness.topPrime 19727 },
+  { lower := 19904, upper := 20067, witness := RowWitness.topPrime 19891 },
+  { lower := 20068, upper := 20239, witness := RowWitness.topPrime 20063 },
+  { lower := 20240, upper := 20409, witness := RowWitness.topPrime 20233 },
+  { lower := 20410, upper := 20583, witness := RowWitness.topPrime 20407 },
+  { lower := 20584, upper := 20739, witness := RowWitness.topPrime 20563 },
+  { lower := 20740, upper := 20907, witness := RowWitness.topPrime 20731 },
+  { lower := 20908, upper := 21079, witness := RowWitness.topPrime 20903 },
+  { lower := 21080, upper := 21243, witness := RowWitness.topPrime 21067 },
+  { lower := 21244, upper := 21403, witness := RowWitness.topPrime 21227 },
+  { lower := 21404, upper := 21577, witness := RowWitness.topPrime 21401 },
+  { lower := 21578, upper := 21753, witness := RowWitness.topPrime 21577 },
+  { lower := 21754, upper := 21927, witness := RowWitness.topPrime 21751 },
+  { lower := 21928, upper := 22087, witness := RowWitness.topPrime 21911 },
+  { lower := 22088, upper := 22255, witness := RowWitness.topPrime 22079 },
+  { lower := 22256, upper := 22423, witness := RowWitness.topPrime 22247 },
+  { lower := 22424, upper := 22585, witness := RowWitness.topPrime 22409 },
+  { lower := 22586, upper := 22749, witness := RowWitness.topPrime 22573 },
+  { lower := 22750, upper := 22917, witness := RowWitness.topPrime 22741 },
+  { lower := 22918, upper := 23083, witness := RowWitness.topPrime 22907 },
+  { lower := 23084, upper := 23257, witness := RowWitness.topPrime 23081 },
+  { lower := 23258, upper := 23427, witness := RowWitness.topPrime 23251 },
+  { lower := 23428, upper := 23593, witness := RowWitness.topPrime 23417 },
+  { lower := 23594, upper := 23769, witness := RowWitness.topPrime 23593 },
+  { lower := 23770, upper := 23943, witness := RowWitness.topPrime 23767 },
+  { lower := 23944, upper := 24105, witness := RowWitness.topPrime 23929 },
+  { lower := 24106, upper := 24279, witness := RowWitness.topPrime 24103 },
+  { lower := 24280, upper := 24427, witness := RowWitness.topPrime 24251 },
+  { lower := 24428, upper := 24597, witness := RowWitness.topPrime 24421 },
+  { lower := 24598, upper := 24769, witness := RowWitness.topPrime 24593 },
+  { lower := 24770, upper := 24943, witness := RowWitness.topPrime 24767 },
+  { lower := 24944, upper := 25119, witness := RowWitness.topPrime 24943 },
+  { lower := 25120, upper := 25293, witness := RowWitness.topPrime 25117 },
+  { lower := 25294, upper := 25437, witness := RowWitness.topPrime 25261 },
+  { lower := 25438, upper := 25599, witness := RowWitness.topPrime 25423 },
+  { lower := 25600, upper := 25765, witness := RowWitness.topPrime 25589 },
+  { lower := 25766, upper := 25939, witness := RowWitness.topPrime 25763 },
+  { lower := 25940, upper := 26115, witness := RowWitness.topPrime 25939 },
+  { lower := 26116, upper := 26289, witness := RowWitness.topPrime 26113 },
+  { lower := 26290, upper := 26443, witness := RowWitness.topPrime 26267 },
+  { lower := 26444, upper := 26613, witness := RowWitness.topPrime 26437 },
+  { lower := 26614, upper := 26773, witness := RowWitness.topPrime 26597 },
+  { lower := 26774, upper := 26935, witness := RowWitness.topPrime 26759 },
+  { lower := 26936, upper := 27103, witness := RowWitness.topPrime 26927 },
+  { lower := 27104, upper := 27279, witness := RowWitness.topPrime 27103 },
+  { lower := 27280, upper := 27453, witness := RowWitness.topPrime 27277 },
+  { lower := 27454, upper := 27625, witness := RowWitness.topPrime 27449 },
+  { lower := 27626, upper := 27793, witness := RowWitness.topPrime 27617 },
+  { lower := 27794, upper := 27969, witness := RowWitness.topPrime 27793 },
+  { lower := 27970, upper := 28143, witness := RowWitness.topPrime 27967 },
+  { lower := 28144, upper := 28299, witness := RowWitness.topPrime 28123 },
+  { lower := 28300, upper := 28473, witness := RowWitness.topPrime 28297 },
+  { lower := 28474, upper := 28639, witness := RowWitness.topPrime 28463 },
+  { lower := 28640, upper := 28807, witness := RowWitness.topPrime 28631 },
+  { lower := 28808, upper := 28983, witness := RowWitness.topPrime 28807 },
+  { lower := 28984, upper := 29155, witness := RowWitness.topPrime 28979 },
+  { lower := 29156, upper := 29329, witness := RowWitness.topPrime 29153 },
+  { lower := 29330, upper := 29503, witness := RowWitness.topPrime 29327 },
+  { lower := 29504, upper := 29677, witness := RowWitness.topPrime 29501 },
+  { lower := 29678, upper := 29847, witness := RowWitness.topPrime 29671 },
+  { lower := 29848, upper := 30013, witness := RowWitness.topPrime 29837 },
+  { lower := 30014, upper := 30189, witness := RowWitness.topPrime 30013 },
+  { lower := 30190, upper := 30363, witness := RowWitness.topPrime 30187 },
+  { lower := 30364, upper := 30523, witness := RowWitness.topPrime 30347 },
+  { lower := 30524, upper := 30693, witness := RowWitness.topPrime 30517 },
+  { lower := 30694, upper := 30865, witness := RowWitness.topPrime 30689 },
+  { lower := 30866, upper := 31035, witness := RowWitness.topPrime 30859 },
+  { lower := 31036, upper := 31151, witness := RowWitness.topPrime 31033 },
+  { lower := 31213, upper := 31369, witness := RowWitness.topPrime 31193 },
+  { lower := 31370, upper := 31389, witness := RowWitness.topPrime 31357 },
+  { lower := 31423, upper := 31426, witness := RowWitness.topPrime 31397 },
+  { lower := 31827, upper := 31860, witness := RowWitness.topPrime 31817 },
+  { lower := 31974, upper := 32003, witness := RowWitness.topPrime 31973 },
+  { lower := 33614, upper := 33665, witness := RowWitness.topPrime 33613 },
+  { lower := 33708, upper := 33790, witness := RowWitness.topPrime 33703 },
+  { lower := 34322, upper := 34495, witness := RowWitness.topPrime 34319 },
+  { lower := 34496, upper := 34567, witness := RowWitness.topPrime 34487 },
+  { lower := 36517, upper := 36673, witness := RowWitness.topPrime 36497 },
+  { lower := 36674, upper := 36677, witness := RowWitness.topPrime 36671 },
+  { lower := 37303, upper := 37386, witness := RowWitness.topPrime 37277 },
+  { lower := 37446, upper := 37479, witness := RowWitness.topPrime 37441 },
+  { lower := 37500, upper := 37669, witness := RowWitness.topPrime 37493 },
+  { lower := 37670, upper := 37714, witness := RowWitness.topPrime 37663 },
+  { lower := 39366, upper := 39480, witness := RowWitness.topPrime 39359 },
+  { lower := 40401, upper := 40504, witness := RowWitness.topPrime 40387 },
+  { lower := 40931, upper := 41103, witness := RowWitness.topPrime 40927 },
+  { lower := 41104, upper := 41107, witness := RowWitness.topPrime 41081 },
+  { lower := 45056, upper := 45066, witness := RowWitness.topPrime 45053 },
+  { lower := 47045, upper := 47051, witness := RowWitness.topPrime 47041 },
+  { lower := 47526, upper := 47697, witness := RowWitness.topPrime 47521 },
+  { lower := 47698, upper := 47700, witness := RowWitness.topPrime 47681 },
+  { lower := 48013, upper := 48137, witness := RowWitness.topPrime 47981 },
+  { lower := 48373, upper := 48547, witness := RowWitness.topPrime 48371 },
+  { lower := 48548, upper := 48549, witness := RowWitness.topPrime 48541 },
+  { lower := 48778, upper := 48844, witness := RowWitness.topPrime 48767 },
+  { lower := 49152, upper := 49315, witness := RowWitness.topPrime 49139 },
+  { lower := 49316, upper := 49328, witness := RowWitness.topPrime 49307 },
+  { lower := 49379, upper := 49474, witness := RowWitness.topPrime 49369 },
+  { lower := 50421, upper := 50586, witness := RowWitness.topPrime 50417 },
+  { lower := 51076, upper := 51181, witness := RowWitness.topPrime 51071 },
+  { lower := 53138, upper := 53221, witness := RowWitness.topPrime 53129 },
+  { lower := 53248, upper := 53415, witness := RowWitness.topPrime 53239 },
+  { lower := 53416, upper := 53424, witness := RowWitness.topPrime 53411 },
+  { lower := 54043, upper := 54044, witness := RowWitness.topPrime 54037 },
+  { lower := 55451, upper := 55617, witness := RowWitness.topPrime 55441 },
+  { lower := 55618, upper := 55623, witness := RowWitness.topPrime 55609 },
+  { lower := 56307, upper := 56345, witness := RowWitness.topPrime 56299 },
+  { lower := 56454, upper := 56483, witness := RowWitness.topPrime 56453 },
+  { lower := 57245, upper := 57298, witness := RowWitness.topPrime 57241 },
+  { lower := 57344, upper := 57421, witness := RowWitness.topPrime 57331 },
+  { lower := 58619, upper := 58740, witness := RowWitness.topPrime 58613 },
+  { lower := 59049, upper := 59132, witness := RowWitness.topPrime 59029 },
+  { lower := 68694, upper := 68820, witness := RowWitness.topPrime 68687 },
+  { lower := 71289, upper := 71463, witness := RowWitness.topPrime 71287 },
+  { lower := 71464, upper := 71465, witness := RowWitness.topPrime 71453 },
+  { lower := 73167, upper := 73178, witness := RowWitness.topPrime 73141 },
+  { lower := 73205, upper := 73343, witness := RowWitness.topPrime 73189 },
+  { lower := 83667, upper := 83697, witness := RowWitness.topPrime 83663 },
+  { lower := 85805, upper := 85859, witness := RowWitness.topPrime 85793 },
+  { lower := 89383, upper := 89549, witness := RowWitness.topPrime 89381 },
+  { lower := 93845, upper := 93926, witness := RowWitness.topPrime 93827 },
+  { lower := 96774, upper := 96781, witness := RowWitness.topPrime 96769 },
+  { lower := 103041, upper := 103142, witness := RowWitness.topPrime 103007 },
+  { lower := 109503, upper := 109551, witness := RowWitness.topPrime 109481 },
+  { lower := 148955, upper := 149053, witness := RowWitness.topPrime 148949 }
+]
+
+def row177_layers : List CoverLayer := [
+  { lower := 31152, upper := 62304, M := 13 },
+  { lower := 62304, upper := 124608, M := 9 },
+  { lower := 124608, upper := 249216, M := 7 },
+  { lower := 249216, upper := 498432, M := 5 },
+  { lower := 498432, upper := 996864, M := 4 },
+  { lower := 996864, upper := 1993728, M := 3 },
+  { lower := 1993728, upper := 3987456, M := 2 },
+  { lower := 3987456, upper := 7974912, M := 2 },
+  { lower := 7974912, upper := 10000000, M := 1 }
+]
+
+def row177 : FiniteCoverRow := {
+  height := row177_height,
+  goods := row177_goods,
+  layers := row177_layers
+}
+
+theorem row177_registered :
+    decide (row177.height ∈ heightCertificateData) = true := by
+  decide +kernel
+
+theorem row177_goods_checked :
+    row177.goods.all (goodSegmentCheck row177.height.i row177.height.r row177.height.s) = true := by
+  decide +kernel
+
+theorem row177_small_checked :
+    coverCheck (2 * row177.height.i + 2) (row177.height.i * (row177.height.i - 1) - 1)
+      (row177.goods.map goodSegmentBounds) = true := by
+  decide +kernel
+
+theorem row177_layerCover_checked :
+    coverCheck (row177.height.i * (row177.height.i - 1)) (row177.height.n0 - 1)
+      (row177.layers.map CoverLayer.bounds) = true := by
+  decide +kernel
+
+theorem row177_layer000_checked :
+    coverLayerCheck row177.height row177.goods { lower := 31152, upper := 62304, M := 13 } = true := by
+  decide +kernel
+
+theorem row177_layer001_checked :
+    coverLayerCheck row177.height row177.goods { lower := 62304, upper := 124608, M := 9 } = true := by
+  decide +kernel
+
+theorem row177_layer002_checked :
+    coverLayerCheck row177.height row177.goods { lower := 124608, upper := 249216, M := 7 } = true := by
+  decide +kernel
+
+theorem row177_layer003_checked :
+    coverLayerCheck row177.height row177.goods { lower := 249216, upper := 498432, M := 5 } = true := by
+  decide +kernel
+
+theorem row177_layer004_checked :
+    coverLayerCheck row177.height row177.goods { lower := 498432, upper := 996864, M := 4 } = true := by
+  decide +kernel
+
+theorem row177_layer005_checked :
+    coverLayerCheck row177.height row177.goods { lower := 996864, upper := 1993728, M := 3 } = true := by
+  decide +kernel
+
+theorem row177_layer006_checked :
+    coverLayerCheck row177.height row177.goods { lower := 1993728, upper := 3987456, M := 2 } = true := by
+  decide +kernel
+
+theorem row177_layer007_checked :
+    coverLayerCheck row177.height row177.goods { lower := 3987456, upper := 7974912, M := 2 } = true := by
+  decide +kernel
+
+theorem row177_layer008_checked :
+    coverLayerCheck row177.height row177.goods { lower := 7974912, upper := 10000000, M := 1 } = true := by
+  decide +kernel
+
+theorem row177_layers_checked :
+    row177.layers.all (coverLayerCheck row177.height row177.goods) = true := by
+  change List.all [
+    { lower := 31152, upper := 62304, M := 13 },
+    { lower := 62304, upper := 124608, M := 9 },
+    { lower := 124608, upper := 249216, M := 7 },
+    { lower := 249216, upper := 498432, M := 5 },
+    { lower := 498432, upper := 996864, M := 4 },
+    { lower := 996864, upper := 1993728, M := 3 },
+    { lower := 1993728, upper := 3987456, M := 2 },
+    { lower := 3987456, upper := 7974912, M := 2 },
+    { lower := 7974912, upper := 10000000, M := 1 }
+  ] (coverLayerCheck row177.height row177.goods) = true
+  simp only [List.all_cons, List.all_nil,
+    row177_layer000_checked,
+    row177_layer001_checked,
+    row177_layer002_checked,
+    row177_layer003_checked,
+    row177_layer004_checked,
+    row177_layer005_checked,
+    row177_layer006_checked,
+    row177_layer007_checked,
+    row177_layer008_checked,
+    Bool.true_and]
+
+theorem row177_checked : finiteCoverRowCheck row177 = true := by
+  simp only [finiteCoverRowCheck, row177_registered, row177_goods_checked,
+    row177_small_checked, row177_layerCover_checked, row177_layers_checked,
+    Bool.true_and]
+
+#print axioms B699LowIndex.row177_checked
+
+end B699LowIndex

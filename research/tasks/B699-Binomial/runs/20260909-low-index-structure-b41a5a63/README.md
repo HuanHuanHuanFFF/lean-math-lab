@@ -6,6 +6,8 @@
 
 ## 当前主要结果
 
+09:33 UTC更新：纸面/精确证书组合覆盖154指标：28、29、31及34..184；新增零类见[零边界交付](notes/zero-boundary/README.md)。正式Lean根已进至FiniteCover（091130Z，21模块、65项实际公理全标准），具体151行全域数据消费者仍待内核验收。以下历史成果由[最新验收](acceptance.md)和[前沿](frontier.md)给出当前状态。
+
 - **纸面证明与独立精确覆盖完成，仍在补完整Lean：** 对全部合法n,j，i=29或35≤i≤184时Common成立。它排除了旧S中的85个指标，而不是只给它们高度。见[报告](report.md)、[数学审查](reviews/independent-math/review.md)及[独立覆盖检查](experiments/two-colour-check/README.md)。
 - **无条件Lean已验：** 实际D的三窗口完整幂整除、noCommon下V版和原题数值消费者。固定版本新闭包6模块、实际27项公理打印仅标准三公理；[验收](acceptance.md)。
 - 高度、联合小素数幂/覆盖及终端证书连接继续形式化，尚不把整个151指标定理列为已Lean验收。
