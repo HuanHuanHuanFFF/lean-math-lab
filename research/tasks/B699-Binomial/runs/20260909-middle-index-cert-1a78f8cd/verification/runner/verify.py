@@ -1125,6 +1125,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     diagnostic_records: list[dict[str, Any]] = []
     report: dict[str, Any] = {
         "schema_version": 1,
+        "runner_source_hashes_at_start": {name: sha256_path(script_path.with_name(name)) for name in ["verify.py", "monitor.py"]},
         "success": False,
         "exit_code": 1,
         "started_utc": utc_now(),
@@ -1352,6 +1353,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "source_sha256_after"
                     ]
                     break
+            report["completed_module_count"] = len(report["compile_records"])
+            report["progress_utc"] = utc_now()
+            write_json(public_root / "evidence.partial.json", report)
+            print(f"module {ordinal}/{len(closure)}: {reference.path.name}; exit={record['exit_code']}; seconds={record['seconds']}", flush=True)
             if record["failure"]:
                 raise VerificationFailure(
                     f"compile failed for {record['source']}: {record['failure']}"

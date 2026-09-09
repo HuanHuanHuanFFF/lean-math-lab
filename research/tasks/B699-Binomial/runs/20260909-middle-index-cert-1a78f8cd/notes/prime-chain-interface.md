@@ -111,3 +111,99 @@ lucas_primality (p : ℕ) (a : ZMod p)
 缺缓存闭包见 `experiments/prime-chain/lucas-cache-inspection.json`：只缺 LucasPrimality 与 Algebra.Field.ZMod 两模块；边界 RingTheory.IntegralDomain、Algebra.Field.Basic、Data.ZMod.Basic已有olean。没有编译它们或第二实验。
 
 若以后采用Lucas，不可直接向当前overlay的Algebra、NumberTheory子目录编译：这两个兄弟目录目前是指向固定缓存的只读junction镜像，应另建相应本轮可写分支或新overlay，保持共享固定包不变。当前唯一新增的固定模块对象仍只有NormNum.Prime。
+
+## 下一有界对照：相同末端32边的trial检查
+
+主线程再次明确授予唯一计算槽，要求每条最多180秒。目的仅比较同一33节点、两块16边的End32Trial与已通过NormNum版本之证明对象体积和内核成本，避免直接把NormNum整链对象线性约GB的风险带入最终导入。
+
+新增End32TrialConsumer直接调用common_of_prime_chain和EndBlockTrial.joined；候选范围仍1994387≤n≤2000000、i≥323、全部合法j。现有End32Trial源未改，本次不是旧完整覆盖行重跑，不开始Lucas路线、不自动扩大块或整链。成功或失败后都交还计算槽。
+
+## 默认End32Trial对照失败：12:20:58 UTC证据
+
+实际失败证据：`experiments/prime-chain/20260909T122058Z/evidence.json`；源/日志/无对象状态复查：`end32-trial-result-summary.json`。End32Trial保持原SHA 8e17ad9a6d3be310eefdcc7c1488390648c7161dc95d7c31b83e8bf211817c8c；没有因失败改写该候选。
+
+默认decide在6.533秒退出1，峰值工作集838782976字节、peak commit1965568000字节。两条leftCheck/rightCheck均报Decidable实例未化简到isTrue/isFalse，卡在trialChainCheck的Bool匹配；未达到180秒上限，没有日志证据显示内存耗尽或数值为假。更细的透明度/化简根因尚未知。
+
+编译失败时joined的真实公理打印含sorryAx，运行器拒绝此结果；未产生可接受对象，End32TrialConsumer未进入流水线。本失败不能提升整链接受，也不能据此否定检查器数学声音性。计算槽立即交还主线程，没有第二实验。
+
+现有候选使用默认`decide`；本轮固定Lean源码Elab/Tactic/Decide.lean确有`decide +kernel`选项。该选项与native互斥，直接让内核检查反射证明；尚未测这个不同入口。若主线程再次授权，最小诊断应保留当前失败原源，另建同一32边的+kernel版本及消费者，继续记录实际公理和对象大小，而非直接跑整表。
+
+## 紧邻后端诊断：单素数优先的+kernel探针
+
+主线程再次明确授权唯一计算槽，并指定改后端、先单素数。保留默认End32Trial原源与失败证据，新建KernelSinglePrime、End32TrialKernel、End32TrialKernelConsumer。所有本轮真值证书改用decide +kernel；若实际末端素数2000003的trialPrimeCheck失败，流水线立即停止，不试32边。每条仍最多180秒、-j1/-M1536。
+
+此次改变依据是固定Lean源已核对的doElab/doKernel区别；不是重跑默认decide，也没有开始Lucas或整鏈。失败原因若不能进一步判定，仍明确标未知。
+
+## 12:24:06 UTC：+kernel紧邻探针成功，对象显著缩小
+
+实际证据：`experiments/prime-chain/20260909T122406Z/evidence.json`；包括对象族字节数、源/object/log SHA复查与零公理声明的完整结果：`end32-trial-kernel-result-summary.json`。三根全部exit0，单线程1536MiB、每条180秒上限，没有超时。
+
+| 根 | 秒 | 峰值工作集字节 | peak commit字节 | 对象字节 |
+|---|---:|---:|---:|---:|
+| KernelSinglePrime | 6.745 | 888528896 | 2032721920 | 8512 |
+| End32TrialKernel | 10.760 | 1311264768 | 2457731072 | 62472 |
+| End32TrialKernelConsumer | 8.157 | 1070977024 | 2382700544 | 44600 |
+
+`KernelSinglePrime.lastPrimeCheck`的真实输出为不依赖任何公理；lastPrime、EndBlockTrialKernel.joined与common_of_last32_trial_kernel_edges只含标准三公理。旧默认decide失败源和日志保留；此次成功说明相同计算在kernel后端可以归约，不能把先前默认透明度下的失败归结为检查器不正确或不可计算。
+
+同一实际32边的NormNum对象为3970816字节，kernel反射链为62472字节，缩小约63.6倍。数学范围保持1994387≤n≤2000000、i≥323、全部合法j；本轮贡献在证书对象成本，没有扩大全链已验范围。当前两份16边的Bool真值证明足够构造32边链，整表仍未生成/运行。
+
+计算槽完成后立即交还。建议后续经主线程决策保留16边的单个Bool核验长度，在同文件平衡拼接多段再测64/128/256边；该建议尚未执行，也不从小对象直接宣称最终全链可导入。
+
+## 12:29:09 UTC：End256TrialKernel候选就绪，尚未编译
+
+主线程要求先准备源码，计算槽当前由其计数/高度流水线使用。实际同末端256边、257节点1953451→2000003，现在每16边一个独立 `by decide +kernel` 真值证明，共16份，再平衡trans；没有巨大单体check。
+
+新源码：End256TrialKernel.lean（7843字节，SHA 5e6366dd9d588fba55b19bfbfe06f9c0313e95b433acfddedb5335e172ad3dcb）和End256TrialKernelConsumer.lean（SHA e278bf8d88a8ecb94be6f255e5006b4684fcb61fb0f562fe4a89afa76986d494）。来源清单 `experiments/prime-chain/end256-trial-kernel-generation.json`，明确lean_run=false。
+
+`generate-prime-chain-blocks.py --backend trial-kernel` 已用于这次有界生成；`--all --backend trial-kernel --block-edges 256` 只准备为后续入口，尚未执行。该方案会生成43个256边上限叶文件、每叶内部16边子证书、3个分层汇总组、AllBlocks及Complete消费者。采用kernel后完整数学导入只需Core和已有GapBridge，不再依赖NormNum.Prime对象overlay；这是源码接口性质，整体可导入性仍待实际全链验收。
+
+开发runner增加end256-kernel阶段，但只有主线程再次交槽才执行。原NormNum成功源、默认decide失败源和32边kernel成功源均未改。
+
+## End256TrialKernel资源失败：不能采用43叶方案作已验排期
+
+实际新证据与源/对象/log状态：`experiments/prime-chain/end256-trial-kernel-result-summary.json`，其中链接本次独立时间戳evidence。End256TrialKernel源SHA仍5e6366dd9d588fba55b19bfbfe06f9c0313e95b433acfddedb5335e172ad3dcb。
+
+编译30.648秒后exit3221226505。精确诊断为 `lean::memory_exception: excessive memory consumption detected at interpreter`；峰值工作集1610776576字节、peak commit2747543552字节，-M1536。没有达到300秒超时；未产出接受对象，也没有运行消费者，崩溃前无实际axiom打印。准确失败到哪一份16边segment，现有日志无法判定，标为未知。
+
+这次是明确资源限制，与默认decide的透明度化简卡点不同。小段kernel Bool为真已经在同32边对照通过；同一末端256节点的数学链仍有NormNum接受记录。失败不表示素数链或检查器数学结论为假，也不能据此断言所有kernel分块都不可行。
+
+本次实际导入的5个旧项目依赖逐一核对源码/object SHA成功：CofactorCriterion、GapBridge、TrialPrimeCheck、Core、PrimeChain，见 `kernel-development-dependency-audit.json`。数学闭包未引用NormNum.Prime。最终完整源闭包验收仍由主线程负责，开发导入不冒充全部重建。
+
+唯一计算槽在失败后立即归还，未运行64/128探针或整链。当前最大已通过kernel块为32边（两个16边证书）。按43个256边文件方案无法给出可行成本，因为一个代表叶已失败；如直接采用32边模块则需344叶，按最末块10.760秒逐叶估计约62分钟，另加汇总/最终消费者成本。这只是同等末端成本假设的排期估计，不是时限保证。64/128模块的成本尚未测，应由主线程决定是否进行下一有界阈值探针。
+
+kernel反射的小对象确实缓解序列化体积风险，但不消除当前编译瞬时内存限制；最终全链导入/传递公理仍须实测，不能从小文件或各叶通过直接推定。
+
+## 最后有界诊断：Elab.async全局关闭
+
+主线程指定只改变调度做最后一次同256边对照，并授予唯一计算槽。固定Lean源已核对：CoreM.lean:35–45将Elab.async定义为多线程elaboration选项，命令行默认会设为true；MutualDef.lean:1237–1242按此选项选择elabAsync或elabSync，后者仍进入finishElab，前者另开任务后也进入finishElab并提交checked environment。Decide.lean:116只在mkAuxLemma的局部withOptions关闭异步。这些源码支持它是调度选择，不是关闭kernel检查的选项。
+
+保留原End256TrialKernel失败源不动，新增End256TrialKernelSync和SyncConsumer，除独立namespace/消费者名及全局 `set_option Elab.async false` 外保持相同256边、16边子证书。预测：若多份异步声明累积造成先前峰值，关闭调度应降低峰值；失败则仅不支持这个调度解释，不推广为其它方法均不可能。每条180秒，-j1/-M1536，失败即停止该诊断，不再连续调内存。
+
+## 12:42:05 UTC：同步256边与原题消费者通过
+
+实际证据：`experiments/prime-chain/20260909T124205Z/evidence.json`；完整源/object/log SHA、对象族体积与排期条件：`end256-trial-kernel-sync-result-summary.json`。两根均exit0，-j1/-M1536，单条180秒上限。
+
+- End256TrialKernelSync：79.304秒，峰值工作集1280991232字节，peak commit2435899392字节。
+- End256TrialKernelSyncConsumer：23.226秒，峰值工作集1069154304字节，peak commit2367864832字节。
+- 两项实际传递公理均仅propext、Classical.choice、Quot.sound。
+
+`end256-sync-source-comparison.json` 逐字归一化核对：与原失败256源相比，只有全局Elab.async=false和独立namespace差异；原失败源SHA保持5e6366dd9d588fba55b19bfbfe06f9c0313e95b433acfddedb5335e172ad3dcb。此次观察支持调度对峰值内存有决定性影响，但尚未进一步证明内部哪一种待处理对象导致了累积，不把机制猜测升级成源码已证根因。
+
+具体结论为同步内核证明的1953451≤n≤2000000、i≥323、全部合法j原题消费者。数学区域与此前NormNum256相同，收益是低对象成本路径获得可用256边模块。没有开始Lucas、提升内存阈值、生成或编译全链。
+
+唯一计算槽已归还。按43叶都等于所测最末叶79.304秒的简单排期估计，叶模块共约56.8分钟，另加3组、AllBlocks及最终消费者成本；这不是上界保证。最终导入的完整源闭包、公理遍历及内存仍须实际测试，现有低体积只降低风险，不等于全链接受。
+
+同步探针完成后只更新了全链生成器接口，未执行生成：后续应使用 `--all --backend trial-kernel --sync --block-edges 256`，使每叶和汇总消费者显式带Elab.async=false。--sync的末端命名为End256TrialKernelSync，避免覆盖原异步失败源。生成manifest将记录backend、sync和generator SHA。当前只运行--help检查接口，没有生成全链或重写任何已验Lean源。
+
+## 完整链源码生成与冻结交接
+
+2026-09-09 12:55:25 UTC按主线程明确授权实际运行 `generate-prime-chain-blocks.py --all --backend trial-kernel --sync --block-edges 256`。生成43叶、3组、AllBlocks和Complete共48个新Lean模块；没有重跑外部素性检查，也没有由本子任务启动这些源的Lean编译。
+
+全模块生成清单为 `experiments/prime-chain/all-generation.json`。独立静态审计 `audit-all-sources.py` 从实际生成源码重新提取687份最多16边的证书数据、核对每份声音性消费者和每层trans端点，重建出的10992节点/10991边与原输入逐项一致；全部共享端点正确，全局首2末2000003。48份源均显式Elab.async=false，禁用证明词/新axiom静态扫描通过。生成前后15份旧成功和失败Lean源SHA全部不变。
+
+`experiments/prime-chain/all-source-static-audit.json` 同时是准确模块manifest：包含48份新模块的路径、可直接使用的quoted import、source SHA、imports；并列出最终根的53模块完整项目源闭包、外部导入和SHA。它是静态证据，未把687个Bool的真值或整链公理标为通过。
+
+最终源根 `lean/primeChain/Complete.lean`；import为 `research.tasks.«B699-Binomial».runs.«20260909-middle-index-cert-1a78f8cd».lean.primeChain.Complete`。本根提供具体 `B699MiddleIndex.two_million_prime_chain : PrimeChain 322 2 2000003` 及无链真值前提的原题有限n消费者 `B699MiddleIndex.common_le_two_million`，完整签名、清单hash与交接状态见 `experiments/prime-chain/final-source-handoff.json`。
+
+主线程通知其FirstComplete完整72模块闭包已开始（通知入口verification/20260909T130116Z，以其实际验收记录为准）。从收到通知起，全部已生成及被导入Lean源冻结；本子任务仅写notes/manifest，不开Lean、不边编边改。生成源当前仍是pending，整链通过、首个指标全域通过和677项全域通过由主线程新鲜最终消费者记录分别决定。

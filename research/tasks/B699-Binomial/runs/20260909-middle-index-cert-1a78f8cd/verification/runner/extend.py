@@ -12,6 +12,7 @@ import verify as v
 def main():
     parser=argparse.ArgumentParser(add_help=False)
     parser.add_argument("--base-evidence",action="append",default=[])
+    runner_start=[{'path':str(Path(__file__).with_name(n)),'sha256':v.sha256_path(Path(__file__).with_name(n))} for n in ['extend.py','verify.py','monitor.py']]
     known,rest=parser.parse_known_args()
     args=v.parse_args(rest)
     repo=v.find_repo(Path(v.__file__),args.project_root)
@@ -112,7 +113,10 @@ def main():
         data['all_new_project_closure_compiled']=data['success'] and not reused
         data['all_project_closure_verified']=data['success']
         data['compiled_in_this_invocation']=sum(r.get('compiled_in_this_invocation',False) for r in data['compile_records'])
-        data['runner_sources']=[{'path':v.relpath(Path(__file__).with_name(n),repo),'sha256':v.sha256_path(Path(__file__).with_name(n))} for n in ['extend.py','verify.py','monitor.py']]
+        data['runner_sources']=[{'path':v.relpath(Path(r['path']),repo),'sha256':r['sha256'],'sha256_at_finish':v.sha256_path(Path(r['path']))} for r in runner_start]
+        if any(r['sha256']!=r['sha256_at_finish'] for r in data['runner_sources']):
+            data['success']=False; data['exit_code']=1; status=1
+            data['failure']='runner source changed during invocation'
         v.write_json(evidence,data)
         print(f"reused source-aligned modules: {len(reused)}; newly compiled: {data['compiled_in_this_invocation']}")
     return status

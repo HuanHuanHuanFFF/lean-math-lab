@@ -70,6 +70,31 @@ def norm_block(path, namespace, nodes):
               f'end {namespace}', '', f'#print axioms {namespace}.joined']
     write(path, lines)
 
+def trial_kernel_block(path, namespace, nodes):
+    lines = [f'import {PREFIX}.primeChain.Core', '',
+             'set_option autoImplicit false', 'set_option relaxedAutoImplicit false',
+             'set_option maxRecDepth 8192', 'set_option maxHeartbeats 4000000', '',
+             '/-! Actual consecutive supplied prime-chain nodes. Each kernel reflection',
+             'certificate checks at most 16 edges. The larger block is composed from',
+             'these bounded checks; there is no giant all-nodes decide call. -/',
+             f'namespace {namespace}', '']
+    if args.sync:
+        lines.insert(lines.index('set_option autoImplicit false'), 'set_option Elab.async false')
+    parts = []
+    for block, start in enumerate(range(0, len(nodes) - 1, 16)):
+        stop = min(start + 16, len(nodes) - 1)
+        tail = ', '.join(map(str, nodes[start + 1:stop + 1]))
+        name = f'segment{block}'
+        lines += [f'def {name}Nodes : List Nat := [{tail}]',
+                  f'theorem {name}Check : trialChainCheck {GAP} {nodes[start]} {name}Nodes = true := by',
+                  '  decide +kernel',
+                  f'theorem {name} : PrimeChain {GAP} {nodes[start]} {nodes[stop]} :=',
+                  f'  trialChainCheck_sound {name}Check', '']
+        parts.append((nodes[start], nodes[stop], name))
+    combined = balanced_joins(lines, parts)
+    lines += [f'theorem joined : PrimeChain {GAP} {nodes[0]} {nodes[-1]} := {combined[2]}', '',
+              f'end {namespace}', '', f'#print axioms {namespace}.joined']
+    write(path, lines)
 def consumer(path, imported_module, namespace, theorem_name, lower, chain):
     lines = [f'import {PREFIX}.PrimeChain', f'import {PREFIX}.primeChain.{imported_module}', '',
              'set_option autoImplicit false', 'set_option relaxedAutoImplicit false', '',
@@ -82,6 +107,8 @@ def consumer(path, imported_module, namespace, theorem_name, lower, chain):
              f'  exact common_of_prime_chain {chain} (by omega) hnlo (by omega)',
              '    (by omega) hij hjn', '', f'end {namespace}', '',
              f'#print axioms {namespace}.{theorem_name}']
+    if args.sync:
+        lines.insert(lines.index('set_option autoImplicit false'), 'set_option Elab.async false')
     write(path, lines)
 
 def grouping_module(path, namespace, imports, parts):
@@ -91,13 +118,19 @@ def grouping_module(path, namespace, imports, parts):
     combined = balanced_joins(lines, parts)
     lines += [f'theorem joined : PrimeChain {GAP} {combined[0]} {combined[1]} := {combined[2]}', '',
               f'end {namespace}', '', f'#print axioms {namespace}.joined']
+    if args.sync:
+        lines.insert(lines.index('set_option autoImplicit false'), 'set_option Elab.async false')
     write(path, lines)
     return combined[0], combined[1], namespace + '.joined'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--all', action='store_true', help='Generate the entire source chain only after the primary task approves measured block cost.')
 parser.add_argument('--block-edges', type=int, default=256)
+parser.add_argument('--backend', choices=['normnum', 'trial-kernel'], default='normnum')
+parser.add_argument('--sync', action='store_true', help='Use global Elab.async false for kernel certificate modules and consumers.')
 args = parser.parse_args()
+if args.sync and args.backend != 'trial-kernel':
+    parser.error('--sync is reserved for the tested trial-kernel backend')
 if args.block_edges not in [32, 64, 128, 256, 512]:
     parser.error('block-edges must be one of 32, 64, 128, 256, 512')
 if sha(INPUT) != EXPECTED_INPUT_SHA:
@@ -108,19 +141,29 @@ if len(all_nodes) != 10992 or all_nodes[0] != 2 or all_nodes[-1] != 2000003:
 
 if not args.all:
     nodes = all_nodes[-257:]
-    norm_block(LEAN_DIR / 'End256NormNum.lean', 'B699MiddleIndex.End256NormNum', nodes)
-    consumer(LEAN_DIR / 'End256Consumer.lean', 'End256NormNum', 'B699MiddleIndex',
-             'common_of_last256_prime_edges', nodes[0], 'End256NormNum.joined')
+    if args.backend == 'normnum':
+        norm_block(LEAN_DIR / 'End256NormNum.lean', 'B699MiddleIndex.End256NormNum', nodes)
+        consumer(LEAN_DIR / 'End256Consumer.lean', 'End256NormNum', 'B699MiddleIndex',
+                 'common_of_last256_prime_edges', nodes[0], 'End256NormNum.joined')
+        segment_edges = 32
+    else:
+        module = 'End256TrialKernelSync' if args.sync else 'End256TrialKernel'
+        theorem = 'common_of_last256_trial_kernel_sync_edges' if args.sync else 'common_of_last256_trial_kernel_edges'
+        trial_kernel_block(LEAN_DIR / (module + '.lean'), 'B699MiddleIndex.' + module, nodes)
+        consumer(LEAN_DIR / (module + 'Consumer.lean'), module, 'B699MiddleIndex',
+                 theorem, nodes[0], module + '.joined')
+        segment_edges = 16
     scope = {'kind': 'last256', 'node_count': len(nodes), 'edge_count': len(nodes) - 1,
-             'first': nodes[0], 'last': nodes[-1], 'internal_segment_edges': 32,
-             'internal_segment_endpoints': [nodes[index] for index in range(0, 257, 32)]}
+             'first': nodes[0], 'last': nodes[-1], 'internal_segment_edges': segment_edges,
+             'internal_segment_endpoints': [nodes[index] for index in range(0, 257, segment_edges)]}
 else:
     leaves = []
     for block, start in enumerate(range(0, len(all_nodes) - 1, args.block_edges)):
         nodes = all_nodes[start:min(start + args.block_edges, len(all_nodes) - 1) + 1]
         name = f'Block{block:03d}'
         namespace = 'B699MiddleIndex.PrimeBlocks.' + name
-        norm_block(LEAN_DIR / 'blocks' / (name + '.lean'), namespace, nodes)
+        block_generator = norm_block if args.backend == 'normnum' else trial_kernel_block
+        block_generator(LEAN_DIR / 'blocks' / (name + '.lean'), namespace, nodes)
         leaves.append((nodes[0], nodes[-1], namespace + '.joined', 'blocks.' + name))
     groups = []
     for group, start in enumerate(range(0, len(leaves), 16)):
@@ -144,15 +187,20 @@ else:
              'end B699MiddleIndex', '',
              '#print axioms B699MiddleIndex.two_million_prime_chain',
              '#print axioms B699MiddleIndex.common_le_two_million']
+    if args.sync:
+        lines.insert(lines.index('set_option autoImplicit false'), 'set_option Elab.async false')
     write(LEAN_DIR / 'Complete.lean', lines)
     scope = {'kind': 'all_sources', 'node_count': len(all_nodes), 'edge_count': len(all_nodes) - 1,
              'first': all_nodes[0], 'last': all_nodes[-1], 'leaf_block_edges': args.block_edges,
              'leaf_block_count': len(leaves), 'group_count': len(groups),
-             'internal_segment_edges': 32, 'compiled': False}
+             'internal_segment_edges': 32 if args.backend == 'normnum' else 16, 'compiled': False}
 manifest = {'generated_utc': datetime.now(timezone.utc).isoformat(), 'generation_only': True,
             'external_primality_check_run': False, 'lean_run': False,
             'input': str(INPUT.relative_to(RUN)), 'input_sha256': sha(INPUT),
+            'backend': args.backend, 'synchronous_elaboration': args.sync,
+            'generator_sha256': sha(Path(__file__)),
             'scope': scope, 'files': FILES}
-manifest_path = Path(__file__).parent / ('all-generation.json' if args.all else 'end256-generation.json')
+manifest_name = 'all-generation.json' if args.all else ('end256-generation.json' if args.backend == 'normnum' else ('end256-trial-kernel-sync-generation.json' if args.sync else 'end256-trial-kernel-generation.json'))
+manifest_path = Path(__file__).parent / manifest_name
 manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + '\n', encoding='utf8')
 print(json.dumps(manifest, indent=2, ensure_ascii=False))

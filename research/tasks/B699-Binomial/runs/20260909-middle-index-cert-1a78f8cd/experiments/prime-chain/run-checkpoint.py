@@ -39,8 +39,11 @@ def sample_memory(proc):
     return 0, 0, 0
 
 parser = argparse.ArgumentParser()
-parser.add_argument('stage', choices=['initial', 'core', 'norm', 'consumer', 'trial', 'end256'])
+parser.add_argument('stage', choices=['initial', 'core', 'norm', 'consumer', 'trial', 'end256', 'trial-kernel', 'end256-kernel', 'end256-kernel-sync'])
+parser.add_argument('--timeout', type=int, default=300)
 args = parser.parse_args()
+if args.timeout <= 0 or args.timeout > 300:
+    parser.error('timeout must be between 1 and 300 seconds')
 previous_path = RUN / 'verification/20260909T114042Z/evidence.json'
 previous = json.loads(previous_path.read_text(encoding='utf-8-sig'))
 reused = []
@@ -68,7 +71,7 @@ env['PYTHONDONTWRITEBYTECODE'] = '1'
 report = {'stage': args.stage, 'started_utc': datetime.now(timezone.utc).isoformat(),
           'development_only': True, 'full_project_closure_recompiled': False,
           'reused_dependency_evidence': str(previous_path), 'reused': reused,
-          'memory_limit_mb': 1536, 'timeout_seconds_per_command': 300,
+          'memory_limit_mb': 1536, 'timeout_seconds_per_command': args.timeout,
           'lean_path': env['LEAN_PATH'].split(os.pathsep), 'commands': []}
 
 def save():
@@ -94,7 +97,7 @@ def compile_one(label: str, source: Path, source_root: Path, object_root: Path):
             pws, sample, commit = sample_memory(proc)
             peak_ws, peak_sample, peak_commit = max(peak_ws, pws), max(peak_sample, sample), max(peak_commit, commit)
             samples += 1
-            if time.monotonic() - started > 300:
+            if time.monotonic() - started > args.timeout:
                 timed_out = True
                 proc.kill()
                 break
@@ -114,6 +117,8 @@ def compile_one(label: str, source: Path, source_root: Path, object_root: Path):
         names = [a.strip() for a in axioms.replace('\n', ' ').split(',') if a.strip()]
         audits.append({'theorem': theorem, 'axioms': names})
         unexpected += [a for a in names if a not in ['propext', 'Classical.choice', 'Quot.sound']]
+    for theorem in re.findall(r"'([^']+)' does not depend on any axioms", output):
+        audits.append({'theorem': theorem, 'axioms': []})
     record['axiom_prints'] = audits
     record['unexpected_axioms'] = sorted(set(unexpected))
     record['success'] = code == 0 and not timed_out and not unexpected and record['source_sha256_before'] == record['source_sha256_after']
@@ -140,8 +145,19 @@ if args.stage in ['initial', 'norm', 'consumer']:
 if args.stage == 'end256':
     compile_one('07-end256-normnum', RUN / 'lean/primeChain/End256NormNum.lean', ROOT, OBJECTS)
     compile_one('08-end256-consumer', RUN / 'lean/primeChain/End256Consumer.lean', ROOT, OBJECTS)
+if args.stage == 'end256-kernel-sync':
+    compile_one('15-end256-trial-kernel-sync', RUN / 'lean/primeChain/End256TrialKernelSync.lean', ROOT, OBJECTS)
+    compile_one('16-end256-trial-kernel-sync-consumer', RUN / 'lean/primeChain/End256TrialKernelSyncConsumer.lean', ROOT, OBJECTS)
+if args.stage == 'end256-kernel':
+    compile_one('13-end256-trial-kernel', RUN / 'lean/primeChain/End256TrialKernel.lean', ROOT, OBJECTS)
+    compile_one('14-end256-trial-kernel-consumer', RUN / 'lean/primeChain/End256TrialKernelConsumer.lean', ROOT, OBJECTS)
+if args.stage == 'trial-kernel':
+    compile_one('10-kernel-single-prime', RUN / 'lean/primeChain/KernelSinglePrime.lean', ROOT, OBJECTS)
+    compile_one('11-end32-trial-kernel', RUN / 'lean/primeChain/End32TrialKernel.lean', ROOT, OBJECTS)
+    compile_one('12-end32-trial-kernel-consumer', RUN / 'lean/primeChain/End32TrialKernelConsumer.lean', ROOT, OBJECTS)
 if args.stage == 'trial':
     compile_one('06-end32-trial', RUN / 'lean/primeChain/End32Trial.lean', ROOT, OBJECTS)
+    compile_one('09-end32-trial-consumer', RUN / 'lean/primeChain/End32TrialConsumer.lean', ROOT, OBJECTS)
 report['success'] = True
 report['finished_utc'] = datetime.now(timezone.utc).isoformat()
 save()
