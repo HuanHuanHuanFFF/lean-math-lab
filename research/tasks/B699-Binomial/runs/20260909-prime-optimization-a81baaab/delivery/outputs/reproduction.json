@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "utc": "2026-09-09T11:55:15.797490+00:00",
+  "scope": "NEW integer certificates and fixed rational checks; no Lean and no old evidence rerun",
+  "immutable_hashes_verified": 0,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "steps": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "/mnt/data/b699-prime-optimization/code/count_bridge.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.2403630090000206,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"method\": \"independent bounded division and full inclusion-exclusion\",\n  \"rows\": 41,\n  \"covered_indices\": 31768,\n  \"smallest_integer_slack\": 31,\n  \"largest_sieve_endpoint\": 32767,\n  \"wheel_terms_per_generated_row\": 256,\n  \"full_inclusion_exclusion_terms_per_checked_row\": 2048,\n  \"finite_contradiction_margin_per_i\": \"74429/33175575\",\n  \"infinite_tail_alpha_lower\": \"2773559/15695872\",\n  \"infinite_tail_margin\": \"2376543854513/27771710865408\",\n  \"base_primes_128\": [\n    2,\n    3,\n    5,\n    7,\n    11,\n    13,\n    17,\n    19,\n    23,\n    29,\n    31,\n    37,\n    41,\n    43,\n    47,\n    53,\n    59,\n    61,\n    67,\n    71,\n    73,\n    79,\n    83,\n    89,\n    97,\n    101,\n    103,\n    107,\n    109,\n    113,\n    127\n  ],\n  \"base_dyadic_log_weight\": 145,\n  \"base_counting_deficit_upper\": \"72/7\",\n  \"base_G_lower\": \"13824/847\",\n  \"mutation_tests\": [\n    {\n      \"test\": \"count_understated\",\n      \"result\": \"REJECTED\"\n    },\n    {\n      \"test\": \"coverage_gap\",\n      \"result\": \"REJECTED\"\n    },\n    {\n      \"test\": \"bad_endpoint\",\n      \"result\": \"REJECTED\"\n    }\n  ],\n  \"elapsed_seconds_diagnostic\": 0.059884343000021545\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "/mnt/data/b699-prime-optimization/code/stronger_bridge.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.1298344059998726,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"rows\": 115,\n  \"covered_indices\": 130072,\n  \"smallest_integer_slack\": 107,\n  \"sieving_prime_count\": 16,\n  \"bounded_wheel_terms\": 505,\n  \"full_IE_nonzero_terms\": 2369,\n  \"naive_wheel_terms\": 8192,\n  \"finite_contradiction_margin_per_i\": \"1139/552825\",\n  \"tail_rho_upper\": \"225/1661\",\n  \"tail_rho_log_upper\": \"23800/14949\",\n  \"tail_alpha_lower\": \"43076229/217710592\",\n  \"tail_margin\": \"19380351583/396233277440\",\n  \"mutation_tests\": [\n    {\n      \"test\": \"count_understated\",\n      \"result\": \"REJECTED\"\n    },\n    {\n      \"test\": \"coverage_gap\",\n      \"result\": \"REJECTED\"\n    },\n    {\n      \"test\": \"endpoint_missing\",\n      \"result\": \"REJECTED\"\n    }\n  ],\n  \"elapsed_seconds_diagnostic\": 0.2559652410000126\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "/mnt/data/b699-prime-optimization/code/constant_checks.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.17500265700005,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"log128_minus_derivative_threshold_lower\": \"55/162\",\n  \"base_G_minus_deficit_lower\": \"5112/847\",\n  \"Dusart_gap4095_at_1e7_log_square_margin\": \"14606305/6561\",\n  \"Dusart_gap4095_at_1e6_log_square_margin\": \"1435105/6561\",\n  \"retained_normalization_slope\": \"1/288\",\n  \"retained_normalization_at_1000_margin\": \"197/144\",\n  \"threshold_checks\": {\n    \"2^23<10000000\": true,\n    \"2^19<1000000\": true,\n    \"396738<=1000000\": true\n  },\n  \"Schoenfeld_width_slack_for_16383\": 214,\n  \"Schoenfeld_width_slack_for_4095\": 12502,\n  \"derivative_numerator_coefficients_ascending\": [\n    \"0\",\n    \"-9/4\",\n    \"1/2\"\n  ]\n}\n",
+      "stderr": ""
+    }
+  ]
+}
