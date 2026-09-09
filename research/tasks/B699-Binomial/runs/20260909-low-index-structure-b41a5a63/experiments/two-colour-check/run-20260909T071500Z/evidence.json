@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "kind": "independent-three-stage-finite-cover-check-with-parameter-bounds",
+  "timestamp_utc": "2026-09-09T07:15:00Z",
+  "source_baseline": "7fd3928656489afe2c80698f0a09d1d933444186",
+  "previous_success_preserved": "experiments/two-colour-check/run-20260909T070526Z/evidence.json",
+  "checker": {
+    "stage_one": {
+      "path": "experiments/two-colour-check/check.py",
+      "sha256": "0863A2CF32576F6D69F340C5F585A539C2E180BC2E57822AE04860A736D374B9"
+    },
+    "all_stages": {
+      "path": "experiments/two-colour-check/check_all.py",
+      "sha256": "359FA5F1E31EB6DDD1FE9532F61B86FCB6F2E21E23C1FD7169E111617A374D28"
+    },
+    "new_fail_closed_guards": [
+      "i >= 2",
+      "t >= 2",
+      "0 <= r < i",
+      "1 <= s < i",
+      "lambda = 2*s-r > 0",
+      "Delta = lambda*(i-t)-E > 0",
+      "exact index sequence {29} union [35,184]"
+    ]
+  },
+  "live_parameter_audit": {
+    "records": 151,
+    "exact_index_set": true,
+    "bad_records": [],
+    "min_i": 29,
+    "max_i": 184,
+    "min_s": 19,
+    "max_s": 130
+  },
+  "results": {
+    "cover_indices": 151,
+    "cover_layers": 3919,
+    "cover_families": 67479,
+    "cover_candidate_intervals": 161313,
+    "cover_remaining_integers": 912578,
+    "topprime_input_pairs": 2943530,
+    "topprime_excluded_pairs": 2943463,
+    "topprime_remaining_pairs": 67,
+    "actual_v_pairs": 67,
+    "actual_v_strict_comparisons": 67
+  },
+  "tamper_tests": {
+    "coverage_field": "rejected",
+    "deleted_nonempty_family": "rejected",
+    "s_equals_i": "rejected by 1 <= s < i",
+    "s_equals_zero": "rejected by 1 <= s < i"
+  },
+  "boundaries": {
+    "finite_cover_only": true,
+    "lean_run": false,
+    "j_enumeration": false,
+    "original_b699_unbounded_claim": false
+  },
+  "command": "experiments/two-colour-check/run-20260909T071500Z/command.txt",
+  "output": "experiments/two-colour-check/run-20260909T071500Z/output.txt",
+  "exit_code": 0
+}

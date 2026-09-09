@@ -1,22 +1,20 @@
 # B699 low-index structure
 
-本批唯一身份：20260909-low-index-structure-b41a5a63。
+本批身份：20260909-low-index-structure-b41a5a63。分支 `GPT-work/b699-low-index-20260909-b41a5a63`，源main `7fd3928656489afe2c80698f0a09d1d933444186`。只写本批；旧批、题目导航、云端新批、控制中心、CI及依赖pins保持边界。
 
-- 目标：探索 S={3≤i<185 : i≤4π(i−1)} 的统一机制，并评估正指数高度界的实际可处理性；保持原题所有自然数量词、p=i 和完整素数幂。
-- 分支：`GPT-work/b699-low-index-20260909-b41a5a63`；来源为 fetch 后最新 main `7fd3928656489afe2c80698f0a09d1d933444186`。
-- 主负责人：本地独立研究执行主任务，用户指定 GPT-6 Astra / Max。主模型设置工具未单独暴露；数学委派将显式设置 Astra / Max。
-- 唯一写入范围：本批目录。题目导航、旧批、云端新批、控制中心、CI、依赖 pins 均不归本批。
-- 原始预算：上海时间 2026-09-09 13:59:09 +08:00 至 2026-09-09 18:59:09 +08:00，共 5 小时；UTC 2026-09-09 05:59:09 UTC 至 2026-09-09 10:59:09 UTC。前 45 分钟检查点 14:44:09；18:14:09 起收束。未延期。
-- 并发：整棵树最多 2 个数学子任务、3 个所有类型子任务，禁止子任务自行派生。主任务独占重计算令牌；一个串行流水线，Lean 单线程。
-- 环境：[启动资源](notes/resources-start.json)。约 2.7 GiB 空闲物理内存、D 盘约 8.0 GiB 空闲；保留当前电源限制。不可观察的额度记未知。
-- 接续：[采用来源](notes/source-adoption.md)；[前沿](frontier.md)；[报告](report.md)。
+原始5小时预算：上海2026-09-09 13:59:09–18:59:09（UTC05:59:09–10:59:09）。18:14:09开始收束，未延期。前45分钟检查点已在06:43前写成、对应快照已推送a6781549。主任务用户指定Astra/Max；数学最多两个Astra/Max、支持Luna/Max，总子任务最多三个，无递归。所有重计算由主线程串行、Lean -j1/-M1536。
 
-## 当前检查点
+## 当前主要结果
 
-初始化：工作树已从最新 main 建立，原主工作区 B686 未跟踪目录保留，旧 B699 工作树不动。普通进程启动器失败后，通过获准本机执行恢复；首次工作树检出遭 Windows 长路径失败，Git 自动撤销工作树，随后仅用进程级 core.longpaths=true 成功重建。本批不改变持久 Git 设置。
+- **纸面证明与独立精确覆盖完成，仍在补完整Lean：** 对全部合法n,j，i=29或35≤i≤184时Common成立。它排除了旧S中的85个指标，而不是只给它们高度。见[报告](report.md)、[数学审查](reviews/independent-math/review.md)及[独立覆盖检查](experiments/two-colour-check/README.md)。
+- **无条件Lean已验：** 实际D的三窗口完整幂整除、noCommon下V版和原题数值消费者。固定版本新闭包6模块、实际27项公理打印仅标准三公理；[验收](acceptance.md)。
+- 高度、联合小素数幂/覆盖及终端证书连接继续形式化，尚不把整个151指标定理列为已Lean验收。
+- i=3/4的斜率、中心带、CRT候选参数化及稀疏性均保留为独立纸面结果；未给两个低指标全域解答。入口[低端交接](notes/low-index/handoff-and-localization.md)。
 
-最后已证结果目前全部来自旧批既有验收；本轮尚无新增数学接受结论。下一步先完成精确指标分类和路线比较，禁止把分类计算当原题三元组扫描。
+## 当前所有权与恢复入口
 
-## 恢复
+主线程负责共享记录、lean/ThreeWindowWeights.lean、ThreeWindowSize.lean、HeightCertificate.lean及后续Bernoulli/M证书接续、串行验证和Git。low_index_mechanism已交低端笔记，当前负责SmallPrimeLocalization.lean。fresh数学审查已结束，原review冻结；同一角色的新实施任务独占LargeSmallPowers.lean。Luna支持负责独立checker证据修复与有限高度数据生成，文件范围按委派记录分开。
 
-检出本分支，先读本 README、frontier.md、report.md 和最新 handoff.md（产生后）。从 notes/ 和 experiments/ 中的最近决策继续；旧项目仅被新消费者实际导入时在本批全新输出中重编译。所有提交仅包含本批。
+首先读[frontier.md](frontier.md)、[report.md](report.md)、[acceptance.md](acceptance.md)。纸面与数据链入口[高度交接](notes/heights/HANDOFF.md)。工具/资源[启动记录](notes/resources-start.json)，固定来源[采用清单](notes/source-adoption.md)。普通进程/文件编辑器可能报helper_unknown_error；实际获准pwsh入口可用。新工作树位于忽略目录，验证器必须用repo-relative源码索引入口，不能重复旧绝对路径过滤故障。
+
+可运行主验证器是本批verification/runner/verify_repo_relative.py；--root指定本批实际消费者，--project-root为本工作树，固定D盘Lean4.33.1与9包缓存。每次正式验收全部项目依赖新编；开发缓存不充当最终接受。

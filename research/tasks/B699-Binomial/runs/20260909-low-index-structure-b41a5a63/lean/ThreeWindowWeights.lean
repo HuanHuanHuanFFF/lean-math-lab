@@ -186,6 +186,62 @@ theorem common_of_three_window_not_dvd {n i j r s : ℕ}
   by_contra hno
   exact hnot (actual_prime_part_three_window_transfer hi hij hjn hsi hno)
 
+
+/-- Positivity of every child product in the original range. -/
+theorem child_windows_pos {N i s : ℕ} (hsi : s < i) (hiN : i ≤ N) :
+    0 < childWindows N s := by
+  unfold childWindows
+  apply Finset.prod_pos
+  intro h hh
+  have := (Finset.mem_Icc.mp hh).2
+  exact Nat.choose_pos (by omega)
+
+/-- Positivity of the mother product, including an empty product. -/
+theorem mother_windows_pos {n i r : ℕ} (hin : i ≤ n) :
+    0 < motherWindows n i r := by
+  unfold motherWindows
+  apply Finset.prod_pos
+  intro h _
+  exact Nat.choose_pos (by omega)
+
+/-- The integer upper bound used in the elementary original-target consumer. -/
+theorem noCommon_three_window_size {n i j r s : ℕ}
+    (hi : 2 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hsi : s < i)
+    (hno : ¬ Common n i j) :
+    (n.choose i) ^ (2 * s - r) ≤
+      n ^ (smallPrimeCount i * (2 * s - r)) * threeWindowProduct n i j r s := by
+  have hn : 0 < n := by omega
+  have hZ : 0 < threeWindowProduct n i j r s := by
+    unfold threeWindowProduct
+    exact Nat.mul_pos (Nat.mul_pos
+      (child_windows_pos hsi (by omega : i ≤ j))
+      (child_windows_pos hsi (by omega : i ≤ n - j)))
+      (mother_windows_pos (by omega : i ≤ n))
+  have hlarge := Nat.le_of_dvd hZ
+    (actual_prime_part_three_window_transfer hi hij hjn hsi hno)
+  have hsmall := smallPrimePart_le_pow_smallPrimeCount (i := i) hn
+  calc
+    (n.choose i) ^ (2 * s - r) =
+        (smallPrimePart n i * B699BridgeAudit.primePart i (n.choose i)) ^
+          (2 * s - r) := by
+      rw [smallPrimePart_mul_primePart (by omega : i ≤ n)]
+    _ = (smallPrimePart n i) ^ (2 * s - r) *
+        B699BridgeAudit.primePart i (n.choose i) ^ (2 * s - r) := mul_pow _ _ _
+    _ ≤ (n ^ smallPrimeCount i) ^ (2 * s - r) *
+        threeWindowProduct n i j r s :=
+      Nat.mul_le_mul (Nat.pow_le_pow_left hsmall _) hlarge
+    _ = _ := by rw [← pow_mul]
+
+/-- A purely numerical strict comparison gives the complete original conclusion.
+There is no EEES, discriminant, or unproved structural premise. -/
+theorem common_of_three_window_comparison {n i j r s : ℕ}
+    (hi : 2 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hsi : s < i)
+    (hcompare : n ^ (smallPrimeCount i * (2 * s - r)) *
+      threeWindowProduct n i j r s < (n.choose i) ^ (2 * s - r)) :
+    ∃ p : ℕ, p.Prime ∧ i ≤ p ∧ p ∣ Nat.gcd (n.choose i) (n.choose j) := by
+  by_contra hno
+  exact (Nat.not_le_of_gt hcompare) (noCommon_three_window_size hi hij hjn hsi hno)
+
 end B699LowIndex
 
 #print axioms B699LowIndex.prime_power_three_positions
@@ -193,3 +249,6 @@ end B699LowIndex
 #print axioms B699LowIndex.actual_avoiding_part_three_window_transfer
 #print axioms B699LowIndex.actual_prime_part_three_window_transfer
 #print axioms B699LowIndex.common_of_three_window_not_dvd
+
+#print axioms B699LowIndex.noCommon_three_window_size
+#print axioms B699LowIndex.common_of_three_window_comparison

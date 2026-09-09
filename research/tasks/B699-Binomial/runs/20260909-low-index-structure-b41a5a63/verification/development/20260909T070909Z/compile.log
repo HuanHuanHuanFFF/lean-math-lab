@@ -1,0 +1,33 @@
+research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowSize.lean:69:6: error: Type mismatch
+  Nat.descFactorial_le_pow N h
+has type
+  N.descFactorial h ≤ N ^ h
+but is expected to have type
+  0 ≤ N.descFactorial h
+research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowSize.lean:84:6: error: Type mismatch
+  LE.le.trans (Nat.descFactorial_le_pow (n - i + h) h)
+    (Nat.pow_le_pow_left (Decidable.byContradiction fun a => mother_windows_scaled_upper._proof_1_1 hin h hh' a) h)
+has type
+  (n - i + h).descFactorial h ≤ n ^ h
+but is expected to have type
+  0 ≤ (n - i + h).descFactorial h
+research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\ThreeWindowSize.lean:125:44: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?a ^ ?m) ^ ?n
+in the target expression
+  2 ^ (2 * T) * (j ^ T * (n - j) ^ T) = (2 ^ 2 * (j * (n - j))) ^ T
+
+n i j r s : ℕ
+hin : i ≤ n
+hjn : j ≤ n
+T : ℕ := windowSum s
+L : ℕ := i - r - 1
+B : ℕ := windowFactorials s
+hx : windowFactorials s * childWindows j s ≤ j ^ windowSum s
+hy : windowFactorials s * childWindows (n - j) s ≤ (n - j) ^ windowSum s
+hc : B ^ 2 * (childWindows j s * childWindows (n - j) s) ≤ (j * (n - j)) ^ T
+hjk : 4 * (j * (n - j)) ≤ n ^ 2
+⊢ 2 ^ (2 * T) * (j ^ T * (n - j) ^ T) = (2 ^ 2 * (j * (n - j))) ^ T
+'B699LowIndex.two_window_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699LowIndex.three_window_scaled_upper' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699LowIndex.noCommon_scaled_prime_part' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699LowIndex.common_of_scaled_prime_part' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

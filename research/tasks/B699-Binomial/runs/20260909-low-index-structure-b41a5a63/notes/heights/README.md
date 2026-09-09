@@ -34,3 +34,15 @@ Owner: height_compression（Astra / Max）。独占本目录；共享前沿、Le
 
 generate_two_colour_cover.py已交主线程运行，负责151项精确高度CERT、每层M-CERT和不同素数双色交集，本条不预报结果。小素数幂断点常数优化暂后置。本角色未运行Lean或数学扫描，所有脚本统一由主线程执行。
 
+
+### 2026-09-09 06:55:20 UTC：双色覆盖产物已读取
+
+主线程已完成generate_two_colour_cover.py，two-colour-cover.json中的全部151项N0均有精确整数CERT，161313个输入区间经不同p颜色交集剩912578个(i,n)，总体n≤658537。对子集的实时只读核对：i29剩2723个n、max150926；i35剩3532、max327714；i38剩4563、max658526；i44剩6676、max658532；i49剩6682、max658537；i97剩5047、max148973；i101剩5576、max148977；i121剩7351、max148997。原始巨大高度不再意味着直接扫描巨大n盒。
+
+这些仍是必要条件的完整候选覆盖，不是原题已成立。主线程已安排Luna独立checker重构。filter_topprime_intervals.py已交主线程，默认把各i全部2i+2≤n<i(i−1)也加入待覆盖范围，输出有真实素数见证的删除片段及压缩残余；不使用近中心出版假设，不枚举j。实际U/V数值消费者仅在topprime剩余数量确定后决定执行。
+
+
+### 子任务已交接
+
+本角色已按主线程要求结束新研究与计算。完整结论、纸面链、产物绑定、未Lean桥与审查重点见[HANDOFF.md](HANDOFF.md)，实时哈希快照见[artifact-manifest.json](artifact-manifest.json)。现有结果支持候选i=29及35..184的全n,j排除链；独立数学/证书审查与最终Lean接受由主线程继续维护。本目录交接后本角色不再写入。
+
