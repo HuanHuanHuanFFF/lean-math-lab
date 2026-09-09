@@ -1,49 +1,42 @@
-# B699 本轮恢复入口
+# B699 本轮最终恢复入口
 
-## 已独立交付的首批
+## 当前已验结论
 
-分支GPT-work/b699-middle-lean-20260909-1a78f8cd。
-首批677项正式远端提交：2e190f896738460c2cb23289d3b7051ce1ba3e9a。
-首批范围323≤i≤999，全部Nat n,j满足i<j≤n/2时存在素数p≥i整除实际两个二项式gcd，无证书假设。
+`B699Middle.common_185_999`：全部Nat n,i,j，185≤i≤999且i<j≤n/2时，存在Prime p≥i整除实际两个二项式的gcd。无证书、结构或出版参数，包含p=i，n,j无上界。完整B699仍未完成。
 
-最终源码lean/MiddleComplete.lean，B699Middle.common_323_999。
-正式验收verification/20260909T132846Z/evidence.json；129源，44新编/85同源及递归依赖一致复用，实际标准三公理。
-准确证据见acceptance-677.md；first323原题全域根为130116Z。
-开始11:31:09 UTC（前有约31秒启动），本轮未给新总时长，旧截止不继承。
+最终源：[lean/ExtendedComplete.lean](lean/ExtendedComplete.lean)。最终根：[145049Z](verification/20260909T145049Z/evidence.json)，404源闭包、246新编/158一致复用，实际公理仅标准三项。15:37:02 UTC完成，[最终完整性复核](verification/final-integrity-815.json)通过。
 
-## 复现首批
+分支 `GPT-work/b699-middle-lean-20260909-1a78f8cd`。全部证明源已在 `3f57affefb15c83b0f0deb5e4327d506d00c3178` 保存；本交接所在的最终交付提交追加完整实际验收及审查记录。最终远端SHA由结束消息与实际git核对返回。首批677项的独立已推提交为 `2e190f896738460c2cb23289d3b7051ce1ba3e9a`。
 
-在本隔离工作树执行；下面是可执行冷验收入口，未声称结束后又重跑一遍。保持固定Lean4.33.1、mathlib0df444a360eaa60ab8c11dca51a86af692955474及manifest其余pins。固定依赖包缓存可以复用，所有项目输出另建新目录。
+## 冷验收入口
+
+在本隔离工作树执行。下面是可执行冷验收命令，未声称最终完成后又冷跑一次；固定依赖包缓存可以复用，全部项目输出另建新目录。
 
 ```powershell
-& 'C:\Python314\python.exe' -B 'research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/verification/runner/verify.py' --project-root . --lean 'D:\CodingProject\Math\.tools\elan\toolchains\leanprover--lean4---v4.33.1\bin\lean.exe' --package-root 'D:\CodingProject\Math\.lake\packages' --root 'research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/MiddleComplete.lean' --memory-mb 1536 --timeout 300
+Set-Location 'D:\CodingProject\Math\.tools\worktrees\b699-middle-lean-20260909-1a78f8cd'
+& 'C:\Python314\python.exe' -B 'research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/verification/runner/extend.py' --project-root . --lean 'D:\CodingProject\Math\.tools\elan\toolchains\leanprover--lean4---v4.33.1\bin\lean.exe' --package-root 'D:\CodingProject\Math\.lake\packages' --root 'research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/ExtendedComplete.lean' --memory-mb 1536 --timeout 300
 ```
 
-若同一工作树保留本轮对象，可改用extend.py并追加--base-evidence指向成功evidence.json；它验证当前source、object、实际axiom log及递归项目依赖哈希，失效对象会重新编译。不能把上一轮开发对象当此轮验收。每次新目录不覆盖历史，evidence.partial.json可供恢复，但未完成状态不等于整个根通过。
+冷命令不传--base-evidence，全部项目源从头编译；1536MiB是首批高度块已验的上限，最终增量根仅对新模块使用1280MiB。执行前按仓库规则检查当时资源。若本轮对象仍保留，可在上述命令增加 `--base-evidence research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/verification/20260909T145049Z/evidence.json`。它核对当前源码、对象、真实公理日志及递归项目依赖，不匹配的对象会重新编译。复用不等于再次运行内核，记录会明确新编和复用数量。
 
-最终#print axioms不得出现标准三项之外公理；source policy拒绝占位和新axiom。未用Cli缓存缺失不影响不导入它的根。没有使用独立第二内核。
+每个根均有独立时间戳；不要覆盖历史 evidence。evidence.partial.json只用于恢复已成功模块，不能代替成功的最终根。最后必须检查真实原题声明及传递公理，接受公理仅propext、Classical.choice、Quot.sound。实际145049Z是经核对复用158项的完整闭包验收，404源全部冷构建成本未重测。
 
-## 条件扩展状态
+固定Lean4.33.1、mathlib0df444a360eaa60ab8c11dca51a86af692955474及manifest其余pins。未使用包Cli的缓存缺失不会阻塞当前根。
 
-原N=20,000,000、gap184、116667节点2→20000093输入在inputs/original20m/，保持原zip字节。
-全部185..322的138条高度及其n≥20m消费者已验：verification/20260909T141839Z（33源，10新/23一致复用）。
-607小素数基底及完整0..4472覆盖、checker声音性、末端节点消费者已验：experiments/extension-prime-basis/verification/20260909T140805Z。
+## 可复用资产与剩余边界
 
-512边基底样本通过：同目录verification/20260909T142338Z，本体66.398秒；228叶粗估约4.21小时，未跑整20m链。尚不能报告815项全域完成。
+- [首批677项](acceptance-677.md)独立保留。
+- 185..322的138项完整高度：141839Z。
+- [完整20m有限n消费者](lean/extension/primeChain/Complete.lean)：全部i≥185且n≤20,000,000、全部合法j。
+- [GCD检查器](lean/extension/PrimePrimorial.lean)、完整4473基底覆盖、准确乘积及全部具体链：已进入最终依赖闭包。
+- [具体源与覆盖审查](reviews/extension-statement-audit.md)、[验收设计](notes/verification-design.md)、[实际成本](verification/final-costs-815.json)。
 
-最后有界成本改进：改为与已验607素数的乘积做一次gcd=1检查，须先证明准确乘积与checker声音性。20分钟探针起点14:31:18 UTC、截止14:51:18 UTC，不滚动延长。结果以notes/extension-primorial.md与experiments/extension-primorial/后续证据为准，不能预先采用。若无明显改善，收束677和扩展片段，不自动运行额外4小时。
+本批没有剩余的具体证书或消费者缺口。其它指标、旧151项数据、Matveev和大指标解析链保持原状态。Dyadic/HeightApprox等草稿没有通过本轮验收，不可接入已接受消费者。
 
-## 文件与资源
+## 文件与资源边界
 
-只写本批；原D:/CodingProject/Math的main工作区和B686 round9未操作。
-重计算最多一条、Lean-j1；首批1536MiB，后期内存余量下降后扩展1280MiB。子任务至多3、数学至多2，不递归，不改电源/pins。
-新对象与可重建缓存位于本工作树.tools/mid；证据、输入、失败源码快照不能清理。
-不合并main、不创建PR、不联系外部会话，后续整合交由控制中心。
+只写本批；题目导航由后续整合接入。最终提交不合并main、不创建PR、不联系独立会话。只正常推送自己的分支，无force push。
 
-## GCD试验之后的最新执行状态
+开始11:31:09 UTC（最初环境启动另约31秒），本轮没有新的总时长要求，旧截止未继承。重计算始终串行、Lean单线程，后期1280MiB；新对象和临时在D盘。自有重计算在15:37:02 UTC结束。保留输入、昂贵证书、源快照及失败证据；可重建对象仍留在工作树.tools/mid供恢复。
 
-20分钟试验已于14:39前成功结束：准确6330bit乘积、检查器声音性与同512边原题消费者全部通过（143618Z/143846Z）。512边连消费者11.662秒，成本门槛满足。
-
-完整20m链已按原输入生成245模块：228叶、15组、AllBlocks、Complete，7292份至多16边子证书，全部同步。ExtendedComplete.lean的B699Middle.common_185_999已准备，原题量词及无证书前提经独立静态审查确认。
-
-主线程于14:50启动此根的404项目源闭包，1280MiB、单线程、每模块180秒。当前必须看该轮evidence.json实际成功后才称815项完成。恢复可使用最新evidence.partial.json内逐模块成功记录；初始复用基线是132846Z、141839Z、experiments/extension-primorial/verification/143846Z三个成功根。不要把“全源已生成/已审查”写成内核已通过。
+[结束现场](verification/end-state.json)和[源/环境复核](verification/final-source-environment.json)已保存：原工作区HEAD及已跟踪状态未变、B686 round9保留，Lean和自有研究计算进程为空。独立审查E1已解除。最终远端SHA由结束消息给出，API文档CI不阻塞交付。

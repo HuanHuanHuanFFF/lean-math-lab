@@ -31,3 +31,7 @@ P是6330bit、1906十进制位的自然数literal，kernel已证明607列表的p
 最终源根为lean/extension/primeChain/Complete.lean；无证书前提的接口为B699MiddleExtension.twenty_million_prime_chain和B699MiddleExtension.common_le_twenty_million，完整签名见`full-chain-handoff.json`。当前接受状态仍是pending，实际完整815原题结论由主线程ExtendedComplete新的完整闭包验收决定。
 
 主线程已通知即将启动约404模块完整验收。所有新旧Lean源从交接起冻结；本子任务只补notes/manifest，不运行Lean，不边编边改。原20分钟试验在截止前结束与当前另行授权的完整生成阶段已分开记录，未发生试验延期。
+
+## 主线程最终验收补记
+
+完整20m链及815项消费者在verification/20260909T145049Z实际成功，15:37:02 UTC结束。404源闭包、246新编/158一致复用，真实原题声明与标准三公理通过；独立收束审查E1已解除。此前pending描述均对应生成交接时点，当前正式状态见../../20260909-middle-index-cert-1a78f8cd/acceptance-815.md。没有修改本记录中任何已验或失败Lean源码。

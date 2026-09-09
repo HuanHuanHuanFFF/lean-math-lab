@@ -166,3 +166,43 @@
 当前该最终源真实导入闭包为 **404 个项目源**，包含上述全部新链、9 个新高度块及旧 43 个高度块；全部旧 677 接受源仍与原 129 项快照一致。404 源的排序路径/源哈希摘要为 `1fa80bcae37c88b3481975ac56c46d607d642a3f22ad48528eed04f940e5a629`。ExtendedComplete 源 SHA 为 `9c66797c1039fa9bab20bd89abeb618f765bddb34665a3ac4033eb872c3f1b37`。
 
 **E1 继续保留，现只待 ExtendedComplete 的完整实际验收根及真实最终 #check/#print axioms 输出。** 源码结构、具体输入完整消费和泛化声音性均已完成本次审查；不能把这一状态写成“815 项已 Lean 通过”。已经验收的扩展有限带提高到 19,912,523≤n≤20m；结合已验无限尾部，剩余未验区域可能在 185≤i≤322、n<19,912,523 的合法输入内。该剩余边界属于当前接受证据，完整生成链的静态通过尚不改变它。
+
+## E1 最终处置：2026-09-09 15:41:15 UTC
+
+**E1 已解除。现在可以接受：185≤i≤999 共 815 个指标下，全部合法自然数 n,j 的原题 Lean 定理。** 本段以最终完整实际运行取代前文“全链/最终消费者待验”的当前判断；原段落保留为当时的历史状态。未发现新的数学或验收阻断。
+
+此次有界收束审查于 15:38:49 UTC 开始，目标为 10 分钟内完成。只读复核在 15:41:14.978216 UTC 通过；没有运行 Lean、重算素性或证书，没有修改任何 Lean 源、提交或发布。逐项运行时证据保存在 [extension-final-runtime-audit-20260909T153849Z.json](extension-final-runtime-audit-20260909T153849Z.json)，包含 404 个源对应的 Git blob、源/对象/日志 SHA、imports 和实际传递公理输出。
+
+### 完整最终运行与当前文件逐项相符
+
+[最终 145049Z evidence.json](../verification/20260909T145049Z/evidence.json) 实际开始于 **14:50:49.520530 UTC**，结束于 **15:37:02.329413 UTC**，success=true、exit_code=0、failure=null、all_project_closure_verified=true。并非 partial 快照。
+
+- 独立从 ExtendedComplete 的真实 import 行重建闭包，恰为 **404** 个项目源；与 source_closure、compile_records 的集合和条数完全一致。
+- 对 **404/404** 项当前源 before/after、实际 .olean、实际日志重新哈希，全部对应；本次读取并核对的对象总量为 192,749,208 字节。
+- **246 项新编、158 项复用**，计数与逐模块记录一致。对每项复用核对旧 evidence SHA、旧成功记录、源码、imports、对象、日志，以及原复用对象实际 SHA；所有递归项目依赖也在同一已核对闭包中。
+- 通过只读 git cat-file --batch 取得固定证明提交 **3f57affefb15c83b0f0deb5e4327d506d00c3178** 的原始 blob，**404/404 源均与该提交逐字节一致**。
+- 独立匹配 **445 项实际传递公理输出**，无缺失打印或非标准公理。新编命令均保持 -j1、-M1280，未见跳过内核参数。
+
+### 已审查数学源码与节点覆盖保持不变
+
+完整 404 源的摘要仍精确为 `1fa80bcae37c88b3481975ac56c46d607d642a3f22ad48528eed04f940e5a629`；此前独立静态重建的 228 块＋15 组＋AllBlocks 共 244 源摘要仍为 `3189133a183317bbb9d335a1e2c39c863c75171881c17e12e00099894b17e6f3`。原始 116,667 节点输入 SHA 仍为 `a4954fc348879a5bff3bb91e8448f91437bd5220e80a1f1bc4cfb86ca8190414`。
+
+因此前文对 607 项完整基底、6330 位已证乘积、7292 个短证书、完整有序链、138 条 N=20m 高度、旧 677 项及最终 i/n 分段的数学对应审查仍适用于此次实际成功根。完整生成链与最终消费者现在已经进入同一成功验收闭包，不再只是源码层的连接。
+
+固定工具链仍为 Lean 4.33.1，实际版本日志中的 Lean commit 为 `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`；版本日志 SHA 与记录一致。当前 manifest SHA 为 `fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0`。对 9 个包分别直接读取、哈希实际 HEAD/status 日志，记录 HEAD 均等于 manifest pin，实际 status 输出为空。404 源 source policy 的真实范围、成功结果和日志 SHA 一致。
+
+### 实际最终声明与公理
+
+直接从最终编译日志读取，完整陈述为：
+
+```lean
+@B699Middle.common_185_999 : ∀ {n i j : ℕ},
+  185 ≤ i → i ≤ 999 → i < j → j ≤ n / 2 →
+  ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ (n.choose i).gcd (n.choose j)
+```
+
+这是所有自然数 n,i,j 的原题声明，仅有原题的四个范围条件。没有 hchain、hcomplete、hprod、hcheck 或其他证书真值前提；p≥i 的包含式门槛保留 p=i，n,j 不另设上界。实际最终公理列表恰为 `[propext, Classical.choice, Quot.sound]`。
+
+最终源 SHA：`9c66797c1039fa9bab20bd89abeb618f765bddb34665a3ac4033eb872c3f1b37`。最终实际日志 SHA：`a3ab1e0aac0ca8ec321e8ea42af0b855b9d257f2f05223d7a95328c8849289fe`。完整 evidence SHA：`9b66b42daa701241306852bd90192bbc0103bdf4f9a8c59c73bdc4c36358d3f2`。本次独立 runtime JSON SHA：`080bee51ab0b6b1b39ee69558899c2c787e19fac932711e9ca8445a43b4eeda3`。
+
+接受强度为 **815 项完整原题 Lean 验收**；本审查没有执行独立第二内核，不把这一区间结论称为完整 B699 解答或新颖性认证。此前 E1 所列未验有限区域已由此次完整链与最终消费者闭合，不再作为本批 185..999 的缺口。

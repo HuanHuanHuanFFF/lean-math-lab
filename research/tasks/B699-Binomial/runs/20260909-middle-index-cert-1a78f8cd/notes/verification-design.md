@@ -10,4 +10,4 @@
 
 性能记录中的峰值工作集来自 Windows GetProcessMemoryInfo；sampled_peak_private_bytes 是采样私有提交量。peak_pagefile_bytes 是 Windows 峰值提交字段，不能解释为实际换页读写量。缓存复用模块的 seconds=null 保持为未重编，不与本次模块耗时混合计算。
 
-当前最终根为 verification/20260909T145049Z，815 项结果仍须以其完整 evidence.json、实际最终声明与公理输出为准。evidence.partial.json 仅保留逐模块恢复进度，success=false 时不能作为整批完成证据。
+最终根 verification/20260909T145049Z 已于15:37:02 UTC完整成功，815项真实原题声明与实际公理均通过。final-integrity-815.json已复核404份源、对象、日志及复用来源链，全部匹配。evidence.partial.json仅保留逐模块恢复进度；成功判据是完整evidence.json，不能用partial替代。

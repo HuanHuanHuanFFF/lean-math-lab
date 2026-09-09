@@ -1,10 +1,12 @@
 # 本批验收入口
 
-**首批323..999、677项、全部合法n,j已完整Lean接受。**
+**185..999的815项、全部合法n,j，已完整Lean接受。**
 
-准确声明、版本、源闭包、实际公理与证据：[acceptance-677.md](acceptance-677.md)。
-最终根：[132846Z](verification/20260909T132846Z/evidence.json)。
-最终消费者：[MiddleComplete.lean](lean/MiddleComplete.lean)。
-独立审查：[final-statement-audit.md](reviews/final-statement-audit.md)，B1已解除。
+- [最终正式验收](acceptance-815.md)：完整原题声明、具体数据、版本、闭包及实际公理。
+- [最终实际证据](verification/20260909T145049Z/evidence.json)：404源，246新编、158一致复用。
+- [完整性复核](verification/final-integrity-815.json)：源、对象、实际日志与复用来源链全部匹配。
+- [最终消费者](lean/ExtendedComplete.lean)：`B699Middle.common_185_999`。
+- [独立扩展审查](reviews/extension-statement-audit.md)：E1已解除，404份Git blob/源/对象/实际日志全部对应。
+- [首批677项独立验收](acceptance-677.md)：此前已单独完成并推送。
 
-185..322的138项完整高度已接受；完整20m素数链和815项全域消费者正在145049Z验收，最终接受仍待实际根成功。扩展使用独立新文件，不改变首批已验源。历史失败、阶段成功与未验候选均留在原时间戳和notes记录中，不因同批提交而提升等级。
+失败证据、未验证备选及已验片段保持各自原始记录。正式接受以成功根与具体消费者为准。
