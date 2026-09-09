@@ -2,8 +2,9 @@ import research.tasks.«B699-Binomial».runs.«20260909-low-index-structure-b41a
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
-set_option maxRecDepth 16384
+set_option maxRecDepth 65536
 set_option maxHeartbeats 0
+set_option exponentiation.threshold 1000000
 
 namespace B699LowIndex
 open B699LargePrimeStructure

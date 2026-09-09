@@ -1,0 +1,116 @@
+[
+  {
+    "source": "Math/B699/CofactorCriterion.lean",
+    "module": "Math.B699.CofactorCriterion",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Factorization",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Tactic.Ring",
+      "Mathlib.Tactic.Linarith"
+    ],
+    "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+    "source_sha256_after": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+    "imports": [
+      "Math.B699.CofactorCriterion"
+    ],
+    "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+    "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+    "imports": [
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.GCD.BigOperators"
+    ],
+    "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+    "source_sha256_after": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Nat.Prime.Factorial"
+    ],
+    "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+    "source_sha256_after": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+    ],
+    "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+    "source_sha256_after": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/LargeSmallPowers.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.LargeSmallPowers",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+    ],
+    "source_sha256_before": "2ed55e4a8be53589ed8fc82d89cc877c8281a291b34c4c35bfd88e94badf7aa2",
+    "source_sha256_after": "2ed55e4a8be53589ed8fc82d89cc877c8281a291b34c4c35bfd88e94badf7aa2"
+  },
+  {
+    "source": "research/tasks/B686-Four/round8/lean/BigPrimeSupport.lean",
+    "module": "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+    "imports": [
+      "Mathlib.Algebra.BigOperators.Associated",
+      "Mathlib.Algebra.BigOperators.Ring.Nat",
+      "Mathlib.Algebra.Order.Ring.Abs",
+      "Mathlib.Data.Nat.GCD.BigOperators",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Data.Nat.Prime.Basic",
+      "Mathlib.Order.Interval.Finset.Nat",
+      "Mathlib.Tactic.NormNum",
+      "Mathlib.Tactic.Ring"
+    ],
+    "source_sha256_before": "cd3b1e0fd5282723597acaa2d5f3290917d9756a9e2c1d682668ac77a6b98d2e",
+    "source_sha256_after": "cd3b1e0fd5282723597acaa2d5f3290917d9756a9e2c1d682668ac77a6b98d2e"
+  },
+  {
+    "source": "research/tasks/B686-Four/formalization/UniformDistance/SmallPrime.lean",
+    "module": "research.tasks.B686-Four.formalization.UniformDistance.SmallPrime",
+    "imports": [
+      "research.tasks.B686-Four.round8.lean.BigPrimeSupport",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Finset.Max",
+      "Mathlib.Data.Nat.Dist",
+      "Mathlib.Algebra.BigOperators.Intervals"
+    ],
+    "source_sha256_before": "3d9140131479b10d35ccd87884381e225331b2b77c5c80ae211ab9fe19273a6f",
+    "source_sha256_after": "3d9140131479b10d35ccd87884381e225331b2b77c5c80ae211ab9fe19273a6f"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/SmallPrimeLocalization.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.SmallPrimeLocalization",
+    "imports": [
+      "research.tasks.B686-Four.formalization.UniformDistance.SmallPrime",
+      "Mathlib.Data.Nat.Choose.Basic"
+    ],
+    "source_sha256_before": "663b2129a3b18e1ad8003be7cfef6792caf8375e986284b228f098921a8b6477",
+    "source_sha256_after": "663b2129a3b18e1ad8003be7cfef6792caf8375e986284b228f098921a8b6477"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/SmallPowerIntervals.lean",
+    "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.SmallPowerIntervals",
+    "imports": [
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.LargeSmallPowers",
+      "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.SmallPrimeLocalization"
+    ],
+    "source_sha256_before": "4ee5805b0a37e4ce4b370b6f91895312b75917170943a6970799d4fb4f011d02",
+    "source_sha256_after": "4ee5805b0a37e4ce4b370b6f91895312b75917170943a6970799d4fb4f011d02"
+  }
+]

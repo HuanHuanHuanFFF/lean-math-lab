@@ -49,6 +49,7 @@ MODULE_TOKEN_RE = re.compile(rf"{IDENT_PATTERN}(?:\.{IDENT_PATTERN})*")
 MODULE_SEGMENT_RE = re.compile(IDENT_PATTERN)
 IMPORT_LINE_RE = re.compile(r"^\s*import\s+(.+)$")
 PRINT_AXIOMS_RE = re.compile(r"^\s*#print\s+axioms\s+([^\s]+)", re.MULTILINE)
+PRINT_AXIOMS_LINE_RE = re.compile(r"^\s*#print\s+axioms\s+([^\s]+)\s*$")
 GUARD_MSGS_RE = re.compile(r"^\s*#guard_msgs\b", re.MULTILINE)
 AXIOM_OUTPUT_RE = re.compile(
     r"(?P<list>depends\s+on\s+axioms\s*:\s*\[(?P<body>.*?)\])|"
@@ -766,11 +767,68 @@ def parse_axiom_outputs(output: str) -> list[list[str]]:
     return observed
 
 
+def classify_axiom_prints(masked: str) -> tuple[list[str], list[str], int]:
+    """Classify bare prints and the supported one-line guard wrapper.
+
+    Only an exact "#guard_msgs in" line followed by the next nonempty
+    "#print axioms" line is recognized as guarded metadata. Any other guard
+    shape fails closed so hidden output is never inferred.
+    """
+
+    bare: list[str] = []
+    guarded: list[str] = []
+    guard_count = 0
+    guard_pending = False
+    for line in masked.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("#guard_msgs"):
+            if stripped != "#guard_msgs in" or guard_pending:
+                raise VerificationFailure(
+                    "unsupported #guard_msgs form; expected a standalone guard "
+                    "line before a #print axioms line"
+                )
+            guard_pending = True
+            guard_count += 1
+            continue
+        match = PRINT_AXIOMS_LINE_RE.fullmatch(line)
+        if match is not None:
+            if guard_pending:
+                guarded.append(match.group(1))
+                guard_pending = False
+            else:
+                bare.append(match.group(1))
+            continue
+        if guard_pending:
+            raise VerificationFailure(
+                "unsupported #guard_msgs body; expected the next nonempty "
+                "line to be #print axioms"
+            )
+        if "#guard_msgs" in stripped:
+            raise VerificationFailure("unsupported #guard_msgs placement")
+        if "#print axioms" in stripped:
+            raise VerificationFailure("malformed #print axioms declaration")
+    if guard_pending:
+        raise VerificationFailure("unterminated #guard_msgs in wrapper")
+    return bare, guarded, guard_count
+
+
 def audit_axioms(source: Path, output: str) -> dict[str, Any]:
     text = read_utf8(source)
     masked = mask_comments_and_strings(text)
-    declarations = [match.group(1) for match in PRINT_AXIOMS_RE.finditer(masked)]
     observed = parse_axiom_outputs(output)
+    guard_count = len(GUARD_MSGS_RE.findall(masked))
+    try:
+        declarations, guarded_declarations, classified_guard_count = (
+            classify_axiom_prints(masked)
+        )
+        guard_count = classified_guard_count
+        classification_error: str | None = None
+    except VerificationFailure as error:
+        declarations = []
+        guarded_declarations = []
+        classification_error = str(error)
     entries = [
         {
             "declared_name": declarations[index] if index < len(declarations) else None,
@@ -789,21 +847,24 @@ def audit_axioms(source: Path, output: str) -> dict[str, Any]:
     result: dict[str, Any] = {
         "declared_print_axioms": len(declarations),
         "declared_names": declarations,
+        "guarded_print_axioms": len(guarded_declarations),
+        "guarded_names": guarded_declarations,
         "actual_printed": len(observed),
-        "guard_msgs_in_source": len(GUARD_MSGS_RE.findall(masked)),
+        "guard_msgs_in_source": guard_count,
         "printed": entries,
         "unexpected_axioms": unexpected,
         "guarded_output_inferred": False,
     }
-    if len(declarations) != len(observed):
+    if classification_error is not None:
+        result["error"] = classification_error
+    elif len(declarations) != len(observed):
         result["error"] = (
-            "#print axioms output count mismatch: "
+            "#print axioms output count mismatch for unguarded declarations: "
             f"source={len(declarations)} actual={len(observed)}"
         )
     elif unexpected:
         result["error"] = "unexpected axioms: " + ", ".join(unexpected)
     return result
-
 
 def policy_check(
     closure: Sequence[SourceRef],
@@ -1333,5 +1394,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
 
 

@@ -3,8 +3,8 @@ set_option relaxedAutoImplicit false
 
 namespace B699LowIndex
 
-/-- Fixed height parameters copied from the exact two-colour cover JSON.
-/-- Input SHA-256: 69d16096c414177438342f1dca93eeb256ad20850ac5b9f36387e9c1bb0607a0 -/
+/-- Fixed height parameters copied from the exact two-colour cover JSON. -/
+-- Input SHA-256: 69d16096c414177438342f1dca93eeb256ad20850ac5b9f36387e9c1bb0607a0
 structure HeightCertificateDatum where
   i : ℕ
   r : ℕ

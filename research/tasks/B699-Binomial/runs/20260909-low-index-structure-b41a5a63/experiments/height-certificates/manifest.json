@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-09-09T07:32:55.506132Z",
+  "generated_utc": "2026-09-09T07:50:14.720075Z",
   "generator": {
     "path": "experiments/height-certificates/generate_data.py",
-    "sha256": "259d15d7e64b4015687617b4a605285f07f2e257bdf185fdf612d6e712e29216",
+    "sha256": "5aba1d8981375ab12371f05e793b20bbe30444180d98d4cbdcc4a43c09f0a4e9",
     "method": "read exact i,r,s,N0_power10 fields; no floating-point recomputation"
   },
   "input": {
@@ -167,11 +167,15 @@
   "outputs": {
     "lean": {
       "path": "lean/HeightCertificateData.lean",
-      "sha256": "ca2031839c5d6ee37cf88cae2a3c8aa91aebb3b0ee6cdd8735ad8de5b3fd98e8"
+      "sha256": "e4dedda47d5e3e7da07b34c77bfe68dc30ba3c2759d0e899ca3e86afd8a899cd"
     },
     "table": {
       "path": "experiments/height-certificates/height-table.json",
       "sha256": "6fb13f9009718f2707e1e690ee44a5f5547cf766d965c2321112b5ceab84c494"
+    },
+    "registered": {
+      "path": "lean/RegisteredHeights.lean",
+      "sha256": "848df68e3bc1c25d6885a2cfcd47a793edbfa6221b8b31a8bc3b3ea86ae6b775"
     }
   },
   "scope": {
@@ -179,5 +183,18 @@
     "finite_data_only": true,
     "lean_run": false,
     "cover_recomputation": false
+  },
+  "source_tuning": {
+    "height_probe": [
+      "set_option maxRecDepth 65536",
+      "set_option maxHeartbeats 0",
+      "set_option exponentiation.threshold 1000000"
+    ],
+    "registered_heights": [
+      "set_option maxRecDepth 65536",
+      "set_option maxHeartbeats 0",
+      "set_option exponentiation.threshold 1000000"
+    ],
+    "history_manifest": "experiments/height-certificates/manifest-history-20260909T073358Z.json"
   }
 }

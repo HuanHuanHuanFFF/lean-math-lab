@@ -44,3 +44,15 @@ Owner `/root/low_index_mechanism`，Astra / Max；共同开始 2026-09-09 05:59:
 我只读源码、写独占文件并检查无占位标记；没有运行 Lean、改变依赖、提交或推送。末尾三条实际 `#print axioms` 供主线程新输出闭包执行。旧源若需重新生成输出，由主线程独占串行编译。
 
 当前最有用的下一步：主线程返回本文件第一次真实 Lean 诊断；我仅修这个源码并回报。编译通过、实际公理输出和最终主线消费者通过需分别记录，不由纸面证明或该文件存在性代替。
+
+## 08:06 UTC 接续：定位已通过，新增大因子见证首稿
+
+主线程明确报告 SmallPrimeLocalization 已与 SmallPowerIntervals 一起通过新的完整输出闭包，验证目录为本批 `verification/20260909T074627Z`。这是主线程执行的实际 Lean 验证，不是本子任务自行运行；此前“等待编译”一段保留为07:24的历史状态。
+
+随后主线程把本子任务转到独占 [LargeDivisorWitness.lean](../../lean/LargeDivisorWitness.lean)。08:05首稿已交，SHA256 `8123D5EC2A766974BF9CAD0753B0261405EF71548CD3DEE625FEAD65EF0C39F0`；目前仍待它自己的新编译和公理输出。
+
+新文件只导入本批 ThreeWindowSize，不依赖 IntervalCover。定义 RowWitness、GoodSegment、goodSegmentBounds、goodSegmentCheck 和 goodSegmentCheck_sound；g 在 sound 定理中为隐式参数。大因子分支的布尔检查只有单点、D>0、D与(i−1)!互素、i!*D整除下降阶乘及严格整数大小；它不执行实际二项式的大整数因数分解。
+
+符号正确性通过“D与smallPrimePart互素，故D整除实际primePart”接上已验三窗口大小消费者。与(i−1)!互素保留 p=i，不能改用i!。topPrime区间保留p≤lower及upper<p+i，利用原始i<j≤n/2得到正确的顶端素数假设。没有增加结构公理、占位证明或外部计算前提。
+
+当前我仍不运行 Lean 或数学计算，只在主线程反馈后修改独占新源码。

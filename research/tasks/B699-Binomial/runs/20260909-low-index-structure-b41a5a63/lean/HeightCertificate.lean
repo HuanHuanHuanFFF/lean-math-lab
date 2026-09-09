@@ -21,10 +21,14 @@ theorem noCommon_scaled_choose {n i j r s : ℕ}
   have hu := smallPrimePart_le_pow_smallPrimeCount (i := i) hn
   have hv := noCommon_scaled_prime_part (r := r) hi hij hjn hsi hno
   calc
+    _ = windowConstant i r s *
+        (smallPrimePart n i * B699BridgeAudit.primePart i (n.choose i)) ^
+          (2 * s - r) := by
+      rw [smallPrimePart_mul_primePart (by omega : i ≤ n)]
     _ = (smallPrimePart n i) ^ (2 * s - r) *
         (windowConstant i r s *
           B699BridgeAudit.primePart i (n.choose i) ^ (2 * s - r)) := by
-      rw [← smallPrimePart_mul_primePart (by omega : i ≤ n), mul_pow]
+      rw [mul_pow]
       ring
     _ ≤ (n ^ smallPrimeCount i) ^ (2 * s - r) * n ^ windowDegree i r s :=
       Nat.mul_le_mul (Nat.pow_le_pow_left hu _) hv
