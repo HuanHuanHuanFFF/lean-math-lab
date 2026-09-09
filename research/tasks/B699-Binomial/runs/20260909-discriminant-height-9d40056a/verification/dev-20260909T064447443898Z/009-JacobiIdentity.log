@@ -1,0 +1,88 @@
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:17:11: error: unsolved goals
+case succ
+g : ℤ[X]
+r : ℕ
+⊢ g.coeff (1 + r) + g.coeff (1 + r) * ↑r = g.coeff (1 + r) * ↑(1 + r)
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:17:25: warning: This simp argument is unused:
+  Nat.succ_eq_add_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [coeff_X_mul, coeff_derivative]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:30:24: warning: This simp argument is unused:
+  Nat.cast_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [coeff_add, coeff_sub, coeff_X_mul, coeff_C_mul, coeff_derivative, coeff_X_derivative, Nat.cast_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:30:38: warning: This simp argument is unused:
+  Nat.cast_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [coeff_add, coeff_sub, coeff_X_mul, coeff_C_mul, coeff_derivative, coeff_X_derivative, Nat.cast_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:84:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Nat.succ ?n
+in the target expression
+  (C ↑i * coefficientPolynomial n i j).coeff (r + 1) =
+    (X * (1 - X) * derivative (coefficientPolynomial (n - 1) (i - 1) (j - 1)) +
+          coefficientPolynomial (n - 1) (i - 1) (j - 1) * (C ↑(n - j - i + 1) + C ↑(i + j - 1) * X)).coeff
+      (r + 1)
+
+case succ
+n i j : ℕ
+hi : 1 ≤ i
+hij : i ≤ j
+hik : i ≤ n - j
+hjn : j ≤ n
+hnk : n - 1 - (j - 1) = n - j
+r : ℕ
+⊢ (C ↑i * coefficientPolynomial n i j).coeff (r + 1) =
+    (X * (1 - X) * derivative (coefficientPolynomial (n - 1) (i - 1) (j - 1)) +
+          coefficientPolynomial (n - 1) (i - 1) (j - 1) * (C ↑(n - j - i + 1) + C ↑(i + j - 1) * X)).coeff
+      (r + 1)
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:131:31: error: unsolved goals
+n i j : ℕ
+hi : 2 ≤ i
+hij : i ≤ j
+hik : i ≤ n - j
+hjn : j ≤ n
+L : ℤ[X] := C ↑(n - j - i + 1) + C ↑(i + j - 1) * X
+r : ℕ
+hr : 1 < r
+⊢ coeff 1 r + ↑(i + j - 1) * X.coeff r = 0
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:134:13: warning: This simp argument is unused:
+  coeff_C
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [L, coeff_C_mul_X, show r ≠ 0 by omega, show r ≠ 1 by omega]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:134:22: warning: This simp argument is unused:
+  coeff_C_mul_X
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [L, coeff_C, show r ≠ 0 by omega, show r ≠ 1 by omega]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/workspace/scratch/b3dee40978b3/lean-math-lab/research/tasks/B699-Binomial/runs/20260909-discriminant-height-9d40056a/lean/JacobiIdentity.lean:134:58: warning: This simp argument is unused:
+  show r ≠ 1 by omega
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [L, coeff_C, coeff_C_mul_X, show r ≠ 0 by omega]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'B699Height.coefficientPolynomial_lowering' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699Height.coefficientPolynomial_discr_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699Height.coefficientPolynomial_discr_step' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699Height.coefficientPolynomial_discr_pos' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699Height.coefficientPolynomial_discr_ne_zero' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

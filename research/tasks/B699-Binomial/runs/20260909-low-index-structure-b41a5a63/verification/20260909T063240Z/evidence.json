@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "nested-worktree-source-index-fix",
+  "timestamp_utc": "2026-09-09T06:32:40Z",
+  "source_baseline": "7fd3928656489afe2c80698f0a09d1d933444186",
+  "failure_reproduced": {
+    "old_failure": "absolute Path.parts filtering removed sources because repo is nested below .tools",
+    "reported_missing_module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+  },
+  "fix": {
+    "entrypoint": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/runner/verify_repo_relative.py",
+    "entrypoint_sha256": "9B56DE54EF5D68634512F1370EF4D569ED2B2A51974AF601D5DB5CF5C9171376",
+    "rule": "make each source path relative to PROJECT_ROOT before filtering .git, .lake, and .tools",
+    "raw_root": ".tools/b699-b41a5a63/<UTC>/"
+  },
+  "read_only_probe": {
+    "script": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/runner/check_import_closure.py",
+    "script_sha256": "B4850E7C9F0377B039407F3D2B02EC3385505D90C0DB84681A598A43DA5CA9D9",
+    "root": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+    "closure_count": 6,
+    "import_count": 15,
+    "resolved_dependency": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+    "exit_code": 0,
+    "lean_invoked": false,
+    "lake_invoked": false,
+    "package_git_checks": false
+  },
+  "cli_probe": {
+    "entrypoint": "verify_repo_relative.py --help",
+    "exit_code": 0,
+    "lean_invoked": false
+  },
+  "public_files": {
+    "command": "verification/20260909T063240Z/import-closure-command.txt",
+    "output": "verification/20260909T063240Z/import-closure-output.txt"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "started_at_utc": "2026-09-09T10:47:02.431925+00:00",
+  "completed_at_utc": "2026-09-09T10:47:17.110984+00:00",
+  "python_version": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/audit_constants_and_local.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds_diagnostic": 1.6654151860000184,
+      "log": "outputs/replay-logs/01.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/exact_height_certificate.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds_diagnostic": 2.4145984299998418,
+      "log": "outputs/replay-logs/02.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/independent_height_check.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds_diagnostic": 4.826570602000174,
+      "log": "outputs/replay-logs/03.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/generate_prime_chain.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds_diagnostic": 1.9991825860001882,
+      "log": "outputs/replay-logs/04.log"
+    },
+    {
+      "command": [
+        "g++",
+        "-O2",
+        "-std=c++17",
+        "-Wall",
+        "-Wextra",
+        "-pedantic",
+        "code/check_prime_chain.cpp",
+        "-o",
+        "build/check_prime_chain"
+      ],
+      "returncode": 0,
+      "elapsed_seconds_diagnostic": 1.332806650000066,
+      "log": "outputs/replay-logs/05.log"
+    },
+    {
+      "command": [
+        "build/check_prime_chain",
+        "outputs/prime_chain_20m.txt"
+      ],
+      "returncode": 0,
+      "elapsed_seconds_diagnostic": 0.3065207829999963,
+      "log": "outputs/replay-logs/06.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/check_rejections.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds_diagnostic": 2.1158630659999744,
+      "log": "outputs/replay-logs/07.log"
+    }
+  ],
+  "source_sha256": {
+    "code/audit_constants_and_local.py": "4c4987b7dc47fca568cb22da0e8f181d31ddc6e42ceee0c4d1d06a49336afae0",
+    "code/check_prime_chain.cpp": "6d91889317f3e9d604b08658cf017a84428fe59b20580edd0c143acc59f52fc3",
+    "code/check_rejections.py": "c1f5f1dfe6958231eaa9f2f54c7df3e7174c4d8771b32dc9c2b6fe0cd4b3ad5f",
+    "code/exact_height_certificate.py": "20150b7b7201825c22f8fd95aba60ed3ea3a8ec0dc3a7d423a394ea4a978b1c4",
+    "code/generate_prime_chain.py": "f156adfd52ee8b34481818f5382fd0effb5b4e811f9711b5ed81ada0b7dfb24f",
+    "code/independent_height_check.py": "d15ef8e72183e64848562a0d3874e2bc122670302a8aaf798033b8c7fa6f45a0",
+    "code/line_cover_probe.py": "c50bcbf7cde6c5d570745d70b635d4876886ced78af574e36ff9a72e3b16125b",
+    "code/middle_fixed_probe.py": "52b6b884bb8cf1c2d6136e0a71b3a8645311dac1f8da4a5e85100ae452c83e73",
+    "code/middle_height_probe.py": "b41ecb5c70aed02bfa9e10f97c32ff8c0775a988d19d4178272ba6c76fcb13b0",
+    "code/reproduce.py": "57c75595a5871dd7cd7eb007325bc5b9b766993da4fc766d659a103ef433737d"
+  },
+  "prime_chain_sha256": "a4954fc348879a5bff3bb91e8448f91437bd5220e80a1f1bc4cfb86ca8190414",
+  "assertions": "Enabled; no probabilistic acceptance and no floating-point acceptance",
+  "scope": "Reproduces computations, not a formal verification of REPORT.md"
+}
