@@ -8,6 +8,8 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260909-slope-four-243425d5](runs/20260909-slope-four-243425d5/README.md) | n=4j 的纸面与有限证书链；**未 Lean 化** | [前沿](runs/20260909-slope-four-243425d5/frontier.md) · [交接](runs/20260909-slope-four-243425d5/HANDOFF.md) |
+| [20260909-prime-input-d2f7a636](runs/20260909-prime-input-d2f7a636/README.md) | 素数输入的条件简化；**未 Lean 化** | [前沿](runs/20260909-prime-input-d2f7a636/frontier.md) · [交接](runs/20260909-prime-input-d2f7a636/HANDOFF.md) |
 | [20260909-eees-chain-5a2e10](runs/20260909-eees-chain-5a2e10/README.md) | EEES 消费者与初等无条件区域 | [前沿](runs/20260909-eees-chain-5a2e10/frontier.md) · [报告](runs/20260909-eees-chain-5a2e10/report.md) · [验收](runs/20260909-eees-chain-5a2e10/verification/ACCEPTANCE.md) |
 | [20260908-external-reductions-b3c1b7](runs/20260908-external-reductions-b3c1b7/README.md) | 外部实际素数幂转移及原题消费者 | [前沿](runs/20260908-external-reductions-b3c1b7/frontier.md) |
 | [20260909-large-prime-structure-cb4764f0](runs/20260909-large-prime-structure-cb4764f0/README.md) | 完整素数幂转移、近中心区域与判别式路线 | [前沿](runs/20260909-large-prime-structure-cb4764f0/frontier.md) · [报告](runs/20260909-large-prime-structure-cb4764f0/report.md) · [验收](runs/20260909-large-prime-structure-cb4764f0/acceptance.md) |

@@ -8,6 +8,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260909-far-interval-a48ab240](runs/20260909-far-interval-a48ab240/README.md) | 素数幂匹配与跨度排除；**未 Lean 化** | [前沿](runs/20260909-far-interval-a48ab240/frontier.md) · [交接](runs/20260909-far-interval-a48ab240/HANDOFF.md) |
 | [20260908-external-reductions-b3c1b7](runs/20260908-external-reductions-b3c1b7/README.md) | 外部约数候选归约及原题消费者 | [前沿](runs/20260908-external-reductions-b3c1b7/frontier.md) |
 | [20260908-formalization-92c221](runs/20260908-formalization-92c221/README.md) | 初等有限化与内核有限证书 | [前沿](runs/20260908-formalization-92c221/frontier.md) |
 | [20260908-interval-lcm-f0a6539](runs/20260908-interval-lcm-f0a6539/README.md) | 区间 LCM 的距离与起点限制 | [前沿](runs/20260908-interval-lcm-f0a6539/frontier.md) |
