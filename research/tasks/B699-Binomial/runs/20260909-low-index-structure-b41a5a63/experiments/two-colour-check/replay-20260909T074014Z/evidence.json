@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "kind": "real-subprocess-finite-cover-replay",
+  "run_name": "replay-20260909T074014Z",
+  "started_utc": "2026-09-09T07:40:14.351008Z",
+  "finished_utc": "2026-09-09T07:40:22.070236Z",
+  "project_run": ".",
+  "python": {
+    "executable": "D:\\CLinks\\Python314\\python.exe",
+    "version": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]"
+  },
+  "inputs_before": [
+    {
+      "path": "notes/heights/two-colour-cover.json",
+      "sha256": "69d16096c414177438342f1dca93eeb256ad20850ac5b9f36387e9c1bb0607a0",
+      "size": 16582995
+    },
+    {
+      "path": "notes/heights/topprime-residual.json",
+      "sha256": "c3085b0fb4b8fca2664efbbbb7ac1e51124fe778a8de370a20a876f754930dad",
+      "size": 4736644
+    },
+    {
+      "path": "notes/heights/actual-v-filter.json",
+      "sha256": "8893999ed4b7c04e2237dee51aa43b43848dc012e6346cfd3a36efee6135fe90",
+      "size": 141534
+    }
+  ],
+  "inputs_after": [
+    {
+      "path": "notes/heights/two-colour-cover.json",
+      "sha256": "69d16096c414177438342f1dca93eeb256ad20850ac5b9f36387e9c1bb0607a0",
+      "size": 16582995
+    },
+    {
+      "path": "notes/heights/topprime-residual.json",
+      "sha256": "c3085b0fb4b8fca2664efbbbb7ac1e51124fe778a8de370a20a876f754930dad",
+      "size": 4736644
+    },
+    {
+      "path": "notes/heights/actual-v-filter.json",
+      "sha256": "8893999ed4b7c04e2237dee51aa43b43848dc012e6346cfd3a36efee6135fe90",
+      "size": 141534
+    }
+  ],
+  "checker_scripts_before": [
+    {
+      "path": "experiments/two-colour-check/check.py",
+      "sha256": "0863a2cf32576f6d69f340c5f585a539c2e180bc2e57822ae04860a736d374b9",
+      "size": 20080
+    },
+    {
+      "path": "experiments/two-colour-check/check_all.py",
+      "sha256": "359fa5f1e31eb6ddd1fe9532f61b86fcb6f2e21e23c1fd7169e111617a374d28",
+      "size": 17288
+    },
+    {
+      "path": "experiments/two-colour-check/parameter_audit.py",
+      "sha256": "6d43755563702fcf297be54717d6da78a1d5e142a94a798f5578d3ab13dead35",
+      "size": 3727
+    },
+    {
+      "path": "experiments/two-colour-check/replay.py",
+      "sha256": "178b85edcd3d72c4329bcb5a007ba9ac92ebea4c742c078f35cade0ae459c2e3",
+      "size": 7590
+    },
+    {
+      "path": "reviews/independent-math/audit_snapshot.ps1",
+      "sha256": "f1a6f0fff0361d2294227ca5471bc69e234e3a77ad4f967bd838ff275220ff26",
+      "size": 3977
+    }
+  ],
+  "checker_scripts_after": [
+    {
+      "path": "experiments/two-colour-check/check.py",
+      "sha256": "0863a2cf32576f6d69f340c5f585a539c2e180bc2e57822ae04860a736d374b9",
+      "size": 20080
+    },
+    {
+      "path": "experiments/two-colour-check/check_all.py",
+      "sha256": "359fa5f1e31eb6ddd1fe9532f61b86fcb6f2e21e23c1fd7169e111617a374d28",
+      "size": 17288
+    },
+    {
+      "path": "experiments/two-colour-check/parameter_audit.py",
+      "sha256": "6d43755563702fcf297be54717d6da78a1d5e142a94a798f5578d3ab13dead35",
+      "size": 3727
+    },
+    {
+      "path": "experiments/two-colour-check/replay.py",
+      "sha256": "178b85edcd3d72c4329bcb5a007ba9ac92ebea4c742c078f35cade0ae459c2e3",
+      "size": 7590
+    },
+    {
+      "path": "reviews/independent-math/audit_snapshot.ps1",
+      "sha256": "f1a6f0fff0361d2294227ca5471bc69e234e3a77ad4f967bd838ff275220ff26",
+      "size": 3977
+    }
+  ],
+  "all_tracked_files_unchanged": true,
+  "commands": [
+    {
+      "label": "check_all",
+      "argv": [
+        "D:\\CLinks\\Python314\\python.exe",
+        "-B",
+        "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-low-index-20260909-b41a5a63\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\experiments\\two-colour-check\\check_all.py",
+        "--cover",
+        "notes/heights/two-colour-cover.json",
+        "--topprime",
+        "notes/heights/topprime-residual.json",
+        "--actual-v",
+        "notes/heights/actual-v-filter.json",
+        "--tamper-test"
+      ],
+      "cwd_relative_to_run": ".",
+      "started_utc": "2026-09-09T07:40:14.385706Z",
+      "finished_utc": "2026-09-09T07:40:21.845888Z",
+      "seconds": 7.46,
+      "timeout_seconds": 300,
+      "timed_out": false,
+      "exit_code": 0,
+      "stdout": "PASS tamper rejection: coverage_field=records[0]: different-prime intersection union mismatch; deleted_nonempty_family=records[0].layer[0]: complete family mismatch; expected 21, got 20; invalid_parameter s=i: records[0]: s must satisfy 1 <= s < i; invalid_parameter s=0: records[0]: s must satisfy 1 <= s < i\nPASS independent three-stage finite cover check: cover_indices=151 cover_layers=3919 cover_candidates=161313 cover_remaining=912578 topprime_input=2943530 topprime_excluded=2943463 topprime_remaining=67 actual_v_pairs=67\n",
+      "stderr": "",
+      "stdout_log": "check_all.stdout.txt",
+      "stdout_log_sha256": "1c6138197549be69fd66ddbbaf1156ed3f574a2e9be07ff4c44ab92fa87e7df6",
+      "stderr_log": "check_all.stderr.txt",
+      "stderr_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "parameter_audit",
+      "argv": [
+        "D:\\CLinks\\Python314\\python.exe",
+        "-B",
+        "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-low-index-20260909-b41a5a63\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\experiments\\two-colour-check\\parameter_audit.py",
+        "--input",
+        "notes/heights/two-colour-cover.json"
+      ],
+      "cwd_relative_to_run": ".",
+      "started_utc": "2026-09-09T07:40:21.850446Z",
+      "finished_utc": "2026-09-09T07:40:22.034513Z",
+      "seconds": 0.184,
+      "timeout_seconds": 300,
+      "timed_out": false,
+      "exit_code": 0,
+      "stdout": "{\"all_checks_pass\": true, \"exact_index_set\": true, \"invalid_indices\": [], \"invalid_parameter_count\": 0, \"max_i\": 184, \"max_s\": 130, \"min_i\": 29, \"min_s\": 19, \"records\": 151}\n",
+      "stderr": "",
+      "stdout_log": "parameter_audit.stdout.txt",
+      "stdout_log_sha256": "2ba769a81c620266d1134d6387712f66d446cc0f09637693b5a9b258c989464c",
+      "stderr_log": "parameter_audit.stderr.txt",
+      "stderr_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "success": true,
+  "exit_code": 0,
+  "boundaries": {
+    "lean_run": false,
+    "j_enumeration": false,
+    "old_run_modified": false,
+    "reviewer_reference": "reviews/independent-math/audit_snapshot.ps1"
+  }
+}

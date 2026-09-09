@@ -1,0 +1,11 @@
+# 08:18 UTC 持续检查点
+
+原截止10:59:09 UTC不变，未延期。最新远端检查点前的数学结论仍是i=29或35≤i≤184全合法n,j；独立checker已由主线程真实subprocess重放，experiments/two-colour-check/replay-20260909T074014Z，输入/脚本前后哈希和stdout均绑定，F2证据记录缺口关闭。
+
+新增完整Lean接受：SmallPowerIntervals闭包，verification/20260909T074627Z，10模块、34项实际公理输出全标准；6项guarded打印仅作元数据，不冒充stdout。它连接了实际小素数指数与完整余因子区间。
+
+ThreeWindowSize、HeightCertificate、CofactorCover、IntervalCover、LargeDivisorWitness、PrimePowerEnumeration均已各自开发编译通过，关键声明公理仅标准集合。它们仍需在最终消费者的新闭包中统一验收。
+
+单个i121大高度CERT已通过kernel decide；只调整本文件求值阈值，未使用native_decide。151条高度表和8个有限覆盖数据chunk已生成，正在接入FiniteCover的完整量词soundness。第一次整体验证在HeightCertificateData缺少ℕ记号导入处失败，verification/20260909T081521Z；属于生成数据模块接口故障，不是数学反例，未接受该失败。
+
+本轮所有计算保持串行。08:17资源复核：空闲物理内存约2.30GiB，D盘余量约7.63GiB；无其他任务被终止或清理。下一步修复数据模块导入并继续内核检查，不扩大原题扫描。

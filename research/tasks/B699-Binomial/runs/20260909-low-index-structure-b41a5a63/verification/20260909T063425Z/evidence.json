@@ -1,0 +1,1891 @@
+{
+  "schema_version": 1,
+  "success": false,
+  "exit_code": 1,
+  "started_utc": "2026-09-09T06:34:25.019233Z",
+  "finished_utc": "2026-09-09T06:36:10.095810Z",
+  "project_root": "PROJECT_ROOT",
+  "evidence_directory": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z",
+  "diagnostic_directory": ".tools/b699-b41a5a63/verification/20260909T063425Z",
+  "argv_public": {
+    "lean": "LEAN",
+    "package_root": "PACKAGE_ROOT",
+    "project_root": "PROJECT_ROOT",
+    "roots": [
+      "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean"
+    ],
+    "memory_mb": 1536,
+    "timeout_seconds": 120
+  },
+  "memory_mb": 1536,
+  "timeout_seconds": 120,
+  "toolchain": {
+    "declared": "leanprover/lean4:v4.33.1",
+    "observed": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "command": [
+      "LEAN",
+      "--version"
+    ],
+    "exit_code": 0,
+    "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/lean-version.log",
+    "log_sha256": "5d4101fcaf51eb2f3b4580d394a9a26ce3befd97825b98b85750bc96611ac74b"
+  },
+  "manifest_sha256": "fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0",
+  "pins": [
+    {
+      "name": "mathlib",
+      "path": "PACKAGE_ROOT/mathlib",
+      "manifest_rev": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "input_rev": "v4.33.1",
+      "url": "https://github.com/leanprover-community/mathlib4",
+      "cache_path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "plausible",
+      "path": "PACKAGE_ROOT/plausible",
+      "manifest_rev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/plausible",
+      "cache_path": "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": "PACKAGE_ROOT/LeanSearchClient",
+      "manifest_rev": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/LeanSearchClient",
+      "cache_path": "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "importGraph",
+      "path": "PACKAGE_ROOT/importGraph",
+      "manifest_rev": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/import-graph",
+      "cache_path": "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "proofwidgets",
+      "path": "PACKAGE_ROOT/proofwidgets",
+      "manifest_rev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/ProofWidgets4",
+      "cache_path": "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "aesop",
+      "path": "PACKAGE_ROOT/aesop",
+      "manifest_rev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/aesop",
+      "cache_path": "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Qq",
+      "path": "PACKAGE_ROOT/Qq",
+      "manifest_rev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/quote4",
+      "cache_path": "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "batteries",
+      "path": "PACKAGE_ROOT/batteries",
+      "manifest_rev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/batteries",
+      "cache_path": "PACKAGE_ROOT/batteries/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Cli",
+      "path": "PACKAGE_ROOT/Cli",
+      "manifest_rev": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "input_rev": "v4.33.0",
+      "url": "https://github.com/leanprover/lean4-cli",
+      "cache_path": "PACKAGE_ROOT/Cli/.lake/build/lib/lean",
+      "cache_exists": false,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    }
+  ],
+  "source_closure": [
+    {
+      "source": "Math/B699/CofactorCriterion.lean",
+      "module": "Math.B699.CofactorCriterion",
+      "imports": [
+        "Mathlib.Data.Nat.Choose.Factorization",
+        "Mathlib.Data.Nat.GCD.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+      "source_sha256_after": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "imports": [
+        "Math.B699.CofactorCriterion"
+      ],
+      "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+      "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "imports": [
+        "Mathlib.Data.Nat.Choose.Basic",
+        "Mathlib.Data.Nat.Factorization.Basic",
+        "Mathlib.Data.Nat.GCD.BigOperators"
+      ],
+      "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+      "source_sha256_after": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+        "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Data.Nat.Prime.Factorial"
+      ],
+      "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+      "source_sha256_after": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+      ],
+      "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+      "source_sha256_after": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowWeights",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+      ],
+      "source_sha256_before": "02b6684d97946d6e16658d4cf544f5f475d2d4c8f8bc1ae67de6378dda2e2973",
+      "source_sha256_after": "02b6684d97946d6e16658d4cf544f5f475d2d4c8f8bc1ae67de6378dda2e2973"
+    }
+  ],
+  "package_imports": [
+    "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+    "Mathlib.Data.Nat.Choose.Basic",
+    "Mathlib.Data.Nat.Choose.Factorization",
+    "Mathlib.Data.Nat.Factorial.BigOperators",
+    "Mathlib.Data.Nat.Factorization.Basic",
+    "Mathlib.Data.Nat.GCD.Basic",
+    "Mathlib.Data.Nat.GCD.BigOperators",
+    "Mathlib.Data.Nat.Prime.Factorial",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.Ring"
+  ],
+  "fixed_cache_imports": [
+    {
+      "module": "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Algebra/Order/BigOperators/Group/Finset.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.Choose.Basic",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/Choose/Basic.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.Choose.Factorization",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/Choose/Factorization.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.Factorial.BigOperators",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/Factorial/BigOperators.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.Factorization.Basic",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/Factorization/Basic.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.GCD.Basic",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/GCD/Basic.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.GCD.BigOperators",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/GCD/BigOperators.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.Prime.Factorial",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/Prime/Factorial.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Tactic.Linarith",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Tactic/Linarith.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Tactic.Ring",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Tactic/Ring.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    }
+  ],
+  "policy": {
+    "files": 6,
+    "violations": [],
+    "exit_code": 0,
+    "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/source-policy.log",
+    "log_sha256": "5a05966e08cfb1f7ba82dc2a29c562c377a62fc984e37687d418c7e1abeda871",
+    "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/source-policy.log",
+    "diagnostic_log_sha256": "5a05966e08cfb1f7ba82dc2a29c562c377a62fc984e37687d418c7e1abeda871"
+  },
+  "compile_records": [
+    {
+      "source": "Math/B699/CofactorCriterion.lean",
+      "module": "Math.B699.CofactorCriterion",
+      "imports": [
+        "Mathlib.Data.Nat.Choose.Factorization",
+        "Mathlib.Data.Nat.GCD.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+      "source_sha256_after": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+      "output": ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/Math/B699/CofactorCriterion.olean",
+      "output_exists": true,
+      "output_sha256": "fabd97ac3a10c3da4b22c5279e6368e1489e22850e046a9d5626d5b35887125d",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/Math/B699/CofactorCriterion.olean",
+        "Math/B699/CofactorCriterion.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/Math/B699/CofactorCriterion.olean Math/B699/CofactorCriterion.lean",
+      "started_utc": "2026-09-09T06:34:28.860037Z",
+      "finished_utc": "2026-09-09T06:35:11.772668Z",
+      "seconds": 42.913,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0001-Math_B699_CofactorCriterion.lean.log",
+      "log_sha256": "fdd5f6bbc52e736a6ea3ab15ade7313676575fcd5cef426f540f4334ddeaeb77",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0001-Math_B699_CofactorCriterion.lean.log",
+      "diagnostic_log_sha256": "29d37d1397f46a3f63cec50d82d07385e5735f4e7e55710915d78688ae0ef6f1",
+      "axiom_audit": {
+        "declared_print_axioms": 0,
+        "declared_names": [],
+        "actual_printed": 0,
+        "guard_msgs_in_source": 0,
+        "printed": [],
+        "unexpected_axioms": [],
+        "guarded_output_inferred": false
+      },
+      "failure": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "imports": [
+        "Math.B699.CofactorCriterion"
+      ],
+      "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+      "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+      "output": ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.olean",
+      "output_exists": true,
+      "output_sha256": "b577c6c4bb96627e654decd78e138334a2b0366f121f0fed6c4e0c3ac66842a0",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.olean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.olean research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+      "started_utc": "2026-09-09T06:35:11.798043Z",
+      "finished_utc": "2026-09-09T06:35:23.388708Z",
+      "seconds": 11.591,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0002-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_GapBridge.lean.log",
+      "log_sha256": "9db090659b21c55ae6d79a3631d39ec0154241647ac2f36826a89f5ddc4135c7",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0002-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_GapBridge.lean.log",
+      "diagnostic_log_sha256": "667075f59a8c244220a1103ab01026917572c5fd92d0d6713ae69f637967bfe1",
+      "axiom_audit": {
+        "declared_print_axioms": 6,
+        "declared_names": [
+          "B699LargePrimeStructure.common_of_mod_certificate",
+          "B699LargePrimeStructure.gap_remainder_eq",
+          "B699LargePrimeStructure.common_of_gap_power",
+          "B699LargePrimeStructure.common_of_gap_prime",
+          "B699LargePrimeStructure.common_of_top_prime",
+          "B699LargePrimeStructure.common_small_index"
+        ],
+        "actual_printed": 6,
+        "guard_msgs_in_source": 0,
+        "printed": [
+          {
+            "declared_name": "B699LargePrimeStructure.common_of_mod_certificate",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.gap_remainder_eq",
+            "axioms": [
+              "propext",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.common_of_gap_power",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.common_of_gap_prime",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.common_of_top_prime",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.common_small_index",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "unexpected_axioms": [],
+        "guarded_output_inferred": false
+      },
+      "failure": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "imports": [
+        "Mathlib.Data.Nat.Choose.Basic",
+        "Mathlib.Data.Nat.Factorization.Basic",
+        "Mathlib.Data.Nat.GCD.BigOperators"
+      ],
+      "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+      "source_sha256_after": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+      "output": ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.olean",
+      "output_exists": true,
+      "output_sha256": "59407e31a9b87dba994ce2cf9e9d01bad86bc34da6f5356caee0a6a3ca844388",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.olean",
+        "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.olean research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+      "started_utc": "2026-09-09T06:35:23.436279Z",
+      "finished_utc": "2026-09-09T06:35:33.615475Z",
+      "seconds": 10.179,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0003-research_tasks_B699-Binomial_runs_20260908-external-reductions-b3c1b7_lean_DivisorTransfer.lean.log",
+      "log_sha256": "ec5041ce26d434d9b9d5b1d77ce1e58dc7f25a148d9dc0b7d754d042616f0ae2",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0003-research_tasks_B699-Binomial_runs_20260908-external-reductions-b3c1b7_lean_DivisorTransfer.lean.log",
+      "diagnostic_log_sha256": "924ec3f6dac818a400602b7065f4299b9d745ca05b2d565e028f7f6f88e74a93",
+      "axiom_audit": {
+        "declared_print_axioms": 4,
+        "declared_names": [
+          "divisor_transfer",
+          "prime_part_dvd",
+          "prime_part_coprime_of_no_common",
+          "actual_prime_part_transfer"
+        ],
+        "actual_printed": 4,
+        "guard_msgs_in_source": 0,
+        "printed": [
+          {
+            "declared_name": "divisor_transfer",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "prime_part_dvd",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "prime_part_coprime_of_no_common",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "actual_prime_part_transfer",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "unexpected_axioms": [],
+        "guarded_output_inferred": false
+      },
+      "failure": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+        "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Data.Nat.Prime.Factorial"
+      ],
+      "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+      "source_sha256_after": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+      "output": ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.olean",
+      "output_exists": true,
+      "output_sha256": "aba9b2f6b8a261bd4c1c041f1f74d8177c004c132bc2202a5dc8d27557a4eeb8",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.olean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.olean research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+      "started_utc": "2026-09-09T06:35:33.627830Z",
+      "finished_utc": "2026-09-09T06:35:46.198951Z",
+      "seconds": 12.571,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0004-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_PrimePowerTransfer.lean.log",
+      "log_sha256": "5c452bf2c464b0725c4c54eac243b9aed0eab38f00c08f0b74cd8b76bb5ea8c7",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0004-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_PrimePowerTransfer.lean.log",
+      "diagnostic_log_sha256": "e10c4a6175b8aae0f4204fe46dd8aff6f10ccaef666831dbffc204b3861e9001",
+      "axiom_audit": {
+        "declared_print_axioms": 6,
+        "declared_names": [
+          "B699LargePrimeStructure.prime_power_numerator_mod_lt",
+          "B699LargePrimeStructure.prime_power_gap_dvd",
+          "B699LargePrimeStructure.actual_avoiding_part_gap_transfer",
+          "B699LargePrimeStructure.avoidingPart_eq_primePart_of_noCommon",
+          "B699LargePrimeStructure.actual_prime_part_gap_transfer",
+          "B699LargePrimeStructure.common_of_gap_product_not_dvd"
+        ],
+        "actual_printed": 6,
+        "guard_msgs_in_source": 0,
+        "printed": [
+          {
+            "declared_name": "B699LargePrimeStructure.prime_power_numerator_mod_lt",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.prime_power_gap_dvd",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.actual_avoiding_part_gap_transfer",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.avoidingPart_eq_primePart_of_noCommon",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.actual_prime_part_gap_transfer",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.common_of_gap_product_not_dvd",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "unexpected_axioms": [],
+        "guarded_output_inferred": false
+      },
+      "failure": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+      ],
+      "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+      "source_sha256_after": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+      "output": ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.olean",
+      "output_exists": true,
+      "output_sha256": "d0fb014b44d1ff863fe2a2c49b311a6bc3e06a4e079349acc2edf051a9b340ad",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.olean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.olean research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+      "started_utc": "2026-09-09T06:35:46.225313Z",
+      "finished_utc": "2026-09-09T06:35:55.982675Z",
+      "seconds": 9.757,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0005-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_SmallPartBound.lean.log",
+      "log_sha256": "822add7094829ce51b5c1ec351ec42a2be2986a70618ceb3c101e1998f4861e0",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0005-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_SmallPartBound.lean.log",
+      "diagnostic_log_sha256": "1d79ae4e19dc0263af7057601742934d81237fb4bf1c33099ef42fe954c53d45",
+      "axiom_audit": {
+        "declared_print_axioms": 4,
+        "declared_names": [
+          "B699LargePrimeStructure.smallPrimePart_mul_primePart",
+          "B699LargePrimeStructure.smallPrimePart_le_pow_smallPrimeCount",
+          "B699LargePrimeStructure.noCommon_choose_le_smallPrime_gap_bound",
+          "B699LargePrimeStructure.common_of_elementary_gap_comparison"
+        ],
+        "actual_printed": 4,
+        "guard_msgs_in_source": 0,
+        "printed": [
+          {
+            "declared_name": "B699LargePrimeStructure.smallPrimePart_mul_primePart",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.smallPrimePart_le_pow_smallPrimeCount",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.noCommon_choose_le_smallPrime_gap_bound",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LargePrimeStructure.common_of_elementary_gap_comparison",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "unexpected_axioms": [],
+        "guarded_output_inferred": false
+      },
+      "failure": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowWeights",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+      ],
+      "source_sha256_before": "02b6684d97946d6e16658d4cf544f5f475d2d4c8f8bc1ae67de6378dda2e2973",
+      "source_sha256_after": "02b6684d97946d6e16658d4cf544f5f475d2d4c8f8bc1ae67de6378dda2e2973",
+      "output": ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.olean",
+      "output_exists": false,
+      "output_sha256": null,
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.olean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.olean research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+      "started_utc": "2026-09-09T06:35:56.015010Z",
+      "finished_utc": "2026-09-09T06:36:10.065543Z",
+      "seconds": 14.051,
+      "timeout_seconds": 120,
+      "exit_code": 1,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0006-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_ThreeWindowWeights.lean.log",
+      "log_sha256": "e6f6a84355c9142075671f27f50e10c8e364abc9c48d2470eb6c94c36ed15194",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0006-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_ThreeWindowWeights.lean.log",
+      "diagnostic_log_sha256": "39b1d26147ace5db23631c51e665a8fb6f1c48e4ea2f8d9471161475e577acd1",
+      "axiom_audit": {
+        "declared_print_axioms": 5,
+        "declared_names": [
+          "B699LowIndex.prime_power_three_positions",
+          "B699LowIndex.prime_power_three_window_dvd",
+          "B699LowIndex.actual_avoiding_part_three_window_transfer",
+          "B699LowIndex.actual_prime_part_three_window_transfer",
+          "B699LowIndex.common_of_three_window_not_dvd"
+        ],
+        "actual_printed": 5,
+        "guard_msgs_in_source": 0,
+        "printed": [
+          {
+            "declared_name": "B699LowIndex.prime_power_three_positions",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LowIndex.prime_power_three_window_dvd",
+            "axioms": [
+              "propext",
+              "sorryAx",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LowIndex.actual_avoiding_part_three_window_transfer",
+            "axioms": [
+              "propext",
+              "sorryAx",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LowIndex.actual_prime_part_three_window_transfer",
+            "axioms": [
+              "propext",
+              "sorryAx",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "B699LowIndex.common_of_three_window_not_dvd",
+            "axioms": [
+              "propext",
+              "sorryAx",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "unexpected_axioms": [
+          "sorryAx"
+        ],
+        "guarded_output_inferred": false,
+        "error": "unexpected axioms: sorryAx"
+      },
+      "failure": "Lean exit 1; unexpected axioms: sorryAx"
+    }
+  ],
+  "axiom_audit": [
+    {
+      "source": "Math/B699/CofactorCriterion.lean",
+      "module": "Math.B699.CofactorCriterion",
+      "declared_print_axioms": 0,
+      "declared_names": [],
+      "actual_printed": 0,
+      "guard_msgs_in_source": 0,
+      "printed": [],
+      "unexpected_axioms": [],
+      "guarded_output_inferred": false
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "declared_print_axioms": 6,
+      "declared_names": [
+        "B699LargePrimeStructure.common_of_mod_certificate",
+        "B699LargePrimeStructure.gap_remainder_eq",
+        "B699LargePrimeStructure.common_of_gap_power",
+        "B699LargePrimeStructure.common_of_gap_prime",
+        "B699LargePrimeStructure.common_of_top_prime",
+        "B699LargePrimeStructure.common_small_index"
+      ],
+      "actual_printed": 6,
+      "guard_msgs_in_source": 0,
+      "printed": [
+        {
+          "declared_name": "B699LargePrimeStructure.common_of_mod_certificate",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.gap_remainder_eq",
+          "axioms": [
+            "propext",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.common_of_gap_power",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.common_of_gap_prime",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.common_of_top_prime",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.common_small_index",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "unexpected_axioms": [],
+      "guarded_output_inferred": false
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "declared_print_axioms": 4,
+      "declared_names": [
+        "divisor_transfer",
+        "prime_part_dvd",
+        "prime_part_coprime_of_no_common",
+        "actual_prime_part_transfer"
+      ],
+      "actual_printed": 4,
+      "guard_msgs_in_source": 0,
+      "printed": [
+        {
+          "declared_name": "divisor_transfer",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "prime_part_dvd",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "prime_part_coprime_of_no_common",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "actual_prime_part_transfer",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "unexpected_axioms": [],
+      "guarded_output_inferred": false
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "declared_print_axioms": 6,
+      "declared_names": [
+        "B699LargePrimeStructure.prime_power_numerator_mod_lt",
+        "B699LargePrimeStructure.prime_power_gap_dvd",
+        "B699LargePrimeStructure.actual_avoiding_part_gap_transfer",
+        "B699LargePrimeStructure.avoidingPart_eq_primePart_of_noCommon",
+        "B699LargePrimeStructure.actual_prime_part_gap_transfer",
+        "B699LargePrimeStructure.common_of_gap_product_not_dvd"
+      ],
+      "actual_printed": 6,
+      "guard_msgs_in_source": 0,
+      "printed": [
+        {
+          "declared_name": "B699LargePrimeStructure.prime_power_numerator_mod_lt",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.prime_power_gap_dvd",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.actual_avoiding_part_gap_transfer",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.avoidingPart_eq_primePart_of_noCommon",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.actual_prime_part_gap_transfer",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.common_of_gap_product_not_dvd",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "unexpected_axioms": [],
+      "guarded_output_inferred": false
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+      "declared_print_axioms": 4,
+      "declared_names": [
+        "B699LargePrimeStructure.smallPrimePart_mul_primePart",
+        "B699LargePrimeStructure.smallPrimePart_le_pow_smallPrimeCount",
+        "B699LargePrimeStructure.noCommon_choose_le_smallPrime_gap_bound",
+        "B699LargePrimeStructure.common_of_elementary_gap_comparison"
+      ],
+      "actual_printed": 4,
+      "guard_msgs_in_source": 0,
+      "printed": [
+        {
+          "declared_name": "B699LargePrimeStructure.smallPrimePart_mul_primePart",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.smallPrimePart_le_pow_smallPrimeCount",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.noCommon_choose_le_smallPrime_gap_bound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LargePrimeStructure.common_of_elementary_gap_comparison",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "unexpected_axioms": [],
+      "guarded_output_inferred": false
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowWeights",
+      "declared_print_axioms": 5,
+      "declared_names": [
+        "B699LowIndex.prime_power_three_positions",
+        "B699LowIndex.prime_power_three_window_dvd",
+        "B699LowIndex.actual_avoiding_part_three_window_transfer",
+        "B699LowIndex.actual_prime_part_three_window_transfer",
+        "B699LowIndex.common_of_three_window_not_dvd"
+      ],
+      "actual_printed": 5,
+      "guard_msgs_in_source": 0,
+      "printed": [
+        {
+          "declared_name": "B699LowIndex.prime_power_three_positions",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LowIndex.prime_power_three_window_dvd",
+          "axioms": [
+            "propext",
+            "sorryAx",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LowIndex.actual_avoiding_part_three_window_transfer",
+          "axioms": [
+            "propext",
+            "sorryAx",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LowIndex.actual_prime_part_three_window_transfer",
+          "axioms": [
+            "propext",
+            "sorryAx",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "B699LowIndex.common_of_three_window_not_dvd",
+          "axioms": [
+            "propext",
+            "sorryAx",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "unexpected_axioms": [
+        "sorryAx"
+      ],
+      "guarded_output_inferred": false,
+      "error": "unexpected axioms: sorryAx"
+    }
+  ],
+  "commands": [
+    {
+      "label": "package-mathlib-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.047079Z",
+      "finished_utc": "2026-09-09T06:34:25.091087Z",
+      "seconds": 0.044,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-mathlib-head.log",
+      "log_sha256": "bf916e78fc059448fbb3777da28070d1aff4c66f87bf6e819669b9c61099126a",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-mathlib-head.log",
+      "diagnostic_log_sha256": "8df3989f243488d451d345b0ab2a3ec5934960efec3199b8ea4c76e773e13055",
+      "output_preview": "0df444a360eaa60ab8c11dca51a86af692955474\n"
+    },
+    {
+      "label": "package-mathlib-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.097568Z",
+      "finished_utc": "2026-09-09T06:34:25.176049Z",
+      "seconds": 0.078,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-mathlib-status.log",
+      "log_sha256": "5a5e03e13964b8c3a4c1ae36ca711f48745a29930a8ad525f1859c5de9edd6bd",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-mathlib-status.log",
+      "diagnostic_log_sha256": "e1449dbdd6e087655df663b103c580407ecac2176f66754c9abd5a66b732ceb0",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-plausible-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.181824Z",
+      "finished_utc": "2026-09-09T06:34:25.234347Z",
+      "seconds": 0.053,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-plausible-head.log",
+      "log_sha256": "91e83a3b57bc8f6afac7c36f49bcdf94a515129aa614b5bed2d6363647342307",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-plausible-head.log",
+      "diagnostic_log_sha256": "581b4035f19642316e845b3f02de45bb73ec19e3dc501eaab33440927f752be0",
+      "output_preview": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n"
+    },
+    {
+      "label": "package-plausible-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.239671Z",
+      "finished_utc": "2026-09-09T06:34:25.303908Z",
+      "seconds": 0.064,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-plausible-status.log",
+      "log_sha256": "a0de5f7b2e0aab0efea6d59245bdcab6967e84618e6e7017df5586d7637433d5",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-plausible-status.log",
+      "diagnostic_log_sha256": "c4c293d85454e8bb99c497aaf26baf2fc58e2bc2720a316c28969bdec6e42aaf",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-LeanSearchClient-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.309587Z",
+      "finished_utc": "2026-09-09T06:34:25.364401Z",
+      "seconds": 0.055,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-LeanSearchClient-head.log",
+      "log_sha256": "93a963299bd140a1d4ad51de5b77b9abf1ec11999cdb7052495b4506406fcac1",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-LeanSearchClient-head.log",
+      "diagnostic_log_sha256": "29dbb3d7a19951c1a76cb2ff455c1855f8ce36ed72485a5b65db5d472d46bc98",
+      "output_preview": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n"
+    },
+    {
+      "label": "package-LeanSearchClient-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.370164Z",
+      "finished_utc": "2026-09-09T06:34:25.432872Z",
+      "seconds": 0.063,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-LeanSearchClient-status.log",
+      "log_sha256": "127664d4f9f4008128dc21bef7c0910e605062adda9068452ea465e6b3092aa9",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-LeanSearchClient-status.log",
+      "diagnostic_log_sha256": "062e3a14e57b408556c1a2360fb2cbedf7ff68cf8bdb4d7639cbe3e9d62a8a53",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-importGraph-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.440555Z",
+      "finished_utc": "2026-09-09T06:34:25.490580Z",
+      "seconds": 0.05,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-importGraph-head.log",
+      "log_sha256": "4065ca3558c4140b53419f839153da97223142dfa7b8062c63ef9bc403815e7c",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-importGraph-head.log",
+      "diagnostic_log_sha256": "daebf8207f462cabf17bc906ed4cc9690f2bc51b4bc72ad6dd37c56b721654cd",
+      "output_preview": "16f02aa7642864af59f1ff0e384a015994db9118\n"
+    },
+    {
+      "label": "package-importGraph-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.496160Z",
+      "finished_utc": "2026-09-09T06:34:25.557618Z",
+      "seconds": 0.061,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-importGraph-status.log",
+      "log_sha256": "cefb9d8931c076fc8ba2d2892fad9af2817c9321a8ab945fcc77b0edc088d0b5",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-importGraph-status.log",
+      "diagnostic_log_sha256": "acf0a4427972c1c9580461723a6a9ce1f4cc852b9c3fc9135bb5ced626d4234f",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-proofwidgets-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.565070Z",
+      "finished_utc": "2026-09-09T06:34:25.619090Z",
+      "seconds": 0.054,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-proofwidgets-head.log",
+      "log_sha256": "cc56a92a47f871546f771228a880346349d489c60d8fc57005b735c5220d3f65",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-proofwidgets-head.log",
+      "diagnostic_log_sha256": "68ac7c21cd918ea13c80ab6fd5002b95dcabef7f0c95f88a270c933f9e82fd48",
+      "output_preview": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n"
+    },
+    {
+      "label": "package-proofwidgets-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.624738Z",
+      "finished_utc": "2026-09-09T06:34:25.682339Z",
+      "seconds": 0.058,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-proofwidgets-status.log",
+      "log_sha256": "8f1aecde7784c76a877fd490cccabb113a65c90dff07aebb3d178d73300a9027",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-proofwidgets-status.log",
+      "diagnostic_log_sha256": "aef72dacd2563a2561ee4f8f0134ed8500f8f00c766b9bf1549cd0a37ad6d338",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-aesop-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.688645Z",
+      "finished_utc": "2026-09-09T06:34:25.744226Z",
+      "seconds": 0.056,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-aesop-head.log",
+      "log_sha256": "dec15756f1b143b5bdcf93cf77f5e8f46beffa18dbca7d7fcec53521e93ddd29",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-aesop-head.log",
+      "diagnostic_log_sha256": "52ab91d8c9af2a26797c453070d35136faf5c12d42b45f791c45f32352ad508c",
+      "output_preview": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n"
+    },
+    {
+      "label": "package-aesop-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.750538Z",
+      "finished_utc": "2026-09-09T06:34:25.810158Z",
+      "seconds": 0.06,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-aesop-status.log",
+      "log_sha256": "41ad69035dbd8fd741a41aeeda6af295dade7ab11cb8367891891faa967caee4",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-aesop-status.log",
+      "diagnostic_log_sha256": "2e9d0142e4fb4ce70a6b8c419f61557a05e1b8ff781e3b7a83d39690321fad87",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-Qq-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.816052Z",
+      "finished_utc": "2026-09-09T06:34:25.865981Z",
+      "seconds": 0.05,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-Qq-head.log",
+      "log_sha256": "e1debd188ff7c26a24b1eb77da23a445054bb91b520b8627611626999914fa6e",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-Qq-head.log",
+      "diagnostic_log_sha256": "2d573844ff01391fb7398450914743fdebf2b2c0767fcbeb410b003f12947d2d",
+      "output_preview": "92c15be17b7caf78c2ad767ec40f89052d908d81\n"
+    },
+    {
+      "label": "package-Qq-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.871470Z",
+      "finished_utc": "2026-09-09T06:34:25.924819Z",
+      "seconds": 0.053,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-Qq-status.log",
+      "log_sha256": "b86d88f38f26c0f61c7d0f29c2dee208696bf0bc114c4fc969653b48e5d953dd",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-Qq-status.log",
+      "diagnostic_log_sha256": "ceef053119e2e1c6d0db58f7d2ff497617c191edd332f4aac1ae1d0b0497efc2",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-batteries-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:25.930532Z",
+      "finished_utc": "2026-09-09T06:34:25.980156Z",
+      "seconds": 0.05,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-batteries-head.log",
+      "log_sha256": "05a2c2ee89dd0863fb1a69c7389319456efd1bab2c3efdc7426ea88d59c2512a",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-batteries-head.log",
+      "diagnostic_log_sha256": "b79899fef3a5dd7ed22ccfa388f7b48fcf1fa0b5d291d9b71826912fcded9f62",
+      "output_preview": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n"
+    },
+    {
+      "label": "package-batteries-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:25.985372Z",
+      "finished_utc": "2026-09-09T06:34:26.041457Z",
+      "seconds": 0.056,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-batteries-status.log",
+      "log_sha256": "f634e8e12a53f920426a95b191acd1570e2ca1ee14e206ee2a140e684044717b",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-batteries-status.log",
+      "diagnostic_log_sha256": "ae0f07f4ece29e859d8ccad1b90a409d1ee3791e8174dc7299ae66741f79dc31",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-Cli-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T06:34:26.049043Z",
+      "finished_utc": "2026-09-09T06:34:26.099885Z",
+      "seconds": 0.051,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-Cli-head.log",
+      "log_sha256": "ef9f656b95ef3d0522b00bb6cdb344b3dd470e3b35106efec275af149f592a8a",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-Cli-head.log",
+      "diagnostic_log_sha256": "ccf7bc18e21c7796d9e9e1a4590c20f1b5bcb2f868ea8a23beafbbd5386f4b73",
+      "output_preview": "6130a47896ce867c6a4a55373441e59e565bad0f\n"
+    },
+    {
+      "label": "package-Cli-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T06:34:26.105455Z",
+      "finished_utc": "2026-09-09T06:34:26.160215Z",
+      "seconds": 0.055,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/package-Cli-status.log",
+      "log_sha256": "676836eee7728d0c88473d1e2dd9b0a131f4f4f081c289a8e5580a509eecffbb",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/package-Cli-status.log",
+      "diagnostic_log_sha256": "35731c9ea9aadd4eeda00051857071a77c639d7551977a91aabd389155ae1e4c",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "lean-version",
+      "command": [
+        "LEAN",
+        "--version"
+      ],
+      "command_shell": "LEAN --version",
+      "started_utc": "2026-09-09T06:34:26.169638Z",
+      "finished_utc": "2026-09-09T06:34:26.251886Z",
+      "seconds": 0.082,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/lean-version.log",
+      "log_sha256": "5d4101fcaf51eb2f3b4580d394a9a26ce3befd97825b98b85750bc96611ac74b",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/lean-version.log",
+      "diagnostic_log_sha256": "6170f0d3580f15a0799848a55a90031e44ae55ebbf8c33d16c275a84b5233ef0",
+      "output_preview": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n"
+    },
+    {
+      "label": "compile-0001-Math_B699_CofactorCriterion.lean",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/Math/B699/CofactorCriterion.olean",
+        "Math/B699/CofactorCriterion.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/Math/B699/CofactorCriterion.olean Math/B699/CofactorCriterion.lean",
+      "started_utc": "2026-09-09T06:34:28.860037Z",
+      "finished_utc": "2026-09-09T06:35:11.772668Z",
+      "seconds": 42.913,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0001-Math_B699_CofactorCriterion.lean.log",
+      "log_sha256": "fdd5f6bbc52e736a6ea3ab15ade7313676575fcd5cef426f540f4334ddeaeb77",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0001-Math_B699_CofactorCriterion.lean.log",
+      "diagnostic_log_sha256": "29d37d1397f46a3f63cec50d82d07385e5735f4e7e55710915d78688ae0ef6f1",
+      "output_preview": ""
+    },
+    {
+      "label": "compile-0002-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_GapBridge.lean",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.olean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.olean research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+      "started_utc": "2026-09-09T06:35:11.798043Z",
+      "finished_utc": "2026-09-09T06:35:23.388708Z",
+      "seconds": 11.591,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0002-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_GapBridge.lean.log",
+      "log_sha256": "9db090659b21c55ae6d79a3631d39ec0154241647ac2f36826a89f5ddc4135c7",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0002-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_GapBridge.lean.log",
+      "diagnostic_log_sha256": "667075f59a8c244220a1103ab01026917572c5fd92d0d6713ae69f637967bfe1",
+      "output_preview": "'B699LargePrimeStructure.common_of_mod_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.gap_remainder_eq' depends on axioms: [propext, Quot.sound]\n'B699LargePrimeStructure.common_of_gap_power' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.common_of_gap_prime' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.common_of_top_prime' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.common_small_index' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "label": "compile-0003-research_tasks_B699-Binomial_runs_20260908-external-reductions-b3c1b7_lean_DivisorTransfer.lean",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.olean",
+        "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.olean research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+      "started_utc": "2026-09-09T06:35:23.436279Z",
+      "finished_utc": "2026-09-09T06:35:33.615475Z",
+      "seconds": 10.179,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0003-research_tasks_B699-Binomial_runs_20260908-external-reductions-b3c1b7_lean_DivisorTransfer.lean.log",
+      "log_sha256": "ec5041ce26d434d9b9d5b1d77ce1e58dc7f25a148d9dc0b7d754d042616f0ae2",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0003-research_tasks_B699-Binomial_runs_20260908-external-reductions-b3c1b7_lean_DivisorTransfer.lean.log",
+      "diagnostic_log_sha256": "924ec3f6dac818a400602b7065f4299b9d745ca05b2d565e028f7f6f88e74a93",
+      "output_preview": "'B699BridgeAudit.divisor_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699BridgeAudit.prime_part_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699BridgeAudit.prime_part_coprime_of_no_common' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699BridgeAudit.actual_prime_part_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "label": "compile-0004-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_PrimePowerTransfer.lean",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.olean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.olean research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+      "started_utc": "2026-09-09T06:35:33.627830Z",
+      "finished_utc": "2026-09-09T06:35:46.198951Z",
+      "seconds": 12.571,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0004-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_PrimePowerTransfer.lean.log",
+      "log_sha256": "5c452bf2c464b0725c4c54eac243b9aed0eab38f00c08f0b74cd8b76bb5ea8c7",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0004-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_PrimePowerTransfer.lean.log",
+      "diagnostic_log_sha256": "e10c4a6175b8aae0f4204fe46dd8aff6f10ccaef666831dbffc204b3861e9001",
+      "output_preview": "PROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-large-prime-structure-cb4764f0\\lean\\PrimePowerTransfer.lean:126:26: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice\n\nNote: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`\n'B699LargePrimeStructure.prime_power_numerator_mod_lt' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.prime_power_gap_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.actual_avoiding_part_gap_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.avoidingPart_eq_primePart_of_noCommon' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'B699LargePrimeStructure.actual_prime_part_gap_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.common_of_gap_product_not_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "label": "compile-0005-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_SmallPartBound.lean",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.olean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.olean research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+      "started_utc": "2026-09-09T06:35:46.225313Z",
+      "finished_utc": "2026-09-09T06:35:55.982675Z",
+      "seconds": 9.757,
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0005-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_SmallPartBound.lean.log",
+      "log_sha256": "822add7094829ce51b5c1ec351ec42a2be2986a70618ceb3c101e1998f4861e0",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0005-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_SmallPartBound.lean.log",
+      "diagnostic_log_sha256": "1d79ae4e19dc0263af7057601742934d81237fb4bf1c33099ef42fe954c53d45",
+      "output_preview": "'B699LargePrimeStructure.smallPrimePart_mul_primePart' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LargePrimeStructure.smallPrimePart_le_pow_smallPrimeCount' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'B699LargePrimeStructure.noCommon_choose_le_smallPrime_gap_bound' depends on axioms: [propext,\n Classical.choice,\n Quot.sound]\n'B699LargePrimeStructure.common_of_elementary_gap_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "label": "compile-0006-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_ThreeWindowWeights.lean",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.olean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T063425Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.olean research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+      "started_utc": "2026-09-09T06:35:56.015010Z",
+      "finished_utc": "2026-09-09T06:36:10.065543Z",
+      "seconds": 14.051,
+      "timeout_seconds": 120,
+      "exit_code": 1,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T063425Z/logs/compile-0006-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_ThreeWindowWeights.lean.log",
+      "log_sha256": "e6f6a84355c9142075671f27f50e10c8e364abc9c48d2470eb6c94c36ed15194",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T063425Z/logs/compile-0006-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_ThreeWindowWeights.lean.log",
+      "diagnostic_log_sha256": "39b1d26147ace5db23631c51e665a8fb6f1c48e4ea2f8d9471161475e577acd1",
+      "output_preview": "PROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowWeights.lean:38:5: warning: Variable name `hi` is not explicitly referenced.\n\nHint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:\n  [apply] _hi\n\nNote: This linter can be disabled with `set_option linter.unusedVariables false`\nPROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowWeights.lean:96:4: error: Application type mismatch: The argument\n  fun h => N.choose h\nhas type\n  ℕ → ℕ\nbut is expected to have type\n  Finset ?m.163\nin the application\n  Finset.prod_dvd_prod_of_subset fun h => N.choose h\nPROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowWeights.lean:121:4: error: Application type mismatch: The argument\n  fun h => (n - i + h).choose h\nhas type\n  ℕ → ℕ\nbut is expected to have type\n  Finset ?m.262\nin the application\n  Finset.prod_dvd_prod_of_subset fun h => (n - i + h).choose h\nPROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowWeights.lean:144:18: error: don't know how to synthesize implicit argument `r`\n  @prime_power_mother_windows n i ?m.149 a p e hp hpi\n    (Decidable.byContradiction fun a_1 => prime_power_three_window_dvd._proof_1_3 hij hjn a b c a_1) ha hn\ncontext:\nn i j r s p e : ℕ\nhi : 2 ≤ i\nhij : i < j\nhjn : j ≤ n / 2\nhsi : s < i\nhp : Nat.Prime p\nhpi : i ≤ p\nhe : 0 < e\nheval : e ≤ (n.choose i).factorization p\nhavoid : ¬p ∣ n.choose j\na b c : ℕ\nha : a < i\nhsum : b + c = a\nhn : p ^ e ∣ n - a\nhj : p ^ e ∣ j - b\nhk : p ^ e ∣ n - j - c\nhleft : p ^ (e * (s - b)) ∣ childWindows j s\nhright : p ^ (e * (s - c)) ∣ childWindows (n - j) s\n⊢ ℕ\nPROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowWeights.lean:144:7: error: failed to infer `have` declaration type\nPROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowWeights.lean:139:60: error: unsolved goals\nn i j r s p e : ℕ\nhi : 2 ≤ i\nhij : i < j\nhjn : j ≤ n / 2\nhsi : s < i\nhp : Nat.Prime p\nhpi : i ≤ p\nhe : 0 < e\nheval : e ≤ (n.choose i).factorization p\nhavoid : ¬p ∣ n.choose j\na b c : ℕ\nha : a < i\nhsum : b + c = a\nhn : p ^ e ∣ n - a\nhj : p ^ e ∣ j - b\nhk : p ^ e ∣ n - j - c\nhleft : p ^ (e * (s - b)) ∣ childWindows j s\nhright : p ^ (e * (s - c)) ∣ childWindows (n - j) s\n⊢ p ^ (e * (2 * s - r)) ∣ threeWindowProduct n i j r s\nPROJECT_ROOT\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowWeights.lean:159:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern\n  ∏ x ∈ ?s, ?f x ^ ?n\nin the target expression\n  (∏ p ∈ (n.choose i).primeFactors with i ≤ p ∧ ¬p ∣ n.choose j, p ^ (n.choose i).factorization p) ^ (2 * s - r) ∣\n    threeWindowProduct n i j r s\n\nn i j r s : ℕ\nhi : 2 ≤ i\nhij : i < j\nhjn : j ≤ n / 2\nhsi : s < i\n⊢ (∏ p ∈ (n.choose i).primeFactors with i ≤ p ∧ ¬p ∣ n.choose j, p ^ (n.choose i).factorization p) ^ (2 * s - r) ∣\n    threeWindowProduct n i j r s\n'B699LowIndex.prime_power_three_positions' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699LowIndex.prime_power_three_window_dvd' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]\n'B699LowIndex.actual_avoiding_part_three_window_transfer' depends on axioms: [propext,\n sorryAx,\n Classical.choice,\n Quot.sound]\n'B699LowIndex.actual_prime_part_three_window_transfer' depends on axioms: [propext,\n sorry"
+    }
+  ],
+  "command_count": 25,
+  "fixed_dependency_cache_reused": true,
+  "all_new_project_closure_compiled": false,
+  "independent_checker_used": false,
+  "failure": "compile failed for research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean: Lean exit 1; unexpected axioms: sorryAx",
+  "stamp": "20260909T063425Z",
+  "fresh_output": true,
+  "lean_path_public": [
+    ".tools/b699-b41a5a63/verification/20260909T063425Z/olean",
+    "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+    "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+    "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+    "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+    "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+    "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+    "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+    "PACKAGE_ROOT/batteries/.lake/build/lib/lean"
+  ],
+  "environment_scope": {
+    "TEMP": ".tools/b699-b41a5a63/verification/20260909T063425Z/tmp",
+    "TMP": ".tools/b699-b41a5a63/verification/20260909T063425Z/tmp",
+    "TMPDIR": ".tools/b699-b41a5a63/verification/20260909T063425Z/tmp",
+    "MATHLIB_CACHE_DIR": ".tools/b699-b41a5a63/verification/20260909T063425Z/mathlib-cache",
+    "safe_directory": "each package path passed with process-local git -c only",
+    "project_objects": ".tools/b699-b41a5a63/verification/20260909T063425Z/olean",
+    "fixed_dependency_objects": "PACKAGE_ROOT/*/.lake/build/lib/lean",
+    "LEAN_PATH": [
+      ".tools/b699-b41a5a63/verification/20260909T063425Z/olean",
+      "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+      "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+      "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+      "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+      "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+      "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+      "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+      "PACKAGE_ROOT/batteries/.lake/build/lib/lean"
+    ]
+  },
+  "root_sources": [
+    "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean"
+  ]
+}

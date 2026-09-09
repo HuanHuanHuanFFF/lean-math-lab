@@ -1,0 +1,860 @@
+{
+  "schema_version": 1,
+  "success": true,
+  "exit_code": 0,
+  "started_utc": "2026-09-09T10:03:25.850619Z",
+  "finished_utc": "2026-09-09T10:03:41.232683Z",
+  "project_root": "PROJECT_ROOT",
+  "evidence_directory": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z",
+  "diagnostic_directory": ".tools/b699-b41a5a63/verification/20260909T100325Z",
+  "argv_public": {
+    "lean": "LEAN",
+    "package_root": "PACKAGE_ROOT",
+    "project_root": "PROJECT_ROOT",
+    "roots": [
+      "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean"
+    ],
+    "memory_mb": 1536,
+    "timeout_seconds": 60
+  },
+  "memory_mb": 1536,
+  "timeout_seconds": 60,
+  "toolchain": {
+    "declared": "leanprover/lean4:v4.33.1",
+    "observed": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "command": [
+      "LEAN",
+      "--version"
+    ],
+    "exit_code": 0,
+    "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/lean-version.log",
+    "log_sha256": "b84aaa5653dba4c0b8ca66633f81aaed036b764a887c54855826220406454d69"
+  },
+  "manifest_sha256": "fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0",
+  "pins": [
+    {
+      "name": "mathlib",
+      "path": "PACKAGE_ROOT/mathlib",
+      "manifest_rev": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "input_rev": "v4.33.1",
+      "url": "https://github.com/leanprover-community/mathlib4",
+      "cache_path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "plausible",
+      "path": "PACKAGE_ROOT/plausible",
+      "manifest_rev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/plausible",
+      "cache_path": "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": "PACKAGE_ROOT/LeanSearchClient",
+      "manifest_rev": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/LeanSearchClient",
+      "cache_path": "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "importGraph",
+      "path": "PACKAGE_ROOT/importGraph",
+      "manifest_rev": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/import-graph",
+      "cache_path": "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "proofwidgets",
+      "path": "PACKAGE_ROOT/proofwidgets",
+      "manifest_rev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/ProofWidgets4",
+      "cache_path": "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "aesop",
+      "path": "PACKAGE_ROOT/aesop",
+      "manifest_rev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/aesop",
+      "cache_path": "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Qq",
+      "path": "PACKAGE_ROOT/Qq",
+      "manifest_rev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/quote4",
+      "cache_path": "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "batteries",
+      "path": "PACKAGE_ROOT/batteries",
+      "manifest_rev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/batteries",
+      "cache_path": "PACKAGE_ROOT/batteries/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Cli",
+      "path": "PACKAGE_ROOT/Cli",
+      "manifest_rev": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "input_rev": "v4.33.0",
+      "url": "https://github.com/leanprover/lean4-cli",
+      "cache_path": "PACKAGE_ROOT/Cli/.lake/build/lib/lean",
+      "cache_exists": false,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    }
+  ],
+  "source_closure": [
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+      "imports": [
+        "Mathlib.Data.Nat.Prime.Defs",
+        "Mathlib.Data.List.Basic",
+        "Lean.Elab.Tactic.Omega"
+      ],
+      "source_sha256_before": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d",
+      "source_sha256_after": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d"
+    }
+  ],
+  "package_imports": [
+    "Mathlib.Data.List.Basic",
+    "Mathlib.Data.Nat.Prime.Defs"
+  ],
+  "fixed_cache_imports": [
+    {
+      "module": "Mathlib.Data.List.Basic",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/List/Basic.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Data.Nat.Prime.Defs",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Nat/Prime/Defs.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    }
+  ],
+  "policy": {
+    "files": 1,
+    "violations": [],
+    "exit_code": 0,
+    "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/source-policy.log",
+    "log_sha256": "dea29ec04f90bce886ac488e8aff1a094ebb43da82e1e5c7e71ee094d5585e2c",
+    "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/source-policy.log",
+    "diagnostic_log_sha256": "dea29ec04f90bce886ac488e8aff1a094ebb43da82e1e5c7e71ee094d5585e2c"
+  },
+  "compile_records": [
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+      "imports": [
+        "Mathlib.Data.Nat.Prime.Defs",
+        "Mathlib.Data.List.Basic",
+        "Lean.Elab.Tactic.Omega"
+      ],
+      "source_sha256_before": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d",
+      "source_sha256_after": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d",
+      "output": ".tools/b699-b41a5a63/verification/20260909T100325Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.olean",
+      "output_exists": true,
+      "output_sha256": "fab939e4f7ec44e4035679fa12fca8adbeecc57f3df93fa25841a9c14ae22ce8",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T100325Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.olean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T100325Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.olean research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+      "started_utc": "2026-09-09T10:03:31.202853Z",
+      "finished_utc": "2026-09-09T10:03:41.217886Z",
+      "seconds": 10.015,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/compile-0001-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_TrialPrimeCheck.lean.log",
+      "log_sha256": "2be6f8a135224cccf5e72bec9b1be0d8d48885f86d61bb062823567c9c869630",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/compile-0001-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_TrialPrimeCheck.lean.log",
+      "diagnostic_log_sha256": "ba221a2c65db3409377047b5437b1ca7265ab2b3931d805ae5a056d9b1748f2c",
+      "axiom_audit": {
+        "declared_print_axioms": 1,
+        "declared_names": [
+          "B699LowIndex.trialPrimeCheck_sound"
+        ],
+        "guarded_print_axioms": 0,
+        "guarded_names": [],
+        "actual_printed": 1,
+        "guard_msgs_in_source": 0,
+        "printed": [
+          {
+            "declared_name": "B699LowIndex.trialPrimeCheck_sound",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "unexpected_axioms": [],
+        "guarded_output_inferred": false
+      },
+      "failure": null
+    }
+  ],
+  "axiom_audit": [
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+      "declared_print_axioms": 1,
+      "declared_names": [
+        "B699LowIndex.trialPrimeCheck_sound"
+      ],
+      "guarded_print_axioms": 0,
+      "guarded_names": [],
+      "actual_printed": 1,
+      "guard_msgs_in_source": 0,
+      "printed": [
+        {
+          "declared_name": "B699LowIndex.trialPrimeCheck_sound",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "unexpected_axioms": [],
+      "guarded_output_inferred": false
+    }
+  ],
+  "commands": [
+    {
+      "label": "package-mathlib-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:25.880548Z",
+      "finished_utc": "2026-09-09T10:03:25.933492Z",
+      "seconds": 0.053,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-mathlib-head.log",
+      "log_sha256": "917a403bba9ee4655e35dbc2a48356de703558a1b1f15faedc9d2633fdc99a2c",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-mathlib-head.log",
+      "diagnostic_log_sha256": "e0c34127ffb25e3275d90a3f70f3050df94de00d0877b8e4335b7bf31f5e23e8",
+      "output_preview": "0df444a360eaa60ab8c11dca51a86af692955474\n"
+    },
+    {
+      "label": "package-mathlib-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:25.940071Z",
+      "finished_utc": "2026-09-09T10:03:26.052327Z",
+      "seconds": 0.112,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-mathlib-status.log",
+      "log_sha256": "c9017176d3d3dfcad919ed109d79e2ab24038b720e704b8ec02435b9bd24b1bb",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-mathlib-status.log",
+      "diagnostic_log_sha256": "bdd9df3f3f6d02530b711fe69710bf2b2aed94989a6a788a8f3138de4e531c56",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-plausible-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:26.060802Z",
+      "finished_utc": "2026-09-09T10:03:26.118734Z",
+      "seconds": 0.058,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-plausible-head.log",
+      "log_sha256": "76611b6db16b192fba75998681c90e1e88fa1327b8beba5cf55ad25622332171",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-plausible-head.log",
+      "diagnostic_log_sha256": "440b4a323a2aa4f15b13f456842212a27e38433816ac5a6e831ba0355a28a87c",
+      "output_preview": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n"
+    },
+    {
+      "label": "package-plausible-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:26.126706Z",
+      "finished_utc": "2026-09-09T10:03:26.192665Z",
+      "seconds": 0.066,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-plausible-status.log",
+      "log_sha256": "b9c2cd5433b8aeff7efb7a16e9ac9e3bbfd5fc49ff5f3757e6751923bcec68c3",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-plausible-status.log",
+      "diagnostic_log_sha256": "6957a804280dfe2903a618da28903ace7684c7e83e5269b134633d6df2630083",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-LeanSearchClient-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:26.200411Z",
+      "finished_utc": "2026-09-09T10:03:26.255991Z",
+      "seconds": 0.056,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-LeanSearchClient-head.log",
+      "log_sha256": "3dfc4a74b50f643663ba3e83afd3753dd479087e7087014ee7d9f9b26ad7c44b",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-LeanSearchClient-head.log",
+      "diagnostic_log_sha256": "af8a83eb2b596c1ee573d2d3caf24e39971230fde48ffb7caf27d44ae032a035",
+      "output_preview": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n"
+    },
+    {
+      "label": "package-LeanSearchClient-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:26.263869Z",
+      "finished_utc": "2026-09-09T10:03:26.337341Z",
+      "seconds": 0.073,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-LeanSearchClient-status.log",
+      "log_sha256": "5ebacf6a89f3640e55c6f6214e9ff74d494f182c42c9fb9b944767671a854929",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-LeanSearchClient-status.log",
+      "diagnostic_log_sha256": "9288d12950bbb83096986ffc6b3bb92f2c40ea37a0dad486493059969c7a061a",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-importGraph-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:26.345839Z",
+      "finished_utc": "2026-09-09T10:03:26.410732Z",
+      "seconds": 0.065,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-importGraph-head.log",
+      "log_sha256": "a5092ea1cc5dd53d0ec02d7e81a50dea74ed4bd75a741fda19731c10f0728ec4",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-importGraph-head.log",
+      "diagnostic_log_sha256": "d68b1bd793572322664b88663e3d9074e5bb3cd5ec78f7538f7276a5071da547",
+      "output_preview": "16f02aa7642864af59f1ff0e384a015994db9118\n"
+    },
+    {
+      "label": "package-importGraph-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:26.420047Z",
+      "finished_utc": "2026-09-09T10:03:26.502709Z",
+      "seconds": 0.083,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-importGraph-status.log",
+      "log_sha256": "1e263174f34a2d82d546f6767d1b30198d57d3cc2a057cc32c51f0e5fe335139",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-importGraph-status.log",
+      "diagnostic_log_sha256": "eb1deb93dcfdea07a6e312923c92174807fb0f1e7c31d658b0a7501e476df68c",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-proofwidgets-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:26.513538Z",
+      "finished_utc": "2026-09-09T10:03:26.585830Z",
+      "seconds": 0.072,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-proofwidgets-head.log",
+      "log_sha256": "8f6db22e653b28885b7765b9ec04893d7c066e6669850ae22bff7578032fcf86",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-proofwidgets-head.log",
+      "diagnostic_log_sha256": "b95685207156404628f6b0f1c27fcf7ab5940daa1e85435a423291a97adeef9b",
+      "output_preview": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n"
+    },
+    {
+      "label": "package-proofwidgets-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:26.594360Z",
+      "finished_utc": "2026-09-09T10:03:26.682547Z",
+      "seconds": 0.088,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-proofwidgets-status.log",
+      "log_sha256": "7bf1fb6e7b13d8007f3e459061ce1d2e2be505999ccec18450b087ba5316b5a2",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-proofwidgets-status.log",
+      "diagnostic_log_sha256": "6afec2165d3c66ecee6ecf75b60c311d204d857fef3f8da86be2eeff54c15359",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-aesop-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:26.692510Z",
+      "finished_utc": "2026-09-09T10:03:26.770759Z",
+      "seconds": 0.078,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-aesop-head.log",
+      "log_sha256": "cea80476283dc2b4c56640241b9d02cfc542bd6c0ab3222301648b3ebfa76bc9",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-aesop-head.log",
+      "diagnostic_log_sha256": "a27b4fd44a335e1fc0558ce122264e305f8e236ddd20c6ead6a0a7e09c3be964",
+      "output_preview": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n"
+    },
+    {
+      "label": "package-aesop-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:26.780537Z",
+      "finished_utc": "2026-09-09T10:03:26.875848Z",
+      "seconds": 0.095,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-aesop-status.log",
+      "log_sha256": "c0c8b99ccafc9707b3db47e26102a75a9ce397711024db58383ff73ee9c5c219",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-aesop-status.log",
+      "diagnostic_log_sha256": "a55e34492486949103ab834c677bd33fd81d7f0b8743be9f8478172327b79437",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-Qq-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:26.885107Z",
+      "finished_utc": "2026-09-09T10:03:26.957117Z",
+      "seconds": 0.072,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-Qq-head.log",
+      "log_sha256": "d3c12c6214d8396c31ff8c9eb2b4c1e22e8016a46cc98d175b8f211fa1ef7263",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-Qq-head.log",
+      "diagnostic_log_sha256": "3d47fea0507131e3f3b9e845fc105a68d50c1cb4f60ff764b8bf904cf7fa336c",
+      "output_preview": "92c15be17b7caf78c2ad767ec40f89052d908d81\n"
+    },
+    {
+      "label": "package-Qq-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:26.967150Z",
+      "finished_utc": "2026-09-09T10:03:27.053648Z",
+      "seconds": 0.086,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-Qq-status.log",
+      "log_sha256": "56b61ba70e55dd5bd73d526d49da59b6de5aa138335bdbdabccc5680742e1f4c",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-Qq-status.log",
+      "diagnostic_log_sha256": "b7b7b7e2fe51a10a0578e2ef9ea606d0ce5dbc9984606d0e482c4e21a7cef5a5",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-batteries-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:27.065486Z",
+      "finished_utc": "2026-09-09T10:03:27.151539Z",
+      "seconds": 0.086,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-batteries-head.log",
+      "log_sha256": "4e3696825f43d9f952b1c64a8134d8a0e2761047534235d631c94cb7d9c17098",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-batteries-head.log",
+      "diagnostic_log_sha256": "c2c68c9e58e64d61b9f3ff964d2e36691169f4bec185883c069d3e50f2cae158",
+      "output_preview": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n"
+    },
+    {
+      "label": "package-batteries-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:27.159672Z",
+      "finished_utc": "2026-09-09T10:03:27.257040Z",
+      "seconds": 0.097,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-batteries-status.log",
+      "log_sha256": "5069c872e1be91a477d436f45863be1c4d0e9c0d8330c085891d535edf781455",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-batteries-status.log",
+      "diagnostic_log_sha256": "f4688c9cc7aaeb9d3e45d79d14c5f8fa25b1efadca8be4f7c5c882427650ee64",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-Cli-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T10:03:27.267963Z",
+      "finished_utc": "2026-09-09T10:03:27.334865Z",
+      "seconds": 0.067,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-Cli-head.log",
+      "log_sha256": "f74cb4bd6415c4b1dde86107aca62f81592443aecd23c3eb6e919ff8b3b85044",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-Cli-head.log",
+      "diagnostic_log_sha256": "7f9c8c6f24dbc1a96ec36f99e33227b8e20bd37f48bb44e2d6fff4f7020d3841",
+      "output_preview": "6130a47896ce867c6a4a55373441e59e565bad0f\n"
+    },
+    {
+      "label": "package-Cli-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T10:03:27.344265Z",
+      "finished_utc": "2026-09-09T10:03:27.423639Z",
+      "seconds": 0.079,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/package-Cli-status.log",
+      "log_sha256": "03918c2b1ec1cdd4af91610f17cf7ba314d70d2f93a5dd3685d8916b94cdc99e",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/package-Cli-status.log",
+      "diagnostic_log_sha256": "f98053d90150e926d064c29db76203a46941b1da3a1f2844349c8c08a4c79f01",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "lean-version",
+      "command": [
+        "LEAN",
+        "--version"
+      ],
+      "command_shell": "LEAN --version",
+      "started_utc": "2026-09-09T10:03:27.436449Z",
+      "finished_utc": "2026-09-09T10:03:27.558918Z",
+      "seconds": 0.122,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/lean-version.log",
+      "log_sha256": "b84aaa5653dba4c0b8ca66633f81aaed036b764a887c54855826220406454d69",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/lean-version.log",
+      "diagnostic_log_sha256": "9574308f56e55e334aa8839a42bee2124eac430c95e1a07bafcd525d3d9299dd",
+      "output_preview": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n"
+    },
+    {
+      "label": "compile-0001-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_TrialPrimeCheck.lean",
+      "command": [
+        "LEAN",
+        "-j1",
+        "-M1536",
+        "-DautoImplicit=false",
+        "-DrelaxedAutoImplicit=false",
+        "--root=PROJECT_ROOT",
+        "-o",
+        ".tools/b699-b41a5a63/verification/20260909T100325Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.olean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean"
+      ],
+      "command_shell": "LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T100325Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.olean research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+      "started_utc": "2026-09-09T10:03:31.202853Z",
+      "finished_utc": "2026-09-09T10:03:41.217886Z",
+      "seconds": 10.015,
+      "timeout_seconds": 60,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/verification/20260909T100325Z/logs/compile-0001-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_TrialPrimeCheck.lean.log",
+      "log_sha256": "2be6f8a135224cccf5e72bec9b1be0d8d48885f86d61bb062823567c9c869630",
+      "diagnostic_log": ".tools/b699-b41a5a63/verification/20260909T100325Z/logs/compile-0001-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_TrialPrimeCheck.lean.log",
+      "diagnostic_log_sha256": "ba221a2c65db3409377047b5437b1ca7265ab2b3931d805ae5a056d9b1748f2c",
+      "output_preview": "'B699LowIndex.trialPrimeCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    }
+  ],
+  "command_count": 20,
+  "fixed_dependency_cache_reused": true,
+  "all_new_project_closure_compiled": true,
+  "independent_checker_used": false,
+  "failure": null,
+  "stamp": "20260909T100325Z",
+  "fresh_output": true,
+  "lean_path_public": [
+    ".tools/b699-b41a5a63/verification/20260909T100325Z/olean",
+    "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+    "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+    "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+    "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+    "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+    "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+    "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+    "PACKAGE_ROOT/batteries/.lake/build/lib/lean"
+  ],
+  "environment_scope": {
+    "TEMP": ".tools/b699-b41a5a63/verification/20260909T100325Z/tmp",
+    "TMP": ".tools/b699-b41a5a63/verification/20260909T100325Z/tmp",
+    "TMPDIR": ".tools/b699-b41a5a63/verification/20260909T100325Z/tmp",
+    "MATHLIB_CACHE_DIR": ".tools/b699-b41a5a63/verification/20260909T100325Z/mathlib-cache",
+    "safe_directory": "each package path passed with process-local git -c only",
+    "project_objects": ".tools/b699-b41a5a63/verification/20260909T100325Z/olean",
+    "fixed_dependency_objects": "PACKAGE_ROOT/*/.lake/build/lib/lean",
+    "LEAN_PATH": [
+      ".tools/b699-b41a5a63/verification/20260909T100325Z/olean",
+      "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+      "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+      "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+      "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+      "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+      "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+      "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+      "PACKAGE_ROOT/batteries/.lake/build/lib/lean"
+    ]
+  },
+  "root_sources": [
+    "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean"
+  ],
+  "compiled_count": 1
+}

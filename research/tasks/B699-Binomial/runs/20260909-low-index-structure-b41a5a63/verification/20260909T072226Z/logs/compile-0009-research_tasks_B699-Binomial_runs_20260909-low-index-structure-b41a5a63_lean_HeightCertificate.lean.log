@@ -1,0 +1,65 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/b699-b41a5a63/verification/20260909T072226Z/olean/research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/HeightCertificate.olean research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/HeightCertificate.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-09T07:24:24.010545Z
+# finished_utc: 2026-09-09T07:24:37.531038Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\HeightCertificate.lean:22:13: error: don't know how to synthesize implicit argument `r`
+  @noCommon_scaled_prime_part n i j ?m.63 s hi hij hjn hsi hno
+context:
+n i j r s : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+hno : ¬Common n i j
+hn : 0 < n
+hu : smallPrimePart n i ≤ n ^ smallPrimeCount i
+⊢ ℕ
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\HeightCertificate.lean:22:7: error: failed to infer `have` declaration type
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\HeightCertificate.lean:19:34: error: unsolved goals
+n i j r s : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+hno : ¬Common n i j
+hn : 0 < n
+hu : smallPrimePart n i ≤ n ^ smallPrimeCount i
+⊢ windowConstant i r s * n.choose i ^ (2 * s - r) ≤ n ^ heightExponent i r s
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\HeightCertificate.lean:66:16: error: don't know how to synthesize implicit argument `r`
+  @noCommon_scaled_choose n i j ?m.203 s hi hij hjn hsi hno
+context:
+N n i j r s : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+hiN : i ≤ N
+hNn : N ≤ n
+hdegree : heightExponent i r s ≤ i * (2 * s - r)
+hcertificate :
+  i.factorial ^ (2 * s - r) * N ^ heightExponent i r s < windowConstant i r s * N.descFactorial i ^ (2 * s - r)
+hpoint : N ^ heightExponent i r s < windowConstant i r s * N.choose i ^ (2 * s - r)
+hno : ¬∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ (n.choose i).gcd (n.choose j)
+hn : 0 < n
+⊢ ℕ
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\HeightCertificate.lean:66:7: error: failed to infer `have` declaration type
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\HeightCertificate.lean:54:72: error: unsolved goals
+N n i j r s : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+hiN : i ≤ N
+hNn : N ≤ n
+hdegree : heightExponent i r s ≤ i * (2 * s - r)
+hcertificate :
+  i.factorial ^ (2 * s - r) * N ^ heightExponent i r s < windowConstant i r s * N.descFactorial i ^ (2 * s - r)
+hpoint : N ^ heightExponent i r s < windowConstant i r s * N.choose i ^ (2 * s - r)
+hno : ¬∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ (n.choose i).gcd (n.choose j)
+hn : 0 < n
+⊢ False
+'B699LowIndex.noCommon_scaled_choose' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699LowIndex.power_cross_mono' depends on axioms: [propext]
+'B699LowIndex.common_of_height_certificate' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "kind": "independent-three-stage-finite-cover-check",
+  "timestamp_utc": "2026-09-09T07:05:26Z",
+  "source_baseline": "7fd3928656489afe2c80698f0a09d1d933444186",
+  "python": "Python 3.14.0",
+  "checker": {
+    "stage_one": {
+      "path": "experiments/two-colour-check/check.py",
+      "sha256": "A01DA8916D2B2E3B223B808AD9A23DC81A8EEC0CBE4C51EF2CB5776923B5D03F"
+    },
+    "all_stages": {
+      "path": "experiments/two-colour-check/check_all.py",
+      "sha256": "359FA5F1E31EB6DDD1FE9532F61B86FCB6F2E21E23C1FD7169E111617A374D28"
+    },
+    "method": "independent trial division, exact integer recomputation, family reconstruction, per-prime merge, different-prime two-pointer intersections, direct comb factor removal"
+  },
+  "inputs": {
+    "two_colour_cover": {
+      "path": "notes/heights/two-colour-cover.json",
+      "sha256": "69D16096C414177438342F1DCA93EEB256AD20850AC5B9F36387E9C1BB0607A0"
+    },
+    "topprime_residual": {
+      "path": "notes/heights/topprime-residual.json",
+      "sha256": "C3085B0FB4B8FCA2664EFBBBB7AC1E51124FE778A8DE370A20A876F754930DAD"
+    },
+    "actual_v_filter": {
+      "path": "notes/heights/actual-v-filter.json",
+      "sha256": "8893999ED4B7C04E2237DEE51AA43B43848DC012E6346CFD3A36EFEE6135FE90"
+    }
+  },
+  "results": {
+    "cover_indices": 151,
+    "cover_layers": 3919,
+    "cover_families": 67479,
+    "cover_candidate_intervals": 161313,
+    "cover_remaining_integers": 912578,
+    "topprime_input_pairs": 2943530,
+    "topprime_excluded_pairs": 2943463,
+    "topprime_remaining_pairs": 67,
+    "actual_v_pairs": 67,
+    "actual_v_strict_comparisons": 67
+  },
+  "tamper_tests": {
+    "coverage_field": "rejected: different-prime intersection union mismatch",
+    "deleted_nonempty_family": "rejected: complete family mismatch"
+  },
+  "boundaries": {
+    "finite_cover_only": true,
+    "lean_run": false,
+    "j_enumeration": false,
+    "original_b699_unbounded_claim": false
+  },
+  "command": "experiments/two-colour-check/run-20260909T070526Z/command.txt",
+  "output": "experiments/two-colour-check/run-20260909T070526Z/output.txt",
+  "exit_code": 0
+}

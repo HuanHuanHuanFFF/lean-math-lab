@@ -1,0 +1,22 @@
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+research\tasks\B699-Binomial\runs\20260909-low-index-structure-b41a5a63\lean\HeightCertificate.lean:26:69: error: unsolved goals
+n i j r s : ℕ
+hi : 2 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+hsi : s < i
+hno : ¬Common n i j
+hn : 0 < n
+hu : smallPrimePart n i ≤ n ^ smallPrimeCount i
+hv : windowConstant i r s * B699BridgeAudit.primePart i (n.choose i) ^ (2 * s - r) ≤ n ^ windowDegree i r s
+⊢ windowConstant i r s * smallPrimePart n i ^ (s * 2 - r) * B699BridgeAudit.primePart i (n.choose i) ^ (s * 2 - r) =
+    windowConstant i r s * smallPrimePart n i ^ (s * 2 - r) *
+      B699BridgeAudit.primePart i (smallPrimePart n i * B699BridgeAudit.primePart i (n.choose i)) ^ (s * 2 - r)
+'B699LowIndex.noCommon_scaled_choose' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699LowIndex.power_cross_mono' depends on axioms: [propext]
+'B699LowIndex.common_of_height_certificate' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
