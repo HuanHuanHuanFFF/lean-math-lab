@@ -51,6 +51,7 @@ theorem common_of_low_index_finite_cover {n i j : ℕ}
   obtain ⟨row, hrow, hrowIndex⟩ := List.mem_map.mp hmemIndices
   have hall := List.all_eq_true.mp allFiniteCoverRows_checked
   have hcheck := hall row hrow
+  subst i
   exact common_of_finite_cover_row_checked hcheck hij hjn
 
 #print axioms B699LowIndex.allFiniteCoverRows_checked

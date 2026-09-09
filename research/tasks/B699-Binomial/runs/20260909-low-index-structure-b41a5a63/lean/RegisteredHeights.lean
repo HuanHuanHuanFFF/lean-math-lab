@@ -23,6 +23,10 @@ def HeightRowValid (row : HeightCertificateDatum) : Prop :=
     windowConstant row.i row.r row.s *
       row.n0.descFactorial row.i ^ (2 * row.s - row.r)
 
+instance (row : HeightCertificateDatum) : Decidable (HeightRowValid row) := by
+  unfold HeightRowValid
+  infer_instance
+
 def heightRowValidBool (row : HeightCertificateDatum) : Bool :=
   decide (HeightRowValid row)
 
@@ -813,3 +817,7 @@ theorem common_of_registered_height
     (r := row.r) (s := row.s) hi hij hjn hsi hiN hNn hdegree hcertificate
 
 end B699LowIndex
+
+#print axioms B699LowIndex.heightCertificateData_valid
+#print axioms B699LowIndex.heightCertificateData_indices
+#print axioms B699LowIndex.common_of_registered_height

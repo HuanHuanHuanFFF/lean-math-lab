@@ -1,3 +1,5 @@
+import Mathlib.Data.Nat.Basic
+
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
 

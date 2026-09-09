@@ -44,10 +44,14 @@ instance (height : HeightCertificateDatum) (layer : CoverLayer) :
   unfold LayerArithmeticValid
   infer_instance
 
+/-- Empty clipped intervals are removed before the quadratic pair check. -/
+def activePowerIntervalList (i M lo upper : ℕ) : List ColouredInterval :=
+  (powerIntervalList i M lo upper).filter (fun I => decide (I.2.1 ≤ I.2.2))
+
 def coverLayerCheck (height : HeightCertificateDatum) (goods : List GoodSegment)
     (layer : CoverLayer) : Bool :=
   decide (LayerArithmeticValid height layer) &&
-    pairCoverCheck (powerIntervalList height.i layer.M layer.lower layer.upper)
+    pairCoverCheck (activePowerIntervalList height.i layer.M layer.lower layer.upper)
       (goods.map goodSegmentBounds)
 
 /-- All supplied certificates are executable finite checks. -/
@@ -82,7 +86,8 @@ theorem coverLayerCheck_sound {height : HeightCertificateDatum}
     (hij : height.i < j) (hjn : j ≤ n / 2) : Common n height.i j := by
   have hv := heightCertificateData_valid hregistered
   obtain ⟨hi, _, _, hsi, hlambda, _, hdegree, _⟩ := hv
-  have hc := Bool.and_eq_true.mp hcheck
+  have hc := hcheck
+  simp only [coverLayerCheck, Bool.and_eq_true] at hc
   have hmeta : LayerArithmeticValid height layer := of_decide_eq_true hc.1
   obtain ⟨hcount, hM, hMH, hH, hilo, hinterval, _, hcertificate⟩ := hmeta
   have hupper : n < layer.upper := by omega
@@ -98,8 +103,14 @@ theorem coverLayerCheck_sound {height : HeightCertificateDatum}
   obtain ⟨I, hI, J, hJ, hcolours, hIlo, hIhi, hJlo, hJhi⟩ :=
     exists_two_colours_in_power_interval_list hi (by omega) hcount (by omega)
       hM (by omega) hU hilo hlo hupper
+  have hIactive : I ∈ activePowerIntervalList height.i layer.M layer.lower layer.upper := by
+    simp only [activePowerIntervalList, List.mem_filter, decide_eq_true_eq]
+    exact ⟨hI, hIlo.trans hIhi⟩
+  have hJactive : J ∈ activePowerIntervalList height.i layer.M layer.lower layer.upper := by
+    simp only [activePowerIntervalList, List.mem_filter, decide_eq_true_eq]
+    exact ⟨hJ, hJlo.trans hJhi⟩
   obtain ⟨K, hK, hnK⟩ :=
-    pairCoverCheck_sound hc.2 hI hJ hcolours hIlo hIhi hJlo hJhi
+    pairCoverCheck_sound hc.2 hIactive hJactive hcolours hIlo hIhi hJlo hJhi
   exact hno (checked_goods_cover hi hsi hgoods hij hjn hK hnK)
 
 /-- The complete row proof handles the tail, all small legal n, and every

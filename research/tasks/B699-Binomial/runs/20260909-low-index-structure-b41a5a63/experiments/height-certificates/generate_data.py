@@ -73,6 +73,8 @@ def load_rows(input_path: Path) -> list[dict[str, int]]:
 
 def lean_source(rows: list[dict[str, int]], input_sha256: str) -> str:
   lines = [
+    "import Mathlib.Data.Nat.Basic",
+    "",
     "set_option autoImplicit false",
     "set_option relaxedAutoImplicit false",
     "",
@@ -134,6 +136,10 @@ def registered_lean_source(rows: list[dict[str, int]], input_sha256: str) -> str
     "      row.n0 ^ heightExponent row.i row.r row.s <",
     "    windowConstant row.i row.r row.s *",
     "      row.n0.descFactorial row.i ^ (2 * row.s - row.r)",
+    "",
+    "instance (row : HeightCertificateDatum) : Decidable (HeightRowValid row) := by",
+    "  unfold HeightRowValid",
+    "  infer_instance",
     "",
     "def heightRowValidBool (row : HeightCertificateDatum) : Bool :=",
     "  decide (HeightRowValid row)",
@@ -197,6 +203,10 @@ def registered_lean_source(rows: list[dict[str, int]], input_sha256: str) -> str
       "    (r := row.r) (s := row.s) hi hij hjn hsi hiN hNn hdegree hcertificate",
       "",
       "end B699LowIndex",
+      "",
+      "#print axioms B699LowIndex.heightCertificateData_valid",
+      "#print axioms B699LowIndex.heightCertificateData_indices",
+      "#print axioms B699LowIndex.common_of_registered_height",
       "",
     ]
   )
@@ -265,6 +275,7 @@ def main() -> int:
       "lean_run": False,
       "cover_recomputation": False,
     },
+    "data_import": "Mathlib.Data.Nat.Basic",
     "source_tuning": {
       "height_probe": list(LOCAL_LEAN_OPTIONS),
       "registered_heights": list(LOCAL_LEAN_OPTIONS),
@@ -286,6 +297,8 @@ def main() -> int:
 
 if __name__ == "__main__":
   raise SystemExit(main())
+
+
 
 
 
