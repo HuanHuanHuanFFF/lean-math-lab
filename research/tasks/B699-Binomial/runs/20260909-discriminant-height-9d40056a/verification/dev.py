@@ -75,16 +75,13 @@ def _guarded_companion(
     record["guarded_axiom_companion"] = companion
     if companion.get("success"):
         old_audit = record.get("axiom_audit")
-        old_error = old_audit.get("error") if isinstance(old_audit, dict) else None
         # The frozen source audit may reject only because these four prints are
         # guarded.  A different source/audit failure must remain a failure.
-        mismatch_only = old_error is None or str(old_error).startswith(
-            "#print axioms output count mismatch:"
-        )
-        if mismatch_only:
+        if guarded_axioms.is_exact_guarded_source_audit(
+            old_audit, record.get("failure")
+        ):
             record["axiom_audit"] = companion["axiom_audit"]
-            if record.get("failure") == old_error:
-                record["failure"] = None
+            record["failure"] = None
     elif record.get("failure") is None:
         record["failure"] = "guarded axiom companion failed: " + str(
             companion.get("failure") or "unknown failure"
@@ -156,10 +153,11 @@ def main():
                 )
                 if companion is not None:
                     report['guarded_axiom_companions'].append(companion)
-                    report['axiom_audit'].append({
-                        'source': record['source'], 'module': record['module'],
-                        **record['axiom_audit'],
-                    })
+                    if isinstance(record.get('axiom_audit'), dict):
+                        report['axiom_audit'].append({
+                            'source': record['source'], 'module': record['module'],
+                            **record['axiom_audit'],
+                        })
                     if record['failure']:
                         raise RuntimeError(
                             f'guarded axiom companion failed in {ref.module}: '

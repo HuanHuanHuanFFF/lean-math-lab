@@ -85,6 +85,24 @@ def is_supported_source(path: Path, repo: Path) -> bool:
     return bool(source_identity(path, repo)["supported"])
 
 
+def is_exact_guarded_source_audit(
+    audit: Mapping[str, Any] | None, failure: str | None
+) -> bool:
+    """Whether the frozen source failure is exactly the known four-guard case."""
+
+    if not isinstance(audit, Mapping):
+        return False
+    expected_error = "#print axioms output count mismatch: source=4 actual=0"
+    return bool(
+        audit.get("declared_print_axioms") == 4
+        and audit.get("actual_printed") == 0
+        and audit.get("guard_msgs_in_source") == 4
+        and audit.get("unexpected_axioms") == []
+        and audit.get("error") == expected_error
+        and failure == expected_error
+    )
+
+
 def companion_source() -> str:
     lines = [f"import {GUARDED_IMPORT}", ""]
     lines.extend(f"#print axioms {name}" for name in GUARDED_PRINT_NAMES)
@@ -217,6 +235,7 @@ def run_guarded_companion(
     source_text = companion_source()
     _write_text(public_source, source_text)
     _write_text(raw_source, source_text)
+    companion_source_sha256_before = sha256_path(raw_source)
     output_path = raw_dir / "companion.olean"
 
     compiler = [str(item) for item in (compile_prefix or [str(lean)])]
@@ -344,6 +363,7 @@ def run_guarded_companion(
     audit = audit_companion(raw_source, output, audit_axioms)
     output_exists = output_path.is_file()
     source_after = sha256_path(source)
+    companion_source_sha256_after = sha256_path(raw_source)
     compile_error: str | None = None
     if command_record.get("timed_out"):
         compile_error = "companion compile timeout"
@@ -355,6 +375,10 @@ def run_guarded_companion(
         compile_error = (compile_error + "; " if compile_error else "") + (
             "guarded source changed during companion compile"
         )
+    if companion_source_sha256_before != companion_source_sha256_after:
+        compile_error = (compile_error + "; " if compile_error else "") + (
+            "companion source changed during compile"
+        )
     if audit.get("error"):
         compile_error = (compile_error + "; " if compile_error else "") + str(
             audit["error"]
@@ -362,10 +386,13 @@ def run_guarded_companion(
 
     result = {
         **base,
+        "source_sha256_before": identity["source_sha256"],
         "source_sha256_after": source_after,
         "source": identity["source"],
         "companion_source": str(public_source),
         "diagnostic_companion_source": str(raw_source),
+        "companion_source_sha256_before": companion_source_sha256_before,
+        "companion_source_sha256_after": companion_source_sha256_after,
         "output": str(output_path),
         "output_exists": output_exists,
         "output_sha256": sha256_path(output_path) if output_exists else None,
@@ -394,6 +421,7 @@ __all__ = [
     "GUARDED_PRINT_NAMES",
     "audit_companion",
     "companion_source",
+    "is_exact_guarded_source_audit",
     "is_supported_source",
     "run_guarded_companion",
     "sha256_path",

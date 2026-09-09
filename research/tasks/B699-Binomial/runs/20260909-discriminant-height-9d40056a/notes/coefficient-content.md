@@ -33,3 +33,7 @@
 首次实际编译记录为 `verification/dev-20260909T063937752657Z/006-CoefficientContent.log`。只有 `coefficientPolynomial_coeff` 的一处根错误：默认 `simp` 先拆开 `C` 及自然数乘积的强制转换，因而 `coeff_C_mul_X_pow` 失去匹配。修复为 `simp only` 限定使用有限和系数、单项系数和范围成员公式；实际定义与声明没有改变。此前自然数系数恒等式、完整 D/V 整除和 `eval 1` 输出只含标准公理。其余依赖该失败声明的 `sorryAx` 是 elaboration failure 传播，整次编译未接受，也不能把它记为源码占位已通过。等待主线程重编。
 
 后续主线程编译 `verification/dev-20260909T064447443898Z/006-CoefficientContent.log` 成功：本文件八项实际传递公理输出均仅含 `propext`、`Classical.choice`、`Quot.sound`。这是开发编译证据；最终完整新输出闭包验收仍由主线程统一产生。实际系数、整数商、次数、端点与导数基础现已通过内核编译，数学主链后续还有完整上界及最终消费者验收。
+
+## 最终整链状态（主线程整合）
+
+2026-09-09T07:02:51Z，本文件所述数学链及最终原题消费者已通过固定版本fresh源码闭包编译、原题使用检查和实际传递公理审计。见 [最终验收](../verification/ACCEPTANCE.md) 与 [成功原始证据](../verification/20260909T070200Z/evidence.json)。此前待编译/失败描述保留为历史检查点；本轮高度目标内没有剩余公式或非零性假设。

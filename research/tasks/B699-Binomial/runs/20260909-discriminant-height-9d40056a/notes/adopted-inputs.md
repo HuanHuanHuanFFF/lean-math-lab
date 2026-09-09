@@ -11,8 +11,8 @@
 
 | 本批所需事实 | 实际旧源码入口 | 使用位置 |
 |---|---|---|
-| 完整大素数部分及原题小指标结论 | `Math/B699/CofactorCriterion.lean`、电脑旧批 `lean/GapBridge.lean` | 实际V定义；排除i≤2反例 |
-| 完整D定义和反例下D=V | 电脑旧批 `lean/PrimePowerTransfer.lean`，传递依赖旧 `20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean` | CoefficientContent、ContentDiscriminant |
+| 原题二项式同余证书和小指标结论 | `Math/B699/CofactorCriterion.lean`、电脑旧批 `lean/GapBridge.lean` | 排除i≤2反例 |
+| 完整V/D定义和反例下D=V | 电脑旧批 `lean/PrimePowerTransfer.lean`，传递依赖旧 `20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean` | CoefficientContent、ContentDiscriminant |
 | 实际UV=C(n,i)和U≤n^t | 电脑旧批 `lean/SmallPartBound.lean` | OriginalHeight |
 | 77π(N)≤16N+616 | B686 `formalization/PrimeCounting/LinearPrimeCounting.lean` | i≥185正指数消费者 |
 
@@ -20,4 +20,4 @@
 
 判别式的纸面比较来源为电脑旧批 `notes/discriminant/source-and-identity.md` 与 `arithmetic-bound.md`。本批自行从一阶多项式关系及结果式推导实际递推，未移植外部Jacobi实现、未复制外部证明体、未把源公式作为假设。固定mathlib `Resultant/Basic.lean` 的文件头标明 Apache 2.0；本轮直接导入其API，不改变该依赖。归一化与自由次数的检查见 [algebra](algebra.md)，版本兼容性以实际Lean编译为证。
 
-保持Lean `v4.33.1`、mathlib `0df444a360eaa60ab8c11dca51a86af692955474`；其他九包清单整体以仓库manifest为准。完整EEES、Dusart及i≥10^6全域排除仍保持原先缺口和纸面状态。本轮没有重新做新颖性搜索，不主张已知判别式数学公式的首创。
+保持Lean `v4.33.1`、mathlib `0df444a360eaa60ab8c11dca51a86af692955474`；全部九包清单以仓库manifest为准。完整EEES、Dusart及i≥10^6全域排除仍保持原先缺口和纸面状态。本轮没有重新做新颖性搜索，不主张已知判别式数学公式的首创。

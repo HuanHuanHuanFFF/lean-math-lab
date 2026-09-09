@@ -2,20 +2,27 @@ import research.tasks.«B699-Binomial».runs.«20260909-discriminant-height-9d40
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
+set_option maxRecDepth 10000
 
 open Polynomial B699Height
 
 /-- A direct transcription check of the actual coefficient polynomial. -/
 example : coefficientPolynomial 12 2 4 =
     C (28 : ℤ) + C (32 : ℤ) * X + C (6 : ℤ) * X ^ 2 := by
-  norm_num [coefficientPolynomial, Finset.sum_range_succ]
+  norm_num [coefficientPolynomial, Finset.sum_range_succ, Nat.choose]
 
 /-- A nontrivial selected divisor containing the boundary prime p=i=2. -/
-example : B699LargePrimeStructure.avoidingPart 12 2 4 = 2 := by decide
+example : B699LargePrimeStructure.avoidingPart 12 2 4 = 2 := by
+  simp only [B699LargePrimeStructure.avoidingPart, ← Nat.primeFactorsList_count_eq]
+  decide +kernel
 
 /-- The selected part and full large-prime part differ without noCommon. -/
-example : B699LargePrimeStructure.avoidingPart 16 2 6 = 15 := by decide
-example : B699BridgeAudit.primePart 2 (16.choose 2) = 120 := by decide
+example : B699LargePrimeStructure.avoidingPart 16 2 6 = 15 := by
+  simp only [B699LargePrimeStructure.avoidingPart, ← Nat.primeFactorsList_count_eq]
+  decide +kernel
+example : B699BridgeAudit.primePart 2 ((16 : ℕ).choose 2) = 120 := by
+  simp only [B699BridgeAudit.primePart, ← Nat.primeFactorsList_count_eq]
+  decide +kernel
 
 /-- Concrete evaluation of the advertised, executable integer height. -/
 example : heightSlack 185 = 17 := by decide
