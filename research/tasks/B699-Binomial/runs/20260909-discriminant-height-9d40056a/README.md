@@ -18,3 +18,12 @@
 入口：[frontier](frontier.md) · [完整报告](report.md) · [资源记录](notes/resources.md)。
 
 首次决策：核对固定 Resultant/Basic 接口；实现实际系数整除，独立攻击具体判别式公式/非零性，同时保留阶乘消去准备显式自然数高度界。不得用公式参数宣布整链完成。
+
+## 实际分工与首轮候选
+
+- algebra（Astra / Max）：DiscriminantAlgebra.lean、JacobiIdentity.lean、notes/algebra.md。
+- coefficients（Astra / Max）：CoefficientContent.lean、ScaledDiscriminant.lean、对应主题 notes。
+- runtime（Luna / Max）：本轮工具/包缓存恢复、notes/runtime.md及verification/runtime；不编译旧题目源。
+- 主线程：HeightArithmetic、FactorialHeight、ContentDiscriminant、OriginalHeight、验收入口、共享批次记录和远端保存。
+
+所有数学源码当前均为未编译候选；最终状态以本批验收为准。
