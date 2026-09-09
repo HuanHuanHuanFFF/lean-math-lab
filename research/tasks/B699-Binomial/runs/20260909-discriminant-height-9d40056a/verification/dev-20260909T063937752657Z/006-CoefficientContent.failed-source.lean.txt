@@ -93,8 +93,8 @@ theorem coefficientPolynomial_coeff (n i j r : ℕ) :
     (coefficientPolynomial n i j).coeff r =
       if r ≤ i then ((j.choose r * (n - j).choose (i - r) : ℕ) : ℤ) else 0 := by
   classical
-  simp only [coefficientPolynomial, Polynomial.finsetSum_coeff, Polynomial.coeff_C_mul_X_pow,
-    Finset.sum_ite_eq, Finset.mem_range, Nat.lt_succ_iff]
+  simp [coefficientPolynomial, Polynomial.finsetSum_coeff, Polynomial.coeff_C_mul_X_pow,
+    Finset.sum_ite_eq, Finset.sum_ite_eq', Nat.lt_succ_iff]
 
 theorem coefficientPolynomial_coeff_of_le {n i j r : ℕ} (hri : r ≤ i) :
     (coefficientPolynomial n i j).coeff r =

@@ -34,3 +34,5 @@
 纸面归纳已核对，数学常数无需调整。等待实际判别式递推完成及统一环境首编；具体代码、诊断和 Lean 接受状态将在本文件续记。
 
 2026-09-09T06:22Z：完整 `ScaledDiscriminant.lean` 候选已落，导入实际 `JacobiIdentity.lean`，最终名称按主线程约定为 `coefficientPolynomial_scaled_discr_sq_le`。取绝对值、精确 Δ 递推、一步上界及强归纳均有证明体，无占位和公式参数。实际 Jacobi 来源接口亦已落盘，但双方均等待统一首编，因此整个新链仍属于静态候选，不能宣称已验收。
+
+实际 Jacobi 下降、整数判别式递推及正性已在主线程 `verification/dev-20260909T064656452724Z/006-JacobiIdentity.log` 通过。随后本模块首编仅在 `coefficientPolynomial_discr_natAbs_step` 出现根错误：`Int.natAbs_mul` 和 `Int.natAbs_pow` 并非默认简化规则，普通 `simpa` 未分配绝对值。修复为显式 `simp only [Int.natAbs_mul, Int.natAbs_pow, Int.natAbs_natCast]`；数学声明不变。原失败记录为同目录 `007-ScaledDiscriminant.log`，后续传播的 `sorryAx` 未接受。其余递推和归纳证明没有报告独立错误；等待主线程重编及最终统一闭包验收。

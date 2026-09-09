@@ -18,8 +18,7 @@ theorem coefficientPolynomial_discr_natAbs_step {n i j : ℕ}
     i ^ (i - 2) * (coefficientPolynomial n i j).discr.natAbs =
       j ^ (i - 1) * (n - j).choose (i - 1) * (n - 1).choose (i - 1) *
         (coefficientPolynomial (n - 1) (i - 1) (j - 1)).discr.natAbs := by
-  simpa only [Int.natAbs_mul, Int.natAbs_pow, Int.natAbs_natCast] using
-    congrArg Int.natAbs (coefficientPolynomial_discr_step hi hij hjk hjn)
+  simpa using congrArg Int.natAbs (coefficientPolynomial_discr_step hi hij hjk hjn)
 
 /-- The two factorials from the descending factorials cancel the normalization
 exactly. This equality is obtained by multiplication, without integer division. -/

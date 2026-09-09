@@ -14,9 +14,7 @@ private theorem coeff_X_derivative (g : ℤ[X]) (r : ℕ) :
     (X * g.derivative).coeff r = (r : ℤ) * g.coeff r := by
   cases r with
   | zero => simp
-  | succ r =>
-    simp only [coeff_X_mul, coeff_derivative, Nat.cast_add, Nat.cast_one]
-    ring
+  | succ r => simp only [Nat.succ_eq_add_one, coeff_X_mul, coeff_derivative]; ring
 
 private theorem lowering_coeff_zero (g : ℤ[X]) (c b : ℤ) :
     (X * (1 - X) * g.derivative + g * (C c + C b * X)).coeff 0 =
@@ -83,7 +81,7 @@ theorem coefficientPolynomial_lowering {n i j : ℕ}
     rw [Nat.sub_add_cancel hi, show n - j - (i - 1) = n - j - i + 1 by omega] at h
     exact_mod_cast (by simpa only [mul_comm] using h)
   | succ r =>
-    rw [coeff_C_mul, lowering_coeff_succ]
+    rw [Nat.succ_eq_add_one, coeff_C_mul, lowering_coeff_succ]
     by_cases hr : r + 1 < i
     · rw [coefficientPolynomial_coeff_of_le (by omega : r + 1 ≤ i),
         coefficientPolynomial_coeff_of_le (by omega : r + 1 ≤ i - 1),
@@ -133,8 +131,7 @@ theorem coefficientPolynomial_discr_step {n i j : ℕ}
   have hL : L.natDegree ≤ 1 := by
     apply natDegree_le_iff_coeff_eq_zero.mpr
     intro r hr
-    simp only [L, coeff_add, coeff_C, coeff_C_mul_X,
-      if_neg (by omega : r ≠ 0), if_neg (by omega : r ≠ 1), zero_add]
+    simp [L, coeff_C, coeff_C_mul_X, show r ≠ 0 by omega, show r ≠ 1 by omega]
   have h := discr_of_lowering (coefficientPolynomial n i j)
     (coefficientPolynomial (n - 1) (i - 1) (j - 1)) L (i - 1) (by omega) (j : ℤ)
     (by rw [coefficientPolynomial_natDegree hij]; omega)

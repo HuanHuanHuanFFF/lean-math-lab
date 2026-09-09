@@ -17,3 +17,13 @@
 最小剩余风险已由外部解析依赖收束为固定Lean结果式自由次数、系数边界和阶乘缩放的实际编译。所有主链模块均已写无占位候选，但尚未首编，因此当前新增Lean未知范围减少仍为零。
 
 纯Nat的明确H及精确阶乘消去见notes/integer-height.md。保持旧i≥10^6成果为纸面，保留EEES/Dusart旧缺口；不做低指标的新数学或旧全局扫描。
+
+## 45分钟实测检查点及开发验证
+
+截至06:46Z，通用判别式缩放/降阶、实际完整幂系数整除及整数商、内容判别式整除桥、完整阶乘消去和自然数高度算术均已实际编译成功。证据分别见 `verification/dev-20260909T063845949192Z`、`dev-20260909T063937752657Z` 和 `dev-20260909T064447443898Z`。成功模块的实际公理输出仅含标准集合；失败模块的占位错误传播没有被接受。
+
+实际F的下降恒等式首编遇到三处cast/rw/simp接口错误，正在修复；没有发现数学反例。最小待验链为 `JacobiIdentity → ScaledDiscriminant → OriginalHeight → Acceptance`，因此尚不把完整高度界列为新增Lean结论。独立AI数学/statement审查未发现阻断，见 `reviews/independent-math-review.md`，它不替代编译。
+
+必要旧依赖 `LinearPrimeCounting` 本轮源码编译exit0，但其四个公理输出被 `#guard_msgs` 捕获，使严格stdout审计拒绝。将使用同一新对象根的补充import消费者重新实际打印，保留原审计规则和旧源码；不从注释推断公理通过。失败见 `verification/dev-20260909T064402390996Z`。
+
+06:49Z更新：实际 `JacobiIdentity` 与 `ScaledDiscriminant` 已开发编译通过，最初的实际公式/非零性缺口关闭。尚待验收的最小尾段只剩 `OriginalHeight → Acceptance` 及fresh整链；必要旧轮筛输出适配同步处理中。完整定理接受状态仍暂不提升。

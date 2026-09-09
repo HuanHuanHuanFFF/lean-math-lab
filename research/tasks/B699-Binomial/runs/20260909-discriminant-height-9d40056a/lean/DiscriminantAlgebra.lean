@@ -1,7 +1,6 @@
 import Mathlib.RingTheory.Polynomial.Resultant.Basic
 import Mathlib.Data.Nat.Choose.Basic
 import Mathlib.Tactic.Ring
-import Mathlib.Tactic.Positivity
 
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
@@ -150,7 +149,7 @@ theorem discr_of_lowering (f g L : ℤ[X]) (d : ℕ) (hd : 1 ≤ d) (a : ℤ)
   have hn : (-1 : ℤ) ^ ((d + 1) * d / 2) * f.leadingCoeff * (d + 1 : ℤ) ≠ 0 := by
     exact mul_ne_zero
       (mul_ne_zero (pow_ne_zero _ (by norm_num)) (leadingCoeff_ne_zero.mpr hf0))
-      (by positivity)
+      (by omega)
   apply mul_left_cancel₀ hn
   simpa only [mul_assoc, mul_left_comm, mul_comm] using hraw
 

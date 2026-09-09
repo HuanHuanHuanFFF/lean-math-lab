@@ -14,7 +14,7 @@ theorem pow_le_two_pow_mul_descFactorial {n i : ℕ} (hni : 2 * i ≤ n) :
   calc
     n ^ i = ∏ r ∈ Finset.range i, n := by simp
     _ ≤ ∏ r ∈ Finset.range i, 2 * (n - r) := by
-      apply Finset.prod_le_prod
+      apply Finset.prod_le_prod'
       intro r hr
       have hri := Finset.mem_range.mp hr
       omega

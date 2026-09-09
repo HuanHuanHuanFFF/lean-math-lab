@@ -4,13 +4,15 @@
 
 采用旧批 `20260909-large-prime-structure-cb4764f0/notes/discriminant/{source-and-identity,arithmetic-bound}.md` 的题面、归一化及纸面公式；旧批报告和验收明确其判别式部分未 Lean 化。本批不把该公式或非零性作为公理或最终定理假设。
 
+**当前状态（06:48Z）：两个负责的 Lean 模块均已通过固定版开发编译和实际传递公理检查。实际 F 的精确判别式下降及正性已经证明；整条高度消费者的新对象最终验收仍由主线程进行。** 下文保留早期路线判断，其历史状态以各检查点标时区分。
+
 ## 预期贡献和当前证据
 
 目标对象是所有自然数 `1≤i<j≤n/2` 的
 
 `F = Σ[r=0..i] choose j r * choose (n-j) (i-r) * X^r ∈ ℤ[X]`。
 
-成功的降阶证明会无条件给实际 `Disc(F)>0` 及 `Disc(F)≤n^(3*i*(i−1)/2)`。这个次数已经够主线程在 `i>4π(i−1)` 时得到固定 i 的有效高度；精确乘积不是这个较松消费者的必要依赖。主线程随后要求保留阶乘消去，已进一步采用下文的 Δ 递推而非丢弃阶乘的常数界。剩余指标及全题不随本地引理自动解决。当前以下为独立重建的纸面推导，尚无本批 Lean 接受结论。
+成功的降阶证明会无条件给实际 `Disc(F)>0` 及 `Disc(F)≤n^(3*i*(i−1)/2)`。这个次数已经够主线程在 `i>4π(i−1)` 时得到固定 i 的有效高度；精确乘积不是这个较松消费者的必要依赖。主线程随后要求保留阶乘消去，已进一步采用下文的 Δ 递推而非丢弃阶乘的常数界。剩余指标及全题不随本地引理自动解决。本段首次记录时以下仅是独立重建的纸面推导；当前证明状态见末尾检查点。
 
 ## 固定 mathlib API 核对
 
@@ -109,3 +111,37 @@
 `Δ_i²≤i^(i*(i+1))*n^(3*i*(i−1))`。
 
 这一版本保留关键阶乘消去。`ScaledDiscriminant.lean` 由 coefficients 负责人实现；主线程承担最终高度幂消去。新贡献是源公式之外的独立代数重建及其形式化候选，不主张该已知数学公式首创。实际前沿尚未改变：编译、传递公理及最终消费者闭合仍待完成。
+
+## 06:38Z 开发编译进展
+
+主线程报告并保存 `verification/dev-20260909T063845949192Z`：
+
+- 固定 Lean 4.33.1 已实际编译 `DiscriminantAlgebra.lean` 成功。
+- `discr_C_mul`、`content_pow_dvd_discr`、`discr_of_lowering` 三项传递公理输出均限于标准集合。
+- 这是通用代数核心的开发验证，实际 `coefficientPolynomial` 的下降等式、正性以及全高度消费者还待编译；不计作最终全链验收。
+- 自由次数、非首一缩放、符号及最后非零首项消去的接口已不再是静态猜测。原截止不变，未启用延期。
+
+## 06:48Z 实际多项式核心通过及交接
+
+已直接读取并核实两份开发日志：
+
+- `verification/dev-20260909T063845949192Z/000-DiscriminantAlgebra.log`：`discr_C_mul`、`content_pow_dvd_discr`、`discr_of_lowering` 全部通过。
+- `verification/dev-20260909T064656452724Z/006-JacobiIdentity.log`：`coefficientPolynomial_lowering`、`coefficientPolynomial_discr_one`、`coefficientPolynomial_discr_step`、`coefficientPolynomial_discr_pos`、`coefficientPolynomial_discr_ne_zero` 全部通过。
+
+每项实际打印的传递公理精确为 `[propext, Classical.choice, Quot.sound]`。这里是固定 Lean 4.33.1、固定 mathlib 提交上的开发编译，尚不替代主线程安排的全新项目对象验收；没有独立实现的第二个内核。源码保持不变，等待整链验收。
+
+实际证明的关键定理精确覆盖所有自然数 `n i j` 满足 `2≤i`、`i≤j`、`i≤n−j`、`j≤n`：
+
+`(i:ℤ)^(i−2) * (coefficientPolynomial n i j).discr`
+
+`= (j:ℤ)^(i−1) * choose(n−j,i−1) * choose(n−1,i−1)`
+
+`  * (coefficientPolynomial (n−1) (i−1) (j−1)).discr`。
+
+在同样合法性且 `1≤i` 下已证明该实际判别式严格为正，因而非零。线性基例本身不引用递推。原题 `1≤i<j≤n/2` 蕴含全部这些前提，没有削弱成另一个多项式或把判别式结论作为参数。
+
+首轮 `JacobiIdentity` 失败诊断保留于 `verification/dev-20260909T064447443898Z/009-JacobiIdentity.log` 及同目录失败源码快照。三个根因均为 Lean 表达/API：自然数到整数的后继 cast 未展开、对已经是 `r+1` 的索引重复重写 `Nat.succ`、一般 `simp` 过早拆开常数多项式 `C`。修复不改数学声明；失败传播输出中的占位公理没有被接受。当前只剩不影响证明的 linter 提示，依主线程要求暂不为这些提示扰动已通过源码。
+
+实际前沿变化：原先“实际 F 的非零判别式和有效次数界依赖未形式化的 Jacobi 来源”中的非零性与精确降阶障碍已关闭。`ScaledDiscriminant.lean` 负责人把已证下降接成保留阶乘的平方次数界；主线程把它接到实际完整大素数部分和显式高度。最后的原题消费者及统一验收由主线程报告，不能仅由本文件宣称全题完成。
+
+本子任务用时约 49 分钟；未运行自行安排的 Lean/实验进程，未派子任务，未提交或推送，未更改其他负责人文件。没有未解决的数学阻断留给下一位；具体下一项检查是主线程完成 `ScaledDiscriminant` 的自然绝对值接口修复并执行全链新对象/传递公理验收。原截止 08:58:52Z 不变，未延期。
