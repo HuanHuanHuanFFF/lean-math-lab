@@ -1,0 +1,188 @@
+import research.tasks.«B699-Binomial».runs.«20260909-middle-index-cert-1a78f8cd».lean.HeightRows
+import research.tasks.«B699-Binomial».runs.«20260909-middle-index-cert-1a78f8cd».lean.SmallPrimeCount
+import research.tasks.«B699-Binomial».runs.«20260909-middle-index-cert-1a78f8cd».lean.DyadicBounds
+
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+
+namespace B699Middle
+open B699LowIndex B699Dyadic B699LargePrimeStructure
+
+theorem windowFactorials_zero : windowFactorials 0 = 1 := by
+  simp [windowFactorials]
+
+theorem windowFactorials_succ (k : ℕ) :
+    windowFactorials (k + 1) = windowFactorials k * (k + 1).factorial := by
+  exact Finset.prod_Icc_succ_top (by omega : 1 ≤ k + 1) Nat.factorial
+
+/-- Simultaneous factorial and superfactorial bounds; one pass through the factors. -/
+def factorialWindowDown (bits : ℕ) : ℕ → Dyadic × Dyadic
+  | 0 => (embed 1, embed 1)
+  | k + 1 =>
+    let previous := factorialWindowDown bits k
+    let f := mulDown bits (embed (k + 1)) previous.1
+    (f, mulDown bits previous.2 f)
+
+def factorialWindowUp (bits : ℕ) : ℕ → Dyadic × Dyadic
+  | 0 => (embed 1, embed 1)
+  | k + 1 =>
+    let previous := factorialWindowUp bits k
+    let f := mulUp bits (embed (k + 1)) previous.1
+    (f, mulUp bits previous.2 f)
+
+theorem factorialWindowDown_le (bits k : ℕ) :
+    (factorialWindowDown bits k).1.value ≤ k.factorial ∧
+    (factorialWindowDown bits k).2.value ≤ windowFactorials k := by
+  induction k with
+  | zero => simp [factorialWindowDown, value_embed, windowFactorials_zero]
+  | succ k ih =>
+    have hf :
+        (mulDown bits (embed (k + 1)) (factorialWindowDown bits k).1).value ≤
+          (k + 1).factorial := by
+      calc
+        _ ≤ (embed (k + 1)).value * (factorialWindowDown bits k).1.value :=
+          mulDown_le _ _ _
+        _ ≤ (k + 1) * k.factorial := by
+          rw [value_embed]
+          exact Nat.mul_le_mul_left _ ih.1
+        _ = _ := (Nat.factorial_succ k).symm
+    constructor
+    · exact hf
+    · calc
+        _ ≤ (factorialWindowDown bits k).2.value *
+            (mulDown bits (embed (k + 1)) (factorialWindowDown bits k).1).value :=
+          mulDown_le _ _ _
+        _ ≤ windowFactorials k * (k + 1).factorial := Nat.mul_le_mul ih.2 hf
+        _ = _ := (windowFactorials_succ k).symm
+
+theorem le_factorialWindowUp (bits k : ℕ) :
+    k.factorial ≤ (factorialWindowUp bits k).1.value ∧
+    windowFactorials k ≤ (factorialWindowUp bits k).2.value := by
+  induction k with
+  | zero => simp [factorialWindowUp, value_embed, windowFactorials_zero]
+  | succ k ih =>
+    have hf : (k + 1).factorial ≤
+        (mulUp bits (embed (k + 1)) (factorialWindowUp bits k).1).value := by
+      calc
+        _ = (k + 1) * k.factorial := Nat.factorial_succ k
+        _ ≤ (embed (k + 1)).value * (factorialWindowUp bits k).1.value := by
+          rw [value_embed]
+          exact Nat.mul_le_mul_left _ ih.1
+        _ ≤ _ := mul_le_mulUp _ _ _
+    constructor
+    · exact hf
+    · calc
+        _ = windowFactorials k * (k + 1).factorial := windowFactorials_succ k
+        _ ≤ (factorialWindowUp bits k).2.value *
+            (mulUp bits (embed (k + 1)) (factorialWindowUp bits k).1).value :=
+          Nat.mul_le_mul ih.2 hf
+        _ ≤ _ := mul_le_mulUp _ _ _
+
+def descFactorialDown (bits N : ℕ) : ℕ → Dyadic
+  | 0 => embed 1
+  | k + 1 => mulDown bits (embed (N - k)) (descFactorialDown bits N k)
+
+theorem descFactorialDown_le (bits N k : ℕ) :
+    (descFactorialDown bits N k).value ≤ N.descFactorial k := by
+  induction k with
+  | zero => simp [descFactorialDown, value_embed]
+  | succ k ih =>
+    calc
+      _ ≤ (embed (N - k)).value * (descFactorialDown bits N k).value := mulDown_le _ _ _
+      _ ≤ (N - k) * N.descFactorial k := by
+        rw [value_embed]
+        exact Nat.mul_le_mul_left _ ih
+      _ = _ := (Nat.descFactorial_succ N k).symm
+
+def twoPower (e : ℕ) : Dyadic := ⟨1, e⟩
+
+theorem value_twoPower (e : ℕ) : (twoPower e).value = 2 ^ e := by
+  simp [twoPower, Dyadic.value]
+
+def degreeValue (i r s : ℕ) : ℕ :=
+  s * (s + 1) + (i - r - 1) * (i - r) / 2
+
+def exponentValue (i r s t : ℕ) : ℕ :=
+  t * (2 * s - r) + degreeValue i r s
+
+def constantDown (bits i r s : ℕ) : Dyadic :=
+  mulDown bits
+    (mulDown bits (twoPower (s * (s + 1))) (powDown bits (factorialWindowDown bits s).2 2))
+    (factorialWindowDown bits (i - r - 1)).2
+
+theorem constantDown_le (bits i r s : ℕ) :
+    (constantDown bits i r s).value ≤ windowConstant i r s := by
+  have hs := (powDown_le bits (factorialWindowDown bits s).2 2).trans
+    (Nat.pow_le_pow_left (factorialWindowDown_le bits s).2 2)
+  have ht : (mulDown bits (twoPower (s * (s + 1)))
+      (powDown bits (factorialWindowDown bits s).2 2)).value ≤
+        2 ^ (s * (s + 1)) * windowFactorials s ^ 2 := by
+    exact (mulDown_le _ _ _).trans
+      (by simpa only [value_twoPower] using Nat.mul_le_mul_left
+        (twoPower (s * (s + 1))).value hs)
+  calc
+    _ ≤ (mulDown bits (twoPower (s * (s + 1)))
+        (powDown bits (factorialWindowDown bits s).2 2)).value *
+          (factorialWindowDown bits (i - r - 1)).2.value := mulDown_le _ _ _
+    _ ≤ (2 ^ (s * (s + 1)) * windowFactorials s ^ 2) *
+        windowFactorials (i - r - 1) :=
+      Nat.mul_le_mul ht (factorialWindowDown_le bits (i - r - 1)).2
+    _ = _ := (window_constant_formula i r s).symm
+
+def leftUpper (bits i r s N t : ℕ) : Dyadic :=
+  mulUp bits
+    (powUp bits (factorialWindowUp bits i).1 (2 * s - r))
+    (powUp bits (embed N) (exponentValue i r s t))
+
+def rightLower (bits i r s N : ℕ) : Dyadic :=
+  mulDown bits (constantDown bits i r s)
+    (powDown bits (descFactorialDown bits N i) (2 * s - r))
+
+theorem left_le_leftUpper (bits i r s N t : ℕ) :
+    i.factorial ^ (2 * s - r) * N ^ exponentValue i r s t ≤
+      (leftUpper bits i r s N t).value := by
+  have hf := (Nat.pow_le_pow_left (le_factorialWindowUp bits i).1 (2 * s - r)).trans
+    (pow_le_powUp bits (factorialWindowUp bits i).1 (2 * s - r))
+  have hn : N ^ exponentValue i r s t ≤
+      (powUp bits (embed N) (exponentValue i r s t)).value := by
+    simpa only [value_embed] using pow_le_powUp bits (embed N) (exponentValue i r s t)
+  exact (Nat.mul_le_mul hf hn).trans (mul_le_mulUp _ _ _)
+
+theorem rightLower_le (bits i r s N : ℕ) :
+    (rightLower bits i r s N).value ≤
+      windowConstant i r s * N.descFactorial i ^ (2 * s - r) := by
+  have hn := (powDown_le bits (descFactorialDown bits N i) (2 * s - r)).trans
+    (Nat.pow_le_pow_left (descFactorialDown_le bits N i) (2 * s - r))
+  exact (mulDown_le _ _ _).trans (Nat.mul_le_mul (constantDown_le bits i r s) hn)
+
+/-- The complete count, degree, and directed integer comparison are all checked. -/
+def heightApproxCheck (bits i r s N t : ℕ) : Bool :=
+  decide (2 ≤ i ∧ s < i ∧ i ≤ N ∧ fastSmallPrimeCount i = t ∧
+    exponentValue i r s t ≤ i * (2 * s - r)) &&
+  ltCheck (leftUpper bits i r s N t) (rightLower bits i r s N)
+
+theorem heightValid_of_approx_check {bits i r s N t : ℕ}
+    (hcheck : heightApproxCheck bits i r s N t = true) :
+    HeightValid i r s N := by
+  have hc := hcheck
+  simp only [heightApproxCheck, Bool.and_eq_true, decide_eq_true_eq] at hc
+  rcases hc.1 with ⟨hi, hsi, hiN, ht, hd⟩
+  have ht' : smallPrimeCount i = t := (fastSmallPrimeCount_eq i).symm.trans ht
+  have he : heightExponent i r s = exponentValue i r s t := by
+    rw [heightExponent, ht', window_degree_formula]
+    rfl
+  refine ⟨hi, hsi, hiN, ?_, ?_⟩
+  · simpa only [he] using hd
+  · rw [he]
+    exact (left_le_leftUpper bits i r s N t).trans_lt
+      ((ltCheck_sound hc.2).trans_le (rightLower_le bits i r s N))
+
+end B699Middle
+
+#print axioms B699Middle.factorialWindowDown_le
+#print axioms B699Middle.le_factorialWindowUp
+#print axioms B699Middle.descFactorialDown_le
+#print axioms B699Middle.constantDown_le
+#print axioms B699Middle.left_le_leftUpper
+#print axioms B699Middle.rightLower_le
+#print axioms B699Middle.heightValid_of_approx_check

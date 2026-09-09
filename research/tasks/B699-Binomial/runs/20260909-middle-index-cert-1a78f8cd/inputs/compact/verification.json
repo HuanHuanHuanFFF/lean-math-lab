@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "scope": "677 height certificates by two independent exact algorithms and complete trial division of the derived positive prime chain. No Lean build.",
+  "parameters": {
+    "i_min": 323,
+    "i_max": 999,
+    "N": 2000000,
+    "gap_limit": 322
+  },
+  "steps": [
+    {
+      "command": [
+        "python3",
+        "-B",
+        "code/exact_height_certificate.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.424,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"i_min\": 323,\n  \"i_max\": 999,\n  \"rows_verified\": 677,\n  \"N\": 2000000,\n  \"log_scale\": \"1000000000000000000000000000000\",\n  \"atanh_terms\": 24,\n  \"small_prime_count\": 168,\n  \"minimum_margin_row\": {\n    \"i\": 323,\n    \"t\": 66,\n    \"r\": 107,\n    \"s\": 226,\n    \"ell\": 215,\n    \"lam\": 345,\n    \"E\": 74522,\n    \"delta\": 14143,\n    \"scaled_log_margin_lower\": \"300442186659265455712425320308680\"\n  },\n  \"minimum_log_margin_integer_floor\": 300,\n  \"elapsed_seconds_diagnostic\": 0.37748172099963995\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "code/independent_height_check.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.194,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"method\": \"prime-exponent cancellation and log(1-u) rational series\",\n  \"rows_verified\": 677,\n  \"N\": 2000000,\n  \"terms\": 110,\n  \"log_scale\": \"10000000000000000000000000000\",\n  \"minimum_i\": 323,\n  \"minimum_scaled_log_margin_lower\": \"3004421866592654557129382763486\",\n  \"minimum_log_margin_integer_floor\": 300,\n  \"unique_prime_logarithms\": 951,\n  \"elapsed_seconds_diagnostic\": 1.1567906990021584\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python3",
+        "-B",
+        "code/make_compact_chain.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.061,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"source_archive_sha256\": \"b96965a898f6f097d66fbb0d8df4e12e5b03c8f238e43143cd32fe7c506e0cf0\",\n  \"method\": \"greedy subsequence of the unchanged original positive witness chain\",\n  \"N\": 2000000,\n  \"gap_limit\": 322,\n  \"count\": 10992,\n  \"first\": 2,\n  \"last\": 2000003,\n  \"max_gap\": 322,\n  \"sha256\": \"3f1beae9cab6c6621e5c0d976586e78da12724bad0ee52e358d281784f053f0d\",\n  \"evidence_level\": \"Data generation and subset checks only; use the independent complete-trial-division checker for primality. Not Lean accepted.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "g++",
+        "-O2",
+        "-std=c++17",
+        "code/check_prime_chain.cpp",
+        "-o",
+        "build/check_prime_chain"
+      ],
+      "returncode": 0,
+      "seconds": 0.39,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "build/check_prime_chain",
+        "outputs/prime_chain_2m_gap322.txt"
+      ],
+      "returncode": 0,
+      "seconds": 0.006,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"method\": \"complete trial division of every supplied witness\",\n  \"count\": 10992,\n  \"first\": 2,\n  \"last\": 2000003,\n  \"max_gap\": 322,\n  \"base_prime_count\": 223,\n  \"integer_divisions\": 1742823\n}\n",
+      "stderr": ""
+    }
+  ],
+  "file_sha256": {
+    "README.md": "d9565897d83782c2d061324eddd83cc6f9ba1e07722703329ce5ee1cc1c3dfa1",
+    "code/check_prime_chain.cpp": "2f05c377ca1112802814df42d310b9730b66f868ce33a7c12459a19ebd9dbdf6",
+    "code/exact_height_certificate.py": "7b8ea45e47b97cf714c1146a0fdc86b7b5c4a56952dd083ab777690d645fc029",
+    "code/independent_height_check.py": "2aa270b4aadc08bf6100838d16ae8522922af3e31319d6a25c1d6d5a5794d9ee",
+    "code/make_compact_chain.py": "497b91838706e87cf9e495994fc804caeb71532c00f8dc0b0e2501a0eb588da0",
+    "outputs/exact_height_certificate.json": "2d799bab3d72081a356fb3c69d63e9b9c614aaea2280321c28d14aa908bb9199",
+    "outputs/independent_height_check.json": "b51d7db86335b46fa081cfb80c351a28632ce7502f49ada0a92448e2cf6ce72d",
+    "outputs/prime_chain_2m_gap322.txt": "3f1beae9cab6c6621e5c0d976586e78da12724bad0ee52e358d281784f053f0d",
+    "outputs/prime_chain_check.json": "b1092cf9a6b42e65089527096ee863abd31f52ba1684af7d0af83a357188905b",
+    "outputs/prime_chain_generation.json": "e7cf5348c322607687d5ed9479227114eb45c62eddba6b913698e693d10c238d"
+  }
+}

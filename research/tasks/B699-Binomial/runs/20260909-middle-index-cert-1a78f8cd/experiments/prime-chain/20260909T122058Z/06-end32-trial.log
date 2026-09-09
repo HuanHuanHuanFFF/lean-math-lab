@@ -1,0 +1,25 @@
+D:\CodingProject\Math\.tools\worktrees\b699-middle-lean-20260909-1a78f8cd\research\tasks\B699-Binomial\runs\20260909-middle-index-cert-1a78f8cd\lean\primeChain\End32Trial.lean:14:2: error: Tactic `decide` failed for proposition
+  trialChainCheck 322 1994387 leftNodes = true
+because its `Decidable` instance
+  instDecidableEqBool (trialChainCheck 322 1994387 leftNodes) true
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqBool`, `Bool.decEq`, and `Nat.decLe`, reduction got stuck at the `Decidable` instance
+  match trialChainCheck 322 1994387 leftNodes, true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+D:\CodingProject\Math\.tools\worktrees\b699-middle-lean-20260909-1a78f8cd\research\tasks\B699-Binomial\runs\20260909-middle-index-cert-1a78f8cd\lean\primeChain\End32Trial.lean:20:2: error: Tactic `decide` failed for proposition
+  trialChainCheck 322 1997183 rightNodes = true
+because its `Decidable` instance
+  instDecidableEqBool (trialChainCheck 322 1997183 rightNodes) true
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqBool`, `Bool.decEq`, and `Nat.decLe`, reduction got stuck at the `Decidable` instance
+  match trialChainCheck 322 1997183 rightNodes, true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+'B699MiddleIndex.EndBlockTrial.joined' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
