@@ -1,29 +1,41 @@
-# 本轮验收状态
+# 本轮分层验收
 
-## 最新正式 Lean 根
+## 当前源码已经接受的B699消费者
 
-[FiniteCover.lean](lean/FiniteCover.lean) 已于 UTC 2026-09-09 09:19:10.809468 完成全新源码闭包验收：[evidence.json](verification/20260909T091130Z/evidence.json)。
+[FiniteCover.lean](lean/FiniteCover.lean)正式成功根：[091130Z](verification/20260909T091130Z/evidence.json)，UTC09:11:30.149583开始、09:19:10.809468结束。
 
-21 个实际项目模块全部在本轮新输出目录编译；只复用固定包缓存。Lean4.33.1、mathlib0df444a360eaa60ab8c11dca51a86af692955474和其余manifest pins均核对。65 项实际公理输出仅 propext、Classical.choice、Quot.sound；6项guarded打印仅作为元数据，不推定为stdout。源码policy通过，无占位、新公理或native_decide。没有运行独立第二内核。
+21个实际项目源全部在当时新的本轮输出目录编译，Lean4.33.1，mathlib0df444a360eaa60ab8c11dca51a86af692955474及其余manifest pins均核对。65项实际传递公理输出仅propext、Classical.choice、Quot.sound；6项guarded打印仅作元数据。源码policy通过，无占位、新公理或native_decide；未执行独立第二内核。
 
-最后已接受的通用消费者为 B699LowIndex.common_of_finite_cover_row_checked：任意有限证书行row，若 finiteCoverRowCheck row=true，则所有 n,j 满足 row.height.i<j≤n/2 时，都有素数p≥row.height.i整除实际两个二项式的gcd。Boolean检查包括已注册高度、全部见证、低n覆盖、完整层划分、每层M证书与两种素数幂区间的交集覆盖；其声音性本身已证明，未用原题结论作为参数。
+最后已接受的B699消费者是 `B699LowIndex.common_of_finite_cover_row_checked`：
 
-同一闭包还已接受 B699LowIndex.common_of_registered_height：row属于151条高度表，i<j≤n/2且n≥row.n0，即有完整Common结论。151条高度数值CERT全部由Lean检查。ThreeWindowSize、CofactorCover、完整指数定位、PrimePowerEnumeration、LargeDivisorWitness、IntervalCover均已纳入这次成功的新源码验收。
+- 给定row : FiniteCoverRow，要求 `finiteCoverRowCheck row = true`。
+- 任意自然数n,j满足 `row.height.i < j`、`j ≤ n/2`。
+- 结论为存在素数p≥row.height.i整除实际两个二项式的gcd。
 
-历史成功根保留：ThreeWindowWeights（065147Z，6模块、27实际打印）、SmallPowerIntervals（074627Z，10模块、34实际打印）。
+该Boolean包含已注册高度、各见证、全部合法低n、层划分、每层M证书及不同素数幂区间交的覆盖；其声音性已经证明。它不假定原题结论，但本轮尚未在Lean中证成所有151条具体Boolean都为true。
 
-## 尚未完成的 Lean 数据接受
+同一闭包已经接受 `common_of_registered_height`：高度行属于已验151条表，且i<j≤n/2、n≥row.n0时，完整Common成立。**151条高度表和无限尾部消费者已经接受；未接受的是全范围覆盖数据。**
 
-151行最终目标是i=29或35≤i≤184的全部合法n,j。全部数据在独立Python证书链上通过，但151行的Lean布尔检查尚未全部成功，所以 LowIndexComplete.lean 仍是待验收候选，不能称其为已接受定理。
+早期根ThreeWindowWeights（065147Z）、SmallPowerIntervals（074627Z）保留。上述21个源的当前SHA全部与091130Z匹配；[最终审计](notes/final-integrity-audit.md)记录了核对。开发优化后已精确恢复LargeDivisorWitness原字节。
 
-Coverage00整批19行的普通decide因内存压力主动中止；拆分到逐指标/逐层后，Row184在1536MiB上限仍发生interpreter内存异常。2048MiB诊断亦因时间/资源主动结束。正在用最小导入、静态数据与各检查阶段定位。所有失败目录保留。直接内核选项decide +kernel来自固定Lean源码的doKernel分支，与native求值不同，最终仍须实际编译和公理审核。
+## 新辅助引理
 
-## 纸面与精确计算成果
+[TrialPrimeCheck.lean](lean/TrialPrimeCheck.lean)在[100325Z](verification/20260909T100325Z/evidence.json)独立正式成功：10:03:41.232683结束，1项目源、1项实际标准公理输出。
 
-主链151指标全域结论：完整初等纸面证明、另一算法的三阶段checker真实重放、fresh数学审查。见[重放](experiments/two-colour-check/replay-20260909T074014Z/evidence.json)、[审查](reviews/independent-math/review.md)。F1参数缺失与F2命令记录意见均有修复与实跑记录，历史失败未覆盖。
+其准确结论为 `trialPrimeCheck p = true → p.Prime`，通过整数平方根范围的完整除数检查。它尚未形成一条通过的完整B699覆盖行，不以此宣称整表性能问题已解决。
 
-新增i=28,31,34全域结论：M64与完整幂定位、Matveev纸面高度、有理对数区间的全55×2519证书将n界压到10^25，再由不同算法重建全部有限候选并核全部大因子/素数见证。见[零边界入口](notes/zero-boundary/README.md)、[对数证书执行](notes/zero-boundary/verification/20260909T090620Z/run-manifest.json)、[有限候选执行](notes/zero-boundary/verification/20260909T092400Z/)、[来源审查](reviews/zero-boundary-audit.md)。Matveev及有理日志到Lean的桥未完成；这三项不进入上面的已接受Lean范围。
+## 纸面与精确计算接受
 
-## 完整原题的边界
+主链151项：全部合法n,j，由初等三窗口结构、整数高度与小素数幂覆盖、三阶段不同算法checker和fresh数学审查支持。[真实重放](experiments/two-colour-check/replay-20260909T074014Z/evidence.json)补齐F1/F2记录问题；旧失败保留。
 
-本轮组合纸面/精确证书覆盖154指标：28、29、31和34..184。旧S中88项被该层次排除，尚余3..27、30、32、33共28项。更大指标的旧纸面、条件Lean和未闭合出版依赖各自保留原等级；完整B699未解决，未认证新颖性。
+零类28、31、34：M64、Matveev纸面高度、有理对数区间证书及不同算法的有限候选核查支持全部合法n,j。[对数阶段](notes/zero-boundary/verification/20260909T090620Z/run-manifest.json)与[候选阶段](notes/zero-boundary/verification/20260909T092400Z/)是串联依赖，两份都必须保留。[独立审查](reviews/zero-boundary-audit.md)包括原文参数和最终候选完整性，未发现阻断。
+
+因此组合为154个纸面/精确指标：28、29、31及34..184；旧S剩28项。这不是154项Lean定理，也不是完整B699或新颖性认证。
+
+## 未接受与失败
+
+`lean/coverage/rows/`、8个Coverage模块及LowIndexComplete是未验候选。整批19行、逐行与完整代表行的内存失败及见证块化简停滞均保留；详见[停止检查点](experiments/lightweight-prime/stop-checkpoint.json)与[失败源码索引](experiments/lightweight-prime/source-snapshot-index.json)。
+
+10:02:51 UTC已停止整表冲刺。优化见证源码和补丁留在experiments/lightweight-prime，未进入当前已验收消费者。091130Z等对象目录后来用于开发覆盖，当前对象不再是原始验收快照；可审计接受依据是不可改写的日志、固定源哈希和版本记录，恢复须重新建立干净输出。
+
+原始5小时截止10:59:09 UTC未延长；收束阶段不再启动新数学方向或整表计算。

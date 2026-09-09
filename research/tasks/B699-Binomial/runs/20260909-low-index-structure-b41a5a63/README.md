@@ -1,22 +1,22 @@
-# B699 low-index structure
+# B699：低指标统一结构
 
-本批身份：20260909-low-index-structure-b41a5a63。分支 `GPT-work/b699-low-index-20260909-b41a5a63`，源main `7fd3928656489afe2c80698f0a09d1d933444186`。只写本批；旧批、题目导航、云端新批、控制中心、CI及依赖pins保持边界。
+本批：20260909-low-index-structure-b41a5a63；分支 `GPT-work/b699-low-index-20260909-b41a5a63`；起始main `7fd3928656489afe2c80698f0a09d1d933444186`。本批独立工作树与其他研究现场隔离，只向自己的分支正常推送。
 
-原始5小时预算：上海2026-09-09 13:59:09–18:59:09（UTC05:59:09–10:59:09）。18:14:09开始收束，未延期。前45分钟检查点已在06:43前写成、对应快照已推送a6781549。主任务用户指定Astra/Max；数学最多两个Astra/Max、支持Luna/Max，总子任务最多三个，无递归。所有重计算由主线程串行、Lean -j1/-M1536。
+**交付结果：纸面证明与精确证书覆盖154个指标：28、29、31及34..184。** 对这些i，结论涵盖全部合法自然数n,j，保留p=i和完整指数。旧S的116项中排除88项，剩余3..27、30、32、33共28项。完整B699没有在本批解决，新颖性未认证。
 
-## 当前主要结果
+**Lean接受范围与上述154项不同。** 151个正指数指标的高度表、无限尾部消费者及通用有限覆盖消费者已通过新源码闭包验收；具体151行全范围覆盖数据尚未通过Lean。新增零指数三项使用Matveev纸面论证和精确证书，尚未Lean化。
 
-09:33 UTC更新：纸面/精确证书组合覆盖154指标：28、29、31及34..184；新增零类见[零边界交付](notes/zero-boundary/README.md)。正式Lean根已进至FiniteCover（091130Z，21模块、65项实际公理全标准），具体151行全域数据消费者仍待内核验收。以下历史成果由[最新验收](acceptance.md)和[前沿](frontier.md)给出当前状态。
+从以下入口恢复：
 
-- **纸面证明与独立精确覆盖完成，仍在补完整Lean：** 对全部合法n,j，i=29或35≤i≤184时Common成立。它排除了旧S中的85个指标，而不是只给它们高度。见[报告](report.md)、[数学审查](reviews/independent-math/review.md)及[独立覆盖检查](experiments/two-colour-check/README.md)。
-- **无条件Lean已验：** 实际D的三窗口完整幂整除、noCommon下V版和原题数值消费者。固定版本新闭包6模块、实际27项公理打印仅标准三公理；[验收](acceptance.md)。
-- 高度、联合小素数幂/覆盖及终端证书连接继续形式化，尚不把整个151指标定理列为已Lean验收。
-- i=3/4的斜率、中心带、CRT候选参数化及稀疏性均保留为独立纸面结果；未给两个低指标全域解答。入口[低端交接](notes/low-index/handoff-and-localization.md)。
+- [完整报告](report.md)：数学机制、前沿变化、来源与限制。
+- [当前前沿](frontier.md)：已排区域和剩余问题。
+- [分层验收](acceptance.md)：准确消费者前提及新编译证据。
+- [恢复交接](handoff.md)：下一步、失败诊断和恢复条件。
+- [主链数据与推导](notes/heights/HANDOFF.md)、[零指数整类](notes/zero-boundary/README.md)、[低端支线](notes/low-index/handoff-and-localization.md)。
+- [最终源码/证书审计](notes/final-integrity-audit.md)。
 
-## 当前所有权与恢复入口
+原始预算为上海2026-09-09 13:59:09–18:59:09（UTC05:59:09–10:59:09），预定18:14:09开始收束，没有延期。前45分钟检查点已完成。10:02:51 UTC按控制中心转达的条件停止整表冲刺，随后只做最后辅助引理验收和交付整理；未启动新的数学方向。
 
-主线程负责共享记录、lean/ThreeWindowWeights.lean、ThreeWindowSize.lean、HeightCertificate.lean及后续Bernoulli/M证书接续、串行验证和Git。low_index_mechanism已交低端笔记，当前负责SmallPrimeLocalization.lean。fresh数学审查已结束，原review冻结；同一角色的新实施任务独占LargeSmallPowers.lean。Luna支持负责独立checker证据修复与有限高度数据生成，文件范围按委派记录分开。
+主任务与数学子任务按用户安排使用Astra/Max，数学最多两个同时运行；常规支持Luna/Max，整棵树最多三个活动子任务，无递归派生。重计算串行，Lean单线程。电源配置、依赖pins、旧批次、题目导航、CI和云端新批均保持原边界。源码和报告由主线程最终接管，不留下活动写入负责人。
 
-首先读[frontier.md](frontier.md)、[report.md](report.md)、[acceptance.md](acceptance.md)。纸面与数据链入口[高度交接](notes/heights/HANDOFF.md)。工具/资源[启动记录](notes/resources-start.json)，固定来源[采用清单](notes/source-adoption.md)。普通进程/文件编辑器可能报helper_unknown_error；实际获准pwsh入口可用。新工作树位于忽略目录，验证器必须用repo-relative源码索引入口，不能重复旧绝对路径过滤故障。
-
-可运行主验证器是本批verification/runner/verify_repo_relative.py；--root指定本批实际消费者，--project-root为本工作树，固定D盘Lean4.33.1与9包缓存。每次正式验收全部项目依赖新编；开发缓存不充当最终接受。
+固定Lean4.33.1；mathlib及其他依赖以基线manifest为准。正式验收入口为本批 `verification/runner/verify_repo_relative.py`，实际依赖源必须在新输出目录编译。开发对象不是新的验收证据。不会将诊断文件或未验数据模块并入已接受消费者。
