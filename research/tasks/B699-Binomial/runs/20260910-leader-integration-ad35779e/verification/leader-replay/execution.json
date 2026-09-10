@@ -1,0 +1,65 @@
+{
+  "started_at_utc": "2026-09-10T09:54:55.715342+00:00",
+  "commands": [
+    {
+      "label": "i13-manifest",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "verify_manifest.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.21668145000148797,
+      "log": "i13-manifest.log",
+      "log_bytes": 188,
+      "log_sha256": "be318306876b22146bce204e7b510b0a723d6b71d7bf324d98254b8991665094"
+    },
+    {
+      "label": "i13-replay",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "code/reproduce.py",
+        "--record",
+        "/workspace/scratch/f63d8b14814f/leader-intake-round2/checks/i13"
+      ],
+      "exit_code": 0,
+      "seconds": 13.419833920997917,
+      "log": "i13-replay.log",
+      "log_bytes": 466,
+      "log_sha256": "e7b3bf7951c37f53347a7d7efba04a3c239b7a3c1fbd6f7d3ef7a1b9cb3de040"
+    },
+    {
+      "label": "pade-manifest",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "code/verify_manifest.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.16719181100052083,
+      "log": "pade-manifest.log",
+      "log_bytes": 153,
+      "log_sha256": "18d880d890b79ba764cd7a241b0de11b45190a59ac65249f9ebf8dc27a81c026"
+    },
+    {
+      "label": "pade-replay",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+        "-B",
+        "code/reproduce.py",
+        "--regenerate",
+        "--output-dir",
+        "/workspace/scratch/f63d8b14814f/leader-intake-round2/checks/pade-three"
+      ],
+      "exit_code": 0,
+      "seconds": 51.729188977999,
+      "log": "pade-replay.log",
+      "log_bytes": 710,
+      "log_sha256": "a0012967b5a54246389ba6154ed41025bd4e4792299259306ec73b4f9155b957"
+    }
+  ],
+  "new_lean_verification": false,
+  "finished_at_utc": "2026-09-10T09:56:01.254588+00:00",
+  "status": "PASS"
+}
