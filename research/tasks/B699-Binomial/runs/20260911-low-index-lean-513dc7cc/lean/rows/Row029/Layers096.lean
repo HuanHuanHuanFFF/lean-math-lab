@@ -1,0 +1,30 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.Row029Data
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row029_layer096_checked :
+    coverLayerCheck row029.height row029.goods { lower := 64333267961582642125957687672832, upper := 128666535923165284251915375345664, M := 2 } = true := by
+  decide +kernel
+
+theorem row029_layer097_checked :
+    coverLayerCheck row029.height row029.goods { lower := 128666535923165284251915375345664, upper := 257333071846330568503830750691328, M := 2 } = true := by
+  decide +kernel
+
+theorem row029_layer098_checked :
+    coverLayerCheck row029.height row029.goods { lower := 257333071846330568503830750691328, upper := 514666143692661137007661501382656, M := 2 } = true := by
+  decide +kernel
+
+theorem row029_layer099_checked :
+    coverLayerCheck row029.height row029.goods { lower := 514666143692661137007661501382656, upper := 1029332287385322274015323002765312, M := 2 } = true := by
+  decide +kernel
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row029_layer096_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row029_layer097_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row029_layer098_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row029_layer099_checked

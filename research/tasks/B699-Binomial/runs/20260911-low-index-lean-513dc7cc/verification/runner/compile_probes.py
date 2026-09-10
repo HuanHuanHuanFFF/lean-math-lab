@@ -62,7 +62,11 @@ def main():
         with log.open("w") as handle:
             process = subprocess.Popen(cmd, stdout=handle, stderr=subprocess.STDOUT)
             while process.poll() is None:
-                time.sleep(20)
+                try:
+                    process.wait(timeout=20)
+                    break
+                except subprocess.TimeoutExpired:
+                    pass
                 print("PROBE_PROGRESS", root, round(time.monotonic() - started, 1),
                       json.dumps({k: v for k, v in resources().items() if k != "processes"}), flush=True)
         record.update(exit_code=process.returncode, seconds=time.monotonic() - started,
