@@ -43,3 +43,6 @@ CI 只读；主线程取得实际证据后，通过 GitHub 插件提交、推送
 下次候选把每层算术、枚举、每个pair块和组装分别放进独立模块。`PairChunks.lean` 用flatten完整等式与有限成员证明还原原pairCoverCheck；避免用change把整个大Bool式做定义相等归约。PairChunks自身必须先进入共享根实际核验。M3072、串行、每命令900秒诊断限制均不增加。普通历史证明文件仍逐字保留，新的失败源只归档；已验35/37 Geometry不改动。当前CI批次仍[35,37]。
 
 为限制CI存储增长，新增stage_evidence只上传当前source_commit的实际报告、相关日志和本行精确候选；只读CI产物保留1天，分支中冻结的源码和验收记录永久保留。此归档脚本不能决定数学接受状态，接受仍依据真实Lean根/传递公理。
+
+
+已验核验组件：`pairCoverCheck_of_chunks`，源0102ae7d1a8c776b329730e5746c2b59ecd06ded，CI34521061213/job103018402995。实际编译1.021秒、退出0，公理仅 `[propext, Quot.sound]`；共享26源全部从干净输出重编译。当前批次证据暂存51文件、缺失0，缓存73项导出成功。见 `verification/ci-34521061213-shared/acceptance.json`。本组件不新增原题指标；35、37独立模块版继续实际执行。

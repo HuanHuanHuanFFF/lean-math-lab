@@ -26,3 +26,6 @@
 
 
 35、37的显式goods边界等式（`row035_bounds_eq`、`row037_bounds_eq`）已在CI34519132194实际编译，均无公理。新一轮四层合并文件分别在53.738秒、54秒触发Lean解释器memory_exception（-6），无输出对象，全部层声明均不接受。35整棵进程树最大RSS3148684KiB。修复后的日志缓存与全部文本证据导出已实际成功；准确原始evidence、commands、源码/日志哈希、已验Geometry和失败模块均归档。下一次将算术、枚举、每个pair块独立为模块，并用结构引理重组列表，不上调3GiB上限。
+
+
+已验核验组件：`pairCoverCheck_of_chunks`，源0102ae7d1a8c776b329730e5746c2b59ecd06ded，CI34521061213/job103018402995。实际编译1.021秒、退出0，公理仅 `[propext, Quot.sound]`；共享26源全部从干净输出重编译。当前批次证据暂存51文件、缺失0，缓存73项导出成功。见 `verification/ci-34521061213-shared/acceptance.json`。本组件不新增原题指标；35、37独立模块版继续实际执行。
