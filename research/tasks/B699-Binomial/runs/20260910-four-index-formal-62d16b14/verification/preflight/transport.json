@@ -1,0 +1,16 @@
+{
+  "git_fetch": {
+    "command": "git -C lean-math-lab fetch origin main GPT-work/leader-integration",
+    "exit": 128,
+    "stderr": "fatal: could not read Username for 'https://github.com': No such device or address"
+  },
+  "fixed_lean_download": {
+    "command": "curl -I -L --connect-timeout 5 --max-time 12 https://github.com/leanprover/lean4/releases/download/v4.33.1/lean-4.33.1-linux.tar.zst",
+    "tool_session_id": 55070,
+    "tool_error": "write_stdin failed: Unified exec process failed: network approval was cancelled before a decision was returned",
+    "classification": "tool/network approval cancellation; no shell exit status available; not an OOM and not a demonstrated Lean incompatibility"
+  },
+  "fallback": "GitHub connector GET PR, branch main, signed Git commit and recursive source/main trees; branch created from exact main SHA",
+  "binary_transfer": "not attempted through text/Base64 tools",
+  "other_workers": "no processes killed; no caches removed"
+}
