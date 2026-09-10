@@ -77,7 +77,8 @@ def main():
         "source_commit": d.get("source_commit"), "failure": d.get("failure"),
         "axioms": [r["axiom_audit"] for r in d["compile_records"] if r["source"] == plan["root"]]},
         ensure_ascii=False), flush=True)
-    files = {args.plan, evidence, Path(parents), directory / "resources.json"}
+    files = {args.plan, evidence, Path(parents), directory / "resources.json",
+             RUN / "verification/cache-restorations" / (Path(parents).parent.name + ".json")}
     if timing.exists():
         files.add(timing)
     files.update(sources)

@@ -11,6 +11,7 @@ on:
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/compile_row.py'
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_incremental.py'
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/SharedEnvironment.lean'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/LayerParts.lean'
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WitnessBridge.lean'
   workflow_dispatch:
 
@@ -103,7 +104,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Generate the exact row candidate and observe resources
         run: |
-          python3 "$B699_RUN/verification/runner/generate_row.py" --i "${{ matrix.i }}" --plan "$B699_RUN/verification/row-plan.json"
+          python3 "$B699_RUN/verification/runner/generate_row.py" --i "${{ matrix.i }}" --plan "$B699_RUN/verification/plans/row-${{ matrix.i }}-${{ github.sha }}.json"
           python3 - <<'PY'
           import json, os, runpy
           from pathlib import Path
@@ -127,7 +128,7 @@ jobs:
       - name: Verify restored object hashes and compile the independent original root
         run: |
           python3 "$B699_RUN/verification/runner/cache_bundle.py" import --archive "$B699_RAW/download/shared.zip"
-          python3 "$B699_RUN/verification/runner/compile_row.py" --plan "$B699_RUN/verification/row-plan.json"
+          python3 "$B699_RUN/verification/runner/compile_row.py" --plan "$B699_RUN/verification/plans/row-${{ matrix.i }}-${{ github.sha }}.json"
       - name: Print exact compile and axiom evidence
         if: always()
         run: python3 "$B699_RUN/verification/runner/summarize_evidence.py"

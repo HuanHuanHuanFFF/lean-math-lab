@@ -51,6 +51,17 @@ def main():
                 if not allowed(file) or sha(file) != row[digest]:
                     raise RuntimeError("Object or log mismatch")
                 files.add(file)
+        policy = d.get("policy")
+        if policy:
+            file = Path(policy["log"])
+            if not allowed(file) or sha(file) != policy["log_sha256"]:
+                raise RuntimeError("Source policy log changed")
+            files.add(file)
+        for command in d.get("commands", []):
+            file = Path(command["log"])
+            if not allowed(file) or sha(file) != command["log_sha256"]:
+                raise RuntimeError("Command log changed")
+            files.add(file)
         manifest = {"schema": 1, "source_commit": subprocess.check_output(
             ["git", "rev-parse", "HEAD"], text=True).strip(),
             "manifest_sha256": sha("lake-manifest.json"),
@@ -93,7 +104,9 @@ def main():
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_bytes(content)
         (RAW / "shared-evidence.txt").write_text(manifest["evidence"] + "\n")
-        (RUN / "verification/cache-restoration.json").write_text(json.dumps({
+        restoration = RUN / "verification/cache-restorations" / (Path(manifest["evidence"]).parent.name + ".json")
+        restoration.parent.mkdir(parents=True, exist_ok=True)
+        restoration.write_text(json.dumps({
             "archive_sha256": sha(args.archive), "export_source_commit": manifest["source_commit"],
             "evidence": manifest["evidence"], "all_entry_hashes_match": True,
             "new_Lean_acceptance": False}, indent=2) + "\n")
