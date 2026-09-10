@@ -1,11 +1,9 @@
-# 当前前沿
+# 当前 frontier
 
-完整目标：对指定 i，∀ n j : ℕ，1≤i ∧ i<j ∧ j≤n/2 → ∃ p，p.Prime ∧ i≤p ∧ p∣Nat.choose n i ∧ p∣Nat.choose n j。
+PR #8 已合并，基线 `aafecac7192f33215368489ca9b09b98c0279308`；169 项任务分支已发布。
 
-阶段 A 151 项、阶段 B 18 项分别见 target-status.json；当前均未新增全域 Lean 接受。首先完成环境与固定 FiniteCover 根，再做 Row029 小块→完整行→独立原题消费者→其余150行；A 完成后进入 B。Row029 不要求 BFT、EC 或 LowIndexComplete。
+专用 CI 34504942142 实际安装 Lean 4.33.1、恢复固定 mathlib 导入闭包并通过最小导入及 std3 审计。FiniteCover 首模块在 Lean `-M1536` 下因分配上限失败，未记全根通过。
 
-采用旧结果：FiniteCover 21 源闭包、151 条已注册高度及 common_of_finite_cover_row_checked 的条件消费者已在冻结旧验收通过。具体 finiteCoverRowCheck row = true 尚未接受；Row029 的完整见证、小 n、114 层及全部覆盖字段均须通过。
+本地已恢复同一固定环境，`-M3072 -j1` 下最小导入及 FiniteCover 前 10 模块通过；在最终结果取回前平台执行通道断开并返回 `environment_offline`。未取回的全根结果不计为通过。正在以同一固定源码、干净输出目录和 `-M3072` 在专用 CI 继续。
 
-预期前沿变化：恢复环境本身新增原题覆盖 0；完整 Row029 成功才消除 i=29 的全部无界 n,j。该方法若可复用，逐批消除其他 A 指标。每一前置应连接具体下游义务。
-
-失败/待试：本地缺固定工具链；官方直连检查发生代理超时和审批取消，官方 artifact 1.456 GB 超过连接器512 MiB限制。改用已授权的独立分支 CI 安装并验收，再经正常分块 artifact 传输恢复本地。若编译失败，保留真实日志并拆分或修复，不把流水线状态代替数学接受。
+Phase A 151 项完整原题覆盖仍为 0；Phase B 18 项等待 A。下一步是取得 FiniteCover 全根实际编译、公理证据，再验 Row029 的见证及层代表块。

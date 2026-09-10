@@ -1,9 +1,16 @@
-# 执行断点
+# 恢复入口
 
-PR #8 已由本会话在用户追加授权下合并。自己的任务分支已从合并 main aafecac7192f33215368489ca9b09b98c0279308 创建。当前准备发布专项 CI 并观察真实环境恢复及 FiniteCover 结果；尚无新增 Lean 验收。
+任务分支 `GPT-work/b699-low-index-lean-20260911-513dc7cc`；基线 `aafecac7192f33215368489ca9b09b98c0279308`。
 
-本地准备位置：/workspace/scratch/ca9580eece90/publication/。旧自有源码镜像 /workspace/scratch/ca9580eece90/lean-math-lab 仍是旧 detached 源，不冒充最新 main；所需源已逐一与最新整树对齐。环境导出包中的 repository 将提供完整的新分支固定源码和真实 Git 浅历史。
+固定环境由 CI 34504942142 成功安装并导出分块 artifact；完整证据见 `verification/preflight/executor-disconnection.json`，此记录区分已观察结果与平台断连后未知结果。
 
-后续顺序：检查本分支 push CI→读取真实 compile/axiom 证据→恢复固定本地工具链与缓存→Row029 代表块实测→完整 Row029 和原题消费者→推进阶段 A→补阶段 B 必要前置及消费者。不能因一次推送、前置闭环或阶段报告结束本轮。
+平台本地环境断连前的活动仓库为 `/workspace/scratch/ca9580eece90/fixed-environment/repository`，自己的改动留在其中。若恢复，先保护并核对这些改动；不得覆盖旧证据，也不得把未知最终结果当作通过。
 
-常规实现/恢复持续自行执行，不需要用户再次授权。只在169项全部接受、用户叫停或所有剩余路径经恢复仍被真实平台/权限阻塞时结束；如平台中断，记录真实运行状态，不声称仍在后台推进。
+本次专用 CI 从固定源继续：
+
+```sh
+python3 research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_environment.py --repo . --mode cache
+python3 research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_environment.py --repo . --mode verify --run-dir research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc --memory-mb 3072 --command-timeout 900
+```
+
+每条子进程的 900 秒是诊断边界，不是任务期限。取得真实完整 FiniteCover 验收后继续 Row029，再其余 A，最后 B；不等待其他会话。
