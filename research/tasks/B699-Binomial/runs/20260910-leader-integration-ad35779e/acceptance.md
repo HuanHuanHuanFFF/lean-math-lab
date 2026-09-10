@@ -18,4 +18,4 @@
 
 huan的EC分析接受记录、std3公理输出及源绑定采用其固定交付，本轮不重编译；VPS保留真实工具缺失/下载审批取消，不能写成OOM或“所有网络永久不可用”。没有运行仓库全套Lean验证；CI状态单独观察，不把它等同所有research已验。
 
-远端最终文件树、源码提交及PR在交接完成后记录；精确对象核对包含已有main、两项Work、新网页文本与本批文档。
+远端源码发布提交为 `3e7bdbe60bafae7bdf10c48ea8e9923eb694ef5f`，完整树为 `a381223c8d36f0a0ac4edfa038065067fb6233ba`。10067 个文件逐项核对路径、模式、类型与 blob SHA，差异0；357个新增文件、4份既有文档更新，无文件删除。四个父提交保留main、旧Leader和两项Work历史。接收范围由 [PR #8](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/8) 覆盖；交接补记不改变数学原件或来源范围。完整发布与CI观察见 [handoff.md](handoff.md)。
