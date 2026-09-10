@@ -1,0 +1,158 @@
+{
+  "started_at_utc": "2026-09-09T15:25:18.675400+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "python_executable": "/opt/pyvenv/bin/python",
+  "sympy": "1.14.0",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "input_archive": {
+    "provided": true,
+    "expected_sha256": "947583940874011ca63e90774e4779e0d6713fec7b16c2f7bf0e58f4c1788085",
+    "path": "/mnt/data/B699-fresh-start-task-20260909(1).zip",
+    "actual_sha256": "947583940874011ca63e90774e4779e0d6713fec7b16c2f7bf0e58f4c1788085",
+    "status": "PASS"
+  },
+  "source_sha256_before": {
+    "scripts/check_shifted_candidates.py": "e482ad842308da8061b083050bbb7ca73b067cc4ab82a410614e30dced8b7789",
+    "scripts/check_small_box.py": "7f7bcb7337d5ee59cf2839dbe0a15d2d2f431da59f1c3deb164ecd8e1fa91969",
+    "scripts/local_digit_probe.py": "8ca46f1a7de59d2e4790dfa2503b54a7fc4facd961275b2bd90ff03fb61b0b06",
+    "scripts/relaxed_local_probe.py": "68a66391edacb0806013b73f2b2b884b7b5079903bffa8b02ca331e6f6c83ec9",
+    "scripts/reproduce.py": "dd6e938805f0cd6789814ea379a29d7f978ac6f0fe32cbdcef99487fc36ce863",
+    "scripts/shifted_candidates.py": "0e9d5ad46b13d53536c7dbe615bbd8ad85a49d5439e71909c0239c4262e2ede0",
+    "scripts/verify_core.py": "1b7c76118568a2471106939b6f5c4708a5eb1400d560202e216e820e9c31cb67",
+    "scripts/verify_manifest.py": "156c44b6e9db7bb6c6a43ccfe2af28e8e2b7961909fa4cbb61901153a73d0ea4"
+  },
+  "runs": [
+    {
+      "name": "local_digit_probe",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "scripts/local_digit_probe.py",
+        "--N",
+        "10000",
+        "--imin",
+        "3",
+        "--imax",
+        "10",
+        "--output",
+        "evidence/local_digit_10000.json"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 3.9604415230000996,
+      "stdout": "evidence/replay/local_digit_probe.stdout.txt",
+      "stdout_sha256": "50f772ca9fb17fc318b132cb7e513b20b2591aafa39cbd3a47ebd1aefd767643",
+      "stderr": "evidence/replay/local_digit_probe.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_output": "evidence/local_digit_10000.json",
+      "output_sha256": "000e5afdb54acd16a0b11f821fcbe6cc87cba2028bda871baae70900a91d63e3"
+    },
+    {
+      "name": "shifted_candidates",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "scripts/shifted_candidates.py",
+        "--B",
+        "32",
+        "--output",
+        "evidence/shifted_candidates_B32.json"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 6.985086565000074,
+      "stdout": "evidence/replay/shifted_candidates.stdout.txt",
+      "stdout_sha256": "27f5ae08e9c119efa6881324b9d1c7d375b4b403ddce5b47f10b8f6dda0c4f73",
+      "stderr": "evidence/replay/shifted_candidates.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_output": "evidence/shifted_candidates_B32.json",
+      "output_sha256": "5af0344ef381fe961750b4da22bb5e9748e141fdf55f7d6062b398b351e9d73d"
+    },
+    {
+      "name": "check_shifted_candidates",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "scripts/check_shifted_candidates.py",
+        "--input",
+        "evidence/shifted_candidates_B32.json",
+        "--output",
+        "evidence/shifted_candidates_B32_verified.json"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 4.731014904999938,
+      "stdout": "evidence/replay/check_shifted_candidates.stdout.txt",
+      "stdout_sha256": "8a8c75fa9aada8d2befa034b0d9c8cc4ad1d48456c965a331f2d0ca9c12652d7",
+      "stderr": "evidence/replay/check_shifted_candidates.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_output": "evidence/shifted_candidates_B32_verified.json",
+      "output_sha256": "8a8c75fa9aada8d2befa034b0d9c8cc4ad1d48456c965a331f2d0ca9c12652d7"
+    },
+    {
+      "name": "verify_core",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "scripts/verify_core.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 2.523093499999959,
+      "stdout": "evidence/replay/verify_core.stdout.txt",
+      "stdout_sha256": "403db65ce2fbff6bcf81a697497de0593638c962e0de9acfd432f103b6821b3b",
+      "stderr": "evidence/replay/verify_core.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_output": "evidence/core_verification.json",
+      "output_sha256": "403db65ce2fbff6bcf81a697497de0593638c962e0de9acfd432f103b6821b3b"
+    },
+    {
+      "name": "relaxed_local_probe",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "scripts/relaxed_local_probe.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 2.3093854779999674,
+      "stdout": "evidence/replay/relaxed_local_probe.stdout.txt",
+      "stdout_sha256": "e543cda37fd1321e9b7653c8c215f9efdc1a1f88340a30e8d4e936f0654f2994",
+      "stderr": "evidence/replay/relaxed_local_probe.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_output": "evidence/relaxed_local_100000.json",
+      "output_sha256": "e543cda37fd1321e9b7653c8c215f9efdc1a1f88340a30e8d4e936f0654f2994"
+    },
+    {
+      "name": "check_small_box",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "scripts/check_small_box.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "elapsed_seconds": 3.8462283859998934,
+      "stdout": "evidence/replay/check_small_box.stdout.txt",
+      "stdout_sha256": "337cb46fa9e98d142938b641ca5d0125db40d8d720307f44cfcc8195f2c66b76",
+      "stderr": "evidence/replay/check_small_box.stderr.txt",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_output": "evidence/small_box_verified.json",
+      "output_sha256": "337cb46fa9e98d142938b641ca5d0125db40d8d720307f44cfcc8195f2c66b76"
+    }
+  ],
+  "status": "PASS",
+  "scope": "Executed arithmetic checks and provenance, not Lean or a substitute for paper-proof review",
+  "source_sha256_after": {
+    "scripts/check_shifted_candidates.py": "e482ad842308da8061b083050bbb7ca73b067cc4ab82a410614e30dced8b7789",
+    "scripts/check_small_box.py": "7f7bcb7337d5ee59cf2839dbe0a15d2d2f431da59f1c3deb164ecd8e1fa91969",
+    "scripts/local_digit_probe.py": "8ca46f1a7de59d2e4790dfa2503b54a7fc4facd961275b2bd90ff03fb61b0b06",
+    "scripts/relaxed_local_probe.py": "68a66391edacb0806013b73f2b2b884b7b5079903bffa8b02ca331e6f6c83ec9",
+    "scripts/reproduce.py": "dd6e938805f0cd6789814ea379a29d7f978ac6f0fe32cbdcef99487fc36ce863",
+    "scripts/shifted_candidates.py": "0e9d5ad46b13d53536c7dbe615bbd8ad85a49d5439e71909c0239c4262e2ede0",
+    "scripts/verify_core.py": "1b7c76118568a2471106939b6f5c4708a5eb1400d560202e216e820e9c31cb67",
+    "scripts/verify_manifest.py": "156c44b6e9db7bb6c6a43ccfe2af28e8e2b7961909fa4cbb61901153a73d0ea4"
+  },
+  "sources_unchanged": true,
+  "finished_at_utc": "2026-09-09T15:25:43.051161+00:00"
+}

@@ -8,6 +8,13 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260910-leader-integration-c1bf7a69](runs/20260910-leader-integration-c1bf7a69/README.md) | 本次交付合成、证据状态及接续 | [前沿快照](runs/20260910-leader-integration-c1bf7a69/frontier.md) · [分支盘点](runs/20260910-leader-integration-c1bf7a69/BRANCHES.md) |
+| [20260910-large-index-lean-7c4e2a91](runs/20260910-large-index-lean-7c4e2a91/README.md) | 1000..4882共3883项，全部合法n,j；**完整Lean验收** | [验收](runs/20260910-large-index-lean-7c4e2a91/acceptance.md) · [报告](runs/20260910-large-index-lean-7c4e2a91/report.md) |
+| [20260910-elementary-count-bbbfe15e](runs/20260910-elementary-count-bbbfe15e/README.md) | EC完整候选及环境阻塞记录；**未编译，新增验收0** | [验收状态](runs/20260910-elementary-count-bbbfe15e/acceptance.md) · [恢复](runs/20260910-elementary-count-bbbfe15e/handoff.md) |
+| [20260910-seven-index-closure-77927828](runs/20260910-seven-index-closure-77927828/README.md) | i=17,23,26,27,30,32,33 的全部合法 n,j；依赖 BFT 及完整精确证书，未 Lean 化。 | [原报告](runs/20260910-seven-index-closure-77927828/delivery/REPORT.md) |
+| [20260910-four-index-closure-c1bf7a69](runs/20260910-four-index-closure-c1bf7a69/README.md) | i=19,22,24,25 的全部合法 n,j；BFT、位置加权、碰撞分支、指数分块和完整末端证书，未 Lean 化。 | [原报告](runs/20260910-four-index-closure-c1bf7a69/delivery/REPORT.md) |
+| [20260910-asymmetric-pade-022987af](runs/20260910-asymmetric-pade-022987af/README.md) | i=11,16,19,21,22,24,25 的显式绝对高度，覆盖全部合法 j；未完成高度内排除，未 Lean 化。与四项闭合合并看，尚未闭合的新增有界项为11、16、21。 | [原报告](runs/20260910-asymmetric-pade-022987af/delivery/REPORT.md) |
+| [20260910-shifted-slope-25dde8a7](runs/20260910-shifted-slope-25dde8a7/README.md) | 保存原始移位斜率推导、适用边界及实验；不是完整 B699 的全域证明，未 Lean 化。 | [原报告](runs/20260910-shifted-slope-25dde8a7/delivery/REPORT.md) |
 | [20260909-middle-index-cert-1a78f8cd](runs/20260909-middle-index-cert-1a78f8cd/README.md) | 185≤i≤999 共815项、全部合法 n,j 的原题消费者；**完整 Lean 验收** | [正式验收](runs/20260909-middle-index-cert-1a78f8cd/acceptance-815.md) · [报告](runs/20260909-middle-index-cert-1a78f8cd/report.md) · [最终消费者](runs/20260909-middle-index-cert-1a78f8cd/lean/ExtendedComplete.lean) |
 | [20260909-low-index-bounds-a5b51cea](runs/20260909-low-index-bounds-a5b51cea/README.md) | 七项具体数值高度与 i=4 非有效绝对有限性；**未 Lean 化**，未完成高度内排除 | [前沿](runs/20260909-low-index-bounds-a5b51cea/frontier.md) · [原报告](runs/20260909-low-index-bounds-a5b51cea/delivery/REPORT.md) |
 | [20260909-prime-optimization-a81baaab](runs/20260909-prime-optimization-a81baaab/README.md) | 初等计数包装及115／41行替代证书；短区间供应仍有依赖，**未 Lean 化** | [前沿](runs/20260909-prime-optimization-a81baaab/frontier.md) · [原报告](runs/20260909-prime-optimization-a81baaab/delivery/REPORT.md) |
@@ -24,8 +31,9 @@
 | [20260908-formalization-92c221](runs/20260908-formalization-92c221/README.md) | 已采用条件判据的完整消费者复验 | [前沿](runs/20260908-formalization-92c221/frontier.md) |
 | [20260908-binomial-cofactors-f0a6539](runs/20260908-binomial-cofactors-f0a6539/README.md) | 二项式系数的小互素余因子判据 | [前沿](runs/20260908-binomial-cofactors-f0a6539/frontier.md) |
 
-最新纸面成果见[20260909 接收快照](../../external-results/20260909-b699-paper-a5b51cea/README.md)。此前完成分支、调查原件和中指标纸面成果见[上一接收快照](../../external-results/20260909-b699-proof-reuse-b96965a8/README.md)。两次历史快照均未包含主机本轮815项的最终 Lean 验收；其完整交付现由上列 `20260909-middle-index-cert-1a78f8cd` 批次承接。各历史前沿按其交付时间解释，其余范围以对应批次为准。
+本次网页成果见[20260910 接收快照](../../external-results/20260910-web-results-c1bf7a69/README.md)。此前纸面成果见[20260909 接收快照](../../external-results/20260909-b699-paper-a5b51cea/README.md)。此前完成分支、调查原件和中指标纸面成果见[上一接收快照](../../external-results/20260909-b699-proof-reuse-b96965a8/README.md)。两次历史快照均未包含主机本轮815项的最终 Lean 验收；其完整交付现由上列 `20260909-middle-index-cert-1a78f8cd` 批次承接。各历史前沿按其交付时间解释，其余范围以对应批次为准。
 
 同题研究放在本目录。新独立推进放入 `runs/日期-主题-短标识/`；换模型、会话或并发数量不改变既有批次身份。详见[目录规则](../../../docs/STRUCTURE.md)。各批独立维护进度和报告，本页仅作题面与导航。
 
 正式模块：[CofactorCriterion](../../../Math/B699/CofactorCriterion.lean)、[公理检查](../../../Tests/B699CofactorCriterion.lean)、[示例](../../../Examples/CofactorCriterion.lean)。
+

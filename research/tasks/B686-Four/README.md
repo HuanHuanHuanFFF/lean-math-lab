@@ -8,6 +8,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20260910-two-prime-finiteness-bc8d653b](runs/20260910-two-prime-finiteness-bc8d653b/README.md) | 两素数子族总体有限性；**未Lean化，非全题有限化** | [接收前沿](runs/20260910-two-prime-finiteness-bc8d653b/frontier.md) · [原报告](runs/20260910-two-prime-finiteness-bc8d653b/delivery/REPORT.md) |
 | [20260908-formalization-92c221](runs/20260908-formalization-92c221/README.md) | 既有成果的完整形式化证明链 | [前沿](runs/20260908-formalization-92c221/frontier.md) |
 | [20260908-lcm-distance-7cab35e](runs/20260908-lcm-distance-7cab35e/README.md) | 连续乘积的统一距离界 | [前沿](runs/20260908-lcm-distance-7cab35e/frontier.md) |
 | [20260908-reflected-sum-9bad0b9](runs/20260908-reflected-sum-9bad0b9/README.md) | 反射和与素数幂结构 | [前沿](runs/20260908-reflected-sum-9bad0b9/frontier.md) |
@@ -26,3 +27,4 @@
 - [round4/report.md](round4/report.md)
 - [experiments/round3-final-report.md](experiments/round3-final-report.md)
 - [exploration.md](exploration.md)
+
