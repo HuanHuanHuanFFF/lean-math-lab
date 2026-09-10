@@ -1,16 +1,9 @@
 # 恢复入口
 
-任务分支 `GPT-work/b699-low-index-lean-20260911-513dc7cc`；基线 `aafecac7192f33215368489ca9b09b98c0279308`。
+任务分支 `GPT-work/b699-low-index-lean-20260911-513dc7cc`，接收基线 `aafecac7192f33215368489ca9b09b98c0279308`。PR #8 已由用户本轮授权合并。
 
-固定环境由 CI 34504942142 成功安装并导出分块 artifact；完整证据见 `verification/preflight/executor-disconnection.json`，此记录区分已观察结果与平台断连后未知结果。
+已完成固定环境验收：CI 34509012170；详细源 SHA、pins、命令、退出码、公理审计归档及失败修复见 `verification/preflight/finitecover-ci-reproduced.json` 和 `executor-disconnection.json`。本地执行通道仍返回 environment_offline，故正式核验继续使用本任务专用 CI。
 
-平台本地环境断连前的活动仓库为 `/workspace/scratch/ca9580eece90/fixed-environment/repository`，自己的改动留在其中。若恢复，先保护并核对这些改动；不得覆盖旧证据，也不得把未知最终结果当作通过。
+代表入口配置：`verification/runner/probe-roots.json`。流程先以 `verify_environment.py --repo . --mode cache` 恢复固定闭包，再以 `--mode verify --run-dir research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc --memory-mb 3072 --command-timeout 900` 复现 FiniteCover；随后运行 `compile_probes.py`。后者只把已成功完整证据且源码/输出哈希一致的本 run 对象复制进干净导入目录；新源码实际调用固定严格编译器，逐个打印和归档公理。
 
-本次专用 CI 从固定源继续：
-
-```sh
-python3 research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_environment.py --repo . --mode cache
-python3 research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_environment.py --repo . --mode verify --run-dir research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc --memory-mb 3072 --command-timeout 900
-```
-
-每条子进程的 900 秒是诊断边界，不是任务期限。取得真实完整 FiniteCover 验收后继续 Row029，再其余 A，最后 B；不等待其他会话。
+CI 只读；主线程取得实际证据后，通过 GitHub 插件提交、推送本任务分支并核对远端 SHA，然后继续。自动审批曾拒绝 CI 自提交方案，因此已移除写权限和自动提交脚本。新指标只有完整原题消费者编译通过才能计数；此阶段计数仍为0。失败日志保留并继续方法修复，不等待其他会话。
