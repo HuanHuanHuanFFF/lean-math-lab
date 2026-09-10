@@ -20,6 +20,10 @@ Use the duration supplied by the user for each research round; there is no defau
 
 Stop at the original deadline unless a concrete important breakthrough is close to completion. In that case, the default authorization permits a cumulative extension of at most one quarter of the original duration. Record the evidence, remaining step, reason, and revised deadline before extending, and tell the user. Calculate the cap from the original duration, never from an extended budget: for duration T, the final deadline is start + 1.25T. Plan verification and records within this limit; an unfinished proof remains pending at the deadline. Explicit user timing or extension instructions override this default.
 
+## Completing Lean Proofs
+
+When assigned to complete a Lean proof, include the mathematical and tooling prerequisites needed by that target unless the user excludes them. Trace the dependency chain from the intended consumer, implement and verify missing prerequisites, and continue connecting the chain within the agreed budget. A verified prerequisite is valid stage progress even when no new original-problem cases are covered. Early environment or route checks select the next action; a missing prerequisite or an incomplete full route does not automatically end the task. Read the **Lean补齐与前置** section of [LEADER.md](LEADER.md) for scope, checkpoints, and stopping conditions.
+
 ## Research Direction
 
 Before allocating substantial open-problem effort or resuming a research run, the primary task reads the problem entry and relevant run frontiers: the full target, verified coverage, unresolved gaps, and next decision. Record which results and source versions the current run actually adopts. Deliberately isolated explorers use their designated statement-and-facts packet until the first exchange. The open-problem branch of the Lean research skill defines how to update the run's frontier and compare routes. Keep evidence strength, contribution to the full target, and reuse value separate; report novelty independently.

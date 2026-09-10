@@ -1,0 +1,40 @@
+research/tasks/B699-Binomial/runs/20260910-unbounded-tail-9f6c2a17/lean/ECAnalytic.lean:63:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+research/tasks/B699-Binomial/runs/20260910-unbounded-tail-9f6c2a17/lean/ECAnalytic.lean:69:51: error: unsolved goals
+case e'_9
+x : ℝ
+hx : 128 ≤ x
+h0 : x ≠ 0
+hl : log x ≠ 0
+a : ℝ
+ha : log x - a ≠ 0
+hd :
+  HasDerivAt ((fun y => a * log 4 * id y) / (log * fun x => log x - a))
+    ((a * log 4 * 1 * (log * fun x => log x - a) x - a * log 4 * id x * (x⁻¹ * (log x - a) + log x * x⁻¹)) /
+      (log * fun x => log x - a) x ^ 2)
+    x
+⊢ -(a * log x * (log * fun x => -a + log x) x ^ 2 * x * 2) + a * log x ^ 2 * (log * fun x => -a + log x) x ^ 2 * x -
+        a ^ 2 * log x * (log * fun x => -a + log x) x ^ 2 * x +
+      a ^ 2 * (log * fun x => -a + log x) x ^ 2 * x =
+    a * log x ^ 4 * (log * fun x => -a + log x) x * x - a * log x ^ 5 * id x * 2 -
+              a ^ 2 * log x ^ 3 * (log * fun x => -a + log x) x * x * 2 +
+            a ^ 2 * log x ^ 4 * id x * 5 +
+          a ^ 3 * log x ^ 2 * (log * fun x => -a + log x) x * x -
+        a ^ 3 * log x ^ 3 * id x * 4 +
+      a ^ 4 * log x ^ 2 * id x
+research/tasks/B699-Binomial/runs/20260910-unbounded-tail-9f6c2a17/lean/ECAnalytic.lean:92:26: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'B699TailEC.log_two_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.log_two_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.denominator_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.correction_128_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.hasDerivAt_correction' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699TailEC.correctionDeriv_lower' depends on axioms: [propext, Classical.choice, Quot.sound]

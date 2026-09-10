@@ -1,0 +1,132 @@
+{
+  "target_indices": [
+    13
+  ],
+  "rows": [
+    {
+      "claim": "Raw inputs and fixed delivery tree preservation",
+      "proof": "REPORT.md \u00a78",
+      "inputs": [
+        "input/B699-research-context-20260910.zip",
+        "sources/startup_snapshot.json",
+        "sources/adopted_code.json"
+      ],
+      "commands": [
+        "code/check_inputs.py"
+      ],
+      "outputs": [
+        "outputs/input_integrity_recheck.json"
+      ],
+      "kind": "integrity, not mathematics"
+    },
+    {
+      "claim": "Eleven asymmetric cuts, all Y>=2^8191",
+      "proof": "notes/PROOFS.md \u00a73",
+      "inputs": [
+        "input/i13_cuts.json"
+      ],
+      "commands": [
+        "code/certify_i13_cuts.py",
+        "code/check_i13_cuts_independent.py"
+      ],
+      "outputs": [
+        "outputs/i13_cuts_certified.json",
+        "outputs/i13_cuts_independent.json"
+      ],
+      "kind": "paper BFT consumer + exact real-constant enclosures"
+    },
+    {
+      "claim": "i13 noCommon => n<2^8192; two cube-small cofactors above 2^67",
+      "proof": "notes/PROOFS.md \u00a7\u00a71\u20135",
+      "inputs": [
+        "input/i13_cuts.json"
+      ],
+      "commands": [
+        "code/check_i13_graph.py"
+      ],
+      "outputs": [
+        "outputs/i13_graph_check.json"
+      ],
+      "kind": "infinite symbolic proof + exact finite orientation and integer certificates"
+    },
+    {
+      "claim": "All noCommon n<2^134",
+      "proof": "notes/PROOFS.md \u00a76",
+      "inputs": [
+        "outputs/i13_graph_check.json"
+      ],
+      "commands": [
+        "code/generate_i13_blocks.py",
+        "code/check_i13_blocks.py"
+      ],
+      "outputs": [
+        "outputs/block_certificate.json",
+        "outputs/i13_block_check.json",
+        "input/compressed_heights.json"
+      ],
+      "kind": "complete exponent-domain certificate"
+    },
+    {
+      "claim": "Entire remaining candidate domain excluded, including n126 all j",
+      "proof": "notes/PROOFS.md \u00a7\u00a77\u20138",
+      "inputs": [
+        "input/compressed_heights.json"
+      ],
+      "commands": [
+        "code/generate_i13_terminal.py",
+        "code/check_i13_terminal.py"
+      ],
+      "outputs": [
+        "outputs/i13_terminal_certificate.json",
+        "outputs/i13_terminal_check.json"
+      ],
+      "kind": "complete CRT candidate inclusion + exact original-object exclusion"
+    },
+    {
+      "claim": "Boundary diagnostics and rejection of corrupt data",
+      "proof": "REPORT.md \u00a77",
+      "inputs": [
+        "input/i13_cuts.json",
+        "outputs/block_certificate.json",
+        "outputs/i13_terminal_certificate.json"
+      ],
+      "commands": [
+        "code/check_edge_cases.py",
+        "code/adversarial_checks.py"
+      ],
+      "outputs": [
+        "outputs/edge_cases.json",
+        "outputs/adversarial_checks.json"
+      ],
+      "kind": "tests, not substitute for symbolic lemmas"
+    },
+    {
+      "claim": "Clean replay and frozen byte identity",
+      "proof": "README.md",
+      "inputs": [
+        "code/reproduce.py"
+      ],
+      "commands": [
+        "python3 code/reproduce.py --record replay/acceptance"
+      ],
+      "outputs": [
+        "replay/acceptance/reproduction.json"
+      ],
+      "kind": "reproducibility, not Lean or external theorem proof"
+    },
+    {
+      "claim": "Possible future i18 edge sensitivity",
+      "proof": "notes/PROOFS.md \u00a79",
+      "inputs": [
+        "outputs/weighted_asymmetric_probe.json"
+      ],
+      "commands": [
+        "code/check_next_condition.py"
+      ],
+      "outputs": [
+        "outputs/next_condition.json"
+      ],
+      "kind": "CONDITIONAL_GRAPH_ONLY, no new i18 bound"
+    }
+  ]
+}

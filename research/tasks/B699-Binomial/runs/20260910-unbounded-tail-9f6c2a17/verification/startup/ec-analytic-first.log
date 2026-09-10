@@ -1,0 +1,29 @@
+research/tasks/B699-Binomial/runs/20260910-unbounded-tail-9f6c2a17/lean/ECAnalytic.lean:63:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+research/tasks/B699-Binomial/runs/20260910-unbounded-tail-9f6c2a17/lean/ECAnalytic.lean:77:9: error: Tactic `unfold` failed to unfold `correctionDeriv` in
+  instAddCommGroup = DenselyNormedField.toNontriviallyNormedField.toDivisionRing.toAddCommGroup
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+research/tasks/B699-Binomial/runs/20260910-unbounded-tail-9f6c2a17/lean/ECAnalytic.lean:91:49: error: unsolved goals
+x : ℝ
+hx : 128 ≤ x
+hlp : 0 < log x
+hap : 0 < log x - 3 / 2
+hl : log x ≠ 0
+ha : log x - 3 / 2 ≠ 0
+hc : 0 < log 4
+hz : 0 ≤ log x - 9 / 2
+⊢ -1 - log x * (9 - log x * 12 + log x ^ 2 * 4)⁻¹ * 21 + log x ^ 2 * (9 - log x * 12 + log x ^ 2 * 4)⁻¹ * 6 +
+      (9 - log x * 12 + log x ^ 2 * 4)⁻¹ * 9 =
+    -(log x * (9 - log x * 12 + log x ^ 2 * 4)⁻¹ * 9) + log x ^ 2 * (9 - log x * 12 + log x ^ 2 * 4)⁻¹ * 2
+'B699TailEC.log_two_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.log_two_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.denominator_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.correction_128_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailEC.hasDerivAt_correction' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699TailEC.correctionDeriv_lower' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
