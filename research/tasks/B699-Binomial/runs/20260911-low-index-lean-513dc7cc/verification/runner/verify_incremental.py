@@ -154,6 +154,20 @@ def main():
                 reusable[rec["module"]] = (rec, evidence)
             report["reuse_evidence"].append(dict(path=v.relpath(evidence, repo),
                                                  sha256=v.sha256_path(evidence)))
+        def resource_snapshot():
+            snapshot = {"cpu_count": os.cpu_count(), "disk": list(shutil.disk_usage(repo))}
+            meminfo = Path("/proc/meminfo")
+            if meminfo.is_file():
+                snapshot["meminfo"] = [line for line in meminfo.read_text().splitlines()
+                                       if line.startswith(("MemTotal:", "MemAvailable:"))]
+            for item in ["memory.max", "memory.current", "cpu.max"]:
+                path = Path("/sys/fs/cgroup") / item
+                snapshot[item] = path.read_text().strip() if path.exists() else None
+            processes = subprocess.run(["ps", "-eo", "pid,ppid,rss,comm", "--sort=-rss"],
+                                       capture_output=True, text=True)
+            snapshot["processes"] = processes.stdout[:1800] if processes.returncode == 0 else processes.stderr[:300]
+            return snapshot
+        report["compile_resources"] = []
         for ordinal, ref in enumerate(closure, 1):
             saved = reusable.get(ref.module)
             if saved:
@@ -167,6 +181,16 @@ def main():
                     raise RuntimeError("Copied object hash mismatch")
                 report["reuse_records"].append(new_rec)
             else:
+                snapshot = resource_snapshot()
+                report["compile_resources"].append({"source": v.relpath(ref.path, repo), **snapshot})
+                print("RESOURCE", json.dumps({"source": v.relpath(ref.path, repo),
+                    **{k: v for k, v in snapshot.items() if k != "processes"}}), flush=True)
+                # Reserve the Lean allocation bound plus wrapper/process-tree headroom.
+                for line in snapshot.get("meminfo", []):
+                    if line.startswith("MemAvailable:") and int(line.split()[1]) < (args.memory_mb + 512) * 1024:
+                        raise RuntimeError("Insufficient available memory for the bounded serial compile")
+                if snapshot["disk"][2] < 512 * 1024 * 1024:
+                    raise RuntimeError("Insufficient disk headroom before compile")
                 rec, _ = v.compile_source(ref, raw_olean=objects, memory_mb=args.memory_mb,
                     imports=imports.get(ref.path, []), ordinal=ordinal, **common)
                 report["compile_records"].append(rec)

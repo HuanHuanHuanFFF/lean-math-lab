@@ -13,3 +13,8 @@ CI 只读；主线程取得实际证据后，通过 GitHub 插件提交、推送
 
 
 完整29已验：`verification/ci-34512327870/row029-accepted.json`，原题 `common_i029`，78源项目闭包，std3，源/已发布证明SHA `336885ea5547532f5b89dca5fce38a4debb0200e`。阶段A 1/151、本轮1/169。现有只读工作流仍可重跑完整29，最后接受根 `lean/rows/Row029/Original.lean`。下一步启用固定对象共享与逐行接受入口处理35、36、37；后续只能在实际消费者通过后更新每项状态。
+
+
+发布核对：指标29完整验收提交 `868a5121f494b3100e41841a903409ad3480b60c`，远端已核对。后续只读批次入口 `.github/workflows/b699-phase-a.yml`，首批35、36、37。`generate_row.py --i 29` 首先要求逐字复现已验49个块；SharedEnvironment 在固定pins下实际编译，cache_bundle仅传输本run对象/日志/证据并逐项核对哈希；各行新机器重新验pins、源与对象哈希，再实际编译原题根。CI仍只读，所有发布通过主线程GitHub插件。
+
+源码与日志按 B699_FILE_CHUNK 分块输出到任务日志，供工作机 unavailable 时通过连接器恢复文本；ZIP 始终在CI本地解析，不通过Base64或模型解析。仅源和实际证据可成为commit内容。原29接受工作流保留为 workflow_dispatch 复现入口，不再因后续批次工具修改重复触发。下一批列表在 `verification/runner/phase-a-batch.json`；已真实验收指标会采用固定验收并排除重算。

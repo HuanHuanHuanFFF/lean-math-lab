@@ -1,0 +1,141 @@
+name: B699 phase A original rows
+
+on:
+  push:
+    branches: ['GPT-work/b699-low-index-lean-20260911-513dc7cc']
+    paths:
+      - '.github/workflows/b699-phase-a.yml'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/phase-a-batch.json'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/generate_row.py'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/cache_bundle.py'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/compile_row.py'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_incremental.py'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/SharedEnvironment.lean'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WitnessBridge.lean'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  B699_RUN: 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc'
+  B699_RAW: '.tools/20260911-low-index-lean-513dc7cc'
+
+jobs:
+  shared:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      has_work: ${{ steps.plan.outputs.has_work }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Select only pending authorized phase A indices
+        id: plan
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          run = Path(os.environ['B699_RUN'])
+          state = json.loads((run/'target-status.json').read_text())
+          accepted = {r['i'] for r in state['targets'] if r['full_original_statement_accepted']}
+          if 29 not in accepted:
+              raise RuntimeError('Complete Row029 acceptance is required first')
+          batch = json.loads((run/'verification/runner/phase-a-batch.json').read_text())
+          if len(set(batch)) != len(batch) or not all(35 <= i <= 184 for i in batch):
+              raise RuntimeError('Batch is outside the remaining 150 phase A indices')
+          pending = [i for i in batch if i not in accepted]
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('matrix=' + json.dumps({'i': pending}) + '\n')
+              out.write('has_work=' + ('true' if pending else 'false') + '\n')
+          print('pending indices', pending, 'already fixed acceptance', sorted(accepted))
+          PY
+      - name: Check scripts and reproduce the accepted Row029 sources
+        if: steps.plan.outputs.has_work == 'true'
+        run: |
+          python3 -m py_compile "$B699_RUN"/verification/runner/*.py
+          python3 "$B699_RUN/verification/runner/generate_row.py" --i 29 --plan "$B699_RUN/verification/generator-row029.json"
+          python3 - <<'PY'
+          import json, os, runpy
+          from pathlib import Path
+          run = Path(os.environ['B699_RUN'])
+          print(json.dumps(runpy.run_path(str(run/'verification/runner/compile_probes.py'))['resources']()))
+          PY
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        if: steps.plan.outputs.has_work == 'true'
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Restore fixed dependency imports and verify shared acceptance closure
+        if: steps.plan.outputs.has_work == 'true'
+        run: |
+          python3 "$B699_RUN/verification/runner/verify_environment.py" --repo . --mode cache
+          python3 "$B699_RUN/verification/runner/verify_incremental.py" --repo . --root "$B699_RUN/lean/SharedEnvironment.lean" --memory-mb 3072 --timeout 900
+          python3 "$B699_RUN/verification/runner/cache_bundle.py" export --archive "$B699_RAW/export/shared.zip"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: steps.plan.outputs.has_work == 'true'
+        with:
+          name: b699-shared-acceptance
+          path: ${{ env.B699_RAW }}/export/shared.zip
+          include-hidden-files: true
+          if-no-files-found: error
+      - name: Print shared actual evidence
+        if: always()
+        run: python3 "$B699_RUN/verification/runner/summarize_evidence.py"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-shared-evidence
+          path: ${{ env.B699_RUN }}/verification
+          if-no-files-found: error
+  row:
+    needs: shared
+    if: needs.shared.outputs.has_work == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix: ${{ fromJSON(needs.shared.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Generate the exact row candidate and observe resources
+        run: |
+          python3 "$B699_RUN/verification/runner/generate_row.py" --i "${{ matrix.i }}" --plan "$B699_RUN/verification/row-plan.json"
+          python3 - <<'PY'
+          import json, os, runpy
+          from pathlib import Path
+          run = Path(os.environ['B699_RUN'])
+          print(json.dumps(runpy.run_path(str(run/'verification/runner/compile_probes.py'))['resources']()))
+          PY
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Restore fixed package dependencies
+        run: python3 "$B699_RUN/verification/runner/verify_environment.py" --repo . --mode cache
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: b699-shared-acceptance
+          path: ${{ env.B699_RAW }}/download
+      - name: Verify restored object hashes and compile the independent original root
+        run: |
+          python3 "$B699_RUN/verification/runner/cache_bundle.py" import --archive "$B699_RAW/download/shared.zip"
+          python3 "$B699_RUN/verification/runner/compile_row.py" --plan "$B699_RUN/verification/row-plan.json"
+      - name: Print exact compile and axiom evidence
+        if: always()
+        run: python3 "$B699_RUN/verification/runner/summarize_evidence.py"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-row-${{ matrix.i }}-evidence
+          path: |
+            ${{ env.B699_RUN }}/verification
+            ${{ env.B699_RUN }}/lean
+          if-no-files-found: error
