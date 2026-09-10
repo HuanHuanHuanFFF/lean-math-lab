@@ -1,0 +1,1042 @@
+{
+  "schema_version": 1,
+  "runner_source_hashes_at_start": {
+    "verify.py": "dbbb1831abbfc8248e4c8f69f2cbb92b21663694457bcb84addfb197ba6104fb",
+    "monitor.py": "cec1097013954fc61e002d0aadcc761d5563e6aad939edf7935deb2a5dbec9c6"
+  },
+  "success": false,
+  "exit_code": 1,
+  "started_utc": "2026-09-09T18:12:47.581406Z",
+  "finished_utc": "2026-09-09T18:12:54.303567Z",
+  "project_root": "PROJECT_ROOT",
+  "evidence_directory": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z",
+  "diagnostic_directory": ".tools/large/verification/20260909T181247Z",
+  "argv_public": {
+    "lean": "LEAN",
+    "package_root": "PACKAGE_ROOT",
+    "project_root": "PROJECT_ROOT",
+    "roots": [
+      "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/HeightApprox.lean"
+    ],
+    "memory_mb": 1280,
+    "timeout_seconds": 180
+  },
+  "memory_mb": 1280,
+  "timeout_seconds": 180,
+  "toolchain": {
+    "declared": "leanprover/lean4:v4.33.1",
+    "observed": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "command": [
+      "LEAN",
+      "--version"
+    ],
+    "exit_code": 0,
+    "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/lean-version.log",
+    "log_sha256": "e9f2989d6237c1c9f313c7b7f9be86872de85f5dc31e5953909db5ad6ba9f902"
+  },
+  "manifest_sha256": "fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0",
+  "pins": [
+    {
+      "name": "mathlib",
+      "path": "PACKAGE_ROOT/mathlib",
+      "manifest_rev": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "input_rev": "v4.33.1",
+      "url": "https://github.com/leanprover-community/mathlib4",
+      "cache_path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "plausible",
+      "path": "PACKAGE_ROOT/plausible",
+      "manifest_rev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/plausible",
+      "cache_path": "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": "PACKAGE_ROOT/LeanSearchClient",
+      "manifest_rev": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/LeanSearchClient",
+      "cache_path": "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "importGraph",
+      "path": "PACKAGE_ROOT/importGraph",
+      "manifest_rev": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/import-graph",
+      "cache_path": "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "proofwidgets",
+      "path": "PACKAGE_ROOT/proofwidgets",
+      "manifest_rev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/ProofWidgets4",
+      "cache_path": "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "aesop",
+      "path": "PACKAGE_ROOT/aesop",
+      "manifest_rev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/aesop",
+      "cache_path": "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Qq",
+      "path": "PACKAGE_ROOT/Qq",
+      "manifest_rev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/quote4",
+      "cache_path": "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "batteries",
+      "path": "PACKAGE_ROOT/batteries",
+      "manifest_rev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/batteries",
+      "cache_path": "PACKAGE_ROOT/batteries/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Cli",
+      "path": "PACKAGE_ROOT/Cli",
+      "manifest_rev": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "input_rev": "v4.33.0",
+      "url": "https://github.com/leanprover/lean4-cli",
+      "cache_path": "PACKAGE_ROOT/Cli/.lake/build/lib/lean",
+      "cache_exists": false,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    }
+  ],
+  "source_closure": [
+    {
+      "source": "Math/B699/CofactorCriterion.lean",
+      "module": "Math.B699.CofactorCriterion",
+      "imports": [
+        "Mathlib.Data.Nat.Choose.Factorization",
+        "Mathlib.Data.Nat.GCD.Basic",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.Linarith"
+      ],
+      "source_sha256_before": "341180b428b6927e72bd7de10c0ca03b3f8d4eb4f778c1aa4a3aeea4f33b9d79",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+      "imports": [
+        "Math.B699.CofactorCriterion"
+      ],
+      "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+      "imports": [
+        "Mathlib.Data.Nat.Choose.Basic",
+        "Mathlib.Data.Nat.Factorization.Basic",
+        "Mathlib.Data.Nat.GCD.BigOperators"
+      ],
+      "source_sha256_before": "0299face333237445eddd2c11acbf16c554d225028de7b509c8cfe603fc9996e",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.GapBridge",
+        "research.tasks.B699-Binomial.runs.20260908-external-reductions-b3c1b7.lean.DivisorTransfer",
+        "Mathlib.Data.Nat.Factorial.BigOperators",
+        "Mathlib.Data.Nat.Prime.Factorial"
+      ],
+      "source_sha256_before": "3b0529e66f438bbd6d8c19f08f4a5b5ad132d2cd86e09e8bd1a1601fc49eecf4",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.PrimePowerTransfer",
+        "Mathlib.Algebra.Order.BigOperators.Group.Finset"
+      ],
+      "source_sha256_before": "b49f7d6f9a83e534e546b65bb73e3a6d5afb60f77d7679366ff575d6615cbbb7",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowWeights",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+      ],
+      "source_sha256_before": "17ee0024b94bcb5e1ba0b05f5a0a4229dd8a0e5816c3a83385ba8c45eced6c99",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowSize.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowSize",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowWeights",
+        "Mathlib.Algebra.BigOperators.Intervals"
+      ],
+      "source_sha256_before": "4da6cb312eca31e38fb39bc88ff3bbce771ef0a5bb9c9278d925e36d4002c047",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-eees-chain-5a2e10/lean/PowerBounds.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-eees-chain-5a2e10.lean.PowerBounds",
+      "imports": [
+        "Mathlib.Data.Nat.Choose.Basic",
+        "Mathlib.Tactic.Ring",
+        "Lean.Elab.Tactic.Omega"
+      ],
+      "source_sha256_before": "3022f40997b3b9302343b99a8fa91a984228af348eb7b02f69fbd198016fee9a",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/HeightCertificate.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.HeightCertificate",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.ThreeWindowSize",
+        "research.tasks.B699-Binomial.runs.20260909-eees-chain-5a2e10.lean.PowerBounds"
+      ],
+      "source_sha256_before": "256a2e13903b7b2b42e5bea2b32c20e2c5df1af4019b9f05931b117ae462bc4d",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/HeightRows.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.HeightRows",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.HeightCertificate"
+      ],
+      "source_sha256_before": "0a496bb61a81492a017b6eb7b2dd9682bfd7ed51ebb71eadf25856d0a82a7cdb",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+      "imports": [
+        "Mathlib.Data.Nat.Prime.Defs",
+        "Mathlib.Data.List.Basic",
+        "Lean.Elab.Tactic.Omega"
+      ],
+      "source_sha256_before": "990a479d4a73d1032fcb7621e4eef098cec4430342c040e3c91581269dd3a23d",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/SmallPrimeCount.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.SmallPrimeCount",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-low-index-structure-b41a5a63.lean.TrialPrimeCheck",
+        "research.tasks.B699-Binomial.runs.20260909-large-prime-structure-cb4764f0.lean.SmallPartBound"
+      ],
+      "source_sha256_before": "28d699813cb116dbd042e0b15d7b43c900c84795c17c36361cc15bce41f9fa13",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/dyadic/Base.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.dyadic.Base",
+      "imports": [
+        "Mathlib.Data.Nat.Size",
+        "Mathlib.Tactic.Omega",
+        "Mathlib.Tactic.Ring"
+      ],
+      "source_sha256_before": "6edc30a820924461baf13309a17faf23e7dd57099054f0bc8b756f983a2de92e",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/dyadic/Pow.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.dyadic.Pow",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.dyadic.Base"
+      ],
+      "source_sha256_before": "6a27e3504efc22ff4ca34c1eebd07b68cc9663af5daa9ddef2179fd60d55a57d",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/dyadic/Compare.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.dyadic.Compare",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.dyadic.Base"
+      ],
+      "source_sha256_before": "44d0e2412deb4a516c20d435f8178e35df285c86f762456f20b4976062123332",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/DyadicBounds.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.DyadicBounds",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.dyadic.Pow",
+        "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.dyadic.Compare"
+      ],
+      "source_sha256_before": "0877cbe706c00ef54c78f85f71f1933d606ad4d83c7c69d01490cadaed3204f8",
+      "source_sha256_after": null
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/HeightApprox.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.HeightApprox",
+      "imports": [
+        "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.HeightRows",
+        "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.SmallPrimeCount",
+        "research.tasks.B699-Binomial.runs.20260909-middle-index-cert-1a78f8cd.lean.DyadicBounds"
+      ],
+      "source_sha256_before": "1858d3025556f954c345be4f32b73fb749a9e96a94e39632026de7cb4cac5499",
+      "source_sha256_after": null
+    }
+  ],
+  "package_imports": [
+    "Mathlib.Algebra.BigOperators.Intervals",
+    "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+    "Mathlib.Data.List.Basic",
+    "Mathlib.Data.Nat.Choose.Basic",
+    "Mathlib.Data.Nat.Choose.Factorization",
+    "Mathlib.Data.Nat.Factorial.BigOperators",
+    "Mathlib.Data.Nat.Factorization.Basic",
+    "Mathlib.Data.Nat.GCD.Basic",
+    "Mathlib.Data.Nat.GCD.BigOperators",
+    "Mathlib.Data.Nat.Prime.Defs",
+    "Mathlib.Data.Nat.Prime.Factorial",
+    "Mathlib.Data.Nat.Size",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.Omega",
+    "Mathlib.Tactic.Ring"
+  ],
+  "fixed_cache_imports": [],
+  "policy": {
+    "files": 17,
+    "violations": [],
+    "exit_code": 0,
+    "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/source-policy.log",
+    "log_sha256": "e51b556e635a69592bf97bcff793f594ba88c806215e8dfdb34620c2f2fc2c0b",
+    "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/source-policy.log",
+    "diagnostic_log_sha256": "e51b556e635a69592bf97bcff793f594ba88c806215e8dfdb34620c2f2fc2c0b"
+  },
+  "compile_records": [],
+  "axiom_audit": [],
+  "commands": [
+    {
+      "label": "package-mathlib-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:47.608313Z",
+      "finished_utc": "2026-09-09T18:12:47.815425Z",
+      "seconds": 0.207,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9019392,
+        "sampled_peak_private_bytes": 675840,
+        "peak_pagefile_bytes": 1810432
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-mathlib-head.log",
+      "log_sha256": "7368bffd468f59b2e94c0c10af897a48041f4bf69a3fae1868f49f3c18afb156",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-mathlib-head.log",
+      "diagnostic_log_sha256": "0b859b4a8bf2e946dc18065ae5ebce5d90f041e4b848097bb92da637e1a51c4b",
+      "output_preview": "0df444a360eaa60ab8c11dca51a86af692955474\n"
+    },
+    {
+      "label": "package-mathlib-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:47.822819Z",
+      "finished_utc": "2026-09-09T18:12:48.028865Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9027584,
+        "sampled_peak_private_bytes": 675840,
+        "peak_pagefile_bytes": 1810432
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-mathlib-status.log",
+      "log_sha256": "9a0f3539a69e995c5e1a3737e909a9795541ef762e9adb0c654eaa8e4c72429f",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-mathlib-status.log",
+      "diagnostic_log_sha256": "b11c2ebb438a7a006dc0338967773f1ac110964d660eacbf28c632652f31fa55",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-plausible-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:48.034117Z",
+      "finished_utc": "2026-09-09T18:12:48.242532Z",
+      "seconds": 0.208,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9023488,
+        "sampled_peak_private_bytes": 675840,
+        "peak_pagefile_bytes": 1806336
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-plausible-head.log",
+      "log_sha256": "1f1bb95fa15f76a5ac1554a275ac76faca595487b0f61b9ba4937c33e33bda7d",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-plausible-head.log",
+      "diagnostic_log_sha256": "a0c2e7778f2e9d0f669c82596fcb8667ae3ec0ec2e3c47053a0888140956b230",
+      "output_preview": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n"
+    },
+    {
+      "label": "package-plausible-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:48.249561Z",
+      "finished_utc": "2026-09-09T18:12:48.456637Z",
+      "seconds": 0.207,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9048064,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1802240
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-plausible-status.log",
+      "log_sha256": "be3bfe10781b0a66ed1dafa52b082f163dd2aa6e47d7599dea97f46ee1c22753",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-plausible-status.log",
+      "diagnostic_log_sha256": "cb7b2b2962b8efee6eecf1cf9d140f018dc1eed0978cb0941ed2a152ddbe9bf3",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-LeanSearchClient-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:48.461080Z",
+      "finished_utc": "2026-09-09T18:12:48.667110Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9007104,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1773568
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-LeanSearchClient-head.log",
+      "log_sha256": "837d4e1e05e8ebdf8c4a1f8767cff7958411a523b64286da75fce67502f9f8cb",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-LeanSearchClient-head.log",
+      "diagnostic_log_sha256": "d43bd7bb8f05ba27c222c8999171989f5eb764e69c8dc6b4043fc0b69b7b36dd",
+      "output_preview": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n"
+    },
+    {
+      "label": "package-LeanSearchClient-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:48.676630Z",
+      "finished_utc": "2026-09-09T18:12:48.882832Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9027584,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1806336
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-LeanSearchClient-status.log",
+      "log_sha256": "af21ebcdb4f597872c5bd1530e6a872e6d1a2552c898a1cbde6e3f2cf27bb2d5",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-LeanSearchClient-status.log",
+      "diagnostic_log_sha256": "b2c116c312f0efd322b9110074c9aa10aa3e91f22f8a507eadd9256577536dbb",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-importGraph-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:48.887978Z",
+      "finished_utc": "2026-09-09T18:12:49.094519Z",
+      "seconds": 0.207,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9023488,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1802240
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-importGraph-head.log",
+      "log_sha256": "f0d1c51bf3850c2143862f7633bd660e7d0eac3323e2ccdf5f2a9dc01af4df0c",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-importGraph-head.log",
+      "diagnostic_log_sha256": "98c4d5fddb8c6905482d7ef0b121a18f438e52fa02330048cc628a9e95341379",
+      "output_preview": "16f02aa7642864af59f1ff0e384a015994db9118\n"
+    },
+    {
+      "label": "package-importGraph-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:49.099686Z",
+      "finished_utc": "2026-09-09T18:12:49.308160Z",
+      "seconds": 0.208,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9007104,
+        "sampled_peak_private_bytes": 675840,
+        "peak_pagefile_bytes": 1769472
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-importGraph-status.log",
+      "log_sha256": "8f3c1a9db3070480cd57fb0fa5d82b11c481c990f1db89542715b227282ed171",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-importGraph-status.log",
+      "diagnostic_log_sha256": "d126616a63da280fb1cc80d830ee5f59843846ba540ce2765d7bbc600fc843e3",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-proofwidgets-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:49.312781Z",
+      "finished_utc": "2026-09-09T18:12:49.519042Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9023488,
+        "sampled_peak_private_bytes": 675840,
+        "peak_pagefile_bytes": 1806336
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-proofwidgets-head.log",
+      "log_sha256": "d93873f39c1586f5bfe857cba3e2248c8eea9084f87252d5bccc8ddbeef2ce76",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-proofwidgets-head.log",
+      "diagnostic_log_sha256": "0991f92cd60afece1c8c79c4a172374957221bfb9efb255251f960b5f8fbf6ef",
+      "output_preview": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n"
+    },
+    {
+      "label": "package-proofwidgets-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:49.523411Z",
+      "finished_utc": "2026-09-09T18:12:49.729522Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9027584,
+        "sampled_peak_private_bytes": 675840,
+        "peak_pagefile_bytes": 1810432
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-proofwidgets-status.log",
+      "log_sha256": "9e3b411b3e5906be36fba7799196debaabf32c7ed3acdbbcef5cf0a86b0bf3fe",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-proofwidgets-status.log",
+      "diagnostic_log_sha256": "2b92d0ec30550c308cf876d5fdfa6397de261e4ca1ac59047088d39f903bc754",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-aesop-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:49.736436Z",
+      "finished_utc": "2026-09-09T18:12:49.944080Z",
+      "seconds": 0.208,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9019392,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1798144
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-aesop-head.log",
+      "log_sha256": "8355b31fce190f7e652d851ad7bdf4bc499c75b3a1f396b4556aaf2fe76fc512",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-aesop-head.log",
+      "diagnostic_log_sha256": "d8c8b199eee96e24008d31c5414ea1a7ddb90ce48c57a65b402c2ffc05a1afca",
+      "output_preview": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n"
+    },
+    {
+      "label": "package-aesop-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:49.950774Z",
+      "finished_utc": "2026-09-09T18:12:50.157029Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9019392,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1810432
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-aesop-status.log",
+      "log_sha256": "b6ee48e0bed5378ac120e6335ca690613a1e89110dc9f41bbd9085fa7b95f7b8",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-aesop-status.log",
+      "diagnostic_log_sha256": "d40853a88a3cbadc05448fbfa8749d452104b8459032519f6137826e37bfa670",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-Qq-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:50.161400Z",
+      "finished_utc": "2026-09-09T18:12:50.367390Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9027584,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1806336
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-Qq-head.log",
+      "log_sha256": "ec4c80351991333a577eb6b8c761e96ba3e7349beaf79c16047dc96ba2ea5003",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-Qq-head.log",
+      "diagnostic_log_sha256": "d88ae9d5a92db3f221b758b344baaa2de6f8de0d656bb3af673cfe791b2fb353",
+      "output_preview": "92c15be17b7caf78c2ad767ec40f89052d908d81\n"
+    },
+    {
+      "label": "package-Qq-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:50.372008Z",
+      "finished_utc": "2026-09-09T18:12:50.578744Z",
+      "seconds": 0.207,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9019392,
+        "sampled_peak_private_bytes": 675840,
+        "peak_pagefile_bytes": 1806336
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-Qq-status.log",
+      "log_sha256": "7e4c75d8d4578bbb40319ce6c121a43c4b71e682c41f66fa52302a84c77fc5ae",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-Qq-status.log",
+      "diagnostic_log_sha256": "00141805ce285ba1bdfe3badf642c1603d605de1c3b9f03d52d55adf4f33d5ce",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-batteries-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:50.593238Z",
+      "finished_utc": "2026-09-09T18:12:50.799726Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9027584,
+        "sampled_peak_private_bytes": 679936,
+        "peak_pagefile_bytes": 1814528
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-batteries-head.log",
+      "log_sha256": "b9525b562cfac58c8585c56c38d4396a39da52101a84d0f50586b9c973441beb",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-batteries-head.log",
+      "diagnostic_log_sha256": "74d81cf75a544d180c906be3e195812937e1e6e0bed821a518b402fa0c672807",
+      "output_preview": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n"
+    },
+    {
+      "label": "package-batteries-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:50.804490Z",
+      "finished_utc": "2026-09-09T18:12:51.010413Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9019392,
+        "sampled_peak_private_bytes": 679936,
+        "peak_pagefile_bytes": 1777664
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-batteries-status.log",
+      "log_sha256": "56096b71d5b50b4b80585a8553533fb3dc7ab26f7738c4a0fb1da632b3f6cc3e",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-batteries-status.log",
+      "diagnostic_log_sha256": "5565b4b6881cc28cc79d132cb13910383503d76dabd602174868585e82e9fbb0",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "package-Cli-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli rev-parse --verify HEAD",
+      "started_utc": "2026-09-09T18:12:51.016348Z",
+      "finished_utc": "2026-09-09T18:12:51.222522Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9023488,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1802240
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-Cli-head.log",
+      "log_sha256": "b2e7ebee7f781f7e8a740ca9ec12549237efefc90c5fece7e97ceb847918f29b",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-Cli-head.log",
+      "diagnostic_log_sha256": "ab0361d507b063ce6d6471d9813850d047b2cdd40e93d8c1c9fc60cd1b096b96",
+      "output_preview": "6130a47896ce867c6a4a55373441e59e565bad0f\n"
+    },
+    {
+      "label": "package-Cli-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli status --porcelain=v1 --branch",
+      "started_utc": "2026-09-09T18:12:51.227242Z",
+      "finished_utc": "2026-09-09T18:12:51.433814Z",
+      "seconds": 0.207,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 9027584,
+        "sampled_peak_private_bytes": 671744,
+        "peak_pagefile_bytes": 1810432
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/package-Cli-status.log",
+      "log_sha256": "7325ee36ca9eb03053c2844c119ebb5fe54482c8dd8af84c24cec50be963534c",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/package-Cli-status.log",
+      "diagnostic_log_sha256": "e8e2b6f39fd9f76180e25c356b6f3c05fb80f67ddeb4e9242f9fa1da97fdb070",
+      "output_preview": "## HEAD (no branch)\n"
+    },
+    {
+      "label": "lean-version",
+      "command": [
+        "LEAN",
+        "--version"
+      ],
+      "command_shell": "LEAN --version",
+      "started_utc": "2026-09-09T18:12:51.441167Z",
+      "finished_utc": "2026-09-09T18:12:51.647281Z",
+      "seconds": 0.206,
+      "memory_measurement": {
+        "method": "GetProcessMemoryInfo, sampled every 0.2s; Windows peak WorkingSet field",
+        "sample_count": 2,
+        "peak_working_set_bytes": 45953024,
+        "sampled_peak_private_bytes": 389120,
+        "peak_pagefile_bytes": 37462016
+      },
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/20260909T181247Z/logs/lean-version.log",
+      "log_sha256": "e9f2989d6237c1c9f313c7b7f9be86872de85f5dc31e5953909db5ad6ba9f902",
+      "diagnostic_log": ".tools/large/verification/20260909T181247Z/logs/lean-version.log",
+      "diagnostic_log_sha256": "8a80310d9a264fd10df9288d4f9c352e3bdd91c204e170c436caf20c5b989739",
+      "output_preview": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n"
+    }
+  ],
+  "command_count": 19,
+  "fixed_dependency_cache_reused": false,
+  "all_new_project_closure_compiled": false,
+  "independent_checker_used": false,
+  "failure": "fixed package cache missing for imported module Mathlib.Tactic.Omega",
+  "stamp": "20260909T181247Z",
+  "fresh_output": true,
+  "lean_path_public": [
+    ".tools/large/verification/20260909T181247Z/olean",
+    "PACKAGE_CACHE_ROOTS"
+  ],
+  "environment_scope": {
+    "TEMP": ".tools/large/verification/20260909T181247Z/tmp",
+    "TMP": ".tools/large/verification/20260909T181247Z/tmp",
+    "TMPDIR": ".tools/large/verification/20260909T181247Z/tmp",
+    "MATHLIB_CACHE_DIR": ".tools/large/verification/20260909T181247Z/mathlib-cache",
+    "safe_directory": "each package path passed with process-local git -c only",
+    "project_objects": ".tools/large/verification/20260909T181247Z/olean",
+    "fixed_dependency_objects": "PACKAGE_ROOT/*/.lake/build/lib/lean"
+  },
+  "root_sources": [
+    "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/lean/HeightApprox.lean"
+  ],
+  "reuse_base_evidence": [
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd/verification/20260909T145049Z/evidence.json",
+      "sha256": "9b66b42daa701241306852bd90192bbc0103bdf4f9a8c59c73bdc4c36358d3f2"
+    }
+  ],
+  "reused_source_aligned_modules": [],
+  "all_project_closure_verified": false,
+  "compiled_in_this_invocation": 0,
+  "runner_sources": [
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/runner/extend.py",
+      "sha256": "2468c1343ba79be921a202a9e55d02a2a3d087a3d65de256baea8d4df33ac38b",
+      "sha256_at_finish": "2468c1343ba79be921a202a9e55d02a2a3d087a3d65de256baea8d4df33ac38b"
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/runner/verify.py",
+      "sha256": "dbbb1831abbfc8248e4c8f69f2cbb92b21663694457bcb84addfb197ba6104fb",
+      "sha256_at_finish": "dbbb1831abbfc8248e4c8f69f2cbb92b21663694457bcb84addfb197ba6104fb"
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/verification/runner/monitor.py",
+      "sha256": "cec1097013954fc61e002d0aadcc761d5563e6aad939edf7935deb2a5dbec9c6",
+      "sha256_at_finish": "cec1097013954fc61e002d0aadcc761d5563e6aad939edf7935deb2a5dbec9c6"
+    }
+  ]
+}
