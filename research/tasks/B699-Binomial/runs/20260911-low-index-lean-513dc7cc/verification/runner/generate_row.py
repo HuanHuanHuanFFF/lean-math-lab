@@ -201,14 +201,25 @@ def main():
     parts, names = [], []
     for start in range(0, len(layers), 4):
         if i != 29:
-            layer_roots, layer_names = [], []
+            layer_roots, layer_names, body = [], [], ""
             for k in range(start, min(start + 4, len(layers))):
-                root, name = add_independent_layer(k, layers[k])
-                layer_roots.append(root)
+                name = tag + "_layer%03d_checked" % k
+                lo, upper, M = map(int, re.findall(r"\d+", layers[k]))
+                # Preserve the independent-module 35/37 template exactly.
+                # Later small layers use the already-tested original checker.
+                small = i >= 38 and len(exact_intervals(i, M, lo, upper)) <= 64
+                if small:
+                    layer_roots.append(data)
+                    body += ("theorem " + name + " :\n    coverLayerCheck " +
+                        tag + ".height " + tag + ".goods " + layers[k] +
+                        " = true := by\n  decide +kernel\n\n")
+                else:
+                    root, name = add_independent_layer(k, layers[k])
+                    layer_roots.append(root)
                 layer_names.append(name)
                 names.append(name)
             parts.append(add(folder / ("Layers%03d.lean" % start),
-                layer_roots, "", layer_names))
+                layer_roots, body, layer_names))
             continue
         imports, body, local_names = [data], "", []
         for k in range(start, min(start + 4, len(layers))):

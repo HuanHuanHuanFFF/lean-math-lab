@@ -58,7 +58,18 @@ def main():
     actual = ["/usr/bin/time", "-v", "-o", str(timing), *command] if Path("/usr/bin/time").is_file() else command
     existing = set((RUN / "verification").glob("20*/evidence.json"))
     with log.open("w") as out:
-        status = subprocess.run(actual, stdout=out, stderr=subprocess.STDOUT).returncode
+        process = subprocess.Popen(actual, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                   text=True, bufsize=1)
+        assert process.stdout is not None
+        for line in process.stdout:
+            out.write(line)
+            out.flush()
+            if line.startswith("COMPILE "):
+                # Progress only: acceptance still requires the final raw report.
+                record = json.loads(line[len("COMPILE "):])
+                print("B699_MODULE_FINISHED " + json.dumps({k: record.get(k) for k in
+                    ["source", "seconds", "exit_code", "failure"]}, ensure_ascii=False), flush=True)
+        status = process.wait()
     resources = {"i": i, "before": before, "after": inspect(), "exit_code": status,
                  "command": command, "log": str(log), "timing": str(timing)}
     (directory / "resources.json").write_text(json.dumps(resources, indent=2) + "\n")

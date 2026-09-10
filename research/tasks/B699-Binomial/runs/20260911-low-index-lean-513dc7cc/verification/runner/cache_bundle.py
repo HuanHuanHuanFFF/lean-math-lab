@@ -27,15 +27,21 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("mode", choices=["export", "import"])
     p.add_argument("--archive", type=Path, required=True)
+    p.add_argument("--root", type=Path, default=ROOT)
+    p.add_argument("--evidence-pointer", type=Path, default=RAW / "shared-evidence.txt")
     args = p.parse_args()
+    if not args.root.is_relative_to(RUN / "lean") or ".." in args.root.parts:
+        raise RuntimeError("Acceptance root is outside this run")
+    if not args.evidence_pointer.is_relative_to(RAW) or ".." in args.evidence_pointer.parts:
+        raise RuntimeError("Evidence pointer is outside this run")
     if args.mode == "export":
         candidates = []
         for f in sorted((RUN / "verification").glob("20*/evidence.json")):
             d = json.loads(f.read_text())
-            if d.get("success") and d.get("root_sources") == [str(ROOT)]:
+            if d.get("success") and d.get("root_sources") == [str(args.root)]:
                 candidates.append((f, d))
         if not candidates:
-            raise RuntimeError("No successful shared environment acceptance")
+            raise RuntimeError("No successful acceptance for the exact requested root")
         evidence, d = candidates[-1]
         rows = [*d.get("compile_records", []), *d.get("reuse_records", [])]
         if len(rows) != len(d["source_closure"]):
@@ -62,12 +68,14 @@ def main():
             if not allowed(file) or sha(file) != command["log_sha256"]:
                 raise RuntimeError("Command log changed")
             files.add(file)
-        manifest = {"schema": 1, "source_commit": subprocess.check_output(
+        manifest = {"schema": 1, "root_source": str(args.root), "source_commit": subprocess.check_output(
             ["git", "rev-parse", "HEAD"], text=True).strip(),
             "manifest_sha256": sha("lake-manifest.json"),
             "toolchain": Path("lean-toolchain").read_text().strip(),
             "evidence": str(evidence), "files": [
                 {"path": str(f), "size": f.stat().st_size, "sha256": sha(f)} for f in sorted(files)]}
+        if sum(f.stat().st_size for f in files) > 100 * 1024 * 1024:
+            raise RuntimeError("Accepted object bundle exceeds its 100 MiB resource budget")
         args.archive.parent.mkdir(parents=True, exist_ok=True)
         if args.archive.exists():
             raise RuntimeError("Preserve existing archive")
@@ -81,6 +89,8 @@ def main():
     else:
         with zipfile.ZipFile(args.archive) as archive:
             manifest = json.loads(archive.read("cache-manifest.json"))
+            if manifest.get("root_source", str(ROOT)) != str(args.root):
+                raise RuntimeError("Restored acceptance root does not match the requested root")
             if manifest["manifest_sha256"] != sha("lake-manifest.json"):
                 raise RuntimeError("Dependency manifest mismatch")
             if manifest["toolchain"] != Path("lean-toolchain").read_text().strip():
@@ -103,7 +113,8 @@ def main():
                 else:
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_bytes(content)
-        (RAW / "shared-evidence.txt").write_text(manifest["evidence"] + "\n")
+        args.evidence_pointer.parent.mkdir(parents=True, exist_ok=True)
+        args.evidence_pointer.write_text(manifest["evidence"] + "\n")
         restoration = RUN / "verification/cache-restorations" / (Path(manifest["evidence"]).parent.name + ".json")
         restoration.parent.mkdir(parents=True, exist_ok=True)
         restoration.write_text(json.dumps({

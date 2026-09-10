@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 2
       matrix: ${{ fromJSON(needs.shared.outputs.matrix) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -138,6 +138,19 @@ jobs:
         run: |
           python3 "$B699_RUN/verification/runner/cache_bundle.py" import --archive "$B699_RAW/download/shared.zip"
           python3 "$B699_RUN/verification/runner/compile_row.py" --plan "$B699_RUN/verification/plans/row-${{ matrix.i }}-${{ github.sha }}.json"
+      - name: Preserve accepted row objects for the final unified root
+        if: success()
+        run: |
+          printf -v B699_ROW_TAG 'Row%03d' "${{ matrix.i }}"
+          python3 "$B699_RUN/verification/runner/cache_bundle.py" export --root "$B699_RUN/lean/rows/$B699_ROW_TAG/Original.lean" --archive "$B699_RAW/export/row-${{ matrix.i }}.zip"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: success()
+        with:
+          name: b699-row-${{ matrix.i }}-acceptance
+          path: ${{ env.B699_RAW }}/export/row-${{ matrix.i }}.zip
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
       - name: Print exact compile and axiom evidence
         if: always()
         run: python3 "$B699_RUN/verification/runner/summarize_evidence.py"
