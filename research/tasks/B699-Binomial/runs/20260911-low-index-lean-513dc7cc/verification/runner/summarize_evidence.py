@@ -2,10 +2,15 @@
 """Print bounded, machine-readable acceptance evidence to the job log."""
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 run = Path("research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc")
+source_commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
 for path in sorted((run / "verification").glob("20*/evidence.json")):
     d = json.loads(path.read_text())
+    # Historical evidence remains frozen; emit only this checkout's actual run.
+    if d.get("source_commit") != source_commit:
+        continue
     result = {k: d.get(k) for k in ["success", "exit_code", "root_sources", "manifest_sha256",
               "toolchain", "compiled_count", "reused_count", "failure"]}
     result["evidence"] = str(path)
