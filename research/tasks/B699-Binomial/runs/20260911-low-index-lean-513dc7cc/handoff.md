@@ -18,3 +18,10 @@ CI 只读；主线程取得实际证据后，通过 GitHub 插件提交、推送
 发布核对：指标29完整验收提交 `868a5121f494b3100e41841a903409ad3480b60c`，远端已核对。后续只读批次入口 `.github/workflows/b699-phase-a.yml`，首批35、36、37。`generate_row.py --i 29` 首先要求逐字复现已验49个块；SharedEnvironment 在固定pins下实际编译，cache_bundle仅传输本run对象/日志/证据并逐项核对哈希；各行新机器重新验pins、源与对象哈希，再实际编译原题根。CI仍只读，所有发布通过主线程GitHub插件。
 
 源码与日志按 B699_FILE_CHUNK 分块输出到任务日志，供工作机 unavailable 时通过连接器恢复文本；ZIP 始终在CI本地解析，不通过Base64或模型解析。仅源和实际证据可成为commit内容。原29接受工作流保留为 workflow_dispatch 复现入口，不再因后续批次工具修改重复触发。下一批列表在 `verification/runner/phase-a-batch.json`；已真实验收指标会采用固定验收并排除重算。
+
+
+最新实际验收：36原题通过（61源项目闭包=38新编译+23经哈希复用，192见证、77层，std3）。35和37仅见证与元数据通过；失败直接层为35的1、2及37的1。35前4层JS诊断算术和pair cover都为真，不能据此记Lean通过；下一步显式interval等式+层算术+分块pair检查接回原Boolean。Lean decide源码说明其诊断可能遮蔽原kernel异常，因此当前准确状态是归约失败，不是数学反例。
+
+首批CI整体失败还包含独立日志打包缺陷：cache_bundle只装了编译日志，compile_row随后尝试导出缺失的父lean-version/package/policy日志。下一次必须将policy及所有commands日志加入共享包并核对哈希。数学已成功的36不受该后处理失败影响。初版row-plan.json是共用路径，发布时按CI/指标归档并保存映射；后续工作流改用每指标/源SHA的独立计划路径，避免覆盖历史记录。
+
+待执行修复优先35、37；169逐项状态已更新。源报告/失败源码归档冻结。不得重复计29、36，不进入B，不派子agent。
