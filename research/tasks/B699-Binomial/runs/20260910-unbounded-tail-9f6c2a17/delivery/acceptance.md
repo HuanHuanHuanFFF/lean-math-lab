@@ -13,4 +13,4 @@
 
 Lean：4.33.1，编译器提交819816b2e0a3bf405af45ae5c7af2491d8f5bee6。mathlib pin：0df444a360eaa60ab8c11dca51a86af692955474；manifest SHA-256 fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0。项目依赖闭包2个源，复用固定mathlib缓存；另从实际Lean环境导出所有加载模块并绑定对象哈希，见package-closure.json（包含审计工具的额外依赖，是接受消费者闭包的超集）。没有第二内核或人工复审。
 
-专项命令与真实输出在证据根；恢复入口为handoff.md。后续source-binding.json将接受根、Git源码blob、冻结提交绑定；publication.json独立记录推送SHA和耗时，不能用出版状态提升数学接受范围。
+专项命令与真实输出在证据根；恢复入口为handoff.md。source-binding.json已把接受根、Git源码blob、冻结提交fce3c99f9d6e08058e45c319496149df33ce6658绑定；publication.json独立记录推送SHA和耗时，不能用出版状态提升数学接受范围。
