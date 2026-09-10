@@ -1,0 +1,14 @@
+# command: LEAN -j1 -M1280 -DElab.async=false -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/large/verification/20260909T184034Z/olean/research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/Complete.olean research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/Complete.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-09T18:55:05.311119Z
+# finished_utc: 2026-09-09T18:55:13.737779Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\Complete.lean:24:21: error(lean.unknownIdentifier): Unknown constant `Nat.dvd_of_dvd_gcd_left`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\Complete.lean:24:51: error(lean.unknownIdentifier): Unknown constant `Nat.dvd_of_dvd_gcd_right`
+@B699LargeIndex.common_1000_4882 : ∀ {n i j : ℕ},
+  1000 ≤ i → i ≤ 4882 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ (n.choose i).gcd (n.choose j)
+@B699LargeIndex.common_prime_dvd_both_1000_4882 : ∀ {n i j : ℕ},
+  1000 ≤ i → i ≤ 4882 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j
+'B699LargeIndex.common_1000_4882' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699LargeIndex.common_prime_dvd_both_1000_4882' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

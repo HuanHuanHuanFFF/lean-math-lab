@@ -1,0 +1,107 @@
+{
+  "started_utc": "2026-09-09T13:29:22.867007+00:00",
+  "scope": "Finite algebra/certificates only; external BFT/BEG and Lean are not checked",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "exploration_requested": true,
+  "input": {
+    "zip_sha256": "6b5d6f15f903e9cedf5d62eebbfda28db4acf2db50604f404bf0a1b1d31c0644",
+    "source_commit": "63a04b064d62e7e8752b1edd75c186d07dc57a20",
+    "verified_files": [
+      "source-snapshot/report.md",
+      "source-snapshot/notes/low-index/handoff-and-localization.md",
+      "source-snapshot/notes/low-index/s-part-finiteness.md",
+      "source-snapshot/notes/low-index/reduced-slope-structure.md",
+      "source-snapshot/notes/low-index/cubic-krawtchouk-gap.md",
+      "source-snapshot/notes/low-index/quartic-content-crt.md",
+      "source-snapshot/notes/low-index/global-row-density.md",
+      "source-snapshot/notes/low-index/scalar-checks.json",
+      "source-snapshot/notes/heights/two-cutoff-theorem.md",
+      "source-snapshot/notes/heights/small-cofactor-cover.md",
+      "source-snapshot/notes/zero-boundary/README.md",
+      "source-snapshot/notes/zero-boundary/reduction-plan.md",
+      "source-snapshot/notes/zero-boundary/candidate-chain.md"
+    ],
+    "status": "passed"
+  },
+  "steps": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/height_probe.py"
+      ],
+      "cwd": "package root",
+      "returncode": 0,
+      "elapsed_seconds": 3.962925176000226,
+      "script_sha256": "622ef51e46ad68d035127cfdf89cce1849dbe0016f03cb0cb54277d6defe057b",
+      "stdout": "replay/height_probe.stdout.txt",
+      "stderr": "replay/height_probe.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/verify_core.py"
+      ],
+      "cwd": "package root",
+      "returncode": 0,
+      "elapsed_seconds": 3.9366689710000173,
+      "script_sha256": "bb068b4c7ed2541560851f542ea77cc792bece21c9eefcb30d95e0d1811b7d55",
+      "stdout": "replay/verify_core.stdout.txt",
+      "stderr": "replay/verify_core.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/graph_diagnostic.py"
+      ],
+      "cwd": "package root",
+      "returncode": 0,
+      "elapsed_seconds": 2.0923295710003913,
+      "script_sha256": "28b66681736de853a4d976ee9ef8d0f288db866d75bf5585109337c918afc1f7",
+      "stdout": "replay/graph_diagnostic.stdout.txt",
+      "stderr": "replay/graph_diagnostic.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/quartic_probe.py"
+      ],
+      "cwd": "package root",
+      "returncode": 0,
+      "elapsed_seconds": 2.894033111999761,
+      "script_sha256": "21772b0ef947db67670e1aabde63e8d472d6fc9f8809a75564395ed405aaa61f",
+      "stdout": "replay/quartic_probe.stdout.txt",
+      "stderr": "replay/quartic_probe.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/conic_cover_probe.py"
+      ],
+      "cwd": "package root",
+      "returncode": 0,
+      "elapsed_seconds": 12.021768848000193,
+      "script_sha256": "45ae04c338f53422ace2e732e4c0e371ff079ca477b94fc3598c2775527a213b",
+      "stdout": "replay/conic_cover_probe.stdout.txt",
+      "stderr": "replay/conic_cover_probe.stderr.txt"
+    }
+  ],
+  "status": "passed",
+  "finished_utc": "2026-09-09T13:29:47.792770+00:00",
+  "output_sha256": {
+    "outputs/conic_cover_probe.json": "f97dba91f036bec382322211c8b8758b0bf79103f0c128c63b512a9b4defeebb",
+    "outputs/core_verification.json": "7f99c1df262ec16d54e07938c3b8a5b667cb70b92cdffe7ec5e140025b1c2362",
+    "outputs/graph_diagnostic.json": "79f25cbcfd023d3a9dd9bb9685c57e989cdc5be0528ed884e64baeec7a874384",
+    "outputs/height_certificates_751.json": "ce84410484f50639ec51c17f504bb1a25b0fbdb81fd6d54850ecc697fbf82625",
+    "outputs/quartic_probe.txt": "72cab9c87c33f69cd194fb3a05430ef4a2d6563818618c1161901e6bdc905af2"
+  },
+  "code_sha256": {
+    "code/conic_cover_probe.py": "45ae04c338f53422ace2e732e4c0e371ff079ca477b94fc3598c2775527a213b",
+    "code/exact_polynomial.py": "e606874e595c46c701152acd1ce71e340012ef67d7a37f31a1483902e119ccbd",
+    "code/graph_diagnostic.py": "28b66681736de853a4d976ee9ef8d0f288db866d75bf5585109337c918afc1f7",
+    "code/height_probe.py": "622ef51e46ad68d035127cfdf89cce1849dbe0016f03cb0cb54277d6defe057b",
+    "code/quartic_probe.py": "21772b0ef947db67670e1aabde63e8d472d6fc9f8809a75564395ed405aaa61f",
+    "code/reproduce.py": "5fa4164eeb950eb79a39ebab60aae40217457782bd07ec65563164bf6a307d35",
+    "code/verify_core.py": "bb068b4c7ed2541560851f542ea77cc792bece21c9eefcb30d95e0d1811b7d55"
+  }
+}

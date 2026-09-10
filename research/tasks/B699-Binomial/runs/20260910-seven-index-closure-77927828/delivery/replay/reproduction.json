@@ -1,0 +1,158 @@
+{
+  "started_at_utc": "2026-09-09T15:29:28.015483+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "mode": "reproduction",
+  "cwd": "/mnt/data/b699-candidate-research",
+  "input_and_source_hashes_before": {
+    "code/check_all_certificate.py": "d8c698f12a640cd85981c3c67180577c522f1e883178604ce09cbc5522a5678b",
+    "code/check_certificate.py": "95c862b63f2767fbd9f89342f2524fd826817eb69a4c06b3f8fac52370a9bf1a",
+    "code/compare_paths.py": "1d0f1a189801c8724dc34abe72b99817e8ab33a35ed2107e10242da294fd697b",
+    "code/cover_probe.py": "5c6ef5717ea0daa3d4211c4ff8525809f111413cdf92e98497c3f41fa33c284f",
+    "code/crt_bound_probe.py": "e21035968769a71396f995608431ad377dad0dfa3fa886aa9322af1ae379b3b0",
+    "code/crt_fast.py": "4a2bc8848a345decf7d64bda99be1b1bf8293769d8fb904ef5d5f31fe2e5d278",
+    "code/extra_terminal_probe.py": "bdece8306411f067619a29e31af546d3ba6ef04387a348784d7bb0791a77d65e",
+    "code/filter_probe.py": "20ca50d6f4d19e14e4c897a88d576a87caac11a9dbb85ab3301a5275a85f2825",
+    "code/generate_all_certificate.py": "e764b90054c0debc9c99d2cc9b45d66e163b4f031c22fc843b87fc58561483ec",
+    "code/generate_certificate.py": "332c36b2739831e239ce5871f3484c3ec89e3628620929da20263c1887ef755f",
+    "code/reproduce.py": "086f3e7af325199d3f28fb49c4843c6eeb10a6567fa7b95e27d0bcdfbed0f2c9",
+    "code/run_logged.py": "dccd726aa74caead05c45513e203518a1077a0e167bb8b2e4291a3d6b9617387",
+    "code/test_edges.py": "85661db435e44c2dde729585a0eb2bf3c6a2beb4b5b8658471cba6bbf9599e4c",
+    "inputs/adopted_heights.json": "897fd18da5a68ed5db2ad355f730846994266fe31d5229dcfbef986628fbe98f",
+    "inputs/all_adopted_heights.json": "ce84410484f50639ec51c17f504bb1a25b0fbdb81fd6d54850ecc697fbf82625",
+    "inputs/task-package-original.zip": "bbf047f2d41326254cef32eb4784a615417d48e00a5a942a523e8c461a52cbca",
+    "inputs/task_package_provenance.json": "edb9fa3aa3a7d044ac3f36fbee2a617818d88cabcfd66ab40d46137c7bddd2b7"
+  },
+  "certificate_hashes_before": {
+    "outputs/three_index_certificate.json": "f7e8a79d8b62b8414587b36bafdc88ab8113a29040dc33ff7cf6bad87fec7390",
+    "outputs/seven_index_certificate.json": "d8fae3dbddf1c265bf17564352446326d64a3b9c08c94b71edcda3ba372c9cb9"
+  },
+  "commands": [
+    {
+      "name": "generate-three",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/b699-candidate-research/code/generate_certificate.py"
+      ],
+      "started_at_utc": "2026-09-09T15:29:28.016862+00:00",
+      "finished_at_utc": "2026-09-09T15:29:29.388090+00:00",
+      "wall_seconds": 1.371244353000293,
+      "returncode": 0,
+      "stdout": "replay/reproduction-01-generate-three.stdout.txt",
+      "stderr": "replay/reproduction-01-generate-three.stderr.txt",
+      "stdout_sha256": "b2300ff4d1541daaf5b5aa6db07e6163aa0375526993ed5ce8350def7fcc2402",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "check-three",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/b699-candidate-research/code/check_certificate.py"
+      ],
+      "started_at_utc": "2026-09-09T15:29:29.388561+00:00",
+      "finished_at_utc": "2026-09-09T15:29:32.515465+00:00",
+      "wall_seconds": 3.1269247639997957,
+      "returncode": 0,
+      "stdout": "replay/reproduction-02-check-three.stdout.txt",
+      "stderr": "replay/reproduction-02-check-three.stderr.txt",
+      "stdout_sha256": "de851c5753a8e9d2040bf3059844d6802b11dfe76855baa67ad1d4baad65e07c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "generate-seven",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/b699-candidate-research/code/generate_all_certificate.py"
+      ],
+      "started_at_utc": "2026-09-09T15:29:32.516150+00:00",
+      "finished_at_utc": "2026-09-09T15:30:31.619370+00:00",
+      "wall_seconds": 59.10325438400014,
+      "returncode": 0,
+      "stdout": "replay/reproduction-03-generate-seven.stdout.txt",
+      "stderr": "replay/reproduction-03-generate-seven.stderr.txt",
+      "stdout_sha256": "eec6f8953149257ca777913cffaba21d426df0f71d79e3295cb121b0ee0e8e31",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "check-seven",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/b699-candidate-research/code/check_all_certificate.py"
+      ],
+      "started_at_utc": "2026-09-09T15:30:31.619851+00:00",
+      "finished_at_utc": "2026-09-09T15:31:33.660412+00:00",
+      "wall_seconds": 62.04058110400001,
+      "returncode": 0,
+      "stdout": "replay/reproduction-04-check-seven.stdout.txt",
+      "stderr": "replay/reproduction-04-check-seven.stderr.txt",
+      "stdout_sha256": "5d4b76bf60c8c051fb814cf48d9757df4b89f7839ce5a7dd05ba56183bdd5e2c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "edge-tests",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/b699-candidate-research/code/test_edges.py"
+      ],
+      "started_at_utc": "2026-09-09T15:31:33.660966+00:00",
+      "finished_at_utc": "2026-09-09T15:31:34.580333+00:00",
+      "wall_seconds": 0.9193845509998937,
+      "returncode": 0,
+      "stdout": "replay/reproduction-05-edge-tests.stdout.txt",
+      "stderr": "replay/reproduction-05-edge-tests.stderr.txt",
+      "stdout_sha256": "400652d17fb0b58a31512971cc5caa1389fcfe484b0f1b48a480a09bad3bf45f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "compare-paths",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/b699-candidate-research/code/compare_paths.py"
+      ],
+      "started_at_utc": "2026-09-09T15:31:34.580863+00:00",
+      "finished_at_utc": "2026-09-09T15:31:35.299869+00:00",
+      "wall_seconds": 0.7190244960002019,
+      "returncode": 0,
+      "stdout": "replay/reproduction-06-compare-paths.stdout.txt",
+      "stderr": "replay/reproduction-06-compare-paths.stderr.txt",
+      "stdout_sha256": "242a64415d2bb8f9061c0bc3fe9e60c5dfbda0c98a574bd7c3f6f54370dcaaa5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Actual exact finite replay. BFT and unbounded covering arguments are paper proofs, not machine-checked here.",
+  "lean_run": false,
+  "finished_at_utc": "2026-09-09T15:31:35.301890+00:00",
+  "wall_seconds": 127.28509318899978,
+  "input_and_source_hashes_after": {
+    "code/check_all_certificate.py": "d8c698f12a640cd85981c3c67180577c522f1e883178604ce09cbc5522a5678b",
+    "code/check_certificate.py": "95c862b63f2767fbd9f89342f2524fd826817eb69a4c06b3f8fac52370a9bf1a",
+    "code/compare_paths.py": "1d0f1a189801c8724dc34abe72b99817e8ab33a35ed2107e10242da294fd697b",
+    "code/cover_probe.py": "5c6ef5717ea0daa3d4211c4ff8525809f111413cdf92e98497c3f41fa33c284f",
+    "code/crt_bound_probe.py": "e21035968769a71396f995608431ad377dad0dfa3fa886aa9322af1ae379b3b0",
+    "code/crt_fast.py": "4a2bc8848a345decf7d64bda99be1b1bf8293769d8fb904ef5d5f31fe2e5d278",
+    "code/extra_terminal_probe.py": "bdece8306411f067619a29e31af546d3ba6ef04387a348784d7bb0791a77d65e",
+    "code/filter_probe.py": "20ca50d6f4d19e14e4c897a88d576a87caac11a9dbb85ab3301a5275a85f2825",
+    "code/generate_all_certificate.py": "e764b90054c0debc9c99d2cc9b45d66e163b4f031c22fc843b87fc58561483ec",
+    "code/generate_certificate.py": "332c36b2739831e239ce5871f3484c3ec89e3628620929da20263c1887ef755f",
+    "code/reproduce.py": "086f3e7af325199d3f28fb49c4843c6eeb10a6567fa7b95e27d0bcdfbed0f2c9",
+    "code/run_logged.py": "dccd726aa74caead05c45513e203518a1077a0e167bb8b2e4291a3d6b9617387",
+    "code/test_edges.py": "85661db435e44c2dde729585a0eb2bf3c6a2beb4b5b8658471cba6bbf9599e4c",
+    "inputs/adopted_heights.json": "897fd18da5a68ed5db2ad355f730846994266fe31d5229dcfbef986628fbe98f",
+    "inputs/all_adopted_heights.json": "ce84410484f50639ec51c17f504bb1a25b0fbdb81fd6d54850ecc697fbf82625",
+    "inputs/task-package-original.zip": "bbf047f2d41326254cef32eb4784a615417d48e00a5a942a523e8c461a52cbca",
+    "inputs/task_package_provenance.json": "edb9fa3aa3a7d044ac3f36fbee2a617818d88cabcfd66ab40d46137c7bddd2b7"
+  },
+  "immutable_files_unchanged": true,
+  "certificate_hashes_after": {
+    "outputs/three_index_certificate.json": "f7e8a79d8b62b8414587b36bafdc88ab8113a29040dc33ff7cf6bad87fec7390",
+    "outputs/seven_index_certificate.json": "d8fae3dbddf1c265bf17564352446326d64a3b9c08c94b71edcda3ba372c9cb9"
+  },
+  "status": "PASS",
+  "deterministic_certificates_unchanged": true
+}

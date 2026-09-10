@@ -6,6 +6,7 @@
 
 | 位置 | 内容与职责 |
 |---|---|
+| `LEADER.md` | 控制中心职责、接管流程和当前整合入口；由 AGENTS 按职责触发，不复制数学前沿 |
 | `research/README.md` | 题目索引，链接各题入口，不重复维护每批的详细进度 |
 | `research/tasks/<题号>-<简称>/README.md` | 固定题面、结束条件、研究批次入口、正式模块与历史材料链接 |
 | `research/tasks/<题号>-<简称>/runs/<批次名>/` | 一次独立推进的完整记录和工作文件 |
@@ -30,7 +31,7 @@
 
 例如，两份 B686 第九轮记录可分别命名为 `20260908-lcm-distance-7cab35e` 和 `20260908-reflected-sum-9bad0b9`，都放在 `research/tasks/B686-Four/runs/` 下，各自保留前沿、论证和验收。
 
-Git 分支是承载工作和提交的工具，一个分支可包含多题或多个批次；它不决定文件归属。新分支可使用 `research/B686/<批次名>`，用户指定的前缀优先。合并到 main 后，批次目录不改名。Lean 导入含连字符的目录段时使用 `«…»`，按实际迁移后的完整路径编译检查。
+Git 分支是承载工作和提交的工具，一个分支可包含多题或多个批次；它不决定文件归属。新分支的设备前缀、Leader 整合分支及 PR 发布规则见 [AGENTS.md 的 Contributions and Publication](../AGENTS.md#contributions-and-publication)，用户当次指定优先。合并到 main 后，批次目录不改名。Lean 导入含连字符的目录段时使用 `«…»`，按实际迁移后的完整路径编译检查。
 
 ## 批次内部文件
 

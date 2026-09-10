@@ -4,6 +4,8 @@
 
 Pursue mathematical results checked by Lean. Explain progress and limitations in accessible Chinese; distinguish original discoveries from formalizations of known results. Read `docs/STRUCTURE.md` before creating or resuming a research run, changing concurrent ownership, moving research files, merging research branches, or adding modules. Read `research/README.md` when selecting a problem. For research execution, statement verification, or proof packaging, use `.agents/skills/lean-research/SKILL.md`.
 
+Leader work: read [LEADER.md](LEADER.md) before taking over the control center, choosing research directions, allocating workers/resources, designing task prompts, or integrating deliveries. The Leader owns global priorities, task boundaries, evidence-based acceptance, publication handoff, and recoverable coordination records; mathematical workers keep their own run records current.
+
 ## Task Ownership and Delegation
 
 Give each mathematical problem one stable directory under `research/tasks/<id>-<slug>/`. Independent research runs belong in its `runs/<YYYYMMDD>-<topic>-<short-id>/` directories, using the naming and ownership rules in `docs/STRUCTURE.md`. A run's identity survives branch merges, model changes, handoffs, and changes in concurrency. Keep its changing frontier, reports, source, experiments, reviews, and verification evidence together. Problem-level files provide the target and navigation; preserve separate run records when merging.
@@ -69,7 +71,19 @@ Completed results require source-aligned statements, no placeholder proofs or un
 
 On this Windows workstation keep new installations, downloads, caches, and temporary files on D:. Preserve pinned dependencies and process-local Git trust exceptions. If caches fail, report source-build costs rather than claiming cache success.
 
+### VPS Resources and Tool Output
+
+- Before a build, search, or batch computation, inspect the current container's memory limit/usage, available memory, CPU quota, disk space, and relevant running jobs. Use cgroup limits when available; host totals and old session measurements are not the task's available budget. Record the observation in the run, not as a permanent machine specification.
+- Start memory-heavy work serially. Budget peak memory for the whole process tree, leave room for the system and other sessions, and increase concurrency only after observing representative peaks. Preserve pinned dependencies and useful caches; validate one relevant import before committing to a large build. Reduce batch size or concurrency when memory or disk approaches the available budget. After an OOM or resource failure, diagnose and change the workload before retrying. Do not kill another worker's process or delete its files/caches to recover capacity.
+- Inspect file sizes before reading unfamiliar logs, JSON, tables, or generated data. Return selected fields, aggregates, or bounded excerpts; default to about 12 KiB of text per model-visible tool result and consider cumulative output across calls. Redirect full command logs to files and return the exit code, summary, and decisive error excerpt. A line limit alone does not bound a giant JSON line.
+- Transfer large files through Git, supported file-upload tools, or scripts/APIs that keep bytes outside the model context. Inspect or extract archives locally; never read a ZIP by encoding it as Base64 for inspection. Keep binary data and full Base64/upload payloads out of model-visible output, including repeated chunks that accumulate into a huge transcript. Report paths, sizes, hashes, and transfer status; inspect contents locally with parsers when needed. Stop a truncated or oversized read and narrow the query instead of repeatedly dumping the same payload.
+- Save a resumable checkpoint before expensive builds, bulk transfers, and publication: current branch/commit, completed work, pending action, and artifact/log paths. Distinguish resource exhaustion, tool/output transport failure, and an unknown session stall from mathematical failure; a spinning UI alone does not identify the cause.
+
 ## Contributions and Publication
+
+Use execution-location branch prefixes for new work: `huan/<topic>-<date>-<short-id>` on huan, `think/<topic>-<date>-<short-id>` on think, and `GPT-work/<topic>-<date>-<short-id>` for cloud Work VPS tasks. Dates use Asia/Shanghai. These branch names do not change the run-directory naming rules in `docs/STRUCTURE.md`; preserve existing branches and run identities.
+
+The sole Leader uses the persistent integration branch `GPT-work/leader-integration`, without a date or random suffix. Follow [LEADER.md](LEADER.md) for intake, synchronization, and handoff. Publish a PR to `main`; the user merges it unless they explicitly delegate that action. Leader intake never pushes directly to `main`. Ordinary workers publish only their own task branch under the session's authorization; they do not merge other ongoing tasks into their delivery.
 
 Use focused commit messages; existing examples use `feat:` and `ci:` with Chinese descriptions. Changes should state the claim, source, assumptions, verification, and remaining gaps. Commit, push, release, and contact others only within explicit authorization. Preserve published tags; verify the exact remote commit and report the observed CI status when publishing.
 

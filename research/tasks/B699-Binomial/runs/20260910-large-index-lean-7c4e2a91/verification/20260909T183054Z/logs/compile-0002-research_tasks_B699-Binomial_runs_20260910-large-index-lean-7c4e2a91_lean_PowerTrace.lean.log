@@ -1,0 +1,26 @@
+# command: LEAN -j1 -M1280 -DElab.async=false -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/large/verification/20260909T183054Z/olean/research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/PowerTrace.olean research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91/lean/PowerTrace.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-09T18:31:01.782248Z
+# finished_utc: 2026-09-09T18:31:09.610006Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\PowerTrace.lean:54:10: error: Type mismatch: After simplification, term
+  hcheck
+ has type
+  (if previous.exponent + previous.exponent + 1 = previous.exponent + previous.exponent then
+      decide (next.bound = mulDown bits previous.bound previous.bound)
+    else decide (next.bound = mulDown bits (mulDown bits previous.bound previous.bound) base)) =
+    true
+but is expected to have type
+  decide (next.bound = mulDown bits (mulDown bits previous.bound previous.bound) base) = true
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260910-large-index-lean-7c4e2a91\lean\PowerTrace.lean:87:10: error: Type mismatch: After simplification, term
+  hcheck
+ has type
+  (if previous.exponent + previous.exponent + 1 = previous.exponent + previous.exponent then
+      decide (next.bound = mulUp bits previous.bound previous.bound)
+    else decide (next.bound = mulUp bits (mulUp bits previous.bound previous.bound) base)) =
+    true
+but is expected to have type
+  decide (next.bound = mulUp bits (mulUp bits previous.bound previous.bound) base) = true
+'B699Dyadic.powTraceDownCheck_sound' depends on axioms: [propext, sorryAx, Quot.sound]
+'B699Dyadic.powTraceUpCheck_sound' depends on axioms: [propext, sorryAx, Quot.sound]
