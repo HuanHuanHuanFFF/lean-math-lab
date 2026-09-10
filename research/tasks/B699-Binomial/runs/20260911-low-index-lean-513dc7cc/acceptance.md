@@ -10,3 +10,8 @@
 已验新组件闭环（源 `a31cff68eb22b1478e29788c75952f8763d621b6`，CI `34510677596`）：`good_top_prime_checked` 及直接使用例 `row029_witness000_checked`、`row029_witness227_checked`、`row029_witness056_checked`，以及 `row029_layer000_checked` 和 `row029_layer113_checked`。以上全部实际编译退出0，传递公理均为 `[propext, Classical.choice, Quot.sound]`。三个见证分别耗时1.045、1.058、1.034秒；两层耗时6.108、1.176秒。`Row029Data` 编译退出0且无公理。严格复用器以源与输出哈希检查本轮已验依赖，未导入旧研究对象目录。
 
 准确源/输出/日志哈希、9个依赖pins、实际声明和公理输出、实际CI日志与归档哈希见 `verification/ci-34510677596/`。该小闭环新增完整原题指标为0；只证明所列组件。下一批源码包含全228见证、114层、注册高度、小n及层覆盖，以及独立原题消费者 `common_i029`；它们当前是候选，等待本次实际编译。
+
+
+完整原题指标29已验收（CI `34512327870`，源码 `336885ea5547532f5b89dca5fce38a4debb0200e`）。`row029_goods_checked` 覆盖全部228见证，`row029_layers_checked` 覆盖全部114层；注册高度、小n覆盖、层覆盖、`row029_checked` 及独立原题 `common_i029` 全部实际编译退出0。原题根准确源码 SHA-256 为 `40cde1738274ee5640a04f2e1e5036cb54793529f171ca10ad81991ef8be0eb5`，对象 SHA-256 为 `00f036dcb19b1d2deca55297507d483704fa9c8ca3011678d2f049471ad22039`；根依赖78个本仓库模块，其传递公理输出为 `[propext, Classical.choice, Quot.sound]`。未使用 BFT、EC 或 LowIndexComplete 前置。
+
+完整记录与实际CI日志见 `verification/ci-34512327870/`。阶段 A 为1/151，本轮为1/169；B尚未开始。下一步35、36、37，然后完成其余阶段A，不停在本次推送。

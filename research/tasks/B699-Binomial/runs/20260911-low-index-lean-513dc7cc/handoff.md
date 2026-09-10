@@ -10,3 +10,6 @@ CI 只读；主线程取得实际证据后，通过 GitHub 插件提交、推送
 
 
 已验更新：CI 34510677596 五个代表根全部成功，组件公理为 std3；证据已收录 `verification/ci-34510677596/`。当前目标改为完整Row029，入口顺序为 `verification/runner/probe-roots.json`；最后根 `lean/rows/Row029/Original.lean`。执行同一 `compile_probes.py` 会逐根保留计时/资源、源及对象哈希、严格公理输出。改进的等待只打印20秒进度，不再使短编译固定多等20秒。阶段A其他150项必须在完整29验收后继续。
+
+
+完整29已验：`verification/ci-34512327870/row029-accepted.json`，原题 `common_i029`，78源项目闭包，std3，源/已发布证明SHA `336885ea5547532f5b89dca5fce38a4debb0200e`。阶段A 1/151、本轮1/169。现有只读工作流仍可重跑完整29，最后接受根 `lean/rows/Row029/Original.lean`。下一步启用固定对象共享与逐行接受入口处理35、36、37；后续只能在实际消费者通过后更新每项状态。
