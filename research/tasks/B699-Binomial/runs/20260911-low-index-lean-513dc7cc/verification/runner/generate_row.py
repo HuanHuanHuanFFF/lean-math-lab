@@ -64,50 +64,6 @@ def interval_text(values):
     return "[" + ", ".join("(%d, %d, %d)" % v for v in values) + "]"
 
 
-def checked_layer_parts(tag, i, k, layer):
-    lo, upper, M = map(int, re.findall(r"\d+", layer))
-    intervals = exact_intervals(i, M, lo, upper)
-    prefix = tag + "_layer%03d" % k
-    ivs = prefix + "_intervals"
-    arith, enum, pairs, final = [prefix + suffix for suffix in
-                               ["_arithmetic", "_enumeration", "_pairs", "_checked"]]
-    names = [arith, enum]
-    body = ("def " + ivs + " : List ColouredInterval :=\n  " + interval_text(intervals) + "\n\n" +
-        "theorem " + arith + " :\n    LayerArithmeticValid " + tag + ".height " + layer +
-        " := by\n  decide +kernel\n\n" +
-        "theorem " + enum + " :\n    activePowerIntervalList %d %d %d %d = " % (i, M, lo, upper) +
-        ivs + " := by\n  decide +kernel\n\n")
-    bounds = tag + "_bounds"
-    row_function = ("(fun I => " + ivs + ".all (fun J =>\n      if I.1 = J.1 then true else " +
-        "coverCheck (max I.2.1 J.2.1) (min I.2.2 J.2.2) " + bounds + "))")
-    if len(intervals) <= 64:
-        body += ("theorem " + pairs + " : pairCoverCheck " + ivs + " " + bounds +
-                 " = true := by\n  decide +kernel\n\n")
-    else:
-        # Each proof normalizes at most 2048 ordered pairs; no resource limit is raised.
-        size = max(1, min(16, 2048 // len(intervals)))
-        groups = [intervals[a:a+size] for a in range(0, len(intervals), size)]
-        chunks = []
-        lemmas = []
-        for ordinal, group in enumerate(groups):
-            literal = "(" + interval_text(group) + " : List ColouredInterval)"
-            chunks.append(literal)
-            name = prefix + "_pairs%03d" % ordinal
-            lemmas.append(name)
-            names.append(name)
-            body += ("theorem " + name + " :\n    " + literal + ".all " + row_function +
-                     " = true := by\n  decide +kernel\n\n")
-        body += ("theorem " + pairs + " : pairCoverCheck " + ivs + " " + bounds +
-                 " = true := by\n  unfold pairCoverCheck\n  change (" + " ++ ".join(chunks) +
-                 ").all " + row_function + " = true\n  simp only [List.all_append, " +
-                 ", ".join(lemmas) + ", Bool.true_and]\n\n")
-    names += [pairs, final]
-    body += ("theorem " + final + " :\n    coverLayerCheck " + tag + ".height " +
-             tag + ".goods " + layer + " = true := by\n  exact coverLayerCheck_of_parts " +
-             arith + " " + enum + " " + tag + "_bounds_eq " + pairs + "\n\n")
-    return body, names
-
-
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--i", type=int, required=True)
@@ -186,19 +142,80 @@ def main():
             "def " + tag + "_bounds : List NatInterval :=\n  [" + ", ".join(bounds) + "]\n\n" +
             "theorem " + tag + "_bounds_eq : " + tag + ".goods.map goodSegmentBounds = " +
             tag + "_bounds := by\n  rfl\n", [tag + "_bounds_eq"])
+
+    def add_independent_layer(k, layer):
+        lo, upper, M = map(int, re.findall(r"\d+", layer))
+        values = exact_intervals(i, M, lo, upper)
+        prefix = tag + "_layer%03d" % k
+        ivs, chunks = prefix + "_intervals", prefix + "_chunks"
+        arith, enum, pairs, final = [prefix + suffix for suffix in
+                                   ["_arithmetic", "_enumeration", "_pairs", "_checked"]]
+        size = max(1, min(16, 2048 // max(1, len(values))))
+        groups = [values[a:a+size] for a in range(0, len(values), size)] if len(values) > 64 else []
+        block_names = [prefix + "_block%03d" % a for a in range(len(groups))]
+        body = "def " + ivs + " : List ColouredInterval :=\n  " + interval_text(values) + "\n\n"
+        for block_name, group in zip(block_names, groups):
+            body += "def " + block_name + " : List ColouredInterval :=\n  " + interval_text(group) + "\n\n"
+        if groups:
+            body += "def " + chunks + " : List (List ColouredInterval) :=\n  [" + ", ".join(block_names) + "]\n\n"
+        datum = add(folder / ("Layer%03dData.lean" % k), [geometry], body, [ivs])
+        arithmetic = add(folder / ("Layer%03dArithmetic.lean" % k), [geometry],
+            "theorem " + arith + " : LayerArithmeticValid " + tag + ".height " + layer +
+            " := by\n  decide +kernel\n", [arith])
+        enumeration = add(folder / ("Layer%03dEnumeration.lean" % k), [datum],
+            "theorem " + enum + " :\n    activePowerIntervalList %d %d %d %d = " % (i, M, lo, upper) +
+            ivs + " := by\n  decide +kernel\n", [enum])
+        bounds = tag + "_bounds"
+        row_function = ("(fun I => " + ivs + ".all (fun J =>\n      if I.1 = J.1 then true else " +
+            "coverCheck (max I.2.1 J.2.1) (min I.2.2 J.2.2) " + bounds + "))")
+        if not groups:
+            pair_proof = add(folder / ("Layer%03dPairs.lean" % k), [datum],
+                "theorem " + pairs + " : pairCoverCheck " + ivs + " " + bounds +
+                " = true := by\n  decide +kernel\n", [pairs])
+        else:
+            checked_blocks, block_roots = [], []
+            for a, block in enumerate(block_names):
+                name = prefix + "_pairs%03d" % a
+                checked_blocks.append(name)
+                block_roots.append(add(folder / ("Layer%03dPairBlock%03d.lean" % (k, a)), [datum],
+                    "theorem " + name + " :\n    " + block + ".all " + row_function +
+                    " = true := by\n  decide +kernel\n", [name]))
+            eq_name = prefix + "_chunks_eq"
+            body = ("theorem " + eq_name + " : " + chunks + ".flatten = " + ivs +
+                " := by\n  rfl\n\n" +
+                "theorem " + pairs + " : pairCoverCheck " + ivs + " " + bounds +
+                " = true := by\n  apply pairCoverCheck_of_chunks " + eq_name +
+                "\n  intro block hblock\n  simp only [" + chunks +
+                ", List.mem_cons, List.mem_nil_iff, or_false] at hblock\n" +
+                "  rcases hblock with " + " | ".join(["rfl"] * len(groups)) + "\n" +
+                "".join("  · exact " + name + "\n" for name in checked_blocks))
+            pair_proof = add(folder / ("Layer%03dPairs.lean" % k),
+                [*block_roots, RUN / "lean/PairChunks.lean"], body, [eq_name, pairs])
+        checked = add(folder / ("Layer%03dChecked.lean" % k),
+            [arithmetic, enumeration, pair_proof],
+            "theorem " + final + " :\n    coverLayerCheck " + tag + ".height " +
+            tag + ".goods " + layer + " = true := by\n  exact coverLayerCheck_of_parts " +
+            arith + " " + enum + " " + tag + "_bounds_eq " + pairs + "\n", [final])
+        return checked, final
+
     parts, names = [], []
     for start in range(0, len(layers), 4):
-        imports, body, local_names = [geometry] if geometry else [data], "", []
+        if i != 29:
+            layer_roots, layer_names = [], []
+            for k in range(start, min(start + 4, len(layers))):
+                root, name = add_independent_layer(k, layers[k])
+                layer_roots.append(root)
+                layer_names.append(name)
+                names.append(name)
+            parts.append(add(folder / ("Layers%03d.lean" % start),
+                layer_roots, "", layer_names))
+            continue
+        imports, body, local_names = [data], "", []
         for k in range(start, min(start + 4, len(layers))):
             name = tag + "_layer%03d_checked" % k
             names.append(name)
-            if i == 29 and k in [0, 113]:
+            if k in [0, 113]:
                 imports.append(RUN / "lean" / ("Layer%03d.lean" % k))
-                continue
-            if i != 29:
-                chunk_body, chunk_names = checked_layer_parts(tag, i, k, layers[k])
-                body += chunk_body
-                local_names.extend(chunk_names)
                 continue
             local_names.append(name)
             body += ("theorem " + name + " :\n    coverLayerCheck " + tag + ".height " +

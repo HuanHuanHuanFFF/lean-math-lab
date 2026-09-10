@@ -12,6 +12,9 @@ on:
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_incremental.py'
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/SharedEnvironment.lean'
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/LayerParts.lean'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/PairChunks.lean'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/stage_evidence.py'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/summarize_evidence.py'
       - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WitnessBridge.lean'
   workflow_dispatch:
 
@@ -80,17 +83,23 @@ jobs:
         if: steps.plan.outputs.has_work == 'true'
         with:
           name: b699-shared-acceptance
+          retention-days: 1
           path: ${{ env.B699_RAW }}/export/shared.zip
           include-hidden-files: true
           if-no-files-found: error
       - name: Print shared actual evidence
         if: always()
         run: python3 "$B699_RUN/verification/runner/summarize_evidence.py"
+      - name: Stage current shared evidence
+        if: always()
+        run: python3 "$B699_RUN/verification/runner/stage_evidence.py"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: b699-shared-evidence
-          path: ${{ env.B699_RUN }}/verification
+          path: ${{ env.B699_RAW }}/evidence-export/shared
+          include-hidden-files: true
+          retention-days: 1
           if-no-files-found: error
   row:
     needs: shared
@@ -132,11 +141,14 @@ jobs:
       - name: Print exact compile and axiom evidence
         if: always()
         run: python3 "$B699_RUN/verification/runner/summarize_evidence.py"
+      - name: Stage only current row evidence
+        if: always()
+        run: python3 "$B699_RUN/verification/runner/stage_evidence.py" --i "${{ matrix.i }}"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: b699-row-${{ matrix.i }}-evidence
-          path: |
-            ${{ env.B699_RUN }}/verification
-            ${{ env.B699_RUN }}/lean
+          path: ${{ env.B699_RAW }}/evidence-export/row*
+          include-hidden-files: true
+          retention-days: 1
           if-no-files-found: error
