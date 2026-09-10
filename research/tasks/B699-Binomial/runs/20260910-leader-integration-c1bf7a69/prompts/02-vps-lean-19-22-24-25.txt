@@ -1,0 +1,15 @@
+你是 GPT-6 Astra/Max 的独立云端 Work VPS 会话，负责形式化并验收 B699 中 i∈{19,22,24,25} 的全部合法 n,j。
+
+【启动闸门与边界】用户合并本轮 PR 前不要启动。启动时用 https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/7、be57961409919d4675741bbaece9f462153a2a66：fetch main，确认 PR 已合并，核对已接入两个 Work run 和接收清单中的文本成员（squash 按路径及哈希核对；ZIP 按 ARCHIVES.json 从附件恢复），再从最新 main 建 `GPT-work/<topic>-<date>-<short-id>`。只采用启动时已交付的仓库与证据，不等待 huan 或网页会话的新成果；主线程不派子 agent。日期采用 Asia/Shanghai。读取 AGENTS.md、docs/STRUCTURE.md 和 .agents/skills/lean-research/SKILL.md，新建独立形式化 run 并持续更新 frontier/handoff；已有四项 delivery 是只读纸面输入，不能覆盖。
+
+【原题与真实目标】对自然数 1≤i<j≤floor(n/2)，证明存在素数 p≥i 同时整除 C(n,i)、C(n,j)，四个 i 各覆盖全部无界 n,j，保留 p=i、完整素数幂，并只在 noCommon 下使用 实际 avoidingPart D=V。不是 EC 任务，也不是把61134行有限证书、某个高度或一组候选通过就称为全域 Lean 定理。
+
+【必须接通的数学链】已交付纸面＋精确计算链为：位置加权/碰撞分支 → noCommon 下 n<2^11001 → 两个立方小余因子前提 → 完整指数分块得到 i=19,22,24,25 的高度分别 2^174、2^192、2^199、2^199 → CRT 完备候选61134行全灭。四项新链依赖 BFT Theorem 2.1 的旧14条边及 Lemmas 3.1、3.2、4.1、Proposition 5.1 的3条新边；前轮七项或 Padé 的高度单独不足以喂指数块。形式化前先核对 BFT 的精确义务、源文范围和可复用接口，尤其要先证明 E1 的两个立方小余因子条件，不能把最终高度直接喂入块引理。块模块还要保留 D=24 的全部49个有符号位移、闭指数区间、零差与端点；纸面数据为1976块、96824次平方比较，末端核了918166个幂对和2526个素数，最大见证57,927,083，均不是 Lean 证书本身。
+
+前10分钟只做最小 import、pins/工具链确认和一条真实编译；若资源或依赖已显示不能成行，保留可复用诊断，不重复上轮26分钟零验收。随后先选可在2小时内闭合的真实义务（例如位置加权声音性、指数块声音性、有限端点消费者）并记录其对全目标的作用；若 BFT 桥未接通，交付条件化消费者和明确缺口，绝不能改称四项已完成或偷换成 EC。Lean-j1 串行，内存上限按现场观察设置并保留 pins/cache。
+
+【预算与验收】硬投入上限2小时，预算不是完工预测；提前完成即结束，不自动延长。边翻译边核对原题量词、p=i、完整幂、碰撞/同位置/零指数和实际 avoidingPart。最终检查冻结源码、mathlib/工具版本、命令日志、传递依赖闭包及 std3 公理；脚本 PASS、源码扫描、单文件编译或 CI 绿灯不能替代完整消费者与传递公理审计。禁用 sorry/admit、自定义公理、native 假设和未声明的出版定理。只在任务分支 commit、push 并核对完整 SHA；不合 main、不建 PR、不等 CI。delivery 中写中文 report/frontier/acceptance/handoff，分层说明 Lean、纸面 BFT、有限证书和未验依赖；若未全闭合，保留“四项全域”原目标与最小实质已验部分。
+
+【资源与输出】按现场 cgroup 限额、可用内存和磁盘预算，重任务先串行；先测代表性峰值再扩大批量，保留系统及其他会话余量。大候选表流式/分块处理，保存恢复点；OOM 后缩块或降并发再重试，不杀其他任务进程。大 JSON、证书、日志落文件，模型只读取有界摘要与必要错误；文件通过 Git/上传工具/程序化 API 传输，禁止把完整 payload 或分块 Base64 灌进聊天。
+
+【原 ZIP 的访问】报告、证书和源码在本轮接收 run 的 delivery 中，可直接读取；需要历史 ZIP 时，从同轮附件 `B699-research-context-20260910.zip` 的 repository-archives/ 恢复，按 research/external-results/20260910-web-results-c1bf7a69/ARCHIVES.json 校验。只在实际需要时使用附件；禁止把 ZIP 转成 Base64 读取。
