@@ -35,3 +35,5 @@ TailArithmetic 3条、SmallPart 9条、NecessaryBounds 4条均实际编译和std
 NecessaryW.lean的4条声明已真实编译并完成std3审计，源SHA256 07284aacbd0f30730660b647b5b059c16bd6fc65ac335fc55c20581e530a1034，见verification/latest-NecessaryW.json。I/J/W的实际系数、非退化性和I/W必要界现已全部接通。上文早期未完成列表由各后续接受条目覆盖。
 
 FiniteChecker已通过Lean编译与std3审计：大小证书声音性、任意无2/3因子的互素桥、Kummer单carry与完整p^e模约束。467行具体证书尚在接入，不因检查器已验而宣称有限覆盖已验。
+
+WindowPrimary的6条声明已通过真实Lean编译和std3审计：24倍二项式的自然数乘积、素因子指数和、最高2幂的精确位置、3幂上界及4U≤AB。证明仅分n mod4、n mod9，不遗漏四偏移或双3倍数。轴估值和阈值仍未完成。

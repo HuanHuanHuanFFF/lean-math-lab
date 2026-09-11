@@ -17,3 +17,5 @@ ActualCoefficients的实际系数桥已接受；TailArithmetic、SmallPart、Nec
 当前已验最小入口：ExplicitFamilies（完整两条显式行族）；NecessaryW（一般I/W必要界）；Congruence（通用同素数转移）。未完成：一般窗口完整U上界、轴估值、阈值和467/58有限覆盖。早期环境和同余失败均已修复。
 
 FiniteChecker已通过Lean编译与std3审计：大小证书声音性、任意无2/3因子的互素桥、Kummer单carry与完整p^e模约束。467行具体证书尚在接入，不因检查器已验而宣称有限覆盖已验。
+
+WindowPrimary的6条声明已通过真实Lean编译和std3审计：24倍二项式的自然数乘积、素因子指数和、最高2幂的精确位置、3幂上界及4U≤AB。证明仅分n mod4、n mod9，不遗漏四偏移或双3倍数。轴估值和阈值仍未完成。
