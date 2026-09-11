@@ -13,3 +13,5 @@
 ActualCoefficients的实际系数桥已接受；TailArithmetic、SmallPart、NecessaryBounds正在串行编译。整体目标继续，完整子族暂0。
 
 最新已验完整结果：ExplicitFamilies的两条显式行族及更强模9的2幂子族，无未证前置；复用最小入口为lean/ExplicitFamilies.lean。继续一般a,b,r窗口，不收束。
+
+当前已验最小入口：ExplicitFamilies（完整两条显式行族）；NecessaryW（一般I/W必要界）；Congruence（通用同素数转移）。未完成：一般窗口完整U上界、轴估值、阈值和467/58有限覆盖。早期环境和同余失败均已修复。
