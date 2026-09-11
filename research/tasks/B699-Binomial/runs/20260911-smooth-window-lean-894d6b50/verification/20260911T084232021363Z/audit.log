@@ -1,0 +1,39 @@
+@B699.SmoothWindow.common_four_of_power_two_mod_nine : ∀ {a j : ℕ},
+  2 ≤ a →
+    2 ^ a ≡ 4 [MOD 9] → 5 ≤ j → j ≤ 2 ^ a / 2 → ∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ (2 ^ a).choose 4 ∧ p ∣ (2 ^ a).choose j
+'B699.SmoothWindow.common_four_of_power_two_mod_nine' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.common_four_sixty : ∀ (k j : ℕ),
+  5 ≤ j →
+    j ≤ 2 ^ (60 * k + 2) / 2 →
+      ∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ (2 ^ (60 * k + 2)).choose 4 ∧ p ∣ (2 ^ (60 * k + 2)).choose j
+'B699.SmoothWindow.common_four_sixty' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.simultaneous_sixty_family : ∀ (k j : ℕ),
+  1 ≤ k →
+    5 ≤ j →
+      j ≤ 2 ^ (60 * k + 2) / 2 →
+        ∃ p,
+          Nat.Prime p ∧
+            17 ≤ p ∧
+              p ∣ (2 ^ (60 * k + 2)).choose j ∧ ∀ (i : ℕ), 4 ≤ i → i ≤ 14 → i < j → p ∣ (2 ^ (60 * k + 2)).choose i
+'B699.SmoothWindow.simultaneous_sixty_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.factorial_period_mod_nine : ∀ {m : ℕ}, 5 ≤ m → ∀ (k : ℕ), 2 ^ (m.factorial * k + 2) ≡ 4 [MOD 9]
+'B699.SmoothWindow.factorial_period_mod_nine' depends on axioms: [propext]
+@B699.SmoothWindow.common_four_factorial : ∀ {m : ℕ},
+  5 ≤ m →
+    ∀ (k j : ℕ),
+      5 ≤ j →
+        j ≤ 2 ^ (m.factorial * k + 2) / 2 →
+          ∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ (2 ^ (m.factorial * k + 2)).choose 4 ∧ p ∣ (2 ^ (m.factorial * k + 2)).choose j
+'B699.SmoothWindow.common_four_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.simultaneous_factorial_family : ∀ {m : ℕ},
+  5 ≤ m →
+    ∀ (k j : ℕ),
+      1 ≤ k →
+        5 ≤ j →
+          j ≤ 2 ^ (m.factorial * k + 2) / 2 →
+            ∃ p,
+              Nat.Prime p ∧
+                m < p ∧
+                  p ∣ (2 ^ (m.factorial * k + 2)).choose j ∧
+                    ∀ (i : ℕ), 4 ≤ i → i ≤ m → i < j → p ∣ (2 ^ (m.factorial * k + 2)).choose i
+'B699.SmoothWindow.simultaneous_factorial_family' depends on axioms: [propext, Classical.choice, Quot.sound]

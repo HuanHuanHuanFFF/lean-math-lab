@@ -1,0 +1,17 @@
+@B699.SmoothWindow.actual_W_neg : ∀ {j k : ℕ}, 5 ≤ j → 5 ≤ k → B699.SmoothWindow.actualW j k < 0
+'B699.SmoothWindow.actual_W_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.actual_W_upper : ∀ {j k : ℕ},
+  5 ≤ j →
+    5 ≤ k →
+      262144 * -B699.SmoothWindow.actualW j k < (↑j + ↑k) ^ 6 * (↑j + ↑k - 1) * (↑j + ↑k - 2) ^ 7 * (↑j + ↑k - 3) ^ 3
+'B699.SmoothWindow.actual_W_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.W_bound_of_coprime_factor : ∀ {n j U V : ℕ},
+  5 ≤ j →
+    j ≤ n / 2 → n.choose 4 = U * V → V.Coprime (n.choose j) → (↑n - 1) ^ 5 * (↑n - 3) ^ 3 < 729 * (↑n - 2) * ↑U ^ 6
+'B699.SmoothWindow.W_bound_of_coprime_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.W_bound_of_noCommon : ∀ {n j : ℕ},
+  5 ≤ j →
+    j ≤ n / 2 →
+      (¬∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ n.choose 4 ∧ p ∣ n.choose j) →
+        (↑n - 1) ^ 5 * (↑n - 3) ^ 3 < 729 * (↑n - 2) * ↑(B699.SmoothWindow.smallPart23 (n.choose 4)) ^ 6
+'B699.SmoothWindow.W_bound_of_noCommon' depends on axioms: [propext, Classical.choice, Quot.sound]

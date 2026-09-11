@@ -1,0 +1,21 @@
+B699.SmoothWindow.smallPart23_mul_largePart23 : ∀ (N : ℕ),
+  B699.SmoothWindow.smallPart23 N * B699.SmoothWindow.largePart23 N = N
+'B699.SmoothWindow.smallPart23_mul_largePart23' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.largePart23_dvd : ∀ (N : ℕ), B699.SmoothWindow.largePart23 N ∣ N
+'B699.SmoothWindow.largePart23_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.largePart23_pos : ∀ {N : ℕ}, N ≠ 0 → 0 < B699.SmoothWindow.largePart23 N
+'B699.SmoothWindow.largePart23_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.two_not_dvd_largePart23 : ∀ {N : ℕ}, N ≠ 0 → ¬2 ∣ B699.SmoothWindow.largePart23 N
+'B699.SmoothWindow.two_not_dvd_largePart23' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.three_not_dvd_largePart23 : ∀ {N : ℕ}, N ≠ 0 → ¬3 ∣ B699.SmoothWindow.largePart23 N
+'B699.SmoothWindow.three_not_dvd_largePart23' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.prime_ge_five : ∀ {p : ℕ}, Nat.Prime p → p ≠ 2 → p ≠ 3 → 5 ≤ p
+'B699.SmoothWindow.prime_ge_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.largePart23_coprime_of_noCommon : ∀ {N B : ℕ},
+  N ≠ 0 → (¬∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ N ∧ p ∣ B) → (B699.SmoothWindow.largePart23 N).Coprime B
+'B699.SmoothWindow.largePart23_coprime_of_noCommon' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.choose_four_mod_three_of_mod_nine : ∀ {n : ℕ}, n ≡ 4 [MOD 9] → n.choose 4 ≡ 1 [MOD 3]
+'B699.SmoothWindow.choose_four_mod_three_of_mod_nine' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.smallPart23_choose_power_two : ∀ {a : ℕ},
+  4 ≤ 2 ^ a → 2 ^ a ≡ 4 [MOD 9] → B699.SmoothWindow.smallPart23 ((2 ^ a).choose 4) = 2 ^ (a - 2)
+'B699.SmoothWindow.smallPart23_choose_power_two' depends on axioms: [propext, Classical.choice, Quot.sound]

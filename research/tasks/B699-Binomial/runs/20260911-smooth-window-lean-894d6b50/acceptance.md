@@ -50,7 +50,7 @@ FiniteCoverage先前的一次整体归约触及-M 3072上限；最终改为纯�
 
 ## 未完成义务
 
-指定子族与其所有采用前置均无未证义务。全新CI检出复核正在运行；不得将早期bootstrap仅检三模块的CI范围误读成最终全部模块的复核。
+指定子族与其所有采用前置均无未证义务。全新CI run 34580160487已对源码提交e3e7d8389663e29fe0afc62da1b35eb60b9ebb9e完成全部30模块的编译与独立审计，均退出0；全部源码SHA256与本机一致。见verification/ci-34580160487/summary.json及原始记录。早期bootstrap只有三模块的范围不作为本最终复核依据。
 R9全域保持不变，Leader尚未整合。未声称人工同行评审或新的全域指标闭合。
 
 B699: accept full smooth window and all simultaneous consumers; enable full clean CI

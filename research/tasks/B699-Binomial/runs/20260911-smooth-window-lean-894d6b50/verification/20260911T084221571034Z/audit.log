@@ -1,0 +1,13 @@
+@B699.SmoothWindow.choose_mul_choose : ∀ {n i h : ℕ},
+  h ≤ i → n.choose i * i.choose h = n.choose h * (n - h).choose (i - h)
+'B699.SmoothWindow.choose_mul_choose' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.prime_dvd_choose_transfer : ∀ {n i h p : ℕ},
+  Nat.Prime p → h ≤ i → i < p → p ∣ n.choose h → p ∣ n.choose i
+'B699.SmoothWindow.prime_dvd_choose_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.same_prime_transfer : ∀ {n j m p : ℕ},
+  Nat.Prime p →
+    m < p → p ∣ n.choose 4 → p ∣ n.choose j → p ∣ n.choose j ∧ ∀ (i : ℕ), 4 ≤ i → i ≤ m → i < j → p ∣ n.choose i
+'B699.SmoothWindow.same_prime_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.strict_transfer_counterexample : Nat.Prime 5 ∧
+  5 ∣ Nat.choose 16 4 ∧ 5 ∣ Nat.choose 16 7 ∧ ¬5 ∣ Nat.choose 16 5 ∧ 5 < 7 ∧ 7 ≤ 16 / 2
+'B699.SmoothWindow.strict_transfer_counterexample' depends on axioms: [propext, Classical.choice, Quot.sound]
