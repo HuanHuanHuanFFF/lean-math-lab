@@ -69,3 +69,5 @@ B699: accept finite bound block 06, all row consumers std3 audited
 B699: accept finite bound block 07, all row consumers std3 audited
 
 B699: accept finite bound block 08, all row consumers std3 audited
+
+B699: accept complete bounded-parameter coverage of all 467 kernel-proved rows
