@@ -32,3 +32,5 @@ FiniteChecker已通过Lean编译与std3审计：大小证书声音性、任意�
 WindowPrimary的6条声明已通过真实Lean编译和std3审计：24倍二项式的自然数乘积、素因子指数和、最高2幂的精确位置、3幂上界及4U≤AB。证明仅分n mod4、n mod9，不遗漏四偏移或双3倍数。轴估值和阈值仍未完成。
 
 FiniteCRT全部58条完整行定理已验（源SHA256 d85a362d9183e9767e4785ac547b38b30d1f1657ef2ad71a88b2974a8e5dd4df），每行所有合法j，传递公理仅std3。86个原始p^e约束，n=27采用5²。余数分类至多4项/步，不枚举j。409条I/W行与生成完备性尚待验收，不能声称467整体已完成。
+
+B699: accept finite bound block 00, 48 complete rows, std3 audited
