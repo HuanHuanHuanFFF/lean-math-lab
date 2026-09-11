@@ -10,6 +10,8 @@
 
 固定源码e6b711cfdec63af272c57bff732bd6e7cfd2bc72的QuarticAlgebra.lean，SHA256 da831d921a4fe06615c6a24bd865f43a5919ec5ed340f8e48fb8bbc411ebac15，CI run 34572889986 / job 103178684259，编译退出0，约4.86秒，9条声明传递公理审计退出0且仅std3。见verification/stage3。该模块已证齐次整除性、三条缩放恒等式、Q正性、I正性与W负性；实际二项式系数桥仍待接。
 
+同余模块9条已完成本机编译与传递审计，sha256 4698e5a0a06a3d4c89f323097edd01a91e0d6f322348af59a97df485c6bce550，证据research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50/verification/20260911T072158057766Z。包含P_m排除小素数、同一个p的统一转移、60周期和m!周期。窗口存在性仍需单独证明。
+
 ## 已验完整子族
 
 0。R9不变。
@@ -19,3 +21,5 @@
 同余文件修正与验收；实际二项式系数与I/J/W及必要界；完整2/3部分和轴估值；无限尾部；467行完备性与58行CRT；最终窗口和两条显式行族统一消费者。
 
 原ZIP匹配，verify_manifest和reproduce真实退出0，仅计纸面+精确计算。
+
+实际系数ActualCoefficients共11条、QuarticScaling共3条已本机编译退出0并完成std3传递审计，详见verification/latest-*.json。窗口必要界仍在继续。

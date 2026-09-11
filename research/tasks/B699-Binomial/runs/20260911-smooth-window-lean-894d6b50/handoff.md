@@ -9,3 +9,5 @@
 仅自己的分支，不推main、不合并、不访问huan未交付目录。
 
 更新：I/J/W代数9条已通过stage3；100MiB分卷恢复成功并重组哈希匹配，开始本机解包。ActualCoefficients、QuarticScaling、TailArithmetic是本机候选，待真实编译。
+
+ActualCoefficients的实际系数桥已接受；TailArithmetic、SmallPart、NecessaryBounds正在串行编译。整体目标继续，完整子族暂0。

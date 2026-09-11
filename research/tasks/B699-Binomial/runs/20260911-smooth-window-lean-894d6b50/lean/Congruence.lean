@@ -52,14 +52,18 @@ theorem same_prime_above_of_product_congruence {n j m : ℕ} (hm : 4 ≤ m)
 theorem pow_sixty_modEq (k : ℕ) : 2 ^ (60 * k + 2) ≡ 4 [MOD 5005] := by
   have h : 2 ^ 60 ≡ 1 [MOD 5005] := by norm_num [Nat.ModEq]
   have hh := (h.pow k).mul (Nat.ModEq.refl (2 ^ 2))
-  simpa only [← pow_mul, ← pow_add, one_pow, one_mul] using hh
+  simp only [← pow_mul, ← pow_add, one_pow, one_mul] at hh
+  norm_num at hh
+  exact hh
 
 theorem primeProduct_fourteen : primeProduct 14 = 5005 := by decide
 
 theorem pow_sixty_modEq_nine (k : ℕ) : 2 ^ (60 * k + 2) ≡ 4 [MOD 9] := by
   have h : 2 ^ 60 ≡ 1 [MOD 9] := by norm_num [Nat.ModEq]
   have hh := (h.pow k).mul (Nat.ModEq.refl (2 ^ 2))
-  simpa only [← pow_mul, ← pow_add, one_pow, one_mul] using hh
+  simp only [← pow_mul, ← pow_add, one_pow, one_mul] at hh
+  norm_num at hh
+  exact hh
 
 theorem factorial_period_modEq {m p : ℕ} (hp : p.Prime)
     (h5p : 5 ≤ p) (hpm : p ≤ m) (k : ℕ) :
@@ -73,7 +77,9 @@ theorem factorial_period_modEq {m p : ℕ} (hp : p.Prime)
   have hd : p - 1 ∣ m.factorial := Nat.dvd_factorial (by omega) (by omega)
   obtain ⟨q, hq⟩ := hd
   have hh := (hf.pow (q * k)).mul (Nat.ModEq.refl (2 ^ 2))
-  simpa [← pow_mul, ← pow_add, hq, Nat.mul_assoc] using hh
+  simp only [← pow_mul, ← pow_add, one_pow, one_mul] at hh
+  norm_num at hh
+  simpa only [hq, Nat.mul_assoc] using hh
 
 end B699.SmoothWindow
 
