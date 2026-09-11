@@ -11,3 +11,5 @@
 更新：I/J/W代数9条已通过stage3；100MiB分卷恢复成功并重组哈希匹配，开始本机解包。ActualCoefficients、QuarticScaling、TailArithmetic是本机候选，待真实编译。
 
 ActualCoefficients的实际系数桥已接受；TailArithmetic、SmallPart、NecessaryBounds正在串行编译。整体目标继续，完整子族暂0。
+
+最新已验完整结果：ExplicitFamilies的两条显式行族及更强模9的2幂子族，无未证前置；复用最小入口为lean/ExplicitFamilies.lean。继续一般a,b,r窗口，不收束。

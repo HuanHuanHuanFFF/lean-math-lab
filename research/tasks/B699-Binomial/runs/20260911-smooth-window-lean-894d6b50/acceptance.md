@@ -14,7 +14,13 @@
 
 ## 已验完整子族
 
-0。R9不变。
+ExplicitFamilies.lean已完整验收，SHA256 19b103001a365c106cf8b91a86a45fecd225ee6828b3b79597faa6839fba8914。见verification/latest-ExplicitFamilies.json及其原始commands、编译、公理和声明日志。
+
+1. 任意a≥2且2^a≡4 mod9，全部5≤j≤2^a/2存在p≥5同时整除C(2^a,4)、C(2^a,j)。
+2. n=2^(60k+2)、k≥1，全部合法j存在同一素数p≥17，整除C(n,j)及所有合法4≤i≤14、i<j的C(n,i)。
+3. n=2^(m!k+2)、m≥5、k≥1，全部合法j存在同一素数p>m，整除C(n,j)及所有合法4≤i≤m、i<j的C(n,i)。
+
+六条公开声明均仅std3，无未证窗口或估值假设。采用更轻的初等模9 + I路线，不依赖无限尾部或467行证书。全域R9仍不变。
 
 ## 未完成义务
 
@@ -23,3 +29,5 @@
 原ZIP匹配，verify_manifest和reproduce真实退出0，仅计纸面+精确计算。
 
 实际系数ActualCoefficients共11条、QuarticScaling共3条已本机编译退出0并完成std3传递审计，详见verification/latest-*.json。窗口必要界仍在继续。
+
+TailArithmetic 3条、SmallPart 9条、NecessaryBounds 4条均实际编译和std3通过。完整U=2^v2 3^v3已定义，并证明noCommon下U>n/4。通用W必要界、一般轴估值和有限证书仍在推进。
