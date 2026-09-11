@@ -29,3 +29,5 @@ B699: prove uniform full-prime-power bounds on both axis neighbours via LTE
 B699: accept full two-axis collision subfamily; noCommon forces min(a,b) at most one
 
 B699: accept finite bound block 01, 48 further complete rows, std3 audited
+
+B699: accept all seven neighbour cases and scaling bridges, std3 audited
