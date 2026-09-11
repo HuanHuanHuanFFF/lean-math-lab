@@ -1,3 +1,11 @@
+# huan 接收检查点
+
+历史38–45已恢复，统一原题消费者通过。接收证据与可恢复路径见frontier.md、target-status.json和verification/huan-recovery-checks/acceptance.json。当前提交包含历史12项完整接受状态，下一项继续46–184，然后阶段B19项。
+
+以下保留VPS历史记录；其中旧授权和状态不覆盖当前用户请求。
+
+---
+
 # 恢复入口
 
 任务分支 `GPT-work/b699-low-index-lean-20260911-513dc7cc`，接收基线 `aafecac7192f33215368489ca9b09b98c0279308`。PR #8 已由用户本轮授权合并。

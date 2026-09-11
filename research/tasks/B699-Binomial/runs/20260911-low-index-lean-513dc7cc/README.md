@@ -1,3 +1,7 @@
+# huan 历史接收检查点
+
+本次接收VPS交接，沿用原run。当前状态见[frontier](frontier.md)、[逐项状态](target-status.json)与[验收记录](verification/huan-recovery-checks/acceptance.json)。38–45恢复不计新增数学成果，后续继续阶段A139项和阶段B19项。
+
 # B699：151 + 18 项 Lean 补齐
 
 负责人：本 Work VPS 主线程；不派子 agent，不联系其他会话。首次正式执行从上海时间 2026-09-11 开始，无总时限。用户本轮追加授权通过 GitHub 插件合并 PR #8；已合并为 aafecac7192f33215368489ca9b09b98c0279308。

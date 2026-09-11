@@ -1,0 +1,1 @@
+The row directories contain 2,587 `.lean` files in total (518, 237, 106, 123, 240, 231, 766, and 366 for rows 38 through 45), plus 8 `RowNNNData.lean` files and 4 shared files. The JSON mapping entry is superseded by this correction if its count differs.
