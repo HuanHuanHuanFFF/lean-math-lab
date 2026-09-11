@@ -1,0 +1,13 @@
+@B699.SmoothWindow.two_axis_smallPart_upper : ∀ {a b r : ℕ},
+  2 ≤ a → b ≤ 1 → r ≤ 3 → 4 * B699.SmoothWindow.smallPart23 ((2 ^ a * 3 ^ b + r).choose 4) ≤ 3 * a * (2 ^ a * 3 ^ b + r)
+'B699.SmoothWindow.two_axis_smallPart_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.three_axis_smallPart_upper : ∀ {a b r : ℕ},
+  a ≤ 1 → 2 ≤ b → r ≤ 3 → B699.SmoothWindow.smallPart23 ((2 ^ a * 3 ^ b + r).choose 4) ≤ b * (2 ^ a * 3 ^ b + r)
+'B699.SmoothWindow.three_axis_smallPart_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.smooth_exponents_bounded_of_noCommon : ∀ {a b r j : ℕ},
+  r ≤ 3 →
+    5 ≤ j →
+      j ≤ (2 ^ a * 3 ^ b + r) / 2 →
+        (¬∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ (2 ^ a * 3 ^ b + r).choose 4 ∧ p ∣ (2 ^ a * 3 ^ b + r).choose j) →
+          a < 40 ∧ b < 24 ∧ min a b ≤ 1
+'B699.SmoothWindow.smooth_exponents_bounded_of_noCommon' depends on axioms: [propext, Classical.choice, Quot.sound]
