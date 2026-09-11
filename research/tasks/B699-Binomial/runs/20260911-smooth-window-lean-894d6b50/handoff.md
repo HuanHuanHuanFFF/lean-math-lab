@@ -7,3 +7,5 @@
 本机工具链通过只读CI导出恢复。2GB整体artifact超过接口512MiB上限，已分成5个400MiB以下artifact；00/02/04已下载，01/03并发传输超时，改为串行恢复。此项是环境/传输诊断，不是数学失败。
 
 仅自己的分支，不推main、不合并、不访问huan未交付目录。
+
+更新：I/J/W代数9条已通过stage3；100MiB分卷恢复成功并重组哈希匹配，开始本机解包。ActualCoefficients、QuarticScaling、TailArithmetic是本机候选，待真实编译。

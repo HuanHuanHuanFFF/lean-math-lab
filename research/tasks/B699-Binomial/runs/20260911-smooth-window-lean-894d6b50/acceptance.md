@@ -8,6 +8,8 @@
 
 同一CI的Congruence文件失败，尚未整文件接受；不能将工作流step的continue-on-error状态作为接受。初次失败原日志见verification/bootstrap。
 
+固定源码e6b711cfdec63af272c57bff732bd6e7cfd2bc72的QuarticAlgebra.lean，SHA256 da831d921a4fe06615c6a24bd865f43a5919ec5ed340f8e48fb8bbc411ebac15，CI run 34572889986 / job 103178684259，编译退出0，约4.86秒，9条声明传递公理审计退出0且仅std3。见verification/stage3。该模块已证齐次整除性、三条缩放恒等式、Q正性、I正性与W负性；实际二项式系数桥仍待接。
+
 ## 已验完整子族
 
 0。R9不变。
