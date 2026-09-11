@@ -1,3 +1,9 @@
+# huan 最新检查点
+
+46–73完整原题已通过，阶段A40/151；下一项74，保持1536MB内存与32源分块串行。完整证据与失败边界见notes/huan-phase-a-checkpoint.md。原run、模块路径、旧记录与工作区均保留。发布因自动审批拒绝等待用户明确答复，本机研究继续。
+
+---
+
 # huan 接收检查点
 
 历史38–45已恢复，统一原题消费者通过。接收证据与可恢复路径见frontier.md、target-status.json和verification/huan-recovery-checks/acceptance.json。当前提交包含历史12项完整接受状态，下一项继续46–184，然后阶段B19项。

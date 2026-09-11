@@ -40,3 +40,8 @@
 ## huan 38–45 历史接收
 
 恢复历史完整原题38–45，源/对象/日志/依赖摘要全部核对。本机新的统一消费者通过，八项传递公理均为propext、Classical.choice、Quot.sound。见verification/huan-recovery-checks/acceptance.json。本次恢复不计新数学结果或重新计算原CI。
+
+
+## huan 新46–73完整形式化
+
+28项完整原题已逐行实际编译并审计传递公理为std3，见verification/huan-accepted。实际接受集合40/151，B0/19；不是新纸面数学或整个B699的解答。本地commit与远端发布分开记录。

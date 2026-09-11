@@ -1,3 +1,7 @@
+# huan 接续状态
+
+当前阶段A40/151，阶段B0/19，见[frontier](frontier.md)、[逐项状态](target-status.json)和[验收检查点](notes/huan-phase-a-checkpoint.md)。历史恢复与本轮新增形式化分开计数；本地提交不等于已推送，当前发布等待明确授权。
+
 # huan 历史接收检查点
 
 本次接收VPS交接，沿用原run。当前状态见[frontier](frontier.md)、[逐项状态](target-status.json)与[验收记录](verification/huan-recovery-checks/acceptance.json)。38–45恢复不计新增数学成果，后续继续阶段A139项和阶段B19项。
