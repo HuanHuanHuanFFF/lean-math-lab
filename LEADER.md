@@ -50,7 +50,7 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
-本轮从 [2026-09-11 R9 交付接收与任务状态](research/tasks/B699-Binomial/runs/20260911-leader-intake-bc-824984da/README.md) 进入：已接收三指标闭合、光滑窗口和统一核报告；等待 A 新一轮交付，核验等级与派工状态见本批记录。
+本轮从 [2026-09-11 R9 交付接收与任务状态](research/tasks/B699-Binomial/runs/20260911-leader-intake-bc-824984da/README.md) 进入：已接收三指标闭合、光滑窗口和统一核报告；ABC 新一轮任务已派发，i=10 闭合通报待接收原件。已收证据前沿与调度候选分开登记，核验等级与派工状态见本批记录。
 
 上一调度入口：[B699 调度与 huan 接续](research/tasks/B699-Binomial/runs/20260911-leader-dispatch-f71b38c0/README.md)，其前沿与数量为当时快照。
 

@@ -8,7 +8,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
-| [20260911-leader-intake-bc-824984da](runs/20260911-leader-intake-bc-824984da/README.md) | 当前接收与调度入口：三指标闭合、光滑窗口、统一核；等待 A 新交付 | [状态](runs/20260911-leader-intake-bc-824984da/frontier.md) · [原件索引](runs/20260911-leader-intake-bc-824984da/ARCHIVES.json) |
+| [20260911-leader-intake-bc-824984da](runs/20260911-leader-intake-bc-824984da/README.md) | 当前接收与调度入口：三指标闭合、光滑窗口、统一核；ABC 新任务与 i=10 待接收通报 | [状态](runs/20260911-leader-intake-bc-824984da/frontier.md) · [原件索引](runs/20260911-leader-intake-bc-824984da/ARCHIVES.json) |
 | [20260911-leader-dispatch-f71b38c0](runs/20260911-leader-dispatch-f71b38c0/README.md) | 上一轮任务调度与 huan 接续（历史快照） | [状态](runs/20260911-leader-dispatch-f71b38c0/frontier.md) · [核验责任](runs/20260911-leader-dispatch-f71b38c0/acceptance.md) |
 | [20260911-low-index-lean-513dc7cc](runs/20260911-low-index-lean-513dc7cc/README.md) | VPS已发布的低指标Lean与huan接续来源 | [原验收](runs/20260911-low-index-lean-513dc7cc/acceptance.md) |
 | [20260910-leader-integration-ad35779e](runs/20260910-leader-integration-ad35779e/README.md) | 上一批四项闭合与Lean前置整合（历史快照） | [前沿](runs/20260910-leader-integration-ad35779e/frontier.md) · [报告](runs/20260910-leader-integration-ad35779e/report.md) |
