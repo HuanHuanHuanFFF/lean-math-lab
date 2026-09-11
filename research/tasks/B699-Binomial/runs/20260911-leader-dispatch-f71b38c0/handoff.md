@@ -8,5 +8,7 @@
 
 任务均处于“已拟定，待用户投递”，没有外部会话已启动的证据。两个Pro使用冻结包自主选路；huan接续原低指标run，不改写旧huan tail run。无默认总时限，执行者每个小闭环发布后继续。
 
-发布提交和PR在完成推送后追加记录；Leader不合并main。
+任务和资料入口已推送到 `GPT-work/leader-integration`，已建立 [PR #9](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/9)，目标为 main，尚未合并。
+
+固定输入提交：`9d4228e3ed0de4bb6b8e555ca59af3f53d578c67`。三份任务和最终附件记录发布提交：`0f51448cdaef8b72682b83a6889ef4033984edca`。PR头会随本交接记录更新；接收者按固定输入即可开工。Leader不合并main。
 
