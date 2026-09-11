@@ -15,3 +15,5 @@ ActualCoefficients的实际系数桥已接受；TailArithmetic、SmallPart、Nec
 最新已验完整结果：ExplicitFamilies的两条显式行族及更强模9的2幂子族，无未证前置；复用最小入口为lean/ExplicitFamilies.lean。继续一般a,b,r窗口，不收束。
 
 当前已验最小入口：ExplicitFamilies（完整两条显式行族）；NecessaryW（一般I/W必要界）；Congruence（通用同素数转移）。未完成：一般窗口完整U上界、轴估值、阈值和467/58有限覆盖。早期环境和同余失败均已修复。
+
+FiniteChecker已通过Lean编译与std3审计：大小证书声音性、任意无2/3因子的互素桥、Kummer单carry与完整p^e模约束。467行具体证书尚在接入，不因检查器已验而宣称有限覆盖已验。

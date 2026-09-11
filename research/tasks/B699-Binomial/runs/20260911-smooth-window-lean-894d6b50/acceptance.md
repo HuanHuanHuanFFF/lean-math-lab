@@ -33,3 +33,5 @@ ExplicitFamilies.lean已完整验收，SHA256 19b103001a365c106cf8b91a86a45fecd2
 TailArithmetic 3条、SmallPart 9条、NecessaryBounds 4条均实际编译和std3通过。完整U=2^v2 3^v3已定义，并证明noCommon下U>n/4。通用W必要界、一般轴估值和有限证书仍在推进。
 
 NecessaryW.lean的4条声明已真实编译并完成std3审计，源SHA256 07284aacbd0f30730660b647b5b059c16bd6fc65ac335fc55c20581e530a1034，见verification/latest-NecessaryW.json。I/J/W的实际系数、非退化性和I/W必要界现已全部接通。上文早期未完成列表由各后续接受条目覆盖。
+
+FiniteChecker已通过Lean编译与std3审计：大小证书声音性、任意无2/3因子的互素桥、Kummer单carry与完整p^e模约束。467行具体证书尚在接入，不因检查器已验而宣称有限覆盖已验。
