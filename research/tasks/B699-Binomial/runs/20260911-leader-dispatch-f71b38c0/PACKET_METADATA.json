@@ -1,0 +1,17 @@
+{
+  "schema": "b699-dispatch-context-metadata-v1",
+  "name": "B699-R12-dispatch-context",
+  "description": "Compact, byte-addressable context core for two web Pro/Huan handoffs.",
+  "source_records": "PACKET_SOURCES.json",
+  "layout": {
+    "shared": "shared/r13-original.zip is the exact R13 outer ZIP byte stream.",
+    "i18": "packages/i18 contains every i18 source member except its one nested R13-Pro ZIP; that member is read from shared/r13-original.zip.",
+    "r12": "packages/r12 contains every R12 source member except its one nested R13 evidence ZIP; that member is copied byte-for-byte from shared/r13-original.zip.",
+    "r13": "There is no duplicate packages/r13 tree; prepare_context.py restores all R13 members directly from shared/r13-original.zip."
+  },
+  "outer_archive_statement": "The compact packet intentionally omits the i18 and R12 outer ZIP files. Their original attachments remain the authoritative source bytes. The packet therefore makes no same-hash reconstruction claim for those omitted outer ZIPs.",
+  "integrity_statement": "Every included member is mapped in PACKET_SOURCES.json by original member name, size, SHA-256, storage location, and restore path. The two shared nested relationships are checked before packaging and again during restoration.",
+  "safety_statement": "build_context.py and prepare_context.py perform only path validation, copying, unpacking, size checks, and SHA-256 checks. They reject unsafe paths/symlinks and refuse same-name destination overwrites. They never execute package code, proof checkers, certificates, or Lean.",
+  "navigation_statement": "CURRENT_STATE.md, TASK_PROTOCOL.md, SOURCE_MAP.md, TASK-A.md, and TASK-B.md are not prewritten. A later build may add supplied copies from a navigation/ directory.",
+  "default_output": "deliverables/B699-R12-dispatch-context.zip"
+}

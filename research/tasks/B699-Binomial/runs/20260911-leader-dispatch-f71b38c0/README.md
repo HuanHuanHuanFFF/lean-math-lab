@@ -13,3 +13,11 @@
 
 三个执行任务使用同一冻结前沿：原 i18 Pro 继续新公因子/Padé 工具的推广；原 R12 Pro 继续统一排除与有效有限化；huan 接收核验与补 Lean。两个 Pro 保留整个剩余集合的研究范围。任务提示词和冻结资料包随本轮发布，外部投递由用户完成；尚未收到启动回执。
 
+
+## 本轮任务
+
+- [Pro A：新G与Padé推广](tasks/B699-Pro-A-R12.md)
+- [Pro B：统一排除与有限化](tasks/B699-Pro-B-R12.md)
+- [huan：接收核验与Lean](tasks/B699-Huan-Lean.md)
+
+附件清单见 [artifacts.json](artifacts.json)。固定接收提交为 `9d4228e3ed0de4bb6b8e555ca59af3f53d578c67`，该提交已包括新Leader职责、VPS已推送成果和网页接收记录；本次任务说明另随调度发布。执行者可直接从这一固定来源开工。

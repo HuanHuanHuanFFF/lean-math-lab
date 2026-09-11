@@ -19,3 +19,7 @@
 
 CI：https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/34525396228 。CI文本artifact原保留1天，已从中恢复并保存；8份行对象缓存原保留30天，本恢复包不含这些行对象。不要把Linux缓存自动视为huan平台可直接执行的工具链。
 
+
+共用上下文包下载：https://chatgpt.com/api/library/files/libfile_c68f83ebd46081919a35867cbcfc3109/download （用户下载后转交；恢复和来源说明见包内 navigation/SOURCE_MAP.md）。
+
+逐成员来源与校验值保存在共用ZIP内 `PACKET_SOURCES.json`；仓库只登记包级元数据，避免在会话中读取整份成员清单。
