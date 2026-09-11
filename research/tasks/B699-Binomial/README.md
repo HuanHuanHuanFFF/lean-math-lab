@@ -8,7 +8,9 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
-| [20260910-leader-integration-ad35779e](runs/20260910-leader-integration-ad35779e/README.md) | 最新四项闭合与Lean前置整合；纸面剩余13项 | [前沿](runs/20260910-leader-integration-ad35779e/frontier.md) · [报告](runs/20260910-leader-integration-ad35779e/report.md) |
+| [20260911-leader-dispatch-f71b38c0](runs/20260911-leader-dispatch-f71b38c0/README.md) | 当前任务调度；核验与Lean转交huan，两个Pro继续研究 | [状态](runs/20260911-leader-dispatch-f71b38c0/frontier.md) · [核验责任](runs/20260911-leader-dispatch-f71b38c0/acceptance.md) |
+| [20260911-low-index-lean-513dc7cc](runs/20260911-low-index-lean-513dc7cc/README.md) | VPS已发布的低指标Lean与huan接续来源 | [原验收](runs/20260911-low-index-lean-513dc7cc/acceptance.md) |
+| [20260910-leader-integration-ad35779e](runs/20260910-leader-integration-ad35779e/README.md) | 上一批四项闭合与Lean前置整合（历史快照） | [前沿](runs/20260910-leader-integration-ad35779e/frontier.md) · [报告](runs/20260910-leader-integration-ad35779e/report.md) |
 | [20260910-i13-closure-ad35779e](runs/20260910-i13-closure-ad35779e/README.md) | i=13全域纸面＋精确证书；未Lean化 | [原报告](runs/20260910-i13-closure-ad35779e/delivery/REPORT.md) |
 | [20260910-pade-three-closure-4edad426](runs/20260910-pade-three-closure-4edad426/README.md) | 11、16、21全域纸面＋精确证书；未Lean化 | [原报告](runs/20260910-pade-three-closure-4edad426/delivery/REPORT.md) |
 | [20260910-unbounded-tail-9f6c2a17](runs/20260910-unbounded-tail-9f6c2a17/README.md) | huan已验EC分析前置；i≥4883原目标未完成、新增覆盖0 | [验收](runs/20260910-unbounded-tail-9f6c2a17/delivery/acceptance.md) |
@@ -41,3 +43,4 @@
 同题研究放在本目录。新独立推进放入 `runs/日期-主题-短标识/`；换模型、会话或并发数量不改变既有批次身份。详见[目录规则](../../../docs/STRUCTURE.md)。各批独立维护进度和报告，本页仅作题面与导航。
 
 正式模块：[CofactorCriterion](../../../Math/B699/CofactorCriterion.lean)、[公理检查](../../../Tests/B699CofactorCriterion.lean)、[示例](../../../Examples/CofactorCriterion.lean)。
+
