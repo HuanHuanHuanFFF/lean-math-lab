@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "started_utc": "2026-09-11T08:05:57.389206+00:00",
+  "fresh_output_directory": true,
+  "steps": [
+    {
+      "name": "content",
+      "command": [
+        "python3",
+        "code/check_content.py",
+        "replay/acceptance/outputs/content.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.5830021080000733,
+      "log": "replay/acceptance/content.log"
+    },
+    {
+      "name": "independent-dp",
+      "command": [
+        "python3",
+        "code/check_independent_dp.py",
+        "replay/acceptance/outputs/content.json",
+        "replay/acceptance/outputs/independent-dp.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.116512778000015,
+      "log": "replay/acceptance/independent-dp.log"
+    },
+    {
+      "name": "vandermonde",
+      "command": [
+        "python3",
+        "code/check_vandermonde.py",
+        "replay/acceptance/outputs/vandermonde.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.921790761000011,
+      "log": "replay/acceptance/vandermonde.log"
+    },
+    {
+      "name": "consumers",
+      "command": [
+        "python3",
+        "code/check_consumers.py",
+        "replay/acceptance/outputs/consumers.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.0259111870000197,
+      "log": "replay/acceptance/consumers.log"
+    },
+    {
+      "name": "bad-inputs",
+      "command": [
+        "python3",
+        "code/check_bad_inputs.py",
+        "replay/acceptance/outputs/bad-inputs.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.8477807219999249,
+      "log": "replay/acceptance/bad-inputs.log"
+    },
+    {
+      "name": "sources",
+      "command": [
+        "python3",
+        "code/verify_sources.py",
+        "replay/acceptance/outputs/sources.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.917892768999991,
+      "log": "replay/acceptance/sources.log"
+    }
+  ],
+  "comparisons": [
+    {
+      "file": "content.json",
+      "bytes": 372766,
+      "sha256": "24d02c4535b3bb1570a1d3d667df4d4ff25dc3717b11e674fb8b498062cf9159",
+      "byte_identical_to_frozen": true
+    },
+    {
+      "file": "independent-dp.json",
+      "bytes": 258,
+      "sha256": "a4bd2e9c7ce7a29bd2b9a1369cd00baf725b612903e1c8a423fabb33ca984b19",
+      "byte_identical_to_frozen": true
+    },
+    {
+      "file": "vandermonde.json",
+      "bytes": 1019,
+      "sha256": "37630cc62cb1c465262aa2cc38448fc4038f9e0d94879dabffc04861036a337d",
+      "byte_identical_to_frozen": true
+    },
+    {
+      "file": "consumers.json",
+      "bytes": 21578,
+      "sha256": "31cb448d7af98965e2f8cab2e34892e55f0382a4502cee8de1cdb96a69c5b58f",
+      "byte_identical_to_frozen": true
+    },
+    {
+      "file": "bad-inputs.json",
+      "bytes": 1526,
+      "sha256": "b5b580dec25aa76d90a6a2d8f592305132a70f466203e43acb8f390febfd0b54",
+      "byte_identical_to_frozen": true
+    },
+    {
+      "file": "sources.json",
+      "bytes": 133,
+      "sha256": "624f5384e83f79b5565761f1ea9ed680a009adc6bf33b5971542c5afdc230c3f",
+      "byte_identical_to_frozen": true
+    }
+  ],
+  "frozen_before_after_identical": true,
+  "elapsed_seconds": 10.421280885999977,
+  "children_peak_rss_kib_cumulative": 94380,
+  "rss_note": "Linux ru_maxrss maximum over waited-for child processes, not summed per-step memory.",
+  "finished_utc": "2026-09-11T08:06:07.809204+00:00"
+}

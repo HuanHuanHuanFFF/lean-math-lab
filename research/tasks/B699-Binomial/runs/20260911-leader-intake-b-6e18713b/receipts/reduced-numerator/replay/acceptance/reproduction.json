@@ -1,0 +1,157 @@
+{
+  "start_utc": "2026-09-11T09:30:03.456490+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "commands": [
+    {
+      "name": "01-generate",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/b699-r8-next/code/generate_certificate.py",
+        "--B",
+        "1048576",
+        "--out",
+        "/tmp/b699-r8-relative-4qchypk0/out/generated"
+      ],
+      "returncode": 0,
+      "seconds": 0.711727,
+      "stdout": "01-generate.stdout.txt",
+      "stderr": "01-generate.stderr.txt"
+    },
+    {
+      "name": "02-independent-crt",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/b699-r8-next/code/check_certificate.py",
+        "/tmp/b699-r8-relative-4qchypk0/out/generated/certificate.json",
+        "--out",
+        "/tmp/b699-r8-relative-4qchypk0/out/verification.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.804586,
+      "stdout": "02-independent-crt.stdout.txt",
+      "stderr": "02-independent-crt.stderr.txt"
+    },
+    {
+      "name": "03-algebra",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/b699-r8-next/code/check_algebra.py",
+        "--out",
+        "/tmp/b699-r8-relative-4qchypk0/out/algebra.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.680898,
+      "stdout": "03-algebra.stdout.txt",
+      "stderr": "03-algebra.stderr.txt"
+    },
+    {
+      "name": "04-rejection",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/b699-r8-next/code/check_bad_cases.py",
+        "/tmp/b699-r8-relative-4qchypk0/out/generated/certificate.json",
+        "--out",
+        "/tmp/b699-r8-relative-4qchypk0/out/bad_cases.json"
+      ],
+      "returncode": 0,
+      "seconds": 1.161025,
+      "stdout": "04-rejection.stdout.txt",
+      "stderr": "04-rejection.stderr.txt"
+    },
+    {
+      "name": "05-compile-independent",
+      "argv": [
+        "/usr/bin/g++",
+        "-std=c++17",
+        "-O3",
+        "-Wall",
+        "-Wextra",
+        "/mnt/data/b699-r8-next/code/check_fraction_exhaustive.cpp",
+        "-o",
+        "/tmp/b699-r8-relative-4qchypk0/exhaustive"
+      ],
+      "returncode": 0,
+      "seconds": 0.563689,
+      "stdout": "05-compile-independent.stdout.txt",
+      "stderr": "05-compile-independent.stderr.txt"
+    },
+    {
+      "name": "06-direct-enumeration",
+      "argv": [
+        "/tmp/b699-r8-relative-4qchypk0/exhaustive",
+        "1048576",
+        "/tmp/b699-r8-relative-4qchypk0/out/exhaustive.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.883444,
+      "stdout": "06-direct-enumeration.stdout.txt",
+      "stderr": "06-direct-enumeration.stderr.txt"
+    },
+    {
+      "name": "07-source-snapshots",
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "/mnt/data/b699-r8-next/code/check_sources.py",
+        "--out",
+        "/tmp/b699-r8-relative-4qchypk0/out/sources.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.670657,
+      "stdout": "07-source-snapshots.stdout.txt",
+      "stderr": "07-source-snapshots.stderr.txt"
+    }
+  ],
+  "comparisons": [
+    {
+      "frozen": "certificates/certificate.json",
+      "sha256": "ed521a211356bb2dc3334beb21b009dad6c8be8a9c0da66705ce2293e6ebfb03",
+      "bytes": 137983,
+      "byte_equal": true
+    },
+    {
+      "frozen": "certificates/generation.json",
+      "sha256": "eec49c7875db63276d2170e295b8dbb0aea0bcb28732f90647a426ed8b1987b6",
+      "bytes": 182,
+      "byte_equal": true
+    },
+    {
+      "frozen": "outputs/verification.json",
+      "sha256": "5f3ae278d8da6d664f8495b8eb93cc4d3353b1c22e41c93c03ad1cff0ec486f5",
+      "bytes": 269,
+      "byte_equal": true
+    },
+    {
+      "frozen": "outputs/algebra.json",
+      "sha256": "05229bc3ef22a27176efccc2dde7e2a07d2ae58903ff87c80fdcca7075c28273",
+      "bytes": 665,
+      "byte_equal": true
+    },
+    {
+      "frozen": "outputs/bad_cases.json",
+      "sha256": "37751517b8d710ebdca10d9dba1d1e2baf1fa6c2fdf632d7e54fd886a4a34730",
+      "bytes": 477,
+      "byte_equal": true
+    },
+    {
+      "frozen": "outputs/exhaustive.json",
+      "sha256": "5623f8a41b51b2112ac43aad13ef4aeae81329851a75ccf8324c6ec69c784a04",
+      "bytes": 5669,
+      "byte_equal": true
+    },
+    {
+      "frozen": "outputs/sources.json",
+      "sha256": "782df036f352017bb813d6a41ff8475f469e5b73ae90690c156deebdf4a9a58f",
+      "bytes": 239,
+      "byte_equal": true
+    }
+  ],
+  "empty_temporary_root": true,
+  "status": "PASS",
+  "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0",
+  "temporary_root": "/tmp/b699-r8-relative-4qchypk0",
+  "cross_implementation_candidates_equal": true,
+  "static_hashes_unchanged": true,
+  "seconds": 5.490673,
+  "end_utc": "2026-09-11T09:30:08.947166+00:00"
+}
