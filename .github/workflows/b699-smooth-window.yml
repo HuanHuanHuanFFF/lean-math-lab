@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
 env:
   B699_RUN: 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50'
 jobs:
@@ -22,40 +23,60 @@ jobs:
           git rev-parse HEAD > "$B699_RUN/verification/current/source-sha.txt"
           free -h > "$B699_RUN/verification/current/resources.txt"
           df -h . >> "$B699_RUN/verification/current/resources.txt"
-      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
-        with:
-          auto-config: 'false'
-          build: 'false'
-          test: 'false'
-          lint: 'false'
-          use-mathlib-cache: 'false'
-          use-github-cache: 'false'
-      - name: Restore pinned focused imports
-        run: |
-          lake exe cache get Mathlib.Data.Nat.Choose.Factorization Mathlib.Data.Nat.Choose.Lucas Mathlib.Data.Nat.Choose.Dvd Mathlib.NumberTheory.Fermat Mathlib.NumberTheory.Multiplicity Mathlib.NumberTheory.Padics.PadicVal.Basic Mathlib.Tactic.NormNum Mathlib.Tactic.Ring Mathlib.Tactic.Linarith
-          lake env lean --version
-      - name: Compile candidate and audit its transitive axioms
-        id: compile
-        continue-on-error: true
-        run: |
-          set +e
-          /usr/bin/time -v lake env lean -M 3072 "$B699_RUN/lean/Transfer.lean" > "$B699_RUN/verification/current/transfer.log" 2>&1
-          B699_EXIT=$?
-          echo "$B699_EXIT" > "$B699_RUN/verification/current/transfer.exit"
-          tail -c 8000 "$B699_RUN/verification/current/transfer.log"
-          if [ "$B699_EXIT" -ne 0 ]; then exit "$B699_EXIT"; fi
-          python3 "$B699_RUN/verification/runner/audit.py" "$B699_RUN/verification/current/transfer.log"
-      - name: Package matching runtime for permitted local reuse
-        run: |
-          mkdir -p .tools/smooth-window-export
-          tar -I 'zstd -T2 -3' -cf .tools/smooth-window-export/runtime.tar.zst -C "$HOME" .elan -C "$GITHUB_WORKSPACE" .lake lean-toolchain lakefile.toml lake-manifest.json
-          sha256sum .tools/smooth-window-export/runtime.tar.zst > .tools/smooth-window-export/SHA256SUMS
-          du -h .tools/smooth-window-export/runtime.tar.zst
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
           name: b699-smooth-window-runtime
-          path: .tools/smooth-window-export
-          include-hidden-files: true
+          run-id: 34571295626
+          github-token: ${{ github.token }}
+          path: .tools/smooth-window-import
+      - name: Restore the exact bootstrap runtime
+        run: |
+          tar --zstd -xf .tools/smooth-window-import/runtime.tar.zst
+          echo "ELAN_HOME=$GITHUB_WORKSPACE/.elan" >> "$GITHUB_ENV"
+          echo "$GITHUB_WORKSPACE/.elan/bin" >> "$GITHUB_PATH"
+      - name: Compile sources and enforce transitive std3 audits
+        continue-on-error: true
+        run: |
+          lake env lean --version
+          python3 "$B699_RUN/verification/runner/compile.py"
+      - name: Split runtime into supported binary artifacts
+        run: |
+          mkdir -p .tools/smooth-window-parts
+          split -b 400M -d -a 2 .tools/smooth-window-import/runtime.tar.zst .tools/smooth-window-parts/runtime.part-
+          sha256sum .tools/smooth-window-parts/runtime.part-* > "$B699_RUN/verification/current/runtime-parts.sha256"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-smooth-runtime-00
+          path: .tools/smooth-window-parts/runtime.part-00
+          compression-level: 0
+          retention-days: 3
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-smooth-runtime-01
+          path: .tools/smooth-window-parts/runtime.part-01
+          compression-level: 0
+          retention-days: 3
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-smooth-runtime-02
+          path: .tools/smooth-window-parts/runtime.part-02
+          compression-level: 0
+          retention-days: 3
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-smooth-runtime-03
+          path: .tools/smooth-window-parts/runtime.part-03
+          compression-level: 0
+          retention-days: 3
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-smooth-runtime-04
+          path: .tools/smooth-window-parts/runtime.part-04
+          compression-level: 0
           retention-days: 3
           if-no-files-found: error
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -65,6 +86,6 @@ jobs:
           path: ${{ env.B699_RUN }}/verification/current
           retention-days: 30
           if-no-files-found: error
-      - name: Require real compile success
+      - name: Require complete compile and audit success
         if: always()
-        run: test "$(cat "$B699_RUN/verification/current/transfer.exit")" = 0
+        run: test "$(cat "$B699_RUN/verification/current/complete.exit")" = 0

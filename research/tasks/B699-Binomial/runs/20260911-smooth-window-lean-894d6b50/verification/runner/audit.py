@@ -1,7 +1,7 @@
 import re, sys, json
 from pathlib import Path
 log = Path(sys.argv[1]).read_text()
-expected = ["choose_mul_choose", "prime_dvd_choose_transfer", "same_prime_transfer", "strict_transfer_counterexample"]
+expected = sys.argv[2:] or ["choose_mul_choose", "prime_dvd_choose_transfer", "same_prime_transfer", "strict_transfer_counterexample"]
 allowed = {"propext", "Classical.choice", "Quot.sound"}
 found = {}
 for name in expected:

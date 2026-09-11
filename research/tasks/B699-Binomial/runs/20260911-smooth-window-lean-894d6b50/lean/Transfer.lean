@@ -32,7 +32,9 @@ theorem same_prime_transfer {n j m p : ℕ}
 theorem strict_transfer_counterexample :
     Nat.Prime 5 ∧ 5 ∣ Nat.choose 16 4 ∧ 5 ∣ Nat.choose 16 7 ∧
     ¬ 5 ∣ Nat.choose 16 5 ∧ 5 < 7 ∧ 7 ≤ 16 / 2 := by
-  norm_num [Nat.choose]
+  constructor
+  · decide
+  · norm_num [Nat.choose]
 
 end B699.SmoothWindow
 
