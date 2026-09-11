@@ -43,3 +43,5 @@ FiniteCRT全部58条完整行定理已验（源SHA256 d85a362d9183e9767e4785ac54
 B699: accept finite bound block 00, 48 complete rows, std3 audited
 
 B699: prove uniform full-prime-power bounds on both axis neighbours via LTE
+
+B699: accept full two-axis collision subfamily; noCommon forces min(a,b) at most one
