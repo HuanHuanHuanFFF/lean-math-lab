@@ -13,8 +13,11 @@ code=src.read_text()
 if re.search(r"\b(sorry|admit|axiom|native_decide|sorryAx)\b|Lean\.ofReduceBool",code):
     raise SystemExit("Forbidden source token")
 env=os.environ.copy()
-env["ELAN_HOME"]=str(root/".elan")
-env["PATH"]=str(root/".elan/bin")+os.pathsep+env["PATH"]
+elan_dir=root/".elan"
+if not (elan_dir/"bin/elan").exists():
+    elan_dir=Path(env.get("ELAN_HOME",str(Path.home()/".elan")))
+env["ELAN_HOME"]=str(elan_dir)
+env["PATH"]=str(elan_dir/"bin")+os.pathsep+env["PATH"]
 env["LEAN_PATH"]=str(root)+os.pathsep+env.get("LEAN_PATH","")
 def resources():
     d={}

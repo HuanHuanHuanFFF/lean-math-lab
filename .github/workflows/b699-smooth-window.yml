@@ -9,7 +9,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
-  actions: read
+concurrency:
+  group: b699-smooth-window-${{ github.ref }}
+  cancel-in-progress: true
 env:
   B699_RUN: 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50'
 jobs:
@@ -17,35 +19,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - name: Record source and resources
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Preserve pinned dependencies and obtain matching focused cache
         run: |
           mkdir -p "$B699_RUN/verification/current"
+          git diff --exit-code -- lean-toolchain lake-manifest.json lakefile.toml
           git rev-parse HEAD > "$B699_RUN/verification/current/source-sha.txt"
-          free -h > "$B699_RUN/verification/current/resources.txt"
-          df -h . >> "$B699_RUN/verification/current/resources.txt"
-      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
-        with:
-          name: b699-smooth-window-runtime
-          run-id: 34571295626
-          github-token: ${{ github.token }}
-          path: .tools/smooth-window-import
-      - name: Restore the exact bootstrap runtime
-        run: |
-          tar --zstd -xf .tools/smooth-window-import/runtime.tar.zst
-          echo "ELAN_HOME=$GITHUB_WORKSPACE/.elan" >> "$GITHUB_ENV"
-          echo "$GITHUB_WORKSPACE/.elan/bin" >> "$GITHUB_PATH"
-      - name: Compile sources and enforce transitive std3 audits
-        continue-on-error: true
-        run: |
-          lake env lean --version
-          python3 "$B699_RUN/verification/runner/compile.py"
+          sha256sum lean-toolchain lake-manifest.json > "$B699_RUN/verification/current/pins.sha256"
+          python3 - <<'PY' > "$B699_RUN/verification/current/cache-modules.txt"
+          from pathlib import Path
+          import os,re
+          mods=set()
+          for p in (Path(os.environ['B699_RUN'])/'lean').glob('*.lean'):
+              mods.update(re.findall(r'^import (Mathlib\.[\w.]+)$',p.read_text(),re.M))
+          print('\n'.join(sorted(mods)))
+          PY
+          xargs lake exe cache get < "$B699_RUN/verification/current/cache-modules.txt"
+          git diff --exit-code -- lean-toolchain lake-manifest.json lakefile.toml
+          sha256sum -c "$B699_RUN/verification/current/pins.sha256"
+          echo "ELAN_HOME=$HOME/.elan" >> "$GITHUB_ENV"
+      - name: Compile all sources and enforce every imported std3 audit
+        run: python3 "$B699_RUN/verification/runner/compile_all.py"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: b699-smooth-window-evidence
-          path: ${{ env.B699_RUN }}/verification/current
+          path: ${{ env.B699_RUN }}/verification
           retention-days: 30
           if-no-files-found: error
-      - name: Require complete compile and audit success
-        if: always()
-        run: test "$(cat "$B699_RUN/verification/current/complete.exit")" = 0

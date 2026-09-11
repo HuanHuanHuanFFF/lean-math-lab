@@ -1,18 +1,33 @@
-# B699 光滑窗口与多指标转移的 Lean 执行
+# B699 光滑窗口与多指标转移：完整 Lean 交付
 
-- 负责人：独立 VPS Work 主线程；不派子 agent。
-- 分支：`GPT-work/b699-smooth-window-lean-20260911-894d6b50`。
-- 固定 main：`eaa8d5760117b0b1133424548a162d28e23cc361`，通过 GitHub API 读取；本机 git fetch 因缺少认证失败，未声称本地完整 checkout。
-- 工具链：Lean v4.33.1；mathlib `0df444a360eaa60ab8c11dca51a86af692955474`；沿用固定 manifest。
-- 输入 ZIP SHA256：`ddd1d3bf303e4c5088c45e9f319d5cd82ac1c73abd07964a7df76605b024474e`，已匹配；原件只读。
-- 原目标：完整光滑窗口 i4、同一素数的通用多指标转移、两条显式无限行族；全部前置和证书均纳入任务。
-- 时间：2026-09-11 建立；用户没有设置总时限。检查点只调整方法和资源。
-- 写入范围：本 run、专用 CI 工作流；接受后可增加自己的稳定模块和检查入口。
+四个指定最终声明已在真实 Lean v4.33.1 编译并完成传递公理审计，仅std3。全新CI复核正在接入。
 
-## 当前状态
+- 分支：`GPT-work/b699-smooth-window-lean-20260911-894d6b50`；独立VPS Work执行，无子agent。
+- 固定main：`eaa8d5760117b0b1133424548a162d28e23cc361`。使用GitHub API冻结源码；本机git fetch缺认证，未冒称完整clone。
+- mathlib：`0df444a360eaa60ab8c11dca51a86af692955474`。toolchain、manifest、lakefile的Git blob与固定main完全一致。
+- 原ZIP SHA256：`ddd1d3bf303e4c5088c45e9f319d5cd82ac1c73abd07964a7df76605b024474e`。
+- 原题全域R9={3,4,5,6,7,8,9,10,14}不减少。
 
-通用转移四条及I/J/W代数九条已通过真实Lean编译和std3传递审计。继续连接实际二项式系数、必要界、估值、阈值与证书；ExplicitFamilies的两条显式无限行族已完整验收；一般光滑窗口仍未完成。研究、Python、编译、公理、发布各自记录。
+## 复用
 
-本机 cgroup：20 GiB、8 CPU；初查使用约2.3 GiB、磁盘可用28 GiB。Lean/elan/lake 未安装；直接依赖下载受网络限制。使用用户授权的 GitHub CI，CI 只读仓库、不自行 commit。
+最小统一入口：[lean/Main.lean](lean/Main.lean)。
 
-入口：[frontier](frontier.md)、[acceptance](acceptance.md)、[handoff](handoff.md)。
+```lean
+import research.tasks.«B699-Binomial».runs.«20260911-smooth-window-lean-894d6b50».lean.Main
+```
+
+公开声明均在`B699.SmoothWindow`：`smooth_window_i4`、`smooth_window_simultaneous`、`smooth_window_sixty`、`smooth_window_factorial`。
+单独复用两条显式行族只需[ExplicitFamilies](lean/ExplicitFamilies.lean)，其证明不依赖有限证书。
+
+## 重现
+
+在仓库根目录、固定toolchain及匹配mathlib缓存下执行：
+
+```bash
+python3 research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50/verification/runner/compile_all.py
+```
+
+该入口按导入依赖串行编译30个模块，再分别导入检查所有公开定理的传递公理，写入新的时间戳目录。底层真实命令为`bash scripts/lean-work.sh lake env lean -M 3072 -o … …`，并使用独立Audit.lean。
+专用CI使用仓库固定main同款固定SHA的Lean action，按已提交pins获取匹配缓存，不依赖早期环境artifact的保留期，不自行提交。
+
+证据入口：[acceptance](acceptance.md)、[frontier](frontier.md)、[handoff](handoff.md)、[数学审读](notes/mathematical-review.md)、[当前环境](verification/environment-current.json)。
