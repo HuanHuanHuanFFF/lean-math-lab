@@ -37,11 +37,6 @@
 完整指标37已验收：`B699LowIndex.LowIndexLean513dc7cc.common_i037`，源0102ae7d1a8c776b329730e5746c2b59ecd06ded，CI34521061213/job103020816713。344新模块+25经哈希验证复用的模块，227见证、50层、所有覆盖、完整行检查和原题消费者全部通过，传递公理std3。原题源码SHA256 b88969e56bd88c4886052c538f98ef091817fecb390e70c0aead56d80b8953e1，对象SHA256 26b3f6737a958841a9566abe8674672163383151b68e9642a5dde9c1f2a02303。峰值RSS2040516KiB，8分06.86秒。原始证据见 `verification/ci-34521061213-row37/`。A4/151，总4/169。
 
 
-## huan 38–45 历史接收
+## huan接收38–45（2026-09-11）
 
-恢复历史完整原题38–45，源/对象/日志/依赖摘要全部核对。本机新的统一消费者通过，八项传递公理均为propext、Classical.choice、Quot.sound。见verification/huan-recovery-checks/acceptance.json。本次恢复不计新数学结果或重新计算原CI。
-
-
-## huan 新46–73完整形式化
-
-28项完整原题已逐行实际编译并审计传递公理为std3，见verification/huan-accepted。实际接受集合40/151，B0/19；不是新纸面数学或整个B699的解答。本地commit与远端发布分开记录。
+原CI证据与原字节已核对接收；本机统一原题消费者实际通过，1个新模块、2620个哈希绑定复用对象、八项std3。详见verification/huan-recovery-checks/acceptance.json及delivery/huan-intake-review.md。历史结果不新增计功，当前未commit/push；阶段A汇总修正为12/151，B为0/19。

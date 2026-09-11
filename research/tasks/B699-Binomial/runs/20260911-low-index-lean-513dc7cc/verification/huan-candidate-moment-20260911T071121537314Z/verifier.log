@@ -1,0 +1,33 @@
+RESOURCE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Moment.lean", "platform": "windows", "cpu_count": 16, "disk": [294517391360, 292858744832, 1658646528], "available_physical_bytes": 2488737792, "total_physical_bytes": 16851132416, "memory_load_percent": 85, "meminfo": ["MemAvailable: 2430408 kB"], "memory.max": null, "memory.current": null, "cpu.max": null}
+COMPILE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Moment.lean", "seconds": 12.183, "exit_code": 1, "failure": "Lean exit 1", "axiom_audit": {"declared_print_axioms": 5, "declared_names": ["Math.B699.PadeMoment.moment_add", "Math.B699.PadeMoment.moment_smul", "Math.B699.PadeMoment.moment_sub", "Math.B699.PadeMoment.moment_X_pow", "Math.B699.PadeMoment.moment_X_pow_one_sub_X_pow"], "guarded_print_axioms": 0, "guarded_names": [], "actual_printed": 5, "guard_msgs_in_source": 0, "printed": [{"declared_name": "Math.B699.PadeMoment.moment_add", "axioms": ["propext", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeMoment.moment_smul", "axioms": ["propext", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeMoment.moment_sub", "axioms": ["propext", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeMoment.moment_X_pow", "axioms": ["propext", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeMoment.moment_X_pow_one_sub_X_pow", "axioms": ["propext", "Classical.choice", "Quot.sound"]}], "unexpected_axioms": [], "guarded_output_inferred": false}}
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T071121777158Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Moment.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Moment.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T07:11:56.087269Z
+# finished_utc: 2026-09-11T07:12:08.270477Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\Moment.lean:68:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  C ↑c * p
+in the target expression
+  moment (C c * p) = c * moment p
+
+c : ℚ
+p : ℚ[X]
+⊢ moment (C c * p) = c * moment p
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\Moment.lean:102:64: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\Moment.lean:102:64: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\Moment.lean:116:54: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'Math.B699.PadeMoment.moment_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.PadeMoment.moment_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.PadeMoment.moment_sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.PadeMoment.moment_X_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.PadeMoment.moment_X_pow_one_sub_X_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+EVIDENCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T071121777158Z/evidence.json
+RESULT {"success": false, "exit_code": 1, "compiled_count": 1, "reused_count": 0, "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.Moment.Moment"}

@@ -1,14 +1,14 @@
-# huan 最新检查点
+# huan 当前恢复入口（2026-09-11）
 
-46–73完整原题已通过，阶段A40/151；下一项74，保持1536MB内存与32源分块串行。完整证据与失败边界见notes/huan-phase-a-checkpoint.md。原run、模块路径、旧记录与工作区均保留。发布因自动审批拒绝等待用户明确答复，本机研究继续。
+本轮已接续至隔离huan分支，固定基线9d4228e3ed0de4bb6b8e555ca59af3f53d578c67。当前状态见frontier.md与notes/huan-execution-5e2d13bb.md；两个附件的原字节解压及校验在本机独立暂存目录保留。旧tail run及原工作区未改动。
 
----
+当前完整接受集合只读target-status.json；每个新增完整行有verification/huan-accepted/rowNNN.json收据。阶段A保持本机串行，最新运行检查点见verification/huan-batch-*/state.json。现有本地提交依次为44fd32f（历史恢复）、19dbd35（46–73）、c2028b3（48条前置统一验收）；均未推送。下一项取状态表中尚未接受的A指标，全部A完成后统一消费，再进入B的完整拼接。
 
-# huan 接收检查点
+本机分析缓存下载对官方Azure端点连续连接超时，406.939秒后仅停止本任务的下载树，0个ltar成功；原包未改。D盘已有独立固定九包源码副本，尚无对应新build。下一恢复选择是端点恢复后窄重试或补编缺失源码，耗时尚未实测。
 
-历史38–45已恢复，统一原题消费者通过。接收证据与可恢复路径见frontier.md、target-status.json和verification/huan-recovery-checks/acceptance.json。当前提交包含历史12项完整接受状态，下一项继续46–184，然后阶段B19项。
+本机commit已通过自动审批，但实际push被自动审批拒绝：必须由用户明确授权把指定源码/日志/证据发到指定仓库和huan分支。该具体问题仍待答复，不将沉默当作授权，不绕过拒绝。两个i18数学核验与修正Windows入口已通过，仍没有i18 Lean验收。IntegerBridge是§7的整数误差桥，不是完整BFT Lemma4.1。
 
-以下保留VPS历史记录；其中旧授权和状态不覆盖当前用户请求。
+以下为原VPS追加记录，保留其历史来源、失败与修正。其中旧角色、并发、发布授权和状态仅按当时语境解释，不能覆盖本轮用户请求与当前记录。
 
 ---
 

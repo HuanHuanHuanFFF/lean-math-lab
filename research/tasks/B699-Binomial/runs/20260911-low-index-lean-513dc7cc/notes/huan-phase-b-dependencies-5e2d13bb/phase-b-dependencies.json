@@ -1,0 +1,379 @@
+{
+  "schema": "b699-phase-b-reverse-dependencies-v1",
+  "purpose": "阶段B固定19项的最终原题消费者逆向依赖清单；不执行Lean编译，不把假设接口或前置当成阶段B完成。",
+  "scope": {
+    "worktree": "D:/CodingProject/Math/.tools/worktrees/b699-huan-5e2d13bb",
+    "baseline": "9d4228e3ed0de4bb6b8e555ca59af3f53d578c67",
+    "indices": [11, 13, 16, 17, 18, 19, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34],
+    "phase_b_status": {
+      "completed_full_original_lean_indices": 0,
+      "total_indices": 19,
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/target-status.json",
+      "interpretation": "共享前置已验不等于阶段B任何最终消费者已验。"
+    }
+  },
+  "evidence_rules": [
+    "Lean源文件实际编译和公理审计只证明所列接口源码，不能替代BFT、Matveev、Padé或i18纸面前置。",
+    "纸面推导、精确有限证书、Lean编译、独立AI审读和人审分别登记。",
+    "HeightValid、FiniteCover、common_of_large_divisor等假设或通用接口不能计作目标i的完整原题消费者。",
+    "i18的修正由第一位独立核验者完成；第二位核验者尚在审读，本清单不替其接受。"
+  ],
+  "shared_lean_interfaces": [
+    {
+      "id": "cofactor_and_full_prime_part",
+      "status": "compiled_shared_source",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json",
+      "sources": [
+        "Math/B699/CofactorCriterion.lean",
+        "research/tasks/B699-Binomial/runs/20260908-external-reductions-b3c1b7/lean/DivisorTransfer.lean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/PrimePowerTransfer.lean",
+        "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/SmallPartBound.lean"
+      ],
+      "usable_declarations": [
+        "B699LargePrimeStructure.prime_power_numerator_mod_lt",
+        "B699LargePrimeStructure.prime_power_gap_dvd",
+        "B699LargePrimeStructure.avoidingPart_eq_primePart_of_noCommon",
+        "B699LargePrimeStructure.actual_prime_part_gap_transfer",
+        "B699BridgeAudit.actual_prime_part_transfer",
+        "B699BridgeAudit.prime_part_coprime_of_no_common"
+      ],
+      "boundary": "完整素数幂定位/转移源码已验；没有为任何阶段B指标绑定最终n,j证书。"
+    },
+    {
+      "id": "three_window_and_small_power",
+      "status": "compiled_shared_source",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json",
+      "sources": [
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowWeights.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowSize.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/LargeSmallPowers.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/CofactorCover.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/SmallPrimeLocalization.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/SmallPowerIntervals.lean"
+      ],
+      "usable_declarations": [
+        "B699LowIndex.prime_power_three_window_dvd",
+        "B699LowIndex.actual_prime_part_three_window_transfer",
+        "B699LowIndex.noCommon_three_window_size",
+        "B699LowIndex.exists_two_large_small_prime_powers",
+        "B699LowIndex.binomial_prime_power_localization",
+        "B699LowIndex.exists_two_small_prime_power_intervals",
+        "B699LowIndex.noCommon_two_large_small_prime_powers"
+      ],
+      "boundary": "三窗口和小素数大幂接口可复用，但BFT/Matveev/Padé消费者及其数值常数尚未形式化。"
+    },
+    {
+      "id": "finite_cover_and_height",
+      "status": "compiled_shared_source_for_phase_a",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json",
+      "sources": [
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/HeightCertificate.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/HeightCertificateData.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/RegisteredHeights.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/PrimePowerEnumeration.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/IntervalCover.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/FiniteCover.lean"
+      ],
+      "usable_declarations": [
+        "B699LowIndex.common_of_height_certificate",
+        "B699LowIndex.power_interval_list_complete",
+        "B699LowIndex.exists_two_colours_in_power_interval_list",
+        "B699LowIndex.coverCheck_sound",
+        "B699LowIndex.pairCoverCheck_sound",
+        "B699LowIndex.coverLayerCheck_sound",
+        "B699LowIndex.common_of_finite_cover_row_checked"
+      ],
+      "boundary": "heightCertificateData/RegisteredHeights目前是阶段A表；没有阶段B 19项的datum、layer或FiniteCoverRow绑定，因此只能记为可适配前置。"
+    },
+    {
+      "id": "terminal_witness_interfaces",
+      "status": "compiled_shared_source_and_components",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json",
+      "sources": [
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/LargeDivisorWitness.lean",
+        "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/TrialPrimeCheck.lean",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WitnessBridge.lean",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/LayerParts.lean",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/PairChunks.lean",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/SharedEnvironment.lean"
+      ],
+      "usable_declarations": [
+        "B699LowIndex.large_divisor_dvd_prime_part",
+        "B699LowIndex.common_of_large_divisor",
+        "B699LowIndex.goodSegmentCheck_sound",
+        "B699LowIndex.LowIndexLean513dc7cc.good_top_prime_checked"
+      ],
+      "boundary": "WitnessBridge、LayerParts、PairChunks、SharedEnvironment是阶段A组件闭环；当前没有B项的原题根或证书数据被这些接口消费。"
+    }
+  ],
+  "groups": [
+    {
+      "id": "pade_three",
+      "indices": [11, 16, 21],
+      "final_consumer": {
+        "statement": "对全部合法1≤i<j≤floor(n/2)，固定i时存在同一素数p≥i整除choose(n,i)和choose(n,j)。",
+        "paper_consumer": "runs/20260910-pade-three-closure-4edad426/delivery/REPORT.md §8",
+        "all_legal_nj": true,
+        "terminal_forms": ["top-prime closed interval covering all j", "large-divisor singleton", "i=11,n=330 two-prime j partition"]
+      },
+      "paper_dependencies": {
+        "bft": [
+          {"source": "runs/20260910-asymmetric-pade-022987af/delivery/REPORT.md §2-3", "input": "Lemma 4.1 and Proposition 5.1 for frozen asymmetric Padé heights", "status": "paper input; proof not re-proved or Lean-formalized"},
+          {"source": "runs/20260910-pade-three-closure-4edad426/delivery/REPORT.md §2", "input": "Lemma 4.1 and Proposition 5.1 for the three downstream consumers", "status": "page/source checked; not Lean-formalized"}
+        ],
+        "matveev": {"used": false, "status": "not used by this route", "source": "pade-three REPORT §2"},
+        "pade": {"used": true, "status": "frozen paper Padé algebra and height input; no Lean consumer", "source": "runs/20260910-asymmetric-pade-022987af/delivery/REPORT.md"},
+        "other_math": ["complete prime-power transfer", "three-window cube bridge", "finite exponent blocks", "CRT descent"]
+      },
+      "finite_certificate": {
+        "format": "exact-integer JSON: per-prime-pair signed-residue block records, CRT stage records, terminal interval/singleton witness records, and a reverse-parameter independent checker",
+        "roots": [
+          "runs/20260910-pade-three-closure-4edad426/delivery/results/block_<i>_<p>_<q>.json (49 files)",
+          "runs/20260910-pade-three-closure-4edad426/delivery/results/block_summary_<i>.json",
+          "runs/20260910-pade-three-closure-4edad426/delivery/results/crt_stages_<i>.json",
+          "runs/20260910-pade-three-closure-4edad426/delivery/results/terminal_certificate_<i>.json",
+          "runs/20260910-pade-three-closure-4edad426/delivery/results/independent_check.json",
+          "runs/20260910-pade-three-closure-4edad426/delivery/results/upstream_replay.json"
+        ],
+        "stats": {
+          "11": {"initial_height_bits": 4096, "compressed_height_bits": 109, "candidate_rows": 12167, "top_prime_rows": 9824, "large_divisor_rows": 2342, "special_j_checks": 154, "unresolved": 0},
+          "16": {"initial_height_bits": 65536, "compressed_height_bits": 162, "candidate_rows": 16720, "top_prime_rows": 14985, "large_divisor_rows": 1735, "unresolved": 0},
+          "21": {"initial_height_bits": 32768, "compressed_height_bits": 192, "candidate_rows": 22240, "top_prime_rows": 21029, "large_divisor_rows": 1211, "unresolved": 0}
+        },
+        "status": "paper plus exact finite checker; no Lean acceptance"
+      },
+      "minimum_next_lean_obligation": [
+        "Formalize or independently import the exact BFT Lemma4.1/Proposition5.1 Padé consumer and its two-delta integer determinant/nonzero bridge.",
+        "Bind the three initial heights and the cube bridge/block/CRT descent to source-hashed integer certificates without using a HeightValid assumption.",
+        "Adapt the terminal JSON to a checked FiniteCover/GoodSegment representation, including the n=330 i=11 partition, then compile independent common_i011/common_i016/common_i021 roots and audit transitive axioms."
+      ],
+      "reuse": {"prime_power_transfer": "yes", "phase_a_height": "only after new B height data is proved", "finite_cover": "adapter required; current row schema covers phase A only", "phase_a_terminal_witness": "yes, through LargeDivisorWitness/GapBridge after data adapter"}
+    },
+    {
+      "id": "i13",
+      "indices": [13],
+      "final_consumer": {
+        "statement": "对14≤j≤floor(n/2)的全部合法n,j，存在p≥13同时整除两项。",
+        "paper_consumer": "runs/20260910-i13-closure-ad35779e/delivery/REPORT.md §8",
+        "all_legal_nj": true,
+        "terminal_forms": ["top-prime intervals", "large-divisor rows", "n=126 with 50 explicit j checks"]
+      },
+      "paper_dependencies": {
+        "bft": [
+          {"source": "runs/20260910-i13-closure-ad35779e/delivery/notes/PROOFS.md §3", "input": "Lemma 4.1 and Proposition 5.1", "status": "paper input; not Lean-formalized"}
+        ],
+        "matveev": {"used": false, "status": "explicitly not used", "source": "i13 PROOFS §3 and REPORT §6"},
+        "pade": {"used": true, "status": "custom non-asymmetric Padé/11-edge consumer and 2048 orientation certificate; no Lean", "source": "i13 PROOFS §§3-4"},
+        "other_math": ["complete prime-power transfer", "7/10 cube bridge", "10 prime-pair exponent blocks", "CRT descent"]
+      },
+      "finite_certificate": {
+        "format": "exact-integer/rational JSON: cut certificates, orientation graph, block records, CRT checkpoint, terminal interval and D witnesses; independent checker rebuilds colour unions",
+        "roots": [
+          "runs/20260910-i13-closure-ad35779e/delivery/outputs/i13_cuts_certified.json",
+          "runs/20260910-i13-closure-ad35779e/delivery/outputs/i13_cuts_independent.json",
+          "runs/20260910-i13-closure-ad35779e/delivery/outputs/i13_graph_check.json",
+          "runs/20260910-i13-closure-ad35779e/delivery/outputs/block_certificate.json",
+          "runs/20260910-i13-closure-ad35779e/delivery/outputs/i13_terminal_certificate.json",
+          "runs/20260910-i13-closure-ad35779e/delivery/outputs/i13_terminal_check.json",
+          "runs/20260910-i13-closure-ad35779e/delivery/replay/acceptance/reproduction.json"
+        ],
+        "stats": {"initial_height_bits": 8192, "compressed_height_bits": 134, "candidate_rows": 29747, "top_prime_rows": 24401, "large_divisor_rows": 5345, "special_n": 126, "special_j_checks": 50, "unresolved": 0},
+        "status": "paper plus exact finite checker; no Lean acceptance"
+      },
+      "minimum_next_lean_obligation": [
+        "Formalize the 11 BFT-derived disjunctive edges, their exact rational constants, and the 2048-orientation weighted/collision height proof.",
+        "Formalize the 7/10 cube bridge, all signed-residue exponent blocks and the CRT maximum recurrence, preserving p=i and full exponents.",
+        "Translate the terminal certificate and the n=126 50-j branch to checked Lean consumers and compile the all-n,j root for i=13."
+      ],
+      "reuse": {"prime_power_transfer": "yes", "phase_a_height": "generic proof shape reusable but i13 height datum absent", "finite_cover": "adapter required", "phase_a_terminal_witness": "yes after certificate translation"}
+    },
+    {
+      "id": "four_index",
+      "indices": [19, 22, 24, 25],
+      "final_consumer": {
+        "statement": "对四个固定i和全部合法n,j，存在p≥i同时整除choose(n,i)与choose(n,j)。",
+        "paper_consumer": "runs/20260910-four-index-closure-c1bf7a69/delivery/REPORT.md §§4-5",
+        "all_legal_nj": true,
+        "terminal_forms": ["top-prime intervals", "large-divisor singleton rows"]
+      },
+      "paper_dependencies": {
+        "bft": [
+          {"source": "runs/20260910-four-index-closure-c1bf7a69/delivery/SOURCES.md", "input": "Theorem 2.1; Lemmas 3.1, 3.2, 4.1; Proposition 5.1", "status": "source/pages checked; not re-proved or Lean-formalized"}
+        ],
+        "matveev": {"used": false, "status": "not used in this four-index route", "source": "four-index SOURCES.md"},
+        "pade": {"used": true, "status": "three explicit BFT G/Padé-style seed consumers; not the frozen three-index height chain and not Lean", "source": "four-index PROOFS §§B1-B3"},
+        "other_math": ["position-weighted distinct/collision proof", "3/4 cube bridge", "1976 exponent blocks", "23-stage CRT descent"]
+      },
+      "finite_certificate": {
+        "format": "exact-integer/rational JSON: seed powers and source constants, weighted height, signed-residue block records, CRT stages, and independent colour-union terminal records",
+        "roots": [
+          "runs/20260910-four-index-closure-c1bf7a69/delivery/outputs/seed_constants.json",
+          "runs/20260910-four-index-closure-c1bf7a69/delivery/outputs/seed_power_check.json",
+          "runs/20260910-four-index-closure-c1bf7a69/delivery/outputs/absolute_heights.json",
+          "runs/20260910-four-index-closure-c1bf7a69/delivery/outputs/block_certificate.json",
+          "runs/20260910-four-index-closure-c1bf7a69/delivery/outputs/four_index_certificate.json",
+          "runs/20260910-four-index-closure-c1bf7a69/delivery/outputs/four_index_independent_check.json"
+        ],
+        "stats": {
+          "19": {"initial_height_bits": 11001, "compressed_height_bits": 174, "candidate_rows": 15367, "top_prime_rows": 14430, "large_divisor_rows": 937, "unresolved": 0},
+          "22": {"initial_height_bits": 11001, "compressed_height_bits": 192, "candidate_rows": 7505, "top_prime_rows": 7309, "large_divisor_rows": 196, "unresolved": 0},
+          "24": {"initial_height_bits": 11001, "compressed_height_bits": 199, "candidate_rows": 22216, "top_prime_rows": 21489, "large_divisor_rows": 727, "unresolved": 0},
+          "25": {"initial_height_bits": 11001, "compressed_height_bits": 199, "candidate_rows": 16046, "top_prime_rows": 15666, "large_divisor_rows": 380, "unresolved": 0}
+        },
+        "status": "paper plus exact finite checker; no Lean acceptance"
+      },
+      "minimum_next_lean_obligation": [
+        "Formalize the three BFT seed consumers, including the source page convention, two-delta determinant/nonzero argument and explicit M thresholds.",
+        "Formalize the position-weighted and collision branches, the 3/4 bridge, all 1976 block inequalities and 23-stage CRT recurrence.",
+        "Translate all 61134 terminal rows to checked Lean consumers and compile common_i019/common_i022/common_i024/common_i025 with full axiom audit."
+      ],
+      "reuse": {"prime_power_transfer": "yes", "phase_a_height": "only as a generic inequality after new height data", "finite_cover": "adapter required; current BFT/CRT certificate is not a FiniteCoverRow", "phase_a_terminal_witness": "yes for the terminal two witness forms"}
+    },
+    {
+      "id": "seven_index",
+      "indices": [17, 23, 26, 27, 30, 32, 33],
+      "final_consumer": {
+        "statement": "对七个固定i和全部合法n,j，存在p≥i同时整除两项。",
+        "paper_consumer": "runs/20260910-seven-index-closure-77927828/delivery/REPORT.md §§6-8",
+        "all_legal_nj": true,
+        "terminal_forms": ["top-prime intervals", "large-divisor singleton rows"]
+      },
+      "paper_dependencies": {
+        "bft": [
+          {"source": "runs/20260910-seven-index-closure-77927828/delivery/REPORT.md §6", "input": "BFT Theorem 2.1 and previously accepted three-window/height input", "status": "paper input rechecked at report level; not Lean-formalized"}
+        ],
+        "matveev": {"used": false, "status": "not used by the seven-index route", "source": "seven-index REPORT §6"},
+        "pade": {"used": false, "status": "no direct Padé consumer in this closure; initial heights are prior BFT/three-window inputs", "source": "outputs/seven_index_certificate.json external_height_input"},
+        "other_math": ["height-to-two-colour lemma", "CRT contraction", "33 exact descent stages"]
+      },
+      "finite_certificate": {
+        "format": "schema-tagged exact JSON: seven_index_certificate and independent checker, per-i height/M chains, colour intervals, top-prime and D witnesses",
+        "roots": [
+          "runs/20260910-seven-index-closure-77927828/delivery/outputs/seven_index_certificate.json",
+          "runs/20260910-seven-index-closure-77927828/delivery/outputs/seven_index_independent_check.json",
+          "runs/20260910-seven-index-closure-77927828/delivery/outputs/height_descent_summary.json",
+          "runs/20260910-seven-index-closure-77927828/delivery/outputs/edge_tests.json",
+          "runs/20260910-seven-index-closure-77927828/delivery/outputs/path_comparison.json"
+        ],
+        "stats": {
+          "17": {"initial_height_bits": 208, "candidate_rows": 5826, "top_prime_rows": 5511, "large_divisor_rows": 315, "unresolved": 0},
+          "23": {"initial_height_bits": 329, "candidate_rows": 7005, "top_prime_rows": 6821, "large_divisor_rows": 184, "unresolved": 0},
+          "26": {"initial_height_bits": 394, "candidate_rows": 9281, "top_prime_rows": 9111, "large_divisor_rows": 170, "unresolved": 0},
+          "27": {"initial_height_bits": 95, "candidate_rows": 4461, "top_prime_rows": 4405, "large_divisor_rows": 56, "unresolved": 0},
+          "30": {"initial_height_bits": 110, "candidate_rows": 4540, "top_prime_rows": 4515, "large_divisor_rows": 25, "unresolved": 0},
+          "32": {"initial_height_bits": 531, "candidate_rows": 9461, "top_prime_rows": 9402, "large_divisor_rows": 59, "unresolved": 0},
+          "33": {"initial_height_bits": 125, "candidate_rows": 6539, "top_prime_rows": 6525, "large_divisor_rows": 14, "unresolved": 0}
+        },
+        "status": "paper plus exact finite checker; no Lean acceptance"
+      },
+      "minimum_next_lean_obligation": [
+        "Prove the height-to-two-colour lemma with each actual BFT height and M chain; do not register a height datum from JSON without its arithmetic proof.",
+        "Formalize the CRT interval intersection completeness, signed differences, zero differences, same-position branch and all finite descent stages.",
+        "Translate seven_index_certificate terminal records to checked GoodSegment/FiniteCover consumers and compile seven independent full original roots."
+      ],
+      "reuse": {"prime_power_transfer": "yes", "phase_a_height": "generic proof shape yes, existing A data no", "finite_cover": "adapter required", "phase_a_terminal_witness": "yes after exact record translation"}
+    },
+    {
+      "id": "zero_boundary_matveev",
+      "indices": [28, 31, 34],
+      "final_consumer": {
+        "statement": "对i∈{28,31,34}和全部合法i<j≤floor(n/2)，存在p≥i同时整除两项。",
+        "paper_consumer": "runs/20260909-low-index-structure-b41a5a63/notes/zero-boundary/candidate-chain.md",
+        "all_legal_nj": true,
+        "terminal_forms": ["top-prime intervals", "large-divisor singleton rows"]
+      },
+      "paper_dependencies": {
+        "bft": [
+          {"source": "runs/20260909-low-index-structure-b41a5a63/notes/zero-boundary/README.md §1-2", "input": "none beyond the shared three-window/prime-power interfaces", "status": "not a BFT Padé route"}
+        ],
+        "matveev": {"used": true, "status": "paper-only Matveev 2000 Corollary 2.3; log-to-real bridge and consumer not Lean", "source": "runs/20260909-low-index-structure-b41a5a63/notes/zero-boundary/README.md §3-5"},
+        "pade": {"used": false, "status": "no Padé input in this route", "source": "zero-boundary README/candidate-chain"},
+        "other_math": ["M=64 exact comparisons", "fixed nonzero difference bridge", "n<10^25 rational log certificate", "candidate colour intersection"]
+      },
+      "finite_certificate": {
+        "format": "exact JSON: rational-log certificate, M64 comparisons, coloured interval/candidate certificate, terminal top-prime/D rows, independent checker and run manifest",
+        "roots": [
+          "runs/20260909-low-index-structure-b41a5a63/notes/zero-boundary/M64-certificates.json",
+          "runs/20260909-low-index-structure-b41a5a63/notes/zero-boundary/verification/20260909T090620Z/certificate.json",
+          "runs/20260909-low-index-structure-b41a5a63/notes/zero-boundary/verification/20260909T092400Z/certificate.json",
+          "runs/20260909-low-index-structure-b41a5a63/notes/zero-boundary/verification/20260909T092400Z/RESULT.md"
+        ],
+        "stats": {
+          "28": {"candidate_rows": 6768, "max_candidate_n": 301823, "top_prime_rows": 174, "large_divisor_rows": 2735, "unresolved": 0},
+          "31": {"candidate_rows": 9302, "max_candidate_n": 688157, "top_prime_rows": 152, "large_divisor_rows": 5272, "unresolved": 0},
+          "34": {"candidate_rows": 9397, "max_candidate_n": 1102281, "top_prime_rows": 140, "large_divisor_rows": 5370, "unresolved": 0}
+        },
+        "status": "paper plus exact finite checker; Matveev/log bridge and finite rows not Lean-accepted"
+      },
+      "minimum_next_lean_obligation": [
+        "Provide a proved Lean interface for the exact Matveev Corollary 2.3 bound or a source-aligned replacement; an axiom named Matveev is not completion.",
+        "Formalize the rational-log distance-to-n bound n<10^25 and the nonzero fixed-difference/interval completeness argument.",
+        "Translate the three candidate certificates to checked terminal consumers and compile common_i028/common_i031/common_i034 with full axiom audit."
+      ],
+      "reuse": {"prime_power_transfer": "yes", "phase_a_height": "M64/CofactorCover shape reusable after Matveev bound, but no B datum", "finite_cover": "adapter required", "phase_a_terminal_witness": "yes; candidate-chain explicitly targets LargeDivisorWitness/GapBridge"}
+    },
+    {
+      "id": "i18_corrected_pending",
+      "indices": [18],
+      "final_consumer": {
+        "statement": "对19≤j且2j≤n的全部合法n,j，存在p≥19（即p≥18的素数条件）同时整除choose(n,18)和choose(n,j)。",
+        "paper_consumer": "materials/i18/B699-i18-content-Pade-closure-20260911 plus runs/20260911-web-i18-6f4334c9/reviews/huan-i18-5e2d13bb/REVIEW.md",
+        "all_legal_nj": true,
+        "terminal_forms": ["top-prime intervals", "large-divisor rows"]
+      },
+      "paper_dependencies": {
+        "bft": [
+          {"source": "runs/20260911-web-i18-6f4334c9/reviews/huan-i18-5e2d13bb/REVIEW.md", "input": "Lemma 4.1, Proposition 5.1, formulas (5.14)/(5.15), Lemma 5.4 theta bounds", "status": "corrected theta source identified; original package used wrong eta and patch is prepared but not applied"}
+        ],
+        "matveev": {"used": false, "status": "not used", "source": "i18 REVIEW"},
+        "pade": {"used": true, "status": "10 Padé rows and downstream finite content; corrected theta bridge is paper-only and pending second review", "source": "materials/i18/.../outputs/content_* and reviews/huan-i18-5e2d13bb/CORRECTION.md"},
+        "other_math": ["corrected eta=213/1000000", "600000-bit height", "1982 exponent blocks", "7 CRT stages"]
+      },
+      "finite_certificate": {
+        "format": "original package exact JSON/CPP/Python outputs: content finite rows, theta tails, pair certificate, block certificate, CRT stages, terminal certificate and independent checks",
+        "roots": [
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/i18_height_certificate.json",
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/content_finite_3_2.json",
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/content_finite_15_8.json",
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/content_finite_15_11.json",
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/block_summary_18.json",
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/crt_stages_18.json",
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/terminal_certificate_18.json",
+          "D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/materials/i18/B699-i18-content-Pade-closure-20260911/outputs/terminal_independent_18.json",
+          "runs/20260911-web-i18-6f4334c9/reviews/huan-i18-5e2d13bb/CORRECTED_THETA_CERTIFICATE.json",
+          "runs/20260911-web-i18-6f4334c9/reviews/huan-i18-5e2d13bb/CORRECTED_THETA_CHECK.json"
+        ],
+        "stats": {"original_height_bits": 600000, "corrected_theta_terms": 279, "blocks": 1982, "block_residue_checks": 69370, "candidate_rows": 25255, "top_prime_rows": 23005, "large_divisor_rows": 2250, "unresolved_in_original_terminal": 0},
+        "status": "finite data passed its package check, but the original theta tail had a 10x source transcription error; corrected appendix is self-checked by first reviewer, patch not applied, second review pending; no full corrected replay or Lean"
+      },
+      "minimum_next_lean_obligation": [
+        "Keep original package frozen; apply the corrected theta patch only in an independent adopted copy, produce new source hashes/manifest, and obtain the pending second independent review.",
+        "Prove or formally import the corrected two-segment theta bridge with eta=213/1000000, then reconnect the ten Padé rows and all finite blocks/CRT data.",
+        "Translate the corrected terminal certificate to Lean and compile the full common_i018 root; until then i18 remains pending and counts 0."
+      ],
+      "reuse": {"prime_power_transfer": "yes after corrected source adoption", "phase_a_height": "generic shape only; 600000-bit H is not registered", "finite_cover": "adapter required and cannot use the uncorrected tail", "phase_a_terminal_witness": "yes in principle, after corrected replay and translation"}
+    }
+  ],
+  "items": [
+    {"i": 11, "group": "pade_three", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "pade_three.final_consumer", "next_obligation_ref": "pade_three.minimum_next_lean_obligation"},
+    {"i": 13, "group": "i13", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "i13.final_consumer", "next_obligation_ref": "i13.minimum_next_lean_obligation"},
+    {"i": 16, "group": "pade_three", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "pade_three.final_consumer", "next_obligation_ref": "pade_three.minimum_next_lean_obligation"},
+    {"i": 17, "group": "seven_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "seven_index.final_consumer", "next_obligation_ref": "seven_index.minimum_next_lean_obligation"},
+    {"i": 18, "group": "i18_corrected_pending", "status": "pending_corrected_source_and_second_review; no_lean", "final_consumer_ref": "i18_corrected_pending.final_consumer", "next_obligation_ref": "i18_corrected_pending.minimum_next_lean_obligation"},
+    {"i": 19, "group": "four_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "four_index.final_consumer", "next_obligation_ref": "four_index.minimum_next_lean_obligation"},
+    {"i": 21, "group": "pade_three", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "pade_three.final_consumer", "next_obligation_ref": "pade_three.minimum_next_lean_obligation"},
+    {"i": 22, "group": "four_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "four_index.final_consumer", "next_obligation_ref": "four_index.minimum_next_lean_obligation"},
+    {"i": 23, "group": "seven_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "seven_index.final_consumer", "next_obligation_ref": "seven_index.minimum_next_lean_obligation"},
+    {"i": 24, "group": "four_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "four_index.final_consumer", "next_obligation_ref": "four_index.minimum_next_lean_obligation"},
+    {"i": 25, "group": "four_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "four_index.final_consumer", "next_obligation_ref": "four_index.minimum_next_lean_obligation"},
+    {"i": 26, "group": "seven_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "seven_index.final_consumer", "next_obligation_ref": "seven_index.minimum_next_lean_obligation"},
+    {"i": 27, "group": "seven_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "seven_index.final_consumer", "next_obligation_ref": "seven_index.minimum_next_lean_obligation"},
+    {"i": 28, "group": "zero_boundary_matveev", "status": "paper_plus_exact_finite; Matveev_and_Lean_pending", "final_consumer_ref": "zero_boundary_matveev.final_consumer", "next_obligation_ref": "zero_boundary_matveev.minimum_next_lean_obligation"},
+    {"i": 30, "group": "seven_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "seven_index.final_consumer", "next_obligation_ref": "seven_index.minimum_next_lean_obligation"},
+    {"i": 31, "group": "zero_boundary_matveev", "status": "paper_plus_exact_finite; Matveev_and_Lean_pending", "final_consumer_ref": "zero_boundary_matveev.final_consumer", "next_obligation_ref": "zero_boundary_matveev.minimum_next_lean_obligation"},
+    {"i": 32, "group": "seven_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "seven_index.final_consumer", "next_obligation_ref": "seven_index.minimum_next_lean_obligation"},
+    {"i": 33, "group": "seven_index", "status": "paper_plus_exact_finite; no_lean", "final_consumer_ref": "seven_index.final_consumer", "next_obligation_ref": "seven_index.minimum_next_lean_obligation"},
+    {"i": 34, "group": "zero_boundary_matveev", "status": "paper_plus_exact_finite; Matveev_and_Lean_pending", "final_consumer_ref": "zero_boundary_matveev.final_consumer", "next_obligation_ref": "zero_boundary_matveev.minimum_next_lean_obligation"}
+  ]
+}

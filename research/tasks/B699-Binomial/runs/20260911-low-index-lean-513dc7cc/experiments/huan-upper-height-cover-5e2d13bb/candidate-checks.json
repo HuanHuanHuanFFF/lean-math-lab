@@ -1,0 +1,324 @@
+{
+  "utc": "2026-09-11T10:58:05.216120+00:00",
+  "status": "bounded exact scalar arithmetic and static source audit only; no Lean invoked",
+  "closed_i11_constants": {
+    "small_primes": [
+      2,
+      3,
+      5,
+      7
+    ],
+    "mu": 4,
+    "lambda": 11,
+    "windowDegree": 84,
+    "heightExponent": 128,
+    "i_times_lambda": 121,
+    "delta": 7,
+    "K": "142131407644347048724404082572664265244672000000000"
+  },
+  "scalar_algebra_checks": [
+    {
+      "parameters": {
+        "i": 3,
+        "lambda": 2,
+        "mu": 2,
+        "E": 3,
+        "delta": 1
+      },
+      "n_values": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        11
+      ],
+      "H_values_per_n": [
+        "n",
+        "n+1",
+        "2n"
+      ],
+      "instances": 72
+    },
+    {
+      "parameters": {
+        "i": 4,
+        "lambda": 3,
+        "mu": 2,
+        "E": 8,
+        "delta": 2
+      },
+      "n_values": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        11
+      ],
+      "H_values_per_n": [
+        "n",
+        "n+1",
+        "2n"
+      ],
+      "instances": 72
+    },
+    {
+      "parameters": {
+        "i": 11,
+        "lambda": 11,
+        "mu": 4,
+        "E": 84,
+        "delta": 7
+      },
+      "n_values": [
+        110,
+        128,
+        221
+      ],
+      "H_values_per_n": [
+        "n",
+        "n+1",
+        "2n"
+      ],
+      "instances": 36
+    }
+  ],
+  "wrong_direction_counterexample": {
+    "kind": "scalar algebra only, not B699",
+    "n": 4,
+    "H": 1,
+    "M": 1,
+    "U": 8,
+    "K": 1,
+    "C": 1,
+    "lambda": 2,
+    "mu": 2,
+    "E": 3,
+    "i": 3,
+    "delta": 1,
+    "base_and_certificate_hold": true,
+    "desired_bound": "16 <= 8",
+    "missing_condition": "n <= H"
+  },
+  "adopted_evidence": "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\20260910T193504764901Z\\evidence.json",
+  "adopted_evidence_sha256": "9dbfbb8c0db0614ffa72209eed764335d3cc13d944f1d582c4cc474cfa6fb2f5",
+  "source_records": [
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/CofactorCover.lean",
+      "bytes": 8163,
+      "sha256": "2805041e81314db94f7c7d7837f651a2d64b1c41bf231ca628514d2c18d101c3",
+      "exit_code": 0,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0013-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_CofactorCover.lean.log",
+      "log_sha256": "16667ce9e1d363abed5e79704f2f3bb4513a6e5b7bc030b9567329747f1c498f",
+      "audits": [
+        "'B699LowIndex.pow_le_two_descFactorial' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.noCommon_bernoulli_size' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.noCommon_small_part_lower_of_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.noCommon_two_large_small_prime_powers' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/PrimePowerEnumeration.lean",
+      "bytes": 5365,
+      "sha256": "00888c3d00cfdb722a48a9ef5b257e172dde26f5cdab9a241025078e0923da6e",
+      "exit_code": 0,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0018-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_PrimePowerEnumeration.lean.log",
+      "log_sha256": "5f0a7aa8fab9eb571e4e58ff1443bfb8bfdeb8e42fc53874d0179f14b19e96a2",
+      "audits": [
+        "'B699LowIndex.power_interval_mem_of_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.power_interval_list_complete' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.exists_two_colours_in_power_interval_list' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/FiniteCover.lean",
+      "bytes": 7246,
+      "sha256": "c5e4a998c58d8c5195fa326d4318915706b64da5c06129ddb47a90766c1e2e8d",
+      "exit_code": 0,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0021-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_FiniteCover.lean.log",
+      "log_sha256": "bc917e2f0d2cf4365325ab1ff9f1d2d764563b3e3fddcd58bbc49ac7ce8694a7",
+      "audits": [
+        "'B699LowIndex.coverLayerCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.common_of_finite_cover_row_checked' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/IntervalCover.lean",
+      "bytes": 3362,
+      "sha256": "eb5b7d8b26101991cf31310739b0319bdc3d2d20f46656f63c48185ef97934b3",
+      "exit_code": 0,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0020-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_IntervalCover.lean.log",
+      "log_sha256": "b0f879111d4fc52f427ecb3392d03dae11eb0f4a643da3a0462bd1b1eeb44d35",
+      "audits": [
+        "'B699LowIndex.coverCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.pairCoverCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/LargeDivisorWitness.lean",
+      "bytes": 5047,
+      "sha256": "8123d5ec2a766974bf9cad0753b0261405ef71548cd3dee625fead65ef0c39f0",
+      "exit_code": 0,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0019-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_LargeDivisorWitness.lean.log",
+      "log_sha256": "de9dc8cc4bdd395c97a2695c7c9f3eedc368b839a001b5571d7aa001a7772f59",
+      "audits": [
+        "'B699LowIndex.large_divisor_dvd_prime_part' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.common_of_large_divisor' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.goodSegmentCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/ThreeWindowSize.lean",
+      "bytes": 6942,
+      "sha256": "4da6cb312eca31e38fb39bc88ff3bbce771ef0a5bb9c9278d925e36d4002c047",
+      "exit_code": 0,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0007-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_ThreeWindowSize.lean.log",
+      "log_sha256": "0af48549f5ff76411b030b639fcb15d7e78b07f0f37ab4fbe2bdbc6c92662da8",
+      "audits": [
+        "'B699LowIndex.two_window_sum' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.three_window_scaled_upper' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.noCommon_scaled_prime_part' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.common_of_scaled_prime_part' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/HeightCertificate.lean",
+      "bytes": 4567,
+      "sha256": "256a2e13903b7b2b42e5bea2b32c20e2c5df1af4019b9f05931b117ae462bc4d",
+      "exit_code": 0,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0009-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_HeightCertificate.lean.log",
+      "log_sha256": "30c4b49ce4337d28a60f2960b1495ffa76c71d0d827444ded216d376229bf6f2",
+      "audits": [
+        "'B699LowIndex.noCommon_scaled_choose' depends on axioms: [propext, Classical.choice, Quot.sound]",
+        "'B699LowIndex.power_cross_mono' depends on axioms: [propext]",
+        "'B699LowIndex.common_of_height_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]"
+      ]
+    }
+  ],
+  "candidate_modules": [
+    {
+      "file": "UpperSmallPart.lean",
+      "bytes": 3269,
+      "sha256": "9a388fb21d3b7e75a12039ff45715a3c38a1894db474e6d67ed8655da10ab654",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.noCommon_small_part_lower_of_upper_certificate",
+          "line": 16
+        }
+      ],
+      "imports": [
+        "research.tasks.«B699-Binomial».runs.«20260909-low-index-structure-b41a5a63».lean.CofactorCover"
+      ],
+      "audit_roots": [
+        "B699LowIndex.UpperHeight.noCommon_small_part_lower_of_upper_certificate"
+      ]
+    },
+    {
+      "file": "I11SmallPart.lean",
+      "bytes": 2188,
+      "sha256": "16c3d5a32575ca12088e403a1d1d9d4ca7dd551f5791ef2ae168a606e205e6b4",
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "B699LowIndex.UpperHeight.i11K",
+          "line": 15
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_smallPrimeCount",
+          "line": 17
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_windowDegree",
+          "line": 19
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_windowConstant",
+          "line": 21
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_heightExponent",
+          "line": 23
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_upper_exponent",
+          "line": 25
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_noCommon_small_part_lower_of_upper_certificate",
+          "line": 29
+        }
+      ],
+      "imports": [
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.UpperHeight.UpperSmallPart"
+      ],
+      "audit_roots": [
+        "B699LowIndex.UpperHeight.i11K",
+        "B699LowIndex.UpperHeight.i11_smallPrimeCount",
+        "B699LowIndex.UpperHeight.i11_windowDegree",
+        "B699LowIndex.UpperHeight.i11_windowConstant",
+        "B699LowIndex.UpperHeight.i11_heightExponent",
+        "B699LowIndex.UpperHeight.i11_upper_exponent",
+        "B699LowIndex.UpperHeight.i11_noCommon_small_part_lower_of_upper_certificate"
+      ]
+    },
+    {
+      "file": "UpperCoverLayer.lean",
+      "bytes": 5461,
+      "sha256": "ccad88047db4f2ee15a8e66511dfa3f6596dd26892640b17150b1f79708f8e56",
+      "declarations": [
+        {
+          "kind": "def",
+          "name": "B699LowIndex.UpperHeight.UpperLayerArithmeticValid",
+          "line": 19
+        },
+        {
+          "kind": "instance",
+          "name": "B699LowIndex.UpperHeight.instDecidableUpperLayerArithmeticValid",
+          "line": 33
+        },
+        {
+          "kind": "def",
+          "name": "B699LowIndex.UpperHeight.upperCoverLayerCheck",
+          "line": 39
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.upperCoverLayerCheck_sound",
+          "line": 46
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_upperLayerArithmeticValid_of_certificate",
+          "line": 74
+        },
+        {
+          "kind": "theorem",
+          "name": "B699LowIndex.UpperHeight.i11_upperCoverLayer_original",
+          "line": 89
+        }
+      ],
+      "imports": [
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.UpperHeight.I11SmallPart",
+        "research.tasks.«B699-Binomial».runs.«20260909-low-index-structure-b41a5a63».lean.FiniteCover"
+      ],
+      "audit_roots": [
+        "B699LowIndex.UpperHeight.UpperLayerArithmeticValid",
+        "B699LowIndex.UpperHeight.instDecidableUpperLayerArithmeticValid",
+        "B699LowIndex.UpperHeight.upperCoverLayerCheck",
+        "B699LowIndex.UpperHeight.upperCoverLayerCheck_sound",
+        "B699LowIndex.UpperHeight.i11_upperLayerArithmeticValid_of_certificate",
+        "B699LowIndex.UpperHeight.i11_upperCoverLayer_original"
+      ]
+    }
+  ],
+  "total_candidate_audit_roots": 14,
+  "elapsed_seconds": 0.008856
+}

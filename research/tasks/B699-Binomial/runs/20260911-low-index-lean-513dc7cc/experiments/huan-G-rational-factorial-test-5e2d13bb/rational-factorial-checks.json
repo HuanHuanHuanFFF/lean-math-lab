@@ -1,0 +1,734 @@
+{
+  "utc": "2026-09-11T08:48:28.407986+00:00",
+  "status": "exact bounded checks and paper argument; no Lean",
+  "candidate": "D(u,v)=(u+floor(v/2))! floor(v/2)!/(u! v!)",
+  "source_hashes": {
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\PadeInteger.lean": {
+      "bytes": 8723,
+      "sha256": "8aa4bdbd7b3751fe96bd4d953ee68ab5b7fd2fa374cb5ce623d7d460d444044b"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Factorial\\FactorialCommon.lean": {
+      "bytes": 6708,
+      "sha256": "0995a9105c3c2d13ce2ffdcdcc7853c26886d585b8e9f0fc9d396ae0e1c73fd6"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i18-adoption-5e2d13bb\\REPORT.md": {
+      "bytes": 30877,
+      "sha256": "c12a6b53418a27ab1c891123b370b8116367b58cc076ee8c01cd87e2ca4af372"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i18-adoption-5e2d13bb\\code\\vendor\\rational_intervals.py": {
+      "bytes": 3510,
+      "sha256": "61f1f268f34652deb2c89954dfbea544c19cc1a60294b22a545ccb3b9619d74b"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\reviews\\huan-pade-integration-5e2d13bb\\check_no_g_feasibility_v2.py": {
+      "bytes": 10588,
+      "sha256": "bc196115208691793832d6fca4c5895a073003414dfc0bf97f70ab145bad12d8"
+    }
+  },
+  "layer_checks": {
+    "moduli": "all integers 1<=P<=32; hence includes small primes and prime powers",
+    "residues": "0<=a,b,f<P; eps=0,1; u=a+b,h=b,v=2f+eps",
+    "layer_instances": 557568,
+    "min_quotient_layer": 0,
+    "max_quotient_layer": 2,
+    "floor_D_identity": true,
+    "pointwise_layer_domination": true,
+    "even_odd_formula": true
+  },
+  "direct_checks": {
+    "u_range": [
+      0,
+      48
+    ],
+    "v_range": [
+      0,
+      48
+    ],
+    "all_h_through_u": true,
+    "uv_pairs": 2401,
+    "coefficients": 60025,
+    "nonintegral_D_pairs": 2168,
+    "max_q_bit_length": 126,
+    "all_quotients_integral": true,
+    "all_content_quotients_integral": true,
+    "all_reduced_numerators_divide_content": true,
+    "example": {
+      "u": 2,
+      "v": 2,
+      "D": "3/2",
+      "q": [
+        6,
+        9,
+        6
+      ],
+      "G": 3,
+      "G_over_D": 2
+    }
+  },
+  "rates": [
+    {
+      "c": 3,
+      "d": 2,
+      "beta": "3125/16",
+      "gamma": {
+        "lo": "2634414068986817305785/4722366482869645213696",
+        "hi": "2634414068986817305793/4722366482869645213696"
+      },
+      "gamma_decimal": {
+        "lo": "0.557858878285",
+        "hi": "0.557858878286"
+      },
+      "old_L": "8103/5000",
+      "old_rate_d_log_L": {
+        "lo": "2279941778460904880815/2361183241434822606848",
+        "hi": "2279941778460904880817/2361183241434822606848"
+      },
+      "old_rate_decimal": {
+        "lo": "0.965592902088",
+        "hi": "0.965592902089"
+      },
+      "old_rate_minus_gamma": {
+        "lo": "1925469487934992455837/4722366482869645213696",
+        "hi": "1925469487934992455849/4722366482869645213696"
+      },
+      "gap_decimal": {
+        "lo": "0.407734023803",
+        "hi": "0.407734023804"
+      },
+      "effective_log_L": {
+        "lo": "2634414068986817305785/9444732965739290427392",
+        "hi": "2634414068986817305793/9444732965739290427392"
+      },
+      "effective_L_float_display_only": 1.3217140793007052,
+      "gamma_positive": true,
+      "strictly_weaker_than_existing_G_rate": true
+    },
+    {
+      "c": 15,
+      "d": 8,
+      "beta": "20880467999847912034355032910567/231806746745223774208",
+      "gamma": {
+        "lo": "5229449283721504273759/2361183241434822606848",
+        "hi": "326840580232594017111/147573952589676412928"
+      },
+      "gamma_decimal": {
+        "lo": "2.214757919653",
+        "hi": "2.214757919654"
+      },
+      "old_L": "4541/2500",
+      "old_rate_d_log_L": {
+        "lo": "2818575226271418463735/590295810358705651712",
+        "hi": "2818575226271418463737/590295810358705651712"
+      },
+      "old_rate_decimal": {
+        "lo": "4.774852161933",
+        "hi": "4.774852161934"
+      },
+      "old_rate_minus_gamma": {
+        "lo": "1511212905341042395291/590295810358705651712",
+        "hi": "6044851621364169581189/2361183241434822606848"
+      },
+      "gap_decimal": {
+        "lo": "2.560094242279",
+        "hi": "2.560094242280"
+      },
+      "effective_log_L": {
+        "lo": "5229449283721504273759/18889465931478580854784",
+        "hi": "326840580232594017111/1180591620717411303424"
+      },
+      "effective_L_float_display_only": 1.3189615731059772,
+      "gamma_positive": true,
+      "strictly_weaker_than_existing_G_rate": true
+    },
+    {
+      "c": 15,
+      "d": 11,
+      "beta": "24047342110184208245299508939063296/81402749386839761113321",
+      "gamma": {
+        "lo": "6631644192737676458079/2361183241434822606848",
+        "hi": "6631644192737676458097/2361183241434822606848"
+      },
+      "gamma_decimal": {
+        "lo": "2.808610562858",
+        "hi": "2.808610562859"
+      },
+      "old_L": "361/250",
+      "old_rate_d_log_L": {
+        "lo": "9542928544345263520233/2361183241434822606848",
+        "hi": "2385732136086315880061/590295810358705651712"
+      },
+      "old_rate_decimal": {
+        "lo": "4.041587445176",
+        "hi": "4.041587445177"
+      },
+      "old_rate_minus_gamma": {
+        "lo": "363910543950948382767/295147905179352825856",
+        "hi": "2911284351607587062165/2361183241434822606848"
+      },
+      "gap_decimal": {
+        "lo": "1.232976882318",
+        "hi": "1.232976882319"
+      },
+      "effective_log_L": {
+        "lo": "6631644192737676458079/25973015655783048675328",
+        "hi": "6631644192737676458097/25973015655783048675328"
+      },
+      "effective_L_float_display_only": 1.2908852624682319,
+      "gamma_positive": true,
+      "strictly_weaker_than_existing_G_rate": true
+    },
+    {
+      "c": 5,
+      "d": 4,
+      "beta": "387420489/65536",
+      "gamma": {
+        "lo": "2069806737920247445823/2361183241434822606848",
+        "hi": "2069806737920247445829/2361183241434822606848"
+      },
+      "gamma_decimal": {
+        "lo": "0.876597250733",
+        "hi": "0.876597250734"
+      },
+      "old_L": "6549/5000",
+      "old_rate_d_log_L": {
+        "lo": "1274446075216449130457/1180591620717411303424",
+        "hi": "1274446075216449130459/1180591620717411303424"
+      },
+      "old_rate_decimal": {
+        "lo": "1.079497815207",
+        "hi": "1.079497815208"
+      },
+      "old_rate_minus_gamma": {
+        "lo": "479085412512650815085/2361183241434822606848",
+        "hi": "479085412512650815095/2361183241434822606848"
+      },
+      "gap_decimal": {
+        "lo": "0.202900564473",
+        "hi": "0.202900564474"
+      },
+      "effective_log_L": {
+        "lo": "2069806737920247445823/9444732965739290427392",
+        "hi": "2069806737920247445829/9444732965739290427392"
+      },
+      "effective_L_float_display_only": 1.2450171596628619,
+      "gamma_positive": true,
+      "strictly_weaker_than_existing_G_rate": true
+    },
+    {
+      "c": 5,
+      "d": 3,
+      "beta": "4194304/729",
+      "gamma": {
+        "lo": "509452566250787681369/590295810358705651712",
+        "hi": "4075620530006301450965/4722366482869645213696"
+      },
+      "gamma_decimal": {
+        "lo": "0.863046217355",
+        "hi": "0.863046217356"
+      },
+      "old_L": "7727/5000",
+      "old_rate_d_log_L": {
+        "lo": "3083347191593932737699/2361183241434822606848",
+        "hi": "1541673595796966368851/1180591620717411303424"
+      },
+      "old_rate_decimal": {
+        "lo": "1.305848329552",
+        "hi": "1.305848329553"
+      },
+      "old_rate_minus_gamma": {
+        "lo": "2091073853181564024433/4722366482869645213696",
+        "hi": "522768463295391006113/1180591620717411303424"
+      },
+      "gap_decimal": {
+        "lo": "0.442802112196",
+        "hi": "0.442802112197"
+      },
+      "effective_log_L": {
+        "lo": "509452566250787681369/1770887431076116955136",
+        "hi": "4075620530006301450965/14167099448608935641088"
+      },
+      "effective_L_float_display_only": 1.3333333333333333,
+      "gamma_positive": true,
+      "strictly_weaker_than_existing_G_rate": true
+    },
+    {
+      "c": 25,
+      "d": 17,
+      "beta": "8948501202183757564829109440103438962343214188142942025416704/684326450885775034048946719925754910487329",
+      "gamma": {
+        "lo": "22100625339061506339501/4722366482869645213696",
+        "hi": "22100625339061506339559/4722366482869645213696"
+      },
+      "gamma_decimal": {
+        "lo": "4.679989454277",
+        "hi": "4.679989454278"
+      },
+      "old_L": "777/500",
+      "old_rate_d_log_L": {
+        "lo": "35390114669637837971381/4722366482869645213696",
+        "hi": "17695057334818918985699/2361183241434822606848"
+      },
+      "old_rate_decimal": {
+        "lo": "7.494148283072",
+        "hi": "7.494148283073"
+      },
+      "old_rate_minus_gamma": {
+        "lo": "6644744665288165815911/2361183241434822606848",
+        "hi": "13289489330576331631897/4722366482869645213696"
+      },
+      "gap_decimal": {
+        "lo": "2.814158828795",
+        "hi": "2.814158828796"
+      },
+      "effective_log_L": {
+        "lo": "22100625339061506339501/80280230208783968632832",
+        "hi": "22100625339061506339559/80280230208783968632832"
+      },
+      "effective_L_float_display_only": 1.3169171297887423,
+      "gamma_positive": true,
+      "strictly_weaker_than_existing_G_rate": true
+    }
+  ],
+  "original_seed_optimistic_limiting_rate_screen": [
+    {
+      "seed": {
+        "p": 2,
+        "q": 13,
+        "k0": 9,
+        "l0": 2,
+        "a0": 1,
+        "b0": 3,
+        "D0": 5,
+        "c": 3,
+        "d": 2,
+        "wp": 57,
+        "wq": 224
+      },
+      "d_logOmega3": {
+        "lo": "3413638888912880258885/4722366482869645213696",
+        "hi": "426704861114110032367/590295810358705651712"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "0.722866152",
+        "hi": "0.722866153"
+      },
+      "d_logOmega4": {
+        "lo": "1828402061441639118233/2361183241434822606848",
+        "hi": "3656804122883278236549/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "0.774358393",
+        "hi": "0.774358394"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-84917817572028374843/4722366482869645213696",
+        "hi": "-84917817572028374835/4722366482869645213696"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.017982048",
+        "hi": "-0.017982047"
+      },
+      "necessary_condition_failures": [
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 17,
+        "q": 2,
+        "k0": 2,
+        "l0": 5,
+        "a0": 1,
+        "b0": 9,
+        "D0": 1,
+        "c": 15,
+        "d": 8,
+        "wp": 31,
+        "wq": 407
+      },
+      "d_logOmega3": {
+        "lo": "-10299931946968948568661/4722366482869645213696",
+        "hi": "-1287491493371118571047/590295810358705651712"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "-2.181095429",
+        "hi": "-2.181095428"
+      },
+      "d_logOmega4": {
+        "lo": "978356024726882672167/2361183241434822606848",
+        "hi": "978356024726882672321/2361183241434822606848"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "0.414349893",
+        "hi": "0.414349894"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-62042949451490517661/2361183241434822606848",
+        "hi": "-62042949451490517657/2361183241434822606848"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.026276212",
+        "hi": "-0.026276211"
+      },
+      "necessary_condition_failures": [
+        "coefficient exponent d*logOmega3 nonpositive",
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 17,
+        "q": 2,
+        "k0": 1,
+        "l0": 4,
+        "a0": 1,
+        "b0": 1,
+        "D0": 1,
+        "c": 15,
+        "d": 11,
+        "wp": 351,
+        "wq": 365
+      },
+      "d_logOmega3": {
+        "lo": "-2896822450464729468237/2361183241434822606848",
+        "hi": "-5793644900929458936231/4722366482869645213696"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "-1.226852029",
+        "hi": "-1.226852028"
+      },
+      "d_logOmega4": {
+        "lo": "51996247648042927201673/2361183241434822606848",
+        "hi": "103992495296085854403671/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "22.021267445",
+        "hi": "22.021267446"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-70283245401101596359/4722366482869645213696",
+        "hi": "-70283245401101596351/4722366482869645213696"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.014883057",
+        "hi": "-0.014883056"
+      },
+      "necessary_condition_failures": [
+        "coefficient exponent d*logOmega3 nonpositive",
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 3,
+        "q": 11,
+        "k0": 5,
+        "l0": 2,
+        "a0": 1,
+        "b0": 2,
+        "D0": 1,
+        "c": 15,
+        "d": 11,
+        "wp": 340,
+        "wq": 423
+      },
+      "d_logOmega3": {
+        "lo": "-1031632515919003673151/1180591620717411303424",
+        "hi": "-4126530063676014692323/4722366482869645213696"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "-0.873826731",
+        "hi": "-0.873826730"
+      },
+      "d_logOmega4": {
+        "lo": "196540462441779107944309/4722366482869645213696",
+        "hi": "196540462441779107944669/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "41.619061789",
+        "hi": "41.619061790"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-31294825077482603503/4722366482869645213696",
+        "hi": "-3911853134685325437/590295810358705651712"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.006626937",
+        "hi": "-0.006626936"
+      },
+      "necessary_condition_failures": [
+        "coefficient exponent d*logOmega3 nonpositive",
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 5,
+        "q": 7,
+        "k0": 2,
+        "l0": 2,
+        "a0": 2,
+        "b0": 1,
+        "D0": 1,
+        "c": 3,
+        "d": 2,
+        "wp": 390,
+        "wq": 263
+      },
+      "d_logOmega3": {
+        "lo": "-115752865309452063727/295147905179352825856",
+        "hi": "-1852045844951233019589/4722366482869645213696"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "-0.392185963",
+        "hi": "-0.392185962"
+      },
+      "d_logOmega4": {
+        "lo": "8997262325017617050095/2361183241434822606848",
+        "hi": "17994524650035234100247/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "3.810488812",
+        "hi": "3.810488813"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-53049387582646484815/2361183241434822606848",
+        "hi": "-106098775165292969623/4722366482869645213696"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.022467290",
+        "hi": "-0.022467289"
+      },
+      "necessary_condition_failures": [
+        "coefficient exponent d*logOmega3 nonpositive",
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 5,
+        "q": 11,
+        "k0": 3,
+        "l0": 2,
+        "a0": 1,
+        "b0": 1,
+        "D0": 4,
+        "c": 5,
+        "d": 4,
+        "wp": 197,
+        "wq": 202
+      },
+      "d_logOmega3": {
+        "lo": "678229511932807839747/4722366482869645213696",
+        "hi": "339114755966403919909/2361183241434822606848"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "0.143620685",
+        "hi": "0.143620686"
+      },
+      "d_logOmega4": {
+        "lo": "27453502802544211572867/4722366482869645213696",
+        "hi": "27453502802544211572989/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "5.813505347",
+        "hi": "5.813505348"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-8572106732576903681/2361183241434822606848",
+        "hi": "-8572106732576903677/2361183241434822606848"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.003630429",
+        "hi": "-0.003630428"
+      },
+      "necessary_condition_failures": [
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 13,
+        "q": 5,
+        "k0": 1,
+        "l0": 2,
+        "a0": 2,
+        "b0": 1,
+        "D0": 1,
+        "c": 5,
+        "d": 3,
+        "wp": 332,
+        "wq": 162
+      },
+      "d_logOmega3": {
+        "lo": "-1341566363928836135701/4722366482869645213696",
+        "hi": "-670783181964418067807/2361183241434822606848"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "-0.284087728",
+        "hi": "-0.284087727"
+      },
+      "d_logOmega4": {
+        "lo": "6402647773011303247605/2361183241434822606848",
+        "hi": "12805295546022606495313/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "2.711626806",
+        "hi": "2.711626807"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-49139469115065025343/2361183241434822606848",
+        "hi": "-24569734557532512669/1180591620717411303424"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.020811375",
+        "hi": "-0.020811374"
+      },
+      "necessary_condition_failures": [
+        "coefficient exponent d*logOmega3 nonpositive",
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 7,
+        "q": 13,
+        "k0": 1,
+        "l0": 1,
+        "a0": 2,
+        "b0": 1,
+        "D0": 1,
+        "c": 15,
+        "d": 8,
+        "wp": 269,
+        "wq": 38
+      },
+      "d_logOmega3": {
+        "lo": "-2483676549312935772147/2361183241434822606848",
+        "hi": "-4967353098625871544095/4722366482869645213696"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "-1.051877934",
+        "hi": "-1.051877933"
+      },
+      "d_logOmega4": {
+        "lo": "-4491409495488417205021/4722366482869645213696",
+        "hi": "-2245704747744208602393/2361183241434822606848"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "-0.951092956",
+        "hi": "-0.951092955"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-36468996620695748347/590295810358705651712",
+        "hi": "-145875986482782993383/2361183241434822606848"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.061780884",
+        "hi": "-0.061780883"
+      },
+      "necessary_condition_failures": [
+        "coefficient exponent d*logOmega3 nonpositive",
+        "error exponent d*logOmega4 nonpositive",
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 7,
+        "q": 13,
+        "k0": 3,
+        "l0": 2,
+        "a0": 1,
+        "b0": 2,
+        "D0": 5,
+        "c": 15,
+        "d": 11,
+        "wp": 110,
+        "wq": 218
+      },
+      "d_logOmega3": {
+        "lo": "71402917151989262487/147573952589676412928",
+        "hi": "2284893348863656399869/4722366482869645213696"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "0.483844986",
+        "hi": "0.483844987"
+      },
+      "d_logOmega4": {
+        "lo": "23293966474893426657825/2361183241434822606848",
+        "hi": "46587932949786853316117/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "9.865378538",
+        "hi": "9.865378539"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-5808537710717865995/590295810358705651712",
+        "hi": "-46468301685742927951/4722366482869645213696"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.009840046",
+        "hi": "-0.009840045"
+      },
+      "necessary_condition_failures": [
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    },
+    {
+      "seed": {
+        "p": 13,
+        "q": 11,
+        "k0": 1,
+        "l0": 1,
+        "a0": 1,
+        "b0": 1,
+        "D0": 2,
+        "c": 25,
+        "d": 17,
+        "wp": 49,
+        "wq": 111
+      },
+      "d_logOmega3": {
+        "lo": "294782678228652904391/295147905179352825856",
+        "hi": "4716522851658446470669/4722366482869645213696"
+      },
+      "d_logOmega3_decimal": {
+        "lo": "0.998762562",
+        "hi": "0.998762563"
+      },
+      "d_logOmega4": {
+        "lo": "3420202684268384931827/4722366482869645213696",
+        "hi": "3420202684268384932357/4722366482869645213696"
+      },
+      "d_logOmega4_decimal": {
+        "lo": "0.724256089",
+        "hi": "0.724256090"
+      },
+      "original_weight_height_leading_margin": {
+        "lo": "-45246868624693921245/1180591620717411303424",
+        "hi": "-22623434312346960621/590295810358705651712"
+      },
+      "height_margin_decimal": {
+        "lo": "-0.038325589",
+        "hi": "-0.038325588"
+      },
+      "necessary_condition_failures": [
+        "original-weight height leading margin nonpositive"
+      ],
+      "status": "rejected at optimistic limiting gamma with original c,d and weights"
+    }
+  ],
+  "seed_screen_scope": "fixed original c,d, a0,b0, powers and weights only; ideal limiting rate gamma, no finite-m bound or constants asserted; no weight or orientation optimization",
+  "elapsed_seconds": 0.8415432999972836,
+  "worker_lean_invocations": 0,
+  "new_original_indices": []
+}

@@ -1,0 +1,35 @@
+{
+  "utc": "2026-09-11T07:13:03.692786+00:00",
+  "owner": "/root/pade_construction",
+  "authorized_source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/Content.lean",
+  "changed_lines": [
+    93,
+    100
+  ],
+  "before_bytes": 10690,
+  "before_sha256": "88157c95f1d99a2d25dbb6023b3e65c5cf0caebb43bbd6c25e641cda8a793af2",
+  "after_bytes": 10689,
+  "after_sha256": "8a708c481f81a8ea1e2ae66133e7e9093adfdbf488ade68c30099635fd773149",
+  "observed_error": "Content.lean:93:6 rewrite did not find choose(2*u-r,2*u-r-u)",
+  "error_log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T070830032646Z/logs/compile-0002-research_tasks_B699-Binomial_runs_20260911-low-index-lean-513dc7cc_lean_Pade_Content.lean.log",
+  "error_log_sha256": "7677109a57e4fad3426681890d089bae105b98dbdb9adcae9ad1946207cf0ff8",
+  "actual_library_statement": "Nat.choose_symm hk : choose n (n-k) = choose n k",
+  "library_file_sha256": "4ca53ce10abda7e62534efeb36ebb0302f654cbbb19876e430f3fd7d432e3086",
+  "edits": [
+    {
+      "line": 93,
+      "basis": "The target has choose n k, so use choose_symm in reverse to reach choose n (n-k).",
+      "action": "add reverse-rewrite arrow"
+    },
+    {
+      "line": 100,
+      "basis": "The same local proof later needs choose n (n-k) = choose n k; the library theorem already has that orientation. This is a source-statement check, not a second observed runtime error.",
+      "action": "remove the erroneous .symm"
+    }
+  ],
+  "mathematical_statement_changed": false,
+  "worker_lean_invocations": 0,
+  "kernel_acceptance": "pending primary fresh Content compile and transitive axiom audit",
+  "frozen_original_modified": false,
+  "failed_attempt_status": "remains rejected; dependent weighted/content/normalization roots contained sorryAx"
+}

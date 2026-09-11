@@ -1,10 +1,8 @@
-# huan 接续状态
+> 最新远端交接入口：[Leader 交接快照（2026-09-11）](delivery/LEADER-HANDOFF-20260911.md)。A 单项 151/151；统一入口待验；B 完整原题 0/19。以下保留历史记录。
 
-当前阶段A40/151，阶段B0/19，见[frontier](frontier.md)、[逐项状态](target-status.json)和[验收检查点](notes/huan-phase-a-checkpoint.md)。历史恢复与本轮新增形式化分开计数；本地提交不等于已推送，当前发布等待明确授权。
+# huan 接续状态（2026-09-11）
 
-# huan 历史接收检查点
-
-本次接收VPS交接，沿用原run。当前状态见[frontier](frontier.md)、[逐项状态](target-status.json)与[验收记录](verification/huan-recovery-checks/acceptance.json)。38–45恢复不计新增数学成果，后续继续阶段A139项和阶段B19项。
+本轮接收 VPS 交接，沿用原 run；当前执行与归属见 [huan 执行记录](notes/huan-execution-5e2d13bb.md)，最新证据与待办见 [当前检查点](notes/huan-current-checkpoint.md)。下文为 VPS 历史启动记录，其中的旧分支、负责人和18项清单保留作来源；本机续作以 frontier、target-status 与当前19项B目标为准。
 
 # B699：151 + 18 项 Lean 补齐
 

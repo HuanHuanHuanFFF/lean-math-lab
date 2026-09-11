@@ -1,0 +1,242 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row036J2.Block001
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row036J2.Block002
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row036J2.Block003
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row036J2.Block004
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row036J2.Block005
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row036J2.Block006
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row036J2.Block000
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row036_goods_checked :
+    row036.goods.all (goodSegmentCheck row036.height.i row036.height.r row036.height.s) = true := by
+  change row036_goods.all (goodSegmentCheck 36 11 24) = true
+  simp only [row036_goods, List.all_cons, List.all_nil,
+    row036_good000_checked,
+    row036_good001_checked,
+    row036_good002_checked,
+    row036_good003_checked,
+    row036_good004_checked,
+    row036_good005_checked,
+    row036_good006_checked,
+    row036_good007_checked,
+    row036_good008_checked,
+    row036_good009_checked,
+    row036_good010_checked,
+    row036_good011_checked,
+    row036_good012_checked,
+    row036_good013_checked,
+    row036_good014_checked,
+    row036_good015_checked,
+    row036_good016_checked,
+    row036_good017_checked,
+    row036_good018_checked,
+    row036_good019_checked,
+    row036_good020_checked,
+    row036_good021_checked,
+    row036_good022_checked,
+    row036_good023_checked,
+    row036_good024_checked,
+    row036_good025_checked,
+    row036_good026_checked,
+    row036_good027_checked,
+    row036_good028_checked,
+    row036_good029_checked,
+    row036_good030_checked,
+    row036_good031_checked,
+    row036_good032_checked,
+    row036_good033_checked,
+    row036_good034_checked,
+    row036_good035_checked,
+    row036_good036_checked,
+    row036_good037_checked,
+    row036_good038_checked,
+    row036_good039_checked,
+    row036_good040_checked,
+    row036_good041_checked,
+    row036_good042_checked,
+    row036_good043_checked,
+    row036_good044_checked,
+    row036_good045_checked,
+    row036_good046_checked,
+    row036_good047_checked,
+    row036_good048_checked,
+    row036_good049_checked,
+    row036_good050_checked,
+    row036_good051_checked,
+    row036_good052_checked,
+    row036_good053_checked,
+    row036_good054_checked,
+    row036_good055_checked,
+    row036_good056_checked,
+    row036_good057_checked,
+    row036_good058_checked,
+    row036_good059_checked,
+    row036_good060_checked,
+    row036_good061_checked,
+    row036_good062_checked,
+    row036_good063_checked,
+    row036_good064_checked,
+    row036_good065_checked,
+    row036_good066_checked,
+    row036_good067_checked,
+    row036_good068_checked,
+    row036_good069_checked,
+    row036_good070_checked,
+    row036_good071_checked,
+    row036_good072_checked,
+    row036_good073_checked,
+    row036_good074_checked,
+    row036_good075_checked,
+    row036_good076_checked,
+    row036_good077_checked,
+    row036_good078_checked,
+    row036_good079_checked,
+    row036_good080_checked,
+    row036_good081_checked,
+    row036_good082_checked,
+    row036_good083_checked,
+    row036_good084_checked,
+    row036_good085_checked,
+    row036_good086_checked,
+    row036_good087_checked,
+    row036_good088_checked,
+    row036_good089_checked,
+    row036_good090_checked,
+    row036_good091_checked,
+    row036_good092_checked,
+    row036_good093_checked,
+    row036_good094_checked,
+    row036_good095_checked,
+    row036_good096_checked,
+    row036_good097_checked,
+    row036_good098_checked,
+    row036_good099_checked,
+    row036_good100_checked,
+    row036_good101_checked,
+    row036_good102_checked,
+    row036_good103_checked,
+    row036_good104_checked,
+    row036_good105_checked,
+    row036_good106_checked,
+    row036_good107_checked,
+    row036_good108_checked,
+    row036_good109_checked,
+    row036_good110_checked,
+    row036_good111_checked,
+    row036_good112_checked,
+    row036_good113_checked,
+    row036_good114_checked,
+    row036_good115_checked,
+    row036_good116_checked,
+    row036_good117_checked,
+    row036_good118_checked,
+    row036_good119_checked,
+    row036_good120_checked,
+    row036_good121_checked,
+    row036_good122_checked,
+    row036_good123_checked,
+    row036_good124_checked,
+    row036_good125_checked,
+    row036_good126_checked,
+    row036_good127_checked,
+    row036_good128_checked,
+    row036_good129_checked,
+    row036_good130_checked,
+    row036_good131_checked,
+    row036_good132_checked,
+    row036_good133_checked,
+    row036_good134_checked,
+    row036_good135_checked,
+    row036_good136_checked,
+    row036_good137_checked,
+    row036_good138_checked,
+    row036_good139_checked,
+    row036_good140_checked,
+    row036_good141_checked,
+    row036_good142_checked,
+    row036_good143_checked,
+    row036_good144_checked,
+    row036_good145_checked,
+    row036_good146_checked,
+    row036_good147_checked,
+    row036_good148_checked,
+    row036_good149_checked,
+    row036_good150_checked,
+    row036_good151_checked,
+    row036_good152_checked,
+    row036_good153_checked,
+    row036_good154_checked,
+    row036_good155_checked,
+    row036_good156_checked,
+    row036_good157_checked,
+    row036_good158_checked,
+    row036_good159_checked,
+    row036_good160_checked,
+    row036_good161_checked,
+    row036_good162_checked,
+    row036_good163_checked,
+    row036_good164_checked,
+    row036_good165_checked,
+    row036_good166_checked,
+    row036_good167_checked,
+    row036_good168_checked,
+    row036_good169_checked,
+    row036_good170_checked,
+    row036_good171_checked,
+    row036_good172_checked,
+    row036_good173_checked,
+    row036_good174_checked,
+    row036_good175_checked,
+    row036_good176_checked,
+    row036_good177_checked,
+    row036_good178_checked,
+    row036_good179_checked,
+    row036_good180_checked,
+    row036_good181_checked,
+    row036_good182_checked,
+    row036_good183_checked,
+    row036_good184_checked,
+    row036_good185_checked,
+    row036_good186_checked,
+    row036_good187_checked,
+    row036_good188_checked,
+    row036_good189_checked,
+    row036_good190_checked,
+    row036_good191_checked, Bool.true_and]
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row036_goods_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row036_layer000_checked :
+    coverLayerCheck row036.height row036.goods { lower := 1260, upper := 2520, M := 34 } = true := by
+  decide +kernel
+
+theorem row036_layer001_checked :
+    coverLayerCheck row036.height row036.goods { lower := 2520, upper := 5040, M := 32 } = true := by
+  decide +kernel
+
+theorem row036_layer002_checked :
+    coverLayerCheck row036.height row036.goods { lower := 5040, upper := 10080, M := 31 } = true := by
+  decide +kernel
+
+theorem row036_layer003_checked :
+    coverLayerCheck row036.height row036.goods { lower := 10080, upper := 20160, M := 29 } = true := by
+  decide +kernel
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row036_layer000_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row036_layer001_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row036_layer002_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row036_layer003_checked

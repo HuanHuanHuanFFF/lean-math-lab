@@ -1,0 +1,35 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T074703818438Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/KernelMoments.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/KernelMoments.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T07:47:30.600068Z
+# finished_utc: 2026-09-11T07:47:40.514076Z
+# exit_code: 1
+# timed_out: False
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\KernelMoments.lean:35:54: error: unsolved goals
+A B C : ℕ
+z : ℚ
+h : Polynomial.C z - Polynomial.C z * X = Polynomial.C z * (1 - X)
+⊢ Polynomial.C z ^ A * Polynomial.C z ^ C * X ^ A * (1 - Polynomial.C z * X) ^ B * (1 - X) ^ C =
+    X ^ A * Polynomial.C (z ^ A * z ^ C) * (1 - Polynomial.C z * X) ^ B * (1 - X) ^ C
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\KernelMoments.lean:42:22: warning: This simp argument is unused:
+  map_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [mul_pow, pow_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\KernelMoments.lean:60:2: error: failed to synthesize
+  HasDistribNeg ℚ[X]
+maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+'Math.B699.PadeMomentIdentity.pKernel_comp_left' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Math.B699.PadeMomentIdentity.pKernel_comp_right' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Math.B699.PadeMomentIdentity.moment_pade_identity' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

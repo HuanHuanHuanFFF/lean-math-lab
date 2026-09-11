@@ -1,0 +1,34 @@
+RESOURCE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Kernel.lean", "platform": "windows", "cpu_count": 16, "disk": [294517391360, 292868825088, 1648566272], "available_physical_bytes": 2729234432, "total_physical_bytes": 16851132416, "memory_load_percent": 83, "meminfo": ["MemAvailable: 2665268 kB"], "memory.max": null, "memory.current": null, "cpu.max": null}
+COMPILE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Kernel.lean", "seconds": 10.371, "exit_code": 1, "failure": "Lean exit 1; unexpected axioms: sorryAx", "axiom_audit": {"declared_print_axioms": 3, "declared_names": ["Math.B699.PadeMomentIdentity.KernelAlgebra.p_kernel_expansion", "Math.B699.PadeMomentIdentity.KernelAlgebra.q_kernel_expansion", "Math.B699.PadeMomentIdentity.KernelAlgebra.e_kernel_expansion"], "guarded_print_axioms": 0, "guarded_names": [], "actual_printed": 3, "guard_msgs_in_source": 0, "printed": [{"declared_name": "Math.B699.PadeMomentIdentity.KernelAlgebra.p_kernel_expansion", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeMomentIdentity.KernelAlgebra.q_kernel_expansion", "axioms": ["propext", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeMomentIdentity.KernelAlgebra.e_kernel_expansion", "axioms": ["propext", "Classical.choice", "Quot.sound"]}], "unexpected_axioms": ["sorryAx"], "guarded_output_inferred": false, "error": "unexpected axioms: sorryAx"}}
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T073709658465Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Kernel.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Kernel.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T07:37:37.958231Z
+# finished_utc: 2026-09-11T07:37:48.329001Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Moment\Kernel.lean:24:2: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  b ≥ 0
+  0 ≤ b - 2*c ≤ 1
+  0 ≤ b - 2*c - 2*d ≤ 1
+  a ≥ 0
+  a + c + d ≥ 1
+  a + b ≥ 0
+where
+ a := ↑r
+ b := ↑(C - r)
+ c := ↑(C - r) / 2
+ d := ↑((C - r) % 2) / 2
+'Math.B699.PadeMomentIdentity.KernelAlgebra.p_kernel_expansion' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeMomentIdentity.KernelAlgebra.q_kernel_expansion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeMomentIdentity.KernelAlgebra.e_kernel_expansion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+
+EVIDENCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T073709658465Z/evidence.json
+RESULT {"success": false, "exit_code": 1, "compiled_count": 1, "reused_count": 0, "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.Moment.Kernel"}

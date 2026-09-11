@@ -2,15 +2,11 @@
 from pathlib import Path
 import argparse, hashlib, json, os, subprocess, sys, time
 from datetime import datetime, timezone
+from huan_atomic import write_json
 RUN=Path('research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc')
 SHARED=RUN/'verification/20260911T004440769454Z/evidence.json'
 ALLOWED={'propext','Classical.choice','Quot.sound'}
 def stamp():return datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
-def write_json(path,data):
-    path.parent.mkdir(parents=True,exist_ok=True)
-    temporary=path.with_name(path.name+'.huan-tmp')
-    temporary.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
-    os.replace(temporary,path)
 def accept_row(repo,i,evidence):
     e=json.loads((repo/evidence).read_text(encoding='utf-8'))
     if not e['success'] or e['exit_code']!=0:raise RuntimeError('Unsuccessful root cannot be accepted')

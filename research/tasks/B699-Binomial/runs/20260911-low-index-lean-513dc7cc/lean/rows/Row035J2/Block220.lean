@@ -1,0 +1,31 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row035J2.Block218
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row035J2.Block219
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row035J2.Block212
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row035J2.Block215
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row035J2.Block217
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer043_checked :
+    coverLayerCheck row035.height row035.goods { lower := 10467350696427520, upper := 20934701392855040, M := 14 } = true := by
+  exact coverLayerCheck_of_parts row035_layer043_arithmetic row035_layer043_enumeration row035_bounds_eq row035_layer043_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer043_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer040_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer041_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer042_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer043_checked

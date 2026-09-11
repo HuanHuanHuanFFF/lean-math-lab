@@ -1,0 +1,250 @@
+{
+  "utc": "2026-09-11T12:11:20.797383+00:00",
+  "status": "small exact arithmetic and static source audit; no Lean invoked",
+  "selector_rows": 325,
+  "capacity_checks": 15003,
+  "same_m_joint_checks": 515,
+  "boundary_checks": {
+    "J_zero": 4705,
+    "alpha_zero": 1882,
+    "threshold_predecessor_equality": 13,
+    "m_equals_M": 3564,
+    "m_greater_M": 11439
+  },
+  "short_basis_checks": {
+    "rate": 4680,
+    "base": 4325,
+    "lookahead": 1812,
+    "all_three": 1637
+  },
+  "small_ranges": {
+    "Z": [
+      2,
+      6
+    ],
+    "Y": [
+      0,
+      64
+    ],
+    "Y0": [
+      1,
+      12
+    ],
+    "alpha": [
+      0,
+      4
+    ],
+    "J": [
+      0,
+      12
+    ]
+  },
+  "Y_zero_previous_bound_fails": {
+    "Z": 2,
+    "Y": 0,
+    "m": 0,
+    "previous_power": 1,
+    "four_Y": 0
+  },
+  "lookahead_is_material": {
+    "Z": 5,
+    "Y0": 6,
+    "M": 2,
+    "J": 6,
+    "alpha": 2,
+    "Y": 7,
+    "least_m": 3,
+    "capacity_left": 216,
+    "capacity_right": 49,
+    "omitted_condition": "lookahead"
+  },
+  "existence_witness_is_not_selector": {
+    "Z": 2,
+    "Y": 4,
+    "M": 5,
+    "J": 2,
+    "alpha": 3,
+    "least_m": 5,
+    "existence_witness": 16,
+    "least_capacity_left": 32,
+    "capacity_right": 64,
+    "oversize_capacity_left": 65536
+  },
+  "candidate_modules": [
+    {
+      "file": "LeastExponent.lean",
+      "bytes": 6716,
+      "sha256": "08acebbafc4e4d68b2a928cfdb26d55bb5b6c79d7e363243ba7705fe6420c0fd",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.exists_power_above_four_mul",
+          "line": 15
+        },
+        {
+          "kind": "def",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent",
+          "line": 19
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_threshold",
+          "line": 22
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_minimal",
+          "line": 26
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_pos",
+          "line": 30
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_previous",
+          "line": 38
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_lower_bound",
+          "line": 43
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_le_of_threshold",
+          "line": 55
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_eq_of_bracket",
+          "line": 59
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.lookahead_rate_extend",
+          "line": 67
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.capacity_of_previous_bound",
+          "line": 80
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_capacity",
+          "line": 103
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.leastExponent_two_capacities",
+          "line": 115
+        }
+      ],
+      "audit_roots": [
+        "Math.B699.DiscretePadeSelector.exists_power_above_four_mul",
+        "Math.B699.DiscretePadeSelector.leastExponent",
+        "Math.B699.DiscretePadeSelector.leastExponent_threshold",
+        "Math.B699.DiscretePadeSelector.leastExponent_minimal",
+        "Math.B699.DiscretePadeSelector.leastExponent_pos",
+        "Math.B699.DiscretePadeSelector.leastExponent_previous",
+        "Math.B699.DiscretePadeSelector.leastExponent_lower_bound",
+        "Math.B699.DiscretePadeSelector.leastExponent_le_of_threshold",
+        "Math.B699.DiscretePadeSelector.leastExponent_eq_of_bracket",
+        "Math.B699.DiscretePadeSelector.lookahead_rate_extend",
+        "Math.B699.DiscretePadeSelector.capacity_of_previous_bound",
+        "Math.B699.DiscretePadeSelector.leastExponent_capacity",
+        "Math.B699.DiscretePadeSelector.leastExponent_two_capacities"
+      ],
+      "imports": [
+        "Mathlib.Data.Nat.Find",
+        "Lean.Elab.Tactic.Omega"
+      ]
+    },
+    {
+      "file": "ShortPowerBounds.lean",
+      "bytes": 4706,
+      "sha256": "0279c3b60b1ee9717822c75bdfc5e35d0a7512b20880d0fabbebb89442a4b1fa",
+      "declarations": [
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.rate_from_short_bases",
+          "line": 15
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.base_from_short_basis",
+          "line": 34
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.lookahead_from_short_bases",
+          "line": 50
+        },
+        {
+          "kind": "theorem",
+          "name": "Math.B699.DiscretePadeSelector.conditions_from_short_bases",
+          "line": 81
+        }
+      ],
+      "audit_roots": [
+        "Math.B699.DiscretePadeSelector.rate_from_short_bases",
+        "Math.B699.DiscretePadeSelector.base_from_short_basis",
+        "Math.B699.DiscretePadeSelector.lookahead_from_short_bases",
+        "Math.B699.DiscretePadeSelector.conditions_from_short_bases"
+      ],
+      "imports": [
+        "Mathlib.Data.Nat.Basic",
+        "Mathlib.Tactic.Ring"
+      ]
+    }
+  ],
+  "total_audit_roots": 17,
+  "imports_already_cached": {
+    "Mathlib.Data.Nat.Find": true,
+    "Mathlib.Data.Nat.Basic": true,
+    "Mathlib.Tactic.Ring": true,
+    "Lean.Elab.Tactic.Omega": true
+  },
+  "source_hashes": {
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-approximation-bridge-plan-5e2d13bb\\REPORT.md": {
+      "bytes": 11644,
+      "sha256": "af2b4bfaf03d24cf37e2c4062e6b7208e651138b170fc036ef77b7f62399949e"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-approximation-bridge-plan-5e2d13bb\\NEXT_LEMMA.md": {
+      "bytes": 2263,
+      "sha256": "8025b14507b9290059fe4ce4f9772622594266ca5e62021e8e73713bce1df4c7"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-approximation-bridge-plan-5e2d13bb\\short-power-bases.json": {
+      "bytes": 6765,
+      "sha256": "b73798815ff5cac9e84430e2674f07e7932558e6e8e457d376ac0bda096d1923"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-approximation-bridge-plan-5e2d13bb\\OBLIGATIONS.json": {
+      "bytes": 2859,
+      "sha256": "e6f403da7c7c675a4fefa9fd61b8d79d8b4f971883e70b11faa583d5c8e43114"
+    },
+    "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-approximation-bridge-plan-5e2d13bb\\FREEZE_V1.json": {
+      "bytes": 2210,
+      "sha256": "b076cfa90af9b77211fc8389417c3b7974778beb1f066792fc01b0b8ac8784a7"
+    },
+    "D:\\CodingProject\\Math\\.lake\\packages\\mathlib\\Mathlib\\Data\\Nat\\Find.lean": {
+      "bytes": 10573,
+      "sha256": "84a9d36f371c52322a1280ea4f7bc270f7d02f42fbabda5956b7f193c78c4566"
+    },
+    "D:\\CodingProject\\Math\\.lake\\packages\\mathlib\\Mathlib\\Data\\Nat\\Basic.lean": {
+      "bytes": 5810,
+      "sha256": "cd4779c92fb926d21e8c2c684d6d338dea70b34662864eff5f80694c68e7aec5"
+    },
+    "D:\\CodingProject\\Math\\.tools\\elan\\toolchains\\leanprover--lean4---v4.33.1\\src\\lean\\Init\\Data\\Nat\\Basic.lean": {
+      "bytes": 47163,
+      "sha256": "92edcd298633bc57f70cf6c9cea73a3b6f984b91b3c8cc8fcc72f57bada0ee36"
+    },
+    "D:\\CodingProject\\Math\\.tools\\elan\\toolchains\\leanprover--lean4---v4.33.1\\src\\lean\\Init\\Data\\Nat\\Lemmas.lean": {
+      "bytes": 84773,
+      "sha256": "8259037db9a9bf223c4d57eb7811ff0b65e4439f98ed0bf3cd301565ff46daad"
+    }
+  },
+  "actual_five_row_power_instances_recomputed": 0,
+  "elapsed_seconds": 0.023992
+}

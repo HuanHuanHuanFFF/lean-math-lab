@@ -1,0 +1,406 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-historical-bundles-5e2d13bb».«v2-private-bundles-5e2d13bb».bundles.row035.Block019
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-historical-bundles-5e2d13bb».«v2-private-bundles-5e2d13bb».bundles.row035.Block000
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer081_checked :
+    coverLayerCheck row035.height row035.goods { lower := 2877243450682817435800698880, upper := 5754486901365634871601397760, M := 6 } = true := by
+  exact coverLayerCheck_of_parts row035_layer081_arithmetic row035_layer081_enumeration row035_bounds_eq row035_layer081_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer081_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row035_layer082_intervals : List ColouredInterval :=
+  [(2, 6189700196426901374495621120, 6189700196426901374495621154), (2, 7427640235712281649394745344, 7427640235712281649394745378), (2, 7427640235712281649394745344, 7427640235712281649394745378), (2, 9903520314283042199192993792, 9903520314283042199192993826), (2, 9903520314283042199192993792, 9903520314283042199192993826), (2, 9903520314283042199192993792, 9903520314283042199192993826), (3, 6280171596328326446562138252, 6280171596328326446562138286), (3, 7850214495410408058202672815, 7850214495410408058202672849), (3, 9420257394492489669843207378, 9420257394492489669843207412), (3, 9420257394492489669843207378, 9420257394492489669843207412), (5, 9094947017729282379150390625, 9094947017729282379150390659), (11, 5959088268863604712300663805, 5959088268863604712300663839), (11, 7150905922636325654760796566, 7150905922636325654760796600), (13, 7056410014866816666030739693, 7056410014866816666030739727), (17, 5872814382605742294870313445, 5872814382605742294870313479), (17, 7047377259126890753844376134, 7047377259126890753844376168), (23, 6864623325338345371695580804, 6864623325338345371695580838), (23, 8580779156672931714619476005, 8580779156672931714619476039), (23, 10296934988007518057543371206, 10296934988007518057543371240), (29, 6103261246589991489578849669, 6103261246589991489578849703)]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer082_intervals
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer082_arithmetic : LayerArithmeticValid row035.height { lower := 5754486901365634871601397760, upper := 11508973802731269743202795520, M := 6 } := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer082_arithmetic
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer082_enumeration :
+    activePowerIntervalList 35 6 5754486901365634871601397760 11508973802731269743202795520 = row035_layer082_intervals := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer082_enumeration
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer082_pairs : pairCoverCheck row035_layer082_intervals row035_bounds = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer082_pairs
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer082_checked :
+    coverLayerCheck row035.height row035.goods { lower := 5754486901365634871601397760, upper := 11508973802731269743202795520, M := 6 } = true := by
+  exact coverLayerCheck_of_parts row035_layer082_arithmetic row035_layer082_enumeration row035_bounds_eq row035_layer082_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer082_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row035_layer083_intervals : List ColouredInterval :=
+  [(2, 12379400392853802748991242240, 12379400392853802748991242274), (2, 14855280471424563298789490688, 14855280471424563298789490722), (2, 14855280471424563298789490688, 14855280471424563298789490722), (2, 19807040628566084398385987584, 19807040628566084398385987618), (2, 19807040628566084398385987584, 19807040628566084398385987618), (2, 19807040628566084398385987584, 19807040628566084398385987618), (3, 14130386091738734504764811067, 14130386091738734504764811101), (3, 18840514788984979339686414756, 18840514788984979339686414790), (3, 14130386091738734504764811067, 14130386091738734504764811101), (11, 13109994191499930367061460371, 13109994191499930367061460405), (13, 14112820029733633332061479386, 14112820029733633332061479420), (13, 21169230044600449998092219079, 21169230044600449998092219113), (17, 19967568900859523802559065713, 19967568900859523802559065747), (19, 13569980418174090907801371961, 13569980418174090907801371995), (29, 12206522493179982979157699338, 12206522493179982979157699372), (29, 18309783739769974468736549007, 18309783739769974468736549041), (31, 21670662219970396194714277471, 21670662219970396194714277505)]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer083_intervals
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer083_arithmetic : LayerArithmeticValid row035.height { lower := 11508973802731269743202795520, upper := 23017947605462539486405591040, M := 6 } := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer083_arithmetic
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer083_enumeration :
+    activePowerIntervalList 35 6 11508973802731269743202795520 23017947605462539486405591040 = row035_layer083_intervals := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer083_enumeration
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer083_pairs : pairCoverCheck row035_layer083_intervals row035_bounds = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer083_pairs
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer083_checked :
+    coverLayerCheck row035.height row035.goods { lower := 11508973802731269743202795520, upper := 23017947605462539486405591040, M := 6 } = true := by
+  exact coverLayerCheck_of_parts row035_layer083_arithmetic row035_layer083_enumeration row035_bounds_eq row035_layer083_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer083_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer080_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer081_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer082_checked
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer083_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row035_layer084_intervals : List ColouredInterval :=
+  [(2, 24758800785707605497982484480, 24758800785707605497982484514), (2, 29710560942849126597578981376, 29710560942849126597578981410), (2, 29710560942849126597578981376, 29710560942849126597578981410), (2, 39614081257132168796771975168, 39614081257132168796771975202), (2, 39614081257132168796771975168, 39614081257132168796771975202), (2, 39614081257132168796771975168, 39614081257132168796771975202), (3, 23550643486231224174608018445, 23550643486231224174608018479), (3, 28260772183477469009529622134, 28260772183477469009529622168), (3, 28260772183477469009529622134, 28260772183477469009529622168), (3, 42391158275216203514294433201, 42391158275216203514294433235), (3, 42391158275216203514294433201, 42391158275216203514294433235), (5, 45474735088646411895751953125, 45474735088646411895751953159), (11, 26219988382999860734122920742, 26219988382999860734122920776), (11, 39329982574499791101184381113, 39329982574499791101184381147), (13, 28225640059467266664122958772, 28225640059467266664122958806), (13, 35282050074334083330153698465, 35282050074334083330153698499), (13, 42338460089200899996184438158, 42338460089200899996184438192), (17, 39935137801719047605118131426, 39935137801719047605118131460), (19, 27139960836348181815602743922, 27139960836348181815602743956), (19, 40709941254522272723404115883, 40709941254522272723404115917), (23, 39471584120695485887249589623, 39471584120695485887249589657), (29, 24413044986359965958315398676, 24413044986359965958315398710), (29, 30516306232949957447894248345, 30516306232949957447894248379), (29, 36619567479539948937473098014, 36619567479539948937473098048), (31, 43341324439940792389428554942, 43341324439940792389428554976)]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer084_intervals
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer084_arithmetic : LayerArithmeticValid row035.height { lower := 23017947605462539486405591040, upper := 46035895210925078972811182080, M := 6 } := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer084_arithmetic
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer084_enumeration :
+    activePowerIntervalList 35 6 23017947605462539486405591040 46035895210925078972811182080 = row035_layer084_intervals := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer084_enumeration
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer084_pairs : pairCoverCheck row035_layer084_intervals row035_bounds = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer084_pairs
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer084_checked :
+    coverLayerCheck row035.height row035.goods { lower := 23017947605462539486405591040, upper := 46035895210925078972811182080, M := 6 } = true := by
+  exact coverLayerCheck_of_parts row035_layer084_arithmetic row035_layer084_enumeration row035_bounds_eq row035_layer084_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer084_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row035_layer085_intervals : List ColouredInterval :=
+  [(2, 49517601571415210995964968960, 49517601571415210995964968994), (2, 59421121885698253195157962752, 59421121885698253195157962786), (2, 79228162514264337593543950336, 79228162514264337593543950370), (2, 79228162514264337593543950336, 79228162514264337593543950370), (2, 79228162514264337593543950336, 79228162514264337593543950370), (3, 56521544366954938019059244268, 56521544366954938019059244302), (3, 70651930458693672523824055335, 70651930458693672523824055369), (3, 84782316550432407028588866402, 84782316550432407028588866436), (11, 52439976765999721468245841484, 52439976765999721468245841518), (11, 65549970957499651835307301855, 65549970957499651835307301889), (13, 91733330193268616658399616009, 91733330193268616658399616043), (17, 59902706702578571407677197139, 59902706702578571407677197173), (17, 79870275603438095210236262852, 79870275603438095210236262886), (19, 54279921672696363631205487844, 54279921672696363631205487878), (19, 67849902090870454539006859805, 67849902090870454539006859839), (23, 78943168241390971774499179246, 78943168241390971774499179280), (31, 65011986659911188584142832413, 65011986659911188584142832447), (31, 86682648879881584778857109884, 86682648879881584778857109918)]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer085_intervals
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer085_arithmetic : LayerArithmeticValid row035.height { lower := 46035895210925078972811182080, upper := 92071790421850157945622364160, M := 5 } := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer085_arithmetic
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer085_enumeration :
+    activePowerIntervalList 35 5 46035895210925078972811182080 92071790421850157945622364160 = row035_layer085_intervals := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer085_enumeration
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer085_pairs : pairCoverCheck row035_layer085_intervals row035_bounds = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer085_pairs
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer085_checked :
+    coverLayerCheck row035.height row035.goods { lower := 46035895210925078972811182080, upper := 92071790421850157945622364160, M := 5 } = true := by
+  exact coverLayerCheck_of_parts row035_layer085_arithmetic row035_layer085_enumeration row035_bounds_eq row035_layer085_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer085_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row035_layer086_intervals : List ColouredInterval :=
+  [(2, 99035203142830421991929937920, 99035203142830421991929937954), (2, 118842243771396506390315925504, 118842243771396506390315925538), (2, 158456325028528675187087900672, 158456325028528675187087900706), (2, 158456325028528675187087900672, 158456325028528675187087900706), (2, 158456325028528675187087900672, 158456325028528675187087900706), (3, 127173474825648610542883299603, 127173474825648610542883299637), (3, 169564633100864814057177732804, 169564633100864814057177732838), (3, 127173474825648610542883299603, 127173474825648610542883299637), (11, 144209936106499234037676064081, 144209936106499234037676064115), (13, 183466660386537233316799232018, 183466660386537233316799232052), (17, 99837844504297619012795328565, 99837844504297619012795328599), (23, 118414752362086457661748768869, 118414752362086457661748768903), (23, 157886336482781943548998358492, 157886336482781943548998358526), (29, 176994576151109753197786640401, 176994576151109753197786640435), (31, 108353311099851980973571387355, 108353311099851980973571387389)]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer086_intervals
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer086_arithmetic : LayerArithmeticValid row035.height { lower := 92071790421850157945622364160, upper := 184143580843700315891244728320, M := 5 } := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer086_arithmetic
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer086_enumeration :
+    activePowerIntervalList 35 5 92071790421850157945622364160 184143580843700315891244728320 = row035_layer086_intervals := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer086_enumeration
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer086_pairs : pairCoverCheck row035_layer086_intervals row035_bounds = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer086_pairs
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer086_checked :
+    coverLayerCheck row035.height row035.goods { lower := 92071790421850157945622364160, upper := 184143580843700315891244728320, M := 5 } = true := by
+  exact coverLayerCheck_of_parts row035_layer086_arithmetic row035_layer086_enumeration row035_bounds_eq row035_layer086_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer086_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row035_layer087_intervals : List ColouredInterval :=
+  [(2, 198070406285660843983859875840, 198070406285660843983859875874), (2, 237684487542793012780631851008, 237684487542793012780631851042), (2, 316912650057057350374175801344, 316912650057057350374175801378), (2, 316912650057057350374175801344, 316912650057057350374175801378), (2, 316912650057057350374175801344, 316912650057057350374175801378), (3, 211955791376081017571472166005, 211955791376081017571472166039), (3, 254346949651297221085766599206, 254346949651297221085766599240), (5, 227373675443232059478759765625, 227373675443232059478759765659), (11, 288419872212998468075352128162, 288419872212998468075352128196), (13, 275199990579805849975198848027, 275199990579805849975198848061), (13, 366933320773074466633598464036, 366933320773074466633598464070), (17, 339448671314611904643504117121, 339448671314611904643504117155), (19, 257829627945307727248226067259, 257829627945307727248226067293), (23, 197357920603477429436247948115, 197357920603477429436247948149), (29, 353989152302219506395573280802, 353989152302219506395573280836)]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer087_intervals
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer087_arithmetic : LayerArithmeticValid row035.height { lower := 184143580843700315891244728320, upper := 368287161687400631782489456640, M := 5 } := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer087_arithmetic
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer087_enumeration :
+    activePowerIntervalList 35 5 184143580843700315891244728320 368287161687400631782489456640 = row035_layer087_intervals := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer087_enumeration
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer087_pairs : pairCoverCheck row035_layer087_intervals row035_bounds = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer087_pairs
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row035_layer087_checked :
+    coverLayerCheck row035.height row035.goods { lower := 184143580843700315891244728320, upper := 368287161687400631782489456640, M := 5 } = true := by
+  exact coverLayerCheck_of_parts row035_layer087_arithmetic row035_layer087_enumeration row035_bounds_eq row035_layer087_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row035_layer087_checked

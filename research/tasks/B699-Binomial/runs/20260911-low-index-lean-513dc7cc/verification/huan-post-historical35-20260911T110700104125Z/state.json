@@ -1,0 +1,254 @@
+{
+  "status": "finished_with_unaccepted_jobs",
+  "wait_state": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-historical-probe-35-20260911T102009030714Z/state.json",
+  "jobs": [
+    {
+      "name": "rational-divisor-floor",
+      "root": "lean/RationalDivisor/FloorLayers.lean",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "rational-divisor-floor",
+        "--root",
+        "lean/RationalDivisor/FloorLayers.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "rational-divisor-factorial",
+      "root": "lean/RationalDivisor/FactorialDivisibility.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-floor.json"
+      ]
+    },
+    {
+      "name": "rational-divisor-coefficients",
+      "root": "lean/RationalDivisor/Coefficients.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-factorial.json"
+      ]
+    },
+    {
+      "name": "rational-divisor-content",
+      "root": "lean/RationalDivisor/Content.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-coefficients.json"
+      ]
+    },
+    {
+      "name": "elementary-rate",
+      "root": "lean/Growth/ElementaryRate.lean",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "elementary-rate",
+        "--root",
+        "lean/Growth/ElementaryRate.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536"
+      ],
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/elementary-rate.json"
+    },
+    {
+      "name": "growth-normalization",
+      "root": "lean/Growth/Normalization.lean",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "growth-normalization",
+        "--root",
+        "lean/Growth/Normalization.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/actual-kernel-growth.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T033529457679Z/evidence.json"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "growth-tree-row00-leaves",
+      "root": "lean/Growth/Row00CandidateLeaves.lean",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "growth-tree-row00-leaves",
+        "--root",
+        "lean/Growth/Row00CandidateLeaves.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/growth-affine.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/growth-partition.json"
+      ],
+      "exit_code": 1
+    },
+    {
+      "name": "growth-tree-row00",
+      "root": "lean/Growth/Row00CandidateTree.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/growth-tree-row00-leaves.json"
+      ]
+    },
+    {
+      "name": "factorial-extra-checkpoint",
+      "root": "lean/Factorial/ExtraFactorialBound.lean",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "factorial-extra-checkpoint",
+        "--root",
+        "lean/Factorial/ExtraFactorialBound.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-5-4.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-5-3.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-25-17.json"
+      ],
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-checkpoint.json"
+    },
+    {
+      "name": "i11-five-three-actual",
+      "root": "lean/I11DivisorFiveThree/Actual.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-content.json"
+      ]
+    },
+    {
+      "name": "i11-five-three-bounds",
+      "root": "lean/I11DivisorFiveThree/Bounds.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual.json"
+      ]
+    },
+    {
+      "name": "i11-five-three-threshold",
+      "root": "lean/I11DivisorFiveThree/Threshold.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-bounds.json"
+      ]
+    },
+    {
+      "name": "i11-five-three-checkpoint",
+      "root": "lean/I11DivisorFiveThree/Audit.lean",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-threshold.json"
+      ]
+    },
+    {
+      "name": "upper-height-small-part",
+      "root": "lean/UpperHeight/UpperSmallPart.lean",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "upper-height-small-part",
+        "--root",
+        "lean/UpperHeight/UpperSmallPart.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json"
+      ],
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-small-part.json"
+    },
+    {
+      "name": "upper-height-i11",
+      "root": "lean/UpperHeight/I11SmallPart.lean",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "upper-height-i11",
+        "--root",
+        "lean/UpperHeight/I11SmallPart.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-small-part.json"
+      ],
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-i11.json"
+    },
+    {
+      "name": "upper-height-cover",
+      "root": "lean/UpperHeight/UpperCoverLayer.lean",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "upper-height-cover",
+        "--root",
+        "lean/UpperHeight/UpperCoverLayer.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-i11.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json"
+      ],
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-cover.json"
+    }
+  ],
+  "controller_sha256": "d1af99742e2a892374794053fce423edccc05da25d5f99cbda93b5753003d37c",
+  "new_original_results": 0,
+  "previous_exit_code": 0,
+  "exit_code": 1,
+  "finished_utc": "2026-09-11T11:48:06.090868+00:00"
+}

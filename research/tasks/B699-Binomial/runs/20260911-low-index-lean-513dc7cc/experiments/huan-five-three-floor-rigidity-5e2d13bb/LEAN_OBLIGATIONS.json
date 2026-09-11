@@ -1,0 +1,57 @@
+{
+  "status": "suggested formalization obligations only; no Lean source or invocation in this experiment",
+  "theorem_scope": "Finite support integer e on positive integer slopes, sum e = sum j*e = 0, explicit open-phase F <= phi for (5,3).",
+  "obligations": [
+    {
+      "name": "floor_sum_reflection",
+      "claim": "At nonbreakpoints, floor(j*(1-x))=j-1-floor(j*x); the two balance equations imply F(1-x)=-F(x).",
+      "domain": "Finite support e; positive integer j; rational or real 0<x<1."
+    },
+    {
+      "name": "five_three_paired_zero",
+      "claim": "phi(x)=phi(1-x)=0 on the interiors (1/8,1/4), (3/8,5/8), (3/4,7/8); explicit phase domination forces F=0 there away from breakpoints.",
+      "boundary": "At x=1/2 use adjacent nonbreakpoints for jumps; do not infer a jump relation merely from an isolated phi=0 point."
+    },
+    {
+      "name": "rational_floor_jump",
+      "claim": "For reduced a/b and support<=N, sufficiently small two-sided epsilon gives jump F(a/b+epsilon)-F(a/b-epsilon)=sum_{b divides j}e_j.",
+      "basis": "Distinct rational numbers with denominators<=N are at least 1/N^2 apart."
+    },
+    {
+      "name": "five_three_support_le_sixteen",
+      "claim": "For maximal nonzero J>16, the stated three parity-class choices of a are coprime to J and lie in (3/8,1/2); epsilon=1/(4J^2) stays in the zero interval and only the J term jumps, contradiction.",
+      "unbounded_part": "This must be a uniform gcd/mod-4 proof, not the finite sanity check 17<=J<=128."
+    },
+    {
+      "name": "five_three_jump_matrix",
+      "claim": "After support<=16, all eleven denominator witnesses produce the supplied integer linear equations, plus the two balance equations.",
+      "certificate": "rigidity-certificate.json jump_witnesses and linear_system"
+    },
+    {
+      "name": "five_three_linear_normal_form",
+      "claim": "The supplied exact row transform proves rank 13, with r=e4,s=e8,t=e10 and the listed coefficients at j=1,2,3,4,5,8,10; all others vanish.",
+      "certificate": "13-by-13 rational row transform T satisfying T*A=R, with an identity pivot block."
+    },
+    {
+      "name": "five_three_parameter_constraints",
+      "claim": "Evaluations at 9/80,3/20,9/32 and their reflections give -1<=t<=0, s=-t, 0<=u=r+s<=1.",
+      "domain": "All these points and reflections have reduced denominators>16, so are safe after the support bound."
+    },
+    {
+      "name": "five_three_growth_bound",
+      "claim": "Exact prime exponent collection gives S=(64/27)^u*(3125/256)^t<=64/27; equality is attained by the old e1=e4=1,e2=e3=-1 vector.",
+      "certificate": "prime_exponent_coefficients_u_t and four exact rational corner growth values."
+    },
+    {
+      "name": "optional_phase_classification",
+      "claim": "Of the four necessary integer corners, (u,t)=(0,-1) fails at x=17/25; the other three satisfy all complete open cells for support<=16.",
+      "status": "Optional stronger corollary; not needed for the requested growth upper bound."
+    }
+  ],
+  "explicitly_unverified_external_translation": {
+    "name": "actual_q_divisor_implies_open_phase_domination",
+    "claim_to_be_proved_separately": "From eventual actual q_h/D integrality for every relevant m,h and fixed delta/shifts, pass to arbitrarily large prime p, choose m near p*x and h near p*y, keep 0<=h<=u and all factorial arguments<p^2, control fixed shifts away from every breakpoint, and derive the required F<=phi.",
+    "adopted_as_input": false,
+    "consequence": "Current theorem must not be advertised as a bound for all actual divisors of G, all factorial methods, or B699 itself."
+  }
+}
