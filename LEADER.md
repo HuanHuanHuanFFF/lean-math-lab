@@ -50,10 +50,13 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
-本轮从 [2026-09-11 B 两轮成果接收与调度状态](research/tasks/B699-Binomial/runs/20260911-leader-intake-b-6e18713b/README.md) 进入：精确内容与共同进位、百万约分分子子族闭合，以及 B 的下一轮接续任务。来源、证据等级与剩余参数见本批记录。
+本轮从 [2026-09-12 R7 成果整合与三路接续](research/tasks/B699-Binomial/runs/20260912-leader-r7-intake-4fe8697e/README.md) 进入：A 的 i14 全域纸面闭合与 i9 有限消费者、B 的平方行、C 的最小接口、D 的补指标与共同见证、E 的外部定理及审读修正。研究前沿、技术接受和发布状态分别见本批记录。
+
+上一接收从 [2026-09-11 B 两轮成果接收与调度状态](research/tasks/B699-Binomial/runs/20260911-leader-intake-b-6e18713b/README.md) 进入：精确内容与共同进位、百万约分分子子族闭合，以及 B 的下一轮接续任务。来源、证据等级与剩余参数见本批记录。
 
 上一接收入口：[三指标闭合、光滑窗口与统一核](research/tasks/B699-Binomial/runs/20260911-leader-intake-bc-824984da/README.md)，保留为该次接收快照。
 
 上一调度入口：[B699 调度与 huan 接续](research/tasks/B699-Binomial/runs/20260911-leader-dispatch-f71b38c0/README.md)，其前沿与数量为当时快照。
 
 历史来源：[上一批整合](research/tasks/B699-Binomial/runs/20260910-leader-integration-ad35779e/README.md)。其他题目从 [研究索引](research/README.md) 找到入口。
+

@@ -1,0 +1,85 @@
+{
+  "status": "PASS",
+  "polynomial_ring": "Q[x,y,z], sparse exact Fraction coefficients",
+  "identities": [
+    "cubic_discriminant",
+    "vandermonde_sum",
+    "evaluation_r0_s0",
+    "evaluation_r1_s0",
+    "evaluation_r1_s1",
+    "evaluation_r2_s0",
+    "evaluation_r2_s1",
+    "evaluation_r2_s2"
+  ],
+  "regressions": {
+    "N": 320,
+    "counts": {
+      "legal_pairs": 24649,
+      "vandermonde_identities": 98596,
+      "content_common_divisor": 24649,
+      "binary_content_equalities": 6241,
+      "local_gcd_consumer_hits": 2176,
+      "direct_prime_valuation_checks": 133900,
+      "joint_split_projection_cases": 640
+    },
+    "content_power_two_diagnostic": [],
+    "endpoint_regressions": [
+      {
+        "n": 10,
+        "i": 3,
+        "j": 5,
+        "gcd": 12,
+        "only_odd_prime": 3
+      },
+      {
+        "n": 28,
+        "i": 3,
+        "j": 14,
+        "gcd": 36,
+        "only_odd_prime": 3
+      },
+      {
+        "n": 244,
+        "i": 3,
+        "j": 122,
+        "gcd": 324,
+        "only_odd_prime": 3
+      }
+    ],
+    "higher_layer_weak_input": {
+      "n": 162,
+      "j": 70,
+      "gcd": 15120,
+      "v5_Cn3": 1,
+      "v5_Cnj": 2,
+      "v7_Cn3": 1,
+      "v7_Cnj": 1,
+      "scope": "passes selected p>=5 maximal-window-power remainders only; not noCommon"
+    },
+    "complementary_example": {
+      "n": 4194304,
+      "i": 3,
+      "j": 1115339,
+      "g": 1,
+      "beta": 1115339,
+      "dminus": 15709,
+      "eminus": 71,
+      "beta_factorization": {
+        "23": 1,
+        "71": 1,
+        "683": 1
+      },
+      "gamma": 3078965,
+      "m": 5,
+      "P": 615793,
+      "P_primality_method": "complete trial division through floor(sqrt(P))",
+      "common_prime": 89,
+      "vp_Cn3": 1,
+      "vp_Cnj": 2,
+      "scope": "outside listed beta<=2^20,dminus<=32,eminus<=7,beta=mP(m<=7); other historical subfamilies not audited"
+    }
+  },
+  "elapsed_seconds": 0.25309729599985076,
+  "python": "3.13.5",
+  "scope": "exact symbolic identities + finite regression; paper inequalities and infinite coverage are not machine-formalized"
+}

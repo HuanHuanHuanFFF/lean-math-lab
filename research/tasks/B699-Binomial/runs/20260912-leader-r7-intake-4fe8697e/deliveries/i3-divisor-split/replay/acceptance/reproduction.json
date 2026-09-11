@@ -1,0 +1,201 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/g++",
+        "-O3",
+        "-std=c++17",
+        "/mnt/data/b699-i3-followup/code/enumerate_e.cpp",
+        "-o",
+        "/tmp/b699-split-fresh-oqumi47a/enumerate_e"
+      ],
+      "elapsed_seconds": 3.4693832210000437,
+      "name": "compile",
+      "returncode": 0,
+      "stderr": "01-compile.stderr.txt",
+      "stdout": "01-compile.stdout.txt"
+    },
+    {
+      "argv": [
+        "/tmp/b699-split-fresh-oqumi47a/enumerate_e",
+        "3",
+        "1048576",
+        "/tmp/b699-split-fresh-oqumi47a/e3.json"
+      ],
+      "elapsed_seconds": 0.0686158290000094,
+      "name": "generate-e3",
+      "returncode": 0,
+      "stderr": "02-generate-e3.stderr.txt",
+      "stdout": "02-generate-e3.stdout.txt"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-S",
+        "/mnt/data/b699-i3-followup/code/check_e.py",
+        "/tmp/b699-split-fresh-oqumi47a/e3.json",
+        "/tmp/b699-split-fresh-oqumi47a/independent_e3.json"
+      ],
+      "elapsed_seconds": 0.27937398799986113,
+      "name": "independent-e3",
+      "returncode": 0,
+      "stderr": "03-independent-e3.stderr.txt",
+      "stdout": "03-independent-e3.stdout.txt"
+    },
+    {
+      "argv": [
+        "/tmp/b699-split-fresh-oqumi47a/enumerate_e",
+        "5",
+        "1048576",
+        "/tmp/b699-split-fresh-oqumi47a/e5.json"
+      ],
+      "elapsed_seconds": 0.2531345899997177,
+      "name": "generate-e5",
+      "returncode": 0,
+      "stderr": "04-generate-e5.stderr.txt",
+      "stdout": "04-generate-e5.stdout.txt"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-S",
+        "/mnt/data/b699-i3-followup/code/check_e.py",
+        "/tmp/b699-split-fresh-oqumi47a/e5.json",
+        "/tmp/b699-split-fresh-oqumi47a/independent_e5.json"
+      ],
+      "elapsed_seconds": 0.9249145280000448,
+      "name": "independent-e5",
+      "returncode": 0,
+      "stderr": "05-independent-e5.stderr.txt",
+      "stdout": "05-independent-e5.stdout.txt"
+    },
+    {
+      "argv": [
+        "/tmp/b699-split-fresh-oqumi47a/enumerate_e",
+        "7",
+        "1048576",
+        "/tmp/b699-split-fresh-oqumi47a/e7.json"
+      ],
+      "elapsed_seconds": 1.364290980000078,
+      "name": "generate-e7",
+      "returncode": 0,
+      "stderr": "06-generate-e7.stderr.txt",
+      "stdout": "06-generate-e7.stdout.txt"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-S",
+        "/mnt/data/b699-i3-followup/code/check_e.py",
+        "/tmp/b699-split-fresh-oqumi47a/e7.json",
+        "/tmp/b699-split-fresh-oqumi47a/independent_e7.json"
+      ],
+      "elapsed_seconds": 3.636246078000113,
+      "name": "independent-e7",
+      "returncode": 0,
+      "stderr": "07-independent-e7.stderr.txt",
+      "stdout": "07-independent-e7.stdout.txt"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-S",
+        "/mnt/data/b699-i3-followup/code/check_algebra.py",
+        "/tmp/b699-split-fresh-oqumi47a/algebra.json"
+      ],
+      "elapsed_seconds": 0.23746336500016696,
+      "name": "algebra",
+      "returncode": 0,
+      "stderr": "08-algebra.stderr.txt",
+      "stdout": "08-algebra.stdout.txt"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-S",
+        "/mnt/data/b699-i3-followup/code/check_bad_cases.py",
+        "/tmp/b699-split-fresh-oqumi47a/e3.json",
+        "/tmp/b699-split-fresh-oqumi47a/bad_cases.json"
+      ],
+      "elapsed_seconds": 0.20258102999969196,
+      "name": "bad-data",
+      "returncode": 0,
+      "stderr": "09-bad-data.stderr.txt",
+      "stdout": "09-bad-data.stdout.txt"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "-S",
+        "/mnt/data/b699-i3-followup/code/check_sources.py",
+        "/mnt/data/b699-i3-followup",
+        "/tmp/b699-split-fresh-oqumi47a/sources.json"
+      ],
+      "elapsed_seconds": 0.21237768900027731,
+      "name": "source-bytes",
+      "returncode": 0,
+      "stderr": "10-source-bytes.stderr.txt",
+      "stdout": "10-source-bytes.stdout.txt"
+    }
+  ],
+  "comparisons": [
+    {
+      "byte_equal": true,
+      "file": "outputs/algebra.json",
+      "sha256": "f8856ea8dfe755a329634d78983a4344c2f9c71871037236abd3dbd9324f71de"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/bad_cases.json",
+      "sha256": "3308860ab9d324fd32ed6860d4270ee04e2e8e7436b74118a62d2579caa05b60"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/e3.json",
+      "sha256": "161bff0496c3572dd432afa077c183c49ccb8ea6185f0889a88a5376ccb5a08b"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/e5.json",
+      "sha256": "a515a8259995166007f143d65c6e3b95ff507f9aca3a7f0e8e58a9c520cdecd4"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/e7.json",
+      "sha256": "6d7ae1cec62b7ae6a669ba4c0b8e21178fbaef853c2d437a9a1a61e154d8de6c"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/independent_e3.json",
+      "sha256": "53458f49c0bb8f5741eb04ba73df759d2c493acf570717dc93b7c9c6dbc1f392"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/independent_e5.json",
+      "sha256": "331a349f777b3195fa99fb859d565144bf0d413b3a4ab26fe2bff4ad76049cb7"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/independent_e7.json",
+      "sha256": "497c985f19efb18e5bfb293a7288f4d9c1da6473192d61dcb389872c206b579e"
+    },
+    {
+      "byte_equal": true,
+      "file": "outputs/sources.json",
+      "sha256": "7f49e2235be78975cd2025e89f893b2bca03be5c20b37db09b70ad08bfa29806"
+    }
+  ],
+  "elapsed_seconds": 10.663506063000113,
+  "finished_utc": "2026-09-11T12:23:20.353079+00:00",
+  "old_mathematical_experiments_rerun": false,
+  "started_utc": "2026-09-11T12:23:09.688987+00:00",
+  "static_file_count": 33,
+  "static_inputs_unchanged": true,
+  "status": "PASS"
+}

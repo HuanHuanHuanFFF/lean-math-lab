@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "date": "2026-09-11",
+  "task": "B699 Pro A R8 interrupted continuation: i14 content-G effectiveness",
+  "phase": "CONTENT_G_EFFECTIVE_AND_ABSOLUTE_I14_HEIGHT_ACCEPTED_UNLEANED",
+  "source_zip_sha256": "527921c8f1da529181f6664214bb2a25b1c5fe343116ca1ec57fd498bf4c115e",
+  "source_audit": "546 non-manifest files matched; original stale manifest self-hash excluded",
+  "original_problem": {
+    "domain": "natural n,i,j; 1<=i<j<=floor(n/2)",
+    "conclusion": "exists prime p>=i dividing both binomial(n,i) and binomial(n,j)",
+    "retain_p_equals_i": true,
+    "retain_full_prime_power_exponents": true
+  },
+  "remaining_R8": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    14
+  ],
+  "new_fully_closed_indices": [],
+  "exact_counterexamples": [],
+  "inherited_i10_status": "previous paper+exact full-closure report, not revalidated here; no Lean upgrade",
+  "new_result": {
+    "i": 14,
+    "legal_domain": "15<=j<=floor(n/2)",
+    "statement": "noCommon implies n < 2^33554433",
+    "height_n_bits": 33554433,
+    "height_Y_bits": 33554432,
+    "dependence_on_unbounded_auxiliary_parameters": false,
+    "family_count": 33,
+    "permutations": 183,
+    "deltas": [
+      0,
+      1
+    ],
+    "finite_blocks": 2284358,
+    "tail_terms": 9775,
+    "max_m0": 34337,
+    "cuts": 45,
+    "new_content_cuts": 33,
+    "publication_table_cuts": 12,
+    "all_occupied_position_patterns_covered": true,
+    "distinct_margin": 833,
+    "minimum_one_pair_margin": 1248,
+    "graph_dag_nodes": 12584,
+    "graph_breakpoint_grid_size": 13977920,
+    "status": "PAPER_PROOF_PLUS_FULL_EXACT_CERTIFICATES_WITH_PUBLICATION_INPUTS",
+    "full_i14_closure": false,
+    "lean_verified": false
+  },
+  "validation": {
+    "entrypoint": "python3 code/reproduce.py",
+    "actual_status": "PASS_FULL_RECEIVING_REPLAY_NO_PADE_SEARCH",
+    "evidence": "evidence/reproduction.json",
+    "all_finite_blocks_received": true,
+    "all_selected_tails_received": true,
+    "two_independent_cut_numerical_paths": true,
+    "two_independent_graph_paths": true,
+    "negative_tests_rejected": 15
+  },
+  "publication_dependencies": {
+    "paper": "Bennett-Filaseta-Trifonov, On the factorization of consecutive integers, author manuscript 2007-02-26",
+    "items": [
+      "(2.7), (2.8)",
+      "Proposition 5.1: six explicit table rows",
+      "Lemma 5.4: theta estimates"
+    ],
+    "formalized_in_this_package": false
+  },
+  "scalar_bridge": {
+    "file": "evidence/i14_scalar_bridge.json",
+    "domain": "noCommon; n>=182",
+    "formula": "(2*13!)^17 * (product_p Qp)^17 >= K_s*n^73",
+    "K_s": "2^110 * product_(h=1..10) (h!)^3",
+    "primes": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13
+    ]
+  },
+  "not_repeated": [
+    "prior Pade searches",
+    "prior seed searches",
+    "prior saved-grid searches"
+  ],
+  "reused_completed_finite_families": [
+    [
+      1,
+      2,
+      2
+    ],
+    [
+      43,
+      43,
+      57
+    ]
+  ],
+  "newly_generated_finite_families": 31,
+  "unused_old_families_accepted": false,
+  "not_completed": [
+    "finite exponent-block descent below height",
+    "CRT necessary-candidate exhaustion",
+    "all-j terminal consumer for every remaining n",
+    "full i14 closure",
+    "Lean formalization"
+  ],
+  "next_resume": "Read PROOFS.md sections 7-10; use absolute height and scalar bridge for exact compressed finite descent, not a repeat of content-G effectiveness.",
+  "read_first": [
+    "HANDOFF.md",
+    "REPORT.md",
+    "notes/PROOFS.md",
+    "input/cuts.json",
+    "evidence/i14_scalar_bridge.json"
+  ],
+  "processes_running": false,
+  "cache_in_archive": false,
+  "heavy_replay_serial": true,
+  "report": "REPORT.md",
+  "proof": "notes/PROOFS.md"
+}
