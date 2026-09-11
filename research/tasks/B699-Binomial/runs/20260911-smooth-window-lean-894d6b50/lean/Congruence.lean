@@ -52,19 +52,19 @@ theorem same_prime_above_of_product_congruence {n j m : ℕ} (hm : 4 ≤ m)
 theorem pow_sixty_modEq (k : ℕ) : 2 ^ (60 * k + 2) ≡ 4 [MOD 5005] := by
   have h : 2 ^ 60 ≡ 1 [MOD 5005] := by norm_num [Nat.ModEq]
   have hh := (h.pow k).mul (Nat.ModEq.refl (2 ^ 2))
-  simpa [← pow_mul, ← pow_add] using hh
+  simpa only [← pow_mul, ← pow_add, one_pow, one_mul] using hh
 
 theorem primeProduct_fourteen : primeProduct 14 = 5005 := by decide
 
 theorem pow_sixty_modEq_nine (k : ℕ) : 2 ^ (60 * k + 2) ≡ 4 [MOD 9] := by
   have h : 2 ^ 60 ≡ 1 [MOD 9] := by norm_num [Nat.ModEq]
   have hh := (h.pow k).mul (Nat.ModEq.refl (2 ^ 2))
-  simpa [← pow_mul, ← pow_add] using hh
+  simpa only [← pow_mul, ← pow_add, one_pow, one_mul] using hh
 
 theorem factorial_period_modEq {m p : ℕ} (hp : p.Prime)
     (h5p : 5 ≤ p) (hpm : p ≤ m) (k : ℕ) :
     2 ^ (m.factorial * k + 2) ≡ 4 [MOD p] := by
-  have hc : 2.Coprime p := by
+  have hc : Nat.Coprime 2 p := by
     exact (hp.coprime_iff_not_dvd.mpr (by
       intro hd
       have := Nat.le_of_dvd (by decide : 0 < 2) hd

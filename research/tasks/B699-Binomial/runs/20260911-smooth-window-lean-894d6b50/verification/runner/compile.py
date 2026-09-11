@@ -7,7 +7,7 @@ env=os.environ.copy()
 env["LEAN_PATH"]=str(Path.cwd())+os.pathsep+env.get("LEAN_PATH","")
 results=[]
 failed=False
-for name,decls in [("Transfer",["choose_mul_choose","prime_dvd_choose_transfer","same_prime_transfer","strict_transfer_counterexample"]),("Congruence",["prime_dvd_primeProduct","choose_four_modEq_one","prime_not_dvd_choose_four","same_prime_above_of_local_congruence","same_prime_above_of_product_congruence","pow_sixty_modEq","primeProduct_fourteen","pow_sixty_modEq_nine","factorial_period_modEq"])]:
+for name,decls in [("Transfer",["choose_mul_choose","prime_dvd_choose_transfer","same_prime_transfer","strict_transfer_counterexample"]),("QuarticAlgebra",["quarticI_dvd","quarticJ_dvd","quarticW_dvd","scaled_I_identity","scaled_J_identity","scaled_W_identity","discriminantQ_pos","scaled_I_pos","scaled_W_neg"]),("Congruence",["prime_dvd_primeProduct","choose_four_modEq_one","prime_not_dvd_choose_four","same_prime_above_of_local_congruence","same_prime_above_of_product_congruence","pow_sixty_modEq","primeProduct_fourteen","pow_sixty_modEq_nine","factorial_period_modEq"])]:
     src=run/"lean"/(name+".lean")
     log=out/(name+".log")
     code=src.read_text()
