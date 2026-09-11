@@ -1,0 +1,70 @@
+name: B699 smooth window Lean acceptance
+on:
+  push:
+    branches: ['GPT-work/b699-smooth-window-lean-20260911-894d6b50']
+    paths:
+      - '.github/workflows/b699-smooth-window.yml'
+      - 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50/lean/**'
+      - 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50/verification/runner/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  B699_RUN: 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Record source and resources
+        run: |
+          mkdir -p "$B699_RUN/verification/current"
+          git rev-parse HEAD > "$B699_RUN/verification/current/source-sha.txt"
+          free -h > "$B699_RUN/verification/current/resources.txt"
+          df -h . >> "$B699_RUN/verification/current/resources.txt"
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Restore pinned focused imports
+        run: |
+          lake exe cache get Mathlib.Data.Nat.Choose.Factorization Mathlib.Data.Nat.Choose.Lucas Mathlib.Data.Nat.Choose.Dvd Mathlib.NumberTheory.Fermat Mathlib.NumberTheory.Multiplicity Mathlib.NumberTheory.Padics.PadicVal.Basic Mathlib.Tactic.NormNum Mathlib.Tactic.Ring Mathlib.Tactic.Linarith
+          lake env lean --version
+      - name: Compile candidate and audit its transitive axioms
+        id: compile
+        continue-on-error: true
+        run: |
+          set +e
+          /usr/bin/time -v lake env lean -M 3072 "$B699_RUN/lean/Transfer.lean" > "$B699_RUN/verification/current/transfer.log" 2>&1
+          B699_EXIT=$?
+          echo "$B699_EXIT" > "$B699_RUN/verification/current/transfer.exit"
+          tail -c 8000 "$B699_RUN/verification/current/transfer.log"
+          if [ "$B699_EXIT" -ne 0 ]; then exit "$B699_EXIT"; fi
+          python3 "$B699_RUN/verification/runner/audit.py" "$B699_RUN/verification/current/transfer.log"
+      - name: Package matching runtime for permitted local reuse
+        run: |
+          mkdir -p .tools/smooth-window-export
+          tar -I 'zstd -T2 -3' -cf .tools/smooth-window-export/runtime.tar.zst -C "$HOME" .elan -C "$GITHUB_WORKSPACE" .lake lean-toolchain lakefile.toml lake-manifest.json
+          sha256sum .tools/smooth-window-export/runtime.tar.zst > .tools/smooth-window-export/SHA256SUMS
+          du -h .tools/smooth-window-export/runtime.tar.zst
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-smooth-window-runtime
+          path: .tools/smooth-window-export
+          include-hidden-files: true
+          retention-days: 3
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-smooth-window-evidence
+          path: ${{ env.B699_RUN }}/verification/current
+          retention-days: 30
+          if-no-files-found: error
+      - name: Require real compile success
+        if: always()
+        run: test "$(cat "$B699_RUN/verification/current/transfer.exit")" = 0
