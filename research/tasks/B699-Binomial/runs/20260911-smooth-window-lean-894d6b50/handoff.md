@@ -47,3 +47,5 @@ B699: accept finite bound block 04, all row consumers std3 audited
 B699: accept finite bound block 05, all row consumers std3 audited
 
 B699: accept finite bound block 06, all row consumers std3 audited
+
+B699: accept finite bound block 07, all row consumers std3 audited
