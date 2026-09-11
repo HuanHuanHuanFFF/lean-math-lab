@@ -1,0 +1,14 @@
+B699.SmoothWindow.neighbor_product : ∀ (x : ℕ), 1 ≤ x → (x - 1) * (x + 1) = x ^ 2 - 1
+'B699.SmoothWindow.neighbor_product' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.factorization_four_power_sub_one : ∀ {t : ℕ},
+  1 ≤ t → (4 ^ t - 1).factorization 3 = 1 + t.factorization 3
+'B699.SmoothWindow.factorization_four_power_sub_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.factorization_nine_power_sub_one : ∀ {t : ℕ},
+  1 ≤ t → (9 ^ t - 1).factorization 2 = 3 + t.factorization 2
+'B699.SmoothWindow.factorization_nine_power_sub_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.three_part_two_power_neighbors : ∀ {t : ℕ},
+  1 ≤ t → 3 ^ (2 ^ t - 1).factorization 3 ≤ 3 * t ∧ 3 ^ (2 ^ t + 1).factorization 3 ≤ 3 * t
+'B699.SmoothWindow.three_part_two_power_neighbors' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.two_part_three_power_neighbors : ∀ {t : ℕ},
+  1 ≤ t → 2 ^ (3 ^ t - 1).factorization 2 ≤ 4 * t ∧ 2 ^ (3 ^ t + 1).factorization 2 ≤ 4 * t
+'B699.SmoothWindow.two_part_three_power_neighbors' depends on axioms: [propext, Classical.choice, Quot.sound]

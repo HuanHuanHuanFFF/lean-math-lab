@@ -41,3 +41,5 @@ WindowPrimary的6条声明已通过真实Lean编译和std3审计：24倍二项�
 FiniteCRT全部58条完整行定理已验（源SHA256 d85a362d9183e9767e4785ac547b38b30d1f1657ef2ad71a88b2974a8e5dd4df），每行所有合法j，传递公理仅std3。86个原始p^e约束，n=27采用5²。余数分类至多4项/步，不枚举j。409条I/W行与生成完备性尚待验收，不能声称467整体已完成。
 
 B699: accept finite bound block 00, 48 complete rows, std3 audited
+
+B699: prove uniform full-prime-power bounds on both axis neighbours via LTE
