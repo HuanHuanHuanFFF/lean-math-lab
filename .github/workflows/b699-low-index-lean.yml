@@ -1,0 +1,57 @@
+name: B699 FiniteCover and Row029 acceptance
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  B699_RUN: 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc'
+
+jobs:
+  finitecover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Observe resources before installation
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil, subprocess
+          for name in ('memory.max', 'memory.current', 'cpu.max'):
+              p = Path('/sys/fs/cgroup') / name
+              print(name, p.read_text().strip() if p.exists() else 'unavailable')
+          print('disk', shutil.disk_usage('.'))
+          print('meminfo', [line for line in Path('/proc/meminfo').read_text().splitlines() if line.startswith(('MemTotal:', 'MemAvailable:'))])
+          print(subprocess.check_output(['ps', '-eo', 'pid,ppid,rss,comm', '--sort=-rss'], text=True)[:1500])
+          PY
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Check verification script syntax
+        run: python3 -m py_compile "$B699_RUN"/verification/runner/*.py
+      - name: Restore fixed target import closure
+        run: python3 "$B699_RUN/verification/runner/verify_environment.py" --repo . --mode cache
+      - name: Compile minimal import and fresh FiniteCover closure with std3 audit
+        run: >-
+          python3 "$B699_RUN/verification/runner/verify_environment.py"
+          --repo . --mode verify --run-dir "$B699_RUN"
+          --memory-mb 3072 --command-timeout 900
+      - name: Verify representative Row029 components serially
+        run: python3 "$B699_RUN/verification/runner/compile_probes.py"
+      - name: Print exact acceptance and axiom evidence
+        if: always()
+        run: python3 "$B699_RUN/verification/runner/summarize_evidence.py"
+      - name: Preserve actual source, compile and transitive axiom evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-row029-acceptance-evidence
+          path: ${{ env.B699_RUN }}/verification
+          if-no-files-found: warn

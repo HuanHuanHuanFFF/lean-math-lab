@@ -1,0 +1,14 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row037.Geometry
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row037_layer040_intervals : List ColouredInterval :=
+  [(2, 2251799813685248, 2251799813685284), (2, 2251799813685248, 2251799813685284), (3, 1853020188851841, 1853020188851877), (5, 2384185791015625, 2384185791015661), (7, 1628413597910449, 1628413597910485), (19, 2213314919066161, 2213314919066197), (23, 1905619515827854, 1905619515827890), (31, 1639256573961602, 1639256573961638)]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row037_layer040_intervals

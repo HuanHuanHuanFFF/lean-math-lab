@@ -4,7 +4,9 @@
 
 Pursue mathematical results checked by Lean. Explain progress and limitations in accessible Chinese; distinguish original discoveries from formalizations of known results. Read `docs/STRUCTURE.md` before creating or resuming a research run, changing concurrent ownership, moving research files, merging research branches, or adding modules. Read `research/README.md` when selecting a problem. For research execution, statement verification, or proof packaging, use `.agents/skills/lean-research/SKILL.md`.
 
-Leader work: read [LEADER.md](LEADER.md) before taking over the control center, choosing research directions, allocating workers/resources, designing task prompts, or integrating deliveries. The Leader owns global priorities, task boundaries, evidence-based acceptance, publication handoff, and recoverable coordination records; mathematical workers keep their own run records current.
+Leader work: read [LEADER.md](LEADER.md) before taking over the task command center, choosing directions, allocating workers/resources, writing task prompts, maintaining status, or integrating deliveries. The Leader owns coordination, evidence-status records, integration, and the next executable task; mathematical workers and designated verifiers own technical acceptance.
+
+When acting as Leader, delegate mathematical review, certificate checks, Lean implementation, compilation, and axiom audits to named execution or verification tasks. The Leader may inspect supplied reports, branch/commit/PR state, file inventories and byte provenance, and package or integrate delivered files; these administrative checks do not constitute mathematical acceptance. Record the verifier, fixed source, accepted scope, and remaining gaps. If verification is missing, assign it and keep the result pending. Do not run proof checks in the Leader thread or silently take a worker's technical task back.
 
 ## Task Ownership and Delegation
 
@@ -92,3 +94,4 @@ The sole Leader uses the persistent integration branch `GPT-work/leader-integrat
 Use focused commit messages; existing examples use `feat:` and `ci:` with Chinese descriptions. Changes should state the claim, source, assumptions, verification, and remaining gaps. Commit, push, release, and contact others only within explicit authorization. Preserve published tags; verify the exact remote commit and report the observed CI status when publishing.
 
 API documentation CI is non-blocking for merge or push handoff. Once the required code/proof checks for the change pass, report the documentation build/deployment's current status and run link when available, then hand off without waiting or repeatedly polling for it. Report pending documentation CI as pending. Wait for documentation completion only when explicitly requested by the user.
+
