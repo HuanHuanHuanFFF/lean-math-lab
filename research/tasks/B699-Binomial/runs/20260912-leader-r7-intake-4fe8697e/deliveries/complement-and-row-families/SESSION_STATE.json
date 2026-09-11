@@ -1,0 +1,112 @@
+{
+  "task": "B699 Pro D independent R8 research",
+  "task_date": "2026-09-11",
+  "status": "research consumers completed; core acceptance and bounded probes passed; frozen deliverable",
+  "original_statement": "forall n,i,j in N, 1<=i<j<=floor(n/2) => exists prime p>=i dividing both choose(n,i) and choose(n,j)",
+  "whole_indices_closed_this_run": [],
+  "R8": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    14
+  ],
+  "claims": [
+    {
+      "id": "T1",
+      "kind": "unbounded original-statement subfamily",
+      "statement": "i=3 and gamma=(n-j)/gcd(n,j)=m*P with P prime,1<=m<=7 imply a common odd prime, for all legal n,j",
+      "proof": "notes/PROOFS.md sections 1-8",
+      "computation": "855 records,854 distinct pairs,8 distinct terminal pairs,zero residual"
+    },
+    {
+      "id": "T2",
+      "kind": "relative effective finiteness",
+      "statement": "noCommon(i=3),gamma=m*P,P prime => n<123*m^6+2",
+      "unbounded_parameters_remaining": [
+        "m"
+      ],
+      "proof": "notes/PROOFS.md sections 1-6,8"
+    },
+    {
+      "id": "T3",
+      "kind": "uniform local obstruction and full-row consumer",
+      "statement": "noCommon => gcd(n-r,j-s)^3<(n-r)^2 for 0<=s<=r<=2; hence any odd prime-power Q|n-r with Q^3>=(n-r)^2 closes the entire i=3 row",
+      "proof": "notes/PROOFS.md sections 1,2,4,9",
+      "requires_discriminant": false,
+      "requires_finite_certificate": false
+    },
+    {
+      "id": "T4",
+      "kind": "simultaneous multi-index unbounded row family",
+      "statement": "n=4*P^(60*t),P prime>=17,t>=1 => for each legal j>=4 one prime p>=17 divides choose(n,j) and every choose(n,i) with3<=i<=14,i<j",
+      "proof": "notes/PROOFS.md section10",
+      "requires_content_or_discriminant": false,
+      "requires_finite_certificate": false
+    },
+    {
+      "id": "T4-general",
+      "kind": "unbounded index but restricted row family",
+      "statement": "M>=3,P prime>M,t>=1,n=4*P^(M!*t); one prime p>M per j treats all legal3<=i<=M",
+      "proof": "notes/PROOFS.md section10"
+    }
+  ],
+  "mathematical_dependencies": "self-contained elementary paper derivations; no A/B/C result inherited as a hypothesis",
+  "comparison_only_sources": [
+    "user task frontier",
+    "Files PROOFS.md file_0000000015bc8211a29109708395d87e version1; text read, raw-byte materialization unavailable"
+  ],
+  "evidence_level": {
+    "paper_proofs": true,
+    "exact_program_acceptance": true,
+    "two_different_implementations": true,
+    "different_researcher": false,
+    "human_review": false,
+    "lean_run": false,
+    "kernel_axiom_audit": false
+  },
+  "finite_checks": {
+    "candidate_records": 855,
+    "distinct_pairs": 854,
+    "terminal_records": 9,
+    "terminal_distinct_pairs": 8,
+    "unresolved": 0,
+    "bad_certificate_mutations_rejected": 24,
+    "exact_polynomial_identities": 8,
+    "small_binomial_pairs": 24649,
+    "direct_valuation_checks": 133900,
+    "large_row_valuations": 320,
+    "nonempty_joint_split_checks": 640
+  },
+  "remaining_quantifiers": [
+    "general gamma/P unbounded",
+    "general dplus,eplus>=9 not excluded",
+    "arbitrary rows for i=4,5,6,7,8,9,14 remain",
+    "no entire i3 absolute height"
+  ],
+  "remote_actions": {
+    "github_push": false,
+    "pull_request": null,
+    "background_processes": false
+  },
+  "resume_order": [
+    "README.md",
+    "REPORT.md",
+    "notes/PROOFS.md",
+    "HANDOFF.md",
+    "notes/FAILURES.md"
+  ],
+  "recommended_next_consumer": "formalize PROOFS section10 independently; do not require old large libraries/certificates",
+  "acceptance_command": "python code/accept.py --output ../prod-acceptance.json",
+  "diagnostic_acceptance_command": "python code/accept.py --probes --output ../prod-acceptance-with-probes.json",
+  "run_measurements": {
+    "default_acceptance_seconds": 3.36197404800032,
+    "with_probes_seconds": 6.927032181000413,
+    "default_max_child_rss_KiB_linux": 95152,
+    "with_probes_max_child_rss_KiB_linux": 104364,
+    "warning": "these are Python process measurements, not Lean estimates or formal verification of paper inequalities"
+  }
+}

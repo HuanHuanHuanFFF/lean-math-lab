@@ -1,0 +1,187 @@
+{
+  "status": "PASS_FULL_RECEIVING_REPLAY_NO_PADE_SEARCH",
+  "paper_status": "explicit effective i14 height, publication dependencies; not Lean; not full i14 closure",
+  "height_n_bits": 33554433,
+  "content_families": 33,
+  "permutations": 183,
+  "finite_blocks": 2284358,
+  "tail_terms": 9775,
+  "cuts": 45,
+  "stages": [
+    {
+      "stage": "compile-make_prime_cache",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/make_prime_cache.cpp",
+        "-lgmpxx",
+        "-lgmp",
+        "-o",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/make_prime_cache"
+      ],
+      "seconds": 0.6767653750000591,
+      "log": "logs/replay/01-compile-make_prime_cache.log"
+    },
+    {
+      "stage": "compile-build_dense_prefix",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/build_dense_prefix.cpp",
+        "-o",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/build_dense_prefix"
+      ],
+      "seconds": 0.41009235600017746,
+      "log": "logs/replay/02-compile-build_dense_prefix.log"
+    },
+    {
+      "stage": "compile-check_prime_cache",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/check_prime_cache.cpp",
+        "-lgmpxx",
+        "-lgmp",
+        "-o",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/check_prime_cache"
+      ],
+      "seconds": 0.8690047370000684,
+      "log": "logs/replay/03-compile-check_prime_cache.log"
+    },
+    {
+      "stage": "compile-check_dense",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/check_dense.cpp",
+        "-o",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/check_dense"
+      ],
+      "seconds": 0.3666996429999472,
+      "log": "logs/replay/04-compile-check_dense.log"
+    },
+    {
+      "stage": "compile-hybrid_content_check",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/hybrid_content_check.cpp",
+        "-o",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/hybrid_content_check"
+      ],
+      "seconds": 0.4304045500000484,
+      "log": "logs/replay/05-compile-hybrid_content_check.log"
+    },
+    {
+      "stage": "compile-check_graph_grid",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/check_graph_grid.cpp",
+        "-o",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/check_graph_grid"
+      ],
+      "seconds": 0.9419803920000049,
+      "log": "logs/replay/06-compile-check_graph_grid.log"
+    },
+    {
+      "stage": "independent-primes",
+      "command": [
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/check_prime_cache",
+        "100000000",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/cache/primes"
+      ],
+      "seconds": 0.3331852339999841,
+      "log": "logs/replay/07-independent-primes.log"
+    },
+    {
+      "stage": "independent-dense",
+      "command": [
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/check_dense",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/cache/primes"
+      ],
+      "seconds": 0.28750640499993096,
+      "log": "logs/replay/08-independent-dense.log"
+    },
+    {
+      "stage": "verify_content_resume",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/verify_content_resume.py"
+      ],
+      "seconds": 141.1212124919998,
+      "log": "logs/replay/09-verify_content_resume.log"
+    },
+    {
+      "stage": "verify_cuts",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/verify_cuts.py"
+      ],
+      "seconds": 2.3588767589999406,
+      "log": "logs/replay/10-verify_cuts.log"
+    },
+    {
+      "stage": "check_cuts_grid",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/check_cuts_grid.py"
+      ],
+      "seconds": 1.957316012000092,
+      "log": "logs/replay/11-check_cuts_grid.log"
+    },
+    {
+      "stage": "check_graph_and_height",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/check_graph_and_height.py"
+      ],
+      "seconds": 0.7026286399998298,
+      "log": "logs/replay/12-check_graph_and_height.log"
+    },
+    {
+      "stage": "exhaustive-graph-grid",
+      "command": [
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/bin/check_graph_grid",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/input/graph.txt"
+      ],
+      "seconds": 0.4873744029998761,
+      "log": "logs/replay/13-exhaustive-graph-grid.log"
+    },
+    {
+      "stage": "check_scalar_bridge",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/check_scalar_bridge.py"
+      ],
+      "seconds": 0.590534370999876,
+      "log": "logs/replay/14-check_scalar_bridge.log"
+    },
+    {
+      "stage": "regress_i14_math",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/regress_i14_math.py"
+      ],
+      "seconds": 4.531584210000119,
+      "log": "logs/replay/15-regress_i14_math.log"
+    },
+    {
+      "stage": "negative_tests",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProA-i14-contentG-resume-20260911/code/negative_tests.py"
+      ],
+      "seconds": 0.8944157939999968,
+      "log": "logs/replay/16-negative_tests.log"
+    }
+  ],
+  "python": "3.13.5",
+  "wall_seconds": 156.9651479900001
+}

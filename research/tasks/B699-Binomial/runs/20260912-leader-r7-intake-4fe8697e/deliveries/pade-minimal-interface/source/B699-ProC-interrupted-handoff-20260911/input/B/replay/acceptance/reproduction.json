@@ -1,0 +1,137 @@
+{
+  "status": "accepted_new_paper_and_exact_finite_certificate_chain",
+  "start_utc": "2026-09-11T05:16:51.781804+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "source_root": "/mnt/data/b699-r9-prob/new",
+  "record_root": "/mnt/data/b699-r9-prob/new/replay/acceptance",
+  "commands": [
+    {
+      "name": "generate",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-r9-prob/new/code/generate.py",
+        "--out",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/certificate.json"
+      ],
+      "cwd": "/mnt/data/b699-r9-prob/new",
+      "exit_code": 0,
+      "elapsed_seconds": 0.7379396300002554,
+      "log": "logs/01-generate.log"
+    },
+    {
+      "name": "independent-finite-check",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-r9-prob/new/code/check_certificate.py",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/certificate.json",
+        "--out",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/check.json"
+      ],
+      "cwd": "/mnt/data/b699-r9-prob/new",
+      "exit_code": 0,
+      "elapsed_seconds": 0.5747713509999812,
+      "log": "logs/02-independent-finite-check.log"
+    },
+    {
+      "name": "sparse-algebra",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-r9-prob/new/code/check_algebra.py",
+        "--out",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/algebra.json"
+      ],
+      "cwd": "/mnt/data/b699-r9-prob/new",
+      "exit_code": 0,
+      "elapsed_seconds": 0.6076182110000445,
+      "log": "logs/03-sparse-algebra.log"
+    },
+    {
+      "name": "independent-grid-valuations",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-r9-prob/new/code/check_grid_and_valuations.py",
+        "--out",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/grid-valuations.json"
+      ],
+      "cwd": "/mnt/data/b699-r9-prob/new",
+      "exit_code": 0,
+      "elapsed_seconds": 0.6279651980003109,
+      "log": "logs/04-independent-grid-valuations.log"
+    },
+    {
+      "name": "transfer-boundaries",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-r9-prob/new/code/check_transfer.py",
+        "--out",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/transfer.json"
+      ],
+      "cwd": "/mnt/data/b699-r9-prob/new",
+      "exit_code": 0,
+      "elapsed_seconds": 0.6794367229999807,
+      "log": "logs/05-transfer-boundaries.log"
+    },
+    {
+      "name": "bad-certificate-regression",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-r9-prob/new/code/check_bad_certificates.py",
+        "--certificate",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/certificate.json",
+        "--out",
+        "/mnt/data/b699-r9-prob/new/replay/acceptance/generated/bad-tests.json"
+      ],
+      "cwd": "/mnt/data/b699-r9-prob/new",
+      "exit_code": 0,
+      "elapsed_seconds": 0.7022316610000416,
+      "log": "logs/06-bad-certificate-regression.log"
+    }
+  ],
+  "mathematical_outputs": [
+    {
+      "file": "certificate.json",
+      "byte_identical": true,
+      "bytes": 144181,
+      "sha256": "a7c1392edcf447463240a189e707aef0febfbb9cbbc6775624e10e230f3dfa30"
+    },
+    {
+      "file": "check.json",
+      "byte_identical": true,
+      "bytes": 271,
+      "sha256": "a2683e169184b9312805f8ed6357b07cc2ec3a1936b9863792496d2dcdf32c8b"
+    },
+    {
+      "file": "algebra.json",
+      "byte_identical": true,
+      "bytes": 476,
+      "sha256": "4632bc5a3d96fefb96038950602c07e3a191f0731cfc7749710285e2db856466"
+    },
+    {
+      "file": "grid-valuations.json",
+      "byte_identical": true,
+      "bytes": 1097,
+      "sha256": "405fef631e44e43b9afe7e3b7e29013f06924e7a2e2b91406c9970b33ce8dff5"
+    },
+    {
+      "file": "transfer.json",
+      "byte_identical": true,
+      "bytes": 611,
+      "sha256": "35b86db502da5bd600ccebbce7b2e29d315a48104da072ad7f59ac44b60b5627"
+    },
+    {
+      "file": "bad-tests.json",
+      "byte_identical": true,
+      "bytes": 1778,
+      "sha256": "7138e29e0918e2976133dcc8ceda429e1cb52f5a28a7ee45b8c20405eb76f237"
+    }
+  ],
+  "scope": "new elementary i4 subfamily chain; not Lean or independent human review",
+  "static_files_unchanged": true,
+  "static_file_count": 44,
+  "static_before_sha256": "7b5f83f608d9c0e04c4f8e79d844060073a574154908634c6c2a0e7c4892b186",
+  "static_after_sha256": "7b5f83f608d9c0e04c4f8e79d844060073a574154908634c6c2a0e7c4892b186",
+  "end_utc": "2026-09-11T05:16:55.721830+00:00",
+  "elapsed_seconds": 3.940056279000146,
+  "max_child_peak_rss_kib_on_linux": 94132
+}
