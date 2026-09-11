@@ -39,3 +39,5 @@ B699: kernel-prove monotone exponential thresholds a<40 and b<24 from W
 B699: accept complete unbounded reduction to a<40, b<24, min(a,b)<=1
 
 B699: accept finite bound block 02, all row consumers std3 audited
+
+B699: accept finite bound block 03, all row consumers std3 audited
