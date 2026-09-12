@@ -1,0 +1,95 @@
+{
+  "task": "B699 Pro A: i14 complete paper/certificate closure; C integration; i9 finite-range continuation",
+  "date": "2026-09-11",
+  "phase": "COMPLETED_FULL_RECEIVING_AND_HANDOFF_READY",
+  "inherited_R8": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    14
+  ],
+  "new_closed_indices": [
+    14
+  ],
+  "remaining_R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "Lean": false,
+  "publication_dependencies": true,
+  "original_archives": "adopted/archives/; SHA256 in input/SOURCES.json",
+  "i14": {
+    "quantifiers": "all natural n,j, 15<=j<=floor(n/2)",
+    "status": "paper proof + exact complete certificates; not Lean",
+    "inherited_height_bits": 33554433,
+    "tightened_initial_height_bits": 14000001,
+    "postblock_height_bits": 169,
+    "preferred_route": "direct local-power CRT; NOT the longer uniform-M route",
+    "block_count": 1924,
+    "CRT_progression_terms": 3820,
+    "candidate_count": 6270,
+    "scalar_rejections": 6186,
+    "top_prime_exceptions": 84,
+    "residual": 0
+  },
+  "i9": {
+    "status": "finite range closed, not globally closed",
+    "quantifiers": "all natural n,j, n<2^4096, 10<=j<=floor(n/2)",
+    "input_height_bits": 4096,
+    "postblock_height_bits": 185,
+    "block_count": 839,
+    "candidate_count": 1303,
+    "scalar_rejections": 1257,
+    "top_prime_exceptions": 44,
+    "other_exceptions": [
+      250,
+      1030
+    ],
+    "residual": 0,
+    "unresolved_quantifier": "unbounded n>=2^4096",
+    "inherited_C_unbounded_family": "n-9=2^a*3^b*5^c*7^d, all a,b,c,d>=0; original i10 dependency retained",
+    "remaining_after_combining_C": "n>=2^4096 and n-9 not 7-smooth; still unbounded",
+    "finite_range_needs_BFT": false,
+    "modular_interval_witnesses_for_two_exceptions": 8
+  },
+  "C_integration": {
+    "N_direct_divisor": true,
+    "A_new_families_reusing_N_growth": 33,
+    "published_G_cuts_retained": 12,
+    "C_six_new_m0_transplanted": false
+  },
+  "do_not_repeat": [
+    "old content-G interruption",
+    "Padé/seed discovery",
+    "completed i14 exponent-block discovery",
+    "larger blind n scans"
+  ],
+  "next_high_value_target": "derive new global i9 height/inequality beyond existing relaxed cuts; or another R7 global reduction",
+  "receiving": {
+    "status": "PASS_MAIN_RECEIVING_REPLAY_NO_DISCOVERY",
+    "command": "python code/reproduce.py --alternate",
+    "stages": 20,
+    "seconds": 535.565,
+    "all_new_i14_blocks_replayed": true,
+    "inherited_content_replayed": false,
+    "log": "logs/full_receiving_driver.log"
+  },
+  "processes_running": [],
+  "new_remote_commits": [],
+  "new_Lean_results": [],
+  "last_checkpoint_shanghai": "2026-09-11T23:15:52.042954+08:00",
+  "packaging_smoke": {
+    "status": "PASS_CLEAN_EXTRACTED_ARCHIVE_QUICK_SMOKE",
+    "seconds": 54.683,
+    "not_a_new_large_block_replay": true
+  }
+}
