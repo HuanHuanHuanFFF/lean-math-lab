@@ -37,3 +37,5 @@
 ## 2026-09-13：完成汇报与补交接续
 
 用户确认A-2/B/D完成v2轮次。PR #16已合并，当前接收基线为main `ac6e53c8bef8398a5a663409ed9c69a68e8d9e75`。新接D-general补交，来源、作者前提、输入例外和修订任务见ROUND_COMPLETION.md。A/B及D-joint原件不重复计功；v3的C1=5主攻撤销，v4尚待用户投递，Lean继续暂停。该次新增资料与记录另建整合PR，由用户合并。
+
+本次补交固定接收提交`6851a081611ce86280afdb474c4844fc0c8444a7`已发布，完整树`962748417ad089a34aa2a47fe07f52df35ec9e16`已核对。[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)已创建，待用户合并；后续仅发布回执变更不改变原件、v4包或证据等级。
