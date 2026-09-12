@@ -1,0 +1,181 @@
+{
+  "status": "PASS",
+  "utc": "2026-09-12T17:22:30.177128+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "empty_output_directory": true,
+  "commands": [
+    {
+      "name": "generate",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/generate.py",
+        "/tmp/b699-c5-proof-p0ny1chf"
+      ],
+      "returncode": 0,
+      "seconds": 0.035642,
+      "stdout": "generate.stdout.txt"
+    },
+    {
+      "name": "independent",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/check_certificates.py",
+        "/tmp/b699-c5-proof-p0ny1chf",
+        "/tmp/b699-c5-proof-p0ny1chf/checks.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.041184,
+      "stdout": "independent.stdout.txt"
+    },
+    {
+      "name": "fraction",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/log_fraction.py",
+        "/tmp/b699-c5-proof-p0ny1chf/log-fraction.json"
+      ],
+      "returncode": 0,
+      "seconds": 3.430103,
+      "stdout": "fraction.stdout.txt"
+    },
+    {
+      "name": "integer",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/log_integer.py",
+        "/tmp/b699-c5-proof-p0ny1chf/log-integer.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.173189,
+      "stdout": "integer.stdout.txt"
+    },
+    {
+      "name": "consumers",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/consumers.py",
+        "/mnt/data/b699-r7-c1-five/new/sources/example.json",
+        "/tmp/b699-c5-proof-p0ny1chf/consumers.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.046762,
+      "stdout": "consumers.stdout.txt"
+    },
+    {
+      "name": "symbolic",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/symbolic.py",
+        "/tmp/b699-c5-proof-p0ny1chf/symbolic.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.035231,
+      "stdout": "symbolic.stdout.txt"
+    },
+    {
+      "name": "bad",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/bad_inputs.py",
+        "/tmp/b699-c5-proof-p0ny1chf",
+        "/tmp/b699-c5-proof-p0ny1chf/bad-inputs.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.120843,
+      "stdout": "bad.stdout.txt"
+    },
+    {
+      "name": "sources",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-c1-five/new/code/sources_check.py",
+        "/tmp/b699-c5-proof-p0ny1chf/sources.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.069672,
+      "stdout": "sources.stdout.txt"
+    }
+  ],
+  "output_comparisons": [
+    {
+      "file": "bad-inputs.json",
+      "sha256": "1d62a81c1a882a5bab9a1a1b58ad0ccd431134b63da2cc8db69b94a9c4d924e3",
+      "bytes": 366,
+      "identical": true
+    },
+    {
+      "file": "checks.json",
+      "sha256": "2867e785c6ad33183d379381eeda026bcae136ef1847661703818e04177bf517",
+      "bytes": 623,
+      "identical": true
+    },
+    {
+      "file": "consumers.json",
+      "sha256": "90949c8a2a8c7ab42e1cc6bf30f9ce84998c324c5f85ca7182f844e8ad80e78e",
+      "bytes": 1340,
+      "identical": true
+    },
+    {
+      "file": "log-fraction.json",
+      "sha256": "408473daa1a36ab6c91a16d53cebc05b3865e729ccac5aefbc355fda690d9aa6",
+      "bytes": 825,
+      "identical": true
+    },
+    {
+      "file": "log-integer.json",
+      "sha256": "d66789f01b65787757402b8395c2aa438e2c7ddcd0571d2a59a894f30938b871",
+      "bytes": 433,
+      "identical": true
+    },
+    {
+      "file": "middle.json",
+      "sha256": "b4f5a67a01a23a0a6baf8c87b5db15bbfd23655df2cdd202a09d3104f7f6fe38",
+      "bytes": 1093,
+      "identical": true
+    },
+    {
+      "file": "outer.json",
+      "sha256": "c5dedfdbc9f178c66f251dacfc7b8bc1cddfd51c8f44d3eceaabf840d1d76be2",
+      "bytes": 5190,
+      "identical": true
+    },
+    {
+      "file": "pell.json",
+      "sha256": "7a8b707e2a57fbf6648cff6dc502ee0ae34c28d121c308396d71e349b234c2e7",
+      "bytes": 8914,
+      "identical": true
+    },
+    {
+      "file": "sources.json",
+      "sha256": "925f87654f98894096ac25e1509a2dbb54ace4fc3e736126e674a81956df3869",
+      "bytes": 173,
+      "identical": true
+    },
+    {
+      "file": "symbolic.json",
+      "sha256": "964ec92ff3662276577dd7cff15616bb424ea34128e621adb80fabb6fc3cc993",
+      "bytes": 169,
+      "identical": true
+    }
+  ],
+  "static_hashes_unchanged": true,
+  "seconds": 3.962713,
+  "max_child_rss_kib": 92200,
+  "limits": "Author paper proof and stated external logarithm theorem not mechanically proved; no Lean or independent human review."
+}

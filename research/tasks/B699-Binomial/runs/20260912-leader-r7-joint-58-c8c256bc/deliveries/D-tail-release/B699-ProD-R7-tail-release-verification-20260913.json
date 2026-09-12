@@ -1,0 +1,148 @@
+{
+  "status": "PASS",
+  "utc_timestamp": "2026-09-12T17:41:24.925653+00:00",
+  "zip": "B699-ProD-R7-tail-results-20260913.zip",
+  "zip_bytes": 181684,
+  "zip_sha256": "051d32d8d08c9760182de6b5a135d5a189ee717cc2fb5fd9f67710cf211feb6e",
+  "isolated_directory": "/mnt/data/B699-ProD-R7-tail-isolated-20260913/B699-ProD-R7-tail-20260913",
+  "returncode": 0,
+  "wall_seconds": 3.102344,
+  "acceptance": {
+    "evidence_level": "paper + exact arithmetic; not Lean",
+    "frozen_source_members": 54,
+    "manifest_members": 85,
+    "old_tail_replayed": false,
+    "regenerated_files": [
+      "arithmetic-certificate.json",
+      "large-examples.json",
+      "outer-nine-certificate.json",
+      "row-nine-example.json",
+      "weak-projection-models.json"
+    ],
+    "seconds": 2.50587,
+    "status": "PASS",
+    "steps": [
+      {
+        "result": {
+          "arithmetic": {
+            "dyadic_residues": 2,
+            "middle_nine_cases": 2,
+            "negative_z_cases": 3
+          },
+          "outer9": {
+            "complete_modular_cells": 12,
+            "max_modulus": 109,
+            "outer_families": 6
+          },
+          "polynomials": {
+            "identities_verified": 14,
+            "method": "sparse integer coefficient expansion",
+            "names": [
+              "discriminant",
+              "central_defect",
+              "shifted_product",
+              "negative_defect",
+              "second_projection_product",
+              "edge_product_gap",
+              "outer_square_norm",
+              "central_square_norm",
+              "central_gap_expansion",
+              "central_bound_numerator",
+              "dyadic_residue",
+              "outer_nine_discriminant",
+              "square_gap",
+              "norm_minimum_gap"
+            ]
+          },
+          "status": "PASS",
+          "weak": {
+            "U_square_allowed": true,
+            "nonsquare_regressions": 12,
+            "weak_inputs": 4
+          }
+        },
+        "returncode": 0,
+        "script": "check_core.py",
+        "seconds": 0.544309
+      },
+      {
+        "result": {
+          "examples": {
+            "full_valuation_checks": 90,
+            "large_pair_regressions": 4,
+            "row_coverage_by_proof_not_scan": 259209866248189,
+            "same_witness_i3_to_i9_checks": 21
+          },
+          "negative_controls": {
+            "C1_11_weak_common_prime": 599,
+            "controls": 3,
+            "no_counterexample_to_full_noCommon_system_claimed": true
+          },
+          "outer9": {
+            "cells": 12,
+            "families": 6,
+            "method": "iterative powers and full square residue sets"
+          },
+          "regressions": {
+            "consumer_counts": {
+              "allocation_nine": 1903,
+              "centre_exact": 22079,
+              "centre_uniform": 8096,
+              "edge_exact": 28207,
+              "edge_uniform": 9025,
+              "middle_nine": 634
+            },
+            "consumer_union_pairs": 46617,
+            "exact_projection_pairs_in_this_small_range": 0,
+            "n_max": 1024,
+            "n_step": 4,
+            "purpose": "finite regression only; not the proof of the unbounded results",
+            "strict_legal_pairs": 64770
+          },
+          "status": "PASS"
+        },
+        "returncode": 0,
+        "script": "check_independent.py",
+        "seconds": 0.804999
+      },
+      {
+        "result": {
+          "mutation_types_rejected": 24,
+          "names": [
+            "omit_negative_z_case",
+            "invent_F0_3",
+            "omit_middle9_case",
+            "wrong_middle_g",
+            "wrong_dyadic_value",
+            "wrong_endpoint_constant",
+            "wrong_center_constant",
+            "wrong_norm_gap_constant",
+            "claim_i3_closed",
+            "drop_outer_family",
+            "duplicate_outer_family",
+            "wrong_oddpart",
+            "omit_mod81_class",
+            "shorten_period",
+            "wrong_order",
+            "omit_lift_cell",
+            "change_discriminant",
+            "composite_modulus",
+            "wrong_cell_count",
+            "change_quantifier_to_cutoff",
+            "missing_weak_input",
+            "truncate_C_power",
+            "change_U",
+            "change_R"
+          ],
+          "status": "PASS"
+        },
+        "returncode": 0,
+        "script": "check_mutations.py",
+        "seconds": 0.56937
+      }
+    ]
+  },
+  "stderr": "",
+  "lean_run": false,
+  "original_archives_modified": false
+}

@@ -2,7 +2,9 @@
 
 继续原 Pro D，你仍然是D。完整执行COMMON.md；五因子、一般结构、整行／跨指标归约和自由探索的方向不变，不改派为B的小块任务。
 
-先读 materials/current/D/HANDOFF.md、REPORT.md、notes/MINIMAL_INTERFACE.md、notes/PROOFS.md §2–5 和 notes/FAILURES.md；再读 materials/current/B/REPORT.md及三商证明，并了解 materials/current/A/REPORT.md 的58族前沿。
+先读 materials/current/D-general/HANDOFF.md、REPORT.md、notes/MINIMAL_INTERFACE.md和采用部分的完整证明，再读 materials/current/D/HANDOFF.md、REPORT.md、notes/MINIMAL_INTERFACE.md、notes/PROOFS.md §2–5 和 notes/FAILURES.md；再读 materials/current/B/REPORT.md及三商证明，并了解 materials/current/A/REPORT.md 的58族前沿。
+
+你另已报告K或M=aP^rQ^s且a≤7的整行闭合、全部位置C_r=5/7排除及固定a的有效高度。保留BEG2013两处不同接口的实际依赖；a仍无界，不以扩大有限a表作为默认主攻。一般结构可合用新U身份、n≤3F₀²与另一份双残量结果，但先核对前提；D-general未实际采用新B或另一个D-joint，不能把合用倒记成已完成。
 
 你已报告闭合所有2^37∤n的i3行，及128m³≥27(2^v+4)的无界行族。新R,T链已初等恢复两个旧标量界；下一轮不要重复把v≤36接受或同一数值界计为新覆盖。一般v≥37且奇部满足ROW-NC的尾部仍无界，R,T,C1、g和两侧一般余因子也尚无绝对界。
 
