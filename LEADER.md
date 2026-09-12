@@ -51,6 +51,8 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
+最新用户回执：B接续v2的下一轮已交付，A-2、D当前轮仍运行。见 [B下一轮接收](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/B_NEXT_COMPLETION.md)；保留B的5块证明链，与D-general覆盖不重复计功。B下一步沿用v4的一般无界方向，待用户派发；不再派C₁=7。
+
 当前调度以[本批当前阶段](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/README.md#当前阶段)为准：网页端数学研究为主，Lean暂停新增派发，已有待验队列保留。
 
 本轮从 [2026-09-12 R7：58族、三商与双残量](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/README.md) 进入。A的i9从84族降至58族；B完成9块及新整行族；D完成2^37∤n整行与初等ROW接口。均按作者证据登记，R7不变。用户已确认A-2/B/D完成20260912-v2；[D-general补交与轮次登记](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/ROUND_COMPLETION.md)修正了旧B的C1=5任务。下一轮三份任务共用v4完整包，状态为已拟定待用户投递；D身份不变。清理PR #15已由用户合并，PR #16已合并；本次完成登记与D-general补交已发布至[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)，待用户合并。
