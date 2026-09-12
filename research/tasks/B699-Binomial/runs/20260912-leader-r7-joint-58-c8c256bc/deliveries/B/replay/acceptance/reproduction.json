@@ -1,0 +1,169 @@
+{
+  "after": {
+    "files": 41,
+    "manifest_sha256": "4fe3d1c83e8f9215894ddf7a32758635cb32890d2d79a1f9f38829d7c3cf1d5a",
+    "status": "PASS"
+  },
+  "before": {
+    "files": 41,
+    "manifest_sha256": "4fe3d1c83e8f9215894ddf7a32758635cb32890d2d79a1f9f38829d7c3cf1d5a",
+    "status": "PASS"
+  },
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-mixed/new/code/generate_modular.py",
+        "--out",
+        "/tmp/b699-three-quotient-quk781c0/outputs/modular9.json"
+      ],
+      "index": 1,
+      "log": "01-generate_modular.log",
+      "returncode": 0,
+      "seconds": 0.027887865000138845
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-mixed/new/code/check_modular.py",
+        "--certificate",
+        "/tmp/b699-three-quotient-quk781c0/outputs/modular9.json",
+        "--out",
+        "/tmp/b699-three-quotient-quk781c0/outputs/modular9-check.json"
+      ],
+      "index": 2,
+      "log": "02-check_modular.log",
+      "returncode": 0,
+      "seconds": 0.02716945600013787
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-mixed/new/code/normal_forms.py",
+        "--out",
+        "/tmp/b699-three-quotient-quk781c0/outputs/normal-forms.json"
+      ],
+      "index": 3,
+      "log": "03-normal_forms.log",
+      "returncode": 0,
+      "seconds": 0.13106418699999267
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-mixed/new/code/symbolic.py",
+        "--out",
+        "/tmp/b699-three-quotient-quk781c0/outputs/symbolic.json"
+      ],
+      "index": 4,
+      "log": "04-symbolic.log",
+      "returncode": 0,
+      "seconds": 0.025516467000215926
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-mixed/new/code/consumers.py",
+        "--out",
+        "/tmp/b699-three-quotient-quk781c0/outputs/consumers.json"
+      ],
+      "index": 5,
+      "log": "05-consumers.log",
+      "returncode": 0,
+      "seconds": 0.059705054000005475
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-mixed/new/code/mutations.py",
+        "--certificate",
+        "/tmp/b699-three-quotient-quk781c0/outputs/modular9.json",
+        "--out",
+        "/tmp/b699-three-quotient-quk781c0/outputs/mutations.json"
+      ],
+      "index": 6,
+      "log": "06-mutations.log",
+      "returncode": 0,
+      "seconds": 0.027927255000122386
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-r7-mixed/new/code/check_sources.py",
+        "--out",
+        "/tmp/b699-three-quotient-quk781c0/outputs/sources.json"
+      ],
+      "index": 7,
+      "log": "07-check_sources.log",
+      "returncode": 0,
+      "seconds": 0.05070557499993811
+    }
+  ],
+  "comparisons": [
+    {
+      "byte_identical": true,
+      "bytes": 1779,
+      "file": "consumers.json",
+      "sha256": "51d4825eb812aa2d80f737cce75c371883dd5fb34bab1c6443bf7c66e7c7d3fb"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 173,
+      "file": "modular9-check.json",
+      "sha256": "034939ae1a3e71b65727642a1b5fbf8aa51084b99554361ce8e184c0bb9b0e84"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 2793,
+      "file": "modular9.json",
+      "sha256": "9a3fc267daa6057d95ef18ba136b7ac3237920cfcb3a242c817c10e7bb4917fa"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 536,
+      "file": "mutations.json",
+      "sha256": "8b79c5bf97e9c34bf8af4d7b014eb3010b82f3fb8b96cdebc1edf82876d54e45"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 1035,
+      "file": "normal-forms.json",
+      "sha256": "e8a83b8916182dffa851d43342ed1868903cf82b34c345bb018a792e298e54d4"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 680,
+      "file": "sources.json",
+      "sha256": "617e8c2fed2049fad0b4ca6cfed33d26ce6f8a867667543d68e50d670a64c4b0"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 722,
+      "file": "symbolic.json",
+      "sha256": "d5da8a2d9687d4b805df930e7322cf44b0916d509814d17c20e4b529531dd1d6"
+    }
+  ],
+  "finished_utc": "2026-09-12T12:44:16.250381+00:00",
+  "fresh_output_directory": true,
+  "identical_outputs": 7,
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "scope": "7 NEW commands only; no historical mathematical verifiers or Lean run",
+  "seconds": 0.3667278739999347,
+  "started_utc": "2026-09-12T12:44:15.882571+00:00",
+  "status": "PASS"
+}

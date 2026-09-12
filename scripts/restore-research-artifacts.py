@@ -100,11 +100,12 @@ def restore(repo, manifest, prefix='', check=False):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo', type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument('--manifest', default=MANIFEST, help='Repository-relative exact-byte reuse manifest')
     parser.add_argument('--prefix', default='', help='Exact old file path or directory; default: all mapped files')
     parser.add_argument('--check', action='store_true', help='Check byte availability and existing files without writing')
     args = parser.parse_args()
     repo = args.repo.resolve()
-    manifest = json.loads((repo / MANIFEST).read_text(encoding='utf-8'))
+    manifest = json.loads(safe_path(repo, args.manifest).read_text(encoding='utf-8'))
     try:
         print(json.dumps(restore(repo, manifest, args.prefix, args.check), sort_keys=True))
     except (ValueError, OSError) as error:

@@ -1,0 +1,203 @@
+{
+  "status": "PASS",
+  "scope": "Ordinary exact program acceptance, not Lean or human review",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "manifest_members": 42,
+  "frozen_source_members": 11,
+  "package_unchanged": true,
+  "complete_steps": 4,
+  "steps": [
+    {
+      "name": "finite",
+      "returncode": 0,
+      "wall_seconds": 0.7638314170001195,
+      "result": {
+        "status": "PASS",
+        "uniform_rows": 5909,
+        "analytic_exclusions": 1714,
+        "certified_rows": 4195,
+        "crt_roots": 42110,
+        "legal_first_projection": 29478,
+        "alpha_shape": 608,
+        "both_projections_and_alpha": 0,
+        "prime_certificates": 8574,
+        "prime_order_gcd_checks": 30946,
+        "candidate_sha256": "8d22c1962820a4e556d4f57ad9f1a313709bf59b11e05adfc16a6eb992a1fc8a",
+        "max_n": 167469364805632,
+        "seconds": 0.1810240590000376
+      }
+    },
+    {
+      "name": "finite_alt",
+      "returncode": 0,
+      "wall_seconds": 0.8696258750001107,
+      "result": {
+        "status": "PASS",
+        "uniform_rows": 5909,
+        "certified_rows": 4195,
+        "crt_roots": 42110,
+        "legal_first_projection": 29478,
+        "alpha_shape": 608,
+        "both_projections_and_alpha": 0,
+        "prime_certificates": 8574,
+        "prime_order_gcd_checks": 30946,
+        "canonical_candidate_sha256": "51b5701313458dc5af03cf7657c544d7d9001c2d9c55b3ee80ac2035ef309b1f",
+        "seconds": 0.2133347970000159
+      }
+    },
+    {
+      "name": "mutations",
+      "returncode": 0,
+      "wall_seconds": 2.2660498780001035,
+      "result": {
+        "status": "PASS",
+        "rejected": 16,
+        "cases": [
+          {
+            "case": "missing complete row",
+            "result": "REJECT",
+            "message": "row domain is not exactly the complete derived domain"
+          },
+          {
+            "case": "duplicate row",
+            "result": "REJECT",
+            "message": "row domain is not exactly the complete derived domain"
+          },
+          {
+            "case": "empty row domain",
+            "result": "REJECT",
+            "message": "row domain is not exactly the complete derived domain"
+          },
+          {
+            "case": "changed target exponent",
+            "result": "REJECT",
+            "message": "target theorem mismatch"
+          },
+          {
+            "case": "extra target exponent",
+            "result": "REJECT",
+            "message": "target theorem mismatch"
+          },
+          {
+            "case": "zero odd part",
+            "result": "REJECT",
+            "message": "row parameter"
+          },
+          {
+            "case": "changed row odd part",
+            "result": "REJECT",
+            "message": "row domain is not exactly the complete derived domain"
+          },
+          {
+            "case": "changed prime-power exponent",
+            "result": "REJECT",
+            "message": "factor product exceeds target"
+          },
+          {
+            "case": "missing row prime power",
+            "result": "REJECT",
+            "message": "row factorization is not N"
+          },
+          {
+            "case": "missing base primality certificate",
+            "result": "REJECT",
+            "message": "unproved factor prime"
+          },
+          {
+            "case": "false base certificate",
+            "result": "REJECT",
+            "message": "base prime 2"
+          },
+          {
+            "case": "order witness one",
+            "result": "REJECT",
+            "message": "order witness range"
+          },
+          {
+            "case": "order witness zero",
+            "result": "REJECT",
+            "message": "order witness range"
+          },
+          {
+            "case": "incomplete p-minus-one factors",
+            "result": "REJECT",
+            "message": "incomplete factorization of p-1"
+          },
+          {
+            "case": "composite factor used as prime",
+            "result": "REJECT",
+            "message": "Fermat order check"
+          },
+          {
+            "case": "negative prime exponent",
+            "result": "REJECT",
+            "message": "factor range/order"
+          }
+        ],
+        "seconds": 1.6632549210000889
+      }
+    },
+    {
+      "name": "algebra",
+      "returncode": 0,
+      "wall_seconds": 0.9024324839999736,
+      "result": {
+        "status": "PASS",
+        "polynomial_identities": 7,
+        "identity_names": [
+          "complementary product",
+          "positive endpoint margin",
+          "central discriminant",
+          "sharp central product bound",
+          "n+4 rational bound",
+          "residual product elimination",
+          "F-free cubic relation"
+        ],
+        "nonvacuous_exact_projection_inputs": [
+          {
+            "n": 76672,
+            "j": 26775,
+            "g": 1,
+            "R": 5,
+            "T": 144,
+            "C": [
+              85,
+              11,
+              41
+            ]
+          },
+          {
+            "n": 18610024,
+            "j": 7865522,
+            "g": 2,
+            "R": 1351,
+            "T": 1,
+            "C": [
+              1,
+              3691,
+              2521
+            ]
+          }
+        ],
+        "coarse_inputs_rejected": [
+          [
+            56,
+            11
+          ],
+          [
+            496,
+            210
+          ]
+        ],
+        "inequality_pairs": 64770,
+        "parity_cases": 32385,
+        "small_original_pairs": 259081,
+        "valuation_comparisons": 283029,
+        "direct_comb_comparisons": 2422,
+        "large_transport_valuations": 40,
+        "seconds": 0.26510871000004954
+      }
+    }
+  ],
+  "seconds": 4.809002618000022
+}
