@@ -1,0 +1,107 @@
+{
+  "started_utc": "2026-09-11T19:35:34.875893+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "status": "PASS",
+  "commands": [
+    {
+      "script": "generate.py",
+      "argv": [
+        "python3",
+        "-S",
+        "code/generate.py",
+        "--output",
+        "<empty-temp>/square_certificate.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.02758822600003441,
+      "log": "01-generate.py.log"
+    },
+    {
+      "script": "check_independent.py",
+      "argv": [
+        "python3",
+        "-S",
+        "code/check_independent.py",
+        "--input",
+        "<empty-temp>/square_certificate.json",
+        "--output",
+        "<empty-temp>/independent.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.026376131999995778,
+      "log": "02-check_independent.py.log"
+    },
+    {
+      "script": "algebra_checks.py",
+      "argv": [
+        "python3",
+        "-S",
+        "code/algebra_checks.py",
+        "--output",
+        "<empty-temp>/algebra.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06395754499999384,
+      "log": "03-algebra_checks.py.log"
+    },
+    {
+      "script": "check_mutations.py",
+      "argv": [
+        "python3",
+        "-S",
+        "code/check_mutations.py",
+        "--input",
+        "<empty-temp>/square_certificate.json",
+        "--output",
+        "<empty-temp>/mutations.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.043082461000039984,
+      "log": "04-check_mutations.py.log"
+    },
+    {
+      "script": "check_sources.py",
+      "argv": [
+        "python3",
+        "-S",
+        "code/check_sources.py",
+        "--output",
+        "<empty-temp>/sources.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.051102143000207434,
+      "log": "05-check_sources.py.log"
+    }
+  ],
+  "comparisons": [
+    {
+      "file": "square_certificate.json",
+      "byte_identical": true,
+      "sha256": "6692dbd5b8311f9a72be711f9e30c2154c29e68b9598b5121f9b94b0fa9d612c"
+    },
+    {
+      "file": "independent.json",
+      "byte_identical": true,
+      "sha256": "78285d8921148b7725013cb9978976a6bea48ae1334acf2d03e6968b2819f436"
+    },
+    {
+      "file": "algebra.json",
+      "byte_identical": true,
+      "sha256": "a10957818c8d53ebcfaeda06110d8456dcd86fc57ad92e87e852ff456c005ab1"
+    },
+    {
+      "file": "mutations.json",
+      "byte_identical": true,
+      "sha256": "913e7b0f63e4ac65dfc53105530fca50198b6cba77fc160f419e229e00d77556"
+    },
+    {
+      "file": "sources.json",
+      "byte_identical": true,
+      "sha256": "0c026acc0f0c469f05fb9c4e430e25e6512c4435b73ba996a1f2adfbb35ea769"
+    }
+  ],
+  "static_files": 43,
+  "static_before_after_identical": true,
+  "seconds": 0.2203434059999836,
+  "finished_utc": "2026-09-11T19:35:35.096249+00:00"
+}
