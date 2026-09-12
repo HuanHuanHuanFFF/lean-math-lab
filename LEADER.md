@@ -53,7 +53,7 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
-从[本批当前状态](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md)进入。A双高幂联合高度、B17/25与新相对高度、D尾部条带已交付；B/D下一轮据Luna回报运行中，A下一轮方向已定待派。R7与i9的58族数不变，Lean暂停新增派发。当前原件、证据等级与方向只在该页维护；[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)待用户合并。
+从[本批当前状态](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md)进入。A联合高度及四位置补交、B17/25与新相对高度、D尾部条带已交付；B/D下一轮据Luna回报运行中，A下一轮方向已定待派。R7与i9的58族数不变，Lean暂停新增派发。当前原件、证据等级与方向只在该页维护；[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)待用户合并。
 
 上一接收从 [2026-09-12 R7 三路新成果与下一轮任务](research/tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/README.md) 进入：A 的 i9 全局约束、B 的双侧素数幂消费者、D 的五因子与平方根整行消费者，另补收D上一轮误接B任务的单侧a≤21闭合；当前D仍为D。A继续i9，B转向一般混合余因子，D保留自由探索。三份修订任务共用v2完整附件。R7 未减少，作者证据、独立接受和发布状态分别登记。
 

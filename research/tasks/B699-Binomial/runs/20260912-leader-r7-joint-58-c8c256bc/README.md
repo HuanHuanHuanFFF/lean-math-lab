@@ -2,16 +2,18 @@
 
 本批负责人：5号Leader；保留原批次20260912-leader-r7-joint-58-c8c256bc的身份、历史记录和来源。当前以网页数学研究为主，Lean暂停新增派发。
 
-**从[当前状态](CURRENT_STATUS.md)接续：A新联合高度已交付，B新高度/17与25块已交付，D条带已交付；据Luna回报B、D下一轮运行中，A下一轮待派发。R7不变，i9仍58族。**
+**从[当前状态](CURRENT_STATUS.md)接续：A新联合高度及四位置补交已交付，B新高度/17与25块已交付，D条带已交付；据Luna回报B、D下一轮运行中，A下一轮待派发。R7不变，i9仍58族。**
 
 | 入口 | 用途 |
 |---|---|
 | [当前状态与方向](CURRENT_STATUS.md) | 最新准确声明、剩余无界量、派发回执和Leader取舍 |
+| [A四位置补交](A_POSITIONS_COMPLETION.md) | 两α族剩余位置、全行消费者与准确冻结依赖 |
 | [A联合高度](deliveries/A-fibres/REPORT.md) | 双高幂族与固定单指数的有限包络 |
 | [B一般高度与17/25](deliveries/B-height/REPORT.md) | 初等整行与另有出版依赖的相对高度 |
 | [D尾部与条带](D_TAIL_COMPLETION.md) | 9块、a≤9整行、条带及失效边界 |
 | [技术接受](acceptance.md) | 作者检查、独立核验与Lean义务分别登记 |
 | [前沿历史](frontier.md) | 本批各次交付的准确范围及保留缺口 |
+| [A位置补交来源](A_POSITIONS_SOURCES.json) | 新原件59成员及大型发现/失败数据指针 |
 | [A/B来源](LATEST_AB_SOURCES.json) | 新原件全部成员、精确复用及内嵌输入去向 |
 | [D来源](D_TAIL_SOURCES.json) | D尾部原件的逐字节保留路径 |
 | [交接](handoff.md) | 固定接收基线、发布断点与下一步 |

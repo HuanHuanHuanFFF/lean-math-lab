@@ -55,3 +55,7 @@ B、D应先核对h1与g²R等表示对应及完整前提，再尝试新约束；
 见[完整登记](ROUND_COMPLETION.md)及[原报告](deliveries/D-general/REPORT.md)。作者报告全部位置C_r=5/7排除、K或M=aP^rQ^s且a≤7的整行消费者、n≤3F₀²，以及固定a的有效高度；a仍无界。5/7闭合与一般高度分别依赖BEG2013的Prop3.10和Thm2.2；未独立核查适用性或运行Lean。D-general没有采用新B或另一个D双残量交付，两路线合用须检查准确前提。
 
 A/B/D的用户确认轮次为20260912-v2完成。修订后的下一轮为v4，尚未获用户已派发的证据。Lean队列保持暂停。
+
+## A四位置补交
+
+本轮新增四个无界位置分支闭合，准确范围、原包与冻结依赖见[A_POSITIONS_COMPLETION.md](A_POSITIONS_COMPLETION.md)。两类α分别余四位置/仅(3,1)，不是从58族减去四族；R7不变。B/D仍据Luna回报运行，A补交完成后的新派发未确认。
