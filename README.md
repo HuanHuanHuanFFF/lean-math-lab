@@ -14,6 +14,7 @@
 
 ---
 
-[翻研究记录](research/README.md) · [拿走定理](docs/REUSE.md) · [自己开题](.agents/skills/lean-research/SKILL.md) · [运行与验证](docs/GETTING_STARTED.md)
+[翻研究记录](research/README.md) · [批次目录](research/CATALOG.md) · [拿走定理](docs/REUSE.md) · [自己开题](.agents/skills/lean-research/SKILL.md) · [运行与验证](docs/GETTING_STARTED.md)
 
 <sub>Lean 4 · mathlib · 过程开源 · 已知结果保留原作者署名 · [Apache-2.0](LICENSE) · [引用](CITATION.cff)</sub>
+

@@ -1,0 +1,5 @@
+Runtime/install progress (2026-09-08):
+- Isolated elan 4.2.4 in external-research/b686-verify/elan; exact toolchain installed at elan/toolchains/leanprover--lean4---v4.29.1.
+- Direct Lean initially failed `error: failed to locate application` due container procfs PID mismatch. Copied audited process-local shim source from b677 and compiled support/proc-self.so; hashes match b677: C 44b1a436...; SO 6ffe1fa8.... With LD_PRELOAD, Lean reports 4.29.1 commit f72c35b3f637c8c6571d353742168ab66cc22c00; Lake 5.0.0-src+f72c35b.
+- `lake update` initially failed cloning mathlib due git exit 128; manual GIT_TRACE showed `fatal: write error: No space left on device` while pack indexing. Existing 4.33 mathlib clone contained exact commit object, so cloned source-only shared working copy into repo `.lake/packages/mathlib`, detached at exact 5e932f97dd25535344f80f9dd8da3aab83df0fe6; source 114M; no source edits. Disk now full (0 bytes available).
+- Need free ~1GB owned space or prune own toolchain artifacts before package/dependency build; no further download attempted.

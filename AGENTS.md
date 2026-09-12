@@ -58,6 +58,8 @@ Treat research records as a deliverable for the next human or agent. Maintain th
 
 Keep mutable progress and results in the owning run. The research index and problem entries provide navigation, with links to run-local status rather than competing copies of it. The repository root README states the project's motivation and stable entry points.
 
+Historical artifacts: before reading a missing archived path, replaying old evidence, or packaging a historical run, read [docs/ARTIFACTS.md](docs/ARTIFACTS.md) and restore mapped files. For ZIP intake or duplicate cleanup, use its member-completeness and exact-byte mapping procedure; restored local copies are not new tracked deliverables.
+
 ## Structure and Style
 
 - `Math/` and `Math.lean`: accepted library modules and imports; preserve published module paths and theorem names.
@@ -94,4 +96,5 @@ The sole Leader uses the persistent integration branch `GPT-work/leader-integrat
 Use focused commit messages; existing examples use `feat:` and `ci:` with Chinese descriptions. Changes should state the claim, source, assumptions, verification, and remaining gaps. Commit, push, release, and contact others only within explicit authorization. Preserve published tags; verify the exact remote commit and report the observed CI status when publishing.
 
 API documentation CI is non-blocking for merge or push handoff. Once the required code/proof checks for the change pass, report the documentation build/deployment's current status and run link when available, then hand off without waiting or repeatedly polling for it. Report pending documentation CI as pending. Wait for documentation completion only when explicitly requested by the user.
+
 

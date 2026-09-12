@@ -1,0 +1,25 @@
+Erdős #699 — binomial-gcd row sweep
+
+1. the fast decider vs an independent brute-force oracle
+  [PASS] exact.py agrees with reference.py on n=4..300 — 0 mismatches
+
+2. the pruning lemma the sweep rests on
+  [PASS] a prime in (n-i, n] settles the row, checked exhaustively
+
+3. Kummer vs direct factorisation
+  [PASS] carry criterion matches factorisation
+
+4. the shards tile the claimed range exactly
+  [PASS] no gap and no overlap between shards — []
+  [PASS] shards span exactly the claimed range
+  [PASS] receipt records contiguity
+
+5. counts
+  [PASS] row counts add up — 90,000,000
+  [PASS] no shard dropped
+  [PASS] counterexample counts add up
+
+6. spot-check rows inside the claimed range
+  [PASS] 10 sampled rows re-decided clean — []
+
+{"claim":"Erdos 699 holds for 10000000 <= n < 100000000","verified":true,"rows":90000000,"counterexamples":0}
