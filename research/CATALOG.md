@@ -26,6 +26,7 @@
 
 | 批次 | 原始状态入口 |
 |---|---|
+| [20260912-leader-r7-joint-58-c8c256bc](tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/README.md) | [前沿](tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/frontier.md) · [验收](tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/acceptance.md) |
 | [20260912-leader-r7-intake-4fe8697e](tasks/B699-Binomial/runs/20260912-leader-r7-intake-4fe8697e/README.md) | [前沿](tasks/B699-Binomial/runs/20260912-leader-r7-intake-4fe8697e/frontier.md) · [验收](tasks/B699-Binomial/runs/20260912-leader-r7-intake-4fe8697e/acceptance.md) · [交接](tasks/B699-Binomial/runs/20260912-leader-r7-intake-4fe8697e/handoff.md) · [原件映射](tasks/B699-Binomial/runs/20260912-leader-r7-intake-4fe8697e/ARCHIVES.json) |
 | [20260912-leader-r7-continuation-c8c256bc](tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/README.md) | [前沿](tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/frontier.md) · [验收](tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/acceptance.md) · [交接](tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/handoff.md) · [原件映射](tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/ARCHIVES.json) |
 | [20260911-web-tubes-5c87cad2](tasks/B699-Binomial/runs/20260911-web-tubes-5c87cad2/README.md) | 见批次目录 |
