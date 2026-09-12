@@ -51,7 +51,9 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
-本轮从 [2026-09-12 R7：58族、三商与双残量](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/README.md) 进入。A的i9从84族降至58族；B完成9块及新整行族；D完成2^37∤n整行与初等ROW接口。均按作者证据登记，R7不变。A/B/D三份下一轮任务共用v3完整包，状态为已拟定待用户投递；D身份不变。清理PR #15已由用户合并，本轮成果另开PR。
+当前调度以[本批当前阶段](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/README.md#当前阶段)为准：网页端数学研究为主，Lean暂停新增派发，已有待验队列保留。
+
+本轮从 [2026-09-12 R7：58族、三商与双残量](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/README.md) 进入。A的i9从84族降至58族；B完成9块及新整行族；D完成2^37∤n整行与初等ROW接口。均按作者证据登记，R7不变。A/B/D三份下一轮任务共用v3完整包，状态为已拟定待用户投递；D身份不变。清理PR #15已由用户合并，本轮成果及调度更新见[PR #16](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/16)。
 
 上一接收从 [2026-09-12 R7 三路新成果与下一轮任务](research/tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/README.md) 进入：A 的 i9 全局约束、B 的双侧素数幂消费者、D 的五因子与平方根整行消费者，另补收D上一轮误接B任务的单侧a≤21闭合；当前D仍为D。A继续i9，B转向一般混合余因子，D保留自由探索。三份修订任务共用v2完整附件。R7 未减少，作者证据、独立接受和发布状态分别登记。
 
