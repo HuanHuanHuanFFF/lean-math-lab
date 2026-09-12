@@ -1,6 +1,6 @@
 # Leader 交接
 
-本批：20260912-leader-r7-continuation-c8c256bc。用户已收到下一轮A/B/D三份提示词，随后授权整理。三包原件已在用户附件中，本轮不重新制作共享大包。
+本批：20260912-leader-r7-continuation-c8c256bc。用户已收到下一轮A/B/D三份提示词，随后授权整理。用户随后补充：以后任务必须配齐一份统一ZIP并明确附件。本批已生成 B699-R7-ABD-task-pack-20260912.zip，三份任务入口与同一附件绑定，见DISPATCH.md；此补充取代先前三包分别投递的安排。
 
 起点：main `1215a7541a394233cb038cddd98127e32323722e`（PR #12已合并）；Leader `a4f512836bcfbab86cdb081f903c0ea7566ebebd`，两者树相同。保留原Leader历史并纳入main，非强制更新 `GPT-work/leader-integration`；新PR指向main，由用户合并。
 

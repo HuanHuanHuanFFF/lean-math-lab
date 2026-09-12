@@ -14,6 +14,7 @@
 
 - [前沿与采用边界](frontier.md)：作者结果的准确覆盖、依赖与失败边界。
 - [三份下一轮任务](prompts/README.md)：A消去指数、B检验素数立方分支、D一般结构与自由探索。
+- [统一附件与投递](DISPATCH.md)：三份任务共用一个ZIP，包含最新三原包、完整任务与阅读入口。
 - [接受责任](acceptance.md)：作者核验、待独立复核、待Lean分开记录。
 - [原包清单](ARCHIVES.json) · [逐文件来源](SOURCE_MAP.json) · [完整环境恢复](restore_archives.py)。
 - [发布交接](handoff.md)。

@@ -4,7 +4,7 @@
 
 原题：对自然数 n,i,j，1≤i<j≤⌊n/2⌋ 时，存在同一个素数 p≥i，同时整除 C(n,i)、C(n,j)。保留 p=i、完整素数幂；D=V仅在完整noCommon下使用。
 
-使用本条所附最新A/B/D三包。先读自己的REPORT、HANDOFF、PROOFS相关节、MINIMAL_INTERFACE和FAILURES，再读B的新双侧缺陷与素数幂结果；A按所选路线读取。
+使用所附唯一任务包 B699-R7-ABD-task-pack-20260912.zip，先读 START_HERE.md 中的 D 路径。先读自己的REPORT、HANDOFF、PROOFS相关节、MINIMAL_INTERFACE和FAILURES，再读B的新双侧缺陷与素数幂结果；A按所选路线读取。
 
 你的新前沿保留：
 - 完整noCommon下，N的两个、K的三个分配因子全部>1且两两互素；ω(N)≤1或ω(K)≤2的整行已排除。
