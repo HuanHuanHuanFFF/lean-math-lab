@@ -1,3 +1,5 @@
+> 当前交接（2026-09-12）：A151项及统一入口、B的i11全域通过；28/31/34仅高度通过。本轮已按用户要求停止。见 [最终交接](notes/huan-final-handoff-20260912.md) 与 [前沿](frontier.md)。以下为历史记录。
+
 # 验收登记
 
 固定 FiniteCover 接受根已真实复现。专用 CI `34509012170` 在源码 `5014f89e25cbf12804549ed0d4f34b4998103cb6` 上实际安装 Lean 4.33.1，恢复全部固定依赖及目标导入闭包，最小导入与 21 个固定源码闭包均退出 0。严格验收器检查固定源 SHA、独立输出、全部声明的公理输出以及 std3 限制。详细证据路径、准确命令和 artifact 哈希见 `verification/preflight/finitecover-ci-reproduced.json`；原始通过日志节选见同名 `.log`。

@@ -1,0 +1,31 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.ZeroBoundaryLogBoxes.TypedAudit
+
+#print axioms Math.B699.ZeroBoundaryLogBoxes.partialSum
+#print axioms Math.B699.ZeroBoundaryLogBoxes.smallLower
+#print axioms Math.B699.ZeroBoundaryLogBoxes.smallUpper
+#print axioms Math.B699.ZeroBoundaryLogBoxes.coarseUpper
+#print axioms Math.B699.ZeroBoundaryLogBoxes.scaleExponent
+#print axioms Math.B699.ZeroBoundaryLogBoxes.scalePower
+#print axioms Math.B699.ZeroBoundaryLogBoxes.normalizedArgument
+#print axioms Math.B699.ZeroBoundaryLogBoxes.logLower
+#print axioms Math.B699.ZeroBoundaryLogBoxes.logUpper
+#print axioms Math.B699.ZeroBoundaryLogBoxes.comparison_zero
+#print axioms Math.B699.ZeroBoundaryLogBoxes.comparison_one_third
+#print axioms Math.B699.ZeroBoundaryLogBoxes.comparison_one_fifth
+#print axioms Math.B699.ZeroBoundaryLogBoxes.comparison_one_ninth
+#print axioms Math.B699.ZeroBoundaryLogBoxes.normalization_two
+#print axioms Math.B699.ZeroBoundaryLogBoxes.normalization_three
+#print axioms Math.B699.ZeroBoundaryLogBoxes.normalization_five
+#print axioms Math.B699.ZeroBoundaryLogBoxes.realRatio
+#print axioms Math.B699.ZeroBoundaryLogBoxes.partialSum_cast
+#print axioms Math.B699.ZeroBoundaryLogBoxes.realRatio_pos
+#print axioms Math.B699.ZeroBoundaryLogBoxes.finite_series_bounds
+#print axioms Math.B699.ZeroBoundaryLogBoxes.old_box_of_finite_comparison
+#print axioms Math.B699.ZeroBoundaryLogBoxes.scaled_log_box
+#print axioms Math.B699.ZeroBoundaryLogBoxes.log_bounds_of_normalization
+#print axioms Math.B699.ZeroBoundaryLogBoxes.normalization_two_real
+#print axioms Math.B699.ZeroBoundaryLogBoxes.normalization_three_real
+#print axioms Math.B699.ZeroBoundaryLogBoxes.normalization_five_real
+#print axioms Math.B699.ZeroBoundaryLogBoxes.log_two_bounds
+#print axioms Math.B699.ZeroBoundaryLogBoxes.log_three_bounds
+#print axioms Math.B699.ZeroBoundaryLogBoxes.log_five_bounds

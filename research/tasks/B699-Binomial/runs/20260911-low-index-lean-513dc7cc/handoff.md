@@ -1,3 +1,5 @@
+> 当前交接（2026-09-12）：A151项及统一入口、B的i11全域通过；28/31/34仅高度通过。本轮已按用户要求停止。见 [最终交接](notes/huan-final-handoff-20260912.md) 与 [前沿](frontier.md)。以下为历史记录。
+
 # huan 当前恢复入口（2026-09-11）
 
 本轮已接续至隔离huan分支，固定基线9d4228e3ed0de4bb6b8e555ca59af3f53d578c67。当前状态见frontier.md与notes/huan-execution-5e2d13bb.md；两个附件的原字节解压及校验在本机独立暂存目录保留。旧tail run及原工作区未改动。

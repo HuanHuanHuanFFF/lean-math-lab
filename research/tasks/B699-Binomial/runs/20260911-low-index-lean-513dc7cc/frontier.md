@@ -1,14 +1,10 @@
-# 本轮前沿（2026-09-12 i11 完整验收后继续）
+# 本轮前沿（2026-09-12，用户要求停止）
 
-A 固定151项及 [统一入口](lean/HuanAllA.lean) 已验收；B 已接受 i=11，现为 **1/19**。完整集合由 [target-status](target-status.json) 维护。每项保留全部合法 n,j、p≥i 和完整素数幂；未解决整个 B699，新颖性未评估。
+A151项及统一入口已验收；B的i=11全域原题已验收，B为1/19。i=28、31、34的反例范围已由Lean严格降至n<2^15360；有限闭包未完成。原题B699未解决，新颖性未评估。
 
-**i11 全域原题已经闭合。** [独立入口](lean/HuanI11.lean)、[固定收据](verification/huan-accepted/row011.json) 和 [完整报告](notes/huan-i11-full-original-acceptance.md) 绑定源码、日志、对象及标准三公理范围。五条实际 Padé 边、15360位初始高度、387指数块、24张CRT矩形、四级下降、1055个终端候选区间和六张完整归属表均已接入最终原题。内存拆分只改变证明粒度，原数值与声明保留。
+[最终交接](notes/huan-final-handoff-20260912.md) 汇总固定证据、最后诊断、冻结候选和恢复顺序。直接入口：[A统一](lean/HuanAllA.lean)、[i11](lean/HuanI11.lean)、[三个高度](lean/CriticalPadeHeight/Final.lean)。各数学子任务已冻结；用户要求推送当前成果并创建合并PR，主任务不继续后台研究。
 
-当前优先补验 **i=28、31、34 的 n<2^15360 高度**。2/5 的33位移实际边与三个通用结构模块已经通过；显式类型审计缺少公理打印导致收据拒绝，现补齐打印并排入重新验收，未修改验收门槛。三个最终高度及有限闭包尚未接受，不能增加B计数。见 [路线](experiments/huan-critical-height-three-indices-5e2d13bb/route.json)。
-
-[有限复用审计](experiments/huan-critical-finite-reuse-audit-5e2d13bb/REPORT.md) 表明旧 M0=2^53 的55对、138545比例证书可在新高度下继续采用，仍缺Lean对数盒、整数分离、全量证书和原题连接。log2/log3/log5盒与两个实际分离样本已有冻结候选，尚未编译。i13、C2等候选及失败修复继续保留；不把局部前置计作全域指标。
-
-本轮无总时限，重型Lean串行、1536MiB预算及512MiB余量门禁不变。用户已明确要求“先push一下,后续边做边push”，正在将已验收成果、源码和研究记录发布到自己的 huan 分支。后续逐个已验闭环提交推送并核对远端；不推main、不合并。最新进程见 [状态](notes/huan-live-process-state.json)。
+当前计数以 [target-status](target-status.json) 为准。旧快照中的B0、A统一待验或发布阻塞仅代表记录时点。旧队列状态不回写，停机事实见最终交接与独占派发器停止记录。
 
 ## 历史检查点（以下保留原记录，不代表当前状态）
 

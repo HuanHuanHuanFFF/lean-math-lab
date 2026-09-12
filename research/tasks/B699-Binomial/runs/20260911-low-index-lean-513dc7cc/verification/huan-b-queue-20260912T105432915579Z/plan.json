@@ -1,0 +1,139 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T09:55:49.542770+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "two-five-gap33-rate",
+      "root": "lean/TwoFiveGap33/RateAudit.lean",
+      "source_sha256": "ef077779c9893e78fc28364d186fbab490a2c20810cc7b6c60aaf339031d8e48",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-instance.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "two-five-gap33-integer-gap",
+      "root": "lean/TwoFiveGap33/GapAudit.lean",
+      "source_sha256": "54cf6b56cf1d8a1d3e35bc45a48238aec4a55eb06a0ec742e9e731e86998397a",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-instance.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/two-five-gap33-rate.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "two-five-gap33-actual-edge",
+      "root": "lean/TwoFiveGap33/EdgeAudit.lean",
+      "source_sha256": "60eae0b1af176850fe4af6677e6909f96499b8e9f9ed1251d8b17e89443b30ab",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-instance.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/two-five-gap33-rate.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/two-five-gap33-integer-gap.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "two-five-gap33-typed-audit",
+      "root": "lean/TwoFiveGap33/TypedAudit.lean",
+      "source_sha256": "822c2a093e48caa38026e0c3cc6b353af6812c5252ef71f76156d67ddb433559",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/two-five-gap33-actual-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "two-five-gap33-full-audit",
+      "root": "lean/TwoFiveGap33/Audit.lean",
+      "source_sha256": "ee2917404d05f2ffea7ccabdf6681eb13034ebc25ceafec3e31195b42f240a25",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/two-five-gap33-typed-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "critical-height-constants",
+      "root": "lean/CriticalPadeHeight/ConstantsAudit.lean",
+      "source_sha256": "f7e4481049fb83827d090a5d08c6c992c01eec81bbe05d52d82b91780bdad958",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-ceil-half.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "critical-height-structure",
+      "root": "lean/CriticalPadeHeight/StructureAudit.lean",
+      "source_sha256": "aaa492e74dd2f99dc8a6e8325513713288058610a3f3a224f6b39c06e2720dc2",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-ceil-half.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "critical-height-components",
+      "root": "lean/CriticalPadeHeight/ComponentsAudit.lean",
+      "source_sha256": "4e089afdf7e93de55145e0430e750d5820be01ddeef07fe9ae68155e0a236735",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-ceil-half.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-structure.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "critical-height-actual-windows",
+      "root": "lean/CriticalPadeHeight/WindowsAudit.lean",
+      "source_sha256": "653e940c41e00938f150b8b4fe2458834e88be5af0873af54329a991dfe5e7a0",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-ceil-half.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-components.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/two-five-gap33-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "critical-height-three-original-bounds",
+      "root": "lean/CriticalPadeHeight/FinalAudit.lean",
+      "source_sha256": "7997e6e7338fc3240e8478b56a0635fbb49033630867e5199ce9af5cee6d4f82",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-ceil-half.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-constants.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-structure.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-components.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-actual-windows.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "critical-height-typed-audit",
+      "root": "lean/CriticalPadeHeight/TypedAudit.lean",
+      "source_sha256": "28e83a5589e354d4f9f45625f88effabe4f1017233b089e08215f713b1756c7c",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-three-original-bounds.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "critical-height-full-audit",
+      "root": "lean/CriticalPadeHeight/Audit.lean",
+      "source_sha256": "e814831683209e447987400439c3addf5003630e41fdb1f7148bdfca0e2e2f07",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-typed-audit.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0,
+  "scope": "gap33actualedge and three28/31/34originalnoCommonheightbounds only",
+  "version": "v50",
+  "reason": "Complete typed axiom outputs; prioritize actual bounds for 28,31,34; reuse only complete verified receipts"
+}

@@ -1,0 +1,194 @@
+name: B699 huan bundled phase A rows
+
+on:
+  # A new commit on this narrowly scoped huan branch registers and runs the
+  # workflow only when this workflow or its read-only driver changes.
+  push:
+    branches:
+      - 'huan/b699-low-index-lean-20260911-5e2d13bb'
+    paths:
+      - '.github/workflows/b699-huan-bundled.yml'
+      - 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/ci_bundled_rows.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: b699-huan-bundled-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  B699_RUN: 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc'
+  B699_RAW: '.tools/20260911-low-index-lean-513dc7cc'
+  B699_SHARED_ROOT: 'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/SharedEnvironment.lean'
+  PYTHONUNBUFFERED: '1'
+
+jobs:
+  shared:
+    name: shared 26-source acceptance
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout the triggering commit only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Assert the checkout is the fixed run commit
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+
+      - name: Observe runner resources and cgroup limits
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil, subprocess
+          for name in ('memory.max', 'memory.current', 'cpu.max'):
+              path = Path('/sys/fs/cgroup') / name
+              print(name, path.read_text().strip() if path.is_file() else 'unavailable')
+          print('disk', shutil.disk_usage('.'))
+          print('meminfo', [line for line in Path('/proc/meminfo').read_text().splitlines()
+                            if line.startswith(('MemTotal:', 'MemAvailable:'))])
+          print(subprocess.run(['ps', '-eo', 'pid,ppid,rss,comm', '--sort=-rss'],
+                               capture_output=True, text=True, check=False).stdout[:1800])
+          PY
+
+      - name: Install the pinned Lean toolchain without caches
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+
+      - name: Restore only the fixed package pins
+        run: python3 "$B699_RUN/verification/runner/verify_environment.py" --repo . --mode cache
+
+      - name: Recompile shared 26-source closure with strict std3 audit
+        run: >-
+          python3 "$B699_RUN/verification/runner/verify_incremental.py"
+          --repo . --root "$B699_SHARED_ROOT" --memory-mb 3072 --timeout 900
+
+      - name: Export the hash-checked shared object bundle
+        run: >-
+          python3 "$B699_RUN/verification/runner/cache_bundle.py" export
+          --root "$B699_SHARED_ROOT" --archive "$B699_RAW/ci-shared/shared.zip"
+
+      - name: Upload only bounded shared source, object, log, and pin evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-huan-shared-${{ github.run_id }}
+          path: ${{ env.B699_RAW }}/ci-shared/shared.zip
+          include-hidden-files: true
+          retention-days: 3
+          if-no-files-found: error
+
+  rows-left:
+    name: rows 72-124 serial
+    needs: shared
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      B699_SHARD: left
+      # This is an explicit snapshot of rows that were pending in
+      # target-status.json when this workflow was prepared.
+      B699_ROW_INDICES_JSON: >-
+        [72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124]
+    steps:
+      - name: Checkout the triggering commit only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Install the pinned Lean toolchain without caches
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+
+      - name: Restore only the fixed package pins
+        run: python3 "$B699_RUN/verification/runner/verify_environment.py" --repo . --mode cache
+
+      - name: Download and hash-check the shared acceptance bundle
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: b699-huan-shared-${{ github.run_id }}
+          path: ${{ env.B699_RAW }}/ci-shared
+
+      - name: Import shared 26-source objects and run this shard serially
+        run: |
+          python3 "$B699_RUN/verification/runner/cache_bundle.py" import --archive "$B699_RAW/ci-shared/shared.zip"
+          python3 "$B699_RUN/verification/runner/ci_bundled_rows.py" --repo . --shard "$B699_SHARD" --memory-mb 3072 --timeout 900 --block-size 64 --artifact-max-bytes 536870912
+
+      - name: Upload this shard's bounded source, plan, object, log, and state evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-huan-${{ env.B699_SHARD }}-${{ github.run_id }}
+          path: ${{ env.B699_RAW }}/ci-bundled-artifacts/${{ env.B699_SHARD }}-${{ github.run_id }}
+          include-hidden-files: true
+          retention-days: 3
+          if-no-files-found: error
+
+  rows-right:
+    name: rows 125-184 serial
+    needs: shared
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    env:
+      B699_SHARD: right
+      # This is an explicit snapshot of rows that were pending in
+      # target-status.json when this workflow was prepared.
+      B699_ROW_INDICES_JSON: >-
+        [125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184]
+    steps:
+      - name: Checkout the triggering commit only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Install the pinned Lean toolchain without caches
+        uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+
+      - name: Restore only the fixed package pins
+        run: python3 "$B699_RUN/verification/runner/verify_environment.py" --repo . --mode cache
+
+      - name: Download and hash-check the shared acceptance bundle
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: b699-huan-shared-${{ github.run_id }}
+          path: ${{ env.B699_RAW }}/ci-shared
+
+      - name: Import shared 26-source objects and run this shard serially
+        run: |
+          python3 "$B699_RUN/verification/runner/cache_bundle.py" import --archive "$B699_RAW/ci-shared/shared.zip"
+          python3 "$B699_RUN/verification/runner/ci_bundled_rows.py" --repo . --shard "$B699_SHARD" --memory-mb 3072 --timeout 900 --block-size 64 --artifact-max-bytes 536870912
+
+      - name: Upload this shard's bounded source, plan, object, log, and state evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-huan-${{ env.B699_SHARD }}-${{ github.run_id }}
+          path: ${{ env.B699_RAW }}/ci-bundled-artifacts/${{ env.B699_SHARD }}-${{ github.run_id }}
+          include-hidden-files: true
+          retention-days: 3
+          if-no-files-found: error
