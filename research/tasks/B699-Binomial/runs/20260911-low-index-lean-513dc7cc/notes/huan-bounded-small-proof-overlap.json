@@ -1,0 +1,17 @@
+{
+  "updated_utc": "2026-09-11T10:41:15.557214+00:00",
+  "reason": "Historical35 J2 has508 blocks. Avoid holding an independent small floor lemma behind the whole package.",
+  "observed_available_physical_mb": 4141,
+  "heavy_verifier_session": 2103,
+  "heavy_limit_mb": 2048,
+  "small_root": "lean/RationalDivisor/FloorLayers.lean",
+  "small_limit_mb": 512,
+  "unchanged_reserved_headroom_mb": 512,
+  "combined_lean_memory_caps_mb": 2560,
+  "policy": "Only one <=512MiB independent small checker may overlap; heavy Lean jobs stay serial. Existing strict per-module memory gates remain unchanged; no other user processes touched. Failure at512 is retained and does not justify raising the overlapping limit.",
+  "proof_acceptance_unchanged": true,
+  "status": "experiment_finished_no_more_overlap",
+  "observed_result": "Even Nat.Basic import plus reflexivity failed at512 with memory_exception; not a specific floor proof failure. No increased overlapping cap attempted.",
+  "diagnostic_evidence": "verification/20260911T103847135158Z/evidence.json",
+  "next_action": "All further Lean proofs wait for a safe serial slot; historical35 continues."
+}

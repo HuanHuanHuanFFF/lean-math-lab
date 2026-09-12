@@ -1,0 +1,61 @@
+{
+  "utc": "2026-09-11T17:41:19.413198+00:00",
+  "owner": "/root/pade_construction",
+  "authorization": "Only integrated lean/I11Scaled/RatBounds.lean and this new review directory; no Lean/Git/other source changes.",
+  "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Scaled/RatBounds.lean",
+  "before_sha256": "a47d9d0ef88a10a47e4e8fbf954636d97227d4515932a5d6f94b5cc2579159b1",
+  "after_sha256": "b6d44c355213e6513ca30b440af47efcc731cdbec86a2838c9e22ac9ddb392b8",
+  "bytes_before": 1738,
+  "bytes_after": 1742,
+  "actual_failed_evidence": {
+    "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T171356669181Z/evidence.json",
+    "sha256": "5873c4d761450354dcd7f8b9c0c65d8999a821d85ba81aa0847fd0fe59984cf4"
+  },
+  "actual_failed_log": {
+    "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T170430474433Z/13-i11-scaled-rat-bounds.log",
+    "sha256": "6b4a469b0d96e0c8c1924a0d51182eef87cfc0617a704103535cb16ffe034555"
+  },
+  "actual_errors": [
+    "line27: failed to synthesize MulRightStrictMono ℚ",
+    "line28: No goals to be solved",
+    "weighted_bound_lt print includes sorryAx; entire failed run not accepted"
+  ],
+  "changed_line": 27,
+  "exact_change": {
+    "before": "apply (mul_lt_mul_left hl).mp",
+    "after": "apply (Rat.mul_lt_mul_left hl).mp"
+  },
+  "lemma_source": {
+    "path": "D:\\CodingProject\\Math\\.tools\\elan\\toolchains\\leanprover--lean4---v4.33.1\\src\\lean\\Init\\Data\\Rat\\Lemmas.lean",
+    "sha256": "ce12cfc6648530087a7b13d59729c73bd605e71d6db0ba7a189287e5ffc4af6c",
+    "lines": [
+      901,
+      902
+    ],
+    "statement": "Rat.mul_lt_mul_left {a b c : Rat} (hc : 0 < c) : c*a < c*b iff a < b"
+  },
+  "mismatched_generic_source": {
+    "path": "D:\\CodingProject\\Math\\.tools\\pi5e2d\\mathlib\\Mathlib\\Algebra\\Order\\Monoid\\Unbundled\\Basic.lean",
+    "sha256": "d1487f01ffdc094065987d7e21bcd60023585ba9e7ec2f1e03866224eb888194",
+    "lines": [
+      129,
+      132
+    ],
+    "statement": "mul_lt_mul_left [MulRightStrictMono alpha] (bc : b<c) (a:alpha) : b*a<c*a"
+  },
+  "explanation": "Qualify the rational positive-factor cancellation equivalence. With c=l,a=k*x,b=r its forward direction reduces the existing goal to l*(k*x)<l*r, exactly the existing calc. No global multiplication monotonicity instance is required.",
+  "statements_unchanged": true,
+  "imports_unchanged": true,
+  "hypotheses_added": [],
+  "static_single_replacement_verified": true,
+  "audit_roots_unchanged": true,
+  "expected_audit_roots": [
+    "Math.B699.I11ScaledBounds.normalized_abs_bound\r",
+    "Math.B699.I11ScaledBounds.weighted_bound_lt\r",
+    "Math.B699.I11ScaledBounds.ratio_pow_mul\r",
+    "Math.B699.I11ScaledBounds.sum_lt_of_twice_lt\r"
+  ],
+  "worker_lean_invocations": 0,
+  "status": "MINIMAL_REPAIR_FROZEN_PENDING_PRIMARY_REAL_REVERIFICATION",
+  "new_original_indices": []
+}

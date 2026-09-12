@@ -1,0 +1,64 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T20:17:55.713535+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "rational-divisor-adjacent",
+      "root": "lean/I11DivisorSevenTwo/AdjacentAudit.lean",
+      "source_sha256": "0359c77916d9734e3f8bb77a8fba78f379e7b3a683c1a9b18b0f818eaab1b673",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-content.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-5-4.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-divisor-actual",
+      "root": "lean/I11DivisorSevenTwo/ActualAudit.lean",
+      "source_sha256": "7189aea14e24684ca8029219404a500a2a53626b3d915be1b5b9e2fa64a1fd8c",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-adjacent.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-divisor-polynomials",
+      "root": "lean/I11DivisorSevenTwo/CertificatesAudit.lean",
+      "source_sha256": "1c828c299dcd48ea76052fc7a6b51244995b367b860431b3c9780d03dc72d236",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-divisor-actual.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-divisor-bounds",
+      "root": "lean/I11DivisorSevenTwo/BoundsAudit.lean",
+      "source_sha256": "dfc9bb0a26fd54b0bc9665ef21bb1c3972a88e2df9d818c656c35f3765d3747f",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-divisor-polynomials.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-divisor-threshold",
+      "root": "lean/I11DivisorSevenTwo/ThresholdAudit.lean",
+      "source_sha256": "63ccf10a3be867969e1c6aeb67f3aa0ffd916267fef5d87e90f8bb69bc82f840",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-divisor-bounds.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/elementary-rate.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-divisor-finite",
+      "root": "lean/I11DivisorSevenTwo/Audit.lean",
+      "source_sha256": "6452fd336876613fb6d7ac4bb713884b00389ff29283362688e9eaa77a56a96b",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-divisor-threshold.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

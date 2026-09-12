@@ -1,0 +1,194 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T19:09:21.201203+00:00",
+  "status": "prepared",
+  "prior_queues": [
+    "verification/huan-b-queue-20260911T183929664972Z/state.json",
+    "verification/huan-b-queue-20260911T185226315174Z/state.json"
+  ],
+  "jobs": [
+    {
+      "name": "i11-bounded-components",
+      "root": "lean/I11Bounded/Components.lean",
+      "source_sha256": "dccfe09a7594bf141ca35a2fd799d1ff3082d18ffe595e0358421791bb86d41c",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-bounded-strict-small-part.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-bounded-actual-bridge",
+      "root": "lean/I11Bounded/ActualBridge.lean",
+      "source_sha256": "612a8c2b665dd53bb92f5cc2b8aa41bd6eec3654464daac5c3af0e9d9073e5a6",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-bounded-components.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-bounded-window-bounds.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "crt-pair-parameterization",
+      "root": "lean/CrtPair/ParameterizationAudit.lean",
+      "source_sha256": "6d27151968179989daf7d6a985ed594db362f77b67e1dbe5de1990e3c1ba956e",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-block-sample-complete.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "crt-pair-complete",
+      "root": "lean/CrtPair/Audit.lean",
+      "source_sha256": "6192cc9ef2a64736984c161c6d2efff3e694c06dcba4bb51ded2d0e9936f3042",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-pair-parameterization.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-witness-pilot",
+      "root": "lean/I11Terminal/WitnessPilot.lean",
+      "source_sha256": "b4b86e99321576ee8296c275ce2a80a0bfe0b3d5dc03a6c295a1225a3967db73",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json"
+      ],
+      "memory_mb": 1280
+    },
+    {
+      "name": "i11-scaled-gap",
+      "root": "lean/I11Scaled/ScaledGap.lean",
+      "source_sha256": "9eee2fa7dba19a9d391a53e74332e6f1bc5b14dd92540387ba33bd9fc05da6ef",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-actual-bounds.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-scaled-selected-edge",
+      "root": "lean/I11Scaled/SelectedEdge.lean",
+      "source_sha256": "e9afcc4a18713a98e7af582d9ed64dfabeaf2cb95d6988940132a735abf72904",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-gap.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-scaled-small-certificates",
+      "root": "lean/I11Scaled/SmallCertificates.lean",
+      "source_sha256": "0ae8e19eda35ca904f02ab66c0c7fc6bf6b28aad65190a8068c720d39d50d0fe",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-growth-inputs.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-gap.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-three-fixed-edge",
+      "root": "lean/I11Scaled/FixedEdge.lean",
+      "source_sha256": "696dcceef0e2982103d2397a1e04cb04fc90b731cd0de353bad846f7ab6bc864",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-selected-edge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-small-certificates.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-three-actual-numeric",
+      "root": "lean/I11Numeric/ActualNumeric.lean",
+      "source_sha256": "6f4072493d32babd114f957a73d53656f9013c00d5b3bb30714454fdb0e58231",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-fixed-edge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-numeric-selector.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-ratio-power.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-component-window-pair",
+      "root": "lean/I11Component/WindowPair.lean",
+      "source_sha256": "462092e2203da235af103758b3f8af9c3cc3a1b73a8b734fb52e6f1ce3899e57",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-ceil-half.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual-numeric.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-three-component-edge",
+      "root": "lean/I11Component/ActualComponentEdge.lean",
+      "source_sha256": "7b3e89c505548d1276134b43aa9652b0b7a476f11ea593ca32643a0c70ef4998",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-window-pair.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual-numeric.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-three-actual-component-edge",
+      "root": "lean/I11Component/ActualInstance.lean",
+      "source_sha256": "1eacf0cf2993577e22b09448a01543ab5671e67a600e20b15218ba5871a9e5aa",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-growth-tree.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-component-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "crt-grid-cell",
+      "root": "lean/CrtGrid/Cell.lean",
+      "source_sha256": "46b5dba8e7762f28a0c5598da9354c2c5882e775e73877f0e5890b41ef71788f",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-pair-complete.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "crt-grid-height-cap",
+      "root": "lean/CrtGrid/HeightCap.lean",
+      "source_sha256": "0001f7c2cddac643f07089bf72a61e338314310cb7bf0d43c14ba7d1bdfa813b",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-cell.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "crt-grid-rectangles",
+      "root": "lean/CrtGrid/Grid.lean",
+      "source_sha256": "f5ff603661d00dbc36a12b4dce05a1e2ffdd303c693a5599bca5ff4077cd2adf",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-height-cap.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "crt-grid-stage0-real-cell",
+      "root": "lean/CrtGrid/Sample37.lean",
+      "source_sha256": "baabff182bfef641cb6f9aaedd8035e58d4ffee3eae0cad8de4c587bf3f67856",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-rectangles.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-crt-stage-metadata",
+      "root": "lean/I11CrtStages/NumericMetadata.lean",
+      "source_sha256": "253965da6e9b38b91e13cce7501fab1eb96118fc1858c5b8e9e0ffd94fb99e11",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-i11.json"
+      ],
+      "memory_mb": 1280
+    },
+    {
+      "name": "i11-two-five-growth-tree",
+      "root": "lean/Growth/I11TwoFiveTree.lean",
+      "source_sha256": "68315d8d101ef9675700c3ae593d2d81151b28ddff5bef4b1543e54adf0186cd",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-growth-tree.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

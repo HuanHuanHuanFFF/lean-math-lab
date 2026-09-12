@@ -1,0 +1,1 @@
+Complete stage0 (2,3), a=1..108,b=1..68. Fourteen disjoint blocks, at most eight a rows each. This supplies one of six scalar CRT prerequisites after true Lean acceptance; B0/19 and initial height/full six-pair stage remain unresolved. Use hierarchical a-to-b lookup; no full-grid decide in composition. All signed displacements and actual height caps are retained.

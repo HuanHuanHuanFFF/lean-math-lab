@@ -1,0 +1,940 @@
+{
+  "utc": "2026-09-11T15:26:04.950144+00:00",
+  "sources": [
+    {
+      "path": "lean/PadeInteger.lean",
+      "sha256": "8aa4bdbd7b3751fe96bd4d953ee68ab5b7fd2fa374cb5ce623d7d460d444044b",
+      "declarations": [
+        {
+          "line": 31,
+          "text": "noncomputable def coefficientPolynomial (n : ℕ) (a : ℕ → ℤ) : ℤ[X] :="
+        },
+        {
+          "line": 34,
+          "text": "theorem coefficientPolynomial_coeff (n r : ℕ) (a : ℕ → ℤ) :"
+        },
+        {
+          "line": 40,
+          "text": "theorem coefficientPolynomial_natDegree_le (n : ℕ) (a : ℕ → ℤ) :"
+        },
+        {
+          "line": 48,
+          "text": "def pCoefficient (A B C r : ℕ) : ℤ :="
+        },
+        {
+          "line": 52,
+          "text": "def qMagnitude (A B C r : ℕ) : ℕ :="
+        },
+        {
+          "line": 55,
+          "text": "def qCoefficient (A B C r : ℕ) : ℤ :="
+        },
+        {
+          "line": 58,
+          "text": "def eCoefficient (A B C r : ℕ) : ℤ :="
+        },
+        {
+          "line": 62,
+          "text": "noncomputable def pPolynomial (A B C : ℕ) : ℤ[X] :="
+        },
+        {
+          "line": 65,
+          "text": "noncomputable def qPolynomial (A B C : ℕ) : ℤ[X] :="
+        },
+        {
+          "line": 68,
+          "text": "noncomputable def ePolynomial (A B C : ℕ) : ℤ[X] :="
+        },
+        {
+          "line": 72,
+          "text": "def qContent (A B C : ℕ) : ℕ :="
+        },
+        {
+          "line": 88,
+          "text": "theorem qContent_dvd_qMagnitude (A B C r : ℕ) (hr : r ≤ A) :"
+        },
+        {
+          "line": 92,
+          "text": "theorem qContent_dvd_qCoefficient (A B C r : ℕ) (hr : r ≤ A) :"
+        },
+        {
+          "line": 99,
+          "text": "theorem qContent_pos (A B C : ℕ) : 0 < qContent A B C := by"
+        },
+        {
+          "line": 111,
+          "text": "def bftContent (c d m delta : ℕ) : ℕ :="
+        },
+        {
+          "line": 115,
+          "text": "def homogeneousValue (n : ℕ) (a : ℕ → ℤ) (x y : ℤ) : ℤ :="
+        },
+        {
+          "line": 120,
+          "text": "theorem homogeneousValue_cast_eq (n : ℕ) (a : ℕ → ℤ) (x y : ℤ) (hy : y ≠ 0) :"
+        },
+        {
+          "line": 141,
+          "text": "def qNormalizedCoefficient (A B C r : ℕ) : ℤ :="
+        },
+        {
+          "line": 144,
+          "text": "def qNormalizedValue (A B C : ℕ) (x y : ℤ) : ℤ :="
+        },
+        {
+          "line": 147,
+          "text": "theorem qContent_mul_normalizedCoefficient (A B C r : ℕ) (hr : r ≤ A) :"
+        },
+        {
+          "line": 152,
+          "text": "theorem qContent_mul_normalizedValue (A B C : ℕ) (x y : ℤ) :"
+        },
+        {
+          "line": 164,
+          "text": "theorem qNormalizedValue_cast_eq (A B C : ℕ) (x y : ℤ) (hy : y ≠ 0) :"
+        }
+      ]
+    },
+    {
+      "path": "lean/Pade/Rows.lean",
+      "sha256": "9436eed58f7a68a64de455efcd13d976ddf171b8f9874fc67fa09f39ea5d9901",
+      "declarations": [
+        {
+          "line": 21,
+          "text": "def normalizedDeterminant (u v : ℕ) (x y : ℤ) : ℤ :="
+        },
+        {
+          "line": 26,
+          "text": "theorem content_product_mul_normalizedDeterminant (u v : ℕ) (x y : ℤ) :"
+        },
+        {
+          "line": 47,
+          "text": "theorem actual_normalized_rows_det_ne_zero (u v : ℕ) (hu : 1 ≤ u) {x y : ℤ}"
+        },
+        {
+          "line": 55,
+          "text": "def actualPRow (u v : ℕ) (x y : ℤ) (upper : Bool) : ℤ :="
+        },
+        {
+          "line": 58,
+          "text": "def actualQRow (u v : ℕ) (x y : ℤ) (upper : Bool) : ℤ :="
+        },
+        {
+          "line": 63,
+          "text": "theorem actual_bft_integer_gap (u v : ℕ) (hu : 1 ≤ u) (x y : ℤ)"
+        }
+      ]
+    },
+    {
+      "path": "lean/Moment/Identity.lean",
+      "sha256": "58ec20412d6b14972eb24176d14c27a766fe4d6b89ebc0a9718f9c8e15f6008e",
+      "declarations": [
+        {
+          "line": 18,
+          "text": "theorem pSource_eq_actual_eval (A B C : ℕ) (z : ℚ) :"
+        },
+        {
+          "line": 27,
+          "text": "theorem qSource_eq_actual_eval (A B C : ℕ) (z : ℚ) :"
+        },
+        {
+          "line": 36,
+          "text": "theorem eSource_eq_actual_eval (A B C : ℕ) (z : ℚ) :"
+        },
+        {
+          "line": 45,
+          "text": "theorem actual_integer_pade_identity (A B C : ℕ) (z : ℚ) :"
+        }
+      ]
+    },
+    {
+      "path": "lean/HomRemainder/RationalHom.lean",
+      "sha256": "b3b9101deb68816685b6a14e87d223d9b228c90a078ed54fd2b6f52d393c0fc0",
+      "declarations": [
+        {
+          "line": 23,
+          "text": "theorem homogeneousValue_cast_q (n : ℕ) (a : ℕ → ℤ) (x y : ℤ) (hy : y ≠ 0) :"
+        },
+        {
+          "line": 44,
+          "text": "theorem p_homogeneousValue_cast_q (A B C : ℕ) (x y : ℤ) (hy : y ≠ 0) :"
+        },
+        {
+          "line": 52,
+          "text": "theorem q_homogeneousValue_cast_q (A B C : ℕ) (x y : ℤ) (hy : y ≠ 0) :"
+        },
+        {
+          "line": 60,
+          "text": "theorem qContent_mul_pNormalizedValue_cast_q (u v : ℕ) (x y : ℤ) :"
+        },
+        {
+          "line": 68,
+          "text": "theorem qContent_mul_qNormalizedValue_cast_q (A B C : ℕ) (x y : ℤ) :"
+        }
+      ]
+    },
+    {
+      "path": "lean/HomRemainder/Remainder.lean",
+      "sha256": "9ce51165d87486001436f9090a1cf164552a04b5c4260b38870a7bc04c71c8dd",
+      "declarations": [
+        {
+          "line": 24,
+          "text": "theorem raw_homogeneous_remainder_q (u v : ℕ) (x y : ℤ) (hy : y ≠ 0) :"
+        },
+        {
+          "line": 96,
+          "text": "theorem normalized_remainder_q (u v : ℕ) (x y : ℤ) (hy : y ≠ 0) :"
+        },
+        {
+          "line": 124,
+          "text": "theorem normalized_integer_error_cast_q (u v : ℕ) (x y : ℤ) (hy : y ≠ 0) :"
+        }
+      ]
+    },
+    {
+      "path": "lean/DiscreteSelector/LeastExponent.lean",
+      "sha256": "a2379bb7bcc693e63b171b53a5b34fa155d172fec1eeaafb85a6ff25203548a1",
+      "declarations": [
+        {
+          "line": 15,
+          "text": "theorem exists_power_above_four_mul (Z Y : ℕ) (hZ : 1 < Z) :"
+        },
+        {
+          "line": 19,
+          "text": "def leastExponent (Z Y : ℕ) (hZ : 1 < Z) : ℕ :="
+        },
+        {
+          "line": 22,
+          "text": "theorem leastExponent_threshold (Z Y : ℕ) (hZ : 1 < Z) :"
+        },
+        {
+          "line": 26,
+          "text": "theorem leastExponent_minimal (Z Y : ℕ) (hZ : 1 < Z)"
+        },
+        {
+          "line": 30,
+          "text": "theorem leastExponent_pos (Z Y : ℕ) (hZ : 1 < Z) (hY : 0 < Y) :"
+        },
+        {
+          "line": 38,
+          "text": "theorem leastExponent_previous (Z Y : ℕ) (hZ : 1 < Z) (hY : 0 < Y) :"
+        },
+        {
+          "line": 43,
+          "text": "theorem leastExponent_lower_bound (Z Y0 Y M : ℕ) (hZ : 1 < Z)"
+        },
+        {
+          "line": 55,
+          "text": "theorem leastExponent_le_of_threshold (Z Y M : ℕ) (hZ : 1 < Z)"
+        },
+        {
+          "line": 59,
+          "text": "theorem leastExponent_eq_of_bracket (Z Y M : ℕ) (hZ : 1 < Z)"
+        },
+        {
+          "line": 67,
+          "text": "theorem lookahead_rate_extend (Z J alpha M k : ℕ)"
+        },
+        {
+          "line": 80,
+          "text": "theorem capacity_of_previous_bound (Z J alpha M m Y0 Y : ℕ)"
+        },
+        {
+          "line": 103,
+          "text": "theorem leastExponent_capacity (Z J alpha M Y0 Y : ℕ) (hZ : 1 < Z)"
+        },
+        {
+          "line": 115,
+          "text": "theorem leastExponent_two_capacities (Z Jp alphaP Jq alphaQ M Y0 Y : ℕ)"
+        }
+      ]
+    },
+    {
+      "path": "lean/DiscreteSelector/ShortPowerBounds.lean",
+      "sha256": "d22a95a35813976ace68c45bcd2c61c8b25b2236a00834c2d0f33c489315fea6",
+      "declarations": [
+        {
+          "line": 15,
+          "text": "theorem rate_from_short_bases (p Z N alpha a b u v : ℕ)"
+        },
+        {
+          "line": 34,
+          "text": "theorem base_from_short_basis (p N alpha M H a b : ℕ)"
+        },
+        {
+          "line": 50,
+          "text": "theorem lookahead_from_short_bases (p Z N alpha M a b u v : ℕ)"
+        },
+        {
+          "line": 81,
+          "text": "theorem conditions_from_short_bases (p Z N alpha M H a b u v : ℕ)"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11DivisorFiveThree/Threshold.lean",
+      "sha256": "420c2a0bb66a09f69b6fe8e6191dcd972c3dce62d5ef52c9872104d02d9ab16e",
+      "declarations": [
+        {
+          "line": 13,
+          "text": "def normalizedZero (m : ℕ) : ℚ := divisorZero m / targetRate ^ m"
+        },
+        {
+          "line": 14,
+          "text": "def normalizedOne (m : ℕ) : ℚ := divisorOne m / targetRate ^ m"
+        },
+        {
+          "line": 16,
+          "text": "theorem normalized_zero_pos (m : ℕ) : 0 < normalizedZero m :="
+        },
+        {
+          "line": 19,
+          "text": "theorem normalized_one_pos (m : ℕ) : 0 < normalizedOne m :="
+        },
+        {
+          "line": 22,
+          "text": "theorem normalized_zero_one : normalizedZero 1 = 1 / targetRate := by"
+        },
+        {
+          "line": 25,
+          "text": "theorem normalized_one_one : normalizedOne 1 = (3 / 2 : ℚ) / targetRate := by"
+        },
+        {
+          "line": 28,
+          "text": "theorem normalized_zero_rough_step (m : ℕ) (hm : 1 ≤ m) :"
+        },
+        {
+          "line": 51,
+          "text": "theorem normalized_one_rough_step (m : ℕ) (hm : 1 ≤ m) :"
+        },
+        {
+          "line": 74,
+          "text": "theorem normalized_zero_middle_step (m : ℕ) (hm : 29 ≤ m) :"
+        },
+        {
+          "line": 89,
+          "text": "theorem normalized_one_middle_step (m : ℕ) (hm : 1 ≤ m) :"
+        },
+        {
+          "line": 105,
+          "text": "theorem normalized_zero_binary_base : 1 ≤ normalizedZero 29 * (2 : ℚ) ^ 9 := by"
+        },
+        {
+          "line": 115,
+          "text": "theorem normalized_one_binary_base : 1 ≤ normalizedOne 1 * (2 : ℚ) ^ 1 := by"
+        },
+        {
+          "line": 119,
+          "text": "theorem normalized_zero_gt_one (m : ℕ) (hm : 129 ≤ m) : 1 < normalizedZero m := by"
+        },
+        {
+          "line": 129,
+          "text": "theorem normalized_one_gt_one (m : ℕ) (hm : 21 ≤ m) : 1 < normalizedOne m := by"
+        },
+        {
+          "line": 139,
+          "text": "theorem divisor_zero_lower (m : ℕ) (hm : 129 ≤ m) :"
+        },
+        {
+          "line": 146,
+          "text": "theorem divisor_one_lower (m : ℕ) (hm : 21 ≤ m) :"
+        },
+        {
+          "line": 154,
+          "text": "theorem rationalDivisor_five_three_lower (delta m : ℕ)"
+        },
+        {
+          "line": 163,
+          "text": "theorem qContent_five_three_lower (delta m : ℕ)"
+        }
+      ]
+    },
+    {
+      "path": "lean/Factorial/Factorial5D3.lean",
+      "sha256": "7cfa8bd0e0a7580506ab8e2db6127d26624753a31c7ddb5f046979ed2312b4e8",
+      "declarations": [
+        {
+          "line": 21,
+          "text": "def numerator_5_3 (m : ℚ) : ℚ :="
+        },
+        {
+          "line": 24,
+          "text": "def denominator_5_3 (m : ℚ) : ℚ :="
+        },
+        {
+          "line": 27,
+          "text": "def ratio_5_3 (m : ℚ) : ℚ :="
+        },
+        {
+          "line": 33,
+          "text": "theorem certificate_5_3 (x : ℚ) (hx : 0 ≤ x) :"
+        },
+        {
+          "line": 44,
+          "text": "theorem ratio_bound_5_3 (m : ℚ) (hm : 1 ≤ m) :"
+        },
+        {
+          "line": 62,
+          "text": "theorem factorial_step_zero_5_3 (k : ℕ) :"
+        },
+        {
+          "line": 84,
+          "text": "theorem factorial_step_bound_zero_5_3 (m : ℕ) (hm : 1 ≤ m) :"
+        },
+        {
+          "line": 94,
+          "text": "theorem factorial_step_bound_5_3 (delta m : ℕ)"
+        },
+        {
+          "line": 107,
+          "text": "theorem factorial_telescoping_5_3 (delta m : ℕ)"
+        },
+        {
+          "line": 117,
+          "text": "theorem factorial_uniform_5_3 (delta m : ℕ)"
+        },
+        {
+          "line": 129,
+          "text": "theorem factorial_initial_constants_5_3 :"
+        },
+        {
+          "line": 135,
+          "text": "theorem factorial_strict_k_5_3 (delta m : ℕ)"
+        },
+        {
+          "line": 143,
+          "text": "theorem factorial_envelope_lt_half_5_3 (delta m : ℕ)"
+        },
+        {
+          "line": 161,
+          "text": "theorem factorial_full_bound_5_3 (delta m : ℕ)"
+        }
+      ]
+    },
+    {
+      "path": "lean/Growth/ActualKernel.lean",
+      "sha256": "82962fb0fffebcb9fe1fdf6054ad861300365106cb85c2a150962c227949622a",
+      "declarations": [
+        {
+          "line": 30,
+          "text": "theorem qKernel_eq_weight_core (c d delta m : ℕ) (z : ℚ)"
+        },
+        {
+          "line": 38,
+          "text": "theorem eKernel_eq_weight_core (c d delta m : ℕ) (z : ℚ)"
+        },
+        {
+          "line": 46,
+          "text": "theorem qKernel_abs_moment_bound (c d delta m : ℕ) (z lam : ℚ)"
+        },
+        {
+          "line": 54,
+          "text": "theorem eKernel_abs_moment_bound (c d delta m : ℕ) (z lam : ℚ)"
+        },
+        {
+          "line": 62,
+          "text": "theorem prefactor_pos (A B C : ℕ) : 0 < prefactor A B C := by"
+        },
+        {
+          "line": 68,
+          "text": "theorem actual_q_eval_bound (c d delta m : ℕ) (z lam : ℚ)"
+        },
+        {
+          "line": 82,
+          "text": "theorem actual_e_eval_bound (c d delta m : ℕ) (z lam : ℚ)"
+        }
+      ]
+    },
+    {
+      "path": "lean/Growth/Normalization.lean",
+      "sha256": "83c909757f3c03f48163de8b1733ce6dd9e817cd417f775f1df254ed7a266a4d",
+      "declarations": [
+        {
+          "line": 16,
+          "text": "noncomputable def actualQ (c d delta m : ℕ) (z : ℚ) : ℚ :="
+        },
+        {
+          "line": 20,
+          "text": "noncomputable def actualE (c d delta m : ℕ) (z : ℚ) : ℚ :="
+        },
+        {
+          "line": 24,
+          "text": "theorem prefactor_eq_factorialTerm (c d delta m : ℕ)"
+        },
+        {
+          "line": 46,
+          "text": "theorem actualQ_one_abs (c d delta : ℕ) (z : ℚ)"
+        },
+        {
+          "line": 61,
+          "text": "theorem actualE_one_abs (c d delta : ℕ) (z : ℚ)"
+        },
+        {
+          "line": 76,
+          "text": "theorem q_normalized_constant (c d delta : ℕ) (z lam : ℚ)"
+        },
+        {
+          "line": 84,
+          "text": "theorem e_normalized_constant (c d delta : ℕ) (z lam : ℚ)"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-actual-pade-edge-5e2d13bb/Capacity.lean",
+      "sha256": "c97362e960f47a16acdae38367ea72d359622e88c5819a185f85d40eee9f3c9b",
+      "declarations": [
+        {
+          "line": 11,
+          "text": "theorem small_cofactor_forces_exponent (p e A Y k T weight : ℕ)"
+        },
+        {
+          "line": 31,
+          "text": "theorem least_capacity_forces_exponent"
+        },
+        {
+          "line": 51,
+          "text": "theorem extract_prime_factor (p e k A : ℕ) (hke : k ≤ e) :"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-actual-pade-edge-5e2d13bb/FiveThree.lean",
+      "sha256": "78182ca8704c833137a118d97c5425614c1cb9211bdcc8b56a996e92bc3010ed",
+      "declarations": [
+        {
+          "line": 13,
+          "text": "def fiveThreeZ : ℕ := 5726930071079973414170"
+        },
+        {
+          "line": 14,
+          "text": "def fiveThreeY0 : ℕ := 2 ^ 15359"
+        },
+        {
+          "line": 15,
+          "text": "def fiveThreeM : ℕ := 213"
+        },
+        {
+          "line": 17,
+          "text": "theorem fiveThreeZ_gt_one : 1 < fiveThreeZ := by decide"
+        },
+        {
+          "line": 19,
+          "text": "def fiveThreeIndex (Y : ℕ) : ℕ := leastExponent fiveThreeZ Y fiveThreeZ_gt_one"
+        },
+        {
+          "line": 21,
+          "text": "theorem five_three_index_ge_original_m0 (Y : ℕ) (hY : fiveThreeY0 ≤ Y)"
+        },
+        {
+          "line": 30,
+          "text": "theorem five_three_extract_same_index (Y e f A C : ℕ)"
+        },
+        {
+          "line": 54,
+          "text": "def rowDelta (row : Bool) : ℕ := if row then 0 else 1"
+        },
+        {
+          "line": 56,
+          "text": "theorem rowDelta_cases (row : Bool) : rowDelta row = 0 ∨ rowDelta row = 1 := by"
+        },
+        {
+          "line": 59,
+          "text": "theorem five_three_row_degrees (m : ℕ) (hm : 1 ≤ m) (row : Bool) :"
+        },
+        {
+          "line": 63,
+          "text": "theorem five_three_actual_rows (m : ℕ) (hm : 1 ≤ m) (row : Bool) :"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-actual-pade-edge-5e2d13bb/ActualGap.lean",
+      "sha256": "1404465dd5fc74dda6fdc96dfbc7ce0aa3f86d7473deef79abbf1fe007bbb455",
+      "declarations": [
+        {
+          "line": 11,
+          "text": "theorem extract_prime_factor_int (p : ℤ) (e k : ℕ) (A : ℤ) (hke : k ≤ e) :"
+        },
+        {
+          "line": 16,
+          "text": "theorem five_three_actual_integer_gap (m e f A C : ℕ)"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-actual-pade-edge-5e2d13bb/ActualRemainder.lean",
+      "sha256": "c32bdf94e8194d81ea60096e1ac092047c30e258cf7b9914c07388d7781e2f20",
+      "declarations": [
+        {
+          "line": 14,
+          "text": "theorem five_three_actual_remainder (m : ℕ) (hm : 1 ≤ m) (row : Bool) :"
+        },
+        {
+          "line": 29,
+          "text": "theorem five_three_actual_content_lower (m : ℕ) (hm : 129 ≤ m) (row : Bool) :"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-actual-pade-edge-5e2d13bb/FREEZE.json",
+      "sha256": "2d2f8c3d519cf2cd55f1a7b108c4fdb57cf95f06c9ba518c6915df1eded1441a",
+      "declarations": []
+    },
+    {
+      "path": "experiments/huan-i11-five-three-growth-tree-5e2d13bb/candidate/lean/Growth/I11FiveThreeShared.lean",
+      "sha256": "b4c9dce415c2ab42e30427c8cb0da1234efebcd00ea3173959ee77d3bea3ad0b",
+      "declarations": [
+        {
+          "line": 15,
+          "text": "def qSeedC : ℕ := 5"
+        },
+        {
+          "line": 16,
+          "text": "def qSeedD : ℕ := 3"
+        },
+        {
+          "line": 17,
+          "text": "def qSeedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 18,
+          "text": "def qLam : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 19,
+          "text": "noncomputable def qSeedCore : ℚ[X] := Math.B699.GrowthLeaf.qCore qSeedC qSeedD qSeedZ"
+        },
+        {
+          "line": 20,
+          "text": "noncomputable def qSeedWeight0 : ℚ[X] := Math.B699.GrowthLeaf.qWeight qSeedC qSeedD 0 qSeedZ"
+        },
+        {
+          "line": 21,
+          "text": "noncomputable def qSeedWeight1 : ℚ[X] := Math.B699.GrowthLeaf.qWeight qSeedC qSeedD 1 qSeedZ"
+        },
+        {
+          "line": 23,
+          "text": "def eSeedC : ℕ := 5"
+        },
+        {
+          "line": 24,
+          "text": "def eSeedD : ℕ := 3"
+        },
+        {
+          "line": 25,
+          "text": "def eSeedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 26,
+          "text": "def eLam : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 27,
+          "text": "noncomputable def eSeedCore : ℚ[X] := Math.B699.GrowthLeaf.eCore eSeedC eSeedD eSeedZ"
+        },
+        {
+          "line": 28,
+          "text": "noncomputable def eSeedWeight0 : ℚ[X] := Math.B699.GrowthLeaf.eWeight eSeedC eSeedD 0 eSeedZ"
+        },
+        {
+          "line": 29,
+          "text": "noncomputable def eSeedWeight1 : ℚ[X] := Math.B699.GrowthLeaf.eWeight eSeedC eSeedD 1 eSeedZ"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-five-three-growth-tree-5e2d13bb/candidate/lean/Growth/I11FiveThreeTree.lean",
+      "sha256": "0b79b75d21520ce92834816238f2c9fb0deecec195f6186870f6e31e7b250ba9",
+      "declarations": [
+        {
+          "line": 13,
+          "text": "theorem qTreeNodeLRLDelta0 : GrowthTree qLam (qSeedWeight0).comp (((halfLeft).comp halfRight).comp halfLeft) (qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft) := by"
+        },
+        {
+          "line": 18,
+          "text": "theorem qTreeNodeLRDelta0 : GrowthTree qLam (qSeedWeight0).comp ((halfLeft).comp halfRight) (qSeedCore).comp ((halfLeft).comp halfRight) := by"
+        },
+        {
+          "line": 23,
+          "text": "theorem qTreeNodeLDelta0 : GrowthTree qLam (qSeedWeight0).comp (halfLeft) (qSeedCore).comp (halfLeft) := by"
+        },
+        {
+          "line": 28,
+          "text": "theorem qTreeNodeRootDelta0 : GrowthTree qLam (qSeedWeight0) (qSeedCore) := by"
+        },
+        {
+          "line": 33,
+          "text": "theorem q_tree_delta0 : GrowthTree qLam (qSeedWeight0) (qSeedCore) := by"
+        },
+        {
+          "line": 36,
+          "text": "theorem qTreeNodeLRLDelta1 : GrowthTree qLam (qSeedWeight1).comp (((halfLeft).comp halfRight).comp halfLeft) (qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft) := by"
+        },
+        {
+          "line": 41,
+          "text": "theorem qTreeNodeLRDelta1 : GrowthTree qLam (qSeedWeight1).comp ((halfLeft).comp halfRight) (qSeedCore).comp ((halfLeft).comp halfRight) := by"
+        },
+        {
+          "line": 46,
+          "text": "theorem qTreeNodeLDelta1 : GrowthTree qLam (qSeedWeight1).comp (halfLeft) (qSeedCore).comp (halfLeft) := by"
+        },
+        {
+          "line": 51,
+          "text": "theorem qTreeNodeRootDelta1 : GrowthTree qLam (qSeedWeight1) (qSeedCore) := by"
+        },
+        {
+          "line": 56,
+          "text": "theorem q_tree_delta1 : GrowthTree qLam (qSeedWeight1) (qSeedCore) := by"
+        },
+        {
+          "line": 59,
+          "text": "theorem eTreeNodeLRDelta0 : GrowthTree eLam (eSeedWeight0).comp ((halfLeft).comp halfRight) (eSeedCore).comp ((halfLeft).comp halfRight) := by"
+        },
+        {
+          "line": 64,
+          "text": "theorem eTreeNodeLDelta0 : GrowthTree eLam (eSeedWeight0).comp (halfLeft) (eSeedCore).comp (halfLeft) := by"
+        },
+        {
+          "line": 69,
+          "text": "theorem eTreeNodeRootDelta0 : GrowthTree eLam (eSeedWeight0) (eSeedCore) := by"
+        },
+        {
+          "line": 74,
+          "text": "theorem e_tree_delta0 : GrowthTree eLam (eSeedWeight0) (eSeedCore) := by"
+        },
+        {
+          "line": 77,
+          "text": "theorem eTreeNodeLRDelta1 : GrowthTree eLam (eSeedWeight1).comp ((halfLeft).comp halfRight) (eSeedCore).comp ((halfLeft).comp halfRight) := by"
+        },
+        {
+          "line": 82,
+          "text": "theorem eTreeNodeLDelta1 : GrowthTree eLam (eSeedWeight1).comp (halfLeft) (eSeedCore).comp (halfLeft) := by"
+        },
+        {
+          "line": 87,
+          "text": "theorem eTreeNodeRootDelta1 : GrowthTree eLam (eSeedWeight1) (eSeedCore) := by"
+        },
+        {
+          "line": 92,
+          "text": "theorem e_tree_delta1 : GrowthTree eLam (eSeedWeight1) (eSeedCore) := by"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-approximation-bridge-plan-5e2d13bb/log-free-selector-results.json",
+      "sha256": "663dd7499dbc8fbebbf5aea4fa4e8dc8295bf029987819b95988a1fd2cdf23f2",
+      "declarations": []
+    },
+    {
+      "path": "experiments/huan-i11-approximation-bridge-plan-5e2d13bb/short-power-bases.json",
+      "sha256": "b73798815ff5cac9e84430e2674f07e7932558e6e8e457d376ac0bda096d1923",
+      "declarations": []
+    }
+  ],
+  "matching_receipts_found": [
+    {
+      "path": "verification\\huan-prerequisites\\actual-pade-moment-identity.json",
+      "source_sha_match": true,
+      "contents": {
+        "kind": "verified_prerequisite_not_original_index",
+        "name": "actual-pade-moment-identity",
+        "root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/Identity.lean",
+        "source_sha256": "58ec20412d6b14972eb24176d14c27a766fe4d6b89ebc0a9718f9c8e15f6008e",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T080713590371Z/evidence.json",
+        "output_sha256": "9d86c1ee5eabc93cc8bb047f4c48905b4af24c2e571baf64567a00ef88e5fcf4",
+        "public_axiom_audit": [
+          {
+            "declared_name": "Math.B699.PadeMomentIdentity.pSource_eq_actual_eval",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.PadeMomentIdentity.qSource_eq_actual_eval",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.PadeMomentIdentity.eSource_eq_actual_eval",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.PadeMomentIdentity.actual_integer_pade_identity",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "compiled_modules": 1,
+        "reused_modules": 7,
+        "verification_seconds": 9.769,
+        "new_original_indices": [],
+        "new_B_original_results": 0,
+        "publication_status": "local_verified_commit_and_push_blocked"
+      }
+    },
+    {
+      "path": "verification\\huan-prerequisites\\factorial-extra-5-3.json",
+      "source_sha_match": true,
+      "contents": {
+        "kind": "verified_prerequisite_not_original_index",
+        "name": "factorial-extra-5-3",
+        "root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Factorial/Factorial5D3.lean",
+        "source_sha256": "7cfa8bd0e0a7580506ab8e2db6127d26624753a31c7ddb5f046979ed2312b4e8",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T075805020472Z/evidence.json",
+        "output_sha256": "3ba504b2d9c70b302aa9f5ace740bcd1bce6cb469162fed4c347fb6875aaf948",
+        "public_axiom_audit": [
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.certificate_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.ratio_bound_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_step_zero_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_step_bound_zero_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_step_bound_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_telescoping_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_uniform_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_initial_constants_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_strict_k_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_envelope_lt_half_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.ElementaryFactorialBound.factorial_full_bound_5_3",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "compiled_modules": 1,
+        "reused_modules": 1,
+        "verification_seconds": 11.811,
+        "new_original_indices": [],
+        "new_B_original_results": 0,
+        "publication_status": "local_verified_commit_and_push_blocked"
+      }
+    },
+    {
+      "path": "verification\\huan-prerequisites\\pade-actual-rows.json",
+      "source_sha_match": true,
+      "contents": {
+        "kind": "verified_prerequisite_not_original_index",
+        "name": "pade-actual-rows",
+        "root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/Rows.lean",
+        "source_sha256": "9436eed58f7a68a64de455efcd13d976ddf171b8f9874fc67fa09f39ea5d9901",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T072520428598Z/evidence.json",
+        "output_sha256": "7d5760c0533d08b06ab686f753b33360de623548115fe7da08aa4f6bb7686a83",
+        "public_axiom_audit": [
+          {
+            "declared_name": "Math.B699.PadeActualRows.content_product_mul_normalizedDeterminant",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.PadeActualRows.actual_normalized_rows_det_ne_zero",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          },
+          {
+            "declared_name": "Math.B699.PadeActualRows.actual_bft_integer_gap",
+            "axioms": [
+              "propext",
+              "Classical.choice",
+              "Quot.sound"
+            ]
+          }
+        ],
+        "compiled_modules": 1,
+        "reused_modules": 8,
+        "verification_seconds": 13.123,
+        "new_original_indices": [],
+        "new_B_original_results": 0,
+        "publication_status": "local_verified_commit_and_push_blocked"
+      }
+    }
+  ]
+}

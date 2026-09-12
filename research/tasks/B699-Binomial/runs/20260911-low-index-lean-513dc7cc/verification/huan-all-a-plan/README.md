@@ -1,0 +1,1 @@
+当前统一验收已完成，见acceptance.json。input-manifest.json与static-checks.json保留生成时输入快照，其lean_not_run字段描述生成步骤，不是当前验收状态；实际运行另有不可变manifest副本和严格evidence。后续不要为改注释而改变已验HuanAllA源码。

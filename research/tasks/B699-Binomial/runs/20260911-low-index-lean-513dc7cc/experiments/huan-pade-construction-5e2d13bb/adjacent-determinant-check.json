@@ -1,0 +1,69 @@
+{
+  "utc": "2026-09-11T04:19:21.544553+00:00",
+  "status": "PASS",
+  "script_sha256": "b911bf50c018721d5489625759f51a60d021eee445f78d4f4f37779b4e0aa1f1",
+  "polynomial_determinant_cases": 288,
+  "range": "u=1..18; v=0..15; every polynomial coefficient",
+  "integer_normalization_cases": 5760,
+  "integer_input_grid": "x in {-3,-1,0,1,4}; y in {-2,0,1,5}; includes y=0",
+  "common_three_term_recurrence_checks": 544,
+  "recurrence_range": "u=2..18; v=0..15; both P and Q",
+  "integral_coefficient_checks": 105,
+  "integral_check_range": "u=0..5; v=0..4; all r<=u",
+  "examples": [
+    {
+      "u": 1,
+      "v": 0,
+      "D": 4,
+      "degree": 1,
+      "G_upper": 1,
+      "G_lower": 1
+    },
+    {
+      "u": 1,
+      "v": 1,
+      "D": 6,
+      "degree": 1,
+      "G_upper": 2,
+      "G_lower": 1
+    },
+    {
+      "u": 2,
+      "v": 0,
+      "D": -24,
+      "degree": 3,
+      "G_upper": 1,
+      "G_lower": 2
+    },
+    {
+      "u": 2,
+      "v": 1,
+      "D": -60,
+      "degree": 3,
+      "G_upper": 3,
+      "G_lower": 1
+    },
+    {
+      "u": 3,
+      "v": 0,
+      "D": 120,
+      "degree": 5,
+      "G_upper": 1,
+      "G_lower": 3
+    },
+    {
+      "u": 3,
+      "v": 1,
+      "D": 420,
+      "degree": 5,
+      "G_upper": 4,
+      "G_lower": 3
+    }
+  ],
+  "boundary_failures": {
+    "u0v0_determinant": 0,
+    "u0v0_naively_truncated_rhs": -1,
+    "z0_nonvanishing": "fails for every allowed u,v"
+  },
+  "scope": "exact bounded integer/Fraction checks only; no Lean theorem acceptance and no original B699 coverage"
+}

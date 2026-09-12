@@ -1,0 +1,57 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T08:09:06.236501+00:00",
+  "status": "prepared_not_running",
+  "new_B_original_results": 0,
+  "jobs": [
+    {
+      "name": "i13-actual-cubic-window",
+      "root": "lean/I13Cubic/AWindow.lean",
+      "source_sha256": "0868a4a6a0f03bd9d14c13760e9a8b205f175a149aa6d05e5001507351bf4608",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-actual-cubic-powers",
+      "root": "lean/I13Cubic/APowers.lean",
+      "source_sha256": "a02520b7fe49cf0b48b5c01eb8bd2f2ebe75c451d233b405177d193ba2f38956",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-actual-cubic-window.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-actual-cubic-cofactors",
+      "root": "lean/I13Cubic/ACofactors.lean",
+      "source_sha256": "8cc1ef501bb030b12db9a9ee2000b3310b81922c8a6c66c39a0f53a65d0c82ae",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-actual-cubic-actual",
+      "root": "lean/I13Cubic/AActual.lean",
+      "source_sha256": "4807f3854597eac6b4343ff5eb14bfa17ff21d9ce833229d1efcb636095975cf",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-actual-cubic-powers.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-actual-cubic-cofactors.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-actual-cubic-window.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-actual-cubic-full-audit",
+      "root": "lean/I13Cubic/Audit.lean",
+      "source_sha256": "182225945012016cefcdca315c1b3da264f7e68f04490362269f55a3faf8e072",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-actual-cubic-actual.json"
+      ],
+      "memory_mb": 1536
+    }
+  ]
+}

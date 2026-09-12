@@ -1,0 +1,42 @@
+"""Serial full-row verification with smaller bundles after observed memory failures."""
+from pathlib import Path
+import argparse,json,subprocess,sys,os
+from datetime import datetime,timezone
+RUN=Path('research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc')
+def write(path,data):
+ path.parent.mkdir(parents=True,exist_ok=True);temp=path.with_name(path.name+'.tmp');temp.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n');os.replace(temp,path)
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--repo',type=Path,default=Path('.'));p.add_argument('--package-root',type=Path,required=True);p.add_argument('--memory-mb',type=int,default=1536);p.add_argument('--timeout',type=int,default=900);p.add_argument('--end',type=int,default=184);a=p.parse_args();repo=a.repo.resolve();run=repo/RUN
+ if not 46<=a.end<=184:p.error('end must be a phase-A index46..184')
+ state=json.loads((run/'target-status.json').read_text());pending=[i for i in range(46,a.end+1) if i not in state['completed_phase_a']];stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ');out=run/'verification'/('huan-adaptive-'+stamp);data={'status':'running','started_utc':datetime.now(timezone.utc).isoformat(),'pending_at_start':pending,'block_sizes':[16,8,4],'memory_mb':a.memory_mb,'rows':[]};write(out/'state.json',data)
+ env=dict(os.environ,PYTHONUTF8='1',PYTHONDONTWRITEBYTECODE='1',GIT_OPTIONAL_LOCKS='0')
+ for i in pending:
+  control=run/'verification/huan-control.json'
+  if control.exists() and json.loads(control.read_text()).get('pause_before_next_row'):
+   data.update(status='operator_requested_checkpoint',next_i=i);write(out/'state.json',data);return 75
+  current=json.loads((run/'target-status.json').read_text())
+  if i in current['completed_phase_a']:continue
+  row={'i':i,'status':'running','attempts':[]};data['rows'].append(row);write(out/'state.json',data)
+  for block in data['block_sizes']:
+   before=set((run/'verification').glob('huan-batch-*/state.json'));log=out/f'row{i:03d}-B{block}.log';args=[sys.executable,'-B',str(run/'verification/runner/continue_huan_phase_a.py'),'--repo',str(repo),'--package-root',str(a.package_root.resolve()),'--start',str(i),'--end',str(i),'--block-size',str(block),'--memory-mb',str(a.memory_mb),'--timeout',str(a.timeout)];print('ADAPTIVE_ATTEMPT '+json.dumps({'i':i,'block_size':block,'memory_mb':a.memory_mb}),flush=True)
+   with log.open('w',encoding='utf-8',newline='\n') as stream:rc=subprocess.run(args,cwd=repo,env=env,stdout=stream,stderr=subprocess.STDOUT,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0)).returncode
+   new=set((run/'verification').glob('huan-batch-*/state.json'))-before;attempt={'block_size':block,'exit_code':rc,'driver_log':log.relative_to(repo).as_posix()};row['attempts'].append(attempt)
+   current=json.loads((run/'target-status.json').read_text())
+   if i in current['completed_phase_a']:
+    receipt=run/f'verification/huan-accepted/row{i:03d}.json';accepted=json.loads(receipt.read_text());assert accepted['full_original_statement'] and set(accepted['axioms'])<={'propext','Classical.choice','Quot.sound'};row.update(status='full_original_accepted',accepted_block_size=block,receipt=receipt.relative_to(repo).as_posix(),evidence=accepted['evidence']);write(out/'state.json',data);print('ADAPTIVE_ACCEPTED '+json.dumps({'i':i,'block_size':block,'total_phase_a':len(current['completed_phase_a'])}),flush=True);break
+   if rc==75:data.update(status='operator_requested_checkpoint',next_i=i);write(out/'state.json',data);return 75
+   if len(new)!=1:row.update(status='unresolved_driver_evidence_gap');write(out/'state.json',data);break
+   batchpath=new.pop();batch=json.loads(batchpath.read_text());attempt['batch_state']=batchpath.relative_to(repo).as_posix();record=next((x for x in batch['rows'] if x['i']==i),{});attempt['failure']=record.get('failure',record.get('status'))
+   if rc==2 or batch.get('status')=='resource_checkpoint_requires_adjustment':row['status']='resource_checkpoint_requires_adjustment';data.update(status='resource_checkpoint_requires_adjustment',next_i=i);write(out/'state.json',data);return 2
+   ep=record.get('evidence');memory_failure=False
+   if ep:
+    e=json.loads((repo/ep).read_text());attempt['evidence']=ep
+    for c in e.get('compile_records',[]):
+     if c.get('failure') and c.get('log'):
+      text=(repo/c['log']).read_text(errors='replace').lower();memory_failure|=('memory_exception' in text or 'excessive memory consumption' in text)
+   attempt['observed_memory_failure']=memory_failure;write(out/'state.json',data)
+   if not memory_failure:row['status']='unresolved_non_memory_failure';write(out/'state.json',data);break
+  if row['status']=='running':row['status']='unresolved_after_smaller_bundles'
+  write(out/'state.json',data)
+ current=json.loads((run/'target-status.json').read_text());remaining=[i for i in range(46,a.end+1) if i not in current['completed_phase_a']];data.update(status='requested_original_rows_complete' if not remaining else 'requested_range_attempted_with_unresolved_rows',remaining=remaining,finished_utc=datetime.now(timezone.utc).isoformat());write(out/'state.json',data);print('ADAPTIVE_FINISHED '+json.dumps({'remaining':remaining,'total_phase_a':len(current['completed_phase_a'])}),flush=True);return 0 if not remaining else 1
+if __name__=='__main__':raise SystemExit(main())

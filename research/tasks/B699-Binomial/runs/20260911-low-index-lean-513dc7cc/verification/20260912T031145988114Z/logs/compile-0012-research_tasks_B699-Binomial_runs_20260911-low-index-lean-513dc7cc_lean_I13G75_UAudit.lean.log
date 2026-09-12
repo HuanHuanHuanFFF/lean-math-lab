@@ -1,0 +1,50 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T031145988114Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/UAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/UAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T03:12:31.770062Z
+# finished_utc: 2026-09-12T03:12:40.564972Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I13G75Uniform.scaledZero : ℕ → ℚ
+'Math.B699.I13G75Uniform.scaledZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.scaled_zero_one : Math.B699.I13G75Uniform.scaledZero 1 = 23
+'Math.B699.I13G75Uniform.scaled_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.scaled_zero_step : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.scaledZero m * Math.B699.I13G75Uniform.infiniteRate ≤
+      Math.B699.I13G75Uniform.scaledZero (m + 1)
+'Math.B699.I13G75Uniform.scaled_zero_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.scaled_zero_lower : ∀ (m : ℕ),
+  1 ≤ m → 23 * Math.B699.I13G75Uniform.infiniteRate ^ (m - 1) ≤ Math.B699.I13G75Uniform.scaledZero m
+'Math.B699.I13G75Uniform.scaled_zero_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_lower : ∀ (m : ℕ),
+  1 ≤ m → 23 * Math.B699.I13G75Uniform.infiniteRate ^ (m - 1) / (24 * ↑m - 1) ≤ Math.B699.I13G75Uniform.divisorZero m
+'Math.B699.I13G75Uniform.divisor_zero_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_one_lower : ∀ (m : ℕ),
+  1 ≤ m →
+    5 * ↑m / 2 * (23 * Math.B699.I13G75Uniform.infiniteRate ^ (m - 1) / (24 * ↑m - 1)) ≤
+      Math.B699.I13G75Uniform.divisorOne m
+'Math.B699.I13G75Uniform.divisor_one_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.rational_divisor_zero_lower : ∀ (m : ℕ),
+  1 ≤ m →
+    23 * (11664 / 3125) ^ (m - 1) / (24 * ↑m - 1) ≤
+      Math.B699.RationalFactorialDivisor.rationalDivisor (5 * m) (2 * m - 1)
+'Math.B699.I13G75Uniform.rational_divisor_zero_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.rational_divisor_one_eq : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.RationalFactorialDivisor.rationalDivisor (5 * m - 1) (2 * m) =
+      5 * ↑m / 2 * Math.B699.RationalFactorialDivisor.rationalDivisor (5 * m) (2 * m - 1)
+'Math.B699.I13G75Uniform.rational_divisor_one_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.q_content_zero_lower : ∀ (m : ℕ),
+  1 ≤ m →
+    23 * Math.B699.I13G75Uniform.infiniteRate ^ (m - 1) / (24 * ↑m - 1) ≤
+      ↑(Math.B699.PadeConstruction.qContent (5 * m) (2 * m - 1) (5 * m))
+'Math.B699.I13G75Uniform.q_content_zero_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.q_content_one_lower : ∀ (m : ℕ),
+  1 ≤ m →
+    5 * ↑m / 2 * (23 * Math.B699.I13G75Uniform.infiniteRate ^ (m - 1) / (24 * ↑m - 1)) ≤
+      ↑(Math.B699.PadeConstruction.qContent (5 * m - 1) (2 * m) (5 * m - 1))
+'Math.B699.I13G75Uniform.q_content_one_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.rational_divisor_zero_lower : ∀ (m : ℕ),
+  1 ≤ m →
+    23 * (11664 / 3125) ^ (m - 1) / (24 * ↑m - 1) ≤
+      Math.B699.RationalFactorialDivisor.rationalDivisor (5 * m) (2 * m - 1)

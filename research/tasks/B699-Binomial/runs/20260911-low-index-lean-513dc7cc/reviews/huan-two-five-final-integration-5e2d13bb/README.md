@@ -1,0 +1,1 @@
+The first integration builder used FREEZE.json; actual final packet uses FREEZE_V1.json. Source hashes now match. Four CRT else fixes had already been saved; no Lean launched on that failed plan preflight.

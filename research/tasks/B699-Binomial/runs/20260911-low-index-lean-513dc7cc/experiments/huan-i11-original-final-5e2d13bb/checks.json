@@ -1,0 +1,78 @@
+{
+  "utc": "2026-09-11T22:51:23.185511+00:00",
+  "status": "PASS_STATIC_CONTRACT_AND_BOUNDED_DOMAIN_CHECKS_NOT_LEAN",
+  "Lean_runs": 0,
+  "public_roots": [
+    "Math.B699.I11OriginalFinal.stage04Data",
+    "Math.B699.I11OriginalFinal.candidate_list_eq",
+    "Math.B699.I11OriginalFinal.stage04_constants",
+    "Math.B699.I11OriginalFinal.stage04_small_cover",
+    "Math.B699.I11OriginalFinal.candidate_mem_of_stage04",
+    "Math.B699.I11OriginalFinal.common_i11",
+    "Math.B699.I11OriginalFinal.original_i11_gcd",
+    "Math.B699.I11OriginalFinal.original_i11"
+  ],
+  "exact_final_contracts": {
+    "common_i11": "theorem common_i11 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) :\n    Common n 11 j",
+    "original_i11_gcd": "theorem original_i11_gcd :\n    ∀ n j : ℕ, 1 ≤ 11 ∧ 11 < j ∧ j ≤ n / 2 →\n      ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.gcd (Nat.choose n 11) (Nat.choose n j)",
+    "original_i11": "theorem original_i11 :\n    ∀ n j : ℕ, 1 ≤ 11 ∧ 11 < j ∧ j ≤ n / 2 →\n      ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.choose n 11 ∧ p ∣ Nat.choose n j"
+  },
+  "tamper_tests_rejected": [
+    "strict_prime_threshold",
+    "extra_height_input",
+    "wrong_pair_data"
+  ],
+  "domain_checks": {
+    "n_range": [
+      0,
+      80
+    ],
+    "j_range": [
+      0,
+      80
+    ],
+    "all_pairs": 6561,
+    "legal_pairs": 841,
+    "first_legal": [
+      24,
+      12
+    ],
+    "odd_endpoint": [
+      81,
+      40
+    ],
+    "odd_excluded": [
+      81,
+      41
+    ],
+    "prime_threshold_includes_11": true
+  },
+  "candidate_intervals": 1055,
+  "original_first": [
+    24,
+    4010
+  ],
+  "original_last": [
+    29294601,
+    29294602
+  ],
+  "padding": [
+    0,
+    23
+  ],
+  "cutoffs": {
+    "2": 24,
+    "3": 15,
+    "5": 10,
+    "7": 8
+  },
+  "full_membership_count_inputs": {
+    "cells": 1142,
+    "signed_rows": 23982,
+    "parameters": 47136,
+    "roots": 2656
+  },
+  "whole_CRT_or_witness_rerun": false,
+  "seconds": 0.005319599993526936,
+  "new_B_original_results": 0
+}

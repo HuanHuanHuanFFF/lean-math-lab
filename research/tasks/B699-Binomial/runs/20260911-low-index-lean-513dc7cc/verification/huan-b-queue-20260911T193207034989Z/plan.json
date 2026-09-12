@@ -1,0 +1,163 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T19:32:06.914575+00:00",
+  "status": "prepared",
+  "retry_from": "verification/huan-b-queue-20260911T192248353216Z/state.json",
+  "jobs": [
+    {
+      "name": "i11-component-window-pair",
+      "root": "lean/I11Component/WindowPair.lean",
+      "source_sha256": "f494b32da384a095d12f81ecb3251dac3f28dee549431e4af55161afe1e8c784",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-ceil-half.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-small-prime-localization.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual-numeric.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-three-component-edge",
+      "root": "lean/I11Component/ActualComponentEdge.lean",
+      "source_sha256": "7b3e89c505548d1276134b43aa9652b0b7a476f11ea593ca32643a0c70ef4998",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-window-pair.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual-numeric.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-three-actual-component-edge",
+      "root": "lean/I11Component/ActualInstance.lean",
+      "source_sha256": "1eacf0cf2993577e22b09448a01543ab5671e67a600e20b15218ba5871a9e5aa",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-growth-tree.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-component-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-parameters",
+      "root": "lean/I11TwoFiveEdge/ParametersAudit.lean",
+      "source_sha256": "ecd6885ef515353de1739c7ee36c93f17293da4a181c0875266e5492009e60ed",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-pade-capacity.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-actual-rows",
+      "root": "lean/I11TwoFiveEdge/ActualRowsAudit.lean",
+      "source_sha256": "9ac635f6e82989b7bf094d6d4e6748710a9cd31833b39c398fdf1871385ba8ff",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-parameters.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-prefix.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-divisor-finite.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-rat-bounds.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-growth-inputs",
+      "root": "lean/I11TwoFiveEdge/GrowthInputsAudit.lean",
+      "source_sha256": "0b49ea07dbb1757b560f9da42e7445f15c52c393edbbe0b92882da59ee10776f",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-rows.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-5-4.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-scaled-gap",
+      "root": "lean/I11TwoFiveEdge/ScaledGapAudit.lean",
+      "source_sha256": "faa64c90108ef6c3700587ffde854ef2a7aa7ea1b55b5e87a2e0ed1dc056ec21",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-rows.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-small-certificates",
+      "root": "lean/I11TwoFiveEdge/SmallCertificatesAudit.lean",
+      "source_sha256": "eaa833964c8ea9193d60061b61e66f5e2d3fdb7d4d31152fba233134a3eb558e",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-growth-inputs.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-scaled-gap.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-selected-edge",
+      "root": "lean/I11TwoFiveEdge/SelectedEdgeAudit.lean",
+      "source_sha256": "af9305a8225297b5086e273751c761bfe50aef060ee483e560caa859ae4d89ac",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-scaled-gap.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-fixed-edge",
+      "root": "lean/I11TwoFiveEdge/FixedEdgeAudit.lean",
+      "source_sha256": "b1b643d74dbf86a1dffe3a4c937ea79cb9de6f5cc30ce9c3fec7199d405a89b4",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-selected-edge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-small-certificates.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-fixed-chain-audit",
+      "root": "lean/I11TwoFiveEdge/Audit.lean",
+      "source_sha256": "d827464a1edcc1acd79af43565179fa46870640e0838b6a48a999d8adf6c749d",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-fixed-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-two-five-selector-basis",
+      "root": "lean/I11TwoFiveNumeric/BasisAudit.lean",
+      "source_sha256": "4708e4270c092f218942e79e9e4763285c15608c956484fb91e9ef1f6c1ced2b",
+      "reuse": [],
+      "memory_mb": 1280
+    },
+    {
+      "name": "i11-two-five-selector",
+      "root": "lean/I11TwoFiveNumeric/Audit.lean",
+      "source_sha256": "456f774a0e89843b5c39d13d73476c3132262dbb93f872a499694ac6462634b0",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-selector-basis.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/discrete-short-power-bounds.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-crt-six-pair-meta",
+      "root": "lean/I11CrtStep/Meta.lean",
+      "source_sha256": "5a738eda64255e61989766fd507ec8c18c4cf7ab364faf661b81953308c9a87c",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-rectangles.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-crt-six-pair-dispatch",
+      "root": "lean/I11CrtStep/Dispatch.lean",
+      "source_sha256": "19e2b5dabd26a1375693721ca1e0751b3e5af485b2119be098d667e12e7091f8",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-crt-six-pair-meta.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-crt-actual-step",
+      "root": "lean/I11CrtStep/ActualStep.lean",
+      "source_sha256": "a46eb29027006ba529440e367f26c36f1e73153b35ea4cb76b56cdd177590e38",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-crt-six-pair-dispatch.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-bounded-actual-bridge.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

@@ -1,0 +1,99 @@
+{
+  "owner": "/root/i18_downstream_review",
+  "start_utc": "2026-09-11T20:46:12Z",
+  "checkpoint_utc": "2026-09-11T21:06:12Z",
+  "new_namespace": "B699LowIndex.I11TerminalCover",
+  "fixed_parameters": {
+    "i": 11,
+    "r": 3,
+    "s": 7
+  },
+  "actual_Common": "exists prime p, 11<=p, p divides gcd(choose(n,11),choose(n,j))",
+  "legal_domain": "n,j in Nat; 11<j and j<=n/2; n must belong to the checked interval or candidate interval union",
+  "witness_tags": [
+    "good: actual GoodSegment data and goodSegmentCheck 11 3 7",
+    "special330: no parameters; bounds exactly(330,330); check=true; proof uses actual common_330"
+  ],
+  "accepted_sources": [
+    {
+      "source": "LargeDivisorWitness.goodSegmentCheck_sound",
+      "evidence": "verification/20260911T004440769454Z/evidence.json"
+    },
+    {
+      "source": "IntervalCover.coverCheck_sound",
+      "evidence": "verification/20260911T004440769454Z/evidence.json"
+    },
+    {
+      "name": "i11-terminal-330",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T185904272011Z/evidence.json",
+      "public_roots": 3,
+      "source_closure_matches": true
+    },
+    {
+      "name": "i11-terminal-witness-pilot",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T191116561794Z/evidence.json",
+      "public_roots": 12,
+      "source_closure_matches": true
+    }
+  ],
+  "candidate_modules": [
+    {
+      "name": "Witness",
+      "sha256": "c178b354cacabd99db9c0c046048289e43fea7246ac3b1b71142c17521d6c638",
+      "public_roots": [
+        "B699LowIndex.I11TerminalCover.Witness",
+        "B699LowIndex.I11TerminalCover.witnessBounds",
+        "B699LowIndex.I11TerminalCover.witnessCheck",
+        "B699LowIndex.I11TerminalCover.witnessCheck_sound"
+      ]
+    },
+    {
+      "name": "Cover",
+      "sha256": "68d2c83ce7939b82e9024d446f11a63c8d3acc6c9eb0336f9f1a3d57e9d9a500",
+      "public_roots": [
+        "B699LowIndex.I11TerminalCover.witnessIntervals",
+        "B699LowIndex.I11TerminalCover.witnessesCheck",
+        "B699LowIndex.I11TerminalCover.witnessCoverCheck",
+        "B699LowIndex.I11TerminalCover.candidateIntervalsCheck",
+        "B699LowIndex.I11TerminalCover.candidateMem",
+        "B699LowIndex.I11TerminalCover.checked_witnesses_cover",
+        "B699LowIndex.I11TerminalCover.common_of_cover_checks",
+        "B699LowIndex.I11TerminalCover.witnessCoverCheck_sound",
+        "B699LowIndex.I11TerminalCover.candidateIntervalsCheck_member",
+        "B699LowIndex.I11TerminalCover.candidateIntervalsCheck_sound",
+        "B699LowIndex.I11TerminalCover.candidateIntervalsCheck_prime"
+      ]
+    },
+    {
+      "name": "Examples",
+      "sha256": "26115f9ff89fde73ed0381569c78da5324d2d832df8c71cb9a223a3c6da86d81",
+      "public_roots": [
+        "B699LowIndex.I11TerminalCover.ordinaryWitnesses",
+        "B699LowIndex.I11TerminalCover.ordinary_witnesses_check",
+        "B699LowIndex.I11TerminalCover.ordinary_interval_check",
+        "B699LowIndex.I11TerminalCover.ordinary_24_33_check",
+        "B699LowIndex.I11TerminalCover.ordinary_24_33_common",
+        "B699LowIndex.I11TerminalCover.specialWitnesses",
+        "B699LowIndex.I11TerminalCover.special_witnesses_check",
+        "B699LowIndex.I11TerminalCover.special_interval_check",
+        "B699LowIndex.I11TerminalCover.special_330_check",
+        "B699LowIndex.I11TerminalCover.special_330_common",
+        "B699LowIndex.I11TerminalCover.exampleWitnesses",
+        "B699LowIndex.I11TerminalCover.exampleCandidateIntervals",
+        "B699LowIndex.I11TerminalCover.example_witnesses_check",
+        "B699LowIndex.I11TerminalCover.example_candidate_cover_check",
+        "B699LowIndex.I11TerminalCover.example_candidates_check",
+        "B699LowIndex.I11TerminalCover.example_candidates_common"
+      ]
+    }
+  ],
+  "remaining": [
+    "serial Lean compilation and typed/axiom audits",
+    "complete CRT-parameter-to-candidateMem theorem, including every relevant t/window and the small-n branches",
+    "actual entire candidate_intervals and witness data",
+    "all resulting finite witnessesCheck/candidateIntervalsCheck certificates"
+  ],
+  "Lean_runs": 0,
+  "prime_or_choose_recomputations": 0,
+  "new_B_original_results": 0
+}

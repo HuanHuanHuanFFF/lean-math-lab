@@ -1,0 +1,206 @@
+{
+  "utc": "2026-09-11T18:47:43.137242+00:00",
+  "sources": [
+    {
+      "path": "lean/CrtPair/Parameterization.lean",
+      "sha256": "16819b991c63961381edc0e77916ec5e3506c233d17b0a9b7bb524889ffe0b05",
+      "declarations": [
+        {
+          "line": 19,
+          "signature": "theorem positiveResidue_modEq {Q v : ℕ} (hQ : 0 < Q) (d : ℤ) :\n    (positiveResidue Q v d : ℤ) ≡ (v : ℤ) * d [ZMOD (Q : ℤ)]"
+        },
+        {
+          "line": 35,
+          "signature": "theorem inverse_modEq {P Q v : ℕ} (hQ : 1 < Q) (hinv : (P * v) % Q = 1) :\n    (P : ℤ) * (v : ℤ) ≡ 1 [ZMOD (Q : ℤ)]"
+        },
+        {
+          "line": 45,
+          "signature": "def baseC (P Q v : ℕ) (d : ℤ) : ℤ"
+        },
+        {
+          "line": 49,
+          "signature": "theorem seed_equation {P Q v : ℕ} {d : ℤ}\n    (hQ : 1 < Q) (hinv : (P * v) % Q = 1) :\n    (P : ℤ) * (positiveResidue Q v d : ℤ) - (Q : ℤ) * baseC P Q v d = d"
+        },
+        {
+          "line": 66,
+          "signature": "theorem inverse_bezout {P Q v : ℕ} (hinv : (P * v) % Q = 1) :\n    (P : ℤ) * (v : ℤ) - (Q : ℤ) * (((P * v) / Q : ℕ) : ℤ) = 1"
+        },
+        {
+          "line": 76,
+          "signature": "theorem solution_parameterization {P Q v A C : ℕ} {d : ℤ}\n    (hQ : 1 < Q) (hinv : (P * v) % Q = 1) (hA : 0 < A)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d) :\n    ∃ t : ℤ, 0 ≤ t ∧\n      (A : ℤ) = (positiveResidue Q v d : ℤ) + (Q : ℤ) * t ∧\n      (C : ℤ) = baseC P Q v d + (P : ℤ) * t"
+        },
+        {
+          "line": 124,
+          "signature": "theorem progression_equation {P Q v : ℕ} {d : ℤ}\n    (hQ : 1 < Q) (hinv : (P * v) % Q = 1) (t : ℤ) :\n    (P : ℤ) * ((positiveResidue Q v d : ℤ) + (Q : ℤ) * t) -\n      (Q : ℤ) * (baseC P Q v d + (P : ℤ) * t) = d"
+        },
+        {
+          "line": 136,
+          "signature": "theorem parameter_unique {Q v : ℕ} {d A t s : ℤ} (hQ : 0 < Q)\n    (ht : A = (positiveResidue Q v d : ℤ) + (Q : ℤ) * t)\n    (hs : A = (positiveResidue Q v d : ℤ) + (Q : ℤ) * s) : t = s"
+        }
+      ]
+    },
+    {
+      "path": "lean/CrtPair/Bounds.lean",
+      "sha256": "acf999e8b95d53b525a0db868ffe9546edad37011adb723e2fc5cf4787fa499c",
+      "declarations": [
+        {
+          "line": 13,
+          "signature": "def coordinateA (Q v : ℕ) (d t : ℤ) : ℤ"
+        },
+        {
+          "line": 16,
+          "signature": "def coordinateC (P Q v : ℕ) (d t : ℤ) : ℤ"
+        },
+        {
+          "line": 19,
+          "signature": "def upperValue (P Q v w : ℕ) (d t : ℤ) : ℤ"
+        },
+        {
+          "line": 22,
+          "signature": "def lowerCondition (P Q v : ℕ) (d lo : ℤ) : Prop"
+        },
+        {
+          "line": 25,
+          "signature": "def upperCondition (P Q v capA capC : ℕ) (d hi : ℤ) : Prop"
+        },
+        {
+          "line": 38,
+          "signature": "theorem coordinateA_mono {Q v : ℕ} {d t T : ℤ} (h : t ≤ T) :\n    coordinateA Q v d t ≤ coordinateA Q v d T"
+        },
+        {
+          "line": 43,
+          "signature": "theorem coordinateC_mono {P Q v : ℕ} {d t T : ℤ} (h : t ≤ T) :\n    coordinateC P Q v d t ≤ coordinateC P Q v d T"
+        },
+        {
+          "line": 48,
+          "signature": "theorem upperValue_mono {P Q v w : ℕ} {d t T : ℤ} (h : t ≤ T) :\n    upperValue P Q v w d t ≤ upperValue P Q v w d T"
+        },
+        {
+          "line": 58,
+          "signature": "theorem parameter_bounds {P Q v capA capC : ℕ} {d lo hi t : ℤ}\n    (hlow : lowerCondition P Q v d lo)\n    (hupp : upperCondition P Q v capA capC d hi)\n    (ht : 0 ≤ t) (hCpos : 1 ≤ coordinateC P Q v d t)\n    (hAcap : coordinateA Q v d t ≤ (capA : ℤ))\n    (hCcap : coordinateC P Q v d t ≤ (capC : ℤ)) : lo ≤ t ∧ t ≤ hi"
+        },
+        {
+          "line": 81,
+          "signature": "theorem feasible_parameter_gives_solution {P Q v capA capC : ℕ} {d t : ℤ}\n    (hQ : 1 < Q) (hinv : (P * v) % Q = 1)\n    (hApos : 1 ≤ coordinateA Q v d t) (hCpos : 1 ≤ coordinateC P Q v d t)\n    (hAcap : coordinateA Q v d t ≤ (capA : ℤ))\n    (hCcap : coordinateC P Q v d t ≤ (capC : ℤ)) :\n    ∃ A C : ℕ, 1 ≤ A ∧ A ≤ capA ∧ 1 ≤ C ∧ C ≤ capC ∧\n      (A : ℤ) = coordinateA Q v d t ∧ (C : ℤ) = coordinateC P Q v d t ∧\n      (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d"
+        }
+      ]
+    },
+    {
+      "path": "lean/CrtPair/Consumer.lean",
+      "sha256": "15945b01d609ba898d23c23741e826446f7fefabbf04f993f322ab10674aabe0",
+      "declarations": [
+        {
+          "line": 15,
+          "signature": "structure BoundsDatum where"
+        },
+        {
+          "line": 20,
+          "signature": "def pairBoundCheck (P Q v capA capC w : ℕ) (d : ℤ) (bounds : BoundsDatum) : Bool"
+        },
+        {
+          "line": 26,
+          "signature": "theorem pairBoundCheck_parameters {P Q v capA capC w A C : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d) :\n    ∃ t : ℤ, 0 ≤ t ∧ bounds.lo ≤ t ∧ t ≤ bounds.hi ∧\n      (A : ℤ) = coordinateA Q v d t ∧ (C : ℤ) = coordinateC P Q v d t"
+        },
+        {
+          "line": 49,
+          "signature": "theorem pairBoundCheck_empty {P Q v capA capC w A C : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hempty : bounds.hi < bounds.lo)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d) : False"
+        },
+        {
+          "line": 60,
+          "signature": "theorem pairBoundCheck_upper_int {P Q v capA capC w A C n : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + w) :\n    (n : ℤ) ≤ upperValue P Q v w d bounds.hi"
+        },
+        {
+          "line": 74,
+          "signature": "theorem pairBoundCheck_upper_nat {P Q v capA capC w A C n : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + w) :\n    n ≤ (upperValue P Q v w d bounds.hi).toNat"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11SmallPrimes/Window.lean",
+      "sha256": "a7665f34b746c0c9f9911afbd55002e25f076d31c95abbc161f9d4ad04930c16",
+      "declarations": [
+        {
+          "line": 15,
+          "signature": "structure PrimeWindow (n p : ℕ) where"
+        },
+        {
+          "line": 22,
+          "signature": "theorem primeWindow_nonempty {n p : ℕ} (hn : 11 ≤ n) (hp : p.Prime) :\n    Nonempty (PrimeWindow n p)"
+        },
+        {
+          "line": 47,
+          "signature": "theorem component_power_mul_le {C A n Y weight exponent : ℕ}\n    (hproduct : C * A ≤ n) (hcofactor : Y ^ weight ≤ C ^ exponent) :\n    A ^ exponent * Y ^ weight ≤ n ^ exponent"
+        },
+        {
+          "line": 58,
+          "signature": "theorem primeWindow_graph_capacity {n p Y weight : ℕ} (window : PrimeWindow n p)\n    (hcofactor : Y ^ weight ≤ window.cofactor ^ 1000) :\n    (primeComponent n p) ^ 1000 * Y ^ weight ≤ n ^ 1000"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Compress/PairDispatch.lean",
+      "sha256": "8130269a405ffaa8aca197914294fb1f7d34e90e7305b9a82b69b92eb6c80af5",
+      "declarations": [
+        {
+          "line": 19,
+          "signature": "theorem distinct_pair_below_109 (data : SixPairRows)\n    (check23 : pairCheck 2 3 10 45 15359 68 ((2 : ℕ) ^ 15360) data.rows23 = true)\n    (check25 : pairCheck 2 5 10 44 15359 66 ((2 : ℕ) ^ 15360) data.rows25 = true)\n    (check27 : pairCheck 2 7 10 43 15359 65 ((2 : ℕ) ^ 15360) data.rows27 = true)\n    (check35 : pairCheck 3 5 10 32 9691 75 ((2 : ℕ) ^ 15360) data.rows35 = true)\n    (check37 : pairCheck 3 7 10 32 9691 75 ((2 : ℕ) ^ 15360) data.rows37 = true)\n    (check57 : pairCheck 5 7 10 32 6615 109 ((2 : ℕ) ^ 15360) data.rows57 = true)\n    {p q n r s h k A C : ℕ}\n    (hpMem : p ∈ ({2, 3, 5, 7} : Finset ℕ))\n    (hqMem : q ∈ ({2, 3, 5, 7} : Finset ℕ)) (hpq : p ≠ q)\n    (hnH : n < (2 : ℕ) ^ 15360) (hr : r ≤ 10) (hs : s ≤ 10)\n    (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hP : n - r = p ^ h * A) (hQ : n - s = q ^ k * C)\n    (hsmallA : A ^ 3 ≤ min (n - r) (n - s))\n    (hsmallC : C ^ 3 ≤ min (n - r) (n - s)) : n < (2 : ℕ) ^ 109"
+        }
+      ]
+    },
+    {
+      "path": "lean/CubicBatches/ActualCompression.lean",
+      "sha256": "7d08601fe8511dccaf9f5ecad1f5be4325b98adc74acf1c2372f77cd8584ad87",
+      "declarations": [
+        {
+          "line": 16,
+          "signature": "def allPairRows : SixPairRows where"
+        },
+        {
+          "line": 26,
+          "signature": "theorem actual_i11_below_109_of_initial_height {n j : ℕ}\n    (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j)\n    (hnH : n < (2 : ℕ) ^ 15360) : n < (2 : ℕ) ^ 109"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-crt-descent-probe-5e2d13bb/probe.py",
+      "sha256": "04b4efeb1192827c78f7ff88bc62d64ddb3998b05ebe201fed3e740ac1eb754a",
+      "declarations": []
+    },
+    {
+      "path": "experiments/huan-i11-crt-descent-probe-5e2d13bb/result.json",
+      "sha256": "f66da2a3e2f288a67aa48b5fdc8c78c52ff376dc57ad40817640572f31b135cd",
+      "declarations": []
+    }
+  ],
+  "updated_accepted_entry": {
+    "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-block-compression.json",
+    "receipt_sha256": "cd6877db94b84eb43c8c560f0f979c2c91ebb62db4347a24a4e33f76702852c2",
+    "contents": {
+      "kind": "verified_prerequisite_not_original_index",
+      "name": "i11-actual-block-compression",
+      "root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CubicBatches/ActualCompression.lean",
+      "source_sha256": "7d08601fe8511dccaf9f5ecad1f5be4325b98adc74acf1c2372f77cd8584ad87",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T182133767665Z/evidence.json",
+      "output_sha256": "6d94b5440743307850299269c66480a582436d625903dce27ddabd0224c8c3cb",
+      "public_axiom_audit": [
+        {
+          "declared_name": "Math.B699.I11VerifiedCubicCompression.actual_i11_below_109_of_initial_height",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ],
+      "compiled_modules": 1,
+      "reused_modules": 68,
+      "verification_seconds": 14.208,
+      "new_original_indices": [],
+      "new_B_original_results": 0,
+      "publication_status": "local_verified_commit_and_push_blocked"
+    },
+    "current_source_sha_match": true
+  },
+  "PairDispatch_API_boundary": "Math.B699.I11CubicCompression.distinct_pair_below_109 is specific to CubicBlockCover.pairCheck and cubic-smallness hypotheses; it is not a generic new CRTGrid dispatcher.",
+  "worker_lean_runs": 0
+}

@@ -1,0 +1,96 @@
+"""Frozen reverse-CRT checker extracted without its four-target entrypoint.
+Source SHA256: 3ce2e5e7984dbdb9e76317a83ef5303a1a606436b4d0196960ee8aaf9fb3f875
+"""
+import math,sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parent/"vendor"))
+def require(ok,message):
+    if not ok:raise ValueError(message)
+def v_number(n,p):
+    require(n>=1 and p>=2,'valuation domain');a=0
+    while n%p==0:n//=p;a+=1
+    return a
+def trial_prime(n):
+    return n>=2 and all(n%d for d in range(2,math.isqrt(n)+1))
+
+def ceil_div(a:int,b:int)->int:
+    return -((-a)//b)
+
+
+def check_symbolic_stage(par:dict,stage:dict)->int:
+    i=par['i'];H=int(stage['H']);M=int(stage['M']);start=max(i*(i-1),M+1)
+    require(stage['i']==i and H>start and par['t']>=2 and par['d']>=0,'symbolic stage domain')
+    exponent=par['lam']*(par['t']-1)
+    rhs=(2*math.factorial(i))**par['lam']*H**par['d']
+    require(par['K']*M**exponent>=rhs,'symbolic M certificate')
+    require(M==1 or par['K']*(M-1)**exponent<rhs,'symbolic M not minimal')
+    require(str(start)==stage['start'],'zero-exponent low branch')
+    families=[]
+    for p in par['ps']:
+        if p>=i:continue
+        v=v_number(i,p);powers=[];Q=1;h=0
+        while Q<= (H-1)//p:
+            Q*=p;h+=1
+            if h<=v:continue
+            amin=max(1,ceil_div(start-(i-1),Q));amax=min(M//p**v,(H-1)//Q)
+            if amin<=amax:powers.append((p,h,Q,amin,amax))
+        # Different power order from the generator; no effect on complete maxima.
+        families.extend(reversed(powers))
+    pairs=0;nonempty=0;terms=0;maximum=start-1;w=i-1
+    for index,(p,h,Q,amin,amax) in enumerate(families):
+        for q,k,R,bmin,bmax in families[index+1:]:
+            if p==q:continue
+            pairs+=1
+            inverse=pow(R,-1,Q)
+            # R*B = Q*A - d, so B is congruent to -d/R modulo Q.
+            residue=(w*inverse)%Q
+            if Q>bmax:
+                for d in range(-w,w+1):
+                    B=residue
+                    if bmin<=B<=bmax:
+                        v=R*B;A=(v+d)//Q
+                        if amin<=A<=amax:
+                            u=Q*A
+                            low=max(start,u,v);high=min(H-1,u+w,v+w)
+                            if low<=high:
+                                nonempty+=1;terms+=1
+                                if high>maximum:maximum=high
+                    residue-=inverse
+                    if residue<0:residue+=Q
+            else:
+                period=Q*R
+                for d in range(-w,w+1):
+                    B0=residue;A0=(R*B0+d)//Q
+                    # A=A0+R*z, B=B0+Q*z.  Compute cofactor interval first.
+                    lo=max(ceil_div(amin-A0,R),ceil_div(bmin-B0,Q))
+                    hi=min((amax-A0)//R,(bmax-B0)//Q)
+                    if lo<=hi:
+                        u=Q*A0;v=R*B0
+                        L=max(u,v);U=min(u+w,v+w)
+                        lo=max(lo,ceil_div(start-U,period))
+                        hi=min(hi,(H-1-L)//period)
+                        if lo<=hi:
+                            nonempty+=1;terms+=hi-lo+1
+                            endpoint=min(H-1,U+period*hi)
+                            if endpoint>maximum:maximum=endpoint
+                    residue-=inverse
+                    if residue<0:residue+=Q
+    expected={'prime_power_families':len(families),'prime_power_pairs':pairs,
+        'nonempty_CRT_families':nonempty,'progression_terms_with_multiplicity':str(terms),
+        'next_H':str(maximum+1)}
+    for k,v in expected.items():require(stage[k]==v,f'CRT exhaustive {k} mismatch')
+    att=stage['max_attainer']
+    if maximum>=start:
+        require(att is not None,'missing extremal attainer')
+        p,q=att['p'],att['q'];h,k=att['h'],att['k'];A,B=int(att['A']),int(att['B'])
+        require(p<q<i and trial_prime(p) and trial_prime(q),'attainer prime colours')
+        vp=v_number(i,p);vq=v_number(i,q)
+        require(h>vp and k>vq and 1<=A<=M//p**vp and 1<=B<=M//q**vq,'attainer full exponent or cofactor')
+        a=A*p**h;b=B*q**k
+        require(a-b==att['difference'] and abs(a-b)<=w,'attainer displacement')
+        require(max(start,a,b)==int(att['interval_start']),'attainer left end')
+        require(min(H-1,a+w,b+w)==int(att['n'])==maximum,'attainer maximum')
+        require(int(att['interval_start'])<=int(att['n']),'empty extremal interval')
+    else:require(att is None,'spurious attainer')
+    return maximum+1
+

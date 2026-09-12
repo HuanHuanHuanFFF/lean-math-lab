@@ -1,0 +1,88 @@
+--- frozen/I11FiveThreeTree.lean
++++ v2/I11FiveThreeTree.lean
+@@ -10,18 +10,18 @@
+ open Polynomial Math.B699.PadeMoment Math.B699.PadeGrowthPartition
+ open Math.B699.I11FiveThreeGrowth.Shared
+ 
+-theorem qTreeNodeLRLDelta0 : GrowthTree qLam (qSeedWeight0).comp (((halfLeft).comp halfRight).comp halfLeft) (qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft) := by
+-  exact GrowthTree.split (lam := qLam) (w := (qSeedWeight0).comp (((halfLeft).comp halfRight).comp halfLeft)) (f := (qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft))
++theorem qTreeNodeLRLDelta0 : GrowthTree qLam ((qSeedWeight0).comp (((halfLeft).comp halfRight).comp halfLeft)) ((qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft)) := by
++  exact GrowthTree.split (lam := qLam) (w := ((qSeedWeight0).comp (((halfLeft).comp halfRight).comp halfLeft))) (f := ((qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf001.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf001.localWeight0, Math.B699.I11FiveThreeGrowth.QLeaf001.seedWeight0, Math.B699.I11FiveThreeGrowth.QLeaf001.localCore, Math.B699.I11FiveThreeGrowth.QLeaf001.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf001.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf001.leaf_delta0)
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf002.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf002.localWeight0, Math.B699.I11FiveThreeGrowth.QLeaf002.seedWeight0, Math.B699.I11FiveThreeGrowth.QLeaf002.localCore, Math.B699.I11FiveThreeGrowth.QLeaf002.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf002.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf002.leaf_delta0)
+ 
+-theorem qTreeNodeLRDelta0 : GrowthTree qLam (qSeedWeight0).comp ((halfLeft).comp halfRight) (qSeedCore).comp ((halfLeft).comp halfRight) := by
+-  exact GrowthTree.split (lam := qLam) (w := (qSeedWeight0).comp ((halfLeft).comp halfRight)) (f := (qSeedCore).comp ((halfLeft).comp halfRight))
++theorem qTreeNodeLRDelta0 : GrowthTree qLam ((qSeedWeight0).comp ((halfLeft).comp halfRight)) ((qSeedCore).comp ((halfLeft).comp halfRight)) := by
++  exact GrowthTree.split (lam := qLam) (w := ((qSeedWeight0).comp ((halfLeft).comp halfRight))) (f := ((qSeedCore).comp ((halfLeft).comp halfRight)))
+     (by simpa only [Polynomial.comp_assoc] using qTreeNodeLRLDelta0)
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf003.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf003.localWeight0, Math.B699.I11FiveThreeGrowth.QLeaf003.seedWeight0, Math.B699.I11FiveThreeGrowth.QLeaf003.localCore, Math.B699.I11FiveThreeGrowth.QLeaf003.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf003.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf003.leaf_delta0)
+ 
+-theorem qTreeNodeLDelta0 : GrowthTree qLam (qSeedWeight0).comp (halfLeft) (qSeedCore).comp (halfLeft) := by
+-  exact GrowthTree.split (lam := qLam) (w := (qSeedWeight0).comp (halfLeft)) (f := (qSeedCore).comp (halfLeft))
++theorem qTreeNodeLDelta0 : GrowthTree qLam ((qSeedWeight0).comp (halfLeft)) ((qSeedCore).comp (halfLeft)) := by
++  exact GrowthTree.split (lam := qLam) (w := ((qSeedWeight0).comp (halfLeft))) (f := ((qSeedCore).comp (halfLeft)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf000.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf000.localWeight0, Math.B699.I11FiveThreeGrowth.QLeaf000.seedWeight0, Math.B699.I11FiveThreeGrowth.QLeaf000.localCore, Math.B699.I11FiveThreeGrowth.QLeaf000.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf000.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf000.leaf_delta0)
+     (by simpa only [Polynomial.comp_assoc] using qTreeNodeLRDelta0)
+ 
+@@ -33,18 +33,18 @@
+ theorem q_tree_delta0 : GrowthTree qLam (qSeedWeight0) (qSeedCore) := by
+   exact qTreeNodeRootDelta0
+ 
+-theorem qTreeNodeLRLDelta1 : GrowthTree qLam (qSeedWeight1).comp (((halfLeft).comp halfRight).comp halfLeft) (qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft) := by
+-  exact GrowthTree.split (lam := qLam) (w := (qSeedWeight1).comp (((halfLeft).comp halfRight).comp halfLeft)) (f := (qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft))
++theorem qTreeNodeLRLDelta1 : GrowthTree qLam ((qSeedWeight1).comp (((halfLeft).comp halfRight).comp halfLeft)) ((qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft)) := by
++  exact GrowthTree.split (lam := qLam) (w := ((qSeedWeight1).comp (((halfLeft).comp halfRight).comp halfLeft))) (f := ((qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf001.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf001.localWeight1, Math.B699.I11FiveThreeGrowth.QLeaf001.seedWeight1, Math.B699.I11FiveThreeGrowth.QLeaf001.localCore, Math.B699.I11FiveThreeGrowth.QLeaf001.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf001.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf001.leaf_delta1)
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf002.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf002.localWeight1, Math.B699.I11FiveThreeGrowth.QLeaf002.seedWeight1, Math.B699.I11FiveThreeGrowth.QLeaf002.localCore, Math.B699.I11FiveThreeGrowth.QLeaf002.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf002.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf002.leaf_delta1)
+ 
+-theorem qTreeNodeLRDelta1 : GrowthTree qLam (qSeedWeight1).comp ((halfLeft).comp halfRight) (qSeedCore).comp ((halfLeft).comp halfRight) := by
+-  exact GrowthTree.split (lam := qLam) (w := (qSeedWeight1).comp ((halfLeft).comp halfRight)) (f := (qSeedCore).comp ((halfLeft).comp halfRight))
++theorem qTreeNodeLRDelta1 : GrowthTree qLam ((qSeedWeight1).comp ((halfLeft).comp halfRight)) ((qSeedCore).comp ((halfLeft).comp halfRight)) := by
++  exact GrowthTree.split (lam := qLam) (w := ((qSeedWeight1).comp ((halfLeft).comp halfRight))) (f := ((qSeedCore).comp ((halfLeft).comp halfRight)))
+     (by simpa only [Polynomial.comp_assoc] using qTreeNodeLRLDelta1)
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf003.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf003.localWeight1, Math.B699.I11FiveThreeGrowth.QLeaf003.seedWeight1, Math.B699.I11FiveThreeGrowth.QLeaf003.localCore, Math.B699.I11FiveThreeGrowth.QLeaf003.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf003.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf003.leaf_delta1)
+ 
+-theorem qTreeNodeLDelta1 : GrowthTree qLam (qSeedWeight1).comp (halfLeft) (qSeedCore).comp (halfLeft) := by
+-  exact GrowthTree.split (lam := qLam) (w := (qSeedWeight1).comp (halfLeft)) (f := (qSeedCore).comp (halfLeft))
++theorem qTreeNodeLDelta1 : GrowthTree qLam ((qSeedWeight1).comp (halfLeft)) ((qSeedCore).comp (halfLeft)) := by
++  exact GrowthTree.split (lam := qLam) (w := ((qSeedWeight1).comp (halfLeft))) (f := ((qSeedCore).comp (halfLeft)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.QLeaf000.lam, Math.B699.I11FiveThreeGrowth.Shared.qLam, Math.B699.I11FiveThreeGrowth.QLeaf000.localWeight1, Math.B699.I11FiveThreeGrowth.QLeaf000.seedWeight1, Math.B699.I11FiveThreeGrowth.QLeaf000.localCore, Math.B699.I11FiveThreeGrowth.QLeaf000.seedCore, Math.B699.I11FiveThreeGrowth.QLeaf000.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.QLeaf000.leaf_delta1)
+     (by simpa only [Polynomial.comp_assoc] using qTreeNodeLRDelta1)
+ 
+@@ -56,13 +56,13 @@
+ theorem q_tree_delta1 : GrowthTree qLam (qSeedWeight1) (qSeedCore) := by
+   exact qTreeNodeRootDelta1
+ 
+-theorem eTreeNodeLRDelta0 : GrowthTree eLam (eSeedWeight0).comp ((halfLeft).comp halfRight) (eSeedCore).comp ((halfLeft).comp halfRight) := by
+-  exact GrowthTree.split (lam := eLam) (w := (eSeedWeight0).comp ((halfLeft).comp halfRight)) (f := (eSeedCore).comp ((halfLeft).comp halfRight))
++theorem eTreeNodeLRDelta0 : GrowthTree eLam ((eSeedWeight0).comp ((halfLeft).comp halfRight)) ((eSeedCore).comp ((halfLeft).comp halfRight)) := by
++  exact GrowthTree.split (lam := eLam) (w := ((eSeedWeight0).comp ((halfLeft).comp halfRight))) (f := ((eSeedCore).comp ((halfLeft).comp halfRight)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.ELeaf001.lam, Math.B699.I11FiveThreeGrowth.Shared.eLam, Math.B699.I11FiveThreeGrowth.ELeaf001.localWeight0, Math.B699.I11FiveThreeGrowth.ELeaf001.seedWeight0, Math.B699.I11FiveThreeGrowth.ELeaf001.localCore, Math.B699.I11FiveThreeGrowth.ELeaf001.seedCore, Math.B699.I11FiveThreeGrowth.ELeaf001.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.ELeaf001.leaf_delta0)
+     (by simpa only [Math.B699.I11FiveThreeGrowth.ELeaf002.lam, Math.B699.I11FiveThreeGrowth.Shared.eLam, Math.B699.I11FiveThreeGrowth.ELeaf002.localWeight0, Math.B699.I11FiveThreeGrowth.ELeaf002.seedWeight0, Math.B699.I11FiveThreeGrowth.ELeaf002.localCore, Math.B699.I11FiveThreeGrowth.ELeaf002.seedCore, Math.B699.I11FiveThreeGrowth.ELeaf002.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.ELeaf002.leaf_delta0)
+ 
+-theorem eTreeNodeLDelta0 : GrowthTree eLam (eSeedWeight0).comp (halfLeft) (eSeedCore).comp (halfLeft) := by
+-  exact GrowthTree.split (lam := eLam) (w := (eSeedWeight0).comp (halfLeft)) (f := (eSeedCore).comp (halfLeft))
++theorem eTreeNodeLDelta0 : GrowthTree eLam ((eSeedWeight0).comp (halfLeft)) ((eSeedCore).comp (halfLeft)) := by
++  exact GrowthTree.split (lam := eLam) (w := ((eSeedWeight0).comp (halfLeft))) (f := ((eSeedCore).comp (halfLeft)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.ELeaf000.lam, Math.B699.I11FiveThreeGrowth.Shared.eLam, Math.B699.I11FiveThreeGrowth.ELeaf000.localWeight0, Math.B699.I11FiveThreeGrowth.ELeaf000.seedWeight0, Math.B699.I11FiveThreeGrowth.ELeaf000.localCore, Math.B699.I11FiveThreeGrowth.ELeaf000.seedCore, Math.B699.I11FiveThreeGrowth.ELeaf000.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.ELeaf000.leaf_delta0)
+     (by simpa only [Polynomial.comp_assoc] using eTreeNodeLRDelta0)
+ 
+@@ -74,13 +74,13 @@
+ theorem e_tree_delta0 : GrowthTree eLam (eSeedWeight0) (eSeedCore) := by
+   exact eTreeNodeRootDelta0
+ 
+-theorem eTreeNodeLRDelta1 : GrowthTree eLam (eSeedWeight1).comp ((halfLeft).comp halfRight) (eSeedCore).comp ((halfLeft).comp halfRight) := by
+-  exact GrowthTree.split (lam := eLam) (w := (eSeedWeight1).comp ((halfLeft).comp halfRight)) (f := (eSeedCore).comp ((halfLeft).comp halfRight))
++theorem eTreeNodeLRDelta1 : GrowthTree eLam ((eSeedWeight1).comp ((halfLeft).comp halfRight)) ((eSeedCore).comp ((halfLeft).comp halfRight)) := by
++  exact GrowthTree.split (lam := eLam) (w := ((eSeedWeight1).comp ((halfLeft).comp halfRight))) (f := ((eSeedCore).comp ((halfLeft).comp halfRight)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.ELeaf001.lam, Math.B699.I11FiveThreeGrowth.Shared.eLam, Math.B699.I11FiveThreeGrowth.ELeaf001.localWeight1, Math.B699.I11FiveThreeGrowth.ELeaf001.seedWeight1, Math.B699.I11FiveThreeGrowth.ELeaf001.localCore, Math.B699.I11FiveThreeGrowth.ELeaf001.seedCore, Math.B699.I11FiveThreeGrowth.ELeaf001.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.ELeaf001.leaf_delta1)
+     (by simpa only [Math.B699.I11FiveThreeGrowth.ELeaf002.lam, Math.B699.I11FiveThreeGrowth.Shared.eLam, Math.B699.I11FiveThreeGrowth.ELeaf002.localWeight1, Math.B699.I11FiveThreeGrowth.ELeaf002.seedWeight1, Math.B699.I11FiveThreeGrowth.ELeaf002.localCore, Math.B699.I11FiveThreeGrowth.ELeaf002.seedCore, Math.B699.I11FiveThreeGrowth.ELeaf002.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.ELeaf002.leaf_delta1)
+ 
+-theorem eTreeNodeLDelta1 : GrowthTree eLam (eSeedWeight1).comp (halfLeft) (eSeedCore).comp (halfLeft) := by
+-  exact GrowthTree.split (lam := eLam) (w := (eSeedWeight1).comp (halfLeft)) (f := (eSeedCore).comp (halfLeft))
++theorem eTreeNodeLDelta1 : GrowthTree eLam ((eSeedWeight1).comp (halfLeft)) ((eSeedCore).comp (halfLeft)) := by
++  exact GrowthTree.split (lam := eLam) (w := ((eSeedWeight1).comp (halfLeft))) (f := ((eSeedCore).comp (halfLeft)))
+     (by simpa only [Math.B699.I11FiveThreeGrowth.ELeaf000.lam, Math.B699.I11FiveThreeGrowth.Shared.eLam, Math.B699.I11FiveThreeGrowth.ELeaf000.localWeight1, Math.B699.I11FiveThreeGrowth.ELeaf000.seedWeight1, Math.B699.I11FiveThreeGrowth.ELeaf000.localCore, Math.B699.I11FiveThreeGrowth.ELeaf000.seedCore, Math.B699.I11FiveThreeGrowth.ELeaf000.leafMap_eq_path, Polynomial.comp_assoc] using Math.B699.I11FiveThreeGrowth.ELeaf000.leaf_delta1)
+     (by simpa only [Polynomial.comp_assoc] using eTreeNodeLRDelta1)
+ 

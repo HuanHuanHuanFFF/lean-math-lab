@@ -1,0 +1,154 @@
+{
+  "wait_state": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-historical-probe-35-20260911T102009030714Z/state.json",
+  "jobs": [
+    {
+      "name": "rational-divisor-floor",
+      "root": "lean/RationalDivisor/FloorLayers.lean",
+      "memory_mb": 1536,
+      "reuse": [],
+      "source_sha256": "045db95142b1f68c41338ac46879bcb81ba576cbb921ec7c3683d83ebd805d05"
+    },
+    {
+      "name": "rational-divisor-factorial",
+      "root": "lean/RationalDivisor/FactorialDivisibility.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-floor.json"
+      ],
+      "source_sha256": "a414c60037e0638c0aada3eac4ebcde4ad0dbaa7e05ab3c6b2f29a19be3f1dc9"
+    },
+    {
+      "name": "rational-divisor-coefficients",
+      "root": "lean/RationalDivisor/Coefficients.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-factorial.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T035339927527Z/evidence.json"
+      ],
+      "source_sha256": "5963642c7cc265c55bc9a5318bfdc89dadd2e8a5c6e58addda83d9d79fc371af"
+    },
+    {
+      "name": "rational-divisor-content",
+      "root": "lean/RationalDivisor/Content.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-coefficients.json"
+      ],
+      "source_sha256": "4ed0d41a0b56a94586c0b56cdc34e14b52e54b83a99cb1c035dd0e6125548043"
+    },
+    {
+      "name": "elementary-rate",
+      "root": "lean/Growth/ElementaryRate.lean",
+      "memory_mb": 1536,
+      "reuse": [],
+      "source_sha256": "1a277b639beae4464785efec3655f9631debc59be48d7c70b348ff528362b271"
+    },
+    {
+      "name": "growth-normalization",
+      "root": "lean/Growth/Normalization.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/actual-kernel-growth.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T033529457679Z/evidence.json"
+      ],
+      "source_sha256": "e1b09db427ded719c5c2f64d877ed877fadd653e323c48956a3c7b7f70f6c19a"
+    },
+    {
+      "name": "growth-tree-row00-leaves",
+      "root": "lean/Growth/Row00CandidateLeaves.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/growth-affine.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/growth-partition.json"
+      ],
+      "source_sha256": "35f069050876a8fa7b52200d324a8df9c9db82836da50e1999e36de90df14d32"
+    },
+    {
+      "name": "growth-tree-row00",
+      "root": "lean/Growth/Row00CandidateTree.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/growth-tree-row00-leaves.json"
+      ],
+      "source_sha256": "3e82127b015a7cb2c8ffb5f8e0b5873aa6215f9aa541d3fab632885e2960027d"
+    },
+    {
+      "name": "factorial-extra-checkpoint",
+      "root": "lean/Factorial/ExtraFactorialBound.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-5-4.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-5-3.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-25-17.json"
+      ],
+      "source_sha256": "97b8b22797e442d28ffb79bff139d71e8acea6a3cdb75f572b2dfcb7cdc5c288"
+    },
+    {
+      "name": "i11-five-three-actual",
+      "root": "lean/I11DivisorFiveThree/Actual.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/rational-divisor-content.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T033529457679Z/evidence.json"
+      ],
+      "source_sha256": "03c4f8d95b3b4017dbee77f3eb54569af0e8f0eb62fa6beb4bed37dc2f6fe3fa"
+    },
+    {
+      "name": "i11-five-three-bounds",
+      "root": "lean/I11DivisorFiveThree/Bounds.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual.json"
+      ],
+      "source_sha256": "f5f3f6cc01bfc99efdc37fda27d348250e7404e4c6de23e8e8dacc628fe0a528"
+    },
+    {
+      "name": "i11-five-three-threshold",
+      "root": "lean/I11DivisorFiveThree/Threshold.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-bounds.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/elementary-rate.json"
+      ],
+      "source_sha256": "420c2a0bb66a09f69b6fe8e6191dcd972c3dce62d5ef52c9872104d02d9ab16e"
+    },
+    {
+      "name": "i11-five-three-checkpoint",
+      "root": "lean/I11DivisorFiveThree/Audit.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-threshold.json"
+      ],
+      "source_sha256": "0a4f8c02c896530e446c779561a20d249a55310542e82bae8ec6c918ef85b5de"
+    },
+    {
+      "name": "upper-height-small-part",
+      "root": "lean/UpperHeight/UpperSmallPart.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json"
+      ],
+      "source_sha256": "9a388fb21d3b7e75a12039ff45715a3c38a1894db474e6d67ed8655da10ab654"
+    },
+    {
+      "name": "upper-height-i11",
+      "root": "lean/UpperHeight/I11SmallPart.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-small-part.json"
+      ],
+      "source_sha256": "16c3d5a32575ca12088e403a1d1d9d4ca7dd551f5791ef2ae168a606e205e6b4"
+    },
+    {
+      "name": "upper-height-cover",
+      "root": "lean/UpperHeight/UpperCoverLayer.lean",
+      "memory_mb": 1536,
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-i11.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json"
+      ],
+      "source_sha256": "ccad88047db4f2ee15a8e66511dfa3f6596dd26892640b17150b1f79708f8e56"
+    }
+  ],
+  "policy": "Strictly serial after final historical35 marker; missing successful dependencies skipped; no partial failed evidence is promoted; no original index count changed."
+}

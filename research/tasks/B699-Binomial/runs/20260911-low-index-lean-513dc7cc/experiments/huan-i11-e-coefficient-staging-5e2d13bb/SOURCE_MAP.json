@@ -1,0 +1,78 @@
+{
+  "owner": "/root/pade_construction",
+  "scope": "Only actual ThreeTwo E delta0, m=1, eight coefficients",
+  "namespace": "Math.B699.I11ECoefficientStaging",
+  "short_target_mapping": {
+    "Coeff0.lean": "lean/I11ECoefficientStaging/Coeff0.lean",
+    "EvalBridge.lean": "lean/I11ECoefficientStaging/EvalBridge.lean",
+    "Coefficients.lean": "lean/I11ECoefficientStaging/Coefficients.lean",
+    "RatSum.lean": "lean/I11ECoefficientStaging/RatSum.lean",
+    "ClosedEval.lean": "lean/I11ECoefficientStaging/ClosedEval.lean",
+    "ActualEval.lean": "lean/I11ECoefficientStaging/ActualEval.lean",
+    "Coeff0Audit.lean": "lean/I11ECoefficientStaging/ZeroAudit.lean",
+    "EvalBridgeAudit.lean": "lean/I11ECoefficientStaging/EvalAudit.lean",
+    "CoefficientsAudit.lean": "lean/I11ECoefficientStaging/CoeffAudit.lean",
+    "RatSumAudit.lean": "lean/I11ECoefficientStaging/RatAudit.lean",
+    "ClosedEvalAudit.lean": "lean/I11ECoefficientStaging/ClosedAudit.lean",
+    "ActualEvalAudit.lean": "lean/I11ECoefficientStaging/ActualAudit.lean",
+    "Audit.lean": "lean/I11ECoefficientStaging/Audit.lean"
+  },
+  "import_rule": "Map only this package own experiment imports to lean.I11ECoefficientStaging; keep accepted run imports unchanged. Audit files may use the mapped short basenames. No shared source edits by subagent.",
+  "exact_closed_target": "(coefficientPolynomial 7 (fastECoefficient 15 7 15)).eval2 (Int.castRingHom Rat) (1/9) = 13515592997264/1594323",
+  "exact_actual_target": "actualE 23 15 0 1 (1/9) = 13515592997264/1594323",
+  "parameters": {
+    "delta": 0,
+    "m": 1,
+    "A": 15,
+    "B": 7,
+    "C": 15,
+    "coefficient_count": 8
+  },
+  "proof_pipeline": [
+    {
+      "module": "Coeff0",
+      "operation": "one closed integer coefficient, norm_num factorial quotient",
+      "first_independent_probe": true
+    },
+    {
+      "module": "EvalBridge",
+      "operation": "generic n,a,f,z polynomial-to-sum identity; degree7 expansion with a,f,z symbolic; generic coefficient substitution",
+      "first_independent_probe": true
+    },
+    {
+      "module": "Coefficients",
+      "operation": "remaining seven independent integer coefficient certificates"
+    },
+    {
+      "module": "RatSum",
+      "operation": "eight literal integer casts into Rat, powers at most7; no direct Polynomial or Pade import; norm_num only pure rational arithmetic"
+    },
+    {
+      "module": "ClosedEval",
+      "operation": "instantiate proved symbolic substitution with all8 coefficient proofs, Eq.trans pure Rat sum; no rw/simp/norm_num on concrete polynomial"
+    },
+    {
+      "module": "ActualEval",
+      "operation": "accepted actualE_eq_fast specialized at small natural parameters, Eq.trans closed_e_delta0"
+    }
+  ],
+  "audit_order": [
+    "ZeroAudit",
+    "EvalAudit",
+    "CoeffAudit",
+    "RatAudit",
+    "ClosedAudit",
+    "ActualAudit",
+    "Audit"
+  ],
+  "remaining_unproved_by_this_candidate": [
+    "Lean elaboration and kernel acceptance of all new layers",
+    "delta1 actual E initialization and cap connection",
+    "No original Common theorem is claimed by this arithmetic probe"
+  ],
+  "failure_interpretation": "Prior ClosedEval failure rules out actualE bridging as the sole cause. It does not yet prove whether concrete Polynomial reduction, coefficient computation or pure Rat calculation dominates. Separate probes distinguish these cases.",
+  "resource_claim": "No measured improvement: no Lean invocations. Result magnitudes are only27bit coefficients and a44bit numerator; size alone does not explain OOM.",
+  "public_roots": 15,
+  "public_theorems": 14,
+  "candidate_status": "UNCOMPILED_FULL_PROOF_TEXT_NO_PLACEHOLDERS"
+}

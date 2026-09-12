@@ -1,0 +1,111 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T015234282081Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Audit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Audit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T01:53:12.564415Z
+# finished_utc: 2026-09-12T01:53:21.690681Z
+# exit_code: 0
+# timed_out: False
+@Math.B699.I11InitialHeight.prime_component_le_of_window : ∀ {n p : ℕ}
+  (window : B699LowIndex.I11SmallPrimes.PrimeWindow n p), B699LowIndex.I11SmallPrimes.primeComponent n p ≤ n
+'Math.B699.I11InitialHeight.prime_component_le_of_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11InitialHeight.actual_prime_component_le : ∀ {n p : ℕ},
+  11 ≤ n → Nat.Prime p → B699LowIndex.I11SmallPrimes.primeComponent n p ≤ n
+'Math.B699.I11InitialHeight.actual_prime_component_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11InitialHeight.ceil_half_positive : ∀ {n : ℕ},
+  1 ≤ n → 1 ≤ B699LowIndex.I11FiveThreeComponentEdge.ceilHalf n
+'Math.B699.I11InitialHeight.ceil_half_positive' depends on axioms: [propext, Quot.sound]
+Math.B699.I11InitialHeight.n_le_twice_ceil_half : ∀ (n : ℕ), n ≤ 2 * B699LowIndex.I11FiveThreeComponentEdge.ceilHalf n
+'Math.B699.I11InitialHeight.n_le_twice_ceil_half' depends on axioms: [propext, Quot.sound]
+@Math.B699.I11InitialHeight.actual_components_product_bound : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    (B699LowIndex.I11SmallPrimes.primeComponent n 2 * B699LowIndex.I11SmallPrimes.primeComponent n 3 *
+              B699LowIndex.I11SmallPrimes.primeComponent n 5 *
+            B699LowIndex.I11SmallPrimes.primeComponent n 7) ^
+          1000 *
+        B699LowIndex.I11FiveThreeComponentEdge.ceilHalf n ^ 640 ≤
+      n ^ 4000
+'Math.B699.I11InitialHeight.actual_components_product_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11InitialHeight.actual_small_prime_part_bound : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    B699LargePrimeStructure.smallPrimePart n 11 ^ 1000 * B699LowIndex.I11FiveThreeComponentEdge.ceilHalf n ^ 640 ≤
+      n ^ 4000
+'Math.B699.I11InitialHeight.actual_small_prime_part_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11InitialHeight.actual_i11_below_15360 : ∀ {n j : ℕ},
+  11 < j → j ≤ n / 2 → ¬B699LargePrimeStructure.Common n 11 j → n < 2 ^ 15360
+'Math.B699.I11InitialHeight.actual_i11_below_15360' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11InitialHeight.actual_i11_below_109 : ∀ {n j : ℕ},
+  11 < j → j ≤ n / 2 → ¬B699LargePrimeStructure.Common n 11 j → n < 2 ^ 109
+'Math.B699.I11InitialHeight.actual_i11_below_109' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LargePrimeStructure.Common : ℕ → ℕ → ℕ → Prop
+'B699LargePrimeStructure.Common' depends on axioms: [propext]
+@B699LowIndex.I11SmallPrimes.primeWindow_nonempty : ∀ {n p : ℕ},
+  11 ≤ n → Nat.Prime p → Nonempty (B699LowIndex.I11SmallPrimes.PrimeWindow n p)
+'B699LowIndex.I11SmallPrimes.primeWindow_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11SmallPrimes.smallPrimePart_eq_four_components : ∀ (n : ℕ),
+  B699LargePrimeStructure.smallPrimePart n 11 =
+    B699LowIndex.I11SmallPrimes.primeComponent n 2 * B699LowIndex.I11SmallPrimes.primeComponent n 3 *
+        B699LowIndex.I11SmallPrimes.primeComponent n 5 *
+      B699LowIndex.I11SmallPrimes.primeComponent n 7
+'B699LowIndex.I11SmallPrimes.smallPrimePart_eq_four_components' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TwoFiveFinalConsumers.actual_two_five_component_edge : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    B699LowIndex.I11SmallPrimes.primeComponent n 2 ^ 1000 * ((n + 1) / 2) ^ 248 ≤ n ^ 1000 ∨
+      B699LowIndex.I11SmallPrimes.primeComponent n 5 ^ 1000 * ((n + 1) / 2) ^ 252 ≤ n ^ 1000
+'Math.B699.I11TwoFiveFinalConsumers.actual_two_five_component_edge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11SevenTwoFinalConsumers.actual_seven_two_component_edge : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    B699LowIndex.I11SmallPrimes.primeComponent n 7 ^ 1000 * ((n + 1) / 2) ^ 60 ≤ n ^ 1000 ∨
+      B699LowIndex.I11SmallPrimes.primeComponent n 2 ^ 1000 * ((n + 1) / 2) ^ 330 ≤ n ^ 1000
+'Math.B699.I11SevenTwoFinalConsumers.actual_seven_two_component_edge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11ThreeTwoFinalConsumers.actual_three_two_component_edge : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    B699LowIndex.I11SmallPrimes.primeComponent n 3 ^ 1000 * ((n + 1) / 2) ^ 226 ≤ n ^ 1000 ∨
+      B699LowIndex.I11SmallPrimes.primeComponent n 2 ^ 1000 * ((n + 1) / 2) ^ 268 ≤ n ^ 1000
+'Math.B699.I11ThreeTwoFinalConsumers.actual_three_two_component_edge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@B699LowIndex.I11FiveThreeFinalInstance.actual_five_three_component_edge : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    B699LowIndex.I11SmallPrimes.primeComponent n 5 ^ 1000 * ((n + 1) / 2) ^ 354 ≤ n ^ 1000 ∨
+      B699LowIndex.I11SmallPrimes.primeComponent n 3 ^ 1000 * ((n + 1) / 2) ^ 228 ≤ n ^ 1000
+'B699LowIndex.I11FiveThreeFinalInstance.actual_five_three_component_edge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11FiveSevenFinalConsumers.actual_five_seven_component_edge : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    B699LowIndex.I11SmallPrimes.primeComponent n 5 ^ 1000 * ((n + 1) / 2) ^ 352 ≤ n ^ 1000 ∨
+      B699LowIndex.I11SmallPrimes.primeComponent n 7 ^ 1000 * ((n + 1) / 2) ^ 216 ≤ n ^ 1000
+'Math.B699.I11FiveSevenFinalConsumers.actual_five_seven_component_edge' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11WeightedProduct.i11_five_edges_product : ∀ {n Y A2 A3 A5 A7 : ℕ},
+  1 ≤ Y →
+    A2 ≤ n →
+      A3 ≤ n →
+        A5 ≤ n →
+          A7 ≤ n →
+            A2 ^ 1000 * Y ^ 248 ≤ n ^ 1000 ∨ A5 ^ 1000 * Y ^ 252 ≤ n ^ 1000 →
+              A7 ^ 1000 * Y ^ 60 ≤ n ^ 1000 ∨ A2 ^ 1000 * Y ^ 330 ≤ n ^ 1000 →
+                A3 ^ 1000 * Y ^ 226 ≤ n ^ 1000 ∨ A2 ^ 1000 * Y ^ 268 ≤ n ^ 1000 →
+                  A5 ^ 1000 * Y ^ 354 ≤ n ^ 1000 ∨ A3 ^ 1000 * Y ^ 228 ≤ n ^ 1000 →
+                    A5 ^ 1000 * Y ^ 352 ≤ n ^ 1000 ∨ A7 ^ 1000 * Y ^ 216 ≤ n ^ 1000 →
+                      (A2 * A3 * A5 * A7) ^ 1000 * Y ^ 640 ≤ n ^ 4000
+'Math.B699.I11WeightedProduct.i11_five_edges_product' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11WeightedProduct.i11_noCommon_false_of_product : ∀ {n j Y : ℕ},
+  2 ^ 15360 ≤ n →
+    11 < j →
+      j ≤ n / 2 →
+        n ≤ 2 * Y →
+          B699LargePrimeStructure.smallPrimePart n 11 ^ 1000 * Y ^ 640 ≤ n ^ 4000 →
+            ¬B699LargePrimeStructure.Common n 11 j → False
+'Math.B699.I11WeightedProduct.i11_noCommon_false_of_product' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11VerifiedCubicCompression.actual_i11_below_109_of_initial_height : ∀ {n j : ℕ},
+  11 < j → j ≤ n / 2 → ¬B699LargePrimeStructure.Common n 11 j → n < 2 ^ 15360 → n < 2 ^ 109
+'Math.B699.I11VerifiedCubicCompression.actual_i11_below_109_of_initial_height' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

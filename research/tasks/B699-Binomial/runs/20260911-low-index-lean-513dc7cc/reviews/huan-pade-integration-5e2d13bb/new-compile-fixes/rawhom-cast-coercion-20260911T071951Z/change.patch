@@ -1,0 +1,11 @@
+--- before/RawHom.lean
++++ after/RawHom.lean
+@@ -47,7 +47,7 @@
+           (qPolynomial u v u).eval₂ (Int.castRingHom ℝ) z =
+         (determinantConstant u v : ℝ) * z ^ (2 * u - 1) := by
+     simpa only [rawPolynomialDeterminant, Polynomial.eval₂_sub, Polynomial.eval₂_mul,
+-      Polynomial.eval₂_C, Polynomial.eval₂_X_pow] using hp
++      Polynomial.eval₂_C, Polynomial.eval₂_X_pow, Int.coe_castRingHom] using hp
+   have hreal : (rawHomogeneousDeterminant u v x y : ℝ) =
+       (determinantConstant u v : ℝ) * (x : ℝ) ^ (2 * u - 1) := by
+     calc

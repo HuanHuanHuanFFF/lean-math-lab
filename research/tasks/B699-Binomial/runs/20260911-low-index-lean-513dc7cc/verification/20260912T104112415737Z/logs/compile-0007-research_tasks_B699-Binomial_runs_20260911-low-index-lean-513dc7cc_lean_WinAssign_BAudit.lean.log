@@ -1,0 +1,22 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T104112415737Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WinAssign/BAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WinAssign/BAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T10:42:07.193270Z
+# finished_utc: 2026-09-12T10:42:17.766121Z
+# exit_code: 0
+# timed_out: False
+Math.B699.WindowPrimeAssignment.assignedBlock : (n k : ℕ) → 1 ≤ k → k ≤ n → ℕ → ℕ
+'Math.B699.WindowPrimeAssignment.assignedBlock' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.block_pos : ∀ (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) (r : ℕ),
+  0 < Math.B699.WindowPrimeAssignment.assignedBlock n k hk hkn r
+'Math.B699.WindowPrimeAssignment.block_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.block_dvd_window : ∀ (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) (r : ℕ),
+  Math.B699.WindowPrimeAssignment.assignedBlock n k hk hkn r ∣ n - r
+'Math.B699.WindowPrimeAssignment.block_dvd_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.blocks_coprime : ∀ (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) (r s : ℕ),
+  r ≠ s →
+    (Math.B699.WindowPrimeAssignment.assignedBlock n k hk hkn r).Coprime
+      (Math.B699.WindowPrimeAssignment.assignedBlock n k hk hkn s)
+'Math.B699.WindowPrimeAssignment.blocks_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.blocks_product : ∀ (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n),
+  ∏ r ∈ Finset.range k, Math.B699.WindowPrimeAssignment.assignedBlock n k hk hkn r = n.choose k
+'Math.B699.WindowPrimeAssignment.blocks_product' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,26 @@
+--- before/KernelMoments.lean
++++ after/KernelMoments.lean
+@@ -39,7 +39,7 @@
+       Polynomial.C z * (1 - X) := by ring
+   rw [h]
+   unfold eKernel
+-  simp only [mul_pow, map_pow, pow_add]
++  simp only [mul_pow, Polynomial.C_mul, Polynomial.C_pow, pow_add]
+   ring
+ 
+ theorem pKernel_comp_right (A B C : ℕ) (z : ℚ) :
+@@ -55,9 +55,12 @@
+       Polynomial.C (-(1 - z)) * (1 - X) := by
+     simp only [map_neg, map_sub, map_one]
+     ring
+-  rw [h1, h2]
++  have hneg : (Polynomial.C (-(1 - z)) : ℚ[X]) =
++      Polynomial.C (-1) * Polynomial.C (1 - z) := by
++    rw [← Polynomial.C_mul, neg_one_mul]
++  rw [h1, h2, hneg]
+   unfold qKernel
+-  simp only [mul_pow, map_mul, map_pow, map_neg, map_sub, map_one, neg_pow, pow_add]
++  simp only [mul_pow, Polynomial.C_mul, Polynomial.C_pow, pow_add]
+   ring
+ 
+ /-- The correct source exponents are B+C+1 and A+C+1. -/

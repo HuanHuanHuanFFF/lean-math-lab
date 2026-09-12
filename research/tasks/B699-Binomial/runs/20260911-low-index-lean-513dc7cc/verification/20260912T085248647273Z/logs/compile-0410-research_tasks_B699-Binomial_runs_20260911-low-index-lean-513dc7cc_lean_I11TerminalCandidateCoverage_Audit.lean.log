@@ -1,0 +1,853 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T085248647273Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Audit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Audit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T08:54:12.798805Z
+# finished_utc: 2026-09-12T08:54:22.868278Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCandidateCoverage.IntervalSound : B699LowIndex.NatInterval → Prop
+'Math.B699.I11TerminalCandidateCoverage.IntervalSound' depends on axioms: [propext]
+Math.B699.I11TerminalCandidateCoverage.IntervalsSound : List B699LowIndex.NatInterval → Prop
+'Math.B699.I11TerminalCandidateCoverage.IntervalsSound' depends on axioms: [propext]
+Math.B699.I11TerminalCandidateCoverage.intervals_sound_nil : Math.B699.I11TerminalCandidateCoverage.IntervalsSound []
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_nil' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.intervals_sound_cons : ∀ {I : B699LowIndex.NatInterval}
+  {intervals : List B699LowIndex.NatInterval},
+  Math.B699.I11TerminalCandidateCoverage.IntervalSound I →
+    Math.B699.I11TerminalCandidateCoverage.IntervalsSound intervals →
+      Math.B699.I11TerminalCandidateCoverage.IntervalsSound (I :: intervals)
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_cons' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.intervals_sound_append : ∀ {left right : List B699LowIndex.NatInterval},
+  Math.B699.I11TerminalCandidateCoverage.IntervalsSound left →
+    Math.B699.I11TerminalCandidateCoverage.IntervalsSound right →
+      Math.B699.I11TerminalCandidateCoverage.IntervalsSound (left ++ right)
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_append' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.interval_sound_of_witness_checks : ∀
+  {witnesses : List B699LowIndex.I11TerminalCover.Witness} {lo hi : ℕ},
+  B699LowIndex.I11TerminalCover.witnessesCheck witnesses = true →
+    B699LowIndex.coverCheck lo hi (B699LowIndex.I11TerminalCover.witnessIntervals witnesses) = true →
+      Math.B699.I11TerminalCandidateCoverage.IntervalSound (lo, hi)
+'Math.B699.I11TerminalCandidateCoverage.interval_sound_of_witness_checks' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.interval_sound_of_interval_cover : ∀ {intervals : List B699LowIndex.NatInterval}
+  {lo hi : ℕ},
+  Math.B699.I11TerminalCandidateCoverage.IntervalsSound intervals →
+    B699LowIndex.coverCheck lo hi intervals = true → Math.B699.I11TerminalCandidateCoverage.IntervalSound (lo, hi)
+'Math.B699.I11TerminalCandidateCoverage.interval_sound_of_interval_cover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.intervals_sound_congr : ∀ {left right : List B699LowIndex.NatInterval},
+  left = right →
+    Math.B699.I11TerminalCandidateCoverage.IntervalsSound left →
+      Math.B699.I11TerminalCandidateCoverage.IntervalsSound right
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_congr' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.common_of_sound_candidates : ∀ {intervals : List B699LowIndex.NatInterval}
+  {n j : ℕ},
+  Math.B699.I11TerminalCandidateCoverage.IntervalsSound intervals →
+    B699LowIndex.I11TerminalCover.candidateMem n intervals → 11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCandidateCoverage.common_of_sound_candidates' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.First.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound (24, 4010)
+'Math.B699.I11TerminalCandidateCoverage.First.sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.First.common : ∀ {n j : ℕ},
+  B699LowIndex.intervalMem n (24, 4010) → 11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCandidateCoverage.First.common' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.Last.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (29294601, 29294602)
+'Math.B699.I11TerminalCandidateCoverage.Last.sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.Last.common : ∀ {n j : ℕ},
+  B699LowIndex.intervalMem n (29294601, 29294602) → 11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCandidateCoverage.Last.common' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.allIntervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.allIntervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.allIntervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.allIntervals
+'Math.B699.I11TerminalCandidateCoverage.allIntervals_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.original_candidates_eq : Math.B699.I11TerminalMembership.originalCandidates =
+  Math.B699.I11TerminalCandidateCoverage.allIntervals
+'Math.B699.I11TerminalCandidateCoverage.original_candidates_eq' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.candidate_count : Math.B699.I11TerminalCandidateCoverage.allIntervals.length =
+  1055
+'Math.B699.I11TerminalCandidateCoverage.candidate_count' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.originalCandidates_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalMembership.originalCandidates
+'Math.B699.I11TerminalCandidateCoverage.originalCandidates_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.common_of_original_candidates : ∀ {n j : ℕ},
+  B699LowIndex.I11TerminalCover.candidateMem n Math.B699.I11TerminalMembership.originalCandidates →
+    11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCandidateCoverage.common_of_original_candidates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.prime_of_original_candidates : ∀ {n j : ℕ},
+  B699LowIndex.I11TerminalCover.candidateMem n Math.B699.I11TerminalMembership.originalCandidates →
+    11 < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ 11 ≤ p ∧ p ∣ (n.choose 11).gcd (n.choose j)
+'Math.B699.I11TerminalCandidateCoverage.prime_of_original_candidates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P000.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (24, 137)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P000.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P001.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (138, 261)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P001.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P002.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (262, 347)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P002.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P003.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (348, 467)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P003.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P004.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (468, 539)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P004.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P005.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (540, 651)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P005.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P006.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (652, 779)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P006.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P007.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (780, 863)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P007.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P008.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (864, 917)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P008.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P009.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (918, 1019)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P009.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P010.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1020, 1097)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P010.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P011.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1098, 1149)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P011.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P012.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1150, 1259)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P012.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P013.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1260, 1337)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P013.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P014.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1338, 1353)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P014.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P015.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1354, 1396)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P015.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P016.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1397, 1491)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P016.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P017.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1492, 1594)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P017.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P018.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1595, 1655)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P018.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P019.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1656, 1691)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P019.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P020.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1692, 1773)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P020.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P021.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1774, 1845)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P021.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P022.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1846, 1926)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P022.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P023.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1927, 1964)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P023.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P024.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (1965, 2037)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P024.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P025.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2038, 2124)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P025.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P026.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2125, 2178)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P026.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P027.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2179, 2223)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P027.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P028.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2224, 2283)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P028.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P029.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2284, 2331)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P029.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P030.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2332, 2433)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P030.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P031.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2434, 2494)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P031.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P032.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2495, 2520)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P032.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P033.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2521, 2578)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P033.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P034.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2579, 2645)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P034.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P035.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2646, 2759)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P035.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P036.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2760, 2829)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P036.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P037.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2830, 2897)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P037.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P038.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2898, 2984)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P038.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P039.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (2985, 3011)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P039.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P040.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3012, 3100)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P040.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P041.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3101, 3136)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P041.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P042.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3137, 3162)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P042.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P043.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3163, 3244)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P043.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P044.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3245, 3287)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P044.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P045.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3288, 3341)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P045.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P046.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3342, 3402)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P046.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P047.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3403, 3443)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P047.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P048.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3444, 3486)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P048.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P049.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3487, 3570)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P049.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P050.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3571, 3656)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P050.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P051.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3657, 3749)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P051.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P052.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3750, 3791)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P052.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P053.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3792, 3846)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P053.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P054.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3847, 3906)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P054.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P055.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3907, 3966)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P055.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.FirstParts.P056.sound : Math.B699.I11TerminalCandidateCoverage.IntervalSound
+  (3967, 4010)
+'Math.B699.I11TerminalCandidateCoverage.FirstParts.P056.sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G000.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G000.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G000.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G000.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G000.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G001.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G001.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G001.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G001.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G001.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G002.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G002.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G002.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G002.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G002.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G003.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G003.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G003.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G003.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G003.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G004.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G004.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G004.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G004.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G004.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G005.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G005.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G005.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G005.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G005.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G006.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G006.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G006.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G006.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G006.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G007.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G007.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G007.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G007.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G007.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G008.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G008.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G008.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G008.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G008.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G009.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G009.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G009.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G009.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G009.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G010.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G010.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G010.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G010.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G010.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G011.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G011.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G011.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G011.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G011.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G012.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G012.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G012.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G012.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G012.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G013.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G013.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G013.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G013.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G013.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G014.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G014.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G014.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G014.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G014.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G015.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G015.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G015.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G015.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G015.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G016.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G016.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G016.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G016.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G016.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G017.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G017.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G017.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G017.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G017.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G018.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G018.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G018.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G018.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G018.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G019.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G019.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G019.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G019.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G019.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G020.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G020.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G020.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G020.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G020.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G021.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G021.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G021.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G021.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G021.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G022.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G022.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G022.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G022.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G022.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G023.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G023.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G023.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G023.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G023.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G024.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G024.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G024.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G024.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G024.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G025.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G025.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G025.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G025.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G025.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G026.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G026.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G026.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G026.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G026.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G027.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G027.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G027.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G027.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G027.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G028.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G028.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G028.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G028.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G028.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G029.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G029.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G029.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G029.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G029.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G030.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G030.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G030.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G030.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G030.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G031.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G031.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G031.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G031.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G031.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G032.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G032.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G032.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G032.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G032.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G033.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G033.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G033.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G033.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G033.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G034.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G034.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G034.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G034.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G034.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G035.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G035.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G035.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G035.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G035.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G036.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G036.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G036.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G036.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G036.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G037.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G037.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G037.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G037.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G037.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G038.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G038.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G038.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G038.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G038.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G039.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G039.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G039.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G039.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G039.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G040.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G040.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G040.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G040.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G040.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G041.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G041.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G041.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G041.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G041.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G042.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G042.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G042.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G042.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G042.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G043.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G043.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G043.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G043.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G043.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G044.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G044.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G044.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G044.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G044.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G045.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G045.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G045.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G045.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G045.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G046.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G046.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G046.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G046.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G046.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G047.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G047.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G047.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G047.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G047.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G048.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G048.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G048.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G048.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G048.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G049.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G049.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G049.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G049.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G049.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G050.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G050.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G050.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G050.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G050.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G051.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G051.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G051.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G051.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G051.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G052.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G052.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G052.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G052.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G052.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G053.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G053.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G053.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G053.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G053.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G054.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G054.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G054.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G054.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G054.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G055.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G055.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G055.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G055.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G055.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G056.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G056.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G056.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G056.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G056.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G057.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G057.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G057.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G057.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G057.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G058.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G058.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G058.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G058.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G058.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G059.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G059.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G059.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G059.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G059.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G060.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G060.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G060.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G060.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G060.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G061.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G061.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G061.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G061.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G061.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G062.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G062.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G062.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G062.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G062.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G063.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G063.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G063.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G063.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G063.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G064.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G064.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G064.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G064.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G064.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.Groups.G065.intervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.Groups.G065.intervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.Groups.G065.intervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.Groups.G065.intervals
+'Math.B699.I11TerminalCandidateCoverage.Groups.G065.intervals_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+B699LowIndex.coverCheck_sound : ∀ (cover : List B699LowIndex.NatInterval) (lo hi n : ℕ),
+  B699LowIndex.coverCheck lo hi cover = true → lo ≤ n → n ≤ hi → ∃ I ∈ cover, B699LowIndex.intervalMem n I
+'B699LowIndex.coverCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699LowIndex.I11TerminalCover.witnessCheck_sound : ∀ {w : B699LowIndex.I11TerminalCover.Witness},
+  B699LowIndex.I11TerminalCover.witnessCheck w = true →
+    ∀ {n j : ℕ},
+      B699LowIndex.intervalMem n (B699LowIndex.I11TerminalCover.witnessBounds w) →
+        11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'B699LowIndex.I11TerminalCover.witnessCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699LowIndex.I11TerminalCover.common_of_cover_checks : ∀ {witnesses : List B699LowIndex.I11TerminalCover.Witness}
+  {lo hi n j : ℕ},
+  B699LowIndex.I11TerminalCover.witnessesCheck witnesses = true →
+    B699LowIndex.coverCheck lo hi (B699LowIndex.I11TerminalCover.witnessIntervals witnesses) = true →
+      lo ≤ n → n ≤ hi → 11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'B699LowIndex.I11TerminalCover.common_of_cover_checks' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.candidateMem : ℕ → List B699LowIndex.NatInterval → Prop
+'B699LowIndex.I11TerminalCover.candidateMem' does not depend on any axioms
+Math.B699.I11TerminalMembership.originalCandidates : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalMembership.originalCandidates' does not depend on any axioms

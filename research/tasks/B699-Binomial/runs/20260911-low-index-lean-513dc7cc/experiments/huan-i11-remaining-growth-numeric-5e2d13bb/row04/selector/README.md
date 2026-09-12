@@ -1,0 +1,1 @@
+Fixed I11FiveSeven selector candidate; no Lean/Git. Z=719422706382292314227864, M=194, H=15359; p=5^22000, alpha=648; q=7^22000, alpha=784. Seven certificates are predecessor plus p/q conditions and projections; qRate^M>48 deferred.

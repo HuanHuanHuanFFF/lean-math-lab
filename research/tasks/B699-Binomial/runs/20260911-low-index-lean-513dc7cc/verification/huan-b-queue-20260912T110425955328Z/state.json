@@ -1,0 +1,170 @@
+{
+  "status": "running",
+  "started_utc": "2026-09-12T11:04:25.958006+00:00",
+  "plan": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/notes/huan-critical-audit-and-log-plan-v52.json",
+  "plan_sha256": "e95b2d86b85c374f19d69f2f1046023e2a545c7d4d2216baeed068119315b94d",
+  "jobs": [
+    {
+      "name": "critical-height-typed-audit",
+      "root": "lean/CriticalPadeHeight/TypedAudit.lean",
+      "source_sha256": "413b77ae020d032779326e5bd9071db23f060535ce83c539d37c0c977c385138",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "critical-height-typed-audit",
+        "--root",
+        "lean/CriticalPadeHeight/TypedAudit.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-three-original-bounds.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260912T110425955328Z/00-critical-height-typed-audit.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-typed-audit.json",
+      "finished_utc": "2026-09-12T11:05:24.529900+00:00"
+    },
+    {
+      "name": "critical-height-full-audit",
+      "root": "lean/CriticalPadeHeight/Audit.lean",
+      "source_sha256": "e814831683209e447987400439c3addf5003630e41fdb1f7148bdfca0e2e2f07",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "critical-height-full-audit",
+        "--root",
+        "lean/CriticalPadeHeight/Audit.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-typed-audit.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260912T110425955328Z/01-critical-height-full-audit.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/critical-height-full-audit.json",
+      "finished_utc": "2026-09-12T11:06:20.844103+00:00"
+    },
+    {
+      "name": "zero-log-box-definitions",
+      "root": "lean/ZeroBoundaryLogBoxes/DefinitionsAudit.lean",
+      "source_sha256": "19c363e6d415e95f9d91f90d81efd282b0ce67f7c9013f756bfca60315f6397e",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "zero-log-box-definitions",
+        "--root",
+        "lean/ZeroBoundaryLogBoxes/DefinitionsAudit.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260912T110425955328Z/02-zero-log-box-definitions.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/zero-log-box-definitions.json",
+      "finished_utc": "2026-09-12T11:07:24.746503+00:00"
+    },
+    {
+      "name": "zero-log-box-bridge",
+      "root": "lean/ZeroBoundaryLogBoxes/BridgeAudit.lean",
+      "source_sha256": "405610e60c31912b88c8a2e299e93ddc843814aba35f5f93fdbf9c5e64278bb8",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "zero-log-box-bridge",
+        "--root",
+        "lean/ZeroBoundaryLogBoxes/BridgeAudit.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/zero-log-box-definitions.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260912T110425955328Z/03-zero-log-box-bridge.log",
+      "exit_code": 1,
+      "finished_utc": "2026-09-12T11:08:26.409972+00:00"
+    },
+    {
+      "name": "zero-log-separation-basic",
+      "root": "lean/ZeroBoundaryLogSeparation/Basic.lean",
+      "source_sha256": "fac0f8409551f2678470296ee3ebf58dc96f03ea5219725503c7786b074a5734",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "zero-log-separation-basic",
+        "--root",
+        "lean/ZeroBoundaryLogSeparation/Basic.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260912T110425955328Z/04-zero-log-separation-basic.log",
+      "exit_code": 1,
+      "finished_utc": "2026-09-12T11:09:11.972356+00:00"
+    },
+    {
+      "name": "zero-log-separation-quotient",
+      "root": "lean/ZeroBoundaryLogSeparation/Quotient.lean",
+      "source_sha256": "18f209307ea4ab7da9d932c836e1473fb8b10ca499d76f853cbfaa870bc2169f",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/zero-log-separation-basic.json"
+      ],
+      "finished_utc": "2026-09-12T11:09:11.975670+00:00"
+    },
+    {
+      "name": "zero-log-separation-pilot-data",
+      "root": "lean/ZeroBoundaryLogSeparation/PilotData.lean",
+      "source_sha256": "998fcce8e9c0185cd6ff93f77e3312a90eb56e5072d6b6b425c7a2c07ad5a08e",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/zero-log-separation-basic.json"
+      ],
+      "finished_utc": "2026-09-12T11:09:11.979213+00:00"
+    },
+    {
+      "name": "zero-log-box-finite",
+      "root": "lean/ZeroBoundaryLogBoxes/FiniteAudit.lean",
+      "source_sha256": "b2f851e2f907b8853f1de8e284c9c3b3f8233310ba80977a350fdaaba92a214d",
+      "status": "running",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "zero-log-box-finite",
+        "--root",
+        "lean/ZeroBoundaryLogBoxes/FiniteAudit.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/zero-log-box-definitions.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260912T110425955328Z/07-zero-log-box-finite.log"
+    }
+  ],
+  "new_B_original_results": 0
+}

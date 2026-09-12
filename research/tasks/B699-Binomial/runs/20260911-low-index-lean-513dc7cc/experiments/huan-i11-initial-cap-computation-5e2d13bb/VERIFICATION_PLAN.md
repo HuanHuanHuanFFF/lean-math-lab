@@ -1,0 +1,7 @@
+# 仅由主任务运行的下一检查
+
+1. 读取SOURCE_MAP中的当前SmallCertificates/ActualE/系数/常数及mathlib源码SHA；保留冻结原文件。
+2. 复制本包到INTEGRATION_MAP给出的新lean/I11InitialCapComputation路径，先ChooseFastAudit，再ThreeTwoAudit，再FiveSevenAudit，最后总Audit。没有新的分析库或下载需求；NormNum.NatFactorial现有olean已绑定。
+3. 新源没有增加心跳/递归限制；第一次实际运行应记录真实进程预算、时间、退出码和全部15公共根的传递axiom输出。静态检查不等于内核接受；若失败，按真实新错误诊断，不能重复声称已解决。
+4. 只有验收后才由共享文件owner决定将旧fixed_initial_e_cap的证明接到对应新namespace的同型cap。新候选只import GrowthInputs及ChooseFast，不import旧SmallCertificates，避免循环或假设旧结论。
+5. 不顺带优化常数、不扩Q/其它种子、不运行Git、不更新B计数；主任务若原高预算版本已通过，保留此有界备选后结束。

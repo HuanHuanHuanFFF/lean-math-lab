@@ -1,0 +1,44 @@
+import Mathlib.Data.Rat.Cast.Order
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
+import Mathlib.Tactic.Ring
+import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.NormNum
+
+/-! UNCOMPILED CANDIDATE. Denominator-free rational bounds. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+namespace Math.B699.I11ScaledBounds
+
+theorem normalized_abs_bound (g l t x v H : ℚ)
+    (hl : 0 ≤ l) (hgl : l ≤ g) (ht : 0 ≤ t)
+    (hid : g * x = t * v) (hv : |v| ≤ H) : l * |x| ≤ t * H := by
+  have hg : 0 ≤ g := le_trans hl hgl
+  have habs : g * |x| = t * |v| := by
+    simpa only [abs_mul, abs_of_nonneg hg, abs_of_nonneg ht] using congrArg abs hid
+  calc
+    l * |x| ≤ g * |x| := mul_le_mul_of_nonneg_right hgl (abs_nonneg x)
+    _ = t * |v| := habs
+    _ ≤ t * H := mul_le_mul_of_nonneg_left hv ht
+
+theorem weighted_bound_lt (l r k x D : ℚ)
+    (hl : 0 < l) (hk : 0 ≤ k) (hbound : l * x ≤ D)
+    (hsmall : k * D < r * l) : k * x < r := by
+  apply (mul_lt_mul_left hl).mp
+  calc
+    l * (k * x) = k * (l * x) := by ring
+    _ ≤ k * D := mul_le_mul_of_nonneg_left hbound hk
+    _ < l * r := by simpa only [mul_comm l r] using hsmall
+
+theorem ratio_pow_mul (N D : ℚ) (hD : D ≠ 0) (m : ℕ) :
+    (N / D) ^ m * D ^ m = N ^ m := by
+  rw [← mul_pow, div_mul_cancel₀ _ hD]
+
+theorem sum_lt_of_twice_lt (a b r : ℚ)
+    (ha : 2 * a < r) (hb : 2 * b < r) : a + b < r := by linarith
+
+end Math.B699.I11ScaledBounds
+#print axioms Math.B699.I11ScaledBounds.normalized_abs_bound
+#print axioms Math.B699.I11ScaledBounds.weighted_bound_lt
+#print axioms Math.B699.I11ScaledBounds.ratio_pow_mul
+#print axioms Math.B699.I11ScaledBounds.sum_lt_of_twice_lt

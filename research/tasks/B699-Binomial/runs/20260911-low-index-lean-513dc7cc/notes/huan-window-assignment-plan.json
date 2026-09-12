@@ -1,0 +1,64 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T03:45:28.078798+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "window-assignment-products",
+      "root": "lean/WinAssign/PAudit.lean",
+      "source_sha256": "35d268ab489ac4c3e55ce6fea6b101a5fdb8ae39f53ea91a8fdb48dd2b195aeb",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "window-assignment-actual",
+      "root": "lean/WinAssign/AAudit.lean",
+      "source_sha256": "59f0d96a814bcdd69a11718bbfa52d0df4f3ba7da78ab425bf48368b71a72821",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "window-assignment-blocks",
+      "root": "lean/WinAssign/BAudit.lean",
+      "source_sha256": "d12cf8bcdf5eb39e70a3951548a4b82a8cfaa4409691403b1f372de7a464f457",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/window-assignment-products.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/window-assignment-actual.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "window-assignment-remainders",
+      "root": "lean/WinAssign/RAudit.lean",
+      "source_sha256": "cb0e1e62c7121d389da5c08becf19d6e77fad413bd9fbbb6478b5bc6bbf9d1bb",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/window-assignment-blocks.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "window-assignment-weighted",
+      "root": "lean/WinAssign/WAudit.lean",
+      "source_sha256": "9c20caa6c3da2c6398aad2bc52e7c93ae63eda42315d239465cc77f3ad9a6f52",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/window-assignment-remainders.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "window-assignment-full-audit",
+      "root": "lean/WinAssign/Audit.lean",
+      "source_sha256": "95317ae45dee639151920c7e6d34073f5616269fec150b2e529852905e4f9081",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/window-assignment-weighted.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0,
+  "purpose": "Actual all-parameter window prime assignment and factorial remainder bridge; not an original B result."
+}

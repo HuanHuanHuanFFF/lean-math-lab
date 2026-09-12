@@ -1,0 +1,91 @@
+{
+  "owner": "/root/pade_construction",
+  "namespace": "Math.B699.I11EOne",
+  "scope": "Actual ThreeTwo delta1 m1 E value plus both initial E caps; fixed c23d15 z1/9",
+  "short_target_directory": "lean/I11EOne",
+  "modules": {
+    "Coeff0.lean": "lean/I11EOne/Coeff0.lean",
+    "Eval.lean": "lean/I11EOne/Eval.lean",
+    "Coeffs.lean": "lean/I11EOne/Coeffs.lean",
+    "RatSum.lean": "lean/I11EOne/RatSum.lean",
+    "Closed.lean": "lean/I11EOne/Closed.lean",
+    "Actual.lean": "lean/I11EOne/Actual.lean",
+    "CapNums.lean": "lean/I11EOne/CapNums.lean",
+    "Caps.lean": "lean/I11EOne/Caps.lean"
+  },
+  "audit_targets": {
+    "ZeroAudit.lean": "lean/I11EOne/ZeroAudit.lean",
+    "EvalAudit.lean": "lean/I11EOne/EvalAudit.lean",
+    "CoeffAudit.lean": "lean/I11EOne/CoeffAudit.lean",
+    "RatAudit.lean": "lean/I11EOne/RatAudit.lean",
+    "ClosedAudit.lean": "lean/I11EOne/ClosedAudit.lean",
+    "ActualAudit.lean": "lean/I11EOne/ActualAudit.lean",
+    "NumAudit.lean": "lean/I11EOne/NumAudit.lean",
+    "CapAudit.lean": "lean/I11EOne/CapAudit.lean",
+    "Audit.lean": "lean/I11EOne/Audit.lean"
+  },
+  "import_rule": "Replace only own experiment module prefix by lean.I11EOne on integration. Keep accepted external imports.",
+  "proof_dependencies": [
+    {
+      "module": "Eval",
+      "uses": "accepted Math.B699.I11ECoefficientStaging.coefficientPolynomial_eval_sum; all a/f/z symbolic"
+    },
+    {
+      "module": "Coeff0/Coeffs",
+      "uses": "accepted fastECoefficient, chooseFast;9 separate exact integer proofs"
+    },
+    {
+      "module": "RatSum",
+      "uses": "Rat and norm_num only; literal9 coefficients, no direct Polynomial/Pade import"
+    },
+    {
+      "module": "Closed",
+      "uses": "actual9 coefficient proofs, symbolic substitution theorem, literal Rat sum; no rw/simp/norm_num on concrete polynomial"
+    },
+    {
+      "module": "Actual",
+      "uses": "accepted actualE_eq_fast, Eq.trans closed_e_delta1"
+    },
+    {
+      "module": "CapNums",
+      "uses": "existing GrowthInputs.eBase, eLambda, FactorialCommon.beta; only pure Rat inequalities"
+    },
+    {
+      "module": "Caps",
+      "uses": "delta0 actual_e_delta0 from existing staged source; new delta1 actual_e_delta1; congrArg x=>2*abs x; two pure Rat bounds; rowDelta false1 true0"
+    }
+  ],
+  "preserved_five_public_exports": [
+    {
+      "old": "Math.B699.I11InitialCapComputation.ThreeTwo.actual_e_delta0",
+      "new": "Math.B699.I11EOne.actual_e_delta0"
+    },
+    {
+      "old": "Math.B699.I11InitialCapComputation.ThreeTwo.e_cap_delta0",
+      "new": "Math.B699.I11EOne.e_cap_delta0"
+    },
+    {
+      "old": "Math.B699.I11InitialCapComputation.ThreeTwo.actual_e_delta1",
+      "new": "Math.B699.I11EOne.actual_e_delta1"
+    },
+    {
+      "old": "Math.B699.I11InitialCapComputation.ThreeTwo.e_cap_delta1",
+      "new": "Math.B699.I11EOne.e_cap_delta1"
+    },
+    {
+      "old": "Math.B699.I11InitialCapComputation.ThreeTwo.fixed_initial_e_cap",
+      "new": "Math.B699.I11EOne.fixed_initial_e_cap"
+    }
+  ],
+  "final_public_inputs": "No coefficient, sum, cap, tree or height assumption. Only row:Bool for fixed_initial_e_cap.",
+  "avoided_imports": [
+    "lean/I11InitialCapComputation/ThreeTwo.lean",
+    "lean/I11ThreeTwoEdge/SmallCertificates.lean"
+  ],
+  "pending_acceptance": [
+    "All new delta1/cap modules and audits",
+    "Any downstream reacceptance of original alias module and SmallCertificates/FixedEdge"
+  ],
+  "resource_evidence_boundary": "The staged delta0 method has now actually passed1536MiB. New delta1 memory/runtime are unmeasured; no Lean run by this subagent.",
+  "mathematical_frontier": "If accepted, closes both actual m1 E cap inputs for the last ThreeTwo edge; original theorem acceptance still belongs to the full downstream proof chain."
+}

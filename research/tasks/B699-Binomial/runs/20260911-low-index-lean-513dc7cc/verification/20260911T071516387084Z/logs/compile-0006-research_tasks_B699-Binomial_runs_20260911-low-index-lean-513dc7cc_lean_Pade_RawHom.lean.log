@@ -1,0 +1,30 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T071516387084Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/RawHom.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/RawHom.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T07:15:46.471690Z
+# finished_utc: 2026-09-11T07:15:57.106657Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Pade\RawHom.lean:49:4: error: Type mismatch: After simplification, term
+  hp
+ has type
+  @Eq ℝ
+    (eval₂ (Int.castRingHom ℝ) z (pPolynomial u v u) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial (u - 1) (v + 1) (u - 1)) -
+      eval₂ (Int.castRingHom ℝ) z (pPolynomial (u - 1) (v + 1) (u - 1)) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial u v u))
+    ((Int.castRingHom ℝ) (determinantConstant u v) * z ^ (2 * u - 1))
+but is expected to have type
+  @Eq ℝ
+    (eval₂ (Int.castRingHom ℝ) z (pPolynomial u v u) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial (u - 1) (v + 1) (u - 1)) -
+      eval₂ (Int.castRingHom ℝ) z (pPolynomial (u - 1) (v + 1) (u - 1)) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial u v u))
+    (↑(determinantConstant u v) * z ^ (2 * u - 1))
+'Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_formula' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_ne_zero' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

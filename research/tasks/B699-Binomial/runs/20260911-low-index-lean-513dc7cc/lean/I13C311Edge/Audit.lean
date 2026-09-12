@@ -1,0 +1,46 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I13C311Edge.Final
+
+/-! Full new-theorem audit candidate. No Lean run yet. -/
+#print axioms Math.B699.I13C311Edge.q_content_identity
+#print axioms Math.B699.I13C311Edge.e_content_identity
+#print axioms Math.B699.I13C311Edge.actual_q_content_bound
+#print axioms Math.B699.I13C311Edge.actual_e_content_zero
+#print axioms Math.B699.I13C311Edge.actual_e_content_one
+#print axioms Math.B699.I13C311Edge.actual_e_content_bound
+#print axioms Math.B699.I13C311Edge.actual_integer_gap
+#print axioms Math.B699.I13C311Edge.basis_11
+#print axioms Math.B699.I13C311Edge.basis_3
+#print axioms Math.B699.I13C311Edge.basis_71_lower
+#print axioms Math.B699.I13C311Edge.basis_71_upper
+#print axioms Math.B699.I13C311Edge.contentBase_pos
+#print axioms Math.B699.I13C311Edge.contentBase_le_R
+#print axioms Math.B699.I13C311Edge.tail_fraction_bounds
+#print axioms Math.B699.I13C311Edge.tail_fraction_eight
+#print axioms Math.B699.I13C311Edge.reduced_anchor
+#print axioms Math.B699.I13C311Edge.tail_fraction_187
+#print axioms Math.B699.I13C311Edge.tail_anchor_simplified
+#print axioms Math.B699.I13C311Edge.content_zero_lower
+#print axioms Math.B699.I13C311Edge.content_one_lower
+#print axioms Math.B699.I13C311Edge.content_common_lower
+#print axioms Math.B699.I13C311Edge.cofactor_edge
+#print axioms Math.B699.I13C311Edge.actual_c311_cofactor_edge
+#print axioms Math.B699.I13C311Edge.selectorZ_gt_one
+#print axioms Math.B699.I13C311Edge.q_rate_lower
+#print axioms Math.B699.I13C311Edge.q_rate_power
+#print axioms Math.B699.I13C311Edge.w_rate_lower
+#print axioms Math.B699.I13C311Edge.actual_q_gap_twice_lt
+#print axioms Math.B699.I13C311Edge.actual_e_gap_twice_lt
+#print axioms Math.B699.I13C311Edge.actual_integer_gap_sum_lt
+#print axioms Math.B699.I13C311Edge.index_ge_187
+#print axioms Math.B699.I13C311Edge.index_threshold
+#print axioms Math.B699.I13C311Edge.extract_same_index
+#print axioms Math.B699.I13C311Edge.z_basis_lower
+#print axioms Math.B699.I13C311Edge.z_basis_upper
+#print axioms Math.B699.I13C311Edge.predecessor
+#print axioms Math.B699.I13C311Edge.p_conditions
+#print axioms Math.B699.I13C311Edge.q_conditions
+#print axioms Math.B699.I13C311Edge.rowDelta_cases
+#print axioms Math.B699.I13C311Edge.row_degrees
+#print axioms Math.B699.I13C311Edge.actual_rows
+#print axioms Math.B699.I13C311Edge.actual_q_content_identity
+#print axioms Math.B699.I13C311Edge.actual_remainder

@@ -1,0 +1,1 @@
+First checker run stopped at a static count: the documentation mentioned And.intro once, so the naive whole-text counter returned eight rather than seven. The check now strips block comments before counting the actual seven constructors. No Lean candidate changed; no mathematical counterexample or Lean diagnostic was produced.

@@ -1,0 +1,142 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row048B8.Block032
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.PairChunks
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.rows.Row048B8.Block003
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row048_layer017_pairs004 :
+    row048_layer017_block004.all (fun I => row048_layer017_intervals.all (fun J =>
+      if I.1 = J.1 then true else coverCheck (max I.2.1 J.2.1) (min I.2.2 J.2.2) row048_bounds)) = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer017_pairs004
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row048_layer017_pairs005 :
+    row048_layer017_block005.all (fun I => row048_layer017_intervals.all (fun J =>
+      if I.1 = J.1 then true else coverCheck (max I.2.1 J.2.1) (min I.2.2 J.2.2) row048_bounds)) = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer017_pairs005
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row048_layer017_chunks_eq : row048_layer017_chunks.flatten = row048_layer017_intervals := by
+  rfl
+
+theorem row048_layer017_pairs : pairCoverCheck row048_layer017_intervals row048_bounds = true := by
+  apply pairCoverCheck_of_chunks row048_layer017_chunks_eq
+  intro block hblock
+  simp only [row048_layer017_chunks, List.mem_cons, List.mem_nil_iff, or_false] at hblock
+  rcases hblock with rfl | rfl | rfl | rfl | rfl | rfl
+  · exact row048_layer017_pairs000
+  · exact row048_layer017_pairs001
+  · exact row048_layer017_pairs002
+  · exact row048_layer017_pairs003
+  · exact row048_layer017_pairs004
+  · exact row048_layer017_pairs005
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer017_chunks_eq
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer017_pairs
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row048_layer017_checked :
+    coverLayerCheck row048.height row048.goods { lower := 295698432, upper := 591396864, M := 25 } = true := by
+  exact coverLayerCheck_of_parts row048_layer017_arithmetic row048_layer017_enumeration row048_bounds_eq row048_layer017_pairs
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer017_checked
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+def row048_layer018_intervals : List ColouredInterval :=
+  [(2, 1073741824, 1073741871), (3, 645700815, 645700862), (3, 774840978, 774841025), (3, 903981141, 903981188), (3, 1033121304, 1033121351), (3, 774840978, 774841025), (3, 1162261467, 1162261514), (3, 1162261467, 1162261514), (5, 634765625, 634765672), (5, 683593750, 683593797), (5, 732421875, 732421922), (5, 781250000, 781250047), (5, 830078125, 830078172), (5, 878906250, 878906297), (5, 927734375, 927734422), (5, 976562500, 976562547), (5, 1025390625, 1025390672), (5, 1074218750, 1074218797), (5, 1123046875, 1123046922), (5, 1171875000, 1171875047), (5, 732421875, 732421922), (5, 976562500, 976562547), (7, 605304105, 605304152), (7, 645657712, 645657759), (7, 686011319, 686011366), (7, 726364926, 726364973), (7, 766718533, 766718580), (7, 807072140, 807072187), (7, 847425747, 847425794), (7, 887779354, 887779401), (7, 928132961, 928133008), (7, 968486568, 968486615), (7, 847425747, 847425794), (7, 1129900996, 1129901043), (11, 643076643, 643076690), (11, 857435524, 857435571), (11, 1071794405, 1071794452), (13, 627485170, 627485217), (13, 690233687, 690233734), (13, 752982204, 752982251), (13, 815730721, 815730768), (13, 878479238, 878479285), (13, 941227755, 941227802), (13, 1003976272, 1003976319), (13, 1066724789, 1066724836), (13, 1129473306, 1129473353), (13, 815730721, 815730768), (17, 820677346, 820677393), (19, 611596453, 611596500), (19, 658642334, 658642381), (19, 705688215, 705688262), (19, 752734096, 752734143), (19, 799779977, 799780024), (19, 846825858, 846825905), (19, 893871739, 893871786), (19, 940917620, 940917667), (19, 987963501, 987963548), (19, 1035009382, 1035009429), (19, 1082055263, 1082055310), (19, 1129101144, 1129101191), (19, 893871739, 893871786), (23, 592143556, 592143603), (23, 740179445, 740179492), (23, 888215334, 888215381), (23, 1036251223, 1036251270), (29, 594823321, 594823368), (31, 601212171, 601212218), (31, 629841322, 629841369), (31, 658470473, 658470520), (31, 687099624, 687099671), (31, 887503681, 887503728), (37, 624095613, 624095660), (37, 693439570, 693439617), (37, 762783527, 762783574), (37, 832127484, 832127531), (37, 901471441, 901471488), (37, 970815398, 970815445), (37, 1040159355, 1040159402), (37, 1109503312, 1109503359), (37, 1178847269, 1178847316), (41, 695137206, 695137253), (41, 810993407, 810993454), (41, 926849608, 926849655), (41, 1042705809, 1042705856), (41, 1158562010, 1158562057), (43, 735042215, 735042262), (43, 882050658, 882050705), (43, 1029059101, 1029059148), (43, 1176067544, 1176067591), (47, 688035021, 688035068), (47, 917380028, 917380075), (47, 1146725035, 1146725082)]
+
+def row048_layer018_block000 : List ColouredInterval :=
+  [(2, 1073741824, 1073741871), (3, 645700815, 645700862), (3, 774840978, 774841025), (3, 903981141, 903981188), (3, 1033121304, 1033121351), (3, 774840978, 774841025), (3, 1162261467, 1162261514), (3, 1162261467, 1162261514), (5, 634765625, 634765672), (5, 683593750, 683593797), (5, 732421875, 732421922), (5, 781250000, 781250047), (5, 830078125, 830078172), (5, 878906250, 878906297), (5, 927734375, 927734422), (5, 976562500, 976562547)]
+
+def row048_layer018_block001 : List ColouredInterval :=
+  [(5, 1025390625, 1025390672), (5, 1074218750, 1074218797), (5, 1123046875, 1123046922), (5, 1171875000, 1171875047), (5, 732421875, 732421922), (5, 976562500, 976562547), (7, 605304105, 605304152), (7, 645657712, 645657759), (7, 686011319, 686011366), (7, 726364926, 726364973), (7, 766718533, 766718580), (7, 807072140, 807072187), (7, 847425747, 847425794), (7, 887779354, 887779401), (7, 928132961, 928133008), (7, 968486568, 968486615)]
+
+def row048_layer018_block002 : List ColouredInterval :=
+  [(7, 847425747, 847425794), (7, 1129900996, 1129901043), (11, 643076643, 643076690), (11, 857435524, 857435571), (11, 1071794405, 1071794452), (13, 627485170, 627485217), (13, 690233687, 690233734), (13, 752982204, 752982251), (13, 815730721, 815730768), (13, 878479238, 878479285), (13, 941227755, 941227802), (13, 1003976272, 1003976319), (13, 1066724789, 1066724836), (13, 1129473306, 1129473353), (13, 815730721, 815730768), (17, 820677346, 820677393)]
+
+def row048_layer018_block003 : List ColouredInterval :=
+  [(19, 611596453, 611596500), (19, 658642334, 658642381), (19, 705688215, 705688262), (19, 752734096, 752734143), (19, 799779977, 799780024), (19, 846825858, 846825905), (19, 893871739, 893871786), (19, 940917620, 940917667), (19, 987963501, 987963548), (19, 1035009382, 1035009429), (19, 1082055263, 1082055310), (19, 1129101144, 1129101191), (19, 893871739, 893871786), (23, 592143556, 592143603), (23, 740179445, 740179492), (23, 888215334, 888215381)]
+
+def row048_layer018_block004 : List ColouredInterval :=
+  [(23, 1036251223, 1036251270), (29, 594823321, 594823368), (31, 601212171, 601212218), (31, 629841322, 629841369), (31, 658470473, 658470520), (31, 687099624, 687099671), (31, 887503681, 887503728), (37, 624095613, 624095660), (37, 693439570, 693439617), (37, 762783527, 762783574), (37, 832127484, 832127531), (37, 901471441, 901471488), (37, 970815398, 970815445), (37, 1040159355, 1040159402), (37, 1109503312, 1109503359), (37, 1178847269, 1178847316)]
+
+def row048_layer018_block005 : List ColouredInterval :=
+  [(41, 695137206, 695137253), (41, 810993407, 810993454), (41, 926849608, 926849655), (41, 1042705809, 1042705856), (41, 1158562010, 1158562057), (43, 735042215, 735042262), (43, 882050658, 882050705), (43, 1029059101, 1029059148), (43, 1176067544, 1176067591), (47, 688035021, 688035068), (47, 917380028, 917380075), (47, 1146725035, 1146725082)]
+
+def row048_layer018_chunks : List (List ColouredInterval) :=
+  [row048_layer018_block000, row048_layer018_block001, row048_layer018_block002, row048_layer018_block003, row048_layer018_block004, row048_layer018_block005]
+
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer018_intervals
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row048_layer018_arithmetic : LayerArithmeticValid row048.height { lower := 591396864, upper := 1182793728, M := 24 } := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer018_arithmetic
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row048_layer018_enumeration :
+    activePowerIntervalList 48 24 591396864 1182793728 = row048_layer018_intervals := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer018_enumeration
+
+set_option maxRecDepth 4096
+set_option exponentiation.threshold 1000000
+
+namespace B699LowIndex.LowIndexLean513dc7cc
+
+theorem row048_layer018_pairs000 :
+    row048_layer018_block000.all (fun I => row048_layer018_intervals.all (fun J =>
+      if I.1 = J.1 then true else coverCheck (max I.2.1 J.2.1) (min I.2.2 J.2.2) row048_bounds)) = true := by
+  decide +kernel
+
+end B699LowIndex.LowIndexLean513dc7cc
+
+#print axioms B699LowIndex.LowIndexLean513dc7cc.row048_layer018_pairs000

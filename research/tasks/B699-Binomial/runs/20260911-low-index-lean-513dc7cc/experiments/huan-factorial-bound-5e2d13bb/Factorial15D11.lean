@@ -1,0 +1,120 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-factorial-bound-5e2d13bb».FactorialCommon
+
+namespace Math.B699.ElementaryFactorialBound
+
+/-- Common numerator U for (c,d)=(15,11), after positive endpoint cancellation. -/
+def numerator_15_11 (m : ℚ) : ℚ :=
+  (26 * m + 1) * (26 * m + 2) * (26 * m + 3) * (26 * m + 4) * (26 * m + 5) * (26 * m + 6) * (26 * m + 7) * (26 * m + 8) * (26 * m + 9) * (26 * m + 10) * (26 * m + 11) * (26 * m + 12) * (26 * m + 13) * (26 * m + 14) * (26 * m + 15) * (26 * m + 16) * (26 * m + 17) * (26 * m + 18) * (26 * m + 19) * (26 * m + 20) * (26 * m + 21) * (26 * m + 22) * (26 * m + 23) * (26 * m + 24) * (26 * m + 25)
+
+def denominator_15_11 (m : ℚ) : ℚ :=
+  (11 * m + 1) * (11 * m + 2) * (11 * m + 3) * (11 * m + 4) * (11 * m + 5) * (11 * m + 6) * (11 * m + 7) * (11 * m + 8) * (11 * m + 9) * (11 * m + 10) * (11 * m + 1) * (11 * m + 2) * (11 * m + 3) * (11 * m + 4) * (11 * m + 5) * (11 * m + 6) * (11 * m + 7) * (11 * m + 8) * (11 * m + 9) * (11 * m + 10) * (4 * m + 1) * (4 * m + 2) * (4 * m + 3)
+
+def ratio_15_11 (m : ℚ) : ℚ :=
+  26 * numerator_15_11 m /
+    (4 * 11 ^ 2 * m * (m + 1) * denominator_15_11 m)
+
+/-- Exact finite polynomial certificate in x=m-1. Coefficients are frozen in
+factorial-certificates.json; ring checks the identity from literal integers. -/
+theorem certificate_15_11 (x : ℚ) (hx : 0 ≤ x) :
+    26 * 81402749386839761113321 * (x + 3) * numerator_15_11 (x + 1) ≤
+      24047342110184208245299508939063296 * 4 * 11 ^ 2 * (x + 2) ^ 3 * denominator_15_11 (x + 1) := by
+  apply sub_nonneg.mp
+  calc
+    0 ≤ 167518208 * (45441313516248195060089479168428677735975885757273600000 + x * (741046728378585717780513371116638231042552438774905760000 + x * (5782322811730557513920517248129151978345835015836873180000 + x * (28730281250292195812376174235492342935777764721018450298200 + x * (102050314005024474356470752855396900098106497307011467575180 + x * (275784850917930613975933512093178154008769560182445448562558 + x * (589184916799618078780999150280340292752008699870669179168107 + x * (1020680130312821420668371861596765601712011910486271136824223 + x * (1459146264583196910643288715359445609328554645632022604768657 + x * (1742670043719832327074119794403748364989367424131324305970103 + x * (1753621747718314150397131332281089976095791525704690568985987 + x * (1495179836169007858901231451437608431690665474337724274748493 + x * (1083608515218584023606292854584119835123038408560517793830687 + x * (668226915764999778233318470162052947779810058038297623852943 + x * (350268569039138076582556320330782408411744240842592558974422 + x * (155569150312934026832100694583467547532855128695511351186408 + x * (58218731831224582641407215270018320717859126456107980985472 + x * (18202283500010754857539550697956638473360779068422388818448 + x * (4696572163775036880034483821091339877873298539701216143392 + x * (982693250870738491892818377796631767788085093404801458688 + x * (162558345258451770056822636573030844291867641247276686592 + x * (20460463455979902210288912356274504804575021204953768448 + x * (1841179035236237924762256878265219749656427216490990592 + x * (105511288329864622936683688730949013495438166868191488 + x * 2893406787823845383910445580971259634389366269670912)))))))))))))))))))))))) := by positivity
+    _ = 24047342110184208245299508939063296 * 4 * 11 ^ 2 * (x + 2) ^ 3 * denominator_15_11 (x + 1) -
+        26 * 81402749386839761113321 * (x + 3) * numerator_15_11 (x + 1) := by
+      unfold numerator_15_11 denominator_15_11
+      ring
+
+theorem ratio_bound_15_11 (m : ℚ) (hm : 1 ≤ m) :
+    ratio_15_11 m ≤ beta 15 11 * (m + 1) ^ 2 / (m * (m + 2)) := by
+  have hmpos : 0 < m := lt_of_lt_of_le (by norm_num) hm
+  have hcert := certificate_15_11 (m - 1) (sub_nonneg.mpr hm)
+  have hs₁ : m - 1 + 1 = m := by ring
+  have hs₂ : m - 1 + 2 = m + 1 := by ring
+  have hs₃ : m - 1 + 3 = m + 2 := by ring
+  simp only [hs₁, hs₂, hs₃] at hcert
+  have hW : 0 < denominator_15_11 m := by
+    unfold denominator_15_11
+    positivity
+  have hbeta : beta 15 11 = (24047342110184208245299508939063296 : ℚ) / 81402749386839761113321 := by norm_num [beta]
+  rw [hbeta]
+  exact ratio_le_of_certificate (by norm_num) (by norm_num) (by norm_num)
+    hmpos hW hcert
+
+/-- Actual factorial recurrence, not a recurrence hypothesis. At m=k+1
+all subtracted indices are nonnegative. -/
+theorem factorial_step_zero_15_11 (k : ℕ) :
+    factorialTerm 15 11 0 (k + 2) =
+      factorialTerm 15 11 0 (k + 1) * ratio_15_11 ((k : ℚ) + 1) := by
+  change (((26 * (k + 2)).factorial : ℕ) : ℚ) /
+      (((((11 * (k + 2)).factorial : ℕ) : ℚ) ^ 2) *
+        (((4 * (k + 2) - 1).factorial : ℕ) : ℚ)) =
+    (((26 * (k + 1)).factorial : ℕ) : ℚ) /
+      (((((11 * (k + 1)).factorial : ℕ) : ℚ) ^ 2) *
+        (((4 * (k + 1) - 1).factorial : ℕ) : ℚ)) * ratio_15_11 ((k : ℚ) + 1)
+  have ha : 26 * (k + 2) = 26 * (k + 1) + 26 := by omega
+  have hd : 11 * (k + 2) = 11 * (k + 1) + 11 := by omega
+  have hb : 4 * (k + 2) - 1 = (4 * (k + 1) - 1) + 4 := by omega
+  have hp : (4 * (k + 1) - 1) + 1 = 4 * (k + 1) := by omega
+  rw [ha, hd, hb, factorial_add_cast (26 * (k + 1)) 26,
+    factorial_add_cast (11 * (k + 1)) 11,
+    factorial_add_cast (4 * (k + 1) - 1) 4, hp]
+  simp only [Nat.ascFactorial_succ, Nat.ascFactorial_zero,
+    Nat.cast_mul, Nat.cast_add, Nat.cast_one, Nat.cast_ofNat]
+  unfold ratio_15_11 numerator_15_11 denominator_15_11
+  field_simp
+  <;> ring
+
+theorem factorial_step_bound_zero_15_11 (m : ℕ) (hm : 1 ≤ m) :
+    factorialTerm 15 11 0 (m + 1) ≤ factorialTerm 15 11 0 m *
+      (beta 15 11 * ((m : ℚ) + 1) ^ 2 / ((m : ℚ) * (m + 2))) := by
+  obtain ⟨k, rfl⟩ : ∃ k, m = k + 1 := Nat.exists_eq_add_of_le' hm
+  rw [factorial_step_zero_15_11]
+  have hk : 0 ≤ (k : ℚ) := Nat.cast_nonneg k
+  have hratio := ratio_bound_15_11 ((k : ℚ) + 1) (by linarith)
+  have hmul := mul_le_mul_of_nonneg_left hratio (factorialTerm_pos 15 11 0 (k + 1)).le
+  simpa only [Nat.cast_add, Nat.cast_one] using hmul
+
+theorem factorial_step_bound_15_11 (delta m : ℕ)
+    (hdelta : delta = 0 ∨ delta = 1) (hm : 1 ≤ m) :
+    factorialTerm 15 11 delta (m + 1) ≤ factorialTerm 15 11 delta m *
+      (beta 15 11 * ((m : ℚ) + 1) ^ 2 / ((m : ℚ) * (m + 2))) := by
+  rcases hdelta with rfl | rfl
+  · exact factorial_step_bound_zero_15_11 m hm
+  · rw [factorial_delta_one_eq 15 11 (m + 1) (by norm_num) (by norm_num) (by omega),
+      factorial_delta_one_eq 15 11 m (by norm_num) (by norm_num) (by omega)]
+    have hmul := mul_le_mul_of_nonneg_left (factorial_step_bound_zero_15_11 m hm)
+      (show (0 : ℚ) ≤ (11 : ℚ) ^ 2 / ((26 : ℚ) * (4 : ℚ)) by norm_num)
+    simpa only [mul_assoc] using hmul
+
+/-- The requested precise telescoping bound for the actual factorial term. -/
+theorem factorial_telescoping_15_11 (delta m : ℕ)
+    (hdelta : delta = 0 ∨ delta = 1) (hm : 1 ≤ m) :
+    factorialTerm 15 11 delta m ≤
+      (2 * factorialTerm 15 11 delta 1 / beta 15 11) *
+        beta 15 11 ^ m * (m : ℚ) / ((m : ℚ) + 1) := by
+  exact telescoping_bound_from_step (by norm_num [beta])
+    (fun n hn => factorial_step_bound_15_11 delta n hdelta hn) hm
+
+/-- A convenient single rational constant for both deltas: F_m < beta^m/2.
+The exact K=2*F_1/beta constants were independently checked to be <1/2. -/
+theorem factorial_uniform_15_11 (delta m : ℕ)
+    (hdelta : delta = 0 ∨ delta = 1) (hm : 1 ≤ m) :
+    factorialTerm 15 11 delta m < (1 / 2 : ℚ) * beta 15 11 ^ m := by
+  have hbeta : 0 < beta 15 11 := by norm_num [beta]
+  have hK : 2 * factorialTerm 15 11 delta 1 / beta 15 11 < (1 / 2 : ℚ) := by
+    rcases hdelta with rfl | rfl <;> norm_num [factorialTerm, beta, Nat.factorial]
+  have hbound := strict_bound_from_step hbeta (factorialTerm_pos 15 11 delta 1)
+    (fun n hn => factorial_step_bound_15_11 delta n hdelta hn) hm
+  exact lt_of_lt_of_le hbound (mul_le_mul_of_nonneg_right hK.le (pow_pos hbeta m).le)
+
+#print axioms certificate_15_11
+#print axioms ratio_bound_15_11
+#print axioms factorial_step_zero_15_11
+#print axioms factorial_step_bound_zero_15_11
+#print axioms factorial_step_bound_15_11
+#print axioms factorial_telescoping_15_11
+#print axioms factorial_uniform_15_11
+
+end Math.B699.ElementaryFactorialBound

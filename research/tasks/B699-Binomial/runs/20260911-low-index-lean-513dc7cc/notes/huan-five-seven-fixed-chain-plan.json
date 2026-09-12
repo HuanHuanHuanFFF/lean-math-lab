@@ -1,0 +1,105 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T21:36:22.404306+00:00",
+  "status": "prepared_not_running",
+  "new_B_original_results": 0,
+  "jobs": [
+    {
+      "name": "factorial-extra-11-7",
+      "root": "lean/Factorial/Factorial11D7Audit.lean",
+      "source_sha256": "ed0be737409d0ca4e2b67c06ee29dd912c8ca48ecf5b65fa2dd53cc533b01781",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-9-5.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-parameters",
+      "root": "lean/I11FiveSevenEdge/ParametersAudit.lean",
+      "source_sha256": "4d8000389f8c6c896b79b12cc649ffa82b539a51cbf820dc077461a401bf7119",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-fixed-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-actual-prefix",
+      "root": "lean/I11FiveSevenEdge/SourceRowsAudit.lean",
+      "source_sha256": "da391a208c45b70dc1c42156254a641d4417ebd555bc4899a9e1aea49fb3c515",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-actual-prefix.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-actual-rows",
+      "root": "lean/I11FiveSevenEdge/ActualRowsAudit.lean",
+      "source_sha256": "79d93e6f7796e48f1fac9105eb8b46c4988b64ace36e3899e197ec704dddf0b7",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-parameters.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-actual-prefix.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-divisor-finite.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-fixed-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-growth-inputs",
+      "root": "lean/I11FiveSevenEdge/GrowthInputsAudit.lean",
+      "source_sha256": "a55543ba69c2921c8d8270d705f900b7f8e5282d89d944fbb719e2c15755c58d",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-actual-rows.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/factorial-extra-11-7.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-fixed-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-scaled-gap",
+      "root": "lean/I11FiveSevenEdge/ScaledGapAudit.lean",
+      "source_sha256": "7926803d9972053510d93d360f73edb346e0b1da428aadcee00d2ab7b9e74132",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-actual-rows.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-fixed-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-small-certificates",
+      "root": "lean/I11FiveSevenEdge/SmallCertificatesAudit.lean",
+      "source_sha256": "d3b4020be81fd079678994afa92721a5f500d9cab9407490ca954122b84762f7",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-growth-inputs.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-scaled-gap.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-selected-edge",
+      "root": "lean/I11FiveSevenEdge/SelectedEdgeAudit.lean",
+      "source_sha256": "f6b9fac60d1e5536f4c4ac4c73d04680bb91fb1a39deb2e7135ee732174d8b28",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-small-certificates.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-fixed-edge",
+      "root": "lean/I11FiveSevenEdge/FixedEdgeAudit.lean",
+      "source_sha256": "c5776e718f7f6817b6569aed47aaef8a45f443749329f274cfbc5f7d2d2544fb",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-selected-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-five-seven-fixed-chain-audit",
+      "root": "lean/I11FiveSevenEdge/Audit.lean",
+      "source_sha256": "8caa98389b5341cbeed1929c759e9929cee812575a4fa88ac7d42050a903829c",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-seven-fixed-edge.json"
+      ],
+      "memory_mb": 1536
+    }
+  ]
+}

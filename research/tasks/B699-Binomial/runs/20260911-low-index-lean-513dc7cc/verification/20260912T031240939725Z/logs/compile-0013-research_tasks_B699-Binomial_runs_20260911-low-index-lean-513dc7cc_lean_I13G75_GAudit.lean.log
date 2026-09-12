@@ -1,0 +1,51 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T031240939725Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/GAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/GAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T03:13:25.137889Z
+# finished_utc: 2026-09-12T03:13:33.538769Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I13G75Uniform.rho : ℚ
+'Math.B699.I13G75Uniform.rho' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.geometricRate : ℚ
+'Math.B699.I13G75Uniform.geometricRate' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.geometricConstant : ℚ
+'Math.B699.I13G75Uniform.geometricConstant' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.rho_pos : 0 < Math.B699.I13G75Uniform.rho
+'Math.B699.I13G75Uniform.rho_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.rho_le_one : Math.B699.I13G75Uniform.rho ≤ 1
+'Math.B699.I13G75Uniform.rho_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.geometric_constant_pos : 0 < Math.B699.I13G75Uniform.geometricConstant
+'Math.B699.I13G75Uniform.geometric_constant_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.geometric_rate_pos : 0 < Math.B699.I13G75Uniform.geometricRate
+'Math.B699.I13G75Uniform.geometric_rate_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.finite_geometric_sum_le : ∀ (m : ℕ),
+  ∑ k ∈ Finset.range m, Math.B699.I13G75Uniform.rho ^ k ≤ 65536
+'Math.B699.I13G75Uniform.finite_geometric_sum_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.mul_rho_power_le : ∀ (m : ℕ), ↑m * Math.B699.I13G75Uniform.rho ^ m ≤ 65536
+'Math.B699.I13G75Uniform.mul_rho_power_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.rho_power_div_le : ∀ (m : ℕ), 1 ≤ m → Math.B699.I13G75Uniform.rho ^ m / 65536 ≤ 1 / ↑m
+'Math.B699.I13G75Uniform.rho_power_div_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_geometric : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.geometricConstant * Math.B699.I13G75Uniform.geometricRate ^ m ≤
+      Math.B699.I13G75Uniform.divisorZero m
+'Math.B699.I13G75Uniform.divisor_zero_geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_one_geometric : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.geometricConstant * Math.B699.I13G75Uniform.geometricRate ^ m ≤
+      Math.B699.I13G75Uniform.divisorOne m
+'Math.B699.I13G75Uniform.divisor_one_geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.q_content_zero_geometric : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.geometricConstant * Math.B699.I13G75Uniform.geometricRate ^ m ≤
+      ↑(Math.B699.PadeConstruction.qContent (5 * m) (2 * m - 1) (5 * m))
+'Math.B699.I13G75Uniform.q_content_zero_geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.q_content_one_geometric : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.geometricConstant * Math.B699.I13G75Uniform.geometricRate ^ m ≤
+      ↑(Math.B699.PadeConstruction.qContent (5 * m - 1) (2 * m) (5 * m - 1))
+'Math.B699.I13G75Uniform.q_content_one_geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.q_content_one_geometric : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.geometricConstant * Math.B699.I13G75Uniform.geometricRate ^ m ≤
+      ↑(Math.B699.PadeConstruction.qContent (5 * m - 1) (2 * m) (5 * m - 1))

@@ -1,0 +1,64 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11TerminalCover.Examples
+
+#check B699LowIndex.I11TerminalCover.Witness
+#print axioms B699LowIndex.I11TerminalCover.Witness
+#check B699LowIndex.I11TerminalCover.witnessBounds
+#print axioms B699LowIndex.I11TerminalCover.witnessBounds
+#check B699LowIndex.I11TerminalCover.witnessCheck
+#print axioms B699LowIndex.I11TerminalCover.witnessCheck
+#check B699LowIndex.I11TerminalCover.witnessCheck_sound
+#print axioms B699LowIndex.I11TerminalCover.witnessCheck_sound
+#check B699LowIndex.I11TerminalCover.witnessIntervals
+#print axioms B699LowIndex.I11TerminalCover.witnessIntervals
+#check B699LowIndex.I11TerminalCover.witnessesCheck
+#print axioms B699LowIndex.I11TerminalCover.witnessesCheck
+#check B699LowIndex.I11TerminalCover.witnessCoverCheck
+#print axioms B699LowIndex.I11TerminalCover.witnessCoverCheck
+#check B699LowIndex.I11TerminalCover.candidateIntervalsCheck
+#print axioms B699LowIndex.I11TerminalCover.candidateIntervalsCheck
+#check B699LowIndex.I11TerminalCover.candidateMem
+#print axioms B699LowIndex.I11TerminalCover.candidateMem
+#check B699LowIndex.I11TerminalCover.checked_witnesses_cover
+#print axioms B699LowIndex.I11TerminalCover.checked_witnesses_cover
+#check B699LowIndex.I11TerminalCover.common_of_cover_checks
+#print axioms B699LowIndex.I11TerminalCover.common_of_cover_checks
+#check B699LowIndex.I11TerminalCover.witnessCoverCheck_sound
+#print axioms B699LowIndex.I11TerminalCover.witnessCoverCheck_sound
+#check B699LowIndex.I11TerminalCover.candidateIntervalsCheck_member
+#print axioms B699LowIndex.I11TerminalCover.candidateIntervalsCheck_member
+#check B699LowIndex.I11TerminalCover.candidateIntervalsCheck_sound
+#print axioms B699LowIndex.I11TerminalCover.candidateIntervalsCheck_sound
+#check B699LowIndex.I11TerminalCover.candidateIntervalsCheck_prime
+#print axioms B699LowIndex.I11TerminalCover.candidateIntervalsCheck_prime
+#check B699LowIndex.I11TerminalCover.ordinaryWitnesses
+#print axioms B699LowIndex.I11TerminalCover.ordinaryWitnesses
+#check B699LowIndex.I11TerminalCover.ordinary_witnesses_check
+#print axioms B699LowIndex.I11TerminalCover.ordinary_witnesses_check
+#check B699LowIndex.I11TerminalCover.ordinary_interval_check
+#print axioms B699LowIndex.I11TerminalCover.ordinary_interval_check
+#check B699LowIndex.I11TerminalCover.ordinary_24_33_check
+#print axioms B699LowIndex.I11TerminalCover.ordinary_24_33_check
+#check B699LowIndex.I11TerminalCover.ordinary_24_33_common
+#print axioms B699LowIndex.I11TerminalCover.ordinary_24_33_common
+#check B699LowIndex.I11TerminalCover.specialWitnesses
+#print axioms B699LowIndex.I11TerminalCover.specialWitnesses
+#check B699LowIndex.I11TerminalCover.special_witnesses_check
+#print axioms B699LowIndex.I11TerminalCover.special_witnesses_check
+#check B699LowIndex.I11TerminalCover.special_interval_check
+#print axioms B699LowIndex.I11TerminalCover.special_interval_check
+#check B699LowIndex.I11TerminalCover.special_330_check
+#print axioms B699LowIndex.I11TerminalCover.special_330_check
+#check B699LowIndex.I11TerminalCover.special_330_common
+#print axioms B699LowIndex.I11TerminalCover.special_330_common
+#check B699LowIndex.I11TerminalCover.exampleWitnesses
+#print axioms B699LowIndex.I11TerminalCover.exampleWitnesses
+#check B699LowIndex.I11TerminalCover.exampleCandidateIntervals
+#print axioms B699LowIndex.I11TerminalCover.exampleCandidateIntervals
+#check B699LowIndex.I11TerminalCover.example_witnesses_check
+#print axioms B699LowIndex.I11TerminalCover.example_witnesses_check
+#check B699LowIndex.I11TerminalCover.example_candidate_cover_check
+#print axioms B699LowIndex.I11TerminalCover.example_candidate_cover_check
+#check B699LowIndex.I11TerminalCover.example_candidates_check
+#print axioms B699LowIndex.I11TerminalCover.example_candidates_check
+#check B699LowIndex.I11TerminalCover.example_candidates_common
+#print axioms B699LowIndex.I11TerminalCover.example_candidates_common

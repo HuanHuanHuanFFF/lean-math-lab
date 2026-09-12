@@ -1,0 +1,11 @@
+--- lean/I11Scaled/RatBounds.lean (failed)
++++ lean/I11Scaled/RatBounds.lean (candidate repair)
+@@ -24,7 +24,7 @@
+ theorem weighted_bound_lt (l r k x D : ℚ)
+     (hl : 0 < l) (hk : 0 ≤ k) (hbound : l * x ≤ D)
+     (hsmall : k * D < r * l) : k * x < r := by
+-  apply (mul_lt_mul_left hl).mp
++  apply (Rat.mul_lt_mul_left hl).mp
+   calc
+     l * (k * x) = k * (l * x) := by ring
+     _ ≤ k * D := mul_le_mul_of_nonneg_left hbound hk

@@ -1,0 +1,18 @@
+--- Moment.lean.before
++++ Moment.lean.after
+@@ -1,4 +1,5 @@
+ import Mathlib.Algebra.Polynomial.Basic
++import Mathlib.Algebra.Polynomial.Coeff
+ import Mathlib.Algebra.Field.Rat
+ import Mathlib.Data.Nat.Factorial.Basic
+ import Mathlib.Tactic.FieldSimp
+@@ -65,8 +66,7 @@
+ 
+ @[simp] theorem moment_C_mul (c : ℚ) (p : ℚ[X]) :
+     moment (Polynomial.C c * p) = c * moment p := by
+-  rw [← Polynomial.qsmul_eq_C_mul c p]
+-  exact moment_smul c p
++  simpa only [Polynomial.smul_eq_C_mul] using moment_smul c p
+ 
+ @[simp] theorem moment_one : moment (1 : ℚ[X]) = 1 := by
+   simpa only [pow_zero, Nat.cast_zero, zero_add, div_one] using moment_X_pow 0

@@ -1,0 +1,143 @@
+{
+  "status": "fixed source-aligned mathematical candidate; no Lean execution",
+  "owner": "/root/i18_downstream_review",
+  "start_utc": "2026-09-11T19:40:00Z",
+  "checkpoint_utc": "2026-09-11T20:00:00Z",
+  "source_final_plan": "experiments/huan-i11-elementary-finite-plan-5e2d13bb/FINAL_PLAN.json:selected_plan.rows[1]",
+  "source_final_plan_sha256": "7ab80d1357ef87aafa1ead6fbdef0b4dadf851c09c77185c27a7f03fa4b5ab62",
+  "source_rough": "experiments/huan-i11-elementary-finite-plan-5e2d13bb/D-rough-step-certificates.json:tracks[c9,d5,delta0]",
+  "source_rough_sha256": "25c5bfbc8c293e77c46ddfdcf75aea7d6ea80c334cd63190388f5a596c7417d0",
+  "reuse_source_map": "experiments/huan-i11-other-edge-reuse-5e2d13bb/SOURCE_MAP.json",
+  "reuse_source_map_sha256": "59887fce9e9982fa1e2d045205f5bcbdd036e041cfa5e2ff5d3c6238db0615dc",
+  "accepted_inputs": [
+    {
+      "name": "rational-divisor-content",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164308982718Z/evidence.json",
+      "roots": 8,
+      "hashes_match": true
+    },
+    {
+      "name": "elementary-rate",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T114251997480Z/evidence.json",
+      "roots": 5,
+      "hashes_match": true
+    },
+    {
+      "name": "factorial-extra-5-4",
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T075443956395Z/evidence.json",
+      "roots": 11,
+      "hashes_match": true
+    }
+  ],
+  "exact_formula": "D0(m)=(7m-1)!*(2m-1)!/((5m)!*(4m-1)!), D1=(5m/2)*D0 for m>=1",
+  "threshold": {
+    "Lt": "1302991/1000000",
+    "Lm": "660547/500000",
+    "targetRate": "3755839973625627530885134855951/1000000000000000000000000000000",
+    "middleRate": "125753077556736983843483347507/31250000000000000000000000000",
+    "infiniteRate": "823543/200000",
+    "K": 44,
+    "loss": 11,
+    "block": 15,
+    "m0": 224
+  },
+  "proof_text_modules": [
+    {
+      "module": "Adjacent",
+      "namespace": "Math.B699.RationalFactorialDivisor",
+      "audit_roots": [
+        "Math.B699.RationalFactorialDivisor.rationalDivisor_adjacent_odd_even",
+        "Math.B699.RationalFactorialDivisor.rationalDivisor_adjacent_odd_even_ge"
+      ],
+      "source_sha256": "955a2c080be0e7df880c15fae829c908cac19797872c5e27880a61945fbe3f2b",
+      "future_target": "lean/I11DivisorSevenTwo/Adjacent.lean"
+    },
+    {
+      "module": "Actual",
+      "namespace": "Math.B699.I11DivisorSevenTwo",
+      "audit_roots": [
+        "Math.B699.I11DivisorSevenTwo.targetBase",
+        "Math.B699.I11DivisorSevenTwo.middleBase",
+        "Math.B699.I11DivisorSevenTwo.targetRate",
+        "Math.B699.I11DivisorSevenTwo.middleRate",
+        "Math.B699.I11DivisorSevenTwo.infiniteRate",
+        "Math.B699.I11DivisorSevenTwo.blockRatio",
+        "Math.B699.I11DivisorSevenTwo.divisor",
+        "Math.B699.I11DivisorSevenTwo.numerator",
+        "Math.B699.I11DivisorSevenTwo.denominator",
+        "Math.B699.I11DivisorSevenTwo.ratio",
+        "Math.B699.I11DivisorSevenTwo.target_base_pos",
+        "Math.B699.I11DivisorSevenTwo.target_rate_pos",
+        "Math.B699.I11DivisorSevenTwo.middle_rate_pos",
+        "Math.B699.I11DivisorSevenTwo.target_rate_le_infinite",
+        "Math.B699.I11DivisorSevenTwo.block_ratio_ge_one",
+        "Math.B699.I11DivisorSevenTwo.block_linear_bound",
+        "Math.B699.I11DivisorSevenTwo.divisor_pos",
+        "Math.B699.I11DivisorSevenTwo.denominator_pos",
+        "Math.B699.I11DivisorSevenTwo.divisor_formula",
+        "Math.B699.I11DivisorSevenTwo.divisor_initial",
+        "Math.B699.I11DivisorSevenTwo.divisor_step_succ",
+        "Math.B699.I11DivisorSevenTwo.divisor_step",
+        "Math.B699.I11DivisorSevenTwo.divisor_adjacent_eq",
+        "Math.B699.I11DivisorSevenTwo.divisor_le_adjacent"
+      ],
+      "source_sha256": "b4ab9d0fea16177fe71426d0c403709647582b626a9e94da98dec8ef5e2e9426",
+      "future_target": "lean/I11DivisorSevenTwo/Actual.lean"
+    },
+    {
+      "module": "Certificates",
+      "namespace": "Math.B699.I11DivisorSevenTwo",
+      "audit_roots": [
+        "Math.B699.I11DivisorSevenTwo.rough_certificate",
+        "Math.B699.I11DivisorSevenTwo.middle_certificate"
+      ],
+      "source_sha256": "79a2ad7928e64a77534621b4787f2048b93d09d796bdef93614cf2f91c3d32ad",
+      "future_target": "lean/I11DivisorSevenTwo/Certificates.lean"
+    },
+    {
+      "module": "Bounds",
+      "namespace": "Math.B699.I11DivisorSevenTwo",
+      "audit_roots": [
+        "Math.B699.I11DivisorSevenTwo.ratio_rough",
+        "Math.B699.I11DivisorSevenTwo.divisor_rough_step",
+        "Math.B699.I11DivisorSevenTwo.ratio_middle",
+        "Math.B699.I11DivisorSevenTwo.divisor_middle_step"
+      ],
+      "source_sha256": "f49f42143837046c9fd9b42fc4507ba9ded1a66ad158be2454c33bb78ba2cbc9",
+      "future_target": "lean/I11DivisorSevenTwo/Bounds.lean"
+    },
+    {
+      "module": "Threshold",
+      "namespace": "Math.B699.I11DivisorSevenTwo",
+      "audit_roots": [
+        "Math.B699.I11DivisorSevenTwo.normalized",
+        "Math.B699.I11DivisorSevenTwo.normalized_pos",
+        "Math.B699.I11DivisorSevenTwo.normalized_rough_step",
+        "Math.B699.I11DivisorSevenTwo.normalized_middle_step",
+        "Math.B699.I11DivisorSevenTwo.finite_binary_base",
+        "Math.B699.I11DivisorSevenTwo.normalized_binary_base",
+        "Math.B699.I11DivisorSevenTwo.normalized_gt_one",
+        "Math.B699.I11DivisorSevenTwo.divisor_lower",
+        "Math.B699.I11DivisorSevenTwo.rationalDivisor_seven_two_lower",
+        "Math.B699.I11DivisorSevenTwo.qContent_seven_two_lower",
+        "Math.B699.I11DivisorSevenTwo.qContent_upper_row_lower",
+        "Math.B699.I11DivisorSevenTwo.qContent_adjacent_row_lower",
+        "Math.B699.I11DivisorSevenTwo.bftContent_seven_two_lower"
+      ],
+      "source_sha256": "baeec55922ae1f26ec24d8d3bb48c9007a6f8f24cec9090df84ff071b58bd4a7",
+      "future_target": "lean/I11DivisorSevenTwo/Threshold.lean"
+    }
+  ],
+  "delta1_note": "No comparison between the two actual qContents is asserted; use qContent1>=D1>=D0.",
+  "remaining_dependencies": [
+    "serial Lean compilation and complete public axiom audit of the five new layers"
+  ],
+  "route_remaining": [
+    "actual (7,2) Padé growth and scaled-edge numeric/selector consumers",
+    "full five-edge initial-height proof",
+    "terminal original-problem coverage"
+  ],
+  "Lean_runs": 0,
+  "new_original_B_results": 0,
+  "byte_hash_note": "Actual written file bytes, including Windows newlines; LF-text metadata mismatch corrected before first freeze."
+}

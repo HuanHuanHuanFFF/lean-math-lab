@@ -1,0 +1,48 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T22:59:09.225476+00:00",
+  "status": "prepared_not_running",
+  "new_B_original_results": 0,
+  "jobs": [
+    {
+      "name": "i11-terminal-coverage-generic",
+      "root": "lean/I11TerminalCandidateCoverage/GenericAudit.lean",
+      "source_sha256": "d9277cf18096975f531c7b6f4bceeb438cdf140642183ebb82d02d19c84305c3",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-append.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-candidates.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-coverage-first-piece",
+      "root": "lean/I11TerminalCandidateCoverage/FirstPieceAudit.lean",
+      "source_sha256": "3428f781e8c109e8df8844fe771bc1656ac9f9ed6171f9e02325ba6d3dbe29c3",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-generic.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-chunk000.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-witness-chunk252",
+      "root": "lean/I11TerminalData/Chunk252.lean",
+      "source_sha256": "d83069595af1425129cfea550ed7275458e9a61d2fe17f5eb3f242ead1a6b7ac",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-append.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-pilot.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-coverage-last",
+      "root": "lean/I11TerminalCandidateCoverage/LastAudit.lean",
+      "source_sha256": "4969b7220ff73de9c9a9708ffd1bafa5d397bab0a6d6ec35ae5e0a1608f4901d",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-generic.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-chunk252.json"
+      ],
+      "memory_mb": 1536
+    }
+  ]
+}

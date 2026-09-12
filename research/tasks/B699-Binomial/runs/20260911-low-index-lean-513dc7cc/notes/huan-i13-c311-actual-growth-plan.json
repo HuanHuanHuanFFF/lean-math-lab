@@ -1,0 +1,66 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T04:35:51.675457+00:00",
+  "status": "prepared_not_running",
+  "new_B_original_results": 0,
+  "jobs": [
+    {
+      "name": "i13-c311-factorial",
+      "root": "lean/Factorial/Factorial7D5.lean",
+      "source_sha256": "c07a30e9e179efe333f04289a10ab1ea2966ac14cfd4e5666a96c1f853cf1333",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-c311-initial-numeric",
+      "root": "lean/I13C311QE/Numeric.lean",
+      "source_sha256": "2d3804d612063a1237c4d9c1a994b070bdab6d1baa194c40debe25d553a6294c",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-c311-first-q-leaf",
+      "root": "lean/Growth/I13C311Leaves/QLeaf000.lean",
+      "source_sha256": "4b659534cd2711de6cc44d94363b98789576328cd0054b56c2a464adfc7e33fd",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-c311-all-growth-trees",
+      "root": "lean/Growth/I13C311Tree.lean",
+      "source_sha256": "a57ee483809553a42f343ed7c212f50a7d47b477bfe1fc596a0b0a54f4dd4f25",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-c311-first-q-leaf.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-c311-actual-qe-bounds",
+      "root": "lean/I13C311QE/Bounds.lean",
+      "source_sha256": "a0db05afeb5c49199a8769601c1bae32497d22021c629c32328e067a21c185f6",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-c311-factorial.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-c311-initial-numeric.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-c311-all-growth-trees.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-c311-actual-qe-full-audit",
+      "root": "lean/I13C311QE/Audit.lean",
+      "source_sha256": "ebec1f725c46038c85333f33a6cee013501edb788f22596b63ba51d201eba12a",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-c311-actual-qe-bounds.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "layout": "One initial leaf probe; then Tree closure compiles each remaining leaf in a separate serial 1536MiB Lean invocation. Whole-root receipt only after all dependencies and tree complete. No simultaneous Leaf Lean processes."
+}

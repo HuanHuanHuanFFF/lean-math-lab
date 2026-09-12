@@ -1,0 +1,72 @@
+{
+  "utc": "2026-09-11T14:34:59.348722+00:00",
+  "owner": "/root/pade_construction",
+  "source_report": "research\\tasks\\B699-Binomial\\runs\\20260910-pade-three-closure-4edad426\\delivery\\REPORT.md",
+  "source_report_sha256": "d773ffdb19e80edbd9c662ea007516ab230ea30e1160ff5561d6ef5c746064d6",
+  "source_commit": "5c37f257401952ed85ddd104de8e56a4f2024031",
+  "source_section": "5 complete exponent block",
+  "source_correspondence": "Parent independently fetched the fixed-commit report using the GitHub connector and confirmed exact local equality; this worker read the local Section 5 and made no Git/network operation.",
+  "pinned_library_sources": {
+    "D:\\CodingProject\\Math\\.tools\\pi5e2d\\mathlib\\Mathlib\\Data\\Nat\\Dist.lean": "7f27a0ac541ef80192384f27fdef003bd17679e4e9dee70adebdadb13d39db3d",
+    "D:\\CodingProject\\Math\\.tools\\pi5e2d\\mathlib\\Mathlib\\Data\\Int\\ModEq.lean": "c1130960b648b5047a673d1f47f4ce653f0cf1174fff41b28a41e4813b89d86c",
+    "D:\\CodingProject\\Math\\.tools\\pi5e2d\\mathlib\\Mathlib\\Data\\Int\\Init.lean": "6cb0bd197ee00b411779ecfa29cb3a2ea78d76e7040edc67eb6b43b519532ea7",
+    "D:\\CodingProject\\Math\\.tools\\pi5e2d\\mathlib\\Mathlib\\Data\\List\\Range.lean": "9638a0ab59996007b04450221e423927fd8d94105fef910b95eee029df5a5cea",
+    "D:\\CodingProject\\Math\\.tools\\elan\\toolchains\\leanprover--lean4---v4.33.1\\src\\lean\\Lean\\Elab\\Tactic\\Omega.lean": "7a81cef2ff724f9f690993d01aef906b200ca11c36f72fb57f9e6e5eaf4ec45e"
+  },
+  "first_independent_prefix": [
+    "Arithmetic.lean",
+    "ArithmeticAudit.lean"
+  ],
+  "generic_proof_chain": [
+    "Arithmetic.lean",
+    "Residues.lean",
+    "Block.lean",
+    "Checker.lean",
+    "Audit.lean"
+  ],
+  "source_generalization": "The report states distinct primes p,q. The requested generic theorem uses p,q>=2 and the supplied inverse certificate; no primality proof or cofactor gcd condition is needed by the same argument.",
+  "ground_reference": {
+    "path": "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CubicBlock\\Ground.lean",
+    "sha256": "3d39aafd48cc78bbac39cac8df9452f6a3d636d74919a7941fe89d72ab1b121c",
+    "receipt": "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\huan-prerequisites\\cubic-block-ground.json",
+    "receipt_sha256": "5a51882941b5a4b1aad964e7e6ec3d953ebb71ce53c0300b7bbaddb35e1c8333",
+    "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T142927318216Z/evidence.json",
+    "parent_reported_public_roots": 8,
+    "parent_reported_axioms": "all empty",
+    "generic_instantiation_status": "not done here; parent will adapt Fin21 coverage to the forall-Int interface"
+  },
+  "ground_parameters": {
+    "p": 2,
+    "q": 3,
+    "u": 45,
+    "L": 1,
+    "b0": 18,
+    "w": 10,
+    "v": 174456611
+  },
+  "checker_interface": {
+    "namespace": "Math.B699.CubicExponentBlock",
+    "function": "blockCheck",
+    "arguments": [
+      "p",
+      "q",
+      "u",
+      "L",
+      "b0",
+      "w",
+      "v"
+    ],
+    "rho_definition": "positiveResidue Q v d: r=Int.toNat(((v:Int)*d)%(Q:Int)); if r=0 then Q else r",
+    "finite_index": "k=0..2*w, d=(k:Int)-(w:Int)",
+    "center_is_zero": true
+  },
+  "remaining_acceptance_gaps": [
+    "No candidate file has been compiled by this worker.",
+    "Ground is accepted independently but not yet connected to this generic theorem.",
+    "Complete block interval coverage and all low-exponent branches still require formal consumption.",
+    "The old reported 2^109 height is not marked Lean accepted; original B remains 0/19."
+  ],
+  "worker_lean_invocations": 0,
+  "git_operations": 0,
+  "new_original_indices": []
+}

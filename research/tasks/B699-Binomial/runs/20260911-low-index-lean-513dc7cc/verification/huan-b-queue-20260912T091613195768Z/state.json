@@ -1,0 +1,64 @@
+{
+  "status": "queue_finished",
+  "started_utc": "2026-09-12T09:16:13.197394+00:00",
+  "plan": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/notes/huan-terminal-prefix-pilot-plan-v44.json",
+  "plan_sha256": "f2019fd9ba557857a8dfbf575bf2744f4d39ebaeec88426f129541971abd7b55",
+  "jobs": [
+    {
+      "name": "i11-terminal-prefix-cover",
+      "root": "lean/I11TerminalMono/ACover.lean",
+      "source_sha256": "f9343f43cb590713e9121accb5ddabf243c6f31bc704f1e5ea6b0229e2a428f9",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-terminal-prefix-cover",
+        "--root",
+        "lean/I11TerminalMono/ACover.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-pair23-first-row.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260912T091613195768Z/00-i11-terminal-prefix-cover.log",
+      "exit_code": 1,
+      "finished_utc": "2026-09-12T09:17:02.147449+00:00"
+    },
+    {
+      "name": "i11-terminal-prefix-rowcell",
+      "root": "lean/I11TerminalMono/ARowCell.lean",
+      "source_sha256": "6ecf2827283d74ae3621864e734a0975137be381c378df45be74f25e7b29f5c3",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-prefix-cover.json"
+      ],
+      "finished_utc": "2026-09-12T09:17:02.150549+00:00"
+    },
+    {
+      "name": "i11-terminal-prefix-full-audit",
+      "root": "lean/I11TerminalMono/Audit.lean",
+      "source_sha256": "e648665c83c80a95710b8e24f825104c3a741e30da20eaa2c61c81dcf75095b4",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-prefix-rowcell.json"
+      ],
+      "finished_utc": "2026-09-12T09:17:02.154192+00:00"
+    },
+    {
+      "name": "i11-terminal-membership-pair23-row5-prefix",
+      "root": "lean/I11TerminalMembership/Pair23/RowA005.lean",
+      "source_sha256": "31dd07e58dcc82a3d0d2ecdc5a9f72473677a5d51058a1bc9908a63a28e2ca0a",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-prefix-full-audit.json"
+      ],
+      "finished_utc": "2026-09-12T09:17:02.156952+00:00"
+    }
+  ],
+  "new_B_original_results": 0,
+  "finished_utc": "2026-09-12T09:17:02.158091+00:00"
+}

@@ -1,0 +1,34 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11TerminalCover.Examples
+
+#check B699LowIndex.I11TerminalCover.ordinaryWitnesses
+#print axioms B699LowIndex.I11TerminalCover.ordinaryWitnesses
+#check B699LowIndex.I11TerminalCover.ordinary_witnesses_check
+#print axioms B699LowIndex.I11TerminalCover.ordinary_witnesses_check
+#check B699LowIndex.I11TerminalCover.ordinary_interval_check
+#print axioms B699LowIndex.I11TerminalCover.ordinary_interval_check
+#check B699LowIndex.I11TerminalCover.ordinary_24_33_check
+#print axioms B699LowIndex.I11TerminalCover.ordinary_24_33_check
+#check B699LowIndex.I11TerminalCover.ordinary_24_33_common
+#print axioms B699LowIndex.I11TerminalCover.ordinary_24_33_common
+#check B699LowIndex.I11TerminalCover.specialWitnesses
+#print axioms B699LowIndex.I11TerminalCover.specialWitnesses
+#check B699LowIndex.I11TerminalCover.special_witnesses_check
+#print axioms B699LowIndex.I11TerminalCover.special_witnesses_check
+#check B699LowIndex.I11TerminalCover.special_interval_check
+#print axioms B699LowIndex.I11TerminalCover.special_interval_check
+#check B699LowIndex.I11TerminalCover.special_330_check
+#print axioms B699LowIndex.I11TerminalCover.special_330_check
+#check B699LowIndex.I11TerminalCover.special_330_common
+#print axioms B699LowIndex.I11TerminalCover.special_330_common
+#check B699LowIndex.I11TerminalCover.exampleWitnesses
+#print axioms B699LowIndex.I11TerminalCover.exampleWitnesses
+#check B699LowIndex.I11TerminalCover.exampleCandidateIntervals
+#print axioms B699LowIndex.I11TerminalCover.exampleCandidateIntervals
+#check B699LowIndex.I11TerminalCover.example_witnesses_check
+#print axioms B699LowIndex.I11TerminalCover.example_witnesses_check
+#check B699LowIndex.I11TerminalCover.example_candidate_cover_check
+#print axioms B699LowIndex.I11TerminalCover.example_candidate_cover_check
+#check B699LowIndex.I11TerminalCover.example_candidates_check
+#print axioms B699LowIndex.I11TerminalCover.example_candidates_check
+#check B699LowIndex.I11TerminalCover.example_candidates_common
+#print axioms B699LowIndex.I11TerminalCover.example_candidates_common

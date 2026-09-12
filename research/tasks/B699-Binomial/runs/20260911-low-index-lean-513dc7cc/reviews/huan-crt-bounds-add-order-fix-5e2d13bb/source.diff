@@ -1,0 +1,32 @@
+--- before
++++ after
+@@ -38,20 +38,23 @@
+ theorem coordinateA_mono {Q v : ℕ} {d t T : ℤ} (h : t ≤ T) :
+     coordinateA Q v d t ≤ coordinateA Q v d T := by
+   unfold coordinateA
+-  exact add_le_add_left (mul_le_mul_of_nonneg_left h (by omega : 0 ≤ (Q : ℤ))) _
++  exact Int.add_le_add le_rfl
++    (Int.mul_le_mul_of_nonneg_left h (by omega : 0 ≤ (Q : ℤ)))
+ 
+ theorem coordinateC_mono {P Q v : ℕ} {d t T : ℤ} (h : t ≤ T) :
+     coordinateC P Q v d t ≤ coordinateC P Q v d T := by
+   unfold coordinateC
+-  exact add_le_add_left (mul_le_mul_of_nonneg_left h (by omega : 0 ≤ (P : ℤ))) _
++  exact Int.add_le_add le_rfl
++    (Int.mul_le_mul_of_nonneg_left h (by omega : 0 ≤ (P : ℤ)))
+ 
+ theorem upperValue_mono {P Q v w : ℕ} {d t T : ℤ} (h : t ≤ T) :
+     upperValue P Q v w d t ≤ upperValue P Q v w d T := by
+   unfold upperValue
+-  apply add_le_add_right
+-  exact min_le_min
+-    (mul_le_mul_of_nonneg_left (coordinateA_mono h) (by omega : 0 ≤ (P : ℤ)))
+-    (mul_le_mul_of_nonneg_left (coordinateC_mono h) (by omega : 0 ≤ (Q : ℤ)))
++  exact Int.add_le_add
++    (min_le_min
++      (Int.mul_le_mul_of_nonneg_left (coordinateA_mono h) (by omega : 0 ≤ (P : ℤ)))
++      (Int.mul_le_mul_of_nonneg_left (coordinateC_mono h) (by omega : 0 ≤ (Q : ℤ))))
++    le_rfl
+ 
+ /-- Previous-step positivity and next-step cap violations give every feasible
+ parameter both bounds. No floor-search or maximum hypothesis is present. -/

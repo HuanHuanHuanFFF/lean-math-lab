@@ -1,0 +1,11 @@
+--- before/lean/Pade/RawDet.lean
++++ after/lean/Pade/RawDet.lean
+@@ -162,7 +162,7 @@
+     let u : ℕ := t + 2
+     change rawPolynomialDeterminant u v = C (determinantConstant u v) * X ^ (2 * u - 1)
+     have hu : 2 ≤ u := by dsimp [u]; omega
+-    have hs : u - 1 = t + 1 := by dsimp [u]; omega
++    have hs : u - 1 = t + 1 := by dsimp [u]
+     have hprev : rawPolynomialDeterminant (u - 1) (v + 1) =
+         C (determinantConstant (u - 1) (v + 1)) * X ^ (2 * (u - 1) - 1) := by
+       simpa only [hs] using ih (v + 1)

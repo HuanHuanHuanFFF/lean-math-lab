@@ -1,0 +1,1 @@
+Owner:pade_construction. Only this new directory; do not modify original leaf. Start2026-09-11 22:52:06 UTC; checkpoint23:12:06 UTC, not deadline. Exact degree38 homogenization verified. Goal is same polynomial equality without expanding all39(1-x)^k powers inside ring; no Lean run; source acceptance/memory measurement belongs to parent.

@@ -1,0 +1,18 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T220515594281Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/DispatchAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/DispatchAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:05:57.260108Z
+# finished_utc: 2026-09-11T22:06:06.052421Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.distinct_pair_windows_candidateMem (data : Math.B699.I11CRTSixPair.SixPairGrids) {H M : ℕ}
+  {candidates : List B699LowIndex.NatInterval}
+  (check23 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 3 H M data.grid23 candidates = true)
+  (check25 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 5 H M data.grid25 candidates = true)
+  (check27 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 7 H M data.grid27 candidates = true)
+  (check35 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 5 H M data.grid35 candidates = true)
+  (check37 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 7 H M data.grid37 candidates = true)
+  (check57 : Math.B699.I11TerminalCRT.pairGridCoverCheck 5 7 H M data.grid57 candidates = true) {p q n r s h k A C : ℕ}
+  (hpMem : p ∈ {2, 3, 5, 7}) (hqMem : q ∈ {2, 3, 5, 7}) (hpq : p ≠ q) (hnH : n < H) (hr : r < 11) (hs : s < 11)
+  (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ h * A)
+  (hQ : n - s = q ^ k * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.distinct_pair_windows_candidateMem' depends on axioms: [propext, Classical.choice, Quot.sound]

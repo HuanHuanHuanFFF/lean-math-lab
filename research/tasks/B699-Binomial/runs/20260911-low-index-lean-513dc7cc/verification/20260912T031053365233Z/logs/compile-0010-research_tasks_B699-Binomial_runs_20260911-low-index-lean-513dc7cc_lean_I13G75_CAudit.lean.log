@@ -1,0 +1,27 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T031053365233Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/CAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/CAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T03:11:37.276009Z
+# finished_utc: 2026-09-12T03:11:45.592510Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I13G75Uniform.certificatePolynomial : ℚ → ℚ
+'Math.B699.I13G75Uniform.certificatePolynomial' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.certificate_identity : ∀ (x : ℚ),
+  3125 * Math.B699.I13G75Uniform.numeratorZero x * (24 * x + 23) -
+      11664 * Math.B699.I13G75Uniform.denominator x * (24 * x - 1) =
+    2 * x * Math.B699.I13G75Uniform.certificatePolynomial x
+'Math.B699.I13G75Uniform.certificate_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.certificate_nonneg : ∀ (x : ℚ), 0 ≤ x → 0 ≤ Math.B699.I13G75Uniform.certificatePolynomial x
+'Math.B699.I13G75Uniform.certificate_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.linear_denominator_pos : ∀ (m : ℕ), 1 ≤ m → 0 < 24 * ↑m - 1
+'Math.B699.I13G75Uniform.linear_denominator_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.ratio_zero_lower : ∀ (x : ℚ),
+  1 ≤ x → Math.B699.I13G75Uniform.infiniteRate * (24 * x - 1) / (24 * x + 23) ≤ Math.B699.I13G75Uniform.ratioZero x
+'Math.B699.I13G75Uniform.ratio_zero_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_step_lower : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.divisorZero m * (Math.B699.I13G75Uniform.infiniteRate * (24 * ↑m - 1) / (24 * ↑m + 23)) ≤
+      Math.B699.I13G75Uniform.divisorZero (m + 1)
+'Math.B699.I13G75Uniform.divisor_zero_step_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.ratio_zero_lower : ∀ (x : ℚ),
+  1 ≤ x → Math.B699.I13G75Uniform.infiniteRate * (24 * x - 1) / (24 * x + 23) ≤ Math.B699.I13G75Uniform.ratioZero x

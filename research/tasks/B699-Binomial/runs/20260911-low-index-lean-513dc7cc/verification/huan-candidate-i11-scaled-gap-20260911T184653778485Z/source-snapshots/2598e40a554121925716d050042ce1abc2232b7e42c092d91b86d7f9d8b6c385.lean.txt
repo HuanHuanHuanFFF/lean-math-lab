@@ -1,0 +1,94 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11Scaled.ActualBounds
+import Mathlib.Algebra.Order.Ring.Cast
+
+/-! UNCOMPILED CANDIDATE. Derive both gap terms from actual Q/E standard
+bounds and the actual content theorem. No scaled-gap inequality is an input. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+namespace Math.B699.I11ScaledBounds
+
+def qNumerator : ℚ := (625 : ℚ) ^ 5 * contentBase
+def qDenominator (BQ : ℚ) : ℚ := (2 : ℚ) ^ 5 * (4375 : ℚ) ^ 3 * BQ
+def qRate (BQ : ℚ) : ℚ := qNumerator / qDenominator BQ
+def wNumerator : ℚ := ((625 : ℚ) * 2187) ^ 5 * contentBase
+def wDenominator (BE : ℚ) : ℚ := (4375 : ℚ) ^ 2 * BE
+def wRate (BE : ℚ) : ℚ := wNumerator / wDenominator BE
+
+theorem qRate_eq_original (BQ : ℚ) :
+    qRate BQ = (625 : ℚ) ^ 2 * contentBase / ((7 : ℚ) ^ 3 * 2 ^ 5 * BQ) := by
+  by_cases hBQ : BQ = 0
+  · simp [qRate, qNumerator, qDenominator, hBQ]
+  · unfold qRate qNumerator qDenominator
+    field_simp [hBQ]
+    <;> norm_num
+    <;> ring
+
+theorem actual_q_gap_twice_lt (m : ℕ) (hm : 129 ≤ m) (row : Bool)
+    (BQ : ℚ) (hBQ : 0 < BQ) (hQ : |qEval m row| ≤ BQ ^ m)
+    (hA : (48 : ℚ) < qRate BQ ^ m) :
+    2 * ((2 : ℚ) ^ (5 * m) * 24 * |(qRow m row : ℚ)|) < (625 : ℚ) ^ (5 * m) := by
+  have hden : 0 < qDenominator BQ := by unfold qDenominator; positivity
+  have hnum : (48 : ℚ) * qDenominator BQ ^ m < qNumerator ^ m := by
+    calc
+      _ < qRate BQ ^ m * qDenominator BQ ^ m :=
+        mul_lt_mul_of_pos_right hA (pow_pos hden m)
+      _ = qNumerator ^ m := ratio_pow_mul qNumerator (qDenominator BQ) (ne_of_gt hden) m
+  have hsmall : ((48 : ℚ) * 2 ^ (5 * m)) * ((4375 : ℚ) ^ 3 * BQ) ^ m <
+      (625 : ℚ) ^ (5 * m) * contentBase ^ m := by
+    calc
+      _ = (48 : ℚ) * qDenominator BQ ^ m := by
+        simp only [qDenominator, mul_pow, ← pow_mul]
+        ring
+      _ < qNumerator ^ m := hnum
+      _ = (625 : ℚ) ^ (5 * m) * contentBase ^ m := by
+        simp only [qNumerator, mul_pow, ← pow_mul]
+  have h := weighted_bound_lt (contentBase ^ m) ((625 : ℚ) ^ (5 * m))
+    ((48 : ℚ) * 2 ^ (5 * m)) |(qRow m row : ℚ)| (((4375 : ℚ) ^ 3 * BQ) ^ m)
+    (pow_pos contentBase_pos m) (by positivity)
+    (actual_q_content_bound m hm row BQ (le_of_lt hBQ) hQ) hsmall
+  nlinarith [h]
+
+theorem actual_e_gap_twice_lt (m : ℕ) (hm : 129 ≤ m) (row : Bool)
+    (BE : ℚ) (hBE : 0 < BE) (hE : |eEval m row| ≤ BE ^ m)
+    (V Nq : ℕ) (hNV : (2187 : ℚ) ^ (5 * m) * (V : ℚ) = (Nq : ℚ))
+    (hNsmall : 2 * (Nq : ℚ) < wRate BE ^ m) :
+    2 * (|(rowError m row : ℚ)| * (V : ℚ)) < (625 : ℚ) ^ (5 * m) := by
+  have hden : 0 < wDenominator BE := by unfold wDenominator; positivity
+  have hsmall : (2 * (V : ℚ)) * wDenominator BE ^ m <
+      (625 : ℚ) ^ (5 * m) * contentBase ^ m := by
+    apply (mul_lt_mul_right (pow_pos (by norm_num : (0 : ℚ) < 2187) (5 * m))).mp
+    calc
+      (2 * (V : ℚ)) * wDenominator BE ^ m * (2187 : ℚ) ^ (5 * m) =
+          (2 * (Nq : ℚ)) * wDenominator BE ^ m := by rw [← hNV]; ring
+      _ < wRate BE ^ m * wDenominator BE ^ m :=
+        mul_lt_mul_of_pos_right hNsmall (pow_pos hden m)
+      _ = wNumerator ^ m := ratio_pow_mul wNumerator (wDenominator BE) (ne_of_gt hden) m
+      _ = ((625 : ℚ) ^ (5 * m) * contentBase ^ m) * (2187 : ℚ) ^ (5 * m) := by
+        simp only [wNumerator, mul_pow, ← pow_mul]
+        ring
+  have h := weighted_bound_lt (contentBase ^ m) ((625 : ℚ) ^ (5 * m))
+    (2 * (V : ℚ)) |(rowError m row : ℚ)| (wDenominator BE ^ m)
+    (pow_pos contentBase_pos m) (by positivity)
+    (actual_e_content_bound m hm row BE (le_of_lt hBE) hE) hsmall
+  nlinarith [h]
+
+theorem actual_integer_gap_sum_lt (m : ℕ) (hm : 129 ≤ m) (row : Bool)
+    (BQ BE : ℚ) (hBQ : 0 < BQ) (hBE : 0 < BE)
+    (hQ : |qEval m row| ≤ BQ ^ m) (hE : |eEval m row| ≤ BE ^ m)
+    (hA : (48 : ℚ) < qRate BQ ^ m)
+    (V Nq : ℕ) (hNV : (2187 : ℚ) ^ (5 * m) * (V : ℚ) = (Nq : ℚ))
+    (hNsmall : 2 * (Nq : ℚ) < wRate BE ^ m) :
+    (2 : ℤ) ^ (5 * m) * 24 * |qRow m row| + |rowError m row| * (V : ℤ) <
+      (625 : ℤ) ^ (5 * m) := by
+  have h := sum_lt_of_twice_lt
+    ((2 : ℚ) ^ (5 * m) * 24 * |(qRow m row : ℚ)|)
+    (|(rowError m row : ℚ)| * (V : ℚ)) ((625 : ℚ) ^ (5 * m))
+    (actual_q_gap_twice_lt m hm row BQ hBQ hQ hA)
+    (actual_e_gap_twice_lt m hm row BE hBE hE V Nq hNV hNsmall)
+  exact_mod_cast h
+
+end Math.B699.I11ScaledBounds
+#print axioms Math.B699.I11ScaledBounds.qRate_eq_original
+#print axioms Math.B699.I11ScaledBounds.actual_q_gap_twice_lt
+#print axioms Math.B699.I11ScaledBounds.actual_e_gap_twice_lt
+#print axioms Math.B699.I11ScaledBounds.actual_integer_gap_sum_lt

@@ -1,0 +1,342 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtStage0Pair37.Chunk002Data
+import Mathlib.Tactic.IntervalCases
+
+/-! UNCOMPILED direct-cell candidate; no row-wide decide. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 5000000
+set_option exponentiation.threshold 512
+
+namespace Math.B699.CRTStage0Pair37.Chunk002
+open Math.B699.CRTGrid
+open B699LowIndex.I11CrtStageMetadata
+
+theorem cellA23B1_check :
+    cellCheck (3 ^ 23) (7 ^ 1)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 1)) Stage00.upper cellA23B1 = true := by
+  decide +kernel
+
+theorem cellA23B2_check :
+    cellCheck (3 ^ 23) (7 ^ 2)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 2)) Stage00.upper cellA23B2 = true := by
+  decide +kernel
+
+theorem cellA23B3_check :
+    cellCheck (3 ^ 23) (7 ^ 3)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 3)) Stage00.upper cellA23B3 = true := by
+  decide +kernel
+
+theorem cellA23B4_check :
+    cellCheck (3 ^ 23) (7 ^ 4)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 4)) Stage00.upper cellA23B4 = true := by
+  decide +kernel
+
+theorem cellA23B5_check :
+    cellCheck (3 ^ 23) (7 ^ 5)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 5)) Stage00.upper cellA23B5 = true := by
+  decide +kernel
+
+theorem cellA23B6_check :
+    cellCheck (3 ^ 23) (7 ^ 6)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 6)) Stage00.upper cellA23B6 = true := by
+  decide +kernel
+
+theorem cellA23B7_check :
+    cellCheck (3 ^ 23) (7 ^ 7)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 7)) Stage00.upper cellA23B7 = true := by
+  decide +kernel
+
+theorem cellA23B8_check :
+    cellCheck (3 ^ 23) (7 ^ 8)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 8)) Stage00.upper cellA23B8 = true := by
+  decide +kernel
+
+theorem cellA23B9_check :
+    cellCheck (3 ^ 23) (7 ^ 9)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 9)) Stage00.upper cellA23B9 = true := by
+  decide +kernel
+
+theorem cellA23B10_check :
+    cellCheck (3 ^ 23) (7 ^ 10)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 10)) Stage00.upper cellA23B10 = true := by
+  decide +kernel
+
+theorem cellA23B11_check :
+    cellCheck (3 ^ 23) (7 ^ 11)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 11)) Stage00.upper cellA23B11 = true := by
+  decide +kernel
+
+theorem cellA23B12_check :
+    cellCheck (3 ^ 23) (7 ^ 12)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 12)) Stage00.upper cellA23B12 = true := by
+  decide +kernel
+
+theorem cellA23B13_check :
+    cellCheck (3 ^ 23) (7 ^ 13)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 13)) Stage00.upper cellA23B13 = true := by
+  decide +kernel
+
+theorem cellA23B14_check :
+    cellCheck (3 ^ 23) (7 ^ 14)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 14)) Stage00.upper cellA23B14 = true := by
+  decide +kernel
+
+theorem cellA23B15_check :
+    cellCheck (3 ^ 23) (7 ^ 15)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 15)) Stage00.upper cellA23B15 = true := by
+  decide +kernel
+
+theorem cellA23B16_check :
+    cellCheck (3 ^ 23) (7 ^ 16)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 16)) Stage00.upper cellA23B16 = true := by
+  decide +kernel
+
+theorem cellA23B17_check :
+    cellCheck (3 ^ 23) (7 ^ 17)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 17)) Stage00.upper cellA23B17 = true := by
+  decide +kernel
+
+theorem cellA23B18_check :
+    cellCheck (3 ^ 23) (7 ^ 18)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 18)) Stage00.upper cellA23B18 = true := by
+  decide +kernel
+
+theorem cellA23B19_check :
+    cellCheck (3 ^ 23) (7 ^ 19)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 19)) Stage00.upper cellA23B19 = true := by
+  decide +kernel
+
+theorem cellA23B20_check :
+    cellCheck (3 ^ 23) (7 ^ 20)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 20)) Stage00.upper cellA23B20 = true := by
+  decide +kernel
+
+theorem cellA23B21_check :
+    cellCheck (3 ^ 23) (7 ^ 21)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 21)) Stage00.upper cellA23B21 = true := by
+  decide +kernel
+
+theorem cellA23B22_check :
+    cellCheck (3 ^ 23) (7 ^ 22)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 22)) Stage00.upper cellA23B22 = true := by
+  decide +kernel
+
+theorem cellA23B23_check :
+    cellCheck (3 ^ 23) (7 ^ 23)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 23)) Stage00.upper cellA23B23 = true := by
+  decide +kernel
+
+theorem cellA23B24_check :
+    cellCheck (3 ^ 23) (7 ^ 24)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 24)) Stage00.upper cellA23B24 = true := by
+  decide +kernel
+
+theorem cellA23B25_check :
+    cellCheck (3 ^ 23) (7 ^ 25)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 25)) Stage00.upper cellA23B25 = true := by
+  decide +kernel
+
+theorem cellA23B26_check :
+    cellCheck (3 ^ 23) (7 ^ 26)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 26)) Stage00.upper cellA23B26 = true := by
+  decide +kernel
+
+theorem cellA23B27_check :
+    cellCheck (3 ^ 23) (7 ^ 27)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 27)) Stage00.upper cellA23B27 = true := by
+  decide +kernel
+
+theorem cellA23B28_check :
+    cellCheck (3 ^ 23) (7 ^ 28)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 28)) Stage00.upper cellA23B28 = true := by
+  decide +kernel
+
+theorem cellA23B29_check :
+    cellCheck (3 ^ 23) (7 ^ 29)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 29)) Stage00.upper cellA23B29 = true := by
+  decide +kernel
+
+theorem cellA23B30_check :
+    cellCheck (3 ^ 23) (7 ^ 30)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 30)) Stage00.upper cellA23B30 = true := by
+  decide +kernel
+
+theorem cellA23B31_check :
+    cellCheck (3 ^ 23) (7 ^ 31)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 31)) Stage00.upper cellA23B31 = true := by
+  decide +kernel
+
+theorem cellA23B32_check :
+    cellCheck (3 ^ 23) (7 ^ 32)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 32)) Stage00.upper cellA23B32 = true := by
+  decide +kernel
+
+theorem cellA23B33_check :
+    cellCheck (3 ^ 23) (7 ^ 33)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 33)) Stage00.upper cellA23B33 = true := by
+  decide +kernel
+
+theorem cellA23B34_check :
+    cellCheck (3 ^ 23) (7 ^ 34)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 34)) Stage00.upper cellA23B34 = true := by
+  decide +kernel
+
+theorem cellA23B35_check :
+    cellCheck (3 ^ 23) (7 ^ 35)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 35)) Stage00.upper cellA23B35 = true := by
+  decide +kernel
+
+theorem cellA23B36_check :
+    cellCheck (3 ^ 23) (7 ^ 36)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 36)) Stage00.upper cellA23B36 = true := by
+  decide +kernel
+
+theorem cellA23B37_check :
+    cellCheck (3 ^ 23) (7 ^ 37)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 37)) Stage00.upper cellA23B37 = true := by
+  decide +kernel
+
+theorem cellA23B38_check :
+    cellCheck (3 ^ 23) (7 ^ 38)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ 38)) Stage00.upper cellA23B38 = true := by
+  decide +kernel
+
+theorem rowA23_cell_check (b : ℕ) (hb0 : 1 ≤ b) (hb1 : b ≤ 38) :
+    cellCheck (3 ^ 23) (7 ^ b)
+      (heightCap Stage00.H Stage00.M (3 ^ 23))
+      (heightCap Stage00.H Stage00.M (7 ^ b)) Stage00.upper (rowA23 b) = true := by
+  interval_cases b
+  · simpa only [show rowA23 1 = cellA23B1 from rfl] using cellA23B1_check
+  · simpa only [show rowA23 2 = cellA23B2 from rfl] using cellA23B2_check
+  · simpa only [show rowA23 3 = cellA23B3 from rfl] using cellA23B3_check
+  · simpa only [show rowA23 4 = cellA23B4 from rfl] using cellA23B4_check
+  · simpa only [show rowA23 5 = cellA23B5 from rfl] using cellA23B5_check
+  · simpa only [show rowA23 6 = cellA23B6 from rfl] using cellA23B6_check
+  · simpa only [show rowA23 7 = cellA23B7 from rfl] using cellA23B7_check
+  · simpa only [show rowA23 8 = cellA23B8 from rfl] using cellA23B8_check
+  · simpa only [show rowA23 9 = cellA23B9 from rfl] using cellA23B9_check
+  · simpa only [show rowA23 10 = cellA23B10 from rfl] using cellA23B10_check
+  · simpa only [show rowA23 11 = cellA23B11 from rfl] using cellA23B11_check
+  · simpa only [show rowA23 12 = cellA23B12 from rfl] using cellA23B12_check
+  · simpa only [show rowA23 13 = cellA23B13 from rfl] using cellA23B13_check
+  · simpa only [show rowA23 14 = cellA23B14 from rfl] using cellA23B14_check
+  · simpa only [show rowA23 15 = cellA23B15 from rfl] using cellA23B15_check
+  · simpa only [show rowA23 16 = cellA23B16 from rfl] using cellA23B16_check
+  · simpa only [show rowA23 17 = cellA23B17 from rfl] using cellA23B17_check
+  · simpa only [show rowA23 18 = cellA23B18 from rfl] using cellA23B18_check
+  · simpa only [show rowA23 19 = cellA23B19 from rfl] using cellA23B19_check
+  · simpa only [show rowA23 20 = cellA23B20 from rfl] using cellA23B20_check
+  · simpa only [show rowA23 21 = cellA23B21 from rfl] using cellA23B21_check
+  · simpa only [show rowA23 22 = cellA23B22 from rfl] using cellA23B22_check
+  · simpa only [show rowA23 23 = cellA23B23 from rfl] using cellA23B23_check
+  · simpa only [show rowA23 24 = cellA23B24 from rfl] using cellA23B24_check
+  · simpa only [show rowA23 25 = cellA23B25 from rfl] using cellA23B25_check
+  · simpa only [show rowA23 26 = cellA23B26 from rfl] using cellA23B26_check
+  · simpa only [show rowA23 27 = cellA23B27 from rfl] using cellA23B27_check
+  · simpa only [show rowA23 28 = cellA23B28 from rfl] using cellA23B28_check
+  · simpa only [show rowA23 29 = cellA23B29 from rfl] using cellA23B29_check
+  · simpa only [show rowA23 30 = cellA23B30 from rfl] using cellA23B30_check
+  · simpa only [show rowA23 31 = cellA23B31 from rfl] using cellA23B31_check
+  · simpa only [show rowA23 32 = cellA23B32 from rfl] using cellA23B32_check
+  · simpa only [show rowA23 33 = cellA23B33 from rfl] using cellA23B33_check
+  · simpa only [show rowA23 34 = cellA23B34 from rfl] using cellA23B34_check
+  · simpa only [show rowA23 35 = cellA23B35 from rfl] using cellA23B35_check
+  · simpa only [show rowA23 36 = cellA23B36 from rfl] using cellA23B36_check
+  · simpa only [show rowA23 37 = cellA23B37 from rfl] using cellA23B37_check
+  · simpa only [show rowA23 38 = cellA23B38 from rfl] using cellA23B38_check
+
+theorem rowA23_block_check :
+    blockCheck 3 7 Stage00.H Stage00.M Stage00.upper 23 1 1 38 chunkData = true := by
+  unfold blockCheck
+  apply List.all_eq_true.mpr
+  intro aa haa
+  have hab := List.mem_range'_1.mp haa
+  have ha : aa = 23 := by omega
+  subst aa
+  apply List.all_eq_true.mpr
+  intro b hb
+  have hbb := List.mem_range'_1.mp hb
+  have h := rowA23_cell_check b hbb.1 (by omega)
+  simpa only [show chunkData 23 b = rowA23 b from rfl] using h
+
+end Math.B699.CRTStage0Pair37.Chunk002
+
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B1_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B2_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B3_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B4_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B5_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B6_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B7_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B8_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B9_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B10_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B11_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B12_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B13_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B14_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B15_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B16_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B17_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B18_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B19_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B20_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B21_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B22_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B23_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B24_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B25_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B26_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B27_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B28_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B29_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B30_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B31_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B32_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B33_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B34_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B35_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B36_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B37_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.cellA23B38_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.rowA23_cell_check
+#print axioms Math.B699.CRTStage0Pair37.Chunk002.rowA23_block_check

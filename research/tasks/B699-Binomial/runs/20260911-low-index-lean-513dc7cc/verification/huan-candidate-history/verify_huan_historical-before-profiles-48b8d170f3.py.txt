@@ -1,0 +1,31 @@
+"""Repackage four already accepted historical rows for the final A consumer."""
+from pathlib import Path
+import argparse,json,subprocess,sys,os,hashlib
+from datetime import datetime,timezone
+from huan_atomic import write_json
+RUN=Path('research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc')
+ALLOWED={'propext','Classical.choice','Quot.sound'}
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--repo',type=Path,default=Path('.'));p.add_argument('--package-root',type=Path,required=True);a=p.parse_args();repo=a.repo.resolve();run=repo/RUN
+ status=json.loads((run/'target-status.json').read_text());assert status['completed_phase_a']==[29,*range(35,185)],'all A indices must be accepted before this final packaging step'
+ prepared=json.loads((run/'verification/huan-prerequisites/historical-bundles-integrated.json').read_text());rows={x['i']:x for x in prepared['rows']};stamp=datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ');out=run/'verification'/('huan-historical-'+stamp);report={'status':'running','purpose':'historical object availability and short private bundles for final full-A consumer','original_indices_added':[],'rows':[]};write_json(out/'state.json',report);env=dict(os.environ,PYTHONUTF8='1',PYTHONDONTWRITEBYTECODE='1',GIT_OPTIONAL_LOCKS='0')
+ for i in [29,35,36,37]:
+  record={'i':i,'status':'pending','attempts':[]};report['rows'].append(record);write_json(out/'state.json',report)
+  for block,memory in [(32,2048),(16,1536),(8,1536)]:
+   folder=run/f'lean/rows/Row{i:03d}H{block}';plan=repo/rows[i]['plan']
+   if not (folder/'bundle-manifest.json').exists():
+    with (out/f'row{i:03d}-H{block}-bundle.log').open('w',encoding='utf-8') as stream:rc=subprocess.run([sys.executable,'-B',str(run/'verification/runner/bundle_huan_row.py'),'--repo-root',str(repo),'--plan',str(plan),'--output',str(folder),'--block-size',str(block)],cwd=repo,env=env,stdout=stream,stderr=subprocess.STDOUT).returncode
+    if rc:raise RuntimeError('historical private bundling failed')
+   root=json.loads((folder/'bundle-manifest.json').read_text())['root'];before=set((run/'verification').glob('20*/evidence.json'));log=out/f'row{i:03d}-H{block}-verify.log';print('HISTORICAL_START '+json.dumps({'i':i,'block':block,'M':memory}),flush=True)
+   with log.open('w',encoding='utf-8') as stream:rc=subprocess.run([sys.executable,'-B',str(run/'verification/runner/verify_huan.py'),'--repo',str(repo),'--package-root',str(a.package_root.resolve()),'--root',root,'--reuse',str(RUN/'verification/20260911T004440769454Z/evidence.json'),'--memory-mb',str(memory),'--timeout','900'],cwd=repo,env=env,stdout=stream,stderr=subprocess.STDOUT,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0)).returncode
+   fresh=set((run/'verification').glob('20*/evidence.json'))-before;matches=[p for p in fresh if json.loads(p.read_text()).get('root_sources')==[root]];assert len(matches)==1;ep=matches[0];e=json.loads(ep.read_text());record['attempts'].append({'block':block,'memory_mb':memory,'evidence':ep.relative_to(repo).as_posix(),'exit_code':rc});write_json(out/'state.json',report)
+   if rc==0 and e['success']:
+    c=next(x for x in e['compile_records'] if x['source']==root);name=f'B699LowIndex.LowIndexLean513dc7cc.common_i{i:03d}';printed=[x for x in c['axiom_audit']['printed'] if x['declared_name']==name];assert len(printed)==1 and set(printed[0]['axioms'])<=ALLOWED;assert hashlib.sha256((repo/root).read_bytes()).hexdigest()==c['source_sha256_after'];statement=f'∀ n j : ℕ, 1 ≤ {i} ∧ {i} < j ∧ j ≤ n / 2 →\n      ∃ p : ℕ, p.Prime ∧ {i} ≤ p ∧ p ∣ Nat.choose n {i} ∧ p ∣ Nat.choose n j := by';assert statement in (repo/root).read_text();receipt={'i':i,'kind':'historical_private_bundle_fresh_verification','historical_original_already_accepted':True,'new_original_results':0,'root':root,'declaration':name,'evidence':ep.relative_to(repo).as_posix(),'source_sha256':c['source_sha256_after'],'output_sha256':c['output_sha256'],'axioms':printed[0]['axioms'],'compiled_modules':e['compiled_count'],'reused_modules':e['reused_count'],'verification_seconds':sum(x['seconds'] for x in e['compile_records']),'publication_status':'local_verified_commit_and_push_blocked'};write_json(run/f'verification/huan-historical-accepted/row{i:03d}.json',receipt);record.update(status='accepted_for_final_consumer',receipt=f'verification/huan-historical-accepted/row{i:03d}.json');write_json(out/'state.json',report);print('HISTORICAL_ACCEPTED '+json.dumps({'i':i,'modules':e['compiled_count'],'seconds':receipt['verification_seconds'],'new_original_results':0}),flush=True);break
+   memory_failure=bool(e.get('failure') and 'Insufficient available memory' in e['failure'])
+   for c in e.get('compile_records',[]):
+    if c.get('failure'):
+     text=(repo/c['log']).read_text(errors='replace').lower();memory_failure|=('memory_exception' in text or 'excessive memory consumption' in text)
+   if not memory_failure:record.update(status='unresolved',failure=e.get('failure'));write_json(out/'state.json',report);return 1
+  if record['status']!='accepted_for_final_consumer':report['status']='unresolved';write_json(out/'state.json',report);return 1
+ report['status']='all_four_historical_bundles_accepted';write_json(out/'state.json',report);return 0
+if __name__=='__main__':raise SystemExit(main())

@@ -1,0 +1,29 @@
+Primary-only adapter suggestion: replace the old failed ThreeTwo implementation
+with an import of lean.I11EOne.Caps and aliases preserving the five public types.
+Do not add this snippet as another file importing the old ThreeTwo module.
+
+namespace Math.B699.I11InitialCapComputation.ThreeTwo
+open Math.B699.PadeGrowthNormalization
+
+theorem actual_e_delta0 :
+    actualE 23 15 0 1 (1 / 9) = (13515592997264 : ℚ) / 1594323 :=
+  Math.B699.I11EOne.actual_e_delta0
+
+theorem e_cap_delta0 :
+    2 * |actualE 23 15 0 1 (1 / 9)| ≤ Math.B699.I11ThreeTwoScaled.eBase :=
+  Math.B699.I11EOne.e_cap_delta0
+
+theorem actual_e_delta1 :
+    actualE 23 15 1 1 (1 / 9) = (117258057456010 : ℚ) / 4782969 :=
+  Math.B699.I11EOne.actual_e_delta1
+
+theorem e_cap_delta1 :
+    2 * |actualE 23 15 1 1 (1 / 9)| ≤ Math.B699.I11ThreeTwoScaled.eBase :=
+  Math.B699.I11EOne.e_cap_delta1
+
+theorem fixed_initial_e_cap (row : Bool) :
+    2 * |actualE 23 15 (Math.B699.I11ThreeTwoScaled.rowDelta row) 1 (1 / 9)| ≤
+      Math.B699.I11ThreeTwoScaled.eBase :=
+  Math.B699.I11EOne.fixed_initial_e_cap row
+
+end Math.B699.I11InitialCapComputation.ThreeTwo

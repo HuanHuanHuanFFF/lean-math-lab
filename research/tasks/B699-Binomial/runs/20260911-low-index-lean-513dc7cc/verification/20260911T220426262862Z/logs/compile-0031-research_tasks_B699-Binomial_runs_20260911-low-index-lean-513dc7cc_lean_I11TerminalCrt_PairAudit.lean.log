@@ -1,0 +1,26 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T220426262862Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/PairAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/PairAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:05:06.313101Z
+# finished_utc: 2026-09-11T22:05:15.132670Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.pairGridCoverCheck (p q H M : ℕ) (data : Math.B699.I11CRTSixPair.PairGridData)
+  (candidates : List B699LowIndex.NatInterval) : Bool
+'Math.B699.I11TerminalCRT.pairGridCoverCheck' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.pairGridCoverCheck_of_parts {p q H M : ℕ} {data : Math.B699.I11CRTSixPair.PairGridData}
+  {candidates : List B699LowIndex.NatInterval} (hc : Math.B699.I11CRTSixPair.cutoffCheck p q H data = true)
+  (hg : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M data.amax data.bmax data.cells candidates = true) :
+  Math.B699.I11TerminalCRT.pairGridCoverCheck p q H M data candidates = true
+'Math.B699.I11TerminalCRT.pairGridCoverCheck_of_parts' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.pairGridCoverCheck_windows {p q H M n r s h k A C : ℕ}
+  {data : Math.B699.I11CRTSixPair.PairGridData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.pairGridCoverCheck p q H M data candidates = true) (hnH : n < H) (hr : r < 11)
+  (hs : s < 11) (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ h * A)
+  (hQ : n - s = q ^ k * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.pairGridCoverCheck_windows' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.pairGridCoverCheck_windows_swapped {p q H M n r s h k A C : ℕ}
+  {data : Math.B699.I11CRTSixPair.PairGridData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.pairGridCoverCheck p q H M data candidates = true) (hnH : n < H) (hr : r < 11)
+  (hs : s < 11) (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = q ^ h * A)
+  (hQ : n - s = p ^ k * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.pairGridCoverCheck_windows_swapped' depends on axioms: [propext, Classical.choice, Quot.sound]

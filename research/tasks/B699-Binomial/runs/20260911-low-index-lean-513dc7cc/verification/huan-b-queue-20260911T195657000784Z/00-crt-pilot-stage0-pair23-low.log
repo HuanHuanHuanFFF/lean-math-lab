@@ -1,0 +1,23 @@
+{"status": "failed_not_accepted", "root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtData/PilotStage0Pair23Low.lean", "name": "crt-pilot-stage0-pair23-low", "new_original_indices": [], "source_sha256_before": "e82bad184ee5b634ecf0857730d945e8184fa984668223cd10a599a2ab3ce163", "reuse": ["research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T192713999169Z/evidence.json"], "exit_code": 1, "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T195657281069Z/evidence.json", "finished_utc": "2026-09-11T19:57:33.349192+00:00", "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.CrtData.PilotStage0Pair23Low"}
+FAILED_SOURCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtData/PilotStage0Pair23Low.lean
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T195657281069Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtData/PilotStage0Pair23Low.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtData/PilotStage0Pair23Low.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T19:57:24.303653Z
+# finished_utc: 2026-09-11T19:57:33.285875Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtData\PilotStage0Pair23Low.lean:56:34: error: unexpected token 'if'; expected 'else'
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtData\PilotStage0Pair23Low.lean:69:2: error: Tactic `decide` failed for proposition
+  blockCheck 2 3 stageH stageM stageT 1 1 1 8 pilotData = true
+because its `Decidable` instance
+  instDecidableEqBool (blockCheck 2 3 stageH stageM stageT 1 1 1 8 pilotData) true
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `decEq`, `instDecidableAnd`, `instDecidableEqBool`, `instDecidableEqNat`, `instDecidableOr`, `Bool.decEq`, `Int.decEq`, `Int.decLe`, `Int.decLt`, `Int.decNonneg`, `Int.instDecidableEq`, `Nat.decEq`, `Nat.decLe`, `instDecidableLowerCondition`, and `instDecidableUpperCondition`, reduction got stuck at the `Decidable` instance
+  match blockCheck 2 3 stageH stageM stageT 1 1 1 8 pilotData, true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+'Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.block_check' depends on axioms: [propext, sorryAx]
+

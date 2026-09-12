@@ -1,0 +1,81 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T03:00:23.811632+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "i11-terminal-coverage-first",
+      "root": "lean/I11TerminalCandidateCoverage/FirstAudit.lean",
+      "source_sha256": "364e4fa4bf967464d7723d2755e74302765583d6faffa97d2c87d0fd5484d18d",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch00.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch01.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch02.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch03.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch04.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch05.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch06.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-first-parts-batch07.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "crt-stage0-pair27-chunk000",
+      "root": "lean/CrtStage0Pair27/Chunk000.lean",
+      "source_sha256": "a7b3ca38af16e0f5f38780f3f69d5021eb9efd05dc4f58afb2b9c3999237d715",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-cell-budget-threerows.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-crt-stage-metadata.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-g75-actual",
+      "root": "lean/I13G75/AAudit.lean",
+      "source_sha256": "9b2485460753722945a7bf9476d1563f71cacb579415c7ba8e98d871d30d3a38",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-g75-certificate",
+      "root": "lean/I13G75/CAudit.lean",
+      "source_sha256": "85765ec08fa77c966ef416677e6194632982be2d5e4a71e10ac67eb5f63a07a1",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-g75-actual.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-g75-uniform",
+      "root": "lean/I13G75/UAudit.lean",
+      "source_sha256": "c7ba02a945fae139ae271641aa60e65ea908b0f0f1df14d9139fa883ad937260",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-g75-certificate.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-initial-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-g75-geometric",
+      "root": "lean/I13G75/GAudit.lean",
+      "source_sha256": "a231a6cce36e8fb381a43f33559151601218dbfaaf86160b389cce5789d5d9b4",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-g75-uniform.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-g75-full-audit",
+      "root": "lean/I13G75/Audit.lean",
+      "source_sha256": "54b85b5029fe7da1921c5d50c9fde219db8b6c9b88482466b665d7e22a21f7f9",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-g75-geometric.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0,
+  "purpose": "Finish first terminal interval using all8 accepted batch closures, then final CRT layout pilot and bounded i13 G candidate."
+}

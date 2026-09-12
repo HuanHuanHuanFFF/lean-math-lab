@@ -1,0 +1,30 @@
+--- before
++++ after
+@@ -54,19 +54,19 @@
+ def pilotData : ℕ → ℕ → CellData :=
+   fun a b =>
+     if a = 1 ∧ b = 1 then cellA1B1
+-    if a = 1 ∧ b = 2 then cellA1B2
+-    if a = 1 ∧ b = 3 then cellA1B3
+-    if a = 1 ∧ b = 4 then cellA1B4
+-    if a = 1 ∧ b = 5 then cellA1B5
+-    if a = 1 ∧ b = 6 then cellA1B6
+-    if a = 1 ∧ b = 7 then cellA1B7
+-    if a = 1 ∧ b = 8 then cellA1B8
++    else if a = 1 ∧ b = 2 then cellA1B2
++    else if a = 1 ∧ b = 3 then cellA1B3
++    else if a = 1 ∧ b = 4 then cellA1B4
++    else if a = 1 ∧ b = 5 then cellA1B5
++    else if a = 1 ∧ b = 6 then cellA1B6
++    else if a = 1 ∧ b = 7 then cellA1B7
++    else if a = 1 ∧ b = 8 then cellA1B8
+     else outsideCell
+ 
+ theorem block_check :
+     blockCheck 2 3 stageH stageM stageT
+       1 1 1 8 pilotData = true := by
+-  decide
++  decide +kernel
+ 
+ end Math.B699.CRTGrid.PilotStage0_23_A1_B1to8
+ #print axioms Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.block_check

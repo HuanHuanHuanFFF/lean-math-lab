@@ -1,0 +1,54 @@
+{
+  "namespace": "Math.B699.I11FiveSevenFinalConsumers",
+  "final_root": "Math.B699.I11FiveSevenFinalConsumers.actual_five_seven_component_edge",
+  "Xp": "5^((n.choose 11).factorization 5)",
+  "Xq": "7^((n.choose 11).factorization 7)",
+  "result": "Xp^1000*((n+1)/2)^352<=n^1000 OR Xq^1000*((n+1)/2)^216<=n^1000",
+  "only_final_input": "n:Nat and2^15360<=n",
+  "special_inputs_discharged": [
+    "four actual GrowthTrees",
+    "eight numerical certificates",
+    "primeWindow/ceilHalf"
+  ],
+  "ordinary_to_raw": "C*primeComponent=n-offset; offset<11,cofactor positive; |difference|<=10<=24; graph_capacity transfers cofactor edge",
+  "row_mapping": {
+    "false": 1,
+    "true": 0
+  },
+  "new_Lean_invocations": 0,
+  "new_original_B_results": 0,
+  "self_import_mapping": {
+    "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-remaining-final-consumers-5e2d13bb».FiveSeven": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11FiveSevenFinal"
+  },
+  "external_targets": {
+    "edge": "lean/I11FiveSevenEdge",
+    "factorial": "lean/Factorial/Factorial11D7",
+    "tree_shared_aggregator": "lean/Growth/I11FiveSeven{Shared,Leaves,Tree}",
+    "leaf_directory": "lean/Growth/I11FiveSevenLeaves/",
+    "numeric": "lean/I11FiveSevenNumeric/{Basis,Selector,Audit}"
+  },
+  "exclude": "historical I11RowNN modules; imports use only official newly named files",
+  "remaining": "parent actual Lean closure verification and complete original i11/global B699 consumers",
+  "upstream_integration_differences": [
+    {
+      "owner": "parent integrated copy only",
+      "file": "lean/I11FiveSevenNumeric/Selector.lean",
+      "change": "Normalize p_base repeated Nat type annotation to one annotation",
+      "from": "(5 : ℕ : ℕ)",
+      "to": "(5 : ℕ)",
+      "status": "parent announced; final actual integrated hash/receipt pending here",
+      "effect": "No theorem statement arithmetic, M, weights, or public API change"
+    },
+    {
+      "owner": "parent integrated copy only",
+      "file": "lean/I11FiveSevenNumeric/Basis.lean",
+      "change": "Add missing public basis_seven and its audit root",
+      "declaration": "Math.B699.I11FiveSevenNumeric.basis_seven : (7 : Nat)^256 <= (2 : Nat)^719",
+      "exact_integer_diagnostic": true,
+      "source": "original short-power-bases row04, already bound by FiveSeven fixed-edge package",
+      "status": "missing in original frozen candidate; parent adds the theorem in the integrated copy",
+      "effect": "Discharges the existing selector reference; no new final hypothesis or changed numeric target"
+    }
+  ],
+  "upstream_original_compile_boundary": "Do not compile or accept the original frozen selector unchanged: use the parent repaired integrated copy. Frozen originals remain source records."
+}

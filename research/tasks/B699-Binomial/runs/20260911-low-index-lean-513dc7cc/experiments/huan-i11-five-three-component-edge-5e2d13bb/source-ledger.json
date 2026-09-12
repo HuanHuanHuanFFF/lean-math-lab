@@ -1,0 +1,317 @@
+{
+  "utc": "2026-09-11T17:26:40.233424+00:00",
+  "sources": [
+    {
+      "path": "lean/I11SmallPrimes/Components.lean",
+      "sha256": "a5814a27ae1d05257dc95d67b5e725e446fdedab103827ca45bc650ccaf8ab97",
+      "declarations": [
+        {
+          "line": 16,
+          "signature": "def primeComponent (n p : ℕ) : ℕ"
+        },
+        {
+          "line": 18,
+          "signature": "theorem i11_small_primes :\n    (Finset.range 11).filter Nat.Prime = ({2, 3, 5, 7} : Finset ℕ)"
+        },
+        {
+          "line": 22,
+          "signature": "theorem smallPrimePart_eq_four_components (n : ℕ) :\n    smallPrimePart n 11 =\n      primeComponent n 2 * primeComponent n 3 * primeComponent n 5 * primeComponent n 7"
+        },
+        {
+          "line": 28,
+          "signature": "theorem primeComponent_bounds {n p : ℕ} (hn : 11 ≤ n) (hp : p.Prime) :\n    1 ≤ primeComponent n p ∧ primeComponent n p ≤ n"
+        },
+        {
+          "line": 35,
+          "signature": "theorem four_prime_components_bounds {n : ℕ} (hn : 11 ≤ n) :\n    ∀ p ∈ ({2, 3, 5, 7} : Finset ℕ), 1 ≤ primeComponent n p ∧ primeComponent n p ≤ n"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11SmallPrimes/Window.lean",
+      "sha256": "a7665f34b746c0c9f9911afbd55002e25f076d31c95abbc161f9d4ad04930c16",
+      "declarations": [
+        {
+          "line": 22,
+          "signature": "theorem primeWindow_nonempty {n p : ℕ} (hn : 11 ≤ n) (hp : p.Prime) :\n    Nonempty (PrimeWindow n p)"
+        },
+        {
+          "line": 47,
+          "signature": "theorem component_power_mul_le {C A n Y weight exponent : ℕ}\n    (hproduct : C * A ≤ n) (hcofactor : Y ^ weight ≤ C ^ exponent) :\n    A ^ exponent * Y ^ weight ≤ n ^ exponent"
+        },
+        {
+          "line": 58,
+          "signature": "theorem primeWindow_graph_capacity {n p Y weight : ℕ} (window : PrimeWindow n p)\n    (hcofactor : Y ^ weight ≤ window.cofactor ^ 1000) :\n    (primeComponent n p) ^ 1000 * Y ^ weight ≤ n ^ 1000"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Numeric/ActualNumeric.lean",
+      "sha256": "6f4072493d32babd114f957a73d53656f9013c00d5b3bb30714454fdb0e58231",
+      "declarations": [
+        {
+          "line": 16,
+          "signature": "theorem actual_Z_eq_certificate : fiveThreeZ = certificateZ"
+        },
+        {
+          "line": 18,
+          "signature": "theorem actual_a3_eq_rational : qRate qBase = a3Rational"
+        },
+        {
+          "line": 22,
+          "signature": "theorem actual_a3_pow213_gt_48 : (48 : ℚ) < qRate qBase ^ 213"
+        },
+        {
+          "line": 27,
+          "signature": "theorem actual_numeric_certificates :\n    (48 : ℚ) < qRate qBase ^ 213 ∧\n    fiveThreeZ ^ (fiveThreeM - 1) ≤ 4 * fiveThreeY0 ∧\n    (5 : ℕ) ^ 20000 ≤ fiveThreeZ ^ 646 ∧\n    ((5 : ℕ) ^ 20000) ^ fiveThreeM ≤ fiveThreeY0 ^ 646 ∧\n    (4 : ℕ) ^ 646 * (5 ^ 20000) ^ (fiveThreeM + 1) ≤ fiveThreeZ ^ (646 * fiveThreeM) ∧\n    (3 : ℕ) ^ 35000 ≤ fiveThreeZ ^ 772 ∧\n    ((3 : ℕ) ^ 35000) ^ fiveThreeM ≤ fiveThreeY0 ^ 772 ∧\n    (4 : ℕ) ^ 772 * (3 ^ 35000) ^ (fiveThreeM + 1) ≤ fiveThreeZ ^ (772 * fiveThreeM)"
+        },
+        {
+          "line": 39,
+          "signature": "theorem five_three_edge_of_growth_trees\n    (qt : ∀ row : Bool, GrowthTree qLambda (qWeight 5 3 (rowDelta row) (1 / 4375))\n      (qCore 5 3 (1 / 4375)))\n    (et : ∀ row : Bool, GrowthTree eLambda (eWeight 5 3 (rowDelta row) (1 / 4375))\n      (eCore 5 3 (1 / 4375)))\n    (Y e f A C : ℕ) (hY : fiveThreeY0 ≤ Y) (hC : 1 ≤ C)\n    (hwindowP : Y ≤ 5 ^ e * A) (hwindowQ : Y ≤ 3 ^ f * C)\n    (hupperQ : 3 ^ f * C ≤ 2 * Y)\n    (hgap : |(5 : ℤ) ^ e * (A : ℤ) - (3 : ℤ) ^ f * (C : ℤ)| ≤ 24) :\n    Y ^ 354 ≤ A ^ 1000 ∨ Y ^ 228 ≤ C ^ 1000"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Scaled/GrowthInputs.lean",
+      "sha256": "f75404ab5125f4b6219571d1aa80d66dcf83fff486986dd632e716e9d9e48e27",
+      "declarations": [
+        {
+          "line": 14,
+          "signature": "def qLambda : ℚ"
+        },
+        {
+          "line": 15,
+          "signature": "def eLambda : ℚ"
+        },
+        {
+          "line": 16,
+          "signature": "def qBase : ℚ"
+        },
+        {
+          "line": 17,
+          "signature": "def eBase : ℚ"
+        },
+        {
+          "line": 19,
+          "signature": "theorem fixed_bases_pos : 0 < qLambda ∧ 0 < eLambda ∧ 0 < qBase ∧ 0 < eBase"
+        },
+        {
+          "line": 22,
+          "signature": "theorem geometric_majorant (F K beta lam weight : ℚ) (m : ℕ)\n    (hm : 1 ≤ m) (hbeta : 0 ≤ beta) (hlam : 0 ≤ lam) (hweight : 0 ≤ weight)\n    (hF : F ≤ K * beta ^ m) (hcap : K * weight ≤ lam) :\n    F * (lam ^ (m - 1) * weight) ≤ (beta * lam) ^ m"
+        },
+        {
+          "line": 36,
+          "signature": "theorem actual_q_growth_of_tree (delta m : ℕ) (hdelta : delta = 0 ∨ delta = 1)\n    (hm : 1 ≤ m) (lam : ℚ) (hlam : 0 < lam)\n    (tree : GrowthTree lam (qWeight 5 3 delta (1 / 4375)) (qCore 5 3 (1 / 4375)))\n    (hcap : 2 * |actualQ 5 3 delta 1 (1 / 4375)| ≤ beta 5 3 * lam) :\n    |actualQ 5 3 delta m (1 / 4375)| ≤ (beta 5 3 * lam) ^ m"
+        },
+        {
+          "line": 60,
+          "signature": "theorem actual_e_growth_of_tree (delta m : ℕ) (hdelta : delta = 0 ∨ delta = 1)\n    (hm : 1 ≤ m) (lam : ℚ) (hlam : 0 < lam)\n    (tree : GrowthTree lam (eWeight 5 3 delta (1 / 4375)) (eCore 5 3 (1 / 4375)))\n    (hcap : 2 * |actualE 5 3 delta 1 (1 / 4375)| ≤ beta 5 3 * lam) :\n    |actualE 5 3 delta m (1 / 4375)| ≤ (beta 5 3 * lam) ^ m"
+        },
+        {
+          "line": 84,
+          "signature": "theorem standard_bounds_from_fixed_trees\n    (qt : ∀ row : Bool, GrowthTree qLambda (qWeight 5 3 (rowDelta row) (1 / 4375))\n      (qCore 5 3 (1 / 4375)))\n    (et : ∀ row : Bool, GrowthTree eLambda (eWeight 5 3 (rowDelta row) (1 / 4375))\n      (eCore 5 3 (1 / 4375)))\n    (qc : ∀ row : Bool, 2 * |actualQ 5 3 (rowDelta row) 1 (1 / 4375)| ≤ qBase)\n    (ec : ∀ row : Bool, 2 * |actualE 5 3 (rowDelta row) 1 (1 / 4375)| ≤ eBase) :\n    (∀ m : ℕ, 129 ≤ m → ∀ row : Bool, |qEval m row| ≤ qBase ^ m) ∧\n      (∀ m : ℕ, 129 ≤ m → ∀ row : Bool, |eEval m row| ≤ eBase ^ m)"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Scaled/FixedEdge.lean",
+      "sha256": "696dcceef0e2982103d2397a1e04cb04fc90b731cd0de353bad846f7ab6bc864",
+      "declarations": [
+        {
+          "line": 13,
+          "signature": "theorem five_three_edge_of_fixed_certificates\n    (qt : ∀ row : Bool, GrowthTree qLambda (qWeight 5 3 (rowDelta row) (1 / 4375))\n      (qCore 5 3 (1 / 4375)))\n    (et : ∀ row : Bool, GrowthTree eLambda (eWeight 5 3 (rowDelta row) (1 / 4375))\n      (eCore 5 3 (1 / 4375)))\n    (hAbase : (48 : ℚ) < qRate qBase ^ 213)\n    (hprevious : fiveThreeZ ^ (fiveThreeM - 1) ≤ 4 * fiveThreeY0)\n    (hrateP : (5 : ℕ) ^ 20000 ≤ fiveThreeZ ^ 646)\n    (hbaseP : ((5 : ℕ) ^ 20000) ^ fiveThreeM ≤ fiveThreeY0 ^ 646)\n    (hlookP : (4 : ℕ) ^ 646 * (5 ^ 20000) ^ (fiveThreeM + 1) ≤\n      fiveThreeZ ^ (646 * fiveThreeM))\n    (hrateQ : (3 : ℕ) ^ 35000 ≤ fiveThreeZ ^ 772)\n    (hbaseQ : ((3 : ℕ) ^ 35000) ^ fiveThreeM ≤ fiveThreeY0 ^ 772)\n    (hlookQ : (4 : ℕ) ^ 772 * (3 ^ 35000) ^ (fiveThreeM + 1) ≤\n      fiveThreeZ ^ (772 * fiveThreeM))\n    (Y e f A C : ℕ) (hY : fiveThreeY0 ≤ Y) (hC : 1 ≤ C)\n    (hwindowP : Y ≤ 5 ^ e * A) (hwindowQ : Y ≤ 3 ^ f * C)\n    (hupperQ : 3 ^ f * C ≤ 2 * Y)\n    (hgap : |(5 : ℤ) ^ e * (A : ℤ) - (3 : ℤ) ^ f * (C : ℤ)| ≤ 24) :\n    Y ^ 354 ≤ A ^ 1000 ∨ Y ^ 228 ≤ C ^ 1000"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Edge/FiveThree.lean",
+      "sha256": "7e06bc4e6fd3bae6cf19b5d93df31150c1e0e9ef6c22c79386af7b93d6e1d884",
+      "declarations": [
+        {
+          "line": 13,
+          "signature": "def fiveThreeZ : ℕ"
+        },
+        {
+          "line": 14,
+          "signature": "def fiveThreeY0 : ℕ"
+        },
+        {
+          "line": 15,
+          "signature": "def fiveThreeM : ℕ"
+        },
+        {
+          "line": 17,
+          "signature": "theorem fiveThreeZ_gt_one : 1 < fiveThreeZ"
+        },
+        {
+          "line": 19,
+          "signature": "def fiveThreeIndex (Y : ℕ) : ℕ"
+        },
+        {
+          "line": 21,
+          "signature": "theorem five_three_index_ge_original_m0 (Y : ℕ) (hY : fiveThreeY0 ≤ Y)\n    (hprevious : fiveThreeZ ^ (fiveThreeM - 1) ≤ 4 * fiveThreeY0) :\n    129 ≤ fiveThreeIndex Y"
+        },
+        {
+          "line": 30,
+          "signature": "theorem five_three_extract_same_index (Y e f A C : ℕ)\n    (hY : fiveThreeY0 ≤ Y)\n    (hprevious : fiveThreeZ ^ (fiveThreeM - 1) ≤ 4 * fiveThreeY0)\n    (hrateP : 5 ^ 20000 ≤ fiveThreeZ ^ 646)\n    (hbaseP : (5 ^ 20000) ^ fiveThreeM ≤ fiveThreeY0 ^ 646)\n    (hlookP : 4 ^ 646 * (5 ^ 20000) ^ (fiveThreeM + 1) ≤\n      fiveThreeZ ^ (646 * fiveThreeM))\n    (hrateQ : 3 ^ 35000 ≤ fiveThreeZ ^ 772)\n    (hbaseQ : (3 ^ 35000) ^ fiveThreeM ≤ fiveThreeY0 ^ 772)\n    (hlookQ : 4 ^ 772 * (3 ^ 35000) ^ (fiveThreeM + 1) ≤\n      fiveThreeZ ^ (772 * fiveThreeM))\n    (hwindowP : Y ≤ 5 ^ e * A) (hwindowQ : Y ≤ 3 ^ f * C)\n    (hsmallP : A ^ 1000 < Y ^ 354) (hsmallQ : C ^ 1000 < Y ^ 228) :\n    20 * fiveThreeIndex Y < e ∧ 35 * fiveThreeIndex Y < f"
+        },
+        {
+          "line": 54,
+          "signature": "def rowDelta (row : Bool) : ℕ"
+        },
+        {
+          "line": 56,
+          "signature": "theorem rowDelta_cases (row : Bool) : rowDelta row = 0 ∨ rowDelta row = 1"
+        },
+        {
+          "line": 59,
+          "signature": "theorem five_three_row_degrees (m : ℕ) (hm : 1 ≤ m) (row : Bool) :\n    (3 * m - rowDelta row) + (2 * m + rowDelta row - 1) + 1 = 5 * m"
+        },
+        {
+          "line": 63,
+          "signature": "theorem five_three_actual_rows (m : ℕ) (hm : 1 ≤ m) (row : Bool) :\n    actualPRow (3 * m) (2 * m - 1) 1 4375 row =\n      pNormalizedValue (3 * m - rowDelta row) (2 * m + rowDelta row - 1) 1 4375 ∧\n    actualQRow (3 * m) (2 * m - 1) 1 4375 row =\n      qNormalizedValue (3 * m - rowDelta row) (2 * m + rowDelta row - 1)\n        (3 * m - rowDelta row) 1 4375"
+        }
+      ]
+    }
+  ],
+  "accepted_window_closure": {
+    "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T150344000788Z/evidence.json",
+    "sha256": "9cc8070e13210acc84ed052d8aab74410724060187b16d45c421e094294ae399",
+    "success": true,
+    "matched_current_sources": [
+      {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SmallPrimes/Components.lean",
+        "sha256": "a5814a27ae1d05257dc95d67b5e725e446fdedab103827ca45bc650ccaf8ab97",
+        "current_match": true,
+        "exit_code": 0,
+        "axiom_audit": {
+          "declared_print_axioms": 5,
+          "declared_names": [
+            "B699LowIndex.I11SmallPrimes.primeComponent",
+            "B699LowIndex.I11SmallPrimes.i11_small_primes",
+            "B699LowIndex.I11SmallPrimes.smallPrimePart_eq_four_components",
+            "B699LowIndex.I11SmallPrimes.primeComponent_bounds",
+            "B699LowIndex.I11SmallPrimes.four_prime_components_bounds"
+          ],
+          "guarded_print_axioms": 0,
+          "guarded_names": [],
+          "actual_printed": 5,
+          "guard_msgs_in_source": 0,
+          "printed": [
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.primeComponent",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            },
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.i11_small_primes",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            },
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.smallPrimePart_eq_four_components",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            },
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.primeComponent_bounds",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            },
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.four_prime_components_bounds",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            }
+          ],
+          "unexpected_axioms": [],
+          "guarded_output_inferred": false
+        }
+      },
+      {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SmallPrimes/Window.lean",
+        "sha256": "a7665f34b746c0c9f9911afbd55002e25f076d31c95abbc161f9d4ad04930c16",
+        "current_match": true,
+        "exit_code": 0,
+        "axiom_audit": {
+          "declared_print_axioms": 4,
+          "declared_names": [
+            "B699LowIndex.I11SmallPrimes.PrimeWindow",
+            "B699LowIndex.I11SmallPrimes.primeWindow_nonempty",
+            "B699LowIndex.I11SmallPrimes.component_power_mul_le",
+            "B699LowIndex.I11SmallPrimes.primeWindow_graph_capacity"
+          ],
+          "guarded_print_axioms": 0,
+          "guarded_names": [],
+          "actual_printed": 4,
+          "guard_msgs_in_source": 0,
+          "printed": [
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.PrimeWindow",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            },
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.primeWindow_nonempty",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            },
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.component_power_mul_le",
+              "axioms": [
+                "propext"
+              ]
+            },
+            {
+              "declared_name": "B699LowIndex.I11SmallPrimes.primeWindow_graph_capacity",
+              "axioms": [
+                "propext",
+                "Classical.choice",
+                "Quot.sound"
+              ]
+            }
+          ],
+          "unexpected_axioms": [],
+          "guarded_output_inferred": false
+        }
+      },
+      {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SmallPrimes/Components.lean",
+        "sha256": "a5814a27ae1d05257dc95d67b5e725e446fdedab103827ca45bc650ccaf8ab97",
+        "current_match": true,
+        "exit_code": null,
+        "axiom_audit": null
+      },
+      {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SmallPrimes/Window.lean",
+        "sha256": "a7665f34b746c0c9f9911afbd55002e25f076d31c95abbc161f9d4ad04930c16",
+        "current_match": true,
+        "exit_code": null,
+        "axiom_audit": null
+      }
+    ]
+  },
+  "numeric_consumer_acceptance": "not inferred from current source/header; parent must verify the full current closure",
+  "growth_roots": "two Bool-indexed families remain explicit; four actual Q/E roots not imported or presumed accepted"
+}

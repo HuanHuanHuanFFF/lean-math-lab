@@ -1,0 +1,5 @@
+First generator bootstrap attempt failed before generate_candidates.py or candidate Lean files were created.
+Observed diagnostic: SyntaxError: leading zeros in decimal integer literals are not permitted; use an 0o prefix for octal integers.
+Cause: an outer raw triple-single-quoted Python string ended at an embedded f-triple-single-quoted Lean template; the following date was parsed as Python.
+Correction: write the standalone generator through a PowerShell here-string, then invoke Python -B.
+Status: generation succeeded afterward; no mathematical or Lean failure was inferred.

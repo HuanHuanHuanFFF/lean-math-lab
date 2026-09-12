@@ -1,0 +1,51 @@
+{
+  "utc": "2026-09-11T12:28:27.717610+00:00",
+  "owner": "/root/pade_construction",
+  "owned_directory": "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-weighted-product-5e2d13bb",
+  "source_baseline": {
+    "research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\CofactorCover.lean": "2805041e81314db94f7c7d7837f651a2d64b1c41bf231ca628514d2c18d101c3",
+    "research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\ThreeWindowSize.lean": "4da6cb312eca31e38fb39bc88ff3bbce771ef0a5bb9c9278d925e36d4002c047",
+    "research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\LargeSmallPowers.lean": "2ed55e4a8be53589ed8fc82d89cc877c8281a291b34c4c35bfd88e94badf7aa2",
+    "research\\tasks\\B699-Binomial\\runs\\20260909-large-prime-structure-cb4764f0\\lean\\GapBridge.lean": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+    "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-elementary-finite-plan-5e2d13bb\\FINAL_PLAN.json": "7ab80d1357ef87aafa1ead6fbdef0b4dadf851c09c77185c27a7f03fa4b5ab62",
+    "D:\\CodingProject\\Math\\.tools\\pi5e2d\\mathlib\\Mathlib\\Algebra\\Order\\Monoid\\Unbundled\\Pow.lean": "428fed00cd4e99f55a284cdefc89a0994a478d02434a4e65422ca2f2a20ce5dd"
+  },
+  "previous_source_map": "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\experiments\\huan-i11-approximation-bridge-plan-5e2d13bb\\SOURCE_MAP.json",
+  "previous_source_map_sha256": "50e7534ee883f50c622e4160a90696c3c0cba60eac25cec75fc27333250464ed",
+  "adopted_result": "B699LowIndex.noCommon_bernoulli_size, explicitly described as accepted in the parent task; no new compile is inferred here",
+  "candidate_imports": {
+    "Product.lean": [
+      "Mathlib.Algebra.Order.Monoid.Unbundled.Pow",
+      "Mathlib.Tactic.NormNum",
+      "Mathlib.Tactic.Ring"
+    ],
+    "Tail.lean": [
+      "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20260911-low-index-lean-513dc7cc\u00bb.experiments.\u00abhuan-i11-weighted-product-5e2d13bb\u00bb.Product",
+      "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20260909-low-index-structure-b41a5a63\u00bb.lean.CofactorCover"
+    ],
+    "Audit.lean": [
+      "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20260911-low-index-lean-513dc7cc\u00bb.experiments.\u00abhuan-i11-weighted-product-5e2d13bb\u00bb.Tail"
+    ]
+  },
+  "statements": {
+    "product": "All n,Y,A2,A3,A5,A7:Nat; 1<=Y, each Ap<=n, five exact displayed disjunctions imply (A2*A3*A5*A7)^1000*Y^640<=n^4000. Zero factors and all position patterns are allowed.",
+    "tail": "For actual smallPrimePart n11, n>=2^15360, legal j, n<=2Y and its explicit product bound, not Common n11j implies False. The product/edge/localization premise is not discharged here."
+  },
+  "proof_correspondence": [
+    "Each of 32 branches uses the largest selected edge weight per vertex; missing vertices use the original Ap<=n at weight0.",
+    "Four bounds multiply in Nat; 1<=Y and the exact sum>=640 permit lowering the exponent of Y.",
+    "The tail takes the 1000th power of n^121<=C*U^11*n^84 and the 11th power of U^1000*Y^640<=n^4000, then cancels only the positive n^128000.",
+    "C=(2*11!)^11; 2*11!<2^27 gives n^40<2^304040, while n>=2^15360 implies 2^614400<=n^40."
+  ],
+  "no_new_original_index": true,
+  "last_verified_result": "Existing structural theorem plus exact 32-branch enumeration and small-domain arithmetic; all new Lean is uncompiled.",
+  "next_check": "Parent serial compile Product, Tail, Audit and validate the actual print-axioms log with exact source hashes.",
+  "suggested_short_integration": [
+    "lean/I11Product/Product.lean",
+    "lean/I11Product/Tail.lean",
+    "lean/I11Product/Audit.lean"
+  ],
+  "worker_lean_invocations": 0,
+  "git_operations": 0,
+  "CRT_pairs_enumerated": 0
+}

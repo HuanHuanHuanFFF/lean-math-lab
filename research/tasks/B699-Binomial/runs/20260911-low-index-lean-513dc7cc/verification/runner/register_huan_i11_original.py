@@ -1,0 +1,65 @@
+"""Register i11 only after its original typed entry and full-chain audit validate."""
+from pathlib import Path
+from datetime import datetime, timezone
+import argparse, hashlib, json, sys
+HERE=Path(__file__).resolve().parent
+RUN=HERE.parents[1]
+REPO=RUN.parents[4]
+sys.path.insert(0,str(HERE))
+import verify_huan_b_queue as queue
+from huan_atomic import write_json
+ALLOWED={'propext','Classical.choice','Quot.sound'}
+DECL='Math.B699.HuanI11.original'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--check-only',action='store_true');args=ap.parse_args()
+ plan=json.loads((RUN/'notes/huan-i11-original-entry-plan-v49.json').read_text())
+ job=plan['jobs'][0]
+ rp=RUN/'verification/huan-prerequisites/i11-original-complete-entry.json'
+ if not rp.is_file():
+  print(json.dumps({'status':'not_ready','missing':str(rp.relative_to(REPO)),'new_original_indices':[]}));return 2
+ for required in ['i11-original-full-chain-audit','i11-terminal-coverage-full-audit']+[f'i11-terminal-membership-pair{x}'for x in ['23','25','27','35','37','57']]:
+  p=RUN/'verification/huan-prerequisites'/(required+'.json');assert p.is_file(),required
+ assert queue.valid_existing(REPO,RUN,job)
+ q=json.loads(rp.read_text());ep=REPO/q['evidence'];e=json.loads(ep.read_text())
+ assert e['success']and e['exit_code']==0 and e['failure'] is None
+ records=e['compile_records']+e['reuse_records']
+ sources=[x['source']for x in records]
+ assert len(sources)==len(set(sources))and set(sources)=={x['source']for x in e['source_closure']}
+ assert all(x['exit_code']==0 and not x.get('failure')and not x.get('timed_out')for x in records)
+ assert sha(HERE/'verify_huan.py')==e['runner_sha256']=='f1471316e6391eee75ed72b5dfc6df2e694e557bd2b0dde68a1bf22d29f4a783'
+ assert e['manifest_sha256']==sha(REPO/'lake-manifest.json')
+ public=q['public_axiom_audit'];assert len(public)==1 and public[0]['declared_name']==DECL and set(public[0]['axioms'])<=ALLOWED
+ root=RUN/job['root'];src=root.read_text(encoding='utf-8')
+ claim='∀ n j : ℕ, 1 ≤ 11 ∧ 11 < j ∧ j ≤ n / 2 → ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.choose n 11 ∧ p ∣ Nat.choose n j'
+ assert ' '.join(claim.split()) in ' '.join(src.split()) and '#check (Math.B699.HuanI11.original :'in src
+ status_path=RUN/'target-status.json';old_status=status_path.read_bytes();status=json.loads(old_status)
+ assert set(status['completed_phase_a'])=={29,*range(35,185)}and status['unified_phase_a']['status']=='accepted'
+ assert set(status['completed_phase_b'])<={11,13,16,17,18,19,21,22,23,24,25,26,27,28,30,31,32,33,34}
+ summary={'status':'full_original_entry_validated','i':11,'declaration':DECL,'root':root.relative_to(REPO).as_posix(),'source_sha256':sha(root),'evidence':q['evidence'],'axioms':public[0]['axioms']}
+ if args.check_only:print(json.dumps(summary));return 0
+ out=RUN/'verification/huan-accepted/row011.json'
+ now=datetime.now(timezone.utc).isoformat()
+ receipt={**summary,'full_original_statement':True,'new_modules':q['compiled_modules'],'reused_modules':q['reused_modules'],'verification_seconds':q['verification_seconds'],'verification_seconds_scope':'new modules in final entry verification, not total proof construction','source_commit':e['source_commit'],'full_chain_audit_receipt':(RUN/'verification/huan-prerequisites/i11-original-full-chain-audit.json').relative_to(REPO).as_posix(),'novelty_claimed':False,'publication_status':'local_verified_commit_and_push_not_authorized','verified_utc':now}
+ if out.exists():
+  prior=json.loads(out.read_text())
+  for k in ['i','declaration','root','source_sha256','evidence','axioms','full_original_statement']:assert prior[k]==receipt[k],k
+  receipt=prior
+ if 11 in status['completed_phase_b']:
+  assert out.exists();print(json.dumps({'status':'already_registered_and_revalidated','i':11,'completed_B':len(status['completed_phase_b'])}));return 0
+ review=RUN/'reviews/huan-i11-original-registration-5e2d13bb';review.mkdir(exist_ok=True)
+ backup=review/'target-status.before.json'
+ if not backup.exists():backup.write_bytes(old_status)
+ write_json(out,receipt)
+ status['completed_phase_b']=sorted(set(status['completed_phase_b'])|{11})
+ status['new_lean_acceptance']=len(status['completed_phase_a'])+len(status['completed_phase_b'])
+ counters=status.setdefault('counter_semantics',{})
+ counters['huan_new_original_indices']=sorted(set(counters.get('huan_new_original_indices',[]))|{11})
+ status['last_verified_event']={'kind':'huan_new_full_original_lean_index','i':11,'evidence':q['evidence'],'base_commit':e['source_commit'],'actual_source_bound_by_sha256':True,'novelty_claimed':False}
+ write_json(status_path,status)
+ assert json.loads(status_path.read_text())['completed_phase_b']==status['completed_phase_b']
+ write_json(review/'registration.json',{'utc':now,'original_claim':claim,'receipt':out.relative_to(REPO).as_posix(),'before_status_sha256':hashlib.sha256(old_status).hexdigest(),'after_status_sha256':sha(status_path),'completed_A':len(status['completed_phase_a']),'completed_B':len(status['completed_phase_b']),'scope':'original i11 for all legal n,j; other18B remain pending'})
+ print(json.dumps({'status':'registered_full_original_i11','completed_A':len(status['completed_phase_a']),'completed_B':len(status['completed_phase_b']),'receipt':out.relative_to(REPO).as_posix()}))
+ return 0
+if __name__=='__main__':raise SystemExit(main())
+

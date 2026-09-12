@@ -1,0 +1,244 @@
+{
+  "utc": "2026-09-11T10:38:09.360062+00:00",
+  "status": "bounded pilot and toy exact checks; not final coverage",
+  "toy_checks": {
+    "toy_shell_checks": [
+      {
+        "B": 16,
+        "M": 137,
+        "M_outer_exponents": [
+          7,
+          8
+        ],
+        "actual_family_interval_endpoints_checked": 2907,
+        "brute_shell_pairs_checked": 455
+      },
+      {
+        "B": 32,
+        "M": 1438,
+        "M_outer_exponents": [
+          10,
+          11
+        ],
+        "actual_family_interval_endpoints_checked": 73969,
+        "brute_shell_pairs_checked": 1987
+      }
+    ],
+    "arbitrary_large_prime_is_not_uniform_witness": {
+      "n": 26,
+      "i": 11,
+      "j": 13,
+      "p": 13,
+      "choose_n_i_mod_p": 0,
+      "choose_n_j_mod_p": 2
+    }
+  },
+  "statistics": {
+    "B": 64,
+    "H": "2^64",
+    "i": 11,
+    "r": 3,
+    "s": 7,
+    "K": "142131407644347048724404082572664265244672000000000",
+    "root_exponent": 33,
+    "height_exponent_delta": 7,
+    "exact_root_outer": {
+      "M_lower_exponent": 17,
+      "M_upper_exponent": 18,
+      "certificate": "K*(2^e)^33 < (2*11!)^11*H^7 <= K*(2^(e+1))^33",
+      "integer_comparisons_checked": true,
+      "H_gt_2_M_upper": true
+    },
+    "shell_definition": "[max(2^e+1,p^h), min(H-1,2^(e+1)*p^h+10)]",
+    "family_counts": {
+      "2": 63,
+      "3": 40,
+      "5": 27,
+      "7": 22
+    },
+    "total_families": 152,
+    "shell_endpoint_stream_sha256": "41da5db5a825c28d6a0f36cc3f27fcfbe4fd39c9155718491f46cebf0f92e747",
+    "all_different_prime_pairs": 8161,
+    "pair_statistics": {
+      "2,3": {
+        "all_pairs": 2520,
+        "shell_overlaps": 1231,
+        "disjoint_shell_pairs": 1289
+      },
+      "2,5": {
+        "all_pairs": 1701,
+        "shell_overlaps": 834,
+        "disjoint_shell_pairs": 867
+      },
+      "2,7": {
+        "all_pairs": 1386,
+        "shell_overlaps": 685,
+        "disjoint_shell_pairs": 701
+      },
+      "3,5": {
+        "all_pairs": 1080,
+        "shell_overlaps": 529,
+        "disjoint_shell_pairs": 551
+      },
+      "3,7": {
+        "all_pairs": 880,
+        "shell_overlaps": 433,
+        "disjoint_shell_pairs": 447
+      },
+      "5,7": {
+        "all_pairs": 594,
+        "shell_overlaps": 295,
+        "disjoint_shell_pairs": 299
+      }
+    },
+    "shell_overlap_pair_upper_bound": 4007,
+    "reliably_removed_disjoint_shell_pairs": 4154,
+    "pair_offset_loop_upper_bound_after_shell_pruning": 84147,
+    "baseline_pair_offset_loop_count": 171381,
+    "shell_union_covers_entire_high_range_by_each_prime": {
+      "2": true,
+      "3": true,
+      "5": true,
+      "7": true
+    },
+    "accepted_concrete_witness_intervals_subtracted": 0,
+    "families_removed_by_accepted_witnesses": 0,
+    "old_terminal_json_diagnostic_only": {
+      "top_prime_intervals": 1699,
+      "top_interval_min": 24,
+      "top_interval_max": 29294602,
+      "all_terminal_witness_row_max": 29294602,
+      "top_interval_shapes_checked": true,
+      "prime_certificates_not_rerun_or_adopted": true,
+      "top_intervals_intersecting_conservative_high_range": 49,
+      "all_old_witness_rows_below_M_lower": false
+    },
+    "elapsed_seconds": 0.002789,
+    "resource_limits": {
+      "seconds": 10,
+      "max_families": 2000,
+      "max_bisect_queries": 25000,
+      "working_set_bytes": 199229440
+    },
+    "resource_actual": {
+      "working_set_bytes": 24154112,
+      "peak_working_set_bytes": 24154112,
+      "guard_samples": 3,
+      "bisect_queries": 912
+    },
+    "not_executed": [
+      "CRT inverses",
+      "pair-offset loops",
+      "cofactor enumeration",
+      "full n or j coverage",
+      "Lean",
+      "Git"
+    ]
+  },
+  "evidence": {
+    "successful_generic_witness_evidence": "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\20260910T193504764901Z\\evidence.json",
+    "generic_proof_records": [
+      {
+        "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+        "source_sha256_before": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+        "source_sha256_after": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+        "exit_code": 0,
+        "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0002-research_tasks_B699-Binomial_runs_20260909-large-prime-structure-cb4764f0_lean_GapBridge.lean.log",
+        "log_sha256": "e16be1f04c1dda32e7d7aed8bec0bf6435ac05877e86e08ad2bea56e927bddbb",
+        "audit_lines": [
+          "'B699LargePrimeStructure.common_of_mod_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'B699LargePrimeStructure.gap_remainder_eq' depends on axioms: [propext, Quot.sound]",
+          "'B699LargePrimeStructure.common_of_gap_power' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'B699LargePrimeStructure.common_of_gap_prime' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'B699LargePrimeStructure.common_of_top_prime' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'B699LargePrimeStructure.common_small_index' depends on axioms: [propext, Classical.choice, Quot.sound]"
+        ]
+      },
+      {
+        "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/LargeDivisorWitness.lean",
+        "source_sha256_before": "8123d5ec2a766974bf9cad0753b0261405ef71548cd3dee625fead65ef0c39f0",
+        "source_sha256_after": "8123d5ec2a766974bf9cad0753b0261405ef71548cd3dee625fead65ef0c39f0",
+        "exit_code": 0,
+        "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0019-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_LargeDivisorWitness.lean.log",
+        "log_sha256": "de9dc8cc4bdd395c97a2695c7c9f3eedc368b839a001b5571d7aa001a7772f59",
+        "audit_lines": [
+          "'B699LowIndex.large_divisor_dvd_prime_part' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'B699LowIndex.common_of_large_divisor' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'B699LowIndex.goodSegmentCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]"
+        ]
+      },
+      {
+        "source": "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/FiniteCover.lean",
+        "source_sha256_before": "c5e4a998c58d8c5195fa326d4318915706b64da5c06129ddb47a90766c1e2e8d",
+        "source_sha256_after": "c5e4a998c58d8c5195fa326d4318915706b64da5c06129ddb47a90766c1e2e8d",
+        "exit_code": 0,
+        "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/logs/compile-0021-research_tasks_B699-Binomial_runs_20260909-low-index-structure-b41a5a63_lean_FiniteCover.lean.log",
+        "log_sha256": "bc917e2f0d2cf4365325ab1ff9f1d2d764563b3e3fddcd58bbc49ac7ce8694a7",
+        "audit_lines": [
+          "'B699LowIndex.coverLayerCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]",
+          "'B699LowIndex.common_of_finite_cover_row_checked' depends on axioms: [propext, Classical.choice, Quot.sound]"
+        ]
+      }
+    ],
+    "input_hashes": {
+      "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-elementary-finite-plan-5e2d13bb/REPORT.md": {
+        "bytes": 9392,
+        "sha256": "44c3f6256c3af69be64aedfbe5b9f1465948d49fd6ef952e3d91cbcaf461a455"
+      },
+      "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-elementary-finite-plan-5e2d13bb/FINAL_PLAN.json": {
+        "bytes": 55453,
+        "sha256": "7ab80d1357ef87aafa1ead6fbdef0b4dadf851c09c77185c27a7f03fa4b5ab62"
+      },
+      "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-elementary-finite-plan-5e2d13bb/COVERAGE_NEXT_CHECK.md": {
+        "bytes": 1295,
+        "sha256": "3bd795fde800fc323df1a0118d811cf803696ca48aaa80951e48460a2f5503e0"
+      },
+      "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-elementary-finite-plan-5e2d13bb/LEAN_OBLIGATIONS.json": {
+        "bytes": 3702,
+        "sha256": "914b760eaf9a454e3e3eb235a5221ba3ad994fc3dce5935850341cd88a89f45a"
+      },
+      "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-elementary-finite-plan-5e2d13bb/FREEZE_V1.json": {
+        "bytes": 4138,
+        "sha256": "580c4d572a00d85e15528a847e7b490033478c341c87f7d0ea488314df2b5c79"
+      },
+      "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/vendor/crt_fast.py": {
+        "bytes": 3537,
+        "sha256": "4a2bc8848a345decf7d64bda99be1b1bf8293769d8fb904ef5d5f31fe2e5d278"
+      },
+      "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/vendor/crt_bound_probe.py": {
+        "bytes": 3871,
+        "sha256": "e21035968769a71396f995608431ad377dad0dfa3fa886aa9322af1ae379b3b0"
+      },
+      "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/code/crt_descent.py": {
+        "bytes": 1691,
+        "sha256": "4eb2b515d1e871c529d5e316635078d656e9c70ea0079fd982276b666ed7c9a8"
+      },
+      "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/results/terminal_certificate_11.json": {
+        "bytes": 174656,
+        "sha256": "4e2e5eac1f319ed6a74f01ccb574d5c6dcae3d89d4a8868f7d1cbe73badd5cf0"
+      },
+      "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/results/terminal_summary_11.json": {
+        "bytes": 313,
+        "sha256": "28c12a169ebae1fa244e12ca826523961dd6a7b3065347f9d90d03bf7c8b16a3"
+      },
+      "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean": {
+        "bytes": 5490,
+        "sha256": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+      },
+      "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/LargeDivisorWitness.lean": {
+        "bytes": 5047,
+        "sha256": "8123d5ec2a766974bf9cad0753b0261405ef71548cd3dee625fead65ef0c39f0"
+      },
+      "research/tasks/B699-Binomial/runs/20260909-low-index-structure-b41a5a63/lean/FiniteCover.lean": {
+        "bytes": 7246,
+        "sha256": "c5e4a998c58d8c5195fa326d4318915706b64da5c06129ddb47a90766c1e2e8d"
+      },
+      "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260910T193504764901Z/evidence.json": {
+        "bytes": 268353,
+        "sha256": "9dbfbb8c0db0614ffa72209eed764335d3cc13d944f1d582c4cc474cfa6fb2f5"
+      }
+    },
+    "concrete_i11_lean_interval_list_adopted": [],
+    "reason_no_concrete_list_adopted": "No source/SHA/std3-bound i11 list found; old terminal JSON is separate finite evidence."
+  }
+}

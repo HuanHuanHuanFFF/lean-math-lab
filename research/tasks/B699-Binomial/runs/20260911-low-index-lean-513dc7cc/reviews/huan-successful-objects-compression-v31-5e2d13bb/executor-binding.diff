@@ -1,0 +1,21 @@
+--- post-v31-reviewed-adaptation
++++ primary-fixed-plan-executor
+@@ -23,15 +23,12 @@
+ 
+ 
+ OUT = Path(__file__).resolve().parent
+-RUN = OUT.parents[2]
++RUN = OUT.parent.parent
+ WORKTREE = RUN.parents[4]
+ VERIFICATION = RUN / "verification"
+ TOOLS = WORKTREE / ".tools" / "20260911-low-index-lean-513dc7cc"
+-PLAN = (
+-    RUN
+-    / "experiments/huan-proof-storage-audit-5e2d13bb/post-v31-compression/post-v31-compression-plan.json"
+-)
+-PLAN_SHA256 = "bca13be79d4107d3e5f2f25e35bdd01b7fda0d32ca15ef242b234368f60f104e"
++PLAN = OUT / "fixed-plan.json"
++PLAN_SHA256 = "d38587420eeac24c7fd78f48e2a93d263dfa82a1e27a37b544fa50d37f09b3b4"
+ RUN_ID = "20260911-low-index-lean-513dc7cc"
+ 
+ 

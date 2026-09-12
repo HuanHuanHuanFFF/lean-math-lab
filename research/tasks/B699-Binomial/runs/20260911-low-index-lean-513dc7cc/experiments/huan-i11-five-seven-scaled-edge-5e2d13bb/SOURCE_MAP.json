@@ -1,0 +1,86 @@
+{
+  "row": 4,
+  "namespace": "Math.B699.I11FiveSevenScaled",
+  "parameters": {
+    "p": 5,
+    "q": 7,
+    "P": 25,
+    "Q": 49,
+    "a": 2,
+    "b": 1,
+    "D": 1,
+    "y": 50,
+    "c": 11,
+    "d": 7,
+    "weights": [
+      352,
+      216
+    ],
+    "m0": 149,
+    "M": 194,
+    "Z": 719422706382292314227864,
+    "Y0": "2^15359",
+    "Lt": "1303943/1000000"
+  },
+  "rows": {
+    "true": "delta0,u7m,v4m-1",
+    "false": "delta1,u7m-1,v4m",
+    "m": "same leastExponent Z Y for both rows and primes"
+  },
+  "G_api": "Math.B699.I11DivisorFiveSeven.qContent_lower delta m hdelta hm149",
+  "G_object": "qContent(7m-delta,4m+delta-1,7m-delta) individually for each delta; no interchange",
+  "Q_Hom": "Gdelta*qRow=50^(7m-delta)*actualQ(11,7,delta,m,1/50)",
+  "E_Hom": "Gdelta*(50^(11m)*pRow-49^(11m)*qRow)=50^(4m+delta-1)*actualE(11,7,delta,m,1/50)",
+  "scales": {
+    "Q": "50^7",
+    "E": "50^4",
+    "a": "2^(11m)",
+    "b": "1",
+    "integer_lower_bound": "25^(11m)"
+  },
+  "extraction": {
+    "left": "22m<e",
+    "right": "22m<f"
+  },
+  "integer_gap": "25^(11m)<=24*abs(qRow)+abs(rowError)*abs(V)",
+  "rates": {
+    "Q": "25^11*Lt^7/(50^7*beta11,7*qLambda)",
+    "E": "(25*49)^11*Lt^7/(50^4*beta11,7*eLambda)"
+  },
+  "final_root": "Math.B699.I11FiveSevenScaled.five_seven_edge_of_fixed_certificates",
+  "conclusion": "Y^352<=A^1000 or Y^216<=C^1000 (cofactor edge)",
+  "special_inputs": [
+    "four actual GrowthTrees Q/E each delta",
+    "48<qRate(qBase)^194",
+    "Z^193<=4Y0",
+    "5^22000<=Z^648",
+    "(5^22000)^194<=Y0^648",
+    "4^648*(5^22000)^195<=Z^(648*194)",
+    "7^22000<=Z^784",
+    "(7^22000)^194<=Y0^784",
+    "4^784*(7^22000)^195<=Z^(784*194)"
+  ],
+  "ordinary_inputs": [
+    "Y,e,f,A,C Nat",
+    "Y0<=Y",
+    "1<=C",
+    "Y<=5^e*A",
+    "Y<=7^f*C<=2Y",
+    "abs(5^e*A-7^f*C)<=24 over Int"
+  ],
+  "not_assumed": [
+    "actual F/G bound",
+    "Hom/source identity",
+    "determinant",
+    "standard all-m Q/E growth",
+    "desired edge"
+  ],
+  "next": [
+    "parent serial factorial/G/edge acceptance",
+    "actual four-tree and eight-number instantiation",
+    "primeWindow component consumer"
+  ],
+  "diagnostic_boundary": "coarse v256 short basis failed p5 lookahead; original frozen v1024 row04 basis passes. No numerical target or parameter changed.",
+  "new_Lean_invocations": 0,
+  "new_original_B_results": 0
+}

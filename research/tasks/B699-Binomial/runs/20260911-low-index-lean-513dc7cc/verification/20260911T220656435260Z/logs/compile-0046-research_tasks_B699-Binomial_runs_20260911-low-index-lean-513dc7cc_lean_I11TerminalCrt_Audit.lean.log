@@ -1,0 +1,121 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T220656435260Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Audit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Audit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:07:27.441616Z
+# finished_utc: 2026-09-11T22:07:36.794082Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.blockCoverCheck (p q H M aStart aCount bStart bCount : ℕ)
+  (data : ℕ → ℕ → Math.B699.CRTGrid.CellData) (candidates : List B699LowIndex.NatInterval) : Bool
+'Math.B699.I11TerminalCRT.blockCoverCheck' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.rectangleCoverCheck (p q H M amax bmax : ℕ) (data : ℕ → ℕ → Math.B699.CRTGrid.CellData)
+  (candidates : List B699LowIndex.NatInterval) : Bool
+'Math.B699.I11TerminalCRT.rectangleCoverCheck' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.blockCoverCheck_cell {p q H M aStart aCount bStart bCount a b : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart bCount data candidates = true)
+  (ha0 : aStart ≤ a) (ha1 : a < aStart + aCount) (hb0 : bStart ≤ b) (hb1 : b < bStart + bCount) :
+  Math.B699.I11TerminalCRT.cellCoverCheck (p ^ a) (q ^ b) (Math.B699.CRTGrid.heightCap H M (p ^ a))
+      (Math.B699.CRTGrid.heightCap H M (q ^ b)) (data a b) candidates =
+    true
+'Math.B699.I11TerminalCRT.blockCoverCheck_cell' depends on axioms: [propext, Quot.sound]
+Math.B699.I11TerminalCRT.blockCoverCheck_append_rows {p q H M aStart leftCount rightCount bStart bCount : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hl : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart leftCount bStart bCount data candidates = true)
+  (hr :
+    Math.B699.I11TerminalCRT.blockCoverCheck p q H M (aStart + leftCount) rightCount bStart bCount data candidates =
+      true) :
+  Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart (leftCount + rightCount) bStart bCount data candidates = true
+'Math.B699.I11TerminalCRT.blockCoverCheck_append_rows' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.blockCoverCheck_append_columns {p q H M aStart aCount bStart leftCount rightCount : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hl : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart leftCount data candidates = true)
+  (hr :
+    Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount (bStart + leftCount) rightCount data candidates =
+      true) :
+  Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart (leftCount + rightCount) data candidates = true
+'Math.B699.I11TerminalCRT.blockCoverCheck_append_columns' depends on axioms: [propext, Quot.sound]
+Math.B699.I11TerminalCRT.blockCoverCheck_transfer_data {p q H M aStart aCount bStart bCount : ℕ}
+  {data data' : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart bCount data candidates = true)
+  (hdata :
+    ∀ (a : ℕ), aStart ≤ a → a < aStart + aCount → ∀ (b : ℕ), bStart ≤ b → b < bStart + bCount → data a b = data' a b) :
+  Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart bCount data' candidates = true
+'Math.B699.I11TerminalCRT.blockCoverCheck_transfer_data' depends on axioms: [propext, Quot.sound]
+Math.B699.I11TerminalCRT.rectangleCoverCheck_sound {p q H M amax bmax a b A C n : ℕ} {d : ℤ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M amax bmax data candidates = true) (ha0 : 1 ≤ a)
+  (ha1 : a ≤ amax) (hb0 : 1 ≤ b) (hb1 : b ≤ bmax) (hdlo : -10 ≤ d) (hdhi : d ≤ 10) (hA : 1 ≤ A) (hC : 1 ≤ C)
+  (hAcap : A ≤ Math.B699.CRTGrid.heightCap H M (p ^ a)) (hCcap : C ≤ Math.B699.CRTGrid.heightCap H M (q ^ b))
+  (heq : ↑(p ^ a) * ↑A - ↑(q ^ b) * ↑C = d) (hnlo : max (p ^ a * A) (q ^ b * C) ≤ n)
+  (hnhi : n ≤ min (p ^ a * A) (q ^ b * C) + 10) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.rectangleCoverCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.grid_windows_candidateMem {p q H M amax bmax a b A C n r s : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M amax bmax data candidates = true) (hp : 1 < p)
+  (hq : 1 < q) (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1)) (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)
+  (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ a * A)
+  (hQ : n - s = q ^ b * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.grid_windows_candidateMem' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.grid_windows_candidateMem_swapped {p q H M amax bmax a b A C n r s : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M amax bmax data candidates = true) (hp : 1 < p)
+  (hq : 1 < q) (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1)) (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)
+  (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = q ^ b * A)
+  (hQ : n - s = p ^ a * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.grid_windows_candidateMem_swapped' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.pairGridCoverCheck (p q H M : ℕ) (data : Math.B699.I11CRTSixPair.PairGridData)
+  (candidates : List B699LowIndex.NatInterval) : Bool
+'Math.B699.I11TerminalCRT.pairGridCoverCheck' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.pairGridCoverCheck_of_parts {p q H M : ℕ} {data : Math.B699.I11CRTSixPair.PairGridData}
+  {candidates : List B699LowIndex.NatInterval} (hc : Math.B699.I11CRTSixPair.cutoffCheck p q H data = true)
+  (hg : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M data.amax data.bmax data.cells candidates = true) :
+  Math.B699.I11TerminalCRT.pairGridCoverCheck p q H M data candidates = true
+'Math.B699.I11TerminalCRT.pairGridCoverCheck_of_parts' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.pairGridCoverCheck_windows {p q H M n r s h k A C : ℕ}
+  {data : Math.B699.I11CRTSixPair.PairGridData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.pairGridCoverCheck p q H M data candidates = true) (hnH : n < H) (hr : r < 11)
+  (hs : s < 11) (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ h * A)
+  (hQ : n - s = q ^ k * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.pairGridCoverCheck_windows' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.pairGridCoverCheck_windows_swapped {p q H M n r s h k A C : ℕ}
+  {data : Math.B699.I11CRTSixPair.PairGridData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.pairGridCoverCheck p q H M data candidates = true) (hnH : n < H) (hr : r < 11)
+  (hs : s < 11) (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = q ^ h * A)
+  (hQ : n - s = p ^ k * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.pairGridCoverCheck_windows_swapped' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.distinct_pair_windows_candidateMem (data : Math.B699.I11CRTSixPair.SixPairGrids) {H M : ℕ}
+  {candidates : List B699LowIndex.NatInterval}
+  (check23 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 3 H M data.grid23 candidates = true)
+  (check25 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 5 H M data.grid25 candidates = true)
+  (check27 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 7 H M data.grid27 candidates = true)
+  (check35 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 5 H M data.grid35 candidates = true)
+  (check37 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 7 H M data.grid37 candidates = true)
+  (check57 : Math.B699.I11TerminalCRT.pairGridCoverCheck 5 7 H M data.grid57 candidates = true) {p q n r s h k A C : ℕ}
+  (hpMem : p ∈ {2, 3, 5, 7}) (hqMem : q ∈ {2, 3, 5, 7}) (hpq : p ≠ q) (hnH : n < H) (hr : r < 11) (hs : s < 11)
+  (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ h * A)
+  (hQ : n - s = q ^ k * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.distinct_pair_windows_candidateMem' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.actual_i11_candidateMem (data : Math.B699.I11CRTSixPair.SixPairGrids) {n j H M : ℕ}
+  {candidates : List B699LowIndex.NatInterval} (hconstants : Math.B699.I11CRTSixPair.stageConstantsCheck H M = true)
+  (check23 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 3 H M data.grid23 candidates = true)
+  (check25 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 5 H M data.grid25 candidates = true)
+  (check27 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 7 H M data.grid27 candidates = true)
+  (check35 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 5 H M data.grid35 candidates = true)
+  (check37 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 7 H M data.grid37 candidates = true)
+  (check57 : Math.B699.I11TerminalCRT.pairGridCoverCheck 5 7 H M data.grid57 candidates = true)
+  (hsmall : B699LowIndex.coverCheck 24 (max M 109) candidates = true) (hij : 11 < j) (hjn : j ≤ n / 2)
+  (hno : ¬B699LargePrimeStructure.Common n 11 j) (hnH : n < H) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.actual_i11_candidateMem' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.common_of_terminal_grid_checks (data : Math.B699.I11CRTSixPair.SixPairGrids) {n j H M : ℕ}
+  {candidates : List B699LowIndex.NatInterval} {witnesses : List B699LowIndex.I11TerminalCover.Witness}
+  (hconstants : Math.B699.I11CRTSixPair.stageConstantsCheck H M = true)
+  (check23 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 3 H M data.grid23 candidates = true)
+  (check25 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 5 H M data.grid25 candidates = true)
+  (check27 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 7 H M data.grid27 candidates = true)
+  (check35 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 5 H M data.grid35 candidates = true)
+  (check37 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 7 H M data.grid37 candidates = true)
+  (check57 : Math.B699.I11TerminalCRT.pairGridCoverCheck 5 7 H M data.grid57 candidates = true)
+  (hsmall : B699LowIndex.coverCheck 24 (max M 109) candidates = true)
+  (hwitness : B699LowIndex.I11TerminalCover.candidateIntervalsCheck candidates witnesses = true) (hij : 11 < j)
+  (hjn : j ≤ n / 2) (hnH : n < H) : B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCRT.common_of_terminal_grid_checks' depends on axioms: [propext, Classical.choice, Quot.sound]

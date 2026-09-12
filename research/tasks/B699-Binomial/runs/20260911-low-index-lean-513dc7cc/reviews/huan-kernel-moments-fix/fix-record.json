@@ -1,0 +1,57 @@
+{
+  "utc": "2026-09-11T07:55:38.335524+00:00",
+  "owner": "/root/pade_construction",
+  "authorized_source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Moment/KernelMoments.lean",
+  "before_bytes": 3067,
+  "before_sha256": "5427f4430b174c62107ed3fd3c183a5b364a2c4a68ddc2ad8233a7cf846c8b0f",
+  "after_bytes": 3229,
+  "after_sha256": "75b49f5b6019ebebc26c25321886e75dd48b520592e43b2c77ab704586c7423f",
+  "observed_errors": [
+    {
+      "line": 35,
+      "reported_at": "35:54",
+      "kind": "algebraic map normalization",
+      "diagnostic": "ring leaves C z ^ A * C z ^ C ... = ... C (z ^ A * z ^ C) ...",
+      "edit": "At old line 42 replace generic map_pow by concrete Polynomial.C_mul and Polynomial.C_pow."
+    },
+    {
+      "line": 60,
+      "reported_at": "60:2",
+      "kind": "typeclass/recursion-depth diagnostic",
+      "diagnostic": "failed to synthesize HasDistribNeg ℚ[X]; maximum recursion depth has been reached",
+      "edit": "Factor C (-(1-z)) as C(-1)*C(1-z) using C_mul and the scalar neg_one_mul; then use only mul_pow, C_mul, C_pow, pow_add.",
+      "interpretation": "The reported depth exhaustion is confirmed. The exact internal cause has not been established by a trace. The old neg_pow rule reproduces a symbolic (-1)^n term, and this candidate avoids that entire negative-power simp route; it does not infer a missing ring instance."
+    }
+  ],
+  "error_log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T074703818438Z/logs/compile-0004-research_tasks_B699-Binomial_runs_20260911-low-index-lean-513dc7cc_lean_Moment_KernelMoments.lean.log",
+  "error_log_sha256": "55a68cfdb4a5417e828ed92a37efb6653fe8602a34fbc6db190b6cd57abb6143",
+  "fixed_library_sources": {
+    "Mathlib/Algebra/Polynomial/Basic.lean": {
+      "sha256": "b1f052a7f7e732ca128e794f51eac18a319bcad46513aa17b1a266267e2cd824"
+    },
+    "Mathlib/Algebra/Ring/Commute.lean": {
+      "sha256": "bfe08271b1e1be6bae7cca5e41b1dc2c883070f8fa6dce5b65e686ba45394f95"
+    },
+    "Mathlib/Algebra/Ring/Defs.lean": {
+      "sha256": "c8d9cd6549fdad5e523f4058464444ccc5d1f9bbb6fe765ff6e28c065122d169"
+    }
+  },
+  "actual_lemmas": {
+    "Polynomial.C_mul": "C(a*b)=C a*C b; Basic.lean:455",
+    "Polynomial.C_pow": "C(a^n)=C a^n; Basic.lean:465",
+    "neg_pow": "(-a)^n=(-1)^n*a^n; Ring/Commute.lean:146",
+    "neg_one_mul": "-1*a=-a; Ring/Defs.lean:318"
+  },
+  "maxRecDepth_changed": false,
+  "mathematical_statements_or_assumptions_changed": false,
+  "worker_lean_invocations": 0,
+  "verification_status": "pending primary fresh compile and transitive axiom audit",
+  "first_attempt_status": "remains rejected: all three public prints contained sorryAx",
+  "preserved_sources": {
+    "lean/Moment/Moment.lean": "5412406fdae927ccb256c2221d0154d2eebbdd2b35da4fcd510312c947a021e8",
+    "lean/Moment/Kernel.lean": "18e6f3030d5957cc63ceeb4f6542fe56ee37e596ebe4210a7857247f2d15f12f",
+    "lean/Moment/Subdivision.lean": "f8e9687e0d6b4184b37e29640f2a643981028f6347c567424b87d00adef60a6f",
+    "lean/Moment/Factors.lean": "6b623cfbb0c112bbc450f8daf6f814136d3921a55344615ad4ffa57987727991",
+    "experiments/huan-pade-moment-identity-5e2d13bb/KernelMoments.lean": "cb1224b3f9914ed937dbd1eb2848392cbb8bf270c6e08dd384eba87fd9f7bcbd"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T08:26:42.696522+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "c2-four-intervals-intervals",
+      "root": "lean/C2FourIntervals/AIntervals.lean",
+      "source_sha256": "36928673acc9d7ca589bec96b715778e877c473187b64bb4b674b45254f648d5",
+      "reuse": [],
+      "memory_mb": 1536
+    },
+    {
+      "name": "c2-four-intervals-product",
+      "root": "lean/C2FourIntervals/AProduct.lean",
+      "source_sha256": "73afa6b45a0a54f6533c0964d663d04b351bb3b0d94356431115a762117b79a1",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/c2-direct-finite.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/c2-four-intervals-intervals.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "c2-four-intervals-logbridge",
+      "root": "lean/C2FourIntervals/ALog.lean",
+      "source_sha256": "2b0f6d1d6bb577c11c1133ef21b3dd5693fca5730b225ebecc10443fef6fbf44",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/c2-four-intervals-product.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "c2-four-intervals-full-audit",
+      "root": "lean/C2FourIntervals/Audit.lean",
+      "source_sha256": "22ce85c9f05aec4f4fd5522e97a783f4a11fd033bf7a5efa324968b457f78be3",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/c2-four-intervals-logbridge.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

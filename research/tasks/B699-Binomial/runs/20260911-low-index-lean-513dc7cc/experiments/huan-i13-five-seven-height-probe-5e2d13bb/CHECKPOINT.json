@@ -1,0 +1,81 @@
+{
+  "owner": "/root/pade_construction",
+  "status": "PAPER_ALL_Y_COFACTOR_EDGE_WITH_EXACT_SMALL_CERTIFICATES_NOT_LEAN",
+  "started_utc": "2026-09-12T05:09:30Z",
+  "checkpoint_utc": "2026-09-12T05:29:30Z",
+  "checkpoint_not_deadline": true,
+  "finished_utc": "2026-09-12T05:28:09.447766+00:00",
+  "fixed_height_n_bits": 65536,
+  "Y0_bits": 65535,
+  "weights": [
+    355,
+    221
+  ],
+  "seed": "2*25-49=1",
+  "cd": [
+    11,
+    7
+  ],
+  "m_selector": "leastExponent Z Y",
+  "M": 826,
+  "Z": 800066819113475893826133,
+  "scope": "All Y>=2^65535 and both delta rows, same m, both capacities, arbitrary signed difference with absolute value<=24; no new seed/ratio/height search.",
+  "new_actual_G_source": "D0>=16/3*R^(m-1)/(m+1)^2 and D1=(7m/2)*D0, from accepted actual factorial step and initial value; no G-step supplied externally.",
+  "exact_checks": {
+    "compressed_checker_exit_code": 0,
+    "tool_chunk": "da8c6e",
+    "largest_final_basis_bits": 1272,
+    "source_receipts": 6,
+    "current_closure_source_hash_checks": 138,
+    "all_adopted_axioms_within_std3": true,
+    "old_frozen_packages_unchanged": true,
+    "float_decisions_in_final_checker": false,
+    "actual_D_at_M_evaluated": false
+  },
+  "error_bounds": {
+    "E_upper": "683929/2147483648",
+    "Q_upper": "6155361/25711008708143844408671393477458601640355247900524685364822016",
+    "each_strictly_lt_quarter": true,
+    "E_block": [
+      32,
+      25
+    ],
+    "Q_block": [
+      4,
+      206
+    ],
+    "row_delta_max_E_factor": "100/(7*m)",
+    "row_delta_max_Q_factor": "1/(175*m)"
+  },
+  "failures_and_corrections": [
+    {
+      "kind": "script_syntax",
+      "diagnostic": "Generator expression must be parenthesized in a max() statistics field",
+      "tool_chunk": "7dbebd",
+      "resolution": "Use max over a finite list; mathematical data unchanged; corrected checker passed."
+    },
+    {
+      "kind": "coarse_short_basis",
+      "v_values": [
+        16,
+        32,
+        64
+      ],
+      "diagnostic": "Q lookahead exponent margin negative for those coarse lower bases, not failure of fixed height or actual capacity inequality",
+      "resolution": "v=128 passed, then fixed same Z/M was compressed with lower v=5 and separate upper b=16; all final margins positive."
+    },
+    {
+      "kind": "read_path",
+      "diagnostic": "Guessed receipt i11-five-seven-final-instance.json does not exist",
+      "resolution": "Adopted actual listed i11-five-seven-actual-instance.json and verified its success/root/current closure."
+    }
+  ],
+  "new_Lean_sources": [],
+  "lean_invocations": 0,
+  "git_actions": 0,
+  "new_original_coverage": 0,
+  "expected_frontier_change": "Replace the strong published G dependency for this one i13 edge at the fixed high threshold after formalizing the short new glue.",
+  "actual_frontier_change": "Paper proof and exact finite numerical certificates complete for the one all-Y edge; no new Lean acceptance or original i13 theorem.",
+  "remaining_gap": "Formalize G telescoping specialization, polynomial-loss row-error bounds, selector instance and window consumer. Other three strong-G edges and full graph/finite coverage remain independent.",
+  "next_subgoal": "If authorized, short G specialization and numerical selector can be prepared/verified first without new Q/E trees."
+}

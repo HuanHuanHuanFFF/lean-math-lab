@@ -1,0 +1,39 @@
+--- before
++++ after
+@@ -1,27 +1,22 @@
+-import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtGrid.PilotStage0_23_A1_B1to8
+-import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtGrid.PilotStage0_37_A21to24_B11to14
+-import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtGrid.PilotStage0_23_A105to108_B65to68
+-import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtGrid.PilotStage4_57_Rectangle
++import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtData.PilotStage0Pair23Low
++import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtData.PilotStage0Pair37
++import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtData.PilotStage0Pair23High
++import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtData.PilotStage4Pair57
+ 
+ set_option autoImplicit false
+ set_option relaxedAutoImplicit false
+-set_option maxRecDepth 100000
+-set_option maxHeartbeats 5000000
+-set_option exponentiation.threshold 512
+ 
+ namespace Math.B699.CRTGrid.PilotsAudit
+ 
+ theorem all_pilot_blocks :
+-    Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.block_check ∧
+-    Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14.block_check ∧
+-    Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68.block_check ∧
+-    Math.B699.CRTGrid.PilotStage4_57_Rectangle.block_check := by
+-  exact ⟨
+-    Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.block_check,
++    Math.B699.CRTGrid.blockCheck 2 3 Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.stageH Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.stageM Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.stageT 1 1 1 8 Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.pilotData = true ∧
++    Math.B699.CRTGrid.blockCheck 3 7 Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14.stageH Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14.stageM Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14.stageT 21 4 11 4 Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14.pilotData = true ∧
++    Math.B699.CRTGrid.blockCheck 2 3 Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68.stageH Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68.stageM Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68.stageT 105 4 65 4 Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68.pilotData = true ∧
++    Math.B699.CRTGrid.blockCheck 5 7 Math.B699.CRTGrid.PilotStage4_57_Rectangle.stageH Math.B699.CRTGrid.PilotStage4_57_Rectangle.stageM Math.B699.CRTGrid.PilotStage4_57_Rectangle.stageT 1 10 1 8 Math.B699.CRTGrid.PilotStage4_57_Rectangle.pilotData = true := by
++  exact ⟨Math.B699.CRTGrid.PilotStage0_23_A1_B1to8.block_check,
+     Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14.block_check,
+     Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68.block_check,
+     Math.B699.CRTGrid.PilotStage4_57_Rectangle.block_check⟩
+ 
+ end Math.B699.CRTGrid.PilotsAudit
+-
+ #print axioms Math.B699.CRTGrid.PilotsAudit.all_pilot_blocks

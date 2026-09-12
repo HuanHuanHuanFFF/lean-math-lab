@@ -1,0 +1,142 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T21:05:47.035392+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "i11-seven-two-final-rate",
+      "root": "lean/I11SevenTwoFinal/RateBasisAudit.lean",
+      "source_sha256": "b8c5103b099d38f70b6e2b8e6ba57c396da860a56d0404077f0badf66890a310",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-final-rate.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-actual-numeric",
+      "root": "lean/I11SevenTwoFinal/ActualNumericAudit.lean",
+      "source_sha256": "0769f16b0bb121e607b758f3657b009b73bd8b6719b987f1cc6e9e044ca6acfc",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-final-rate.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-fixed-edge.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-selector.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-actual-instance",
+      "root": "lean/I11SevenTwoFinal/ActualInstanceAudit.lean",
+      "source_sha256": "5c436293168d8e38a3e452397cb94ee3b548c27a61b50116cf5fe221d1c43ee3",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-actual-numeric.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-growth-tree.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-actual-component-edge",
+      "root": "lean/I11SevenTwoFinal/ComponentAudit.lean",
+      "source_sha256": "e9d683c1c1fe0e0f5fbd86d42b7c67e277ff0e43b63def5e8a44efa7a436cf40",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-actual-instance.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-component-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-seven-two-final-chain-audit",
+      "root": "lean/I11SevenTwoFinal/Audit.lean",
+      "source_sha256": "2b7c6cc120c02921e18dd786bd5124294db9abee6ed07f5a2c47d4ce688a144b",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-seven-two-actual-component-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-cover-witness",
+      "root": "lean/I11TerminalCover/WitnessAudit.lean",
+      "source_sha256": "1a2c6eb699d162c1e274411d111bf65da863dad22717c3312d92e413cb6d9937",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-330.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-pilot.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-cover-consumer",
+      "root": "lean/I11TerminalCover/CoverAudit.lean",
+      "source_sha256": "5bacb6db52bdc2afe3ad41d2d93b228253ce20f28bf0e7050ff444e71a27aaf5",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-cover-witness.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-cover-examples",
+      "root": "lean/I11TerminalCover/ExamplesAudit.lean",
+      "source_sha256": "862f3de882d8d07c2a54760dfc10281aacc8d7c171f5ec71e58604c0a01b9521",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-cover-consumer.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-pilot.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-cover-full-audit",
+      "root": "lean/I11TerminalCover/Audit.lean",
+      "source_sha256": "14fd8ea1dd49de0cfb2c4bb4597096cfbdcad919865635f767705b6c5415ac19",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-cover-examples.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-weighted-product",
+      "root": "lean/I11WeightedProduct/ProductAudit.lean",
+      "source_sha256": "ef2a6594b9088786030124fd10a1e7acfb36ec364ce35f55ae3bc3f9bfe445c3",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-actual-component-edge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-weighted-tail",
+      "root": "lean/I11WeightedProduct/Audit.lean",
+      "source_sha256": "55c23ed324ba3f4872d248267b575c8157abec5382d810420c57351636813bfc",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-weighted-product.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-bounded-actual-bridge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-crt-row-cell",
+      "root": "lean/I11TerminalCrt/RowCell.lean",
+      "source_sha256": "34f7f5c0c32af4f1cce35d1532c865a96dadcd33d27a72843d1d33b3dfaa59cc",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-cover-consumer.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-cell.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-topstress",
+      "root": "lean/I11Terminal/TopStress.lean",
+      "source_sha256": "e31262930e433c2bf03b11cbd2a3eb55d133ddf45c6e18106b11bbcfe5167ded",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-pilot.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-largestress",
+      "root": "lean/I11Terminal/LargeStress.lean",
+      "source_sha256": "305bd22d328dad6934f39058210c0ec02c674bf69b5afc5f618809018f973737",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-pilot.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

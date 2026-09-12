@@ -1,0 +1,1 @@
+Reduce per-module elaborator memory while preserving every actual polynomial/leaf theorem. No new mathematical region is claimed; the 7/2 initial-height edge still awaits full chain acceptance. Main task exclusively integrates and serially verifies. No original B result added.

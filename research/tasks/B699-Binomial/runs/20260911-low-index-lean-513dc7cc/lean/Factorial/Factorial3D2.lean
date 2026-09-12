@@ -1,0 +1,120 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.Factorial.FactorialCommon
+
+namespace Math.B699.ElementaryFactorialBound
+
+/-- Common numerator U for (c,d)=(3,2), after positive endpoint cancellation. -/
+def numerator_3_2 (m : ℚ) : ℚ :=
+  (5 * m + 1) * (5 * m + 2) * (5 * m + 3) * (5 * m + 4)
+
+def denominator_3_2 (m : ℚ) : ℚ :=
+  (2 * m + 1) * (2 * m + 1)
+
+def ratio_3_2 (m : ℚ) : ℚ :=
+  5 * numerator_3_2 m /
+    (1 * 2 ^ 2 * m * (m + 1) * denominator_3_2 m)
+
+/-- Exact finite polynomial certificate in x=m-1. Coefficients are frozen in
+factorial-certificates.json; ring checks the identity from literal integers. -/
+theorem certificate_3_2 (x : ℚ) (hx : 0 ≤ x) :
+    5 * 16 * (x + 3) * numerator_3_2 (x + 1) ≤
+      3125 * 1 * 2 ^ 2 * (x + 2) ^ 3 * denominator_3_2 (x + 1) := by
+  apply sub_nonneg.mp
+  calc
+    0 ≤ 20 * (8712 + x * (16404 + x * (10250 + x * 2125))) := by positivity
+    _ = 3125 * 1 * 2 ^ 2 * (x + 2) ^ 3 * denominator_3_2 (x + 1) -
+        5 * 16 * (x + 3) * numerator_3_2 (x + 1) := by
+      unfold numerator_3_2 denominator_3_2
+      ring
+
+theorem ratio_bound_3_2 (m : ℚ) (hm : 1 ≤ m) :
+    ratio_3_2 m ≤ beta 3 2 * (m + 1) ^ 2 / (m * (m + 2)) := by
+  have hmpos : 0 < m := lt_of_lt_of_le (by norm_num) hm
+  have hcert := certificate_3_2 (m - 1) (sub_nonneg.mpr hm)
+  have hs₁ : m - 1 + 1 = m := by ring
+  have hs₂ : m - 1 + 2 = m + 1 := by ring
+  have hs₃ : m - 1 + 3 = m + 2 := by ring
+  simp only [hs₁, hs₂, hs₃] at hcert
+  have hW : 0 < denominator_3_2 m := by
+    unfold denominator_3_2
+    positivity
+  have hbeta : beta 3 2 = (3125 : ℚ) / 16 := by norm_num [beta]
+  rw [hbeta]
+  exact ratio_le_of_certificate (by norm_num) (by norm_num) (by norm_num)
+    hmpos hW hcert
+
+/-- Actual factorial recurrence, not a recurrence hypothesis. At m=k+1
+all subtracted indices are nonnegative. -/
+theorem factorial_step_zero_3_2 (k : ℕ) :
+    factorialTerm 3 2 0 (k + 2) =
+      factorialTerm 3 2 0 (k + 1) * ratio_3_2 ((k : ℚ) + 1) := by
+  change (((5 * (k + 2)).factorial : ℕ) : ℚ) /
+      (((((2 * (k + 2)).factorial : ℕ) : ℚ) ^ 2) *
+        (((1 * (k + 2) - 1).factorial : ℕ) : ℚ)) =
+    (((5 * (k + 1)).factorial : ℕ) : ℚ) /
+      (((((2 * (k + 1)).factorial : ℕ) : ℚ) ^ 2) *
+        (((1 * (k + 1) - 1).factorial : ℕ) : ℚ)) * ratio_3_2 ((k : ℚ) + 1)
+  have ha : 5 * (k + 2) = 5 * (k + 1) + 5 := by omega
+  have hd : 2 * (k + 2) = 2 * (k + 1) + 2 := by omega
+  have hb : 1 * (k + 2) - 1 = (1 * (k + 1) - 1) + 1 := by omega
+  have hp : (1 * (k + 1) - 1) + 1 = 1 * (k + 1) := by omega
+  rw [ha, hd, hb, factorial_add_cast (5 * (k + 1)) 5,
+    factorial_add_cast (2 * (k + 1)) 2,
+    factorial_add_cast (1 * (k + 1) - 1) 1, hp]
+  simp only [Nat.ascFactorial_succ, Nat.ascFactorial_zero,
+    Nat.cast_mul, Nat.cast_add, Nat.cast_one, Nat.cast_ofNat]
+  unfold ratio_3_2 numerator_3_2 denominator_3_2
+  field_simp
+  <;> ring
+
+theorem factorial_step_bound_zero_3_2 (m : ℕ) (hm : 1 ≤ m) :
+    factorialTerm 3 2 0 (m + 1) ≤ factorialTerm 3 2 0 m *
+      (beta 3 2 * ((m : ℚ) + 1) ^ 2 / ((m : ℚ) * (m + 2))) := by
+  obtain ⟨k, rfl⟩ : ∃ k, m = k + 1 := Nat.exists_eq_add_of_le' hm
+  rw [factorial_step_zero_3_2]
+  have hk : 0 ≤ (k : ℚ) := Nat.cast_nonneg k
+  have hratio := ratio_bound_3_2 ((k : ℚ) + 1) (by linarith)
+  have hmul := mul_le_mul_of_nonneg_left hratio (factorialTerm_pos 3 2 0 (k + 1)).le
+  simpa only [Nat.cast_add, Nat.cast_one] using hmul
+
+theorem factorial_step_bound_3_2 (delta m : ℕ)
+    (hdelta : delta = 0 ∨ delta = 1) (hm : 1 ≤ m) :
+    factorialTerm 3 2 delta (m + 1) ≤ factorialTerm 3 2 delta m *
+      (beta 3 2 * ((m : ℚ) + 1) ^ 2 / ((m : ℚ) * (m + 2))) := by
+  rcases hdelta with rfl | rfl
+  · exact factorial_step_bound_zero_3_2 m hm
+  · rw [factorial_delta_one_eq 3 2 (m + 1) (by norm_num) (by norm_num) (by omega),
+      factorial_delta_one_eq 3 2 m (by norm_num) (by norm_num) (by omega)]
+    have hmul := mul_le_mul_of_nonneg_left (factorial_step_bound_zero_3_2 m hm)
+      (show (0 : ℚ) ≤ (2 : ℚ) ^ 2 / ((5 : ℚ) * (1 : ℚ)) by norm_num)
+    convert hmul using 1 <;> norm_num [mul_assoc] <;> rfl
+
+/-- The requested precise telescoping bound for the actual factorial term. -/
+theorem factorial_telescoping_3_2 (delta m : ℕ)
+    (hdelta : delta = 0 ∨ delta = 1) (hm : 1 ≤ m) :
+    factorialTerm 3 2 delta m ≤
+      (2 * factorialTerm 3 2 delta 1 / beta 3 2) *
+        beta 3 2 ^ m * (m : ℚ) / ((m : ℚ) + 1) := by
+  exact telescoping_bound_from_step (by norm_num [beta])
+    (fun n hn => factorial_step_bound_3_2 delta n hdelta hn) hm
+
+/-- A convenient single rational constant for both deltas: F_m < beta^m/2.
+The exact K=2*F_1/beta constants were independently checked to be <1/2. -/
+theorem factorial_uniform_3_2 (delta m : ℕ)
+    (hdelta : delta = 0 ∨ delta = 1) (hm : 1 ≤ m) :
+    factorialTerm 3 2 delta m < (1 / 2 : ℚ) * beta 3 2 ^ m := by
+  have hbeta : 0 < beta 3 2 := by norm_num [beta]
+  have hK : 2 * factorialTerm 3 2 delta 1 / beta 3 2 < (1 / 2 : ℚ) := by
+    rcases hdelta with rfl | rfl <;> norm_num [factorialTerm, beta, Nat.factorial]
+  have hbound := strict_bound_from_step hbeta (factorialTerm_pos 3 2 delta 1)
+    (fun n hn => factorial_step_bound_3_2 delta n hdelta hn) hm
+  exact lt_of_lt_of_le hbound (mul_le_mul_of_nonneg_right hK.le (pow_pos hbeta m).le)
+
+#print axioms Math.B699.ElementaryFactorialBound.certificate_3_2
+#print axioms Math.B699.ElementaryFactorialBound.ratio_bound_3_2
+#print axioms Math.B699.ElementaryFactorialBound.factorial_step_zero_3_2
+#print axioms Math.B699.ElementaryFactorialBound.factorial_step_bound_zero_3_2
+#print axioms Math.B699.ElementaryFactorialBound.factorial_step_bound_3_2
+#print axioms Math.B699.ElementaryFactorialBound.factorial_telescoping_3_2
+#print axioms Math.B699.ElementaryFactorialBound.factorial_uniform_3_2
+
+end Math.B699.ElementaryFactorialBound

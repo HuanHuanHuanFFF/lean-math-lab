@@ -1,0 +1,20 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T014940042314Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/ProductAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/ProductAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T01:50:27.765562Z
+# finished_utc: 2026-09-12T01:50:36.943593Z
+# exit_code: 0
+# timed_out: False
+@Math.B699.I11InitialHeight.actual_components_product_bound : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    (B699LowIndex.I11SmallPrimes.primeComponent n 2 * B699LowIndex.I11SmallPrimes.primeComponent n 3 *
+              B699LowIndex.I11SmallPrimes.primeComponent n 5 *
+            B699LowIndex.I11SmallPrimes.primeComponent n 7) ^
+          1000 *
+        B699LowIndex.I11FiveThreeComponentEdge.ceilHalf n ^ 640 ≤
+      n ^ 4000
+'Math.B699.I11InitialHeight.actual_components_product_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Math.B699.I11InitialHeight.actual_small_prime_part_bound : ∀ {n : ℕ},
+  2 ^ 15360 ≤ n →
+    B699LargePrimeStructure.smallPrimePart n 11 ^ 1000 * B699LowIndex.I11FiveThreeComponentEdge.ceilHalf n ^ 640 ≤
+      n ^ 4000
+'Math.B699.I11InitialHeight.actual_small_prime_part_bound' depends on axioms: [propext, Classical.choice, Quot.sound]

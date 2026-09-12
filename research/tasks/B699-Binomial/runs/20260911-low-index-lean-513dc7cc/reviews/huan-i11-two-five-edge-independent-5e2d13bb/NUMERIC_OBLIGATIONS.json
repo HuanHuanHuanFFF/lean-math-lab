@@ -1,0 +1,86 @@
+{
+  "status": "exact types remaining as FixedEdge inputs; finite arithmetic passed here, no Lean numeric instance supplied",
+  "M": 329,
+  "Z": 115572769905797,
+  "Y0": "2^15359",
+  "A3": "83682878107040006334695941930360399789273674382573568/80167724078165772891757631585792600333690643310546875",
+  "W": "25070816455419309052117180573019881876982123539823274754048/216926672916589867150355866693177950169921875",
+  "source": "FixedEdge.lean:19-26",
+  "obligations": [
+    {
+      "name": "hAbase",
+      "type": "Rat",
+      "statement": "(48 : ℚ) < qRate qBase ^ 329",
+      "reduction": "A3 >= 1, A3^32 >= 2, 192 <= 329 imply A3^329 >= 64 > 48; A3=qRate qBase."
+    },
+    {
+      "name": "hprevious",
+      "type": "Nat",
+      "statement": "twoFiveZ ^ (twoFiveM - 1) <= 4 * twoFiveY0",
+      "expanded": "115572769905797^328 <= 2^15361"
+    },
+    {
+      "name": "hrateP",
+      "type": "Nat",
+      "statement": "2 ^ 35000 <= twoFiveZ ^ 752"
+    },
+    {
+      "name": "hbaseP",
+      "type": "Nat",
+      "statement": "(2 ^ 35000) ^ twoFiveM <= twoFiveY0 ^ 752"
+    },
+    {
+      "name": "hlookP",
+      "type": "Nat",
+      "statement": "4 ^ 752 * (2 ^ 35000) ^ (twoFiveM + 1) <= twoFiveZ ^ (752 * twoFiveM)"
+    },
+    {
+      "name": "hrateQ",
+      "type": "Nat",
+      "statement": "5 ^ 15000 <= twoFiveZ ^ 748"
+    },
+    {
+      "name": "hbaseQ",
+      "type": "Nat",
+      "statement": "(5 ^ 15000) ^ twoFiveM <= twoFiveY0 ^ 748"
+    },
+    {
+      "name": "hlookQ",
+      "type": "Nat",
+      "statement": "4 ^ 748 * (5 ^ 15000) ^ (twoFiveM + 1) <= twoFiveZ ^ (748 * twoFiveM)"
+    }
+  ],
+  "short_bases": [
+    "2^11959 <= 115572769905797^256",
+    "5^4096 <= 2^9511",
+    "2^1 <= 2^1"
+  ],
+  "short_exponent_margins": [
+    {
+      "p": 2,
+      "N": 35000,
+      "alpha": 752,
+      "a": 1,
+      "b": 1,
+      "u": 11959,
+      "v": 256,
+      "rate_margin": 33168,
+      "base_margin": 34968,
+      "lookahead_margin": 1567248
+    },
+    {
+      "p": 5,
+      "N": 15000,
+      "alpha": 748,
+      "a": 9511,
+      "b": 4096,
+      "u": 11959,
+      "v": 256,
+      "rate_margin": 117839872,
+      "base_margin": 120242072,
+      "lookahead_margin": 678408192
+    }
+  ],
+  "max_direct_power_operand_bits": 15370,
+  "huge_capacity_targets_expanded": false
+}

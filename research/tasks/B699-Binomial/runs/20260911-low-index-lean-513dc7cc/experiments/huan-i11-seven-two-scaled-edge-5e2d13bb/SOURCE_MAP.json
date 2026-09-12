@@ -1,0 +1,89 @@
+{
+  "row": 1,
+  "original_plan": {
+    "B": 15360,
+    "p": 7,
+    "q": 2,
+    "P": 49,
+    "Q": 16,
+    "a": 1,
+    "b": 3,
+    "D": 1,
+    "y": 49,
+    "c": 9,
+    "d": 5,
+    "weights": [
+      60,
+      330
+    ],
+    "m0": 224,
+    "M": 285,
+    "Z": 17498099772305953,
+    "Y0": "2^15359",
+    "targetBase": "1302991/1000000"
+  },
+  "actual_rows": {
+    "true": "delta=0; u=5m,v=4m-1",
+    "false": "delta=1; u=5m-1,v=4m",
+    "same_m": "leastExponent Z Y; 4Y<Z^m, M<=m"
+  },
+  "integer_gap": "49^(9m) <= 3^(9m)*24*abs(qRow) + abs(49^(9m)*pRow-48^(9m)*qRow)*abs(V)",
+  "hom": {
+    "Q": "Gδ*qRowδ=49^(5m-δ)*actualQ(9,5,δ,m,1/49)",
+    "E": "Gδ*rowErrorδ=49^(4m+δ-1)*actualE(9,5,δ,m,1/49)",
+    "G": "qContent(5m-δ,4m+δ-1,5m-δ), separately for each delta",
+    "uniform_Q": "49^5",
+    "uniform_E": "49^4"
+  },
+  "parameter_extraction": {
+    "left": "18m<e, U=7^(e-18m)*A",
+    "right": "36m<f, V=2^(f-36m)*C"
+  },
+  "rates": {
+    "qRate": "49^4 * (1302991/1000000)^5 / (3^9 * qBase)",
+    "wRate": "(49*16)^9 * (1302991/1000000)^5 / (49^4 * eBase)"
+  },
+  "final_theorem": "Math.B699.I11SevenTwoScaled.seven_two_edge_of_fixed_certificates",
+  "final_conclusion": "Y^60 <= A^1000 or Y^330 <= C^1000",
+  "remaining_special_inputs": [
+    "qt true, qt false at actual c9d5 z1/49 qWeight/qCore and fixed qLambda",
+    "et true, et false at actual c9d5 z1/49 eWeight/eCore and fixed eLambda",
+    "48 < qRate(qBase)^285",
+    "Z^284 <= 4*Y0",
+    "7^18000 <= Z^940",
+    "(7^18000)^285 <= Y0^940",
+    "4^940*(7^18000)^286 <= Z^(940*285)",
+    "2^36000 <= Z^670",
+    "(2^36000)^285 <= Y0^670",
+    "4^670*(2^36000)^286 <= Z^(670*285)"
+  ],
+  "ordinary_inputs": [
+    "Y,e,f,A,C Nat",
+    "2^15359<=Y",
+    "1<=C",
+    "Y<=7^e*A",
+    "Y<=2^f*C",
+    "2^f*C<=2Y",
+    "abs(7^e*A-2^f*C)<=24 over Int"
+  ],
+  "not_assumed": [
+    "actual G bound",
+    "Hom identity",
+    "determinant nonvanishing",
+    "factorial bound",
+    "standard all-m Q/E bound",
+    "target edge"
+  ],
+  "remaining_outside_package": [
+    "actual four-tree imports and finite certificate instances",
+    "primeWindow/ceilHalf component edge consumer",
+    "other i11 edges and complete n<2^15360 derivation",
+    "finite tail consumers and original B699 target"
+  ],
+  "evidence_boundary": {
+    "new_Lean_runs": 0,
+    "new_original_B_results": 0,
+    "finite_checks": "Python exact only",
+    "novelty": "no claim"
+  }
+}

@@ -1,0 +1,11 @@
+# 外部依赖静态审查问题
+
+只读发现，已发给/root与/root/readonly_ci_batch；本子任务不修改外部冻结源。
+
+冻结AllStages SHA cecf25b8938e7872722526c816e9cb63b99b058e26a2d43b106ee7b9abb0232b 的第25/33/41/49行引用Stage00.next_height_00等；真实NumericMetadata第124..127行把这些定理定义在顶层B699LowIndex.I11CrtStageMetadata。第120行Stage00.initial_height也应使用顶层第123行定理。各StageXX消费者未定义这些别名。
+
+四个next_height证明还先rw外层max_eq_right hM再rw内层h109；结构上建议先内层h109再hM，避免依赖闭合数字的定义归约或匹配失败。此项是编译风险提示，没有伪称运行错误；五个命名空间不对应则是实际读源差异。
+
+最终调用的initial_to_stage04类型本身正确且固定，修正这些内部引用不需改变最终入口API。主任务负责集成修复与记录新SHA/真实验收；本包冻结前只引用已落盘的准确最终声明，不把其当前未编译状态隐藏。
+
+更新：主任务已完成对应最小修复，实际集成AllStages SHA为a5cf8d266c854ec02f40fc38111f1f42975ed83bb3c902d60d64cc4c2e6cff7e；本子任务已只读核对全部9处。实际采用此集成版本，旧冻结包保持原字节。修复记录为reviews/huan-four-stage-api-fixes-5e2d13bb/record.json，状态integrated_uncompiled；没有把静态修复视为Lean验收。

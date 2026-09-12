@@ -1,0 +1,126 @@
+{
+  "utc": "2026-09-11T17:04:28.162667+00:00",
+  "owner": "/root/pade_construction",
+  "owned_directory": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-crt-pair-max-5e2d13bb",
+  "fixed_source_commit": "5c37f257401952ed85ddd104de8e56a4f2024031",
+  "sources": {
+    "fixed_report": {
+      "path": "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/REPORT.md",
+      "sha256": "d773ffdb19e80edbd9c662ea007516ab230ea30e1160ff5561d6ef5c746064d6",
+      "bytes": 27517
+    },
+    "fixed_crt_fast": {
+      "path": "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/vendor/crt_fast.py",
+      "sha256": "4a2bc8848a345decf7d64bda99be1b1bf8293769d8fb904ef5d5f31fe2e5d278",
+      "bytes": 3537
+    },
+    "fixed_crt_probe": {
+      "path": "research/tasks/B699-Binomial/runs/20260910-pade-three-closure-4edad426/delivery/vendor/crt_bound_probe.py",
+      "sha256": "e21035968769a71396f995608431ad377dad0dfa3fa886aa9322af1ae379b3b0",
+      "bytes": 3871
+    },
+    "accepted_positive_residue": {
+      "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CubicBlock/Residues.lean",
+      "sha256": "b093a64a596c6f1e5223192b684dd685946cd785c5759d0f2512fc6eedff878a",
+      "bytes": 2758
+    },
+    "accepted_residue_receipt": {
+      "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-block-sample-complete.json",
+      "sha256": "ddcb1ed4f8e47c8179fd5400697670dbba93614c05d022d9c60ae0c0a4fe0af0",
+      "bytes": 1531
+    }
+  },
+  "source_correspondence": [
+    {
+      "source": "fixed_report",
+      "lines": [
+        260,
+        289
+      ],
+      "claim": "Section 6 height-dependent two-prime family reduction; not a premise proved in this candidate."
+    },
+    {
+      "source": "fixed_report",
+      "lines": [
+        291,
+        324
+      ],
+      "claim": "Section 7 complete affine parameterization and clipped interval maximum."
+    },
+    {
+      "source": "fixed_crt_probe",
+      "lines": [
+        50,
+        65
+      ],
+      "claim": "Zero representative a0, signed b0, period, lower and upper interval endpoints, tlo and thi."
+    },
+    {
+      "source": "fixed_crt_fast",
+      "lines": [
+        55,
+        68
+      ],
+      "claim": "Same progression in the general branch; fast paths remain unformalized here."
+    }
+  ],
+  "variable_map": {
+    "new P": "old Q = p^h",
+    "new Q": "old R = q^k",
+    "new v": "inverse of old Q modulo old R",
+    "new d": "old d = P*A-Q*C; every signed displacement including 0",
+    "new rho": "old a0 when a0>0; Q when a0=0",
+    "new baseC": "old b0 when a0>0; old b0+P when a0=0",
+    "new t": "old z when a0>0; old z-1 when a0=0",
+    "new upperValue(t)": "old U0 + P*Q*z = min(P*A,Q*C)+w after the parameter shift"
+  },
+  "adopted_accepted_dependency": {
+    "namespace": "Math.B699.CubicExponentBlock",
+    "definition": "positiveResidue",
+    "key_theorem": "inverse_positiveResidue_le",
+    "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T144120044519Z/evidence.json",
+    "mathlib_revision": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "lean_version": "4.33.1"
+  },
+  "candidate_chain": [
+    {
+      "module": "Parameterization.lean",
+      "imports": [
+        "accepted lean/CubicBlock/Residues.lean"
+      ],
+      "obligation": "actual seed equation, explicit inverse Bezout relation, complete and unique parameterization, converse equation"
+    },
+    {
+      "module": "Bounds.lean",
+      "imports": [
+        "Parameterization.lean",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "obligation": "affine monotonicity, checked parameter interval, positive natural solution converse"
+    },
+    {
+      "module": "Consumer.lean",
+      "imports": [
+        "Bounds.lean"
+      ],
+      "obligation": "decidable certificate, empty branch, actual natural n upper bound"
+    }
+  ],
+  "not_adopted_as_accepted": [
+    "old Python CRT output or the old reported 29294603 endpoint",
+    "current candidate Lean proof text",
+    "bounded numerical diagnostics",
+    "synthetic auditor self-test",
+    "initial n < 2^109 or initial n < 2^15360"
+  ],
+  "remaining_dependencies": [
+    "Primary serial compilation and actual transitive axiom audit of these frozen candidates",
+    "Actual height-dependent two-prime family reduction and complete family enumeration",
+    "Actual finite inverse and linear-bound certificates for every relevant pair/displacement",
+    "Finite all-displacements and all-pairs aggregator with low branch S0-1 and H-1 clipping",
+    "Initial unbounded height theorem and remaining finite elimination"
+  ],
+  "worker_lean_invocations": 0,
+  "old_programs_executed": false,
+  "new_original_indices": []
+}

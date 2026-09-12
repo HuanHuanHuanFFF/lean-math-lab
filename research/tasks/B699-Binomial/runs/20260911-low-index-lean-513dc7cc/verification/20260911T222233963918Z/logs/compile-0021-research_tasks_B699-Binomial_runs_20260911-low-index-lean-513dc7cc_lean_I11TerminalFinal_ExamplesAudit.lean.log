@@ -1,0 +1,30 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T222233963918Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/ExamplesAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/ExamplesAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:23:13.171538Z
+# finished_utc: 2026-09-11T22:23:22.047320Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.exampleOldCandidates : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCRT.exampleOldCandidates' does not depend on any axioms
+Math.B699.I11TerminalCRT.parameter_interval_low : Math.B699.I11TerminalCRT.parameterInterval 2 3 2 (-1) 0 = (3, 12)
+'Math.B699.I11TerminalCRT.parameter_interval_low' does not depend on any axioms
+Math.B699.I11TerminalCRT.old_low_cover_fails :
+  B699LowIndex.coverCheck 3 12 Math.B699.I11TerminalCRT.exampleOldCandidates = false
+'Math.B699.I11TerminalCRT.old_low_cover_fails' does not depend on any axioms
+Math.B699.I11TerminalCRT.extended_low_cover (cs : List B699LowIndex.NatInterval) :
+  B699LowIndex.coverCheck 3 12 (Math.B699.I11TerminalCRT.extendedCandidates cs) = true
+'Math.B699.I11TerminalCRT.extended_low_cover' does not depend on any axioms
+Math.B699.I11TerminalCRT.low_cover_impossible {cs : List B699LowIndex.NatInterval} (hlower : ∀ I ∈ cs, 24 ≤ I.1) :
+  B699LowIndex.coverCheck 3 12 cs ≠ true
+'Math.B699.I11TerminalCRT.low_cover_impossible' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.parameter_interval_crossing :
+  Math.B699.I11TerminalCRT.parameterInterval 2 3 2 (-7) 2 = (21, 24)
+'Math.B699.I11TerminalCRT.parameter_interval_crossing' does not depend on any axioms
+Math.B699.I11TerminalCRT.extended_crossing_cover :
+  B699LowIndex.coverCheck 21 24
+      (Math.B699.I11TerminalCRT.extendedCandidates Math.B699.I11TerminalCRT.exampleOldCandidates) =
+    true
+'Math.B699.I11TerminalCRT.extended_crossing_cover' does not depend on any axioms
+Math.B699.I11TerminalCRT.first_legal_n_stays_old :
+  B699LowIndex.I11TerminalCover.candidateMem 24 Math.B699.I11TerminalCRT.exampleOldCandidates
+'Math.B699.I11TerminalCRT.first_legal_n_stays_old' depends on axioms: [propext]

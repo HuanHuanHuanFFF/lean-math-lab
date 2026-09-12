@@ -1,0 +1,35 @@
+RESOURCE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/RawHom.lean", "platform": "windows", "cpu_count": 16, "disk": [294517391360, 292861427712, 1655963648], "available_physical_bytes": 3077480448, "total_physical_bytes": 16851132416, "memory_load_percent": 81, "meminfo": ["MemAvailable: 3005352 kB"], "memory.max": null, "memory.current": null, "cpu.max": null}
+COMPILE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/RawHom.lean", "seconds": 10.635, "exit_code": 1, "failure": "Lean exit 1; unexpected axioms: sorryAx", "axiom_audit": {"declared_print_axioms": 2, "declared_names": ["Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_formula", "Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_ne_zero"], "guarded_print_axioms": 0, "guarded_names": [], "actual_printed": 2, "guard_msgs_in_source": 0, "printed": [{"declared_name": "Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_formula", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_ne_zero", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}], "unexpected_axioms": ["sorryAx"], "guarded_output_inferred": false, "error": "unexpected axioms: sorryAx"}}
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T071516387084Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/RawHom.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/RawHom.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T07:15:46.471690Z
+# finished_utc: 2026-09-11T07:15:57.106657Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Pade\RawHom.lean:49:4: error: Type mismatch: After simplification, term
+  hp
+ has type
+  @Eq ℝ
+    (eval₂ (Int.castRingHom ℝ) z (pPolynomial u v u) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial (u - 1) (v + 1) (u - 1)) -
+      eval₂ (Int.castRingHom ℝ) z (pPolynomial (u - 1) (v + 1) (u - 1)) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial u v u))
+    ((Int.castRingHom ℝ) (determinantConstant u v) * z ^ (2 * u - 1))
+but is expected to have type
+  @Eq ℝ
+    (eval₂ (Int.castRingHom ℝ) z (pPolynomial u v u) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial (u - 1) (v + 1) (u - 1)) -
+      eval₂ (Int.castRingHom ℝ) z (pPolynomial (u - 1) (v + 1) (u - 1)) *
+        eval₂ (Int.castRingHom ℝ) z (qPolynomial u v u))
+    (↑(determinantConstant u v) * z ^ (2 * u - 1))
+'Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_formula' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeActualRecurrence.rawHomogeneousDeterminant_ne_zero' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+
+EVIDENCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T071516387084Z/evidence.json
+RESULT {"success": false, "exit_code": 1, "compiled_count": 1, "reused_count": 5, "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.Pade.RawHom"}

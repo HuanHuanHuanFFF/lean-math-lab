@@ -1,0 +1,45 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T114333807768Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Growth/Normalization.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Growth/Normalization.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T11:44:04.972004Z
+# finished_utc: 2026-09-11T11:44:15.753944Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Growth\Normalization.lean:56:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  prefactor (d * 1 - delta) ((c - d) * 1 + delta - 1) (d * 1 - delta)
+in the target expression
+  prefactor (d - delta) (c - d + delta - 1) (d - delta) * moment (qWeight c d delta z) =
+    factorialTerm c d delta 1 * moment (qWeight c d delta z)
+
+c d delta : ℕ
+z : ℚ
+hcd : d < c
+hdelta : delta ≤ d
+hz : 0 ≤ z
+⊢ prefactor (d - delta) (c - d + delta - 1) (d - delta) * moment (qWeight c d delta z) =
+    factorialTerm c d delta 1 * moment (qWeight c d delta z)
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Growth\Normalization.lean:68:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  prefactor (d * 1 - delta) ((c - d) * 1 + delta - 1) (d * 1 - delta)
+in the target expression
+  prefactor (d - delta) (c - d + delta - 1) (d - delta) * moment (eWeight c d delta z) =
+    factorialTerm c d delta 1 * moment (eWeight c d delta z)
+
+c d delta : ℕ
+z : ℚ
+hcd : d < c
+hdelta : delta ≤ d
+hz : z ≤ 1
+⊢ prefactor (d - delta) (c - d + delta - 1) (d - delta) * moment (eWeight c d delta z) =
+    factorialTerm c d delta 1 * moment (eWeight c d delta z)
+'Math.B699.PadeGrowthNormalization.prefactor_eq_factorialTerm' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeGrowthNormalization.actualQ_one_abs' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Math.B699.PadeGrowthNormalization.actualE_one_abs' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Math.B699.PadeGrowthNormalization.q_normalized_constant' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeGrowthNormalization.e_normalized_constant' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

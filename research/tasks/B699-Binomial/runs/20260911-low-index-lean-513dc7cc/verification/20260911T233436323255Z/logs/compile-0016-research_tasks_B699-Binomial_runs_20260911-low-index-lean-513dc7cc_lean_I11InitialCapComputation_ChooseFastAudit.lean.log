@@ -1,0 +1,20 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T233436323255Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialCapComputation/ChooseFastAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialCapComputation/ChooseFastAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T23:35:18.186022Z
+# finished_utc: 2026-09-11T23:35:26.931422Z
+# exit_code: 0
+# timed_out: False
+chooseFast : ℕ → ℕ → ℕ
+choose_eq_fast : ∀ (n k : ℕ), n.choose k = chooseFast n k
+fastECoefficient : ℕ → ℕ → ℕ → ℕ → ℤ
+eCoefficient_eq_fast : ∀ (A B C : ℕ), eCoefficient A B C = fastECoefficient A B C
+actualE_eq_fast : ∀ (c d delta m : ℕ) (z : ℚ),
+  actualE c d delta m z =
+    Polynomial.eval₂ (Int.castRingHom ℚ) z
+      (coefficientPolynomial ((c - d) * m + delta - 1)
+        (fastECoefficient (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta)))
+'Math.B699.I11InitialCapComputation.chooseFast' does not depend on any axioms
+'Math.B699.I11InitialCapComputation.choose_eq_fast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.I11InitialCapComputation.fastECoefficient' depends on axioms: [propext]
+'Math.B699.I11InitialCapComputation.eCoefficient_eq_fast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.I11InitialCapComputation.actualE_eq_fast' depends on axioms: [propext, Classical.choice, Quot.sound]

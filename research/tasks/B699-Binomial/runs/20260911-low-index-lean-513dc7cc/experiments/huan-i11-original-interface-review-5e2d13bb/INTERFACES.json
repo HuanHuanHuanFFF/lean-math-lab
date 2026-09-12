@@ -1,0 +1,1250 @@
+[
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/Membership.lean",
+    "line": 30,
+    "name": "candidate_list_eq",
+    "header": "theorem candidate_list_eq : candidates = extendedCandidates originalCandidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/Membership.lean",
+    "line": 33,
+    "name": "stage04_constants",
+    "header": "theorem stage04_constants : stageConstantsCheck Stage04.H Stage04.M = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/Membership.lean",
+    "line": 37,
+    "name": "stage04_small_cover",
+    "header": "theorem stage04_small_cover : coverCheck 24 (max Stage04.M 109) (extendedCandidates originalCandidates) = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/Membership.lean",
+    "line": 43,
+    "name": "candidate_mem_of_stage04",
+    "header": "theorem candidate_mem_of_stage04 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < Stage04.H) : candidateMem n originalCandidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/Final.lean",
+    "line": 14,
+    "name": "common_i11",
+    "header": "theorem common_i11 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) : Common n 11 j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/Final.lean",
+    "line": 26,
+    "name": "original_i11_gcd",
+    "header": "theorem original_i11_gcd : ∀ n j : ℕ, 1 ≤ 11 ∧ 11 < j ∧ j ≤ n / 2 → ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.gcd (Nat.choose n 11) (Nat.choose n j)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/Final.lean",
+    "line": 33,
+    "name": "original_i11",
+    "header": "theorem original_i11 : ∀ n j : ℕ, 1 ≤ 11 ∧ 11 < j ∧ j ≤ n / 2 → ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.choose n 11 ∧ p ∣ Nat.choose n j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/WindowBounds.lean",
+    "line": 11,
+    "name": "prime_component_le_of_window",
+    "header": "theorem prime_component_le_of_window {n p : ℕ} (window : PrimeWindow n p) : primeComponent n p ≤ n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/WindowBounds.lean",
+    "line": 20,
+    "name": "actual_prime_component_le",
+    "header": "theorem actual_prime_component_le {n p : ℕ} (hn : 11 ≤ n) (hp : p.Prime) : primeComponent n p ≤ n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/WindowBounds.lean",
+    "line": 25,
+    "name": "ceil_half_positive",
+    "header": "theorem ceil_half_positive {n : ℕ} (hn : 1 ≤ n) : 1 ≤ ceilHalf n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/WindowBounds.lean",
+    "line": 29,
+    "name": "n_le_twice_ceil_half",
+    "header": "theorem n_le_twice_ceil_half (n : ℕ) : n ≤ 2 * ceilHalf n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Product.lean",
+    "line": 18,
+    "name": "actual_components_product_bound",
+    "header": "theorem actual_components_product_bound {n : ℕ} (hheight : (2 : ℕ) ^ 15360 ≤ n) : (primeComponent n 2 * primeComponent n 3 * primeComponent n 5 * primeComponent n 7) ^ 1000 * (ceilHalf n) ^ 640 ≤ n ^ 4000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Product.lean",
+    "line": 48,
+    "name": "actual_small_prime_part_bound",
+    "header": "theorem actual_small_prime_part_bound {n : ℕ} (hheight : (2 : ℕ) ^ 15360 ≤ n) : (smallPrimePart n 11) ^ 1000 * (ceilHalf n) ^ 640 ≤ n ^ 4000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Height.lean",
+    "line": 12,
+    "name": "actual_i11_below_15360",
+    "header": "theorem actual_i11_below_15360 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) : n < (2 : ℕ) ^ 15360"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Compression.lean",
+    "line": 12,
+    "name": "actual_i11_below_109",
+    "header": "theorem actual_i11_below_109 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) : n < (2 : ℕ) ^ 109"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 19,
+    "name": "next_height_00",
+    "header": "theorem next_height_00 : Math.B699.I11CRTSixPair.nextHeight Stage00.M Stage00.upper = Stage01.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 27,
+    "name": "next_height_01",
+    "header": "theorem next_height_01 : Math.B699.I11CRTSixPair.nextHeight Stage01.M Stage01.upper = Stage02.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 35,
+    "name": "next_height_02",
+    "header": "theorem next_height_02 : Math.B699.I11CRTSixPair.nextHeight Stage02.M Stage02.upper = Stage03.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 43,
+    "name": "next_height_03",
+    "header": "theorem next_height_03 : Math.B699.I11CRTSixPair.nextHeight Stage03.M Stage03.upper = Stage04.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 51,
+    "name": "connect_00",
+    "header": "theorem connect_00 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < Stage00.H) : n < Stage01.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 67,
+    "name": "connect_01",
+    "header": "theorem connect_01 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < Stage01.H) : n < Stage02.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 83,
+    "name": "connect_02",
+    "header": "theorem connect_02 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < Stage02.H) : n < Stage03.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 99,
+    "name": "connect_03",
+    "header": "theorem connect_03 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < Stage03.H) : n < Stage04.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 115,
+    "name": "initial_to_stage04",
+    "header": "theorem initial_to_stage04 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hn109 : n < (2 : ℕ) ^ 109) : n < Stage04.H"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+    "line": 126,
+    "name": "initial_to_29294603",
+    "header": "theorem initial_to_29294603 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hn109 : n < (2 : ℕ) ^ 109) : n < 29294603"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 52,
+    "name": "grid23_cutoff",
+    "header": "theorem grid23_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 3 Stage00.H grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 65,
+    "name": "grid23_pair_check",
+    "header": "theorem grid23_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage00.H Stage00.M Stage00.upper grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 70,
+    "name": "grid25_cutoff",
+    "header": "theorem grid25_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 5 Stage00.H grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 83,
+    "name": "grid25_pair_check",
+    "header": "theorem grid25_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage00.H Stage00.M Stage00.upper grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 88,
+    "name": "grid27_cutoff",
+    "header": "theorem grid27_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 7 Stage00.H grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 101,
+    "name": "grid27_pair_check",
+    "header": "theorem grid27_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage00.H Stage00.M Stage00.upper grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 106,
+    "name": "grid35_cutoff",
+    "header": "theorem grid35_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 5 Stage00.H grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 119,
+    "name": "grid35_pair_check",
+    "header": "theorem grid35_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage00.H Stage00.M Stage00.upper grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 124,
+    "name": "grid37_cutoff",
+    "header": "theorem grid37_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 7 Stage00.H grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 137,
+    "name": "grid37_pair_check",
+    "header": "theorem grid37_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage00.H Stage00.M Stage00.upper grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 142,
+    "name": "grid57_cutoff",
+    "header": "theorem grid57_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 5 7 Stage00.H grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 155,
+    "name": "grid57_pair_check",
+    "header": "theorem grid57_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage00.H Stage00.M Stage00.upper grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 160,
+    "name": "stage00_constants",
+    "header": "theorem stage00_constants : Math.B699.I11CRTSixPair.stageConstantsCheck Stage00.H Stage00.M = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+    "line": 173,
+    "name": "stage00_pair_checks",
+    "header": "theorem stage00_pair_checks : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage00.H Stage00.M Stage00.upper stage00Data.grid23 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage00.H Stage00.M Stage00.upper stage00Data.grid25 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage00.H Stage00.M Stage00.upper stage00Data.grid27 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage00.H Stage00.M Stage00.upper stage00Data.grid35 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage00.H Stage00.M Stage00.upper stage00Data.grid37 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage00.H Stage00.M Stage00.upper stage00Data.grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 52,
+    "name": "grid23_cutoff",
+    "header": "theorem grid23_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 3 Stage01.H grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 65,
+    "name": "grid23_pair_check",
+    "header": "theorem grid23_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage01.H Stage01.M Stage01.upper grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 70,
+    "name": "grid25_cutoff",
+    "header": "theorem grid25_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 5 Stage01.H grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 83,
+    "name": "grid25_pair_check",
+    "header": "theorem grid25_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage01.H Stage01.M Stage01.upper grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 88,
+    "name": "grid27_cutoff",
+    "header": "theorem grid27_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 7 Stage01.H grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 101,
+    "name": "grid27_pair_check",
+    "header": "theorem grid27_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage01.H Stage01.M Stage01.upper grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 106,
+    "name": "grid35_cutoff",
+    "header": "theorem grid35_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 5 Stage01.H grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 119,
+    "name": "grid35_pair_check",
+    "header": "theorem grid35_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage01.H Stage01.M Stage01.upper grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 124,
+    "name": "grid37_cutoff",
+    "header": "theorem grid37_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 7 Stage01.H grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 137,
+    "name": "grid37_pair_check",
+    "header": "theorem grid37_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage01.H Stage01.M Stage01.upper grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 142,
+    "name": "grid57_cutoff",
+    "header": "theorem grid57_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 5 7 Stage01.H grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 155,
+    "name": "grid57_pair_check",
+    "header": "theorem grid57_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage01.H Stage01.M Stage01.upper grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 160,
+    "name": "stage01_constants",
+    "header": "theorem stage01_constants : Math.B699.I11CRTSixPair.stageConstantsCheck Stage01.H Stage01.M = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+    "line": 173,
+    "name": "stage01_pair_checks",
+    "header": "theorem stage01_pair_checks : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage01.H Stage01.M Stage01.upper stage01Data.grid23 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage01.H Stage01.M Stage01.upper stage01Data.grid25 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage01.H Stage01.M Stage01.upper stage01Data.grid27 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage01.H Stage01.M Stage01.upper stage01Data.grid35 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage01.H Stage01.M Stage01.upper stage01Data.grid37 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage01.H Stage01.M Stage01.upper stage01Data.grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 52,
+    "name": "grid23_cutoff",
+    "header": "theorem grid23_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 3 Stage02.H grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 65,
+    "name": "grid23_pair_check",
+    "header": "theorem grid23_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage02.H Stage02.M Stage02.upper grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 70,
+    "name": "grid25_cutoff",
+    "header": "theorem grid25_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 5 Stage02.H grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 83,
+    "name": "grid25_pair_check",
+    "header": "theorem grid25_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage02.H Stage02.M Stage02.upper grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 88,
+    "name": "grid27_cutoff",
+    "header": "theorem grid27_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 7 Stage02.H grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 101,
+    "name": "grid27_pair_check",
+    "header": "theorem grid27_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage02.H Stage02.M Stage02.upper grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 106,
+    "name": "grid35_cutoff",
+    "header": "theorem grid35_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 5 Stage02.H grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 119,
+    "name": "grid35_pair_check",
+    "header": "theorem grid35_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage02.H Stage02.M Stage02.upper grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 124,
+    "name": "grid37_cutoff",
+    "header": "theorem grid37_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 7 Stage02.H grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 137,
+    "name": "grid37_pair_check",
+    "header": "theorem grid37_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage02.H Stage02.M Stage02.upper grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 142,
+    "name": "grid57_cutoff",
+    "header": "theorem grid57_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 5 7 Stage02.H grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 155,
+    "name": "grid57_pair_check",
+    "header": "theorem grid57_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage02.H Stage02.M Stage02.upper grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 160,
+    "name": "stage02_constants",
+    "header": "theorem stage02_constants : Math.B699.I11CRTSixPair.stageConstantsCheck Stage02.H Stage02.M = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+    "line": 173,
+    "name": "stage02_pair_checks",
+    "header": "theorem stage02_pair_checks : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage02.H Stage02.M Stage02.upper stage02Data.grid23 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage02.H Stage02.M Stage02.upper stage02Data.grid25 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage02.H Stage02.M Stage02.upper stage02Data.grid27 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage02.H Stage02.M Stage02.upper stage02Data.grid35 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage02.H Stage02.M Stage02.upper stage02Data.grid37 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage02.H Stage02.M Stage02.upper stage02Data.grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 52,
+    "name": "grid23_cutoff",
+    "header": "theorem grid23_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 3 Stage03.H grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 65,
+    "name": "grid23_pair_check",
+    "header": "theorem grid23_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage03.H Stage03.M Stage03.upper grid23 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 70,
+    "name": "grid25_cutoff",
+    "header": "theorem grid25_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 5 Stage03.H grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 83,
+    "name": "grid25_pair_check",
+    "header": "theorem grid25_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage03.H Stage03.M Stage03.upper grid25 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 88,
+    "name": "grid27_cutoff",
+    "header": "theorem grid27_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 2 7 Stage03.H grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 101,
+    "name": "grid27_pair_check",
+    "header": "theorem grid27_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage03.H Stage03.M Stage03.upper grid27 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 106,
+    "name": "grid35_cutoff",
+    "header": "theorem grid35_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 5 Stage03.H grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 119,
+    "name": "grid35_pair_check",
+    "header": "theorem grid35_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage03.H Stage03.M Stage03.upper grid35 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 124,
+    "name": "grid37_cutoff",
+    "header": "theorem grid37_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 3 7 Stage03.H grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 137,
+    "name": "grid37_pair_check",
+    "header": "theorem grid37_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage03.H Stage03.M Stage03.upper grid37 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 142,
+    "name": "grid57_cutoff",
+    "header": "theorem grid57_cutoff : Math.B699.I11CRTSixPair.cutoffCheck 5 7 Stage03.H grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 155,
+    "name": "grid57_pair_check",
+    "header": "theorem grid57_pair_check : Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage03.H Stage03.M Stage03.upper grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 160,
+    "name": "stage03_constants",
+    "header": "theorem stage03_constants : Math.B699.I11CRTSixPair.stageConstantsCheck Stage03.H Stage03.M = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+    "line": 173,
+    "name": "stage03_pair_checks",
+    "header": "theorem stage03_pair_checks : Math.B699.I11CRTSixPair.pairGridCheck 2 3 Stage03.H Stage03.M Stage03.upper stage03Data.grid23 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 5 Stage03.H Stage03.M Stage03.upper stage03Data.grid25 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 2 7 Stage03.H Stage03.M Stage03.upper stage03Data.grid27 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 5 Stage03.H Stage03.M Stage03.upper stage03Data.grid35 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 3 7 Stage03.H Stage03.M Stage03.upper stage03Data.grid37 = true ∧ Math.B699.I11CRTSixPair.pairGridCheck 5 7 Stage03.H Stage03.M Stage03.upper stage03Data.grid57 = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair23/Composer.lean",
+    "line": 53,
+    "name": "rectangle_check",
+    "header": "theorem rectangle_check : rectangleCoverCheck 2 3 Stage04.H Stage04.M 24 15 cells candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair23/Composer.lean",
+    "line": 223,
+    "name": "cutoff_check",
+    "header": "theorem cutoff_check : cutoffCheck 2 3 Stage04.H pairData = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair23/Composer.lean",
+    "line": 233,
+    "name": "pair_check",
+    "header": "theorem pair_check : pairGridCoverCheck 2 3 Stage04.H Stage04.M pairData candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair25/Composer.lean",
+    "line": 53,
+    "name": "rectangle_check",
+    "header": "theorem rectangle_check : rectangleCoverCheck 2 5 Stage04.H Stage04.M 24 10 cells candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair25/Composer.lean",
+    "line": 223,
+    "name": "cutoff_check",
+    "header": "theorem cutoff_check : cutoffCheck 2 5 Stage04.H pairData = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair25/Composer.lean",
+    "line": 233,
+    "name": "pair_check",
+    "header": "theorem pair_check : pairGridCoverCheck 2 5 Stage04.H Stage04.M pairData candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair27/Composer.lean",
+    "line": 53,
+    "name": "rectangle_check",
+    "header": "theorem rectangle_check : rectangleCoverCheck 2 7 Stage04.H Stage04.M 24 8 cells candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair27/Composer.lean",
+    "line": 223,
+    "name": "cutoff_check",
+    "header": "theorem cutoff_check : cutoffCheck 2 7 Stage04.H pairData = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair27/Composer.lean",
+    "line": 233,
+    "name": "pair_check",
+    "header": "theorem pair_check : pairGridCoverCheck 2 7 Stage04.H Stage04.M pairData candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair35/Composer.lean",
+    "line": 44,
+    "name": "rectangle_check",
+    "header": "theorem rectangle_check : rectangleCoverCheck 3 5 Stage04.H Stage04.M 15 10 cells candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair35/Composer.lean",
+    "line": 151,
+    "name": "cutoff_check",
+    "header": "theorem cutoff_check : cutoffCheck 3 5 Stage04.H pairData = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair35/Composer.lean",
+    "line": 161,
+    "name": "pair_check",
+    "header": "theorem pair_check : pairGridCoverCheck 3 5 Stage04.H Stage04.M pairData candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair37/Composer.lean",
+    "line": 44,
+    "name": "rectangle_check",
+    "header": "theorem rectangle_check : rectangleCoverCheck 3 7 Stage04.H Stage04.M 15 8 cells candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair37/Composer.lean",
+    "line": 151,
+    "name": "cutoff_check",
+    "header": "theorem cutoff_check : cutoffCheck 3 7 Stage04.H pairData = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair37/Composer.lean",
+    "line": 161,
+    "name": "pair_check",
+    "header": "theorem pair_check : pairGridCoverCheck 3 7 Stage04.H Stage04.M pairData candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair57/Composer.lean",
+    "line": 39,
+    "name": "rectangle_check",
+    "header": "theorem rectangle_check : rectangleCoverCheck 5 7 Stage04.H Stage04.M 10 8 cells candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair57/Composer.lean",
+    "line": 111,
+    "name": "cutoff_check",
+    "header": "theorem cutoff_check : cutoffCheck 5 7 Stage04.H pairData = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Pair57/Composer.lean",
+    "line": 121,
+    "name": "pair_check",
+    "header": "theorem pair_check : pairGridCoverCheck 5 7 Stage04.H Stage04.M pairData candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Candidates.lean",
+    "line": 1071,
+    "name": "small_cover",
+    "header": "theorem small_cover : coverCheck 24 500 candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Generic.lean",
+    "line": 17,
+    "name": "intervals_sound_nil",
+    "header": "theorem intervals_sound_nil : IntervalsSound []"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Generic.lean",
+    "line": 21,
+    "name": "intervals_sound_cons",
+    "header": "theorem intervals_sound_cons {I : NatInterval} {intervals : List NatInterval} (hI : IntervalSound I) (htail : IntervalsSound intervals) : IntervalsSound (I :: intervals)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Generic.lean",
+    "line": 29,
+    "name": "intervals_sound_append",
+    "header": "theorem intervals_sound_append {left right : List NatInterval} (hl : IntervalsSound left) (hr : IntervalsSound right) : IntervalsSound (left ++ right)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Generic.lean",
+    "line": 37,
+    "name": "interval_sound_of_witness_checks",
+    "header": "theorem interval_sound_of_witness_checks {witnesses : List Witness} {lo hi : ℕ} (hchecks : witnessesCheck witnesses = true) (hcover : coverCheck lo hi (witnessIntervals witnesses) = true) : IntervalSound (lo, hi)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Generic.lean",
+    "line": 45,
+    "name": "interval_sound_of_interval_cover",
+    "header": "theorem interval_sound_of_interval_cover {intervals : List NatInterval} {lo hi : ℕ} (hsound : IntervalsSound intervals) (hcover : coverCheck lo hi intervals = true) : IntervalSound (lo, hi)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Generic.lean",
+    "line": 52,
+    "name": "intervals_sound_congr",
+    "header": "theorem intervals_sound_congr {left right : List NatInterval} (h : left = right) (hl : IntervalsSound left) : IntervalsSound right"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Generic.lean",
+    "line": 57,
+    "name": "common_of_sound_candidates",
+    "header": "theorem common_of_sound_candidates {intervals : List NatInterval} {n j : ℕ} (hsound : IntervalsSound intervals) (hmem : candidateMem n intervals) (hij : 11 < j) (hjn : j ≤ n / 2) : Common n 11 j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Assembly.lean",
+    "line": 404,
+    "name": "allIntervals_sound",
+    "header": "theorem allIntervals_sound : IntervalsSound allIntervals"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Assembly.lean",
+    "line": 409,
+    "name": "original_candidates_eq",
+    "header": "theorem original_candidates_eq : originalCandidates = allIntervals"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Assembly.lean",
+    "line": 413,
+    "name": "candidate_count",
+    "header": "theorem candidate_count : allIntervals.length = 1055"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Assembly.lean",
+    "line": 416,
+    "name": "originalCandidates_sound",
+    "header": "theorem originalCandidates_sound : IntervalsSound originalCandidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Assembly.lean",
+    "line": 420,
+    "name": "common_of_original_candidates",
+    "header": "theorem common_of_original_candidates {n j : ℕ} (hmem : candidateMem n originalCandidates) (hij : 11 < j) (hjn : j ≤ n / 2) : Common n 11 j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Assembly.lean",
+    "line": 426,
+    "name": "prime_of_original_candidates",
+    "header": "theorem prime_of_original_candidates {n j : ℕ} (hmem : candidateMem n originalCandidates) (hij : 11 < j) (hjn : j ≤ n / 2) : ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.gcd (n.choose 11) (n.choose j)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Final.lean",
+    "line": 12,
+    "name": "actual_i11_terminal_membership",
+    "header": "theorem actual_i11_terminal_membership (data : SixPairGrids) {n j H M : ℕ} {cs : List NatInterval} (hconstants : stageConstantsCheck H M = true) (check23 : pairGridCoverCheck 2 3 H M data.grid23 (extendedCandidates cs) = true) (check25 : pairGridCoverCheck 2 5 H M data.grid25 (extendedCandidates cs) = true) (check27 : pairGridCoverCheck 2 7 H M data.grid27 (extendedCandidates cs) = true) (check35 : pairGridCoverCheck 3 5 H M data.grid35 (extendedCandidates cs) = true) (check37 : pairGridCoverCheck 3 7 H M data.grid37 (extendedCandidates cs) = true) (check57 : pairGridCoverCheck 5 7 H M data.grid57 (extendedCandidates cs) = true) (hsmall : coverCheck 24 (max M 109) (extendedCandidates cs) = true) (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < H) : candidateMem n cs"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Final.lean",
+    "line": 30,
+    "name": "terminal_common_of_extended_checks",
+    "header": "theorem terminal_common_of_extended_checks (data : SixPairGrids) {n j H M : ℕ} {cs : List NatInterval} {witnesses : List Witness} (hconstants : stageConstantsCheck H M = true) (check23 : pairGridCoverCheck 2 3 H M data.grid23 (extendedCandidates cs) = true) (check25 : pairGridCoverCheck 2 5 H M data.grid25 (extendedCandidates cs) = true) (check27 : pairGridCoverCheck 2 7 H M data.grid27 (extendedCandidates cs) = true) (check35 : pairGridCoverCheck 3 5 H M data.grid35 (extendedCandidates cs) = true) (check37 : pairGridCoverCheck 3 7 H M data.grid37 (extendedCandidates cs) = true) (check57 : pairGridCoverCheck 5 7 H M data.grid57 (extendedCandidates cs) = true) (hsmall : coverCheck 24 (max M 109) (extendedCandidates cs) = true) (hwitness : candidateIntervalsCheck cs witnesses = true) (hij : 11 < j) (hjn : j ≤ n / 2) (hnH : n < H) : Common n 11 j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Final.lean",
+    "line": 49,
+    "name": "terminal_common_of_original_small_cover",
+    "header": "theorem terminal_common_of_original_small_cover (data : SixPairGrids) {n j H M : ℕ} {cs : List NatInterval} {witnesses : List Witness} (hconstants : stageConstantsCheck H M = true) (check23 : pairGridCoverCheck 2 3 H M data.grid23 (extendedCandidates cs) = true) (check25 : pairGridCoverCheck 2 5 H M data.grid25 (extendedCandidates cs) = true) (check27 : pairGridCoverCheck 2 7 H M data.grid27 (extendedCandidates cs) = true) (check35 : pairGridCoverCheck 3 5 H M data.grid35 (extendedCandidates cs) = true) (check37 : pairGridCoverCheck 3 7 H M data.grid37 (extendedCandidates cs) = true) (check57 : pairGridCoverCheck 5 7 H M data.grid57 (extendedCandidates cs) = true) (hsmall : coverCheck 24 (max M 109) cs = true) (hwitness : candidateIntervalsCheck cs witnesses = true) (hij : 11 < j) (hjn : j ≤ n / 2) (hnH : n < H) : Common n 11 j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Extended.lean",
+    "line": 12,
+    "name": "legal_n_ge24",
+    "header": "theorem legal_n_ge24 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) : 24 ≤ n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Extended.lean",
+    "line": 15,
+    "name": "candidateMem_extended",
+    "header": "theorem candidateMem_extended {n : ℕ} {cs : List NatInterval} (hmember : candidateMem n cs) : candidateMem n (extendedCandidates cs)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Extended.lean",
+    "line": 20,
+    "name": "candidateMem_of_extended_ge24",
+    "header": "theorem candidateMem_of_extended_ge24 {n : ℕ} {cs : List NatInterval} (hmember : candidateMem n (extendedCandidates cs)) (hn : 24 ≤ n) : candidateMem n cs"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Extended.lean",
+    "line": 30,
+    "name": "candidateMem_of_extended_legal",
+    "header": "theorem candidateMem_of_extended_legal {n j : ℕ} {cs : List NatInterval} (hmember : candidateMem n (extendedCandidates cs)) (hij : 11 < j) (hjn : j ≤ n / 2) : candidateMem n cs"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Extended.lean",
+    "line": 37,
+    "name": "smallCoverCheck_extended",
+    "header": "theorem smallCoverCheck_extended (M : ℕ) (cs : List NatInterval) : coverCheck 24 (max M 109) (extendedCandidates cs) = coverCheck 24 (max M 109) cs"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Actual.lean",
+    "line": 13,
+    "name": "actual_i11_candidateMem",
+    "header": "theorem actual_i11_candidateMem (data : SixPairGrids) {n j H M : ℕ} {candidates : List NatInterval} (hconstants : stageConstantsCheck H M = true) (check23 : pairGridCoverCheck 2 3 H M data.grid23 candidates = true) (check25 : pairGridCoverCheck 2 5 H M data.grid25 candidates = true) (check27 : pairGridCoverCheck 2 7 H M data.grid27 candidates = true) (check35 : pairGridCoverCheck 3 5 H M data.grid35 candidates = true) (check37 : pairGridCoverCheck 3 7 H M data.grid37 candidates = true) (check57 : pairGridCoverCheck 5 7 H M data.grid57 candidates = true) (hsmall : coverCheck 24 (max M 109) candidates = true) (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < H) : candidateMem n candidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Actual.lean",
+    "line": 45,
+    "name": "common_of_terminal_grid_checks",
+    "header": "theorem common_of_terminal_grid_checks (data : SixPairGrids) {n j H M : ℕ} {candidates : List NatInterval} {witnesses : List Witness} (hconstants : stageConstantsCheck H M = true) (check23 : pairGridCoverCheck 2 3 H M data.grid23 candidates = true) (check25 : pairGridCoverCheck 2 5 H M data.grid25 candidates = true) (check27 : pairGridCoverCheck 2 7 H M data.grid27 candidates = true) (check35 : pairGridCoverCheck 3 5 H M data.grid35 candidates = true) (check37 : pairGridCoverCheck 3 7 H M data.grid37 candidates = true) (check57 : pairGridCoverCheck 5 7 H M data.grid57 candidates = true) (hsmall : coverCheck 24 (max M 109) candidates = true) (hwitness : candidateIntervalsCheck candidates witnesses = true) (hij : 11 < j) (hjn : j ≤ n / 2) (hnH : n < H) : Common n 11 j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Dispatch.lean",
+    "line": 12,
+    "name": "distinct_pair_windows_candidateMem",
+    "header": "theorem distinct_pair_windows_candidateMem (data : SixPairGrids) {H M : ℕ} {candidates : List NatInterval} (check23 : pairGridCoverCheck 2 3 H M data.grid23 candidates = true) (check25 : pairGridCoverCheck 2 5 H M data.grid25 candidates = true) (check27 : pairGridCoverCheck 2 7 H M data.grid27 candidates = true) (check35 : pairGridCoverCheck 3 5 H M data.grid35 candidates = true) (check37 : pairGridCoverCheck 3 7 H M data.grid37 candidates = true) (check57 : pairGridCoverCheck 5 7 H M data.grid57 candidates = true) {p q n r s h k A C : ℕ} (hpMem : p ∈ ({2, 3, 5, 7} : Finset ℕ)) (hqMem : q ∈ ({2, 3, 5, 7} : Finset ℕ)) (hpq : p ≠ q) (hnH : n < H) (hr : r < 11) (hs : s < 11) (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ h * A) (hQ : n - s = q ^ k * C) : candidateMem n candidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Pair.lean",
+    "line": 17,
+    "name": "pairGridCoverCheck_of_parts",
+    "header": "theorem pairGridCoverCheck_of_parts {p q H M : ℕ} {data : PairGridData} {candidates : List NatInterval} (hc : cutoffCheck p q H data = true) (hg : rectangleCoverCheck p q H M data.amax data.bmax data.cells candidates = true) : pairGridCoverCheck p q H M data candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Pair.lean",
+    "line": 25,
+    "name": "pairGridCoverCheck_windows",
+    "header": "theorem pairGridCoverCheck_windows {p q H M n r s h k A C : ℕ} {data : PairGridData} {candidates : List NatInterval} (hcheck : pairGridCoverCheck p q H M data candidates = true) (hnH : n < H) (hr : r < 11) (hs : s < 11) (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ h * A) (hQ : n - s = q ^ k * C) : candidateMem n candidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Pair.lean",
+    "line": 37,
+    "name": "pairGridCoverCheck_windows_swapped",
+    "header": "theorem pairGridCoverCheck_windows_swapped {p q H M n r s h k A C : ℕ} {data : PairGridData} {candidates : List NatInterval} (hcheck : pairGridCoverCheck p q H M data candidates = true) (hnH : n < H) (hr : r < 11) (hs : s < 11) (hh : 1 ≤ h) (hk : 1 ≤ k) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = q ^ h * A) (hQ : n - s = p ^ k * C) : candidateMem n candidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Block.lean",
+    "line": 22,
+    "name": "blockCoverCheck_cell",
+    "header": "theorem blockCoverCheck_cell {p q H M aStart aCount bStart bCount a b : ℕ} {data : ℕ → ℕ → CellData} {candidates : List NatInterval} (hcheck : blockCoverCheck p q H M aStart aCount bStart bCount data candidates = true) (ha0 : aStart ≤ a) (ha1 : a < aStart + aCount) (hb0 : bStart ≤ b) (hb1 : b < bStart + bCount) : cellCoverCheck (p ^ a) (q ^ b) (heightCap H M (p ^ a)) (heightCap H M (q ^ b)) (data a b) candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Block.lean",
+    "line": 34,
+    "name": "blockCoverCheck_append_rows",
+    "header": "theorem blockCoverCheck_append_rows {p q H M aStart leftCount rightCount bStart bCount : ℕ} {data : ℕ → ℕ → CellData} {candidates : List NatInterval} (hl : blockCoverCheck p q H M aStart leftCount bStart bCount data candidates = true) (hr : blockCoverCheck p q H M (aStart + leftCount) rightCount bStart bCount data candidates = true) : blockCoverCheck p q H M aStart (leftCount + rightCount) bStart bCount data candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Block.lean",
+    "line": 44,
+    "name": "blockCoverCheck_append_columns",
+    "header": "theorem blockCoverCheck_append_columns {p q H M aStart aCount bStart leftCount rightCount : ℕ} {data : ℕ → ℕ → CellData} {candidates : List NatInterval} (hl : blockCoverCheck p q H M aStart aCount bStart leftCount data candidates = true) (hr : blockCoverCheck p q H M aStart aCount (bStart + leftCount) rightCount data candidates = true) : blockCoverCheck p q H M aStart aCount bStart (leftCount + rightCount) data candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Block.lean",
+    "line": 57,
+    "name": "blockCoverCheck_transfer_data",
+    "header": "theorem blockCoverCheck_transfer_data {p q H M aStart aCount bStart bCount : ℕ} {data data' : ℕ → ℕ → CellData} {candidates : List NatInterval} (hcheck : blockCoverCheck p q H M aStart aCount bStart bCount data candidates = true) (hdata : ∀ a, aStart ≤ a → a < aStart + aCount → ∀ b, bStart ≤ b → b < bStart + bCount → data a b = data' a b) : blockCoverCheck p q H M aStart aCount bStart bCount data' candidates = true"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/RowCell.lean",
+    "line": 33,
+    "name": "parameter_mem",
+    "header": "theorem parameter_mem {bounds : BoundsDatum} {t : ℤ} (ht : 0 ≤ t) (hlo : bounds.lo ≤ t) (hhi : t ≤ bounds.hi) : t.toNat ∈ parameters bounds"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/RowCell.lean",
+    "line": 40,
+    "name": "rowCoverCheck_sound",
+    "header": "theorem rowCoverCheck_sound {P Q v capA capC A C n : ℕ} {d : ℤ} {bounds : BoundsDatum} {candidates : List NatInterval} (hcheck : rowCoverCheck P Q v capA capC d bounds candidates = true) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC) (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d) (hnlo : max (P * A) (Q * C) ≤ n) (hnhi : n ≤ min (P * A) (Q * C) + 10) : candidateMem n candidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/RowCell.lean",
+    "line": 66,
+    "name": "cellCoverCheck_sound",
+    "header": "theorem cellCoverCheck_sound {P Q capA capC A C n : ℕ} {d : ℤ} {data : CellData} {candidates : List NatInterval} (hcheck : cellCoverCheck P Q capA capC data candidates = true) (hdlo : -10 ≤ d) (hdhi : d ≤ 10) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC) (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d) (hnlo : max (P * A) (Q * C) ≤ n) (hnhi : n ≤ min (P * A) (Q * C) + 10) : candidateMem n candidates"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/RowCell.lean",
+    "line": 78,
+    "name": "candidateMem_mono",
+    "header": "theorem candidateMem_mono {small large : List NatInterval} {n : ℕ} (hsub : ∀ I, I ∈ small → I ∈ large) (hm : candidateMem n small) : candidateMem n large"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 17,
+    "name": "cap_positive",
+    "header": "theorem cap_positive : 1 ≤ M"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 18,
+    "name": "cofactor_certificate",
+    "header": "theorem cofactor_certificate : (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 22,
+    "name": "cutoff_2",
+    "header": "theorem cutoff_2 : H ≤ (2 : ℕ) ^ (exponentMax2 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 25,
+    "name": "cutoff_3",
+    "header": "theorem cutoff_3 : H ≤ (3 : ℕ) ^ (exponentMax3 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 28,
+    "name": "cutoff_5",
+    "header": "theorem cutoff_5 : H ≤ (5 : ℕ) ^ (exponentMax5 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 31,
+    "name": "cutoff_7",
+    "header": "theorem cutoff_7 : H ≤ (7 : ℕ) ^ (exponentMax7 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 39,
+    "name": "cap_positive",
+    "header": "theorem cap_positive : 1 ≤ M"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 40,
+    "name": "cofactor_certificate",
+    "header": "theorem cofactor_certificate : (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 44,
+    "name": "cutoff_2",
+    "header": "theorem cutoff_2 : H ≤ (2 : ℕ) ^ (exponentMax2 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 47,
+    "name": "cutoff_3",
+    "header": "theorem cutoff_3 : H ≤ (3 : ℕ) ^ (exponentMax3 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 50,
+    "name": "cutoff_5",
+    "header": "theorem cutoff_5 : H ≤ (5 : ℕ) ^ (exponentMax5 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 53,
+    "name": "cutoff_7",
+    "header": "theorem cutoff_7 : H ≤ (7 : ℕ) ^ (exponentMax7 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 61,
+    "name": "cap_positive",
+    "header": "theorem cap_positive : 1 ≤ M"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 62,
+    "name": "cofactor_certificate",
+    "header": "theorem cofactor_certificate : (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 66,
+    "name": "cutoff_2",
+    "header": "theorem cutoff_2 : H ≤ (2 : ℕ) ^ (exponentMax2 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 69,
+    "name": "cutoff_3",
+    "header": "theorem cutoff_3 : H ≤ (3 : ℕ) ^ (exponentMax3 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 72,
+    "name": "cutoff_5",
+    "header": "theorem cutoff_5 : H ≤ (5 : ℕ) ^ (exponentMax5 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 75,
+    "name": "cutoff_7",
+    "header": "theorem cutoff_7 : H ≤ (7 : ℕ) ^ (exponentMax7 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 83,
+    "name": "cap_positive",
+    "header": "theorem cap_positive : 1 ≤ M"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 84,
+    "name": "cofactor_certificate",
+    "header": "theorem cofactor_certificate : (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 88,
+    "name": "cutoff_2",
+    "header": "theorem cutoff_2 : H ≤ (2 : ℕ) ^ (exponentMax2 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 91,
+    "name": "cutoff_3",
+    "header": "theorem cutoff_3 : H ≤ (3 : ℕ) ^ (exponentMax3 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 94,
+    "name": "cutoff_5",
+    "header": "theorem cutoff_5 : H ≤ (5 : ℕ) ^ (exponentMax5 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 97,
+    "name": "cutoff_7",
+    "header": "theorem cutoff_7 : H ≤ (7 : ℕ) ^ (exponentMax7 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 105,
+    "name": "cap_positive",
+    "header": "theorem cap_positive : 1 ≤ M"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 106,
+    "name": "cofactor_certificate",
+    "header": "theorem cofactor_certificate : (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 110,
+    "name": "cutoff_2",
+    "header": "theorem cutoff_2 : H ≤ (2 : ℕ) ^ (exponentMax2 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 113,
+    "name": "cutoff_3",
+    "header": "theorem cutoff_3 : H ≤ (3 : ℕ) ^ (exponentMax3 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 116,
+    "name": "cutoff_5",
+    "header": "theorem cutoff_5 : H ≤ (5 : ℕ) ^ (exponentMax5 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 119,
+    "name": "cutoff_7",
+    "header": "theorem cutoff_7 : H ≤ (7 : ℕ) ^ (exponentMax7 + 1)"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 123,
+    "name": "initial_height",
+    "header": "theorem initial_height : Stage00.H = (2 : ℕ) ^ 109"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 124,
+    "name": "next_height_00",
+    "header": "theorem next_height_00 : Stage01.H = Stage00.upper + 1"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 125,
+    "name": "next_height_01",
+    "header": "theorem next_height_01 : Stage02.H = Stage01.upper + 1"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 126,
+    "name": "next_height_02",
+    "header": "theorem next_height_02 : Stage03.H = Stage02.upper + 1"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+    "line": 127,
+    "name": "next_height_03",
+    "header": "theorem next_height_03 : Stage04.H = Stage03.upper + 1"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStep/ActualStep.lean",
+    "line": 19,
+    "name": "stageConstantsCheck_spec",
+    "header": "theorem stageConstantsCheck_spec (H M : ℕ) : stageConstantsCheck H M = true ↔ 1 ≤ M ∧ (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStep/ActualStep.lean",
+    "line": 25,
+    "name": "actual_i11_step",
+    "header": "theorem actual_i11_step (data : SixPairGrids) {n j H M T : ℕ} (hconstants : stageConstantsCheck H M = true) (check23 : pairGridCheck 2 3 H M T data.grid23 = true) (check25 : pairGridCheck 2 5 H M T data.grid25 = true) (check27 : pairGridCheck 2 7 H M T data.grid27 = true) (check35 : pairGridCheck 3 5 H M T data.grid35 = true) (check37 : pairGridCheck 3 7 H M T data.grid37 = true) (check57 : pairGridCheck 5 7 H M T data.grid57 = true) (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < H) : n ≤ stageBound M T"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStep/ActualStep.lean",
+    "line": 56,
+    "name": "actual_i11_next_height",
+    "header": "theorem actual_i11_next_height (data : SixPairGrids) {n j H M T : ℕ} (hconstants : stageConstantsCheck H M = true) (check23 : pairGridCheck 2 3 H M T data.grid23 = true) (check25 : pairGridCheck 2 5 H M T data.grid25 = true) (check27 : pairGridCheck 2 7 H M T data.grid27 = true) (check35 : pairGridCheck 3 5 H M T data.grid35 = true) (check37 : pairGridCheck 3 7 H M T data.grid37 = true) (check57 : pairGridCheck 5 7 H M T data.grid57 = true) (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < H) : n < nextHeight M T"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Component/ActualInstance.lean",
+    "line": 16,
+    "name": "q_lambda_eq",
+    "header": "theorem q_lambda_eq : Math.B699.I11FiveThreeGrowth.Shared.qLam = qLambda"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Component/ActualInstance.lean",
+    "line": 17,
+    "name": "e_lambda_eq",
+    "header": "theorem e_lambda_eq : Math.B699.I11FiveThreeGrowth.Shared.eLam = eLambda"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Component/ActualInstance.lean",
+    "line": 19,
+    "name": "row_delta_false",
+    "header": "theorem row_delta_false : rowDelta false = 1"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Component/ActualInstance.lean",
+    "line": 20,
+    "name": "row_delta_true",
+    "header": "theorem row_delta_true : rowDelta true = 0"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Component/ActualInstance.lean",
+    "line": 22,
+    "name": "actual_q_tree_family",
+    "header": "theorem actual_q_tree_family (row : Bool) : GrowthTree qLambda (qWeight 5 3 (rowDelta row) (1 / 4375)) (qCore 5 3 (1 / 4375))"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Component/ActualInstance.lean",
+    "line": 42,
+    "name": "actual_e_tree_family",
+    "header": "theorem actual_e_tree_family (row : Bool) : GrowthTree eLambda (eWeight 5 3 (rowDelta row) (1 / 4375)) (eCore 5 3 (1 / 4375))"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Component/ActualInstance.lean",
+    "line": 64,
+    "name": "actual_five_three_component_edge",
+    "header": "theorem actual_five_three_component_edge {n : ℕ} (hn : (2 : ℕ) ^ 15360 ≤ n) : (primeComponent n 5) ^ 1000 * ((n + 1) / 2) ^ 354 ≤ n ^ 1000 ∨ (primeComponent n 3) ^ 1000 * ((n + 1) / 2) ^ 228 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TwoFiveFinal/Component.lean",
+    "line": 17,
+    "name": "integer_window_gap_le_ten",
+    "header": "theorem integer_window_gap_le_ten {n a b : ℕ} (ha : a < 11) (hb : b < 11) : |((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ)| ≤ 10"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TwoFiveFinal/Component.lean",
+    "line": 22,
+    "name": "actual_window_power_bounds",
+    "header": "theorem actual_window_power_bounds {n p : ℕ} (hn : 20 ≤ n) (window : PrimeWindow n p) : ceilHalf n ≤ p ^ ((n.choose 11).factorization p) * window.cofactor ∧ p ^ ((n.choose 11).factorization p) * window.cofactor ≤ 2 * ceilHalf n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TwoFiveFinal/Component.lean",
+    "line": 29,
+    "name": "component_edge_of_actual_windows",
+    "header": "theorem component_edge_of_actual_windows {n : ℕ} (hn : 20 ≤ n) (hY : twoFiveY0 ≤ ceilHalf n) (wp : PrimeWindow n 2) (wq : PrimeWindow n 5) : (primeComponent n 2) ^ 1000 * (ceilHalf n) ^ 248 ≤ n ^ 1000 ∨ (primeComponent n 5) ^ 1000 * (ceilHalf n) ^ 252 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TwoFiveFinal/Component.lean",
+    "line": 59,
+    "name": "actual_two_five_component_edge",
+    "header": "theorem actual_two_five_component_edge {n : ℕ} (hn : (2 : ℕ) ^ 15360 ≤ n) : (primeComponent n 2) ^ 1000 * ((n + 1) / 2) ^ 248 ≤ n ^ 1000 ∨ (primeComponent n 5) ^ 1000 * ((n + 1) / 2) ^ 252 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SevenTwoFinal/Component.lean",
+    "line": 13,
+    "name": "integer_window_gap_le_ten",
+    "header": "theorem integer_window_gap_le_ten {n a b : ℕ} (ha : a < 11) (hb : b < 11) : |((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ)| ≤ 10"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SevenTwoFinal/Component.lean",
+    "line": 18,
+    "name": "actual_window_power_bounds",
+    "header": "theorem actual_window_power_bounds {n p : ℕ} (hn : 20 ≤ n) (window : PrimeWindow n p) : ceilHalf n ≤ p ^ ((n.choose 11).factorization p) * window.cofactor ∧ p ^ ((n.choose 11).factorization p) * window.cofactor ≤ 2 * ceilHalf n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SevenTwoFinal/Component.lean",
+    "line": 25,
+    "name": "component_edge_of_actual_windows",
+    "header": "theorem component_edge_of_actual_windows {n : ℕ} (hn : 20 ≤ n) (hY : sevenTwoY0 ≤ ceilHalf n) (wp : PrimeWindow n 7) (wq : PrimeWindow n 2) : (primeComponent n 7) ^ 1000 * (ceilHalf n) ^ 60 ≤ n ^ 1000 ∨ (primeComponent n 2) ^ 1000 * (ceilHalf n) ^ 330 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11SevenTwoFinal/Component.lean",
+    "line": 55,
+    "name": "actual_seven_two_component_edge",
+    "header": "theorem actual_seven_two_component_edge {n : ℕ} (hn : (2 : ℕ) ^ 15360 ≤ n) : (primeComponent n 7) ^ 1000 * ((n + 1) / 2) ^ 60 ≤ n ^ 1000 ∨ (primeComponent n 2) ^ 1000 * ((n + 1) / 2) ^ 330 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11ThreeTwoFinal/Component.lean",
+    "line": 15,
+    "name": "integer_window_gap_le_ten",
+    "header": "theorem integer_window_gap_le_ten {n a b : ℕ} (ha : a < 11) (hb : b < 11) : |((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ)| ≤ 10"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11ThreeTwoFinal/Component.lean",
+    "line": 20,
+    "name": "actual_window_power_bounds",
+    "header": "theorem actual_window_power_bounds {n p : ℕ} (hn : 20 ≤ n) (window : PrimeWindow n p) : ceilHalf n ≤ p ^ ((n.choose 11).factorization p) * window.cofactor ∧ p ^ ((n.choose 11).factorization p) * window.cofactor ≤ 2 * ceilHalf n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11ThreeTwoFinal/Component.lean",
+    "line": 27,
+    "name": "component_edge_of_actual_windows",
+    "header": "theorem component_edge_of_actual_windows {n : ℕ} (hn : 20 ≤ n) (hY : threeTwoY0 ≤ ceilHalf n) (wp : PrimeWindow n 3) (wq : PrimeWindow n 2) : (primeComponent n 3) ^ 1000 * (ceilHalf n) ^ 226 ≤ n ^ 1000 ∨ (primeComponent n 2) ^ 1000 * (ceilHalf n) ^ 268 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11ThreeTwoFinal/Component.lean",
+    "line": 57,
+    "name": "actual_three_two_component_edge",
+    "header": "theorem actual_three_two_component_edge {n : ℕ} (hn : (2 : ℕ) ^ 15360 ≤ n) : (primeComponent n 3) ^ 1000 * ((n + 1) / 2) ^ 226 ≤ n ^ 1000 ∨ (primeComponent n 2) ^ 1000 * ((n + 1) / 2) ^ 268 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11FiveSevenFinal/Component.lean",
+    "line": 15,
+    "name": "integer_window_gap_le_ten",
+    "header": "theorem integer_window_gap_le_ten {n a b : ℕ} (ha : a < 11) (hb : b < 11) : |((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ)| ≤ 10"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11FiveSevenFinal/Component.lean",
+    "line": 20,
+    "name": "actual_window_power_bounds",
+    "header": "theorem actual_window_power_bounds {n p : ℕ} (hn : 20 ≤ n) (window : PrimeWindow n p) : ceilHalf n ≤ p ^ ((n.choose 11).factorization p) * window.cofactor ∧ p ^ ((n.choose 11).factorization p) * window.cofactor ≤ 2 * ceilHalf n"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11FiveSevenFinal/Component.lean",
+    "line": 27,
+    "name": "component_edge_of_actual_windows",
+    "header": "theorem component_edge_of_actual_windows {n : ℕ} (hn : 20 ≤ n) (hY : fiveSevenY0 ≤ ceilHalf n) (wp : PrimeWindow n 5) (wq : PrimeWindow n 7) : (primeComponent n 5) ^ 1000 * (ceilHalf n) ^ 352 ≤ n ^ 1000 ∨ (primeComponent n 7) ^ 1000 * (ceilHalf n) ^ 216 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11FiveSevenFinal/Component.lean",
+    "line": 57,
+    "name": "actual_five_seven_component_edge",
+    "header": "theorem actual_five_seven_component_edge {n : ℕ} (hn : (2 : ℕ) ^ 15360 ≤ n) : (primeComponent n 5) ^ 1000 * ((n + 1) / 2) ^ 352 ≤ n ^ 1000 ∨ (primeComponent n 7) ^ 1000 * ((n + 1) / 2) ^ 216 ≤ n ^ 1000"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11WeightedProduct/Tail.lean",
+    "line": 22,
+    "name": "arithmetic_tail_power_bound",
+    "header": "theorem arithmetic_tail_power_bound {n Y U C : ℕ} (hn : 0 < n) (hnY : n ≤ 2 * Y) (hbase : n ^ 121 ≤ C * U ^ 11 * n ^ 84) (hproduct : U ^ 1000 * Y ^ 640 ≤ n ^ 4000) : n ^ 40 ≤ C ^ 1000 * 2 ^ 7040"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11WeightedProduct/Tail.lean",
+    "line": 55,
+    "name": "i11_factorial_tail_constant_lt",
+    "header": "theorem i11_factorial_tail_constant_lt : ((2 * Nat.factorial 11) ^ 11) ^ 1000 * 2 ^ 7040 < (2 : ℕ) ^ 304040"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11WeightedProduct/Tail.lean",
+    "line": 71,
+    "name": "i11_noCommon_false_of_product",
+    "header": "theorem i11_noCommon_false_of_product {n j Y : ℕ} (hheight : (2 : ℕ) ^ 15360 ≤ n) (hij : 11 < j) (hjn : j ≤ n / 2) (hnY : n ≤ 2 * Y) (hproduct : (smallPrimePart n 11) ^ 1000 * Y ^ 640 ≤ n ^ 4000) (hno : ¬ Common n 11 j) : False"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CubicBatches/ActualCompression.lean",
+    "line": 26,
+    "name": "actual_i11_below_109_of_initial_height",
+    "header": "theorem actual_i11_below_109_of_initial_height {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j) (hnH : n < (2 : ℕ) ^ 15360) : n < (2 : ℕ) ^ 109"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/HuanAllA.lean",
+    "line": 155,
+    "name": "original_i029",
+    "header": "theorem original_i029 : ∀ n j : ℕ, 1 ≤ 29 ∧ 29 < j ∧ j ≤ n / 2 → ∃ p : ℕ, p.Prime ∧ 29 ≤ p ∧ p ∣ Nat.choose n 29 ∧ p ∣ Nat.choose n j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/HuanAllA.lean",
+    "line": 160,
+    "name": "original_i035",
+    "header": "theorem original_i035 : ∀ n j : ℕ, 1 ≤ 35 ∧ 35 < j ∧ j ≤ n / 2 → ∃ p : ℕ, p.Prime ∧ 35 ≤ p ∧ p ∣ Nat.choose n 35 ∧ p ∣ Nat.choose n j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "line": 13,
+    "name": "common_of_mod_certificate",
+    "header": "theorem common_of_mod_certificate {n i j p ei ej : ℕ} (hp : p.Prime) (hpi : i ≤ p) (hin : i ≤ n) (hjn : j ≤ n) (hei : 1 ≤ ei) (hej : 1 ≤ ej) (hmi : n % p ^ ei < i % p ^ ei) (hmj : n % p ^ ej < j % p ^ ej) : Common n i j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "line": 23,
+    "name": "gap_remainder_eq",
+    "header": "theorem gap_remainder_eq {j d a Q : ℕ} (haQ : a < Q) (hsize : d + a < Q) (hnmod : (2 * j + d) % Q = a) (hb : j % Q ≤ a) : d + 2 * (j % Q) = a"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "line": 38,
+    "name": "common_of_gap_power",
+    "header": "theorem common_of_gap_power {n i j d a p e : ℕ} (hij : i < j) (hnj : n = 2 * j + d) (ha : a < i) (hp : p.Prime) (hpi : i ≤ p) (he : 1 ≤ e) (hiQ : i < p ^ e) (hnmod : n % p ^ e = a) (hsize : d + a < p ^ e) (hsep : a < d ∨ Odd (d + a)) : Common n i j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "line": 61,
+    "name": "common_of_gap_prime",
+    "header": "theorem common_of_gap_prime {n i j d a p : ℕ} (_hi : 1 ≤ i) (hij : i < j) (hnj : n = 2 * j + d) (ha : a < i) (hp : p.Prime) (hip : i < p) (hpdvd : p ∣ n - a) (hsize : d + a < p) (hpar : a < d ∨ Odd (n - a)) : Common n i j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "line": 81,
+    "name": "common_of_top_prime",
+    "header": "theorem common_of_top_prime {n i j p : ℕ} (_hi : 1 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hp : p.Prime) (hlo : n - i < p) (hpn : p ≤ n) : Common n i j"
+  },
+  {
+    "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+    "line": 96,
+    "name": "common_small_index",
+    "header": "theorem common_small_index {n i j : ℕ} (hi : 1 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hi2 : i ≤ 2) : Common n i j"
+  }
+]

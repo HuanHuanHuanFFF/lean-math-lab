@@ -1,0 +1,30 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.ZeroBoundaryLogSeparation.Pilots
+
+#print axioms Math.B699.ZeroBoundaryLogSeparation.approximationCheck_sound
+#print axioms Math.B699.ZeroBoundaryLogSeparation.integer_strip_separation
+#print axioms Math.B699.ZeroBoundaryLogSeparation.nonresonantCheck_sound
+#print axioms Math.B699.ZeroBoundaryLogSeparation.determinant_ne_zero
+#print axioms Math.B699.ZeroBoundaryLogSeparation.resonantCheck_sound
+#print axioms Math.B699.ZeroBoundaryLogSeparation.zero_first_coordinate_separation
+#print axioms Math.B699.ZeroBoundaryLogSeparation.shifted_form_eq
+#print axioms Math.B699.ZeroBoundaryLogSeparation.resonant_shift_sound
+#print axioms Math.B699.ZeroBoundaryLogSeparation.signed_shift_bound
+#print axioms Math.B699.ZeroBoundaryLogSeparation.new_height_shift_fits_old_budget
+#print axioms Math.B699.ZeroBoundaryLogSeparation.alpha23_box_check
+#print axioms Math.B699.ZeroBoundaryLogSeparation.betaFive_box_check
+#print axioms Math.B699.ZeroBoundaryLogSeparation.half_lt_logThreeLower
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_nonresonant_check
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_resonant_check
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_nonresonant_abstract
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_resonant_abstract
+#print axioms Math.B699.ZeroBoundaryLogSeparation.alpha23_log_bounds
+#print axioms Math.B699.ZeroBoundaryLogSeparation.betaFive_log_bounds
+#print axioms Math.B699.ZeroBoundaryLogSeparation.half_lt_log_three
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_five_distance
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_one_distance
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_five_linear_form
+#print axioms Math.B699.ZeroBoundaryLogSeparation.pilot_one_linear_form
+#print axioms Math.B699.ZeroBoundaryLogSeparation.quotientBoxCheck_sound
+#print axioms Math.B699.ZeroBoundaryLogSeparation.scaled_separation
+#print axioms Math.B699.ZeroBoundaryLogSeparation.normalized_form_eq
+#print axioms Math.B699.ZeroBoundaryLogSeparation.zero_first_coordinate_small_n

@@ -1,0 +1,19 @@
+{"status": "failed_not_accepted", "root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Bounded/Components.lean", "name": "i11-bounded-components", "new_original_indices": [], "source_sha256_before": "dccfe09a7594bf141ca35a2fd799d1ff3082d18ffe595e0358421791bb86d41c", "reuse": ["research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T185226677753Z/evidence.json", "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T150344000788Z/evidence.json"], "exit_code": 1, "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T190921608747Z/evidence.json", "finished_utc": "2026-09-11T19:09:59.527139+00:00", "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.I11Bounded.Components"}
+FAILED_SOURCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Bounded/Components.lean
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T190921608747Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Bounded/Components.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Bounded/Components.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T19:09:49.382478Z
+# finished_utc: 2026-09-11T19:09:59.467197Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\I11Bounded\Components.lean:27:4: error: Type mismatch: After simplification, term
+  Eq.symm (small_prime_part_eq_prod_small_primes n 11)
+ has type
+  @Eq ℕ (∏ p ∈ Finset.range 11 with Nat.Prime p, p ^ (n.choose 11).factorization p) (smallPrimePart n 11)
+but is expected to have type
+  @Eq ℕ ((Finset.filter Nat.Prime (Finset.range 11)).prod (primeComponent n)) (smallPrimePart n 11)
+'B699LowIndex.I11BoundedCofactors.two_actual_components_above_capacity' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+

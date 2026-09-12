@@ -1,0 +1,22 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T063209770152Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Layer000.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Layer000.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T06:33:32.177290Z
+# finished_utc: 2026-09-11T06:33:45.580253Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Layer000.lean:11:2: error: Tactic `decide` failed for proposition
+  coverLayerCheck row029.height row029.goods { lower := 812, upper := 1624, M := 33 } = true
+because its `Decidable` instance
+  instDecidableEqBool (coverLayerCheck row029.height row029.goods { lower := 812, upper := 1624, M := 33 }) true
+did not reduce to `isTrue` or `isFalse`.
+
+Reduction got stuck at the `Decidable` instance
+  match coverLayerCheck row029.height row029.goods { lower := 812, upper := 1624, M := 33 }, true with
+  | false, false => isTrue ⋯
+  | false, true => isFalse ⋯
+  | true, false => isFalse ⋯
+  | true, true => isTrue ⋯
+'B699LowIndex.LowIndexLean513dc7cc.row029_layer000_checked' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

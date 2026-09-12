@@ -1,0 +1,41 @@
+RESOURCE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/Content.lean", "platform": "windows", "cpu_count": 16, "disk": [294517391360, 292858388480, 1659002880], "available_physical_bytes": 3531841536, "total_physical_bytes": 16851132416, "memory_load_percent": 79, "meminfo": ["MemAvailable: 3449064 kB"], "memory.max": null, "memory.current": null, "cpu.max": null}
+COMPILE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/Content.lean", "seconds": 10.043, "exit_code": 1, "failure": "Lean exit 1; unexpected axioms: sorryAx", "axiom_audit": {"declared_print_axioms": 8, "declared_names": ["Math.B699.PadeContent.multichoose_convolution", "Math.B699.PadeContent.shifted_choose_convolution", "Math.B699.PadeContent.weighted_choose_convolution", "Math.B699.PadeContent.pCoefficient_eq_q_triangular", "Math.B699.PadeContent.qContent_dvd_pCoefficient", "Math.B699.PadeContent.qContent_dvd_pPolynomial_coeff", "Math.B699.PadeContent.qContent_mul_pNormalizedValue", "Math.B699.PadeContent.pNormalizedValue_cast_eq"], "guarded_print_axioms": 0, "guarded_names": [], "actual_printed": 8, "guard_msgs_in_source": 0, "printed": [{"declared_name": "Math.B699.PadeContent.multichoose_convolution", "axioms": ["propext", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeContent.shifted_choose_convolution", "axioms": ["propext", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeContent.weighted_choose_convolution", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeContent.pCoefficient_eq_q_triangular", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeContent.qContent_dvd_pCoefficient", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeContent.qContent_dvd_pPolynomial_coeff", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeContent.qContent_mul_pNormalizedValue", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}, {"declared_name": "Math.B699.PadeContent.pNormalizedValue_cast_eq", "axioms": ["propext", "sorryAx", "Classical.choice", "Quot.sound"]}], "unexpected_axioms": ["sorryAx"], "guarded_output_inferred": false, "error": "unexpected axioms: sorryAx"}}
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T070830032646Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/Content.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/Pade/Content.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T07:08:56.254521Z
+# finished_utc: 2026-09-11T07:09:06.297939Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Pade\Content.lean:93:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (2 * u - r).choose (2 * u - r - u)
+in the target expression
+  (2 * u - r).choose u * (u - r).choose (k - r) = (2 * u - k).choose u * (2 * u - r).choose (k - r)
+
+u k r : ℕ
+hk : k ≤ u
+hr : r ≤ k
+hu : u ≤ 2 * u - r
+⊢ (2 * u - r).choose u * (u - r).choose (k - r) = (2 * u - k).choose u * (2 * u - r).choose (k - r)
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Pade\Content.lean:225:21: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\Pade\Content.lean:225:21: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+'Math.B699.PadeContent.multichoose_convolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.PadeContent.shifted_choose_convolution' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.PadeContent.weighted_choose_convolution' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Math.B699.PadeContent.pCoefficient_eq_q_triangular' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Math.B699.PadeContent.qContent_dvd_pCoefficient' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Math.B699.PadeContent.qContent_dvd_pPolynomial_coeff' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeContent.qContent_mul_pNormalizedValue' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.PadeContent.pNormalizedValue_cast_eq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+EVIDENCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T070830032646Z/evidence.json
+RESULT {"success": false, "exit_code": 1, "compiled_count": 1, "reused_count": 1, "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.Pade.Content"}

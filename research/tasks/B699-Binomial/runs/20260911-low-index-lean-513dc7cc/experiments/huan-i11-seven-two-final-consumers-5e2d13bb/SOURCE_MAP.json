@@ -1,0 +1,72 @@
+{
+  "namespace": "Math.B699.I11SevenTwoFinalConsumers",
+  "final_root": "Math.B699.I11SevenTwoFinalConsumers.actual_seven_two_component_edge",
+  "final_quantifiers": "for every n : Nat with 2^15360 <= n",
+  "actual_X7": "B699LowIndex.I11SmallPrimes.primeComponent n 7 = 7^((n.choose 11).factorization 7)",
+  "actual_X2": "B699LowIndex.I11SmallPrimes.primeComponent n 2 = 2^((n.choose 11).factorization 2)",
+  "final_conclusion": "X7^1000 * ((n+1)/2)^60 <= n^1000 OR X2^1000 * ((n+1)/2)^330 <= n^1000",
+  "source_row": {
+    "p": 7,
+    "q": 2,
+    "c": 9,
+    "d": 5,
+    "P": 49,
+    "Q": 16,
+    "a": 1,
+    "b": 3,
+    "D": 1,
+    "z": "1/49",
+    "M": 285,
+    "m0": 224,
+    "Z": 17498099772305953,
+    "Y0": "2^15359",
+    "weights": [
+      60,
+      330
+    ]
+  },
+  "rate_proof": "Actual qRate equals frozen N/D; 2D^32<=N^32 => R^32>=2 => R^192>=64; 192<=285 and R>=1 => R^285>48",
+  "numeric_bundle": "Construct And.intro from all eight original source types; simpa only Z/M/Y0 aliases; unpack actual-type bundle before FixedEdge",
+  "tree_wiring": {
+    "false": "delta1",
+    "true": "delta0",
+    "Q": "q_tree_delta1/0",
+    "E": "e_tree_delta1/0",
+    "same_parameters": true
+  },
+  "window_to_component": "PrimeWindow localization gives cofactor * p^v_p(choose(n,11)) = n-offset; ceil bounds and absolute difference <=10; actual cofactor edge; primeWindow_graph_capacity",
+  "remaining_final_hypotheses": [
+    "2^15360 <= n"
+  ],
+  "not_final_hypotheses": [
+    "four GrowthTrees",
+    "eight numeric facts",
+    "G lower bound",
+    "Hom/determinant",
+    "standard Q/E growth",
+    "window/cofactor data",
+    "noCommon",
+    "height-validity predicate"
+  ],
+  "remaining_research": [
+    "all new candidates require parent Lean verification",
+    "complete all five i11 edges and their global consumer",
+    "original B699 unbounded n,j target is not established by this one edge"
+  ],
+  "proposed_import_mapping": {
+    "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-seven-two-final-consumers-5e2d13bb»": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11SevenTwoFinal",
+    "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-seven-two-scaled-edge-5e2d13bb»": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11SevenTwoEdge",
+    "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-seven-two-growth-tree-5e2d13bb».candidate.lean.Growth": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.Growth",
+    "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-seven-two-growth-tree-5e2d13bb».selector.candidate.lean.I11Numeric.I11SevenTwoSelector": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11SevenTwoNumeric.Selector",
+    "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11Numeric.I11SevenTwoBasis": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11SevenTwoNumeric.Basis"
+  },
+  "mapping_notes": [
+    "F9D5 from previous package maps separately to lean/Factorial/Factorial9D5; do not map it into edge directory.",
+    "Generated tree files already name future lean.Growth Shared/Leaves; parent must place those files before serial verification.",
+    "Generated selector own Basis import currently uses lean.I11Numeric.I11SevenTwoBasis; change only imports to agreed I11SevenTwoNumeric.Basis.",
+    "No imported candidate or accepted source was edited."
+  ],
+  "new_Lean_invocations": 0,
+  "new_Git_invocations": 0,
+  "new_original_B_results": 0
+}

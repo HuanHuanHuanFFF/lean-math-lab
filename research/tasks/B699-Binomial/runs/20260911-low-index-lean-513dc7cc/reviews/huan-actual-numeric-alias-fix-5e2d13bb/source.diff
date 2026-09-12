@@ -1,0 +1,31 @@
+--- before
++++ after
+@@ -33,8 +33,13 @@
+     (3 : ℕ) ^ 35000 ≤ fiveThreeZ ^ 772 ∧
+     ((3 : ℕ) ^ 35000) ^ fiveThreeM ≤ fiveThreeY0 ^ 772 ∧
+     (4 : ℕ) ^ 772 * (3 ^ 35000) ^ (fiveThreeM + 1) ≤ fiveThreeZ ^ (772 * fiveThreeM) := by
+-  exact ⟨actual_a3_pow213_gt_48, predecessor, p_rate, p_base, p_lookahead,
+-    q_rate, q_base, q_lookahead⟩
++  have h := And.intro actual_a3_pow213_gt_48
++    (And.intro predecessor
++      (And.intro p_rate
++        (And.intro p_base
++          (And.intro p_lookahead
++            (And.intro q_rate (And.intro q_base q_lookahead))))))
++  simpa only [fiveThreeZ, certificateZ, fiveThreeM, fiveThreeY0] using h
+ 
+ theorem five_three_edge_of_growth_trees
+     (qt : ∀ row : Bool, GrowthTree qLambda (qWeight 5 3 (rowDelta row) (1 / 4375))
+@@ -46,8 +51,10 @@
+     (hupperQ : 3 ^ f * C ≤ 2 * Y)
+     (hgap : |(5 : ℤ) ^ e * (A : ℤ) - (3 : ℤ) ^ f * (C : ℤ)| ≤ 24) :
+     Y ^ 354 ≤ A ^ 1000 ∨ Y ^ 228 ≤ C ^ 1000 := by
+-  exact five_three_edge_of_fixed_certificates qt et actual_a3_pow213_gt_48
+-    predecessor p_rate p_base p_lookahead q_rate q_base q_lookahead
++  obtain ⟨hA, hprevious, hrateP, hbaseP, hlookP, hrateQ, hbaseQ, hlookQ⟩ :=
++    actual_numeric_certificates
++  exact five_three_edge_of_fixed_certificates qt et hA
++    hprevious hrateP hbaseP hlookP hrateQ hbaseQ hlookQ
+     Y e f A C hY hC hwindowP hwindowQ hupperQ hgap
+ 
+ end Math.B699.I11FiveThreeNumeric

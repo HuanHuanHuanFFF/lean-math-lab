@@ -1,0 +1,19 @@
+--- before/lean/Pade/Content.lean
++++ after/lean/Pade/Content.lean
+@@ -90,14 +90,14 @@
+     (2 * u - r).choose u * (u - r).choose (k - r) =
+       (2 * u - k).choose u * (2 * u - r).choose (k - r) := by
+   have hu : u ≤ 2 * u - r := by omega
+-  rw [Nat.choose_symm hu]
++  rw [← Nat.choose_symm hu]
+   have hfirst : 2 * u - r - u = u - r := by omega
+   rw [hfirst, Nat.choose_mul (show k - r ≤ u - r by omega)]
+   have htop : 2 * u - r - (k - r) = 2 * u - k := by omega
+   have hbottom : u - r - (k - r) = u - k := by omega
+   rw [htop, hbottom]
+   have hsym : (2 * u - k).choose (u - k) = (2 * u - k).choose u := by
+-    have hs := (Nat.choose_symm (show u ≤ 2 * u - k by omega)).symm
++    have hs := (Nat.choose_symm (show u ≤ 2 * u - k by omega))
+     have hh : 2 * u - k - u = u - k := by omega
+     simpa only [hh] using hs
+   rw [hsym]
