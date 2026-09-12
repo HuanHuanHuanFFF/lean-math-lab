@@ -1,8 +1,6 @@
 # 5号Leader接续与发布记录
 
-> 最新回执：D接续轮已交付，B最近轮已交付；A-2尚未收到新交付。9块、两条条带及准确剩余边界见 [D接续轮接收](D_TAIL_COMPLETION.md)。下方运行状态保留为历史快照。
-
-> 最新状态：B接续v2的下一轮已交付；A-2、D当前轮仍运行。准确范围、重叠覆盖与证据入口见 [B下一轮接收](B_NEXT_COMPLETION.md)。B后续待用户派发；此前v4三任务“待投递”状态仅为当时快照。
+> 当前状态统一见 [CURRENT_STATUS.md](CURRENT_STATUS.md)：A新交付已接收；据Luna回报B/D下一轮运行，A下一轮待派。下文为各次接收和责任的历史记录，保留原范围。
 
 接续日期：2026-09-12（Asia/Shanghai）。继续原批次身份；负责人改由5号Leader接手。数学原件、v3任务正文及作者证据等级保持原样。
 
@@ -43,3 +41,7 @@
 用户确认A-2/B/D完成v2轮次。PR #16已合并，当前接收基线为main `ac6e53c8bef8398a5a663409ed9c69a68e8d9e75`。新接D-general补交，来源、作者前提、输入例外和修订任务见ROUND_COMPLETION.md。A/B及D-joint原件不重复计功；v3的C1=5主攻撤销，v4尚待用户投递，Lean继续暂停。该次新增资料与记录另建整合PR，由用户合并。
 
 本次补交固定接收提交`6851a081611ce86280afdb474c4844fc0c8444a7`已发布，完整树`962748417ad089a34aa2a47fe07f52df35ec9e16`已核对。[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)已创建，待用户合并；后续仅发布回执变更不改变原件、v4包或证据等级。
+
+## A-fibres / B-height / D-tail统一登记
+
+本次从d9f9e4ad3a5576afe3f82dbcf98209c066aca150接续，原D-tail保留。A/B新普通成员和同哈希历史复用已映射；两个内嵌原ZIP沿用固定上游来源，无数学重放。CURRENT_STATUS为最新调度入口，Luna自动化回执与用户授权分别处理。Leader决定B一般无界、D优先i3→i4例外、A外层指数算术方向；B/D据回执运行，A待派发。追加PR #17，由用户合并。
