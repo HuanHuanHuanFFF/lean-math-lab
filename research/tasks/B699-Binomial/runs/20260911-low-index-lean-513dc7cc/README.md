@@ -1,3 +1,5 @@
+> 材料整理（2026-09-12）：历史验收副本已按内容去重。读取缺失旧路径、重跑或打包本批前，见 [恢复说明](../../../../../docs/ARTIFACTS.md)；源码和验收结论保留。
+
 > 当前交接（2026-09-12）：A151项及统一入口、B的i11全域通过；28/31/34仅高度通过。本轮已按用户要求停止。见 [最终交接](notes/huan-final-handoff-20260912.md) 与 [前沿](frontier.md)。以下为历史记录。
 
 > 最新远端交接入口：[Leader 交接快照（2026-09-11）](delivery/LEADER-HANDOFF-20260911.md)。A 单项 151/151；统一入口待验；B 完整原题 0/19。以下保留历史记录。
@@ -21,3 +23,4 @@
 当前状态：环境恢复；新 Lean 接受数 0、完整新增原题指标 0。详见 frontier.md、acceptance.md、target-status.json、handoff.md。
 
 专项 CI：.github/workflows/b699-low-index-lean.yml。入口 verification/runner/verify_environment.py 核对固定源、定向恢复 mathlib 导入、先编译最小导入，再串行复验 FiniteCover 并按 std3 审计。verification/runner/export_environment.py 导出任务工具链、真实浅克隆依赖/源码及新证据，分成 256 MiB 的传输文件。此 CI/导出流程初始尚未实际验收，后续记录真实结果。
+

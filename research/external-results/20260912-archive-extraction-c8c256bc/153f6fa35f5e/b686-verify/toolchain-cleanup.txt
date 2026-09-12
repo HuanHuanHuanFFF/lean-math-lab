@@ -1,0 +1,15 @@
+B686 v4.29.1 toolchain cleanup
+Timestamp: 2026-09-08 (UTC)
+
+The task-owned directory
+/workspace/scratch/c6b148d48b6d/external-research/b686-verify/elan
+was removed with Python shutil.rmtree after preserving:
+- toolchain-artifact-hashes-before-cleanup.txt (13,356 lines of SHA-256 evidence, including the installer and extracted files)
+- toolchain-install-v4.29.1.log
+- lean-version-shim.log and lake-version-shim.log
+- current-sha256.txt (pre-cleanup shim and lean hashes)
+
+Postcondition checked: the elan directory does not exist. No other project or elan directory was removed. The exact Lean executable hash before removal was:
+3e0d0d3d801675359f2d4cf9815bfdb417b20b92fdd9d48b3b14c95bbae28bbf
+
+A later concurrent workspace check found the same task-owned elan directory recreated; it was removed again with the same validated shutil.rmtree operation. Final postcondition at 2026-09-08 UTC: elan does not exist and the filesystem reported approximately 2.0 GiB available.

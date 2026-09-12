@@ -1,0 +1,24 @@
+DivisorTransfer.lean:51:36: error: Tactic `decide` failed for proposition
+  primePart 3 45 = 45
+because its `Decidable` instance
+  instDecidableEqNat (primePart 3 45) 45
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqNat` and `Nat.decEq`, reduction got stuck at the `Decidable` instance
+  match h : (primePart 3 45).beq 45 with
+  | true => isTrue ⋯
+  | false => isFalse ⋯
+DivisorTransfer.lean:52:35: error: Tactic `decide` failed for proposition
+  primePart 4 45 = 5
+because its `Decidable` instance
+  instDecidableEqNat (primePart 4 45) 5
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `instDecidableEqNat` and `Nat.decEq`, reduction got stuck at the `Decidable` instance
+  match h : (primePart 4 45).beq 5 with
+  | true => isTrue ⋯
+  | false => isFalse ⋯
+'B699BridgeAudit.divisor_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699BridgeAudit.prime_part_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699BridgeAudit.prime_part_coprime_of_no_common' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699BridgeAudit.actual_prime_part_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
