@@ -4,7 +4,7 @@
 
 原题：对自然数 n,i,j，1≤i<j≤⌊n/2⌋ 时，存在同一个素数 p≥i，同时整除 C(n,i)、C(n,j)。保留 p=i、完整素数幂；D=V 仅在完整 noCommon 下使用。
 
-使用所附唯一任务包 B699-R7-ABD-task-pack-20260912.zip，先读 START_HERE.md 中的 A 路径。先读自己的 REPORT、HANDOFF、SESSION_STATE、notes/PROOFS 和 FAILURE_BOUNDARIES；其他包按实际采用需要读取，不重跑无关历史证书。
+使用所附唯一任务包 B699-R7-ABD-task-pack-20260912-v2.zip，先读 START_HERE.md 中的 A 路径。先读自己的 REPORT、HANDOFF、SESSION_STATE、notes/PROOFS 和 FAILURE_BOUNDARIES；其他包按实际采用需要读取，不重跑无关历史证书。
 
 你的最新前沿：
 - i9 已闭合37个模225剩余类的全部合法 n,j。
@@ -14,7 +14,7 @@
 
 下一轮先用低成本、可判别的推导判断：其余共位组合的互补乘积cut能否接同一立方桥；或在84族上联合α、β、g的整除与位置约束，消去一个真正无界的指数。允许新权重、联合约束、下降、改变表示或其他路线。A14-CUBIC-BLOCKS是带完整前提的局部接口，不能直接由“i14已闭合”跨指标引用。
 
-B新双侧结构和D整行消费者可作为资源；借用时核对准确量词与附加行条件，不能把i3的noCommon必要条件直接套给i9。
+B双侧结构、D整行消费者及D上一轮误接B任务后交付的单侧a≤21闭合可作为资源（补交原件为 originals/D-previous-B-task.zip）；借用时核对准确量词与附加行条件，不能把i3的noCommon必要条件直接套给i9。
 
 按单位token的预期证明／排除价值选路，并计入核验成本。不以扩大817/1023、增加模数类数量或重做旧搜索作为主要成果。中间结果继续接原题消费者；若只能推进稀疏族，说明能否推广，收益低就换路。
 

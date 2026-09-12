@@ -15,7 +15,7 @@
 
 37类证明采用两条明确出版cut和冻结Padé／局部立方接口；没有逻辑采用旧33个content家族和228万个content块。新接收未重跑旧i14大块、旧i9有限证书。A14-CUBIC-BLOCKS须核对完整局部前提，不能直接由i14原题结论跨指标引用。其余五种最大位置共位组合仍未全局排除。
 
-## B：i3 的完整素数幂子族与规范缺陷
+## B原交付：i3 的素数幂子族与规范缺陷
 
 定义 g=gcd(n,j)、β=j/g、γ=(n−j)/g、M=(n−2)/2、F=gcd(βγ,M)，η=2（j奇）或1（j偶）。来源：[REPORT](deliveries/bilateral-prime-powers/REPORT.md)、[PROOFS](deliveries/bilateral-prime-powers/notes/PROOFS.md)。
 
@@ -24,14 +24,26 @@
 | β=q²或γ=q² | q任意素数，一般n全部成立；不再保留“非平方n未解”的旧标签 |
 | n平方且β或γ=q^r | 任意素数、任意r≥1；取消旧r≤7限制并接通两侧 |
 | η²(n−1)<τσ²F²≤9F² | 完整noCommon下成立；F仍无界，n≤9F²不是整个i3绝对高度 |
-| 一侧ζ=q^r，d=gcd(ζ,n−1)=q^t | 假定反例只能r/2<t<r且n非平方；一般r=3,t=2仍未解决 |
+| 一侧ζ=q^r，d=gcd(ζ,n−1)=q^t | 原交付仅限制r/2<t<r且n非平方；后续D补交已排除所有单侧纯素数幂，此处保留历史接口 |
 | β=aP^r、γ=bQ^s | noCommon⇒n≤max(9a²b²,ceil(81a³/8)+1,ceil(21b³/2)+1)；a,b≤21接旧基例，无新增枚举；a,b一般仍无界 |
 
 一般素数平方闭合不需要新四行表；平方行任意指数消费者采用13个参数记录、4个同余区间及2265个m的独立实现检查。两套程序仍出自同一作者。旧基例及其历史证明依赖完整保留，本轮未重跑旧三亿次β枚举。
 
 新步骤没有增加BFT、Padé或对数定理输入；不得因此称整条历史依赖已初等化。旧原件中偶X时gcd(X−1,X+1)=2的文字错误已由作者用正确值1重建，原件不改。同层L仍可能漏掉实际共同素数；投影弱解不是原题反例。
 
-## D：五因子分配、平方根门槛与同素数转移
+## D补交上一轮B任务：一般行单侧a≤21与新规范商
+
+归属与时序见 [接收修正](D_PREVIOUS_B_INTAKE.md)；原件见 [REPORT](deliveries/d-prior-b-primepower/REPORT.md)、[PROOFS](deliveries/d-prior-b-primepower/notes/PROOFS.md)。文件原标Pro B，实际由D执行上一轮误派任务。以下为作者报告，独立完整验收与Lean待办。
+
+- 任一侧ζ=β或γ为aP^r、1≤a≤21时，一般n全部合法j闭合；P任意素数、r≥1，另一侧不限形状，a与P可不互素。
+- 一般非平方q³、对称分支及所有单侧纯素数幂已包含。此前B立方任务被此结果取代，不能继续列为未解。
+- 对一般a，noCommon⇒n<279936a⁹+2；a仍无界，整个i3未绝对有限化。剩余反例两侧 min(P|ζ) ζ/P^{v_P(ζ)} 都至少23。
+- C=gcd(K,ζ)、w=λμC、x=n−gζ，存在整数h满足 w x(x−1)=h(n−1)(n−2)、1≤h<w、g|2h；γ侧4h<w。d=gcd(ζ,n−1)、e=ζ/d有e|(w−h)n+2h、gcd(d,e)|w+h；ζ=aP^r且P|n−1时C|a，d|a(w+h)或e|a(w+h)。
+- 新商与两个精确投影在适用前提下等价，仍不等价于noCommon。共享完整幂不能删：作者诊断(n,j)=(1648,729)有d=e=27。
+
+新单侧消费者给出不依赖旧百万β基例、Padé、content、BEG／对数下界或Pell的链。一般D五因子证明的深依赖仍按原等级登记；不能把特定ζ形状的初等化扩大到一般情形。a≤21证书覆盖13条与118条规范记录，作者两实现同源；Leader未重跑。准确作者输入限制见接收修正。
+
+## D原交付：五因子分配、平方根门槛与同素数转移
 
 定义M=(n−2)/2；λ在v₃(n−1)=1时为3，否则1，μ对M同样；N=(n−1)/λ、K=M/μ。**只抵消精确的一次3，不能删去完整3^a。** 来源：[REPORT](deliveries/five-factor-row-consumers/REPORT.md)、[PROOFS](deliveries/five-factor-row-consumers/notes/PROOFS.md)、[最小接口](deliveries/five-factor-row-consumers/notes/MINIMAL_INTERFACE.md)。
 
@@ -45,6 +57,6 @@
 
 ## 下一轮资源安排
 
-三份已交付提示词原样保存在[prompts](prompts/README.md)：A优先消去84族的无界指数；B用非平方素数立方分支检验可推广结构；D联合五因子与双侧缺陷，兼顾一般结构、跨指标和自由探索。实际采用他路结论时核对前提；i3的noCommon必要条件不能直接作为i9前提。
+三份修订任务见[prompts](prompts/README.md)：A继续消去84族的无界指数；B采用补交商接口，转向两侧规范余因子均≥23的混合素因子区域；D仍联合五因子与双侧缺陷，兼顾一般结构、跨指标和自由探索。补交属于上一轮，不改当前D身份。实际采用他路结论时核对前提；i3的noCommon必要条件不能直接作为i9前提。
 
 本轮没有重跑数学脚本或Lean，也未独立核对出版原文。论文适用性、全域量词和证书完备性的正式接受责任见[acceptance](acceptance.md)。

@@ -8,7 +8,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
-| [20260912-leader-r7-continuation-c8c256bc](runs/20260912-leader-r7-continuation-c8c256bc/README.md) | 当前接收：i9全局约束、i3双侧素数幂与五因子整行消费者；R7不变 | [状态](runs/20260912-leader-r7-continuation-c8c256bc/frontier.md) · [原件恢复](runs/20260912-leader-r7-continuation-c8c256bc/ARCHIVES.json) · [任务](runs/20260912-leader-r7-continuation-c8c256bc/prompts/README.md) |
+| [20260912-leader-r7-continuation-c8c256bc](runs/20260912-leader-r7-continuation-c8c256bc/README.md) | 当前接收：i9约束、i3双侧与五因子消费者；补收D上一轮B任务的单侧a≤21闭合，修订三任务；R7不变 | [状态](runs/20260912-leader-r7-continuation-c8c256bc/frontier.md) · [原件恢复](runs/20260912-leader-r7-continuation-c8c256bc/ARCHIVES.json) · [任务](runs/20260912-leader-r7-continuation-c8c256bc/prompts/README.md) |
 | [20260912-leader-r7-intake-4fe8697e](runs/20260912-leader-r7-intake-4fe8697e/README.md) | 上一接收：i14 全域纸面闭合、R7 前沿、ABCD/E 成果与三路研究任务 | [状态](runs/20260912-leader-r7-intake-4fe8697e/frontier.md) · [原件恢复](runs/20260912-leader-r7-intake-4fe8697e/ARCHIVES.json) · [任务](runs/20260912-leader-r7-intake-4fe8697e/prompts/README.md) |
 | [20260911-leader-intake-b-6e18713b](runs/20260911-leader-intake-b-6e18713b/README.md) | 上次 B 两轮成果接收与调度：精确内容、共同进位、百万约分分子子族 | [状态](runs/20260911-leader-intake-b-6e18713b/frontier.md) · [原件与恢复](runs/20260911-leader-intake-b-6e18713b/ARCHIVES.json) |
 | [20260911-leader-intake-bc-824984da](runs/20260911-leader-intake-bc-824984da/README.md) | 上次接收快照：三指标闭合、光滑窗口、统一核与当时 ABC 调度 | [状态](runs/20260911-leader-intake-bc-824984da/frontier.md) · [原件索引](runs/20260911-leader-intake-bc-824984da/ARCHIVES.json) |

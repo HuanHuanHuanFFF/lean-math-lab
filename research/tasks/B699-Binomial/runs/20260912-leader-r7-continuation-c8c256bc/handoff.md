@@ -1,11 +1,11 @@
-# Leader 交接
+# Leader 交接：D上一轮误接B任务的补交
 
-本批：20260912-leader-r7-continuation-c8c256bc。用户已收到下一轮A/B/D三份提示词，随后授权整理。用户随后补充：以后任务必须配齐一份统一ZIP并明确附件。本批已生成 B699-R7-ABD-task-pack-20260912.zip，三份任务入口与同一附件绑定，见DISPATCH.md；此补充取代先前三包分别投递的安排。
+本批目录身份保持20260912-leader-r7-continuation-c8c256bc。用户澄清新附件是D上一轮误接B任务的产出，要求重排当前A/B/D，并保持D方向不变。详见D_PREVIOUS_B_INTAKE.md；原件的Pro B文件名和标签未改。
 
-起点：main `1215a7541a394233cb038cddd98127e32323722e`（PR #12已合并）；Leader `a4f512836bcfbab86cdb081f903c0ea7566ebebd`，两者树相同。保留原Leader历史并纳入main，非强制更新 `GPT-work/leader-integration`；新PR指向main，由用户合并。
+接续父提交 `71ff0824e9b6f9ac3e549b54eb1f480da9c93554`，Leader分支 `GPT-work/leader-integration`；PR #13在接收时open，base为main `1215a7541a394233cb038cddd98127e32323722e`。本次非强制更新同一Leader与PR，由用户合并。发布完成后的准确提交号以PR head和外部发布checkpoint为准，不在提交自身预填未来哈希。
 
-内容：A的i9新全局约束、B双侧素数幂消费者、D五因子与平方根整行消费者，连同原始证明、源码、作者日志和失败记录；来源清单、隔离恢复入口、证据边界及三份已交付提示词。只做行政来源和发布核对，R7不减项，新Lean验收0。
+变化：归档补交82个原始文本成员；登记一般行单侧aP^r、a≤21作者闭合与一般a高度，R7不减项，新Lean验收0。撤掉B旧q³主攻，转向两侧规范余因子均≥23的混合区域；A继续i9，D保持一般结构／跨指标／自由探索。新采用检查不等于独立完整验收；V-R7-D-PRIOR-B-QUOTIENT待派发。
 
-发布完成条件：原件文本哈希一致；从三份原ZIP可恢复所有成员；新导航可解析；完整远端树中本次文件blob哈希一致；Leader与新PR head对应发布提交，base为main。自己的发布提交号不预填在该提交正文内，以包含本文件的固定提交与最终PR head为准。传输中断保留本机publication/checkpoint.json继续。
+三份修订任务与全部四原包合在 `B699-R7-ABD-task-pack-20260912-v2.zip`；每位只附这一包，任务路径分别tasks/PRO-A.md、PRO-B.md、PRO-D.md。v2替换之前三原包版本，包身份与SHA256见TASK_PACKAGE.json，投递见DISPATCH.md。外部会话实际新任务派发／执行状态未核实。
 
-最后研究状态见frontier.md；技术接受义务见acceptance.md；下一份可执行任务见prompts/。三份提示词已交付用户，外部实际派发／运行状态未在本轮核实；没有后台研究承诺。
+Leader仅检查原件字节、四源恢复、导航和远端文件哈希，不运行数学脚本或Lean。旧来源检查保留，本次检查写verification/d-prior-b-intake/。本机传输checkpoint在d-prior-b-publication/，发生中断先查已完成批次与实际远端head再恢复。
