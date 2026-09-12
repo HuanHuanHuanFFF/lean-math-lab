@@ -1,0 +1,651 @@
+{
+  "utc": "2026-09-11T22:51:23.169091+00:00",
+  "status": "SOURCE_ALIGNMENT_NOT_NEW_LEAN_VERIFICATION",
+  "sources": [
+    {
+      "source": "research/tasks/B699-Binomial/README.md",
+      "bytes": 9652,
+      "sha256": "69265d1ef7c72a5898caa17eefbcf6be9cf1face873e28300fb9884d7738c654",
+      "role": "original_target",
+      "claim": "All n,i,j with 1<=i<j<=floor(n/2); prime p>=i divides gcd.",
+      "status": "TASK_STATEMENT",
+      "lines": [
+        1,
+        5
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+      "bytes": 5490,
+      "sha256": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697",
+      "role": "actual_Common",
+      "claim": "Exists prime p with i<=p and p divides actual choose gcd.",
+      "status": "ACCEPTED_CURRENT_SOURCE_MATCHES_RECEIPT",
+      "lines": [
+        8,
+        10
+      ],
+      "acceptance": {
+        "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-candidates.json",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T221930655599Z/evidence.json",
+        "sha256": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+      }
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/HuanAllA.lean",
+      "bytes": 61735,
+      "sha256": "ec40c37154ae65aa56c393585fdf10aef6e20d0251eaa6aa51dcbb576607d03d",
+      "role": "accepted_entry_alignment",
+      "claim": "Exact HuanAllA style forall n j triple legal premise, prime and two divisibilities.",
+      "status": "ACCEPTED_STATE_MATCH",
+      "lines": [
+        155,
+        163
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Compression.lean",
+      "bytes": 867,
+      "sha256": "940d79ebac758a515c736bfbc381a3fd74ec402ad32e5610bb18d2fd9e28a836",
+      "role": "initial_height",
+      "claim": "hij,hjn,hno imply n<2^109",
+      "status": "CANDIDATE_UNCOMPILED",
+      "lines": [
+        12,
+        16
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11InitialHeight/Height.lean",
+      "bytes": 1070,
+      "sha256": "5af51974f044a23a4f263727fd62bbd55fcee2eff94541bd009e667cbd47266c",
+      "role": "initial_height_15360",
+      "claim": "hij,hjn,hno imply n<2^15360",
+      "status": "CANDIDATE_UNCOMPILED",
+      "lines": [
+        12,
+        20
+      ]
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Final.lean",
+      "bytes": 4176,
+      "sha256": "bf973471458eb23ccf959079750a97fd1da9e1d9c24d27a9d9607518c2870310",
+      "role": "strip_padding_membership",
+      "claim": "Fixed finite data and original domain imply old candidateMem; no target membership premise.",
+      "status": "ACCEPTED_CURRENT_SOURCE_MATCHES_RECEIPT",
+      "lines": [
+        12,
+        26
+      ],
+      "acceptance": {
+        "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-final.json",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T222145531166Z/evidence.json",
+        "sha256": "bf973471458eb23ccf959079750a97fd1da9e1d9c24d27a9d9607518c2870310"
+      }
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Extended.lean",
+      "bytes": 2018,
+      "sha256": "29b55bcdb690b662c7ecb3d2defbe5769f64f7f675bccb01d04768c27d3576a9",
+      "role": "legal_padding_removal",
+      "claim": "hij,hjn imply n>=24 and remove the 0..23 head.",
+      "status": "ACCEPTED_CURRENT_SOURCE_MATCHES_RECEIPT",
+      "lines": [
+        10,
+        33
+      ],
+      "acceptance": {
+        "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-final.json",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T222145531166Z/evidence.json",
+        "sha256": "29b55bcdb690b662c7ecb3d2defbe5769f64f7f675bccb01d04768c27d3576a9"
+      }
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Actual.lean",
+      "bytes": 3541,
+      "sha256": "f0d883ee34604e7458d97c81360ab6d57fe60665d8fb219f7bf1f04f503b17bf",
+      "role": "actual_noCommon_to_member",
+      "claim": "Complete six pair finite checks plus small cover imply membership.",
+      "status": "ACCEPTED_CURRENT_SOURCE_MATCHES_RECEIPT",
+      "acceptance": {
+        "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-actual.json",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T220606515485Z/evidence.json",
+        "sha256": "f0d883ee34604e7458d97c81360ab6d57fe60665d8fb219f7bf1f04f503b17bf"
+      }
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+      "bytes": 6938,
+      "sha256": "253965da6e9b38b91e13cce7501fab1eb96118fc1858c5b8e9e0ffd94fb99e11",
+      "role": "stage04_fixed_inputs",
+      "claim": "H29294603,M500,positive cap,factorial certificate,and exact four cutoffs.",
+      "status": "ACCEPTED_CURRENT_SOURCE_MATCHES_RECEIPT",
+      "lines": [
+        101,
+        127
+      ],
+      "acceptance": {
+        "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-candidates.json",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T221930655599Z/evidence.json",
+        "sha256": "253965da6e9b38b91e13cce7501fab1eb96118fc1858c5b8e9e0ffd94fb99e11"
+      }
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Candidates.lean",
+      "bytes": 19239,
+      "sha256": "8924ef4e2565faa0f3c948d4f14fa2f64a6ff3d9d08fcb135abb9c7add11d0cf",
+      "role": "actual_lists_small_cover",
+      "claim": "1055 old intervals; actual padded list; cover24..500.",
+      "status": "ACCEPTED_CURRENT_SOURCE_MATCHES_RECEIPT",
+      "lines": [
+        1064,
+        1076
+      ],
+      "acceptance": {
+        "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-candidates.json",
+        "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T221930655599Z/evidence.json",
+        "sha256": "8924ef4e2565faa0f3c948d4f14fa2f64a6ff3d9d08fcb135abb9c7add11d0cf"
+      }
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair23/candidate/lean/I11TerminalMembership/Pair23/Composer.lean",
+      "bytes": 14627,
+      "sha256": "b365b7deca963e2ca8ca75212eea630da8784095a1587235a191d4f3390b59af",
+      "role": "actual_stage04_pair_23",
+      "claim": "Math.B699.I11TerminalCRT.pairGridCoverCheck 2 3 B699LowIndex.I11CrtStageMetadata.Stage04.H B699LowIndex.I11CrtStageMetadata.Stage04.M Math.B699.I11TerminalMembership.Pair23.pairData Math.B699.I11TerminalMembership.candidates = true",
+      "status": "CANDIDATE_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11TerminalMembership/Pair23/Composer.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair23/FREEZE.json",
+      "bytes": 5736,
+      "sha256": "e7906944ec8aba8f8b75d3784ba5d3ae7876747d9ce53235874d7a6df55600cc",
+      "role": "full_pair_source_manifest_23",
+      "claim": "Frozen complete cells/rows/data and source byte binding.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair25/candidate/lean/I11TerminalMembership/Pair25/Composer.lean",
+      "bytes": 14627,
+      "sha256": "960f67d9c73086c7d7e9a5d23d5be6bd4f7625f0cb8ff22d2cf1898a52e8eeff",
+      "role": "actual_stage04_pair_25",
+      "claim": "Math.B699.I11TerminalCRT.pairGridCoverCheck 2 5 B699LowIndex.I11CrtStageMetadata.Stage04.H B699LowIndex.I11CrtStageMetadata.Stage04.M Math.B699.I11TerminalMembership.Pair25.pairData Math.B699.I11TerminalMembership.candidates = true",
+      "status": "CANDIDATE_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11TerminalMembership/Pair25/Composer.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair25/FREEZE.json",
+      "bytes": 5733,
+      "sha256": "77cede4b6545fe95a8a5bf2fb053d2803fa5c0ce3d2859899aef28ff3303828c",
+      "role": "full_pair_source_manifest_25",
+      "claim": "Frozen complete cells/rows/data and source byte binding.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair27/candidate/lean/I11TerminalMembership/Pair27/Composer.lean",
+      "bytes": 14577,
+      "sha256": "e31412f3e985872966e3d4566186b42f59c7bd0b18eb566b184a9237dfd85c46",
+      "role": "actual_stage04_pair_27",
+      "claim": "Math.B699.I11TerminalCRT.pairGridCoverCheck 2 7 B699LowIndex.I11CrtStageMetadata.Stage04.H B699LowIndex.I11CrtStageMetadata.Stage04.M Math.B699.I11TerminalMembership.Pair27.pairData Math.B699.I11TerminalMembership.candidates = true",
+      "status": "CANDIDATE_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11TerminalMembership/Pair27/Composer.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair27/FREEZE.json",
+      "bytes": 5733,
+      "sha256": "812b6ddf20ab6a2a75004fc645967d7beb9c168d81e797f255fa103a1b4a57ad",
+      "role": "full_pair_source_manifest_27",
+      "claim": "Frozen complete cells/rows/data and source byte binding.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair35/candidate/lean/I11TerminalMembership/Pair35/Composer.lean",
+      "bytes": 9920,
+      "sha256": "af31eb4b9005b4548d4c0a9a3c52fbbb4c41b0feef188314cf0940767de34a6a",
+      "role": "actual_stage04_pair_35",
+      "claim": "Math.B699.I11TerminalCRT.pairGridCoverCheck 3 5 B699LowIndex.I11CrtStageMetadata.Stage04.H B699LowIndex.I11CrtStageMetadata.Stage04.M Math.B699.I11TerminalMembership.Pair35.pairData Math.B699.I11TerminalMembership.candidates = true",
+      "status": "CANDIDATE_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11TerminalMembership/Pair35/Composer.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair35/FREEZE.json",
+      "bytes": 4103,
+      "sha256": "3daafbbfe93e8473584bb186d6cacaf0e6fd1bb40016883703a32d49b489e730",
+      "role": "full_pair_source_manifest_35",
+      "claim": "Frozen complete cells/rows/data and source byte binding.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair37/candidate/lean/I11TerminalMembership/Pair37/Composer.lean",
+      "bytes": 9888,
+      "sha256": "f7fad240f6ae6bb2298142c492efc32e5428404bab80cb735b6b140fff3bc657",
+      "role": "actual_stage04_pair_37",
+      "claim": "Math.B699.I11TerminalCRT.pairGridCoverCheck 3 7 B699LowIndex.I11CrtStageMetadata.Stage04.H B699LowIndex.I11CrtStageMetadata.Stage04.M Math.B699.I11TerminalMembership.Pair37.pairData Math.B699.I11TerminalMembership.candidates = true",
+      "status": "CANDIDATE_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11TerminalMembership/Pair37/Composer.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair37/FREEZE.json",
+      "bytes": 4103,
+      "sha256": "6a4c7637c074427b601861f562a95e829820c73f147469ef477a58cb043533e9",
+      "role": "full_pair_source_manifest_37",
+      "claim": "Frozen complete cells/rows/data and source byte binding.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair57/candidate/lean/I11TerminalMembership/Pair57/Composer.lean",
+      "bytes": 7283,
+      "sha256": "55e2f3119b4a9b12c6c3fb97fe3ec13e84415baf837bbc0f1184e8d015a87886",
+      "role": "actual_stage04_pair_57",
+      "claim": "Math.B699.I11TerminalCRT.pairGridCoverCheck 5 7 B699LowIndex.I11CrtStageMetadata.Stage04.H B699LowIndex.I11CrtStageMetadata.Stage04.M Math.B699.I11TerminalMembership.Pair57.pairData Math.B699.I11TerminalMembership.candidates = true",
+      "status": "CANDIDATE_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11TerminalMembership/Pair57/Composer.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/pair57/FREEZE.json",
+      "bytes": 3197,
+      "sha256": "91e9e8d6f41d41c9f77d8324a624f50045bf3b5f575a049ffceed077f29c3ed2",
+      "role": "full_pair_source_manifest_57",
+      "claim": "Frozen complete cells/rows/data and source byte binding.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-membership-sources-5e2d13bb/FREEZE.json",
+      "bytes": 29056,
+      "sha256": "939a796a1455a991b1d11946bca119c4cc76a96d3622cd4ebf50c2b6648587e2",
+      "role": "all_six_member_sources",
+      "claim": "1142 cells,23982 signed rows,47136 complete nonnegative parameters; uncompiled.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-crt-four-stage-consumers-5e2d13bb/candidate/lean/I11CRTConsumers/Stage00.lean",
+      "bytes": 10095,
+      "sha256": "6931932496805e1444f1b274b7511f631eb01854e530c53569a78176bec4a83c",
+      "role": "four_stage_Stage00",
+      "claim": "Concrete fixed stages; final initial_to_stage04 has only hij/hjn/hno and n<2^109.",
+      "status": "FROZEN_SOURCE_SUPERSEDED_BY_BOUND_INTEGRATION",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage00.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-crt-four-stage-consumers-5e2d13bb/candidate/lean/I11CRTConsumers/Stage01.lean",
+      "bytes": 10086,
+      "sha256": "b14c4fa6d5314f3b7e13a72834d3ca04381379a62f219e9c359ffb6249f42d05",
+      "role": "four_stage_Stage01",
+      "claim": "Concrete fixed stages; final initial_to_stage04 has only hij/hjn/hno and n<2^109.",
+      "status": "FROZEN_SOURCE_SUPERSEDED_BY_BOUND_INTEGRATION",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage01.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-crt-four-stage-consumers-5e2d13bb/candidate/lean/I11CRTConsumers/Stage02.lean",
+      "bytes": 10086,
+      "sha256": "a6ef295683e58b64a675d99be80a4791e6b3fa783778fae871e7496146eb3cac",
+      "role": "four_stage_Stage02",
+      "claim": "Concrete fixed stages; final initial_to_stage04 has only hij/hjn/hno and n<2^109.",
+      "status": "FROZEN_SOURCE_SUPERSEDED_BY_BOUND_INTEGRATION",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage02.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-crt-four-stage-consumers-5e2d13bb/candidate/lean/I11CRTConsumers/Stage03.lean",
+      "bytes": 10077,
+      "sha256": "1a54b4c3f5d9fc1d62e45b3a94455db5f254e03a69f80f65b56cea1ee7b4b0b7",
+      "role": "four_stage_Stage03",
+      "claim": "Concrete fixed stages; final initial_to_stage04 has only hij/hjn/hno and n<2^109.",
+      "status": "FROZEN_SOURCE_SUPERSEDED_BY_BOUND_INTEGRATION",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage03.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-crt-four-stage-consumers-5e2d13bb/candidate/lean/I11CRTConsumers/AllStages.lean",
+      "bytes": 8475,
+      "sha256": "cecf25b8938e7872722526c816e9cb63b99b058e26a2d43b106ee7b9abb0232b",
+      "role": "four_stage_AllStages",
+      "claim": "Concrete fixed stages; final initial_to_stage04 has only hij/hjn/hno and n<2^109.",
+      "status": "FROZEN_SOURCE_SUPERSEDED_BY_BOUND_INTEGRATION",
+      "planned_or_actual_target": "lean/I11CRTConsumers/AllStages.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-candidate-coverage-5e2d13bb/Assembly.lean",
+      "bytes": 43583,
+      "sha256": "df650e822dc928151b3c4ac5b8daecfd926c458986a97d24a707e5133bab5e62",
+      "role": "all_original_candidate_witnesses",
+      "claim": "common_of_original_candidates: actual old candidateMem,hij,hjn -> actual Common; all coverage internal.",
+      "status": "CANDIDATE_UNCOMPILED",
+      "lines": [
+        403,
+        430
+      ],
+      "planned_or_actual_target": "lean/I11TerminalCandidateCoverage/Assembly.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-candidate-coverage-5e2d13bb/Generic.lean",
+      "bytes": 2682,
+      "sha256": "0d7ecacc25b7cc9c73582aa579faf349619a29bd6ac9a80b7739914866ab69c5",
+      "role": "coverage_quantifiers",
+      "claim": "IntervalSound quantifies every n,j with interval membership and original legal domain.",
+      "status": "CANDIDATE_UNCOMPILED",
+      "lines": [
+        11,
+        15
+      ],
+      "planned_or_actual_target": "lean/I11TerminalCandidateCoverage/Generic.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage00.lean",
+      "bytes": 10095,
+      "sha256": "6931932496805e1444f1b274b7511f631eb01854e530c53569a78176bec4a83c",
+      "role": "adopted_four_stage_Stage00",
+      "claim": "Actual integrated fixed four-stage consumer, original API unchanged.",
+      "status": "INTEGRATED_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage00.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage01.lean",
+      "bytes": 10086,
+      "sha256": "b14c4fa6d5314f3b7e13a72834d3ca04381379a62f219e9c359ffb6249f42d05",
+      "role": "adopted_four_stage_Stage01",
+      "claim": "Actual integrated fixed four-stage consumer, original API unchanged.",
+      "status": "INTEGRATED_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage01.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage02.lean",
+      "bytes": 10086,
+      "sha256": "a6ef295683e58b64a675d99be80a4791e6b3fa783778fae871e7496146eb3cac",
+      "role": "adopted_four_stage_Stage02",
+      "claim": "Actual integrated fixed four-stage consumer, original API unchanged.",
+      "status": "INTEGRATED_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage02.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/Stage03.lean",
+      "bytes": 10077,
+      "sha256": "1a54b4c3f5d9fc1d62e45b3a94455db5f254e03a69f80f65b56cea1ee7b4b0b7",
+      "role": "adopted_four_stage_Stage03",
+      "claim": "Actual integrated fixed four-stage consumer, original API unchanged.",
+      "status": "INTEGRATED_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11CRTConsumers/Stage03.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+      "bytes": 8600,
+      "sha256": "a5cf8d266c854ec02f40fc38111f1f42975ed83bb3c902d60d64cc4c2e6cff7e",
+      "role": "adopted_four_stage_AllStages",
+      "claim": "Actual integrated fixed four-stage consumer, original API unchanged.",
+      "status": "INTEGRATED_UNCOMPILED",
+      "planned_or_actual_target": "lean/I11CRTConsumers/AllStages.lean"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-candidate-coverage-5e2d13bb/FREEZE.json",
+      "bytes": 41215,
+      "sha256": "9d2f66198d797c3a58c475d6217cc932420c54b18b8d7c3d4389cb8df4d6989f",
+      "role": "complete_original_candidate_coverage_bundle",
+      "claim": "1055 actual old intervals, 4042 supplied witnesses; provider reports209 public/214 full audit roots; frozen source, not Lean acceptance.",
+      "status": "FROZEN_SOURCE_MANIFEST"
+    }
+  ],
+  "reused_actual_receipts": [
+    {
+      "name": "i11-terminal-final",
+      "receipt": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-final.json",
+        "bytes": 1335,
+        "sha256": "d8fbc3fcc5359cdac662c6b30a6f0de3971a22a054417ce285c0a0abaee00d35"
+      },
+      "evidence": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T222145531166Z/evidence.json",
+        "bytes": 293993,
+        "sha256": "761fdbc08055b146dbe232bb11cc91e306aca6bf122a0d6f09590c7639977bd0"
+      },
+      "success": true,
+      "matching_current_sources": [
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+          "sha256": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Extended.lean",
+          "sha256": "29b55bcdb690b662c7ecb3d2defbe5769f64f7f675bccb01d04768c27d3576a9"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/RowCell.lean",
+          "sha256": "34f7f5c0c32af4f1cce35d1532c865a96dadcd33d27a72843d1d33b3dfaa59cc"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Block.lean",
+          "sha256": "edbbe8e509260293c00a00bfb91762747bed0d6f2c3d3451fb561054273dd8ca"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Grid.lean",
+          "sha256": "65e425d82a56feb5e55dfb722f662b8659fe89cf7a41a87204d89f4841eb7d1b"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Pair.lean",
+          "sha256": "9445320a03e31b9d57ece10021b7949c920321c45b6e2538ff31bf0122b7135a"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Dispatch.lean",
+          "sha256": "6b744637cc719e4b33cd1cc3dfad0f323835ae0484515bd15d27fb535cdc329e"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Actual.lean",
+          "sha256": "f0d883ee34604e7458d97c81360ab6d57fe60665d8fb219f7bf1f04f503b17bf"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/Final.lean",
+          "sha256": "bf973471458eb23ccf959079750a97fd1da9e1d9c24d27a9d9607518c2870310"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/FinalAudit.lean",
+          "sha256": "2bd0ed1acad7b7406f41370ad33f1aeadc4e1ff1d4d25573607cc2a6bcfc0dd0"
+        }
+      ],
+      "public_axiom_audit": [
+        {
+          "declared_name": "Math.B699.I11TerminalCRT.actual_i11_terminal_membership",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "Math.B699.I11TerminalCRT.terminal_common_of_extended_checks",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "Math.B699.I11TerminalCRT.terminal_common_of_original_small_cover",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "i11-terminal-crt-actual",
+      "receipt": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-actual.json",
+        "bytes": 1130,
+        "sha256": "4e3a1aa40e1eeeee75a5e17bacf697b35fef8c6566d26eec44a20aa5b0d2cdf6"
+      },
+      "evidence": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T220606515485Z/evidence.json",
+        "bytes": 283208,
+        "sha256": "faa51271467f1d6303279a17333177a59119da71701aa1d2593607a89be322e7"
+      },
+      "success": true,
+      "matching_current_sources": [
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+          "sha256": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/RowCell.lean",
+          "sha256": "34f7f5c0c32af4f1cce35d1532c865a96dadcd33d27a72843d1d33b3dfaa59cc"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Block.lean",
+          "sha256": "edbbe8e509260293c00a00bfb91762747bed0d6f2c3d3451fb561054273dd8ca"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Grid.lean",
+          "sha256": "65e425d82a56feb5e55dfb722f662b8659fe89cf7a41a87204d89f4841eb7d1b"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Pair.lean",
+          "sha256": "9445320a03e31b9d57ece10021b7949c920321c45b6e2538ff31bf0122b7135a"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Dispatch.lean",
+          "sha256": "6b744637cc719e4b33cd1cc3dfad0f323835ae0484515bd15d27fb535cdc329e"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/Actual.lean",
+          "sha256": "f0d883ee34604e7458d97c81360ab6d57fe60665d8fb219f7bf1f04f503b17bf"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/ActualAudit.lean",
+          "sha256": "cdadbb2fe716f6f242f82ba33de35cc9ba9b5358ffb63359fd85a4d92d804848"
+        }
+      ],
+      "public_axiom_audit": [
+        {
+          "declared_name": "Math.B699.I11TerminalCRT.actual_i11_candidateMem",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        },
+        {
+          "declared_name": "Math.B699.I11TerminalCRT.common_of_terminal_grid_checks",
+          "axioms": [
+            "propext",
+            "Classical.choice",
+            "Quot.sound"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "i11-terminal-membership-candidates",
+      "receipt": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-candidates.json",
+        "bytes": 978,
+        "sha256": "4632aeabb6c57c2db603d83910f48508f56d79b0696edacb8c8be53cf07ce98a"
+      },
+      "evidence": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T221930655599Z/evidence.json",
+        "bytes": 181906,
+        "sha256": "bcd444039056da15f69f9a2802a28cd417687e15d65c199f97d4652ff8dd7aa9"
+      },
+      "success": true,
+      "matching_current_sources": [
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260909-large-prime-structure-cb4764f0/lean/GapBridge.lean",
+          "sha256": "0005d90a062359af36b95c0420440e4ff7c9b4187a6fc319884a286ae6209697"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/RowCell.lean",
+          "sha256": "34f7f5c0c32af4f1cce35d1532c865a96dadcd33d27a72843d1d33b3dfaa59cc"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CrtStages/NumericMetadata.lean",
+          "sha256": "253965da6e9b38b91e13cce7501fab1eb96118fc1858c5b8e9e0ffd94fb99e11"
+        },
+        {
+          "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMembership/Candidates.lean",
+          "sha256": "8924ef4e2565faa0f3c948d4f14fa2f64a6ff3d9d08fcb135abb9c7add11d0cf"
+        }
+      ],
+      "public_axiom_audit": [
+        {
+          "declared_name": "Math.B699.I11TerminalMembership.small_cover",
+          "axioms": []
+        },
+        {
+          "declared_name": "Math.B699.I11TerminalMembership.candidates",
+          "axioms": []
+        }
+      ]
+    },
+    {
+      "name": "HuanAllA_statement_reference_only",
+      "state": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-all-a-verify-20260911T153556517879Z/state.json",
+        "bytes": 22474,
+        "sha256": "d578a9bcfb03d2bb44852b3b9fd7178ed74d3060cefc88e10544f7f8b454ae7a"
+      },
+      "source": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/HuanAllA.lean",
+        "bytes": 61735,
+        "sha256": "ec40c37154ae65aa56c393585fdf10aef6e20d0251eaa6aa51dcbb576607d03d"
+      },
+      "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T153556686407Z/evidence.json",
+      "used_for_type_alignment_not_imported": true
+    }
+  ],
+  "optional_new_integrations_at_read": [
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-terminal-candidate-coverage-5e2d13bb/FREEZE.json",
+      "exists": false,
+      "binding": null
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-crt-four-stage-consumers-5e2d13bb/FREEZE.json",
+      "exists": true,
+      "binding": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-crt-four-stage-consumers-5e2d13bb/FREEZE.json",
+        "bytes": 351,
+        "sha256": "cb179234834c45c4531de17a976cbd2c2e7640b201b275b66cba86dc3cb6b9fd"
+      }
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+      "exists": true,
+      "binding": {
+        "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11CRTConsumers/AllStages.lean",
+        "bytes": 8600,
+        "sha256": "a5cf8d266c854ec02f40fc38111f1f42975ed83bb3c902d60d64cc4c2e6cff7e"
+      }
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/Assembly.lean",
+      "exists": false,
+      "binding": null
+    }
+  ],
+  "remaining": [
+    "The actual InitialHeight chain, including all Padé growth identities, still requires complete fresh primary verification.",
+    "All24 fixed descent rectangles and the corrected four-stage consumer still require complete fresh primary verification.",
+    "All6 fixed stage04 membership tables still require complete fresh primary verification.",
+    "Full1055 original-candidate witness coverage is frozen but still requires all253 witness chunks and the consumer assembly to be verified.",
+    "Both new final-connection modules and all8 public roots are uncompiled in this subtask; only the primary may run Lean."
+  ],
+  "Lean_runs": 0,
+  "new_B_original_results": 0,
+  "four_stage_repair_record": {
+    "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/reviews/huan-four-stage-api-fixes-5e2d13bb/record.json",
+    "bytes": 4284,
+    "sha256": "7908e8803a30ba92fb3e30904f2674b57a94692befba975857ecacdee1c20677"
+  },
+  "coverage_provider_confirmation": {
+    "namespace": "Math.B699.I11TerminalCandidateCoverage",
+    "module": "lean/I11TerminalCandidateCoverage/Assembly.lean",
+    "theorem": "common_of_original_candidates",
+    "arguments": [
+      "actual candidateMem n originalCandidates",
+      "11 < j",
+      "j <= n / 2"
+    ],
+    "conclusion": "B699LargePrimeStructure.Common n 11 j",
+    "freeze_sha256": "9d2f66198d797c3a58c475d6217cc932420c54b18b8d7c3d4389cb8df4d6989f",
+    "assembly_sha256": "df650e822dc928151b3c4ac5b8daecfd926c458986a97d24a707e5133bab5e62",
+    "no_total_coverage_assumption": true
+  }
+}

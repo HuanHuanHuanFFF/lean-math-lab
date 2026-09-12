@@ -1,0 +1,28 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T220335399030Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/GridAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/GridAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:04:16.973840Z
+# finished_utc: 2026-09-11T22:04:25.801499Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.rectangleCoverCheck_sound {p q H M amax bmax a b A C n : ℕ} {d : ℤ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M amax bmax data candidates = true) (ha0 : 1 ≤ a)
+  (ha1 : a ≤ amax) (hb0 : 1 ≤ b) (hb1 : b ≤ bmax) (hdlo : -10 ≤ d) (hdhi : d ≤ 10) (hA : 1 ≤ A) (hC : 1 ≤ C)
+  (hAcap : A ≤ Math.B699.CRTGrid.heightCap H M (p ^ a)) (hCcap : C ≤ Math.B699.CRTGrid.heightCap H M (q ^ b))
+  (heq : ↑(p ^ a) * ↑A - ↑(q ^ b) * ↑C = d) (hnlo : max (p ^ a * A) (q ^ b * C) ≤ n)
+  (hnhi : n ≤ min (p ^ a * A) (q ^ b * C) + 10) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.rectangleCoverCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.grid_windows_candidateMem {p q H M amax bmax a b A C n r s : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M amax bmax data candidates = true) (hp : 1 < p)
+  (hq : 1 < q) (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1)) (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)
+  (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = p ^ a * A)
+  (hQ : n - s = q ^ b * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.grid_windows_candidateMem' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.grid_windows_candidateMem_swapped {p q H M amax bmax a b A C n r s : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.rectangleCoverCheck p q H M amax bmax data candidates = true) (hp : 1 < p)
+  (hq : 1 < q) (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1)) (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)
+  (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C) (hAM : A ≤ M) (hCM : C ≤ M) (hP : n - r = q ^ b * A)
+  (hQ : n - s = p ^ a * C) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.grid_windows_candidateMem_swapped' depends on axioms: [propext, Classical.choice, Quot.sound]

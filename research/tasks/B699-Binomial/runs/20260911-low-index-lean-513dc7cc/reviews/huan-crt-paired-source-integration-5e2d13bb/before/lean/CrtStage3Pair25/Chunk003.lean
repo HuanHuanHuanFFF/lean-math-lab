@@ -1,0 +1,50 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtStage3Pair25.Chunk003RowA25
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtStage3Pair25.Chunk003RowA26
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtStage3Pair25.Chunk003RowA27
+
+/-! UNCOMPILED symbolic chunk composition. It never decides the full rectangle; it appends proved rows. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 5000000
+set_option exponentiation.threshold 512
+
+namespace Math.B699.CRTStage3Pair25.Chunk003
+open Math.B699.CRTGrid
+open B699LowIndex.I11CrtStageMetadata
+
+private theorem append_rows_named
+    {p q H M T start left right next total bStart bCount : ℕ}
+    {data : ℕ → ℕ → CellData}
+    (hnext : start + left = next) (htotal : left + right = total)
+    (hl : blockCheck p q H M T start left bStart bCount data = true)
+    (hr : blockCheck p q H M T next right bStart bCount data = true) :
+    blockCheck p q H M T start total bStart bCount data = true := by
+  have hr' : blockCheck p q H M T (start + left) right bStart bCount data = true := by
+    rw [hnext]
+    exact hr
+  have h := blockCheck_append_rows hl hr'
+  rw [htotal] at h
+  exact h
+
+theorem chunk_check :
+    blockCheck 2 5 Stage03.H Stage03.M Stage03.upper 25 3 1 11 chunkData = true := by
+  have h2 : blockCheck 2 5 Stage03.H Stage03.M Stage03.upper 25 2 1 11 chunkData = true :=
+    append_rows_named
+      (p := 2) (q := 5) (H := Stage03.H) (M := Stage03.M) (T := Stage03.upper)
+      (start := 25) (left := 1) (right := 1) (next := 26) (total := 2)
+      (bStart := 1) (bCount := 11) (data := chunkData)
+      (by decide : 25 + 1 = 26) (by decide : 1 + 1 = 2)
+      rowA25_block_check rowA26_block_check
+  have h3 : blockCheck 2 5 Stage03.H Stage03.M Stage03.upper 25 3 1 11 chunkData = true :=
+    append_rows_named
+      (p := 2) (q := 5) (H := Stage03.H) (M := Stage03.M) (T := Stage03.upper)
+      (start := 25) (left := 2) (right := 1) (next := 27) (total := 3)
+      (bStart := 1) (bCount := 11) (data := chunkData)
+      (by decide : 25 + 2 = 27) (by decide : 2 + 1 = 3)
+      h2 rowA27_block_check
+  exact h3
+
+end Math.B699.CRTStage3Pair25.Chunk003
+
+#print axioms Math.B699.CRTStage3Pair25.Chunk003.chunk_check

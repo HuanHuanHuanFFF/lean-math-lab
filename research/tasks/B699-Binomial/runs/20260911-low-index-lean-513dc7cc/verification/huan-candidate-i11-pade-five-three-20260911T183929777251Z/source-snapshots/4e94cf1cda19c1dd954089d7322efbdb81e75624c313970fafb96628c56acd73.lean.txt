@@ -1,0 +1,82 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11Edge.Capacity
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.Pade.Rows
+
+/-! UNCOMPILED CANDIDATE. Original (5,3) edge, original weights and selector.
+The numerical rate/base/lookahead certificates below remain explicit obligations.
+The two exponent conclusions refer to literally the same Nat.find selector. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+namespace Math.B699.I11ActualPadeEdge
+open Math.B699.DiscretePadeSelector
+open Math.B699.PadeActualRows Math.B699.PadeContent Math.B699.PadeConstruction
+
+def fiveThreeZ : ℕ := 5726930071079973414170
+def fiveThreeY0 : ℕ := 2 ^ 15359
+def fiveThreeM : ℕ := 213
+
+theorem fiveThreeZ_gt_one : 1 < fiveThreeZ := by decide
+
+def fiveThreeIndex (Y : ℕ) : ℕ := leastExponent fiveThreeZ Y fiveThreeZ_gt_one
+
+theorem five_three_index_ge_original_m0 (Y : ℕ) (hY : fiveThreeY0 ≤ Y)
+    (hprevious : fiveThreeZ ^ (fiveThreeM - 1) ≤ 4 * fiveThreeY0) :
+    129 ≤ fiveThreeIndex Y := by
+  have h := leastExponent_lower_bound fiveThreeZ fiveThreeY0 Y fiveThreeM
+    fiveThreeZ_gt_one hY (by decide) hprevious
+  change fiveThreeM ≤ fiveThreeIndex Y at h
+  dsimp only [fiveThreeM] at h
+  omega
+
+theorem five_three_extract_same_index (Y e f A C : ℕ)
+    (hY : fiveThreeY0 ≤ Y)
+    (hprevious : fiveThreeZ ^ (fiveThreeM - 1) ≤ 4 * fiveThreeY0)
+    (hrateP : 5 ^ 20000 ≤ fiveThreeZ ^ 646)
+    (hbaseP : (5 ^ 20000) ^ fiveThreeM ≤ fiveThreeY0 ^ 646)
+    (hlookP : 4 ^ 646 * (5 ^ 20000) ^ (fiveThreeM + 1) ≤
+      fiveThreeZ ^ (646 * fiveThreeM))
+    (hrateQ : 3 ^ 35000 ≤ fiveThreeZ ^ 772)
+    (hbaseQ : (3 ^ 35000) ^ fiveThreeM ≤ fiveThreeY0 ^ 772)
+    (hlookQ : 4 ^ 772 * (3 ^ 35000) ^ (fiveThreeM + 1) ≤
+      fiveThreeZ ^ (772 * fiveThreeM))
+    (hwindowP : Y ≤ 5 ^ e * A) (hwindowQ : Y ≤ 3 ^ f * C)
+    (hsmallP : A ^ 1000 < Y ^ 354) (hsmallQ : C ^ 1000 < Y ^ 228) :
+    20 * fiveThreeIndex Y < e ∧ 35 * fiveThreeIndex Y < f := by
+  have hY0 : 0 < fiveThreeY0 := Nat.pow_pos (by decide : 0 < (2 : ℕ))
+  have hM : 0 < fiveThreeM := by decide
+  constructor
+  · have hP := least_capacity_forces_exponent 5 20 1000 354 fiveThreeZ fiveThreeM
+      fiveThreeY0 Y e A (by decide) (by decide) fiveThreeZ_gt_one hY0 hY hM
+    simp only [show 20 * 1000 = 20000 by decide,
+      show 1000 - 354 = 646 by decide] at hP
+    exact hP hprevious hrateP hbaseP hlookP hwindowP hsmallP
+  · have hQ := least_capacity_forces_exponent 3 35 1000 228 fiveThreeZ fiveThreeM
+      fiveThreeY0 Y f C (by decide) (by decide) fiveThreeZ_gt_one hY0 hY hM
+    simp only [show 35 * 1000 = 35000 by decide,
+      show 1000 - 228 = 772 by decide] at hQ
+    exact hQ hprevious hrateQ hbaseQ hlookQ hwindowQ hsmallQ
+
+def rowDelta (row : Bool) : ℕ := if row then 0 else 1
+
+theorem rowDelta_cases (row : Bool) : rowDelta row = 0 ∨ rowDelta row = 1 := by
+  cases row <;> simp [rowDelta]
+
+theorem five_three_row_degrees (m : ℕ) (hm : 1 ≤ m) (row : Bool) :
+    (3 * m - rowDelta row) + (2 * m + rowDelta row - 1) + 1 = 5 * m := by
+  cases row <;> simp [rowDelta] <;> omega
+
+theorem five_three_actual_rows (m : ℕ) (hm : 1 ≤ m) (row : Bool) :
+    actualPRow (3 * m) (2 * m - 1) 1 4375 row =
+      pNormalizedValue (3 * m - rowDelta row) (2 * m + rowDelta row - 1) 1 4375 ∧
+    actualQRow (3 * m) (2 * m - 1) 1 4375 row =
+      qNormalizedValue (3 * m - rowDelta row) (2 * m + rowDelta row - 1)
+        (3 * m - rowDelta row) 1 4375 := by
+  have hv : 2 * m - 1 + 1 = 2 * m := by omega
+  cases row <;> simp [rowDelta, actualPRow, actualQRow, hv]
+
+end Math.B699.I11ActualPadeEdge
+#print axioms Math.B699.I11ActualPadeEdge.fiveThreeZ_gt_one
+#print axioms Math.B699.I11ActualPadeEdge.five_three_index_ge_original_m0
+#print axioms Math.B699.I11ActualPadeEdge.five_three_extract_same_index
+#print axioms Math.B699.I11ActualPadeEdge.rowDelta_cases
+#print axioms Math.B699.I11ActualPadeEdge.five_three_row_degrees
+#print axioms Math.B699.I11ActualPadeEdge.five_three_actual_rows

@@ -1,0 +1,65 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T21:42:21.376393+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "i11-terminal-crt-block",
+      "root": "lean/I11TerminalCrt/BlockAudit.lean",
+      "source_sha256": "ac745ca4aeb78f344562c633ec1bd69f387e50d23fe813db48870d2ebfd42e52",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-row-cell.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-rectangles.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-crt-grid",
+      "root": "lean/I11TerminalCrt/GridAudit.lean",
+      "source_sha256": "882317ee7a120bdeaefde550b4889bdbfa92437c384676f77379350d1c4ae3ac",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-block.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-crt-pair",
+      "root": "lean/I11TerminalCrt/PairAudit.lean",
+      "source_sha256": "fc6722fa980cb72627cadbbee7c5e1af7e284917ae9c3e6335d06a8f53b76fa0",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-grid.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-crt-six-pair-meta.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-crt-dispatch",
+      "root": "lean/I11TerminalCrt/DispatchAudit.lean",
+      "source_sha256": "b966bd13e29acc0b3b4cfc31674aaddac83bc74d937373efecfd004e0f099f59",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-pair.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-crt-actual",
+      "root": "lean/I11TerminalCrt/ActualAudit.lean",
+      "source_sha256": "cdadbb2fe716f6f242f82ba33de35cc9ba9b5358ffb63359fd85a4d92d804848",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-dispatch.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-crt-actual-step.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-crt-full-audit",
+      "root": "lean/I11TerminalCrt/Audit.lean",
+      "source_sha256": "577dad2300ce0f28f5c30d5dfb5b3784f9d1e602ae3f77845cd6af5bb0d05344",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-actual.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

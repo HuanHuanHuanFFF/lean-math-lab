@@ -1,0 +1,11 @@
+--- before
++++ after
+@@ -56,7 +56,7 @@
+   have hden : 0 < wDenominator BE := by unfold wDenominator; positivity
+   have hsmall : (2 * (V : ℚ)) * wDenominator BE ^ m <
+       (625 : ℚ) ^ (5 * m) * contentBase ^ m := by
+-    apply (mul_lt_mul_right (pow_pos (by norm_num : (0 : ℚ) < 2187) (5 * m))).mp
++    apply (Rat.mul_lt_mul_right (pow_pos (by norm_num : (0 : ℚ) < 2187) (5 * m))).mp
+     calc
+       (2 * (V : ℚ)) * wDenominator BE ^ m * (2187 : ℚ) ^ (5 * m) =
+           (2 * (Nq : ℚ)) * wDenominator BE ^ m := by rw [← hNV]; ring

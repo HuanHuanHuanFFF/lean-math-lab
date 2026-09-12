@@ -1,0 +1,55 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T030958491427Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/AAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I13G75/AAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T03:10:44.696529Z
+# finished_utc: 2026-09-12T03:10:52.988602Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I13G75Uniform.divisorZero : ℕ → ℚ
+'Math.B699.I13G75Uniform.divisorZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisorOne : ℕ → ℚ
+'Math.B699.I13G75Uniform.divisorOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.infiniteRate : ℚ
+'Math.B699.I13G75Uniform.infiniteRate' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.numeratorZero : ℚ → ℚ
+'Math.B699.I13G75Uniform.numeratorZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.denominator : ℚ → ℚ
+'Math.B699.I13G75Uniform.denominator' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.ratioZero : ℚ → ℚ
+'Math.B699.I13G75Uniform.ratioZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.infinite_rate_pos : 0 < Math.B699.I13G75Uniform.infiniteRate
+'Math.B699.I13G75Uniform.infinite_rate_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_pos : ∀ (m : ℕ), 0 < Math.B699.I13G75Uniform.divisorZero m
+'Math.B699.I13G75Uniform.divisor_zero_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_one_pos : ∀ (m : ℕ), 0 < Math.B699.I13G75Uniform.divisorOne m
+'Math.B699.I13G75Uniform.divisor_one_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.denominator_pos : ∀ (x : ℚ), 0 < x → 0 < Math.B699.I13G75Uniform.denominator x
+'Math.B699.I13G75Uniform.denominator_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_formula : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.divisorZero m =
+      ↑(6 * m - 1).factorial * ↑(m - 1).factorial / (↑(5 * m).factorial * ↑(2 * m - 1).factorial)
+'Math.B699.I13G75Uniform.divisor_zero_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_one_formula : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.divisorOne m =
+      ↑(6 * m - 1).factorial * ↑m.factorial / (↑(5 * m - 1).factorial * ↑(2 * m).factorial)
+'Math.B699.I13G75Uniform.divisor_one_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_one : Math.B699.I13G75Uniform.divisorZero 1 = 1
+'Math.B699.I13G75Uniform.divisor_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_one_eq : ∀ (m : ℕ),
+  1 ≤ m → Math.B699.I13G75Uniform.divisorOne m = 5 * ↑m / 2 * Math.B699.I13G75Uniform.divisorZero m
+'Math.B699.I13G75Uniform.divisor_one_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_le_one : ∀ (m : ℕ),
+  1 ≤ m → Math.B699.I13G75Uniform.divisorZero m ≤ Math.B699.I13G75Uniform.divisorOne m
+'Math.B699.I13G75Uniform.divisor_zero_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_step_succ : ∀ (k : ℕ),
+  Math.B699.I13G75Uniform.divisorZero (k + 2) =
+    Math.B699.I13G75Uniform.divisorZero (k + 1) * Math.B699.I13G75Uniform.ratioZero (↑k + 1)
+'Math.B699.I13G75Uniform.divisor_zero_step_succ' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_zero_step : ∀ (m : ℕ),
+  1 ≤ m →
+    Math.B699.I13G75Uniform.divisorZero (m + 1) =
+      Math.B699.I13G75Uniform.divisorZero m * Math.B699.I13G75Uniform.ratioZero ↑m
+'Math.B699.I13G75Uniform.divisor_zero_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I13G75Uniform.divisor_one_eq : ∀ (m : ℕ),
+  1 ≤ m → Math.B699.I13G75Uniform.divisorOne m = 5 * ↑m / 2 * Math.B699.I13G75Uniform.divisorZero m

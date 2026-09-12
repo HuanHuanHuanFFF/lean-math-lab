@@ -1,0 +1,37 @@
+RESOURCE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Bounds.lean", "selected_memory_mb": 1536, "wait_snapshot_count": 1, "platform": "windows", "cpu_count": 16, "disk": [294517391360, 293357268992, 1160122368], "available_physical_bytes": 5537116160, "total_physical_bytes": 16851132416, "memory_load_percent": 67, "meminfo": ["MemAvailable: 5407340 kB"], "memory.max": null, "memory.current": null, "cpu.max": null}
+COMPILE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Bounds.lean", "seconds": 7.946, "exit_code": 1, "failure": "Lean exit 1", "axiom_audit": {"declared_print_axioms": 0, "declared_names": [], "guarded_print_axioms": 0, "guarded_names": [], "actual_printed": 0, "guard_msgs_in_source": 0, "printed": [], "unexpected_axioms": [], "guarded_output_inferred": false}}
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T191042428078Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Bounds.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Bounds.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T19:11:08.276422Z
+# finished_utc: 2026-09-11T19:11:16.222170Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtPair\Bounds.lean:41:2: error: Type mismatch
+  add_le_add_left (mul_le_mul_of_nonneg_left h (Decidable.byContradiction fun a => coordinateA_mono._proof_1_1 a)) ?m.26
+has type
+  ↑Q * t + ?m.26 ≤ ↑Q * T + ?m.26
+but is expected to have type
+  ↑(positiveResidue Q v d) + ↑Q * t ≤ ↑(positiveResidue Q v d) + ↑Q * T
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtPair\Bounds.lean:46:2: error: Type mismatch
+  add_le_add_left (mul_le_mul_of_nonneg_left h (Decidable.byContradiction fun a => coordinateC_mono._proof_1_1 a)) ?m.26
+has type
+  ↑P * t + ?m.26 ≤ ↑P * T + ?m.26
+but is expected to have type
+  baseC P Q v d + ↑P * t ≤ baseC P Q v d + ↑P * T
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtPair\Bounds.lean:51:2: error: Tactic `apply` failed: could not unify the conclusion of `@add_le_add_right`
+  ?a + ?b ≤ ?a + ?c
+with the goal
+  min (↑P * coordinateA Q v d t) (↑Q * coordinateC P Q v d t) + ↑w ≤
+    min (↑P * coordinateA Q v d T) (↑Q * coordinateC P Q v d T) + ↑w
+
+Note: The full type of `@add_le_add_right` is
+  ∀ {α : Type ?u.12} [inst : Add α] [inst_1 : LE α] [AddLeftMono α] {b c : α}, b ≤ c → ∀ (a : α), a + b ≤ a + c
+
+P Q v w : ℕ
+d t T : ℤ
+h : t ≤ T
+⊢ min (↑P * coordinateA Q v d t) (↑Q * coordinateC P Q v d t) + ↑w ≤
+    min (↑P * coordinateA Q v d T) (↑Q * coordinateC P Q v d T) + ↑w
+
+EVIDENCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T191042428078Z/evidence.json
+RESULT {"success": false, "exit_code": 1, "compiled_count": 1, "reused_count": 2, "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.CrtPair.Bounds"}

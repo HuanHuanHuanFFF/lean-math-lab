@@ -1,0 +1,212 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.Pade.Recurrence
+
+/-!
+# Unconditional adjacent determinant for the actual BFT source polynomials
+
+The final source theorem assumes only u>=1 and v:Nat. Its actual P/Q recurrence
+comes from the six proved-candidate source multiplication identities. The signed
+constant recurrence is proved below from actual weighted choose identities.
+No hraw, Padé identity, or common-recurrence assumption is accepted as an input.
+This is a complete candidate chain, not a Lean acceptance record.
+-/
+
+namespace Math.B699.PadeActualRecurrence
+
+open Polynomial
+open Math.B699.PadeConstruction
+
+noncomputable def rawPolynomialDeterminant (u v : ℕ) : ℤ[X] :=
+  pPolynomial u v u * qPolynomial (u - 1) (v + 1) (u - 1) -
+    pPolynomial (u - 1) (v + 1) (u - 1) * qPolynomial u v u
+
+def determinantMagnitude (u v : ℕ) : ℕ :=
+  (2 * u + v).choose (2 * u - 1) * (2 * u).choose u
+
+def determinantConstant (u v : ℕ) : ℤ :=
+  (-1 : ℤ) ^ (u + 1) * (determinantMagnitude u v : ℤ)
+
+private theorem choose_lower_both_one (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) :
+    (n - 1).choose (k - 1) * n = n.choose k * k := by
+  have hn : 1 ≤ n := hk.trans hkn
+  have h := Nat.add_one_mul_choose_eq (n - 1) (k - 1)
+  rw [Nat.sub_add_cancel hn, Nat.sub_add_cancel hk] at h
+  calc
+    (n - 1).choose (k - 1) * n = n * (n - 1).choose (k - 1) := by ring
+    _ = n.choose k * k := h
+
+private theorem choose_lower_bottom_one (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) :
+    n.choose (k - 1) * (n - k + 1) = n.choose k * k := by
+  have h := Nat.choose_succ_right_eq n (k - 1)
+  rw [Nat.sub_add_cancel hk] at h
+  have hd : n - (k - 1) = n - k + 1 := by omega
+  rw [hd] at h
+  exact h.symm
+
+/-- The actual adjacent constant's unsigned recurrence, from two elementary
+weighted binomial relations. No factorial quotient or guessed constant is used. -/
+theorem determinantMagnitude_recurrence (u v : ℕ) (hu : 2 ≤ u) :
+    u * (u - 1) * determinantMagnitude u v =
+      (v + 2) * (2 * u + v) * determinantMagnitude (u - 1) (v + 1) := by
+  have ha0 := choose_lower_both_one (2 * u + v) (2 * u - 1) (by omega) (by omega)
+  have ha1 := choose_lower_bottom_one (2 * u + v - 1) (2 * u - 1 - 1) (by omega) (by omega)
+  have hkm1 : 2 * u - 1 - 1 = 2 * u - 2 := by omega
+  have hkm2 : 2 * u - 1 - 1 - 1 = 2 * u - 3 := by omega
+  have hfactor : 2 * u + v - 1 - (2 * u - 1 - 1) + 1 = v + 2 := by omega
+  rw [hkm1] at ha0
+  rw [hkm2, hfactor, hkm1] at ha1
+  have ha : (2 * u + v - 1).choose (2 * u - 3) * (2 * u + v) * (v + 2) =
+      (2 * u + v).choose (2 * u - 1) * (2 * u - 1) * (2 * u - 2) := by
+    calc
+      (2 * u + v - 1).choose (2 * u - 3) * (2 * u + v) * (v + 2) =
+        ((2 * u + v - 1).choose (2 * u - 3) * (v + 2)) * (2 * u + v) := by ring
+      _ = ((2 * u + v - 1).choose (2 * u - 2) * (2 * u - 2)) * (2 * u + v) := by rw [ha1]
+      _ = ((2 * u + v - 1).choose (2 * u - 2) * (2 * u + v)) * (2 * u - 2) := by ring
+      _ = (2 * u + v).choose (2 * u - 1) * (2 * u - 1) * (2 * u - 2) := by rw [ha0]
+  have hb0 := choose_lower_both_one (2 * u - 1) u (by omega) (by omega)
+  have hnn : 2 * u - 1 - 1 = 2 * u - 2 := by omega
+  rw [hnn] at hb0
+  have hb1 := Nat.choose_mul_succ_eq (2 * u - 1) u
+  have hns : 2 * u - 1 + 1 = 2 * u := by omega
+  have hdiff : 2 * u - u = u := by omega
+  rw [hns, hdiff] at hb1
+  have hb : (2 * u - 2).choose (u - 1) * 2 * (2 * u - 1) = (2 * u).choose u * u := by
+    calc
+      (2 * u - 2).choose (u - 1) * 2 * (2 * u - 1) =
+        ((2 * u - 2).choose (u - 1) * (2 * u - 1)) * 2 := by ring
+      _ = ((2 * u - 1).choose u * u) * 2 := by rw [hb0]
+      _ = (2 * u - 1).choose u * (2 * u) := by ring
+      _ = (2 * u).choose u * u := hb1
+  have htop : 2 * (u - 1) + (v + 1) = 2 * u + v - 1 := by omega
+  have hbottom : 2 * (u - 1) - 1 = 2 * u - 3 := by omega
+  have hcentral : 2 * (u - 1) = 2 * u - 2 := by omega
+  unfold determinantMagnitude
+  rw [htop, hbottom, hcentral]
+  symm
+  calc
+    (v + 2) * (2 * u + v) *
+        ((2 * u + v - 1).choose (2 * u - 3) * (2 * u - 2).choose (u - 1)) =
+      ((2 * u + v - 1).choose (2 * u - 3) * (2 * u + v) * (v + 2)) *
+        (2 * u - 2).choose (u - 1) := by ring
+    _ = ((2 * u + v).choose (2 * u - 1) * (2 * u - 1) * (2 * u - 2)) *
+        (2 * u - 2).choose (u - 1) := by rw [ha]
+    _ = (2 * u + v).choose (2 * u - 1) * (u - 1) *
+        ((2 * u - 2).choose (u - 1) * 2 * (2 * u - 1)) := by rw [← hcentral]; ring
+    _ = (2 * u + v).choose (2 * u - 1) * (u - 1) * ((2 * u).choose u * u) := by rw [hb]
+    _ = u * (u - 1) * ((2 * u + v).choose (2 * u - 1) * (2 * u).choose u) := by ring
+
+theorem determinantConstant_recurrence (u v : ℕ) (hu : 2 ≤ u) :
+    recurrenceN u * determinantConstant u v =
+      -(recurrenceB u v) * determinantConstant (u - 1) (v + 1) := by
+  have hu1 : 1 ≤ u := by omega
+  have hc := congrArg (fun n : ℕ => (n : ℤ)) (determinantMagnitude_recurrence u v hu)
+  simp only [Nat.cast_mul, Nat.cast_add, Nat.cast_sub hu1, Nat.cast_one, Nat.cast_ofNat] at hc
+  unfold recurrenceN recurrenceB determinantConstant
+  rw [Nat.sub_add_cancel hu1, pow_succ]
+  linear_combination -((-1 : ℤ) ^ u) * hc
+
+theorem determinantConstant_ne_zero (u v : ℕ) (hu : 1 ≤ u) : determinantConstant u v ≠ 0 := by
+  have ha : (2 * u + v).choose (2 * u - 1) ≠ 0 := Nat.ne_of_gt (Nat.choose_pos (by omega))
+  have hb : (2 * u).choose u ≠ 0 := Nat.ne_of_gt (Nat.choose_pos (by omega))
+  have hm : determinantMagnitude u v ≠ 0 := Nat.mul_ne_zero ha hb
+  exact mul_ne_zero (pow_ne_zero _ (by norm_num)) (Nat.cast_ne_zero.mpr hm)
+
+/-- The actual raw determinant recurrence, derived by eliminating the shared
+middle term from the two proved source polynomial recurrences. -/
+theorem rawPolynomialDeterminant_recurrence (u v : ℕ) (hu : 2 ≤ u) :
+    C (recurrenceN u) * rawPolynomialDeterminant u v =
+      -(C (recurrenceB u v) * (X ^ 2 * rawPolynomialDeterminant (u - 1) (v + 1))) := by
+  have hp := pPolynomial_recurrence u v hu
+  have hq := qPolynomial_recurrence u v hu
+  have hs : u - 1 - 1 = u - 2 := by omega
+  have hv : v + 1 + 1 = v + 2 := by omega
+  unfold rawPolynomialDeterminant
+  rw [hs, hv]
+  linear_combination
+    (qPolynomial (u - 1) (v + 1) (u - 1)) * hp -
+      (pPolynomial (u - 1) (v + 1) (u - 1)) * hq
+
+private theorem pPolynomial_zero (v : ℕ) : pPolynomial 0 v 0 = 1 := by
+  simp [pPolynomial, coefficientPolynomial, pCoefficient]
+
+private theorem qPolynomial_zero (v : ℕ) : qPolynomial 0 v 0 = 1 := by
+  simp [qPolynomial, coefficientPolynomial, qCoefficient, qMagnitude]
+
+private theorem pPolynomial_one (v : ℕ) :
+    pPolynomial 1 v 1 = C (-2 : ℤ) + C ((v : ℤ) + 3) * X := by
+  norm_num [pPolynomial, coefficientPolynomial, Finset.sum_range_succ, pCoefficient,
+    Nat.choose_one_right, ← Polynomial.C_mul_X_pow_eq_monomial, map_add, map_mul, map_neg]
+  <;> ring
+
+private theorem qPolynomial_one (v : ℕ) :
+    qPolynomial 1 v 1 = C (-2 : ℤ) - C ((v : ℤ) + 1) * X := by
+  norm_num [qPolynomial, coefficientPolynomial, Finset.sum_range_succ, qCoefficient, qMagnitude,
+    Nat.choose_one_right, ← Polynomial.C_mul_X_pow_eq_monomial, map_add, map_mul, map_neg]
+  <;> ring
+
+theorem determinantConstant_one (v : ℕ) : determinantConstant 1 v = 2 * ((v : ℤ) + 2) := by
+  norm_num [determinantConstant, determinantMagnitude, Nat.choose_one_right]
+  <;> ring
+
+private theorem rawPolynomialDeterminant_one (v : ℕ) :
+    rawPolynomialDeterminant 1 v = C (determinantConstant 1 v) * X ^ (2 * 1 - 1) := by
+  simp only [rawPolynomialDeterminant, Nat.sub_self, pPolynomial_one, qPolynomial_one,
+    pPolynomial_zero, qPolynomial_zero, determinantConstant_one]
+  norm_num [map_add, map_mul]
+  <;> ring
+
+private theorem rawPolynomialDeterminant_succ (t v : ℕ) :
+    rawPolynomialDeterminant (t + 1) v = C (determinantConstant (t + 1) v) * X ^ (2 * (t + 1) - 1) := by
+  induction t generalizing v with
+  | zero => simpa using rawPolynomialDeterminant_one v
+  | succ t ih =>
+    let u : ℕ := t + 2
+    change rawPolynomialDeterminant u v = C (determinantConstant u v) * X ^ (2 * u - 1)
+    have hu : 2 ≤ u := by dsimp [u]; omega
+    have hs : u - 1 = t + 1 := by dsimp [u]
+    have hprev : rawPolynomialDeterminant (u - 1) (v + 1) =
+        C (determinantConstant (u - 1) (v + 1)) * X ^ (2 * (u - 1) - 1) := by
+      simpa only [hs] using ih (v + 1)
+    have hrec := rawPolynomialDeterminant_recurrence u v hu
+    rw [hprev] at hrec
+    have hscale : (C (recurrenceN u) : ℤ[X]) ≠ 0 := Polynomial.C_ne_zero.mpr (recurrenceN_ne_zero u hu)
+    have hmatch : C (recurrenceN u) * (C (determinantConstant u v) * X ^ (2 * u - 1)) =
+        -(C (recurrenceB u v) * (X ^ 2 *
+          (C (determinantConstant (u - 1) (v + 1)) * X ^ (2 * (u - 1) - 1)))) := by
+      calc
+        C (recurrenceN u) * (C (determinantConstant u v) * X ^ (2 * u - 1)) =
+          C (recurrenceN u * determinantConstant u v) * X ^ (2 * u - 1) := by simp only [map_mul]; ring
+        _ = C (-(recurrenceB u v) * determinantConstant (u - 1) (v + 1)) * X ^ (2 * u - 1) := by
+          rw [determinantConstant_recurrence u v hu]
+        _ = -(C (recurrenceB u v) * (X ^ 2 *
+            (C (determinantConstant (u - 1) (v + 1)) * X ^ (2 * (u - 1) - 1)))) := by
+          have he : 2 * u - 1 = 2 + (2 * (u - 1) - 1) := by omega
+          rw [he, pow_add]
+          simp only [map_mul, map_neg]
+          ring
+    apply mul_left_cancel₀ hscale
+    exact hrec.trans hmatch.symm
+
+/-- The unrestricted actual source determinant. Its only hypothesis is u>=1.
+This is the upper-first version of BFT Lemma 3.2, with explicit signed constant. -/
+theorem rawPolynomialDeterminant_formula (u v : ℕ) (hu : 1 ≤ u) :
+    rawPolynomialDeterminant u v = C (determinantConstant u v) * X ^ (2 * u - 1) := by
+  simpa only [Nat.sub_add_cancel hu] using rawPolynomialDeterminant_succ (u - 1) v
+
+/-- Actual adjacent rows cannot have zero determinant at any nonzero real z.
+No Padé identity, hraw, or recurrence hypothesis appears in this conclusion. -/
+theorem actual_polynomial_rows_det_ne_zero (u v : ℕ) (hu : 1 ≤ u) {z : ℝ} (hz : z ≠ 0) :
+    (rawPolynomialDeterminant u v).eval₂ (Int.castRingHom ℝ) z ≠ 0 := by
+  rw [rawPolynomialDeterminant_formula u v hu, Polynomial.eval₂_mul,
+    Polynomial.eval₂_C, Polynomial.eval₂_X_pow]
+  change (determinantConstant u v : ℝ) * z ^ (2 * u - 1) ≠ 0
+  exact mul_ne_zero (Int.cast_ne_zero.mpr (determinantConstant_ne_zero u v hu)) (pow_ne_zero _ hz)
+
+#print axioms Math.B699.PadeActualRecurrence.determinantMagnitude_recurrence
+#print axioms Math.B699.PadeActualRecurrence.determinantConstant_recurrence
+#print axioms Math.B699.PadeActualRecurrence.determinantConstant_ne_zero
+#print axioms Math.B699.PadeActualRecurrence.rawPolynomialDeterminant_recurrence
+#print axioms Math.B699.PadeActualRecurrence.determinantConstant_one
+#print axioms Math.B699.PadeActualRecurrence.rawPolynomialDeterminant_formula
+#print axioms Math.B699.PadeActualRecurrence.actual_polynomial_rows_det_ne_zero
+
+end Math.B699.PadeActualRecurrence

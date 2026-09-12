@@ -1,8 +1,12 @@
+# 当前状态入口（2026-09-12）
+
+A 151项及统一入口通过；B i11全域通过，1/19。见 [前沿](../frontier.md) 与 [i11报告](huan-i11-full-original-acceptance.md)。用户已授权现在推送并后续持续推送自己的huan分支。以下为保留的历史检查点。
+
 # huan 当前接续检查点
 
 更新于 UTC 2026-09-11T12:43:40.114267+00:00。原始声明、逐项计数和运行身份以本 run 的 [frontier](../frontier.md)、[target-status](../target-status.json) 为准。本页是带时间的证据导航，不另行维护接受集合。
 
-A 的151个固定指标已经逐项接受。历史35、36的本机完整对象包也已补齐，见[35收据](../verification/huan-historical-accepted/row035.json)和[36收据](../verification/huan-historical-accepted/row036.json)。仍需29、37的本机对象包，再核验全部151个显式原题接口的统一入口。历史包重验不新增计功。
+A的151个固定原题已经逐项且统一Lean接受。历史29/35/36/37本机对象全部收口，HuanAllA完成151项实际传递公理审计；1新3690复用，38.821秒。详见[统一报告](huan-stage-a-unified-acceptance.md)和[实际收据](../verification/huan-all-a-plan/acceptance.json)。本次不重复新增计功。
 
 B 的19个原始指标当前仍为0个完整Lean接受。下列是已经真实核验的前置，不能代替完整原题。
 
@@ -17,11 +21,16 @@ B 的19个原始指标当前仍为0个完整Lean接受。下列是已经真实�
 | 有限递推与Bernoulli阈值 | [已验收据](../verification/huan-prerequisites/elementary-rate.json) |
 | 通用逐层取整不等式 | [已验收据](../verification/huan-prerequisites/rational-divisor-floor.json) |
 | 通用四阶乘整除 | [已验收据](../verification/huan-prerequisites/rational-divisor-factorial.json) |
+| 实际四分量与四窗口 | [已验收据](../verification/huan-prerequisites/i11-small-prime-localization.json) |
+| 实际i11立方小余因子桥 | [已验收据](../verification/huan-prerequisites/i11-actual-cubic-bridge.json) |
+| 通用指数块与真实样本完整闭环 | [已验收据](../verification/huan-prerequisites/cubic-block-sample-complete.json) |
 | i11上界高度覆盖接口 | [已验收据](../verification/huan-prerequisites/upper-height-cover.json) |
 
 所有表中接受都绑定实际源SHA、固定依赖、成功完整导入闭包、对象/日志以及公开声明的传递公理检查。源注释保留创建时的候选状态；是否当前接受看收据及其绑定源，不能只看旧注释或编译日志中的部分成功。
 
 ## 当前主线
+
+最新接续优先补实际立方小余因子桥和一个指数块完整Lean证书消费者；固定旧报告的逐字来源核对见[采用记录](huan-resumed-cubic-adoption.json)。下述Padé候选保留，但大高度直接CRT遍历不再作为默认下一步；其14.1262天外推不衡量指数块压缩路线。
 
 初等有理阶乘因子 D=(u+floor(v/2))! floor(v/2)!/(u!v!) 的逐层不等式和通用阶乘整除已通过；实际q系数及G/D整性正在验收。五组i11参数已有精确有限证书，主计划仍为H=2^15360、S=640、Delta=40，见[采用记录](huan-i11-finite-plan-adoption.json)。目前实际(5,3)有限D/G链、Hom余项、最小m选择器及五边乘积仍分别是候选，只有真实验收后才升级。
 

@@ -1,0 +1,46 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T09:16:06.756519+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "i11-terminal-prefix-cover",
+      "root": "lean/I11TerminalMono/ACover.lean",
+      "source_sha256": "f9343f43cb590713e9121accb5ddabf243c6f31bc704f1e5ea6b0229e2a428f9",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-pair23-first-row.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-prefix-rowcell",
+      "root": "lean/I11TerminalMono/ARowCell.lean",
+      "source_sha256": "6ecf2827283d74ae3621864e734a0975137be381c378df45be74f25e7b29f5c3",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-pair23-first-row.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-prefix-cover.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-prefix-full-audit",
+      "root": "lean/I11TerminalMono/Audit.lean",
+      "source_sha256": "e648665c83c80a95710b8e24f825104c3a741e30da20eaa2c61c81dcf75095b4",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-prefix-rowcell.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-membership-pair23-row5-prefix",
+      "root": "lean/I11TerminalMembership/Pair23/RowA005.lean",
+      "source_sha256": "31dd07e58dcc82a3d0d2ecdc5a9f72473677a5d51058a1bc9908a63a28e2ca0a",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-prefix-full-audit.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-pair23-data.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

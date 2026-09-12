@@ -1,0 +1,217 @@
+{
+  "utc": "2026-09-11T19:10:38.460201+00:00",
+  "sources": [
+    {
+      "path": "experiments/huan-i11-crt-grid-consumer-5e2d13bb/Cell.lean",
+      "sha256": "46b5dba8e7762f28a0c5598da9354c2c5882e775e73877f0e5890b41ef71788f",
+      "declarations": [
+        {
+          "line": 11,
+          "signature": "structure CellData where"
+        },
+        {
+          "line": 15,
+          "signature": "def rowCheck (P Q v capA capC T : ℕ) (d : ℤ) (bounds : BoundsDatum) : Bool"
+        },
+        {
+          "line": 19,
+          "signature": "def shifts : List ℤ"
+        },
+        {
+          "line": 21,
+          "signature": "def shiftCheck (P Q capA capC T : ℕ) (ds : List ℤ) (data : CellData) : Bool"
+        },
+        {
+          "line": 24,
+          "signature": "def cellCheck (P Q capA capC T : ℕ) (data : CellData) : Bool"
+        },
+        {
+          "line": 27,
+          "signature": "theorem rowCheck_sound {P Q v capA capC T A C n : ℕ} {d : ℤ} {bounds : BoundsDatum}\n    (hcheck : rowCheck P Q v capA capC T d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + 10) : n ≤ T"
+        },
+        {
+          "line": 37,
+          "signature": "theorem rowCheck_mono_target {P Q v capA capC T T' : ℕ} {d : ℤ} {bounds : BoundsDatum}\n    (hcheck : rowCheck P Q v capA capC T d bounds = true) (hT : T ≤ T') :\n    rowCheck P Q v capA capC T' d bounds = true"
+        },
+        {
+          "line": 45,
+          "signature": "theorem mem_shifts {d : ℤ} (hlo : -10 ≤ d) (hhi : d ≤ 10) : d ∈ shifts"
+        },
+        {
+          "line": 56,
+          "signature": "theorem shiftCheck_append {P Q capA capC T : ℕ} {left right : List ℤ} {data : CellData}\n    (hl : shiftCheck P Q capA capC T left data = true)\n    (hr : shiftCheck P Q capA capC T right data = true) :\n    shiftCheck P Q capA capC T (left ++ right) data = true"
+        },
+        {
+          "line": 64,
+          "signature": "theorem cellCheck_sound {P Q capA capC T A C n : ℕ} {d : ℤ} {data : CellData}\n    (hcheck : cellCheck P Q capA capC T data = true)\n    (hdlo : -10 ≤ d) (hdhi : d ≤ 10)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + 10) : n ≤ T"
+        },
+        {
+          "line": 74,
+          "signature": "theorem cellCheck_mono_target {P Q capA capC T T' : ℕ} {data : CellData}\n    (hcheck : cellCheck P Q capA capC T data = true) (hT : T ≤ T') :\n    cellCheck P Q capA capC T' data = true"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-crt-grid-consumer-5e2d13bb/HeightCap.lean",
+      "sha256": "b766b3b5ab7fc4473ebce16342761d60b6c77ea3b64023aecae725821231ba53",
+      "declarations": [
+        {
+          "line": 11,
+          "signature": "def heightCap (H M P : ℕ) : ℕ"
+        },
+        {
+          "line": 13,
+          "signature": "theorem height_cap_of_product_le {A P n H M : ℕ} (hP : 0 < P)\n    (hproduct : A * P ≤ n) (hnH : n < H) (hM : A ≤ M) : A ≤ heightCap H M P"
+        },
+        {
+          "line": 20,
+          "signature": "theorem height_cap_of_window {A P n a H M : ℕ} (hP : 0 < P)\n    (hM : A ≤ M) (hnH : n < H) (heq : n - a = P * A) : A ≤ heightCap H M P"
+        },
+        {
+          "line": 30,
+          "signature": "theorem power_lt_height_of_window {A P n a H : ℕ} (hA : 1 ≤ A)\n    (hnH : n < H) (heq : n - a = P * A) : P < H"
+        },
+        {
+          "line": 40,
+          "signature": "theorem actual_window_height_cap {n p H M : ℕ} (window : PrimeWindow n p)\n    (hp : p.Prime) (hnH : n < H) (hM : window.cofactor ≤ M) :\n    window.cofactor ≤ heightCap H M (primeComponent n p)"
+        },
+        {
+          "line": 50,
+          "signature": "theorem integer_window_links {n a b : ℕ} (ha : a < 11) (hb : b < 11) :\n    -(10 : ℤ) ≤ ((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ) ∧\n    ((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ) ≤ 10 ∧\n    n ≤ min (n - a) (n - b) + 10"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-crt-grid-consumer-5e2d13bb/Grid.lean",
+      "sha256": "9082c7c4bc379e7ffafbb38b24c12a408933d5a1ee5327b3c9c3869eaa620cd3",
+      "declarations": [
+        {
+          "line": 10,
+          "signature": "def blockCheck (p q H M T aStart aCount bStart bCount : ℕ)\n    (data : ℕ → ℕ → CellData) : Bool"
+        },
+        {
+          "line": 16,
+          "signature": "def rectangleCheck (p q H M T amax bmax : ℕ) (data : ℕ → ℕ → CellData) : Bool"
+        },
+        {
+          "line": 19,
+          "signature": "theorem blockCheck_cell {p q H M T aStart aCount bStart bCount a b : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : blockCheck p q H M T aStart aCount bStart bCount data = true)\n    (ha0 : aStart ≤ a) (ha1 : a < aStart + aCount)\n    (hb0 : bStart ≤ b) (hb1 : b < bStart + bCount) :\n    cellCheck (p ^ a) (q ^ b) (heightCap H M (p ^ a)) (heightCap H M (q ^ b)) T (data a b) = true"
+        },
+        {
+          "line": 30,
+          "signature": "theorem blockCheck_append_rows {p q H M T aStart leftCount rightCount bStart bCount : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hl : blockCheck p q H M T aStart leftCount bStart bCount data = true)\n    (hr : blockCheck p q H M T (aStart + leftCount) rightCount bStart bCount data = true) :\n    blockCheck p q H M T aStart (leftCount + rightCount) bStart bCount data = true"
+        },
+        {
+          "line": 39,
+          "signature": "theorem blockCheck_append_columns {p q H M T aStart aCount bStart leftCount rightCount : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hl : blockCheck p q H M T aStart aCount bStart leftCount data = true)\n    (hr : blockCheck p q H M T aStart aCount (bStart + leftCount) rightCount data = true) :\n    blockCheck p q H M T aStart aCount bStart (leftCount + rightCount) data = true"
+        },
+        {
+          "line": 51,
+          "signature": "theorem blockCheck_mono_target {p q H M T T' aStart aCount bStart bCount : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : blockCheck p q H M T aStart aCount bStart bCount data = true) (hT : T ≤ T') :\n    blockCheck p q H M T' aStart aCount bStart bCount data = true"
+        },
+        {
+          "line": 65,
+          "signature": "theorem blockCheck_transfer_data {p q H M T aStart aCount bStart bCount : ℕ}\n    {data data' : ℕ → ℕ → CellData}\n    (hcheck : blockCheck p q H M T aStart aCount bStart bCount data = true)\n    (hdata : ∀ a, aStart ≤ a → a < aStart + aCount →\n      ∀ b, bStart ≤ b → b < bStart + bCount → data a b = data' a b) :\n    blockCheck p q H M T aStart aCount bStart bCount data' = true"
+        },
+        {
+          "line": 81,
+          "signature": "theorem rectangleCheck_sound {p q H M T amax bmax a b A C n : ℕ} {d : ℤ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : rectangleCheck p q H M T amax bmax data = true)\n    (ha0 : 1 ≤ a) (ha1 : a ≤ amax) (hb0 : 1 ≤ b) (hb1 : b ≤ bmax)\n    (hdlo : -10 ≤ d) (hdhi : d ≤ 10) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hAcap : A ≤ heightCap H M (p ^ a)) (hCcap : C ≤ heightCap H M (q ^ b))\n    (heq : ((p ^ a : ℕ) : ℤ) * (A : ℤ) - ((q ^ b : ℕ) : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (p ^ a * A) (q ^ b * C) + 10) : n ≤ T"
+        },
+        {
+          "line": 93,
+          "signature": "theorem exponent_le_of_pow_lt {p a amax H : ℕ} (hp : 1 < p)\n    (hcut : H ≤ p ^ (amax + 1)) (hsmall : p ^ a < H) : a ≤ amax"
+        },
+        {
+          "line": 103,
+          "signature": "theorem grid_windows_sound {p q H M T amax bmax a b A C n r s : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : rectangleCheck p q H M T amax bmax data = true)\n    (hp : 1 < p) (hq : 1 < q)\n    (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1))\n    (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)\n    (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hAM : A ≤ M) (hCM : C ≤ M)\n    (hP : n - r = p ^ a * A) (hQ : n - s = q ^ b * C) : n ≤ T"
+        },
+        {
+          "line": 128,
+          "signature": "theorem grid_windows_sound_swapped {p q H M T amax bmax a b A C n r s : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : rectangleCheck p q H M T amax bmax data = true)\n    (hp : 1 < p) (hq : 1 < q)\n    (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1))\n    (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)\n    (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hAM : A ≤ M) (hCM : C ≤ M)\n    (hP : n - r = q ^ b * A) (hQ : n - s = p ^ a * C) : n ≤ T"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-crt-grid-consumer-5e2d13bb/FREEZE.json",
+      "sha256": "bc75d1d2fcfc9e0a3271d17756651a4e47ceb9355825dbc31fba52c513b53860",
+      "declarations": []
+    },
+    {
+      "path": "lean/I11Bounded/ActualBridge.lean",
+      "sha256": "612a8c2b665dd53bb92f5cc2b8aa41bd6eec3654464daac5c3af0e9d9073e5a6",
+      "declarations": [
+        {
+          "line": 13,
+          "signature": "theorem actual_i11_bounded_cofactor_bridge {n j H M : ℕ}\n    (hM : 1 ≤ M) (hlarge : 110 ≤ n) (hMn : M < n) (hnH : n < H)\n    (hij : 11 < j) (hjn : j ≤ n / 2)\n    (hcertificate : (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33)\n    (hno : ¬ Common n 11 j) :\n    ∃ p q h k a b A C : ℕ,\n      p.Prime ∧ q.Prime ∧ p ∈ ({2, 3, 5, 7} : Finset ℕ) ∧\n      q ∈ ({2, 3, 5, 7} : Finset ℕ) ∧ p ≠ q ∧\n      h = (n.choose 11).factorization p ∧ k = (n.choose 11).factorization q ∧\n      0 < h ∧ 0 < k ∧ a < 11 ∧ b < 11 ∧ 1 ≤ A ∧ 1 ≤ C ∧ A ≤ M ∧ C ≤ M ∧\n      n - a = p ^ h * A ∧ n - b = q ^ k * C ∧ Nat.dist (n - a) (n - b) ≤ 10"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Compress/PairDispatch.lean",
+      "sha256": "8130269a405ffaa8aca197914294fb1f7d34e90e7305b9a82b69b92eb6c80af5",
+      "declarations": [
+        {
+          "line": 19,
+          "signature": "theorem distinct_pair_below_109 (data : SixPairRows)\n    (check23 : pairCheck 2 3 10 45 15359 68 ((2 : ℕ) ^ 15360) data.rows23 = true)\n    (check25 : pairCheck 2 5 10 44 15359 66 ((2 : ℕ) ^ 15360) data.rows25 = true)\n    (check27 : pairCheck 2 7 10 43 15359 65 ((2 : ℕ) ^ 15360) data.rows27 = true)\n    (check35 : pairCheck 3 5 10 32 9691 75 ((2 : ℕ) ^ 15360) data.rows35 = true)\n    (check37 : pairCheck 3 7 10 32 9691 75 ((2 : ℕ) ^ 15360) data.rows37 = true)\n    (check57 : pairCheck 5 7 10 32 6615 109 ((2 : ℕ) ^ 15360) data.rows57 = true)\n    {p q n r s h k A C : ℕ}\n    (hpMem : p ∈ ({2, 3, 5, 7} : Finset ℕ))\n    (hqMem : q ∈ ({2, 3, 5, 7} : Finset ℕ)) (hpq : p ≠ q)\n    (hnH : n < (2 : ℕ) ^ 15360) (hr : r ≤ 10) (hs : s ≤ 10)\n    (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hP : n - r = p ^ h * A) (hQ : n - s = q ^ k * C)\n    (hsmallA : A ^ 3 ≤ min (n - r) (n - s))\n    (hsmallC : C ^ 3 ≤ min (n - r) (n - s)) : n < (2 : ℕ) ^ 109"
+        }
+      ]
+    },
+    {
+      "path": "lean/CubicBatches/ActualCompression.lean",
+      "sha256": "7d08601fe8511dccaf9f5ecad1f5be4325b98adc74acf1c2372f77cd8584ad87",
+      "declarations": [
+        {
+          "line": 16,
+          "signature": "def allPairRows : SixPairRows where"
+        },
+        {
+          "line": 26,
+          "signature": "theorem actual_i11_below_109_of_initial_height {n j : ℕ}\n    (hij : 11 < j) (hjn : j ≤ n / 2) (hno : ¬ Common n 11 j)\n    (hnH : n < (2 : ℕ) ^ 15360) : n < (2 : ℕ) ^ 109"
+        }
+      ]
+    },
+    {
+      "path": "lean/UpperHeight/I11SmallPart.lean",
+      "sha256": "16c3d5a32575ca12088e403a1d1d9d4ca7dd551f5791ef2ae168a606e205e6b4",
+      "declarations": [
+        {
+          "line": 15,
+          "signature": "def i11K : ℕ"
+        },
+        {
+          "line": 17,
+          "signature": "theorem i11_smallPrimeCount : smallPrimeCount 11 = 4"
+        },
+        {
+          "line": 19,
+          "signature": "theorem i11_windowDegree : windowDegree 11 3 7 = 84"
+        },
+        {
+          "line": 21,
+          "signature": "theorem i11_windowConstant : windowConstant 11 3 7 = i11K"
+        },
+        {
+          "line": 23,
+          "signature": "theorem i11_heightExponent : heightExponent 11 3 7 = 128"
+        },
+        {
+          "line": 25,
+          "signature": "theorem i11_upper_exponent : heightExponent 11 3 7 = 11 * (2 * 7 - 3) + 7"
+        },
+        {
+          "line": 29,
+          "signature": "theorem i11_noCommon_small_part_lower_of_upper_certificate\n    {n j H M : ℕ}\n    (hij : 11 < j) (hjn : j ≤ n / 2)\n    (hlarge : 110 ≤ n) (hnH : n ≤ H)\n    (hcertificate : (2 * Nat.factorial 11) ^ 11 * H ^ 7 ≤ i11K * M ^ 33)\n    (hno : ¬ Common n 11 j) :\n    n ^ 4 ≤ M ^ 3 * smallPrimePart n 11"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-crt-descent-probe-5e2d13bb/result.json",
+      "sha256": "f66da2a3e2f288a67aa48b5fdc8c78c52ff376dc57ad40817640572f31b135cd",
+      "declarations": []
+    }
+  ],
+  "old_dispatch_used_as_pattern_only": "Math.B699.I11CubicCompression.distinct_pair_below_109",
+  "new_generic_dispatch": "Math.B699.I11CRTSixPair.distinct_pair_windows_bound",
+  "numeric_full_grid_certificates_supplied": false,
+  "worker_lean_runs": 0
+}

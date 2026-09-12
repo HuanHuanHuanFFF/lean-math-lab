@@ -1,0 +1,1937 @@
+===== PDF PAGE 1 =====
+On the factorization of consecutive integers
+M.A. Bennett, M. Filaseta and O. Trifonov
+February 26, 2007
+1 Introduction
+A classical result of Sylvester [21] (see also [16], [17]), generalizing Bertrand’s
+Postulate, states that the greatest prime divisor of a product of k consecutive
+integers greater thank exceedsk. More recent work in this vein, well surveyed
+in [18], has focussed on sharpening Sylvester’s theorem, or upon providing
+lower bounds for the number of prime divisors of such a product. As noted
+in [18], a basic technique in these arguments is to make a careful distinction
+between “small” and “large” primes, and then apply sophisticated results
+from multiplicative number theory. Along these lines, if we write
+(n
+k
+)
+=U ·V, n ≥ 2k,
+whereU is composed only of primes ≤ k andV only of those exceedingk, then
+Ecklund, Eggleton, Erd˝ os and Selfridge [5] deduce the inequalityU <V , valid
+with at most ﬁnitely many exceptions. To prove this, they employ a variety of
+combinatorial lemmata, the Prime Number Theorem, and a result of Mahler
+[11] from Diophantine approximation. In fact, they obtain something much
+more explicit, except in the cases k ∈ {3, 5, 7}, where the appeal to [11]
+leads to ineﬀectivity (rather than a precise list of exceptional pairs ( n,k )).
+In this situation, we ﬁnd in [5] a conjecture, described as the “most obvious
+outstanding problem” in this area, characterizing the exceptional pairs for
+k ∈ {3, 5, 7} (there are believed to be precisely 19). This also appears as
+problem B31 in [9] and is referenced in [6]. In this paper, as a byproduct of
+rather more general results (see Section 2), we will prove this conjecture in
+two of the three cases:
+1
+
+===== PDF PAGE 2 =====
+Theorem 1.1. If k ∈ {5, 7}, n ≥ 2k is an integer, and we write
+(n
+k
+)
+=U ·V,
+where U and V are integers with P (U ) ≤ k and V coprime to k!, then it
+follows that V >U , unless
+(n,k ) ∈ {(10, 5), (12, 5), (21, 7), (28, 5), (30, 7), (54, 7)}.
+Here, we denote by P (m), the greatest prime factor of an integer m (with
+P (±1) = 1). Our approach is based upon careful examination of the case
+of two consecutive integers. As far back as 1897, C. St¨ ormer [20] showed
+that the largest prime factor of x2 +x tends to inﬁnity with x and gave an
+algorithm for ﬁnding every x for which x2 +x has all of its prime factors less
+than a prescribed bound. D. H. Lehmer [10], improving on this algorithm,
+determined explicitly the 869 positive integers x for which the largest prime
+factor of x2 +x is ≤ 41. Fixing primes p and q, for x suﬃciently large and
+for k, l, and y nonnegative integers satisfying
+x2 +x =pkqly, (1.1)
+it follows from [20] that the value of y is necessarily large. In fact, Mahler [11]
+applied a p-adic version of Roth’s theorem from Diophantine approximation
+due to Ridout [13] to show that for an arbitrary ε>0 and x suﬃciently large
+(depending on p,q and ε), the value of y exceeds x1−ε. Unfortunately, this
+result is ineﬀective in the sense that it is not possible to explicitly quantify the
+term “suﬃciently large”. The strongest eﬀective analogue of this statement
+available to us, in general, is due to Stewart [19], who obtained an estimate
+of the shape y ≫ xδ for certain δ= δ(p,q ) > 0. This result is based on
+careful use of lower bounds for linear forms in logarithms and applies also to
+the situation where the right hand side of (1.1) contains an arbitrary ﬁxed
+list of primes.
+For the purpose of proving Theorem 1.1 and for other applications, how-
+ever, we require a result that is valid for larger values of δthan those implicit
+in [19], yet still eﬀective (indeed explicit). In this paper, we will deduce such
+estimates via the hypergeometric method of Thue and Siegel. We establish,
+by way of example, the following :
+2
+
+===== PDF PAGE 3 =====
+Theorem 1.2. Let x be a positive integer not in the set {1, 2, 3, 8}, and
+suppose that k, l, and y are nonnegative integers satisfying
+x2 +x = 2 k3ly.
+Then y >x0. 285.
+The need for a result of this ﬂavour (a very special case of the statements
+of our Section 2) was actually the prime motivating force for this paper.
+Theorem 1.2 plays a crucial role in work of the last two authors and Travis
+Kidd (in preparation) on the irreducibility of L(m)
+m (x), where
+L(α)
+m (x) =
+m∑
+j=0
+(m +α)(m − 1 +α) · · ·(j + 1 +α)(−x)j
+(m −j)!j!
+is the generalized Laguerre polynomial. In particular, it helps eliminate the
+possibility of L(m)
+m (x) having a quadratic factor for m> 2. This enables one
+to show that the polynomial L(m)
+m (x) is irreducible for each integerm> 2 with
+m ≡ 2 (mod 4), whence, following the work of I. Schur [16, 17] and R. Gow
+[8], there is, for every integer m ≥ 2, a generalized Laguerre polynomial of
+degree m having Galois group the alternating group Am.
+The layout of this paper is as follows. In Section 2, we provide notation
+and statements of our results in full generality. In Section 3, we introduce the
+approximating polynomials that will play the key role in our proofs (Pad´ e
+approximants to the binomial function). In Section 4, we discuss needed
+bounds, archimedean estimates, on values of these approximating polynomi-
+als. In Section 5, we obtain nonarchimedean estimates associated with the
+polynomials; these correspond to bounds for the greatest common divisor of
+the coeﬃcients associated with the approximating polynomials. In Section 6,
+we give a computational argument for obtaining all small solutions associ-
+ated with the diophantine inequalities in this paper. Sections 7 through 10
+are devoted to completing the proofs of the main results in the paper.
+Acknowledgments: The authors express their gratitude to Frits Beukers
+and Rob Tijdeman for early discussions that aided in their investigations.
+They are also grateful to Carrie Finch and Mark Kozek who read through
+an early version of the paper and suggested various changes.
+3
+
+===== PDF PAGE 4 =====
+2 The more general theorems
+We will deduce Theorems 1.1 and 1.2 as reasonably straightforward conse-
+quences of the following result.
+Theorem 2.1. Letp, q and λ=λ(p,q ) be as follows:
+p q λ(p,q ) p q λ(p,q )
+2 3 0. 285 3 11 0. 329
+2 5 0. 258 3 13 0. 231
+2 7 0. 259 5 7 0. 227
+2 11 0. 059 5 11 0. 199
+2 13 0. 054 5 13 0. 163
+3 5 0. 216 7 13 0. 098
+3 7 0. 038 11 13 0. 037
+If k,l,x 1 and x2 are nonnegative integers for which
+⏐⏐pkx1 −qlx2
+⏐⏐≤ 100, (2.1)
+then either pkx1 ≤ 1000, one of (pkx1,q lx2) and (qlx2,p kx1) is in the set
+{(1024, 972), (1029, 1024), (1215, 1210), (1280, 1215), (1280, 1250),
+(1331, 1250), (1372, 1280), (1536, 1458), (1792, 1701), (2058, 2048),
+(2197, 2187), (2500, 2401), (2560, 2500), (2673, 2662), (3125, 3072),
+(3645, 3584), (4394, 4374), (5120, 5103), (6591, 6561), (6655, 6561),
+(7203, 7168), (8019, 7986), (8788, 8748), (10985, 10935), (13182, 13122),
+(14406, 14336), (14641, 14580), (15360, 15309), (15379, 15309),
+(16038, 15972), (17576, 17496), (19773, 19683), (21970, 21870)
+(24057, 23958), (30618, 30613), (32805, 32768), (37268, 37179),
+(65610, 65536), (190333, 190269), (1771561, 1771470)},
+or
+max{x1,x 2}> min{pkx1,q lx2}λ. (2.2)
+The reason that we have given these measures to three decimal places is
+that it is crucial for our arguments leading to Theorem 1.1 that we have
+λ(2, 3) +λ(3, 5)> 1/ 2.
+4
+
+===== PDF PAGE 5 =====
+To achieve this requires extremely careful analysis and rather extensive com-
+putations; the measures for other values of p andq have not been computed
+nearly so carefully and hence may be readily sharpened. Note that we have
+restricted attention to prime values of p andq. As our proof will reveal, this
+is only for simplicity and in light of our desired applications. There is no
+intrinsic reason for such a constraint. It is also worth noting that extending
+Theorem 1.1 to the case k = 3 is essentially equivalent to sharpening Theo-
+rem 2.1, in the case ( p,q ) = (2, 3), to λ(2, 3)> 1/ 2. We suspect that proving
+such an inequality will require the introduction of fundamentally new ideas.
+Theorem 2.1 will in fact follow from more general machinery. In order to
+state these results, we beg the reader’s indulgence while we introduce some
+notation. Let c>d ≥ 1 be integers and set s =c/d . We deﬁne
+logL(s) = 1
+d
+∑
+(c+d)/ 2<j<c+d
+r=jd− 1 mod ( c+d)
+(
+Ψ
+(
+f (c,d,r )
+)
+− Ψ
+( r
+c +d
+))
+,
+where
+f (c,d,r ) =
+
+
+
+1
+d
+(
+1 +
+⌊dr
+c +d
+⌋)
+if c ≤ j <c +d
+1
+c −d
+(
+1 +
+⌊(c −d)r
+c +d
+⌋)
+if (c +d)/ 2<j <c.
+To clarify, the sum in the deﬁnition of log L(s) is overj, Ψ(z) is the derivative
+of the logarithm of Γ( z), and r is chosen, in each case, to be the integer in
+{0, 1,...,c +d − 1} satisfying r ≡ jd−1 (mod (c +d)). For 0 < z <1, we
+take
+u1 = s(2 −z) −
+√
+s2z2 + 4 − 4z
+2(1 −z)(s + 1)
+and
+u2 = sz + 2 −
+√
+s2z2 + 4 − 4z
+2z(s + 1) .
+Writing
+α(s) = (s + 1)s+1
+(s − 1)s−1,
+set
+Q(s,z ) = α(s)us−1
+1 (1 −u1) (1 −u1 +zu1)
+5
+
+===== PDF PAGE 6 =====
+and
+E(s,z ) = α(s)u2 (1 −u2) (1 −zu2)s−1.
+The choices of u1 and u2 above and their appearance in the deﬁnition of
+Q(s,z ) and E(s,z ) are not arbitrary. The function us−1(1 −u)(1 −u +zu)
+obtains its maximum for u ∈ [0, 1] at u = u1, while the maximum of the
+function u(1 −u)(1 −zu)s−1 for u ∈ [0, 1] occurs at u =u2.
+Our main result, at least from an eﬀective, rather than explicit, viewpoint
+is the following.
+Theorem 2.2. Let p and q be distinct integers. Suppose that there exist
+positive integers a, b, k0, l0 and D0 such that
+apk0 −bql0 =D0, (2.3)
+and write
+z0 =D0/ (apk0), M1 = min{pk0,q l0} and M2 = max{pk0,q l0}.
+Assume further that there exists a rational number s satisfying 1<s< 1/z 0,
+Ω 1 := pk0(s−1)L(s)
+absQ(s,z 0) > 1, (2.4)
+and
+Ω 2 := Ms
+1L(s)
+(apk0)s−1 D2
+0E(s,z 0)
+> 1. (2.5)
+IfD is a positive integer and ϵ>0, then there exists an eﬀectively computable
+constant x0 = x0(p,q,s,D,ϵ ) such that if x1,x 2,k and l are nonnegative
+integers satisfying pkx1 ≥ x0 and
+⏐⏐pkx1 −qlx2
+⏐⏐≤ D, (2.6)
+then
+max{x1,x 2} ≥
+(
+pkx1
+)λ1−ϵ
+where λ1 = log(Ω 2)
+log(Ms
+2 Ω 2).
+As a corollary, we obtain the following eﬀective, inexplicit version of The-
+orem 2.1.
+6
+
+===== PDF PAGE 7 =====
+Corollary 2.3. Letp, q and λ2 =λ2(p,q ) be as follows :
+p q λ2(p,q ) p q λ2(p,q )
+2 3 0. 2921 3 11 0. 3453
+2 5 0. 2679 3 13 0. 2372
+2 7 0. 2757 5 7 0. 2667
+2 11 0. 0698 5 11 0. 2091
+2 13 0. 0798 5 13 0. 1838
+3 5 0. 2238 7 13 0. 1243
+3 7 0. 0505 11 13 0. 0729
+IfD is a positive integer, then there exists an eﬀectively computable constant
+x0 =x0(D) such that if x1,x 2,k and l are nonnegative integers satisfying
+pkx1 ≥ x0 and
+⏐⏐pkx1 −qlx2
+⏐⏐≤ D,
+then
+max{x1,x 2}> (pkx1)λ2.
+We note that we are not asserting that we can always apply Theorem 2.2
+to obtain results of this nature for general p andq. Indeed, we are apparently
+unable to derive anything of a nontrivial nature when p = 7 and q = 11.
+To prove Theorem 2.1, we require a completely explicit version of The-
+orem 2.2. To state this, we need some further deﬁnitions. If c > d≥ 1 are
+integers, and n =dm −δfor δ∈ {0, 1}, deﬁne
+G(c,d,n ) = gcd
+r∈{0, 1,...,n }
+((2n −r
+n
+)(cm −n − 1 +r
+r
+))
+. (2.7)
+Suppose that we have
+G(c,d,n ) ≥ L1(s)dm for m>m 0 =m0(c,d,L 1(s)). (2.8)
+Note that we may trivially take m0 = 0 and L1(s) = 1. In Section 5, we will
+see what stronger bounds are possible. Deﬁne
+C1,δ = α(s)d (s2 − 1)(−1)δ/ 2
+2πQ(s,z )d ·
+∫1
+0
+uc−d−1+δ(1 −u)d−δ(1 −u +zu)d−δdu,
+7
+
+===== PDF PAGE 8 =====
+and
+C2,δ = α(s)d (s2 − 1)(−1)δ/ 2
+2πE(s,z )d ·
+∫1
+0
+ud−δ(1 −u)d−δ(1 −zu)c−d−1+δdu.
+Also, write
+Ω 3 = pk0(s−1)L1(s)
+absQ(s,z 0) , Ω 4 = Ms
+1L1(s)
+(apk0)s−1 D2
+0E(s,z 0)
+, λ3 = log(Ω 4)
+log(Ms
+2 Ω 4),
+κ1 = max
+δ∈{0, 1}
+2DC 1,δ
+(apk0)δ, κ2 = min
+δ∈{0, 1}
+(
+apk0
+)1−δ
+2D1−2δ
+0 C2,δ
+,
+and, if ϵ>0, set
+x0 = M
+c(M +1)
+1− λ3
+2 ,
+where
+M = max
+{
+log (κ1)
+d log Ω 3
+, (1 +λ3) log
+(
+Mc
+2κ−1
+2
+)
+ϵdlog (Ms
+2 Ω 4) , (1 +λ3) log(κ2)
+ϵdlog (Ms
+2 Ω 4),m 0
+}
+.
+We have
+Theorem 2.4. Letp and q be distinct positive integers. Suppose that there
+exist positive integers a, b, k0, l0 and D0 such that
+apk0 −bql0 =D0, (2.9)
+and write
+z0 =D0/ (apk0), M1 = min{pk0,q l0} and M2 = max{pk0,q l0}.
+Assume further that there exists a rational number s with 1<s< 1/z 0, Ω 3 >
+1 and Ω 4 > 1. Then for all positive integers D,x 1 and x2 and nonnegative
+integersk and l and for all ϵ>0 , if
+min{pkx1,q lx2} ≥x0 (2.10)
+and ⏐⏐pkx1 −qlx2
+⏐⏐≤ D, (2.11)
+then
+max{x1,x 2} ≥ min{pkx1,q lx1}λ3−ϵ.
+8
+
+===== PDF PAGE 9 =====
+3 Some useful polynomials
+Our results will require careful analysis of Pad´ e approximants to the binomial
+function (1 − z)n. In the case that n is a positive integer, these are just
+polynomials, which we may construct as follows. Let us suppose that A, B
+and C are positive integers and deﬁne
+PA,B,C (z) = (A +B +C + 1)!
+A!B!C!
+∫1
+0
+uA(1 −u)B(z −u)Cdu, (3.1)
+QA,B,C (z) = (−1)C(A +B +C + 1)!
+A!B!C!
+∫1
+0
+uB(1 −u)C(1 −u +zu)Adu (3.2)
+and
+EA,B,C (z) = (A +B +C + 1)!
+A!B!C!
+∫1
+0
+uA(1 −u)C(1 −zu)Bdu. (3.3)
+Arguing as in Section 2 of [2], we deduce that
+PA,B,C (z) − (1 −z)B+C+1QA,B,C (z) = zA+C+1EA,B,C (z). (3.4)
+One may note, by comparison to e.g. Beukers [4], that if A = C, then
+PA,B,C (z) and QA,B,C (z) correspond to the diagonal Pad´ e approximants to
+(1 − z)B+C+1 with error term EA,B,C (z). The following results are given in
+[2] and [4] :
+Lemma 3.1. The expressions PA,B,C (z),Q A,B,C (z) and EA,B,C (z) satisfy
+PA,B,C (z) =
+C∑
+r=0
+(A +B +C + 1
+r
+)(A +C −r
+A
+)
+(−z)r,
+QA,B,C (z) = ( −1)C
+A∑
+r=0
+(A +C −r
+C
+)(B +r
+r
+)
+zr
+and
+EA,B,C (z) =
+B∑
+r=0
+(A +r
+r
+)(A +B +C + 1
+A +C +r + 1
+)
+(−z)r.
+9
+
+===== PDF PAGE 10 =====
+Lemma 3.2. There is a non-zero integer D =D(A,B ) for which
+PA,B,A (z)QA+1,B −1,A +1(z) −QA,B,A (z)PA+1,B −1,A +1(z) = Dz 2A+1.
+In particular, Lemma 3.1 implies that PA,B,C (z),QA,B,C (z) and EA,B,C (z)
+are polynomials in z with integer coeﬃcients, and Lemma 3.2 implies that
+PA,B,A (z) andPA+1,B −1,A +1(z) (as well as QA,B,A (z) andQA+1,B −1,A +1(z)) are
+relatively prime polynomials.
+4 Bounding the Approximants
+For our applications, we will have need of asymptotically sharp bounds for
+the polynomials deﬁned in the preceding section, both in archimedean and
+nonarchimedean metrics. We take c and d to be relatively prime positive
+integers. As in (2.7), we suppose c > dand that n = dm or dm − 1. Write
+s =c/d . Here and subsequently, let A =C =n, B =cm −n − 1 and write,
+suppressing various dependencies,
+Pn(z) = Pn,cm −n−1,n (z), Q n(z) = Qn,cm −n−1,n (z),
+and
+En(z) = En,cm −n−1,n (z).
+Our next result is essentially Lemma 5 of [2] and follows from replacing −1/N
+byz, and noting that the argument given there is still valid. We remark that
+some variable names have been modiﬁed.
+Lemma 4.1. If n =dm −δfor δ∈ {0, 1}, then
+⏐⏐Qn(z)
+⏐⏐<C 1,δ
+(
+Q(s,z )
+)dm
+and ⏐⏐En(z)
+⏐⏐<C 2,δ
+(
+E(s,z )
+)dm
+.
+For ﬁxed values of c, d, z and, hence, s, the values of Q(s,z ), E(s,z ),
+and the integrals appearing in C1,δ and C2,δ of Lemma 4.1 can be computed
+exactly. We therefore can use Lemma 4.1 to determine bounds for Qn(z) and
+En(z). While we will make no eﬀorts to establish the fact, it is easy to show
+that these bounds are asymptotically sharp.
+10
+
+===== PDF PAGE 11 =====
+5 Nonarchimedean estimates
+We next turn our attention to nonarchimedean analogues of Lemma 4.1. Our
+main goal will be to derive strong lower bounds upon the quantity G(c,d,n )
+deﬁned in (2.7). An implicit result of interest to us is the following
+lim inf
+m→∞
+G(c,d,n )1/ (dm) ≥ L(s). (5.1)
+Here, we assume that n = dm or dm − 1. In fact, with a little work, it
+is not diﬃcult to deduce equality here and to replace the lim inf with the
+limit (though, for our applications, this is relatively unimportant). To prove
+Theorem 2.1, we require more explicit estimates for L1(c/d ) for certain ﬁxed
+choices of integers c and d; recall that this function provides a lower bound
+for G(c,d,n ). We will prove the following :
+Proposition 5.1. Inequality (2.8) holds for the values of c, d, L1(c/d ) and
+m0 indicated in the following table.
+c d L1(c/d ) m0 c d L1(c/d ) m0
+9 8 1. 1742 25 5 3 1. 5454 86
+8 7 1. 1951 28 3 1 1. 5498 260
+7 6 1. 2219 53 25 17 1. 5540 582
+6 5 1. 2581 35 7 4 1. 6219 60
+5 4 1. 3098 50 8 3 1. 6560 149
+9 7 1. 3317 15 9 5 1. 6636 79
+7 5 1. 4135 74 5 2 1. 7017 231
+4 3 1. 4170 153 7 3 1. 7282 161
+3 2 1. 5395 138 9 4 1. 7666 87
+8 5 1. 5407 53 2 1 1. 9377 150
+Our chief tool in establishing Proposition 5.1 is the following result,
+Lemma 3 of [2]. Its form is suggested by the coeﬃcients of the approxi-
+mating polynomials.
+Lemma 5.2. Supposet is a positive integer satisfying
+⌊ At
+A +B +C
+⌋
++
+⌊ Bt
+A +B +C
+⌋
++
+⌊ Ct
+A +B +C
+⌋
+=t − 2 (5.2)
+and that we deﬁne
+M (A,B,C,t ) = max
+{
+A⌊At
+A+B+C
+⌋
++ 1, B⌊Bt
+A+B+C
+⌋
++ 1, C⌊Ct
+A+B+C
+⌋
++ 1
+}
+. (5.3)
+11
+
+===== PDF PAGE 12 =====
+If p is a prime for which
+M (A,B,C,t )<p ≤ A +B +C
+t ,
+then
+p |
+(A +C −r
+C
+)(B +r
+r
+)
+for all r ∈ {0, 1,...,A }.
+Recall that our goal is to obtain a lower bound for G(c,d,n ). We begin by
+noting that the set of primes arising from Lemma 5.2 are disjoint for diﬀerent
+values of t. To see this, observe that ( x +y)/ (u +v) is between x/u andy/v
+for any positive real numbers x, y, u and v. Set
+d1 =
+⌊ At
+A +B +C
+⌋
++1, d2 =
+⌊ Bt
+A +B +C
+⌋
++1 and d3 =
+⌊ Ct
+A +B +C
+⌋
++1.
+Then we have
+M (A,B,C,t ) = max
+{A
+d1
+, B
+d2
+, C
+d3
+}
+≥ max
+{A
+d1
+, B +C
+d2 +d3
+}
+≥ A +B +C
+d1 +d2 +d3
+.
+From (5.2), we have d1 +d2 +d3 =t + 1 and hence
+M (A,B,C,t ) ≥ A +B +C
+t + 1 ,
+which implies our claim.
+From Lemma 5.2, we thus have that
+G(c,d,n ) ≥
+∏
+t
+(∏
+p
+p
+)
+(5.4)
+where t ranges over all positive integers satisfying
+2
+⌊ nt
+cm +n − 1
+⌋
++
+⌊(cm −n − 1)t
+cm +n − 1
+⌋
+=t − 2 (5.5)
+and p is prime with
+M (A,B,C,t )<p ≤ cm +n − 1
+t
+12
+
+===== PDF PAGE 13 =====
+(where M (A,B,C,t ) is as in (5.3), remembering that we take A = C = n
+and B = cm − n − 1). With x = nt/ (cm +n − 1), we can rewrite (5.5) as
+2⌊x⌋+ ⌊t − 2x⌋=t − 2. One checks that this is equivalent to
+{ nt
+cm +n − 1
+}
+> 1
+2. (5.6)
+Suppose that m ≥ 2t and
+{
+t/ (s + 1)
+}
+> 1/ 2. We justify next that (5.6) holds
+so that if m ≥ 2t, then the ﬁrst product in (5.4) can be taken over all t for
+which
+{
+t/ (s + 1)
+}
+> 1/ 2. To see that (5.6) holds, we begin with
+nt
+cm +n − 1 > dt
+c +d − 1
+2(c +d) = t
+s + 1 − 1
+2(c +d). (5.7)
+This inequality can be easily veriﬁed by using m ≥ 2t and dm ≤ n + 1, and
+the equality follows immediately from s =c/d . To establish (5.6) and also to
+help simplify our expression for the lower bound on the primes p appearing
+in (5.4), we will show
+⌊ nt
+cm +n − 1
+⌋
+=
+⌊t
+s + 1
+⌋
+and
+⌊(cm −n − 1)t
+cm +n − 1
+⌋
+=
+⌊(s − 1)t
+s + 1
+⌋
+. (5.8)
+Observe that {t/ (s+1)}> 1/ 2 and (5.7) imply ⌊nt/ (cm+n−1)⌋ ≥ ⌊t/ (s+1)⌋.
+To obtain the reverse inequality and, hence, the ﬁrst part of (5.8), we use
+that {dt
+c +d
+}
+=
+{t
+s + 1
+}
+> 1
+2 > 0
+implies
+dt
+c +d ≤
+⌊dt
+c +d
+⌋
++ 1 − 1
+c +d.
+Thus, the ﬁrst equation in (5.8) will follow if we can show
+nt
+cm +n − 1 < dt
+c +d + 1
+c +d.
+Fromn ≤ dm and n ≥ 2dt − 1 ≥ dt, we obtain
+nt
+cm +n − 1 ≤ t
+s + 1 − 1
+n
+= t
+s + 1 + t
+n(s + 1)
+(
+s + 1 − 1
+n
+)
+≤ t
+s + 1 + 1
+d(s + 1)
+(
+s + 1 − 1
+n
+)< dt
+c +d + 1
+c +d.
+13
+
+===== PDF PAGE 14 =====
+Hence, the ﬁrst equation in (5.8) holds. Since the inequality
+{
+t/ (s+1)
+}
+> 1/ 2
+is strict, we deduce that
+t
+s + 1 −
+⌊t
+s + 1
+⌋
+− 1
+2 = dt
+c +d −
+⌊t
+s + 1
+⌋
+− 1
+2 ≥ 1
+2(c +d).
+Combining this inequality with (5.7) and the ﬁrst equation in (5.8), we obtain
+(5.6). Since now both {t/ (s + 1)} and {nt/ (cm +n − 1)} exceed 1/ 2, the
+second equation in (5.8) follows from the ﬁrst as the second can be rewritten
+⌊
+t − 2nt
+cm +n − 1
+⌋
+=
+⌊
+t − 2t
+s + 1
+⌋
+.
+Before proceeding, we make some observations. First, it is not diﬃcult
+to modify the above arguments to show that if m > t and 3d > c, then
+{t/ (s + 1)}> 1/ 2 still implies {nt/ (cm +n − 1)}> 1/ 2. As the condition
+3d > cis satisﬁed for the choices of c and d we consider, this allows for an
+extension on the range of m considered. Also, we note that the conditions
+{nt/ (cm +n − 1)}> 1/ 2 and {t/ (s + 1)}> 1/ 2 are not equivalent, even with
+m ≥ 2t. If t ≡ 0 (mod c+d) andn =dm− 1, for example, then {t/ (s+1)}=
+0 but {nt/ (cm +n − 1)}> 1/ 2. Also, if c ≡ d ≡ 1 (mod 2), t ≡ (c +d)/ 2
+(mod c+d) andn =dm, then {t/ (s+1)}= 1/ 2 but {nt/ (cm+n− 1)}> 1/ 2.
+These issues can help with the computations but did not in the end improve
+our theorems, so we do not address these matters further.
+Proposition 5.3. Suppose that m and t are positive integers with m ≥ 2t,
+and that n =dm or n =dm − 1. Then G(c,d,n ) is divisible by all primes p
+satisfying
+n⌊t
+s+1
+⌋
++ 1 <p ≤ cm +n − 1
+t if
+{t
+s + 1
+}
+> s
+s + 1
+and
+cm −n − 1⌊(s−1)t
+s+1
+⌋
++ 1
+<p ≤ cm +n − 1
+t if 1
+2 <
+{t
+s + 1
+}
+< s
+s + 1.
+In the case that {t/ (s + 1)}=s/ (s + 1), the ﬁrst or second range on p above
+holds depending on whether n =dm or n =dm − 1, respectively.
+14
+
+===== PDF PAGE 15 =====
+Proof. Observe that the condition c>d> 0 that we have imposed on c and
+d implies s/ (s + 1)> 1/ 2. We have that m ≥ 2t and need only consider the
+case that
+{
+t/ (s + 1)
+}
+> 1/ 2. With A = C = n and B = cm − n − 1, (5.8)
+simpliﬁes (5.3) to
+M (A,B,C,t ) = max
+{ n⌊t
+s+1
+⌋
++ 1, cm −n − 1⌊(s−1)t
+s+1
+⌋
++ 1
+}
+.
+To aid with making use of M (A,B,C,t ), we show next that if n =dm, then
+{t
+s + 1
+}
+≥ s
+s + 1 =⇒ n⌊t
+s+1
+⌋
++ 1 ≥ cm −n − 1⌊(s−1)t
+s+1
+⌋
++ 1
+(5.9)
+and
+1
+2 <
+{t
+s + 1
+}
+< s
+s + 1 =⇒ n⌊t
+s+1
+⌋
++ 1 < cm −n − 1⌊(s−1)t
+s+1
+⌋
++ 1
+. (5.10)
+Let k = ⌊t/ (s + 1)⌋. Since {t/ (s + 1)}> 1/ 2, we deduce that
+n⌊t
+s+1
+⌋
++ 1 = n
+k + 1 and cm −n − 1⌊(s−1)t
+s+1
+⌋
++ 1
+= cm −n − 1⌊
+t − 2t
+s+1
+⌋
++ 1 = cm −n − 1
+t − 2k − 1 .
+The second inequality in (5.9) is now easily seen to hold if and only if
+n(t − 2k − 1) ≥ (cm −n − 1)(k + 1)
+which simpliﬁes to
+nt +k + 1 ≥ nk +cmk +cm.
+Multiplying through by d and using n = dm, we obtain that the second
+inequality in (5.9) is equivalent to
+ndt +dk +d ≥ ndk +cnk +cn. (5.11)
+Setη= {t/ (s + 1)}= {dt/ (c +d)}. Now, suppose the ﬁrst inequality in (5.9)
+holds. Then η≥ s/ (s + 1) = c/ (c +d) so that
+dt
+c +d = t
+s + 1 =k +η=⇒ dt ≥ k(c +d) +c.
+15
+
+===== PDF PAGE 16 =====
+With this lower bound on dt, one easily checks that (5.11) holds and (5.9)
+follows. Now, suppose the ﬁrst set of inequalities in (5.10) holds. We want
+to show that the inequality in (5.11) is not true. In this case,
+η=
+{dt
+c +d
+}
+< s
+s + 1 = c
+c +d =⇒ η≤ c − 1
+c +d.
+Thus,
+dt = (k +η)(c +d) ≤
+(
+k + c − 1
+c +d
+)
+(c +d) = k(c +d) +c − 1.
+As we want to show (5.11) does not hold, it suﬃces to establish then that
+n>dk +d. Since
+n =dm ≥ 2dt> max{d, 2kc + 2kd} ≥dk +d,
+(5.10) follows.
+In the case that n =dm − 1, (5.9) and (5.10) can be replaced by
+{t
+s + 1
+}
+> s
+s + 1 =⇒ n⌊t
+s+1
+⌋
++ 1 > cm −n − 1⌊(s−1)t
+s+1
+⌋
++ 1
+(5.12)
+and
+1
+2 <
+{t
+s + 1
+}
+≤ s
+s + 1 =⇒ n⌊t
+s+1
+⌋
++ 1 ≤ cm −n − 1⌊(s−1)t
+s+1
+⌋
++ 1
+. (5.13)
+The analysis is similar to the above. With the notation as before, the second
+inequality in (5.12) is equivalent to nt +k + 1 > nk +cmk +cm. Since
+n =dm − 1, this can be written as
+ndt +dk +d>ndk +cnk +cn +ck +c.
+The ﬁrst inequality in (5.12) implies
+dt = (k +η)(c +d) ≥ k(c +d) +c + 1,
+while the ﬁrst inequality in (5.13) yields
+dt = (k +η)(c +d) ≤ k(c +d) +c.
+16
+
+===== PDF PAGE 17 =====
+In regards to (5.12), note that
+n =dm − 1 ≥ 2dt − 1 = 2(k +η)(c +d) − 1
+≥ (2k + 1)(c +d)> (k + 1)(c −d).
+These are suﬃcient to justify (5.12) and (5.13). Proposition 5.3 follows.
+To understand the contribution of the primes described in Proposition 5.3,
+we need to examine the intervals in which they lie rather carefully. Generally,
+we are interested in the integers t in the sets
+U1 =
+{
+t :
+{t
+s + 1
+}
+> s
+s + 1
+}
+,
+U2 =
+{
+t :
+{t
+s + 1
+}
+= s
+s + 1
+}
+,
+and
+U3 =
+{
+t : 1
+2 <
+{t
+s + 1
+}
+< s
+s + 1
+}
+.
+Note that t/ (s + 1) = dt/ (c +d) and s/ (s + 1) = c/ (c +d). Writing t =
+(c +d)w +r where 0 ≤ r <c +d, we deduce that t ∈U1 precisely when r is
+of the form jd−1 mod (c +d) (i.e., the integer in [0 ,c +d) that is congruent
+to jd−1 modulo c +d) where c<j <c +d. Similarly, t ∈U3 precisely when
+r is of the form jd−1 mod (c +d) where (c +d)/ 2<j <c . One checks also
+that t ∈ U2 precisely when r is of the form jd−1 mod (c +d) where j = c,
+which is equivalent to the case that r =c +d − 1. Setting
+W =
+⌊ m
+2(c +d)
+⌋
+− 1,
+we deduce from Proposition 5.3 that
+log G(c,d,dm ) ≥
+W∑
+w=0
+(
+S1 +S2
+)
+, (5.14)
+where
+S1 =
+∑
+c≤j<c+d
+r≡jd− 1 mod ( c+d)
+max
+{
+θ
+((c +d)m − 1
+(c +d)w +r
+)
+−θ
+( dm
+dw + 1 + ⌊dr/ (c +d)⌋
+)
+, 0
+}
+17
+
+===== PDF PAGE 18 =====
+and
+S2 =
+∑
+(c+d)/ 2<j<c
+r≡jd− 1 mod ( c+d)
+max
+{
+θ
+((c +d)m − 1
+(c +d)w +r
+)
+−θ
+(
+(c −d)m − 1
+(c −d)w + 1 +
+⌊(c−d)r
+c+d
+⌋
+)
+, 0
+}
+.
+Here, θ(x) =∑
+p≤x logp. Also, we have
+log G(c,d,dm − 1) ≥
+W∑
+w=0
+(
+S′
+1 +S′
+2
+)
+, (5.15)
+where
+S′
+1 =
+∑
+c<j<c+d
+r≡jd− 1 mod ( c+d)
+max
+{
+θ
+((c +d)m − 2
+(c +d)w +r
+)
+−θ
+( dm − 1
+dw + 1 + ⌊dr/ (c +d)⌋
+)
+, 0
+}
+and
+S′
+2 =
+∑
+(c+d)/ 2<j≤c
+r≡jd− 1 mod ( c+d)
+max
+{
+θ
+((c +d)m − 2
+(c +d)w +r
+)
+−θ
+(
+(c −d)m
+(c −d)w + 1 +
+⌊(c−d)r
+c+d
+⌋
+)
+, 0
+}
+.
+It is not the case that all of the maxima above are needed, but the appearance
+of the maxima clariﬁes our approach. To estimate an expression of the form
+θ(x) − θ(y) appearing above, we combine a lower bound for θ(x) with an
+upper bound for θ(y). The resulting lower bound for θ(x) − θ(y) may be
+negative, and in this case we can appeal to max {θ(x) −θ(y), 0} ≥ 0.
+For Theorem 2.2, where we do not require explicit constants, it suﬃces
+to note that, asymptotically, θ(x) ∼ x whereby we may conclude from (5.14)
+(recalling the deﬁnition of f (c,d,r ) from the Introduction) that
+lim inf
+m→∞
+1
+dm log G(c,d,dm )
+is bounded below by
+1
+d
+∑
+(c+d)/ 2<j<c+d
+r=jd− 1 mod ( c+d)
+∞∑
+w=0
+( 1
+w +r/ (c +d) − 1
+w +f (c,d,r )
+)
+.
+18
+
+===== PDF PAGE 19 =====
+Arguing similarly for G(c,d,dm − 1) and noting that
+1
+d
+(
+1 +
+⌊dr
+c +d
+⌋)
+= 1
+c −d
+(
+1 +
+⌊(c −d)r
+c +d
+⌋)
+= 1
+in casej =c (whencer =c+d− 1), we deduce inequality (5.1) upon applying
+the identity
+Ψ
+(
+f (c,d,r )
+)
+− Ψ
+( r
+c +d
+)
+=
+∞∑
+w=0
+( 1
+w +r/ (c +d) − 1
+w +f (c,d,r )
+)
+.
+We now turn our attention to the proof of Proposition 5.1. We will
+appeal to inequalities for θ(x) due to Rosser and Schoenfeld [14], Schoenfeld
+[15], Ramar´ e and Rumely [12] and the ﬁrst author [3]. The following is a
+consequence of Theorems 1 and 2 from [12], and of the second table in Section
+5 from [3]; we also add the bound θ(x) < xfor 0 < x≤ 1011 of Rosser and
+Schoenfeld mentioned above.
+Lemma 5.4. For 1 ≤ x ≤ 1011, we have
+x − 2. 072√x<θ(x)<x.
+Furthermore, for x ≥ 108, we have
+|θ(x) −x| ≤0. 000213x.
+Finally, if x ≥ x0 then
+θ(x)>x
+(
+1 − 1
+βlogx
+)
+for βand x0 as follows:
+β x 0 β x 0 β x 0
+6 8623 3 1429 7/ 5 149
+5 5407 5/ 2 809 9/ 7 101
+9/ 2 3527 7/ 3 599 7/ 6 67
+4 3301 2 563 8/ 7 59
+7/ 2 2657 9/ 5 347 1 41
+10/ 3 1973 5/ 3 227 4/ 5 2
+19
+
+===== PDF PAGE 20 =====
+This lemma allows us to compute lower and upper bounds for the values
+ofθ(x) appearing in the sums in (5.14) and (5.15) (depending on the sizes of
+the arguments). Observe that for m ≥ 1010, one can take β= 6 in the lower
+bound for θ(x) above for each argument given in the summands.
+For ﬁxed c and d, the proof of Proposition 5.1 splits into four cases,
+depending on the size of m (where n = dm or dm − 1). For small m (say
+for m ≤ 1000), we explicitly compute G(c,d,n ) for each of n =dm or dm −
+1. Then for “medium-sized” m, typically 1000 < m ≤ 50000, we apply
+inequalities (5.14) and (5.15) directly. The beneﬁt of appealing to these
+bounds is that the intervals under consideration do not change greatly as
+the value of m is slightly increased and hence if we are able to show, for
+example, that G(c,d,dm ) exceeds L1(c/d )dm by a reasonable margin, then
+we can deduce inequalities of the shape
+G(c,d,d (m +i)) ≥ L1(c/d )d(m+i)
+for 0 ≤ i ≤ m0, where m0 is a computable positive constant. This compu-
+tational approach is discussed in greater detail in the ﬁrst author’s papers
+[3] and [1] (in particular, see Section 7 of the latter), where it is termed
+“boot-strapping” (also, see the next section where a similar approach is used
+on k). In practice, it works well to reduce these intermediate calculations
+to a workable level. For larger values of m (usually m ≥ 50000), we turn
+to Lemma 5.4 (as mentioned earlier, it is convenient to consider m < 1010
+and m ≥ 1010 separately). In all cases except ( c,d ) = (4 , 3) and (25 , 17),
+this leads immediately to Proposition 5.1. If ( c,d ) = (4 , 3), we apply our
+boot-strapping for 1000 ≤ m < 210000 and Lemma 5.4 for m ≥ 210000.
+For (c,d ) = (25 , 17), we calculate G(c,d,n ) explicitly for m ≤ 2000, count
+primes in the intervals given by (5.14) and (5.15) for 2000 <m< 3. 7 × 106,
+and appeal to Lemma 5.4 for m ≥ 3. 7 × 106. The computation, carried out
+in Pari GP on a number of Sun workstations, was moderately lengthy. Full
+details are available from the authors on request.
+6 Computations for small integers
+The ﬁnal ingredient we require before we proceed with the proofs of our main
+results is a computational method for handling “small” values of pkx1 and
+qlx2. In this section, we will describe how we employ such a method to prove
+the following:
+20
+
+===== PDF PAGE 21 =====
+Proposition 6.1. For primes p and q with 2 ≤ p<q ≤ 13, suppose k,l,x 1
+and x2 are nonnegative integers for which
+⏐⏐pkx1 −qlx2
+⏐⏐≤ 100, x 1x2 ≤ min{pkx1,q lx2}1/ 3,
+and
+10000<p kx1 < exp
+(
+106)
+.
+Then (pkx1,q lx2) or (qlx2,p kx1) must be among
+(13182, 13122), (14641, 14580), (16807, 16767), (19773, 19683), (31250, 31213),
+(32805, 32768), (65610, 65536), (65625, 65536), (1771561, 1771470).
+If the condition x1x2 ≤ min{pkx1,q lx2}1/ 3 is replaced by
+max{x1,x 2} ≤ min{pkx1,q lx2}1/ 3,
+then (pkx1,q lx2) or (qlx2,p kx1) belongs to a set containing 93 pairs. The
+following table indicates, for each choice of primes p and q, the largest value
+of pkx1 in such a pair and the corresponding value of ∆ = pkx1 −qlx2.
+p q max pkx1 ∆ p q max pkx1 ∆
+2 3 65536 −74 3 13 220548015 −27
+2 5 13828096 −29 5 7 134375 −81
+2 7 39059456 −12 5 11 10625 −23
+2 11 60555264 88 5 13 2693359375 −47
+2 13 208666624 −42 7 11 453789 −82
+3 5 5078214 89 7 13 76832 −63
+3 7 1495908 85 11 13 1742279 58
+3 11 1771470 −91
+Furthermore, for a ﬁxed p and q as above, among all pairs (pkx1,q lx2) satis-
+fying the conditions imposed, the maximal value of k and the maximal value
+of l occur for the pair (pkx1,p kx1 − ∆) indicated by the table with the excep-
+tion of the prime pair (p,q ) = (5, 7) where 6 is the maximal such k occurring,
+for example, with the pair (31250, 31213). Also, if |∆ | ≤6, then (pkx1,q lx2)
+or (qlx2,p kx1) corresponds to one of the pairs
+(13125, 13122), (13312, 13310), (21875, 21870), (26624, 26620),
+(30618, 30613), (69632, 69629), (688128, 688127),
+(1376256, 1376254), (9764867, 9764864), (19529734, 19529728).
+21
+
+===== PDF PAGE 22 =====
+Theorem 2.4 allows us to obtain that (2.11) has no solutions for y <xλ−ϵ
+provided that x ≥ x0, where
+x = min{pkx1,q lx2} and y = max{x1,x 2}.
+The condition that x ≥ x0 can be eliminated and replaced by a list of solu-
+tions to (2.11) after an appropriate computation. In particular, we are able
+to deduce Theorem 1.1 based on such computations. Given the size of the
+x0 we encounter, the computations to ﬁnd all solutions to (2.11) with x<x 0
+require some care. We describe in this section the approach that we use to
+obtain these solutions.
+For our purposes, we ﬁx z = 10000, x0 = e106
+and λ= 1/ 3, but we
+discuss the approach in some generality as it can easily be modiﬁed for other
+situations where z >0, x0 > 0 and λ∈ (0, 1). Notably, some care is needed
+forλ>1/ 3. Fix D >0 and primes p andq as before (renaming if necessary
+to account for the sign of D). We describe how we can obtain all pairs
+(pkx1,q lx2), with k,l,x 1 and x2 positive integers, for which
+pkx1 −qlx2 =D (6.1)
+where
+z <x =qlx2 ≤ x0 and y = max{x1,x 2} ≤xλ. (6.2)
+Note that D > 0 and (6.1) imply qlx2 = min {pkx1,q lx2}. The choice z =
+10000 is used for convenience and chosen so that the solutions to (6.1) with
+x ≤ z and y ≤ xλ, can be determined by a direct computation.
+From the fact that y ≤ xλ, we have the inequality x1 ≤
+(
+pkx1
+)λ
+whereby
+x1 ≤
+(
+pk)λ/ (1−λ)
+. (6.3)
+Hence, (
+pk)1/ (1−λ)
+=pk(
+pk)λ/ (1−λ)
+≥ pkx1 ≥ x>z.
+We deduce a lower bound on k from the above and an upper bound on k
+from (6.2), namely
+⌈log
+(
+z1−λ)
+logp
+⌉
+≤ k ≤
+⌊log(x0 +D)
+logp
+⌋
+. (6.4)
+22
+
+===== PDF PAGE 23 =====
+We will consider an interval of k simultaneously. Speciﬁcally, we consider
+k ∈ [K,K +K ′) where
+⌈log
+(
+z1−λ)
+logp
+⌉
+≤ K <K +K ′≤
+⌊log(x0 +D)
+logp
+⌋
++ 1.
+For a given K between the upper and lower limits above, we will deﬁne a
+positive integer K ′ in such a way that we dispose of the cases with k ∈
+[K,K +K ′) all at once. Our main interest in considering an interval of k is
+to speed up computations for large k. With this in mind, we consider K ′= 1
+for K <200 and will consider larger K ′only in the case that K ≥ 200.
+An argument similar to the above gives
+x2 ≤
+(
+ql)λ/ (1−λ)
+and
+⌈log
+(
+z1−λ)
+logq
+⌉
+≤ l ≤
+⌊logx0
+logq
+⌋
+.
+We will also want a second lower bound onl obtained in an analogous manner.
+Observe that
+(
+ql)1/ (1−λ)
+=ql(ql)λ/ (1−λ)
+≥ qlx2 =pkx1 −D ≥ max
+{
+q,p k −D
+}
+.
+Fork ∈ [K,K +K ′), we deduce
+l ≥
+⌈(1 −λ) log max
+{
+q,p K −D
+}
+logq
+⌉
+,
+whence
+l ≥ B = max
+{⌈(1 −λ) log max
+{
+q,p K −D
+}
+logq
+⌉
+,
+⌈log
+(
+z1−λ)
+logq
+⌉}
+.
+We explain now how the above lower bound on l is enough to allow us
+to make eﬃcient computations for obtaining the solutions to (6.1) and (6.2)
+for the main applications in this paper. As k ∈ [K,K +K ′), there is a
+nonnegative integer u<K ′such that k =K +u. From (6.1) and l ≥ B, we
+deduce
+pux1 ≡ Dp−K (mod qB). (6.5)
+For ﬁxed K, we compute B and the least positive integer solution to x′
+1 ≡
+Dp−K (mod qB). Thus, pux1 ≡ x′
+1 (mod qB). Recall that K ′ = 1 if K <
+23
+
+===== PDF PAGE 24 =====
+200. For these K, we have u = 0. As p, k = K and D are known, we can
+check directly if x1 =x′
+1 provides us with a solution to (6.1) and (6.2).
+Still with K < 200, we justify next that there are no solutions to (6.1)
+and (6.2) with x1 > x′
+1. Here, k = K. A solution to (6.1) and (6.2), with
+x1 > x′
+1, necessarily satisﬁes x1 ≥ x′
+1 +qB ≥ qB. By the deﬁnition of B, we
+have
+qB ≥ (pk −D)1−λ,
+and hence, via (6.3),
+(pk −D)1−λ ≤
+(
+pk)λ/ (1−λ)
+. (6.6)
+Observe that the maximum value of λ/(1 − λ)2 for λ∈ [0, 1/ 3] is 3 / 4. As
+D ≤ 100, one checks that (6.6) implies that pk < 141. For p as in Proposition
+6.1, we deduce pk ≤ 128. As z = 10 4, we obtain from 128 x1 ≥ pkx1 >z that
+x2
+1 > 128 ≥ pk =⇒ x3
+1 >p kx1 =⇒ x1 >
+(
+pkx1
+)1/ 3
+>x 1/ 3.
+Since λ= 1/ 3, we see that (6.2) cannot hold.
+ForK ≥ 200, we verify that there are no solutions to (6.1) and (6.2) for
+allk ∈ [K,K +K ′) as follows. Here, we have k =K +u withu ∈ [0,K ′) and
+pux1 ≡ x′
+1 (mod qB). Recall that x′
+1 is the minimal positive integer for which
+this congruence holds. It follows that x1 ≥ x′
+1/p u; otherwise, pux1 would be
+too small for the congruence to hold. Given (6.3), we will be done justifying
+there are no solutions to (6.1) and (6.2) for k ∈ [K,K +K ′) if we can show
+x′
+1
+pu >
+(
+pK+u)λ/ (1−λ)
+for u ∈ [0,K ′).
+Forλ= 1/ 3, the exponent λ/(1 −λ) is 1/ 2. It therefore suﬃces to establish
+that
+x′
+1 ≥ pK′(
+pK+K′)1/ 2
+. (6.7)
+Observe that the deﬁnition of x′
+1 implies that we can “expect” that x′
+1 is on
+the order of qB and that this is on the order of p(1−λ)K =p2K/ 3 or more. It
+follows that we should be able to take K ′to be about K/ 9. As x′
+1 andK are
+known quantities in (6.7), to assure that (6.7) holds, we set
+K ′=
+⌊1
+3
+(2 logx′
+1
+logp −K
+)⌋
+.
+24
+
+===== PDF PAGE 25 =====
+In our computations, x′
+1 is typically large enough that even a direct compu-
+tation of K ′ via this simple formula takes more time than is feasible. We
+alleviated this problem by again taking advantage of the fact that x′
+1 should
+be near qB. Beginning with ⌊B logq/ logp⌋and decrementing by 1 as needed,
+one very quickly comes to an integer w for which pw >x ′
+1 and this w can be
+used in place of log x′
+1/ logp in the formula for K ′. Although we expect K ′
+to be about K/ 9, it is possible that K ′≤ 0. The idea then is to obtain K ′
+as above and check that K ′> 0. If so, then we can eliminate the possibility
+that (6.1) and (6.2) hold for all k ∈ [K,K +K ′) simultaneously. Our checks
+showed in fact that K ′> 0 in every case. In other words, as we progressed
+through the K ≥ 200 eliminating intervals [K,K +K ′) as we proceeded, the
+value of K ′remained positive.
+The above discussion illuminates the main parts of our algorithm for
+verifying Proposition 6.1. Given the above, the computations were straight
+forward and done with Maple 9.5.
+7 Proofs of Theorem 2.2 and Theorem 2.4
+We give the proof of Theorem 2.4. The proof of Theorem 2.2 proceeds along
+identical lines, only with L1(s) replaced by L(s)1−ϵ′
+for suitably small ϵ′, and
+Ω 3, Ω 4 and λ3 replaced by Ω 1, Ω 2 and λ1, respectively.
+Let us begin by supposing that p,q,k,l,x 1,x 2 and D satisfy (2.10) and
+(2.11). We assume throughout, as we may, that x1x2 is coprime to pq and,
+renaming if necessary, suppose that
+pkx1 >q lx2.
+For the duration of this proof, we employ the shorthand
+x = min{pkx1,q lx2}=qlx2 and y = max{x1,x 2}.
+Recall that s =c/d where c and d are relatively prime positive integers. Set
+m1 =
+⌊k
+k0c
+⌋
+, m 2 =
+⌊l
+l0c
+⌋
+,
+α=k −k0cm1 ∈ [0,k 0c) and β=l −l0cm2 ∈ [0,l 0c). (7.1)
+Then we may rewrite (2.11) in the form
+0<p k0cm1x′
+1 −ql0cm2x′
+2 ≤ D
+25
+
+===== PDF PAGE 26 =====
+where
+x′
+1 =pαx1 and x′
+2 =qβx2.
+Choosing m = min{m1,m 2}, we have
+0<p k0cmx′′
+1 −ql0cmx′′
+2 ≤ D, (7.2)
+where either x′′
+1 =x′
+1 or x′′
+2 =x′
+2.
+Recall that A =C =n and B =cm − n − 1, where n =dm or dm − 1.
+The deﬁnition of G(c,d,n ) in (2.7) then corresponds to the greatest common
+divisor of the coeﬃcients of Qn(z) given in Lemma 3.1. Clearly, G(c,d,n )−1 ·
+Qn(z) is a polynomial with integer coeﬃcients. Also, from Lemma 3.1, the
+degree of Pn(z) is n. On the right-hand side of (3.4), the coeﬃcient of zj
+is 0 for each j ≤ n. We deduce then that G(c,d,n )−1 ·Pn(z) and, hence,
+G(c,d,n )−1 ·En(z) are also polynomials with integer coeﬃcients.
+Fixing once and for all z = z0 = D0/ (apk0) and substituting this into
+(3.4), we ﬁnd that (
+apk0
+)cm
+P −
+(
+bql0
+)cm
+Q =E (7.3)
+where
+P = 1
+G(c,d,n )(apk0)nPn (z0), Q = 1
+G(c,d,n )(apk0)nQn (z0)
+and
+E = 1
+G(c,d,n )(apk0)cm−n−1D2n+1
+0 En (z0).
+Multiplying (7.2) by bcmQ and (7.3) by x′′
+2, we deduce that
+pk0cm⏐⏐bcmQx′′
+1 −acmPx ′′
+2
+⏐⏐≤ bcmD|Q|+ |E|x′′
+2.
+From Lemma 3.2, it is straightforward to show that, for at least one of n =dm
+and dm − 1, we have bcmQx′′
+1 ̸=acmPx ′′
+2. If not, then
+bcmQdm(z0)x′′
+1 =acmPdm(z0)x′′
+2 and bcmQdm−1(z0)x′′
+1 =acmPdm−1(z0)x′′
+2.
+Multiplying the ﬁrst of these equations by Pdm−1(z0) and the second by
+Pdm(z0), we ﬁnd that
+Qdm(z0)Pdm−1(z0) −Qdm−1(z0)Pdm(z0) = 0,
+26
+
+===== PDF PAGE 27 =====
+contradicting Lemma 3.2, since z0 ̸= 0. Fixing n =dm − δ, with δ∈ {0, 1}
+and bcmQx′′
+1 ̸=acmPx ′′
+2, we deduce that
+pk0cm ≤ bcmD|Q|+ |E|x′′
+2. (7.4)
+The idea is to show that each of |Q|and |E|is not too large, whereby we
+may employ (7.4) to obtain a lower bound on x′′
+2 (and hence on y).
+Recall that we aim to show that y ≥ xλ3−ϵ. We may therefore suppose
+y <xλ3. With this restriction, we begin by demonstrating that
+dm> max
+{
+log (κ1)
+log Ω 3
+, (1 +λ3) log
+(
+Mc
+2κ−1
+2
+)
+ϵlog (Ms
+2 Ω 4) , (1 +λ3) log(κ2)
+ϵlog (Ms
+2 Ω 4) ,dm 0
+}
+. (7.5)
+Since
+y = max{p−αx′
+1,q −βx′
+2}<x λ3
+and either x′′
+1 =x′
+1 or x′′
+2 =x′
+2, it follows that
+min{p−αx′′
+1,q −βx′′
+2}<x λ3.
+Thus, either
+x =ql0cmx′′
+2 =ql0cmqβq−βx′′
+2 <q l0cmql0cxλ3
+so that
+ql0cm >x 1−λ3q−l0c,
+or, if x′′
+1 =x′
+1, arguing similarly,
+pk0cm >x 1−λ3p−k0c.
+These are equivalent to
+m> (1 −λ3) logx − log
+(
+ql0c)
+log (ql0c)
+and
+m> (1 −λ3) logx − log
+(
+pk0c)
+log (pk0c) ,
+respectively. The condition x ≥ x0 is equivalent to
+(1 −λ3) logx ≥ (M + 1) log
+(
+Mc
+2
+)
+27
+
+===== PDF PAGE 28 =====
+and hence we have that m > M, whereby inequality (7.5) follows immedi-
+ately.
+Applying Lemma 4.1 and inequality (2.8), yields the upper bound
+|Q|< (apk0)dm−δC1,δQ(s,z 0)dm
+L1(s)dm ≤ κ1
+2D
+(apk0Q(s,z 0)
+L1(s)
+)dm
+.
+Since (7.5) implies that κ1 < Ω dm
+3 , we may conclude from (7.4) that
+x′′
+2 > pk0cm
+2|E|.
+Since Lemma 4.1 leads to the inequality
+|E|< (apk0)(c−d)m+δ−1D2dm+1−2δ
+0 C2,δE(s,z 0)dm
+L1(s)dm ,
+it therefore follows that
+x′′
+2 >κ2
+( pk0L1(s)
+as−1D2
+0E(s,z 0)
+)dm
+=κ2Ω dm
+4
+(pk0
+M1
+)cm
+≥ κ2Ω dm
+4 . (7.6)
+Since also
+x′′
+1 >
+(ql0
+pk0
+)cm
+x′′
+2 >κ2Ω dm
+4
+(ql0
+M1
+)cm
+≥ κ2Ω dm
+4 , (7.7)
+we may conclude that
+y >M−c
+2 min{x′′
+1,x ′′
+2}> M−c
+2 κ2 Ω dm
+4 .
+From
+x =ql0cmx′′
+2 <p k0cmx′′
+1,
+we may thereby write
+logy
+logx ≥ − log(Mc
+2) + min{logx′′
+1, logx′′
+2}
+dm log(Ms
+2) + min{logx′′
+1, logx′′
+2}.
+Ifu andv are positive numbers, then the function ( w −u)/ (w +v) increases
+with w. It follows therefore that
+logy
+logx ≥ − log(Mc
+2) + log
+(
+κ2Ω dm
+4
+)
+dm log(Ms
+2) + log
+(
+κ2Ω dm
+4
+)
+28
+
+===== PDF PAGE 29 =====
+and hence y ≥ xθ, where
+θ= log(Ω 4) − log
+(
+Mc
+2κ−1
+2
+)
+/ (dm)
+log (Ms
+2 Ω 4) + log(κ2)/ (dm) .
+From (7.5), we have
+max
+{1
+dm log
+(
+Mc
+2κ−1
+2
+)
+, 1
+dm log(κ2)
+}
+< ϵ
+1 +λ3
+·log (Ms
+2 Ω 4).
+Using also λ3 = log(Ω 4)/ log(Ms
+2 Ω 4), we deduce that
+θ >
+λ3 − ϵ
+1 +λ3
+1 + ϵ
+1 +λ3
+>λ3 −ϵ.
+This completes the proof of Theorem 2.4. As noted previously, Theorem 2.2
+follows with minor modiﬁcations.
+8 Proofs of Corollary 2.3 and Theorem 2.1
+To prove Corollary 2.3, we apply Theorem 2.2, choosing parameters in the
+following fashion :
+{p,q } a pk0 b ql0 s {p,q } a pk0 b ql0 s
+{2, 3} 1 9 1 8 1. 44829 {3, 11} 1 243 2 121 1. 35497
+{2, 5} 1 128 1 125 1. 22744 {3, 13} 1 2197 1 2187 1. 15161
+{2, 7} 1 8 1 7 1. 46706 {5, 7} 2 25 1 49 1. 49683
+{2, 11} 1 128 1 121 1. 22806 {5, 11} 1 125 1 121 1. 22853
+{2, 13} 1 512 3 169 1. 40712 {5, 13} 2 13 1 25 1. 62743
+{3, 5} 1 27 1 25 1. 31653 {7, 13} 1 343 2 169 1. 33134
+{3, 7} 5 49 1 243 1. 64610 {11, 13} 1 13 1 11 1. 40106
+Observe that in applying Theorem 2.2, we take c andd to be relatively prime
+integers for which s =c/d in the above table. As far as we are aware, these
+choices are essentially optimal to maximize the measures λ2(p,q ) in Corollary
+2.3. We know of no values of a,b,k 0,l 0 ands which leads to a nontrivial result
+in case, for example, ( p,q ) = (7, 11).
+29
+
+===== PDF PAGE 30 =====
+To prove Theorem 2.1, we utilize the same parameters a,b,k 0 andl0, and
+takeD = 100. We further choose s =c/d and ϵas in the following table. In
+each case, we have the inequality
+λ3(p,q )>λ(p,q ) +ϵ
+and are able to conclude that (2.2) holds, at least provided x = min{pkx1,q lx2}
+is suitably large, say x ≥ x0 for the stated values of x0.
+{p,q } c d ϵ log(x0) {p,q } c d ϵ log(x0)
+{2, 3} 25 17 0. 000099 695411 {3, 11} 7 5 0. 0006 83857
+{2, 5} 5 4 0. 0003 96124 {3, 13} 7 6 0. 001 63244
+{2, 7} 3 2 0. 0002 37549 {5, 7} 8 5 0. 0007 53104
+{2, 11} 5 4 0. 0002 116863 {5, 11} 5 4 0. 0004 67508
+{2, 13} 3 2 0. 0005 35516 {5, 13} 5 3 0. 0008 22453
+{3, 5} 4 3 0. 00004 371785 {7, 13} 7 5 0. 0007 60660
+{3, 7} 5 3 0. 0009 30156 {11, 13} 3 2 0. 00006 116253
+Since log(x0) < 7 × 105 in each case, Theorem 2.1 is thus a consequence of
+Proposition 6.1 and direct computations for small values of pkx1.
+9 The proof of Theorem 1.1
+The argument of Ecklund, Eggleton, Erd˝ os and Selfridge [5] to deduce an
+analogue of Theorem 1.1 for k ̸∈ {3, 5, 7}depends essentially on the fact that,
+for values of k >2 outside this exceptional set, we always have k ≥ 2π(k).
+Ignoring the contribution to V of terms of the shape n−ip, where ip is chosen
+(not necessarily uniquely) so that p divides n − ip maximally, we are led to
+the conclusion that
+V > (n −k + 1)k−π(k)
+k! ,
+which, for ﬁxed k ̸∈ {3, 5, 7} and suitably large n leads to the desired con-
+clusion (for k ∈ {4, 6, 8}, one needs to argue somewhat more carefully). For
+k ∈ {3, 5, 7}, however, k < 2π(k) and hence we cannot estimate trivially
+the contributions to V coming from the terms n − ip. Indeed, our proof of
+Theorem 1.1 requires an appeal to Theorem 2.1 with
+(p,q ) ∈ {(2, 3), (2, 5), (3, 5), (5, 7)}.
+30
+
+===== PDF PAGE 31 =====
+We begin by treating the case k = 5. Let us suppose that there exists an
+integern ≥ 10 and nonnegative integers α,β,δand V such that
+(n
+5
+)
+= 2 α 3β5δ ·V with gcd( V, 30) = 1
+and
+V 2 <
+(n
+5
+)
+. (9.1)
+We will suppose further that n > 10004; a direct computation shows that
+otherwisen ∈ {10, 12, 28}. We claim that there exist distinct integers i,j,k ∈
+{0, 1, 2, 3, 4} such that
+n ≡ i (mod 8), n ≡ j (mod 9) and n ≡ k (mod 5). (9.2)
+If not, then one of the following holds :
+(i) ν2(n(n − 1)(n − 2)(n − 3)(n − 4)) ≤ 4,
+(ii) ν3(n(n − 1)(n − 2)(n − 3)(n − 4)) ≤ 2,
+or there exists an i ∈ {0, 1, 2, 3, 4} such that one of
+(iii) n ≡ i (mod 72), n ≡ i (mod 40) or n ≡ i (mod 45).
+Here, by νp(m) we mean, for a positive integer m, the largest integer t such
+that pt divides m. In cases (i) and (ii), arguing crudely, we have that
+V ≥ (n − 2)(n − 3)(n − 4)
+36
+which, with (9.1) contradicts n> 10004. In case (iii), we similarly have
+V ≥ (n − 2)(n − 3)(n − 4)
+24 ,
+again contradicting our lower bound upon n.
+We may therefore assume the existence of distinct i,j,k satisfying (9.2)
+and hence from
+n(n − 1)(n − 2)(n − 3)(n − 4) = 2 α+33β+15δ+1V,
+31
+
+===== PDF PAGE 32 =====
+write n −i = 2 αni, n −j = 3 βnj and n −k = 5 δ+1nk, for integers ni,n j and
+nk. It follows that
+V ≥ ninjnk(n − 3)(n − 4)/ 24. (9.3)
+Since
+max
+{⏐⏐2αni − 3βnj
+⏐⏐,
+⏐⏐2αni − 5δ+1nk
+⏐⏐,
+⏐⏐3βnj − 5δ+1nk
+⏐⏐}
+≤ 4,
+applying Theorem 2.1, we have that
+max{ni,n j}> (n − 4)0. 285, max{ni,n k}> (n − 4)0. 25
+and
+max{nj,n k}> (n − 4)0. 216, whence ninjnk > (n − 4)0. 501.
+Combining this with (9.3),
+V > (n − 3)(n − 4)1. 501
+24 ,
+which, with (9.1), implies the inequality n< 10341. Proposition 6.1 together
+with a simple computation based on the ﬁnal sentence of this result implies
+a contradiction.
+The case k = 7 is similar. We consider the equation
+(n
+7
+)
+= 2 α 3β5δ7γ ·V with gcd( V, 210) = 1,
+where now we suppose that
+V 2 <
+(n
+7
+)
+. (9.4)
+As before, a routine computation ensures that n ≤ 10006 implies that n ∈
+{21, 30, 54}. Assuming, then, that n >10006, it is easy to show, analogous
+to the case k = 5, that necessarily there are distinct integers 0 ≤ i,j,k,l ≤ 6
+such that
+n ≡ i (mod 8), n ≡ j (mod 9), n ≡ k (mod 25) and n ≡ l (mod 7). (9.5)
+Thus, writing n −i = 2 αni, n −j = 3 βnj, n −k = 5 δnk and n −l = 7 γ+1nl,
+we have
+max
+{⏐⏐2αni − 3βnj
+⏐⏐,
+⏐⏐5βnk − 7γ+1nl
+⏐⏐}
+≤ 6
+32
+
+===== PDF PAGE 33 =====
+and
+V ≥ ninjnknl(n − 4)(n − 5)(n − 6)/ 720. (9.6)
+Applying Theorem 2.1, we obtain
+ninjnknl > (n − 6)0. 512. (9.7)
+In fact, the only pair listed in that theorem with components greater than
+10000 and diﬀerence ≤ 6 is (30618 , 30613), and 30613 has no prime divisor
+≤ 7 so this pair needn’t be considered. Combining (9.4), (9.6) and (9.7) with
+n <10168 results in a contradiction to Proposition 6.1. This completes the
+proof of Theorem 1.1.
+10 The proof of Theorem 1.2
+Theorem 1.2 is an easy consequence of the following more general result.
+Theorem 10.1. Let x and D be positive integers with D ≤ 100 and D
+coprime to 6, and suppose that k, l, and y are nonnegative integers, with y
+coprime to 6, satisfying
+x2 +Dx = 2 k3ly.
+Then one of the following holds:
+(i) y ≥ x0. 285
+(ii) y = 1 and one of x and x +D is of the form 2k with k ≤ 8 and the
+other is of the form 3l with l ≤ 5
+(iii) (x,D ) is either (640, 89) or (32768, 37).
+The proof is almost an immediate consequence of Theorem 2.1. Since D
+is coprime to 6, at most one of x and x +D is divisible by 2 and at most
+one is divisible by 3. We deduce that y ≥ x unless one of x and x +D is of
+the form 2 kx1 and the other is of the form 3 lx2 wherex1 andx2 are positive
+integers coprime to 6. Thus,
+|2kx1 − 3lx2| ≤100 and y =x1x2 ≥ max{x1,x 2}.
+Ifx> 1000, then Theorem 2.1 implies that either (2 kx1, 3lx2) or (3 lx2, 2kx1)
+belongs to a set of 40 elements listed explicitly in the theorem. A check
+33
+
+===== PDF PAGE 34 =====
+through these 40 elements and a direct computation of the x ≤ 1000 estab-
+lishes the theorem.
+As a ﬁnal note, it is perhaps worth mentioning that the restriction here
+to values of D coprime to 6 is essentially for simplicity and can be removed
+(with a slight reduction in the exponent 0 . 285) after a short computation,
+noting two more exceptional pairs with x> 1000, namely (x,D ) = (1458, 78)
+and (65536, 74).
+References
+[1] M. Bauer and M. A. Bennett, Applications of the hypergeometric method
+to the generalized Ramanujan-Nagell equation , Ramanujan J. 6 (2002),
+no. 2, 209–270.
+[2] M. Bennett, Fractional parts of powers of rational numbers , Math. Proc.
+Cambridge Philos. Soc. 114 (1993), no. 2, 191–201.
+[3] M. Bennett, Rational approximation to algebraic numbers of small height;
+the Diophantine equation
+⏐⏐axn − byn⏐⏐= 1, J. Reine Angew. Math. 535
+(2001), 1–49.
+[4] F. Beukers, Fractional parts of powers of rationals , Math. Proc. Cam-
+bridge Philos. Soc. 90 (1981), no. 1, 13–20.
+[5] E.F. Ecklund, jr., R.B. Eggleton, P. Erd˝ os and J.L. Selfridge, On the
+prime factorization of binomial coeﬃcients , J. Austral. Math. Soc. 26
+(1978), 257–269.
+[6] P. Erd˝ os,Some unconventional problems in number theory , Acta Mathe-
+matica Academiae Scientarum Hungaricae, Tomus 33 (1979), 71–80.
+[7] M. Filaseta and R. L. Williams, Jr., On the irreducibility of a certain
+class of Laguerre polynomials , J. Number Theory 100 (2003), 229–250.
+[8] R. Gow, Some generalized Laguerre polynomials whose Galois groups are
+the alternating groups , J. Number Theory 31 (1989), 201–207.
+[9] R. Guy, Unsolved Problems in Number Theory, 3rd ed., Springer Verlag
+2004.
+34
+
+===== PDF PAGE 35 =====
+[10] D. H. Lehmer, On a problem of St¨ ormer , Illinois J. Math. 8 (1964),
+57–79.
+[11] K. Mahler, Lectures on Diophantine Approximations I, University of
+Notre Dame, 1961.
+[12] O. Ramar´ e and R. Rumely, Primes in arithmetic progressions ,
+Math. Comp. 65 (1996), 397–425.
+[13] D. Ridout, The p-adic generalization of the Thue-Siegel-Roth theorem ,
+Mathematika 5 (1958), 40–48.
+[14] J. B. Rosser and L. Schoenfeld, Sharper bounds for the Chebyshev func-
+tions θ(x) and ψ(x), Math. Comp. 29 (1975), 243–269.
+[15] L. Schoenfeld, Sharper bounds for the Chebyshev functions θ(x) and
+ψ(x), II , Math. Comp. 30 (1976), no. 134, 337–360.
+[16] I. Schur, Gleichungen ohne Aﬀekt , Sitzungsberichte der Preussis-
+chen Akademie der Wissenschaften, Physikalisch-Mathematische Klasse
+(1930), 443–449.
+[17] I. Schur, Aﬀektlose Gleichungen in der Theorie der Laguerreschen und
+Hermiteschen Polynome , Journal f¨ ur die reine und angewandte Mathe-
+matik 165 (1931), 52–58.
+[18] T.N. Shorey and R. Tijdeman, Prime factors of arithmetical progressions
+and binomial progressions , to appear.
+[19] C. Stewart, A note on the product of consecutive integers , Topics in clas-
+sical number theory, Vol. II (Budapest, 1981), Colloq. Math. Soc. J´ anos
+Bolyai 34, North-Holland, Amsterdam, 1984, 1523–1537.
+[20] C. St¨ ormer, Vid. Skr. I Math.-Natur. Kl. (Christiania) (1897).
+[21] J.J. Sylvester, On arithmetical series , Messenger Math. 21 (1892), 1–19,
+87–120.
+35

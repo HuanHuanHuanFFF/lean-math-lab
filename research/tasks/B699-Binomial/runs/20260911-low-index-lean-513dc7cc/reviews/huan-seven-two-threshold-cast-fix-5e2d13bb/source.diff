@@ -1,0 +1,12 @@
+--- before
++++ after
+@@ -61,7 +61,8 @@
+   have h := lower_telescoping_from_step (F := normalized) (R := 1) (k0 := 1)
+     (by norm_num) (fun m hm => normalized_rough_step m hm) 43
+   have htel : normalized 1 * ((1 : ℚ) + 1) ^ 2 / ((44 : ℚ) + 1) ^ 2 ≤ normalized 44 := by
+-    simpa only [one_pow, mul_one, show (1 : ℕ) + 43 = 44 by decide] using h
++    simpa only [one_pow, mul_one, Nat.cast_one, Nat.cast_ofNat,
++      show (1 : ℕ) + 43 = 44 by decide] using h
+   exact finite_binary_base.trans (mul_le_mul_of_nonneg_right htel (by positivity))
+ 
+ theorem normalized_gt_one (m : ℕ) (hm : 224 ≤ m) : 1 < normalized m := by

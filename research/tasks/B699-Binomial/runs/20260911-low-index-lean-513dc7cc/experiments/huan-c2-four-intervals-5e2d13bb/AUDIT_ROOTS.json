@@ -1,0 +1,249 @@
+{
+  "status": "UNCOMPILED",
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "public_roots": [
+    {
+      "name": "Math.B699.C2FourIntervals.four_interval_bounds",
+      "kind": "theorem",
+      "type": "∀ (m q j : ℕ)\n    (hm : 3 ≤ m) (hj : 1 ≤ j ∧ j ≤ 4)\n    (hlo : 4 * m < j * q) (hhi : 2 * j * q ≤ 9 * m - 2),\n  m < q ∧ (j - 1) * q ≤ 4 * m ∧ 4 * m < j * q",
+      "source": "Intervals.lean",
+      "audit": "AIntervals.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.four_interval_div",
+      "kind": "theorem",
+      "type": "∀ (m q j : ℕ)\n    (hm : 3 ≤ m) (hj : 1 ≤ j ∧ j ≤ 4)\n    (hlo : 4 * m < j * q) (hhi : 2 * j * q ≤ 9 * m - 2),\n  (4 * m) / q = j - 1",
+      "source": "Intervals.lean",
+      "audit": "AIntervals.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.four_interval_contributes",
+      "kind": "theorem",
+      "type": "∀ (m q j : ℕ)\n    (hm : 3 ≤ m) (hj : 1 ≤ j ∧ j ≤ 4)\n    (hlo : 4 * m < j * q) (hhi : 2 * j * q ≤ 9 * m - 2),\n  2 * q + 1 ≤ 2 * ((4 * m) % q) + m % q",
+      "source": "Intervals.lean",
+      "audit": "AIntervals.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.four_interval_index_unique",
+      "kind": "theorem",
+      "type": "∀ (m q j k : ℕ)\n    (hm : 3 ≤ m) (hj : 1 ≤ j ∧ j ≤ 4) (hk : 1 ≤ k ∧ k ≤ 4)\n    (hjlo : 4 * m < j * q) (hjhi : 2 * j * q ≤ 9 * m - 2)\n    (hklo : 4 * m < k * q) (hkhi : 2 * k * q ≤ 9 * m - 2),\n  j = k",
+      "source": "Intervals.lean",
+      "audit": "AIntervals.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.intervalPrimes",
+      "kind": "def",
+      "type": "∀ (m j : ℕ),\n  Finset ℕ",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.fourPrimes",
+      "kind": "def",
+      "type": "∀ (m : ℕ),\n  Finset ℕ",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.p4",
+      "kind": "def",
+      "type": "∀ (m : ℕ),\n  ℕ",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.mem_intervalPrimes_iff",
+      "kind": "theorem",
+      "type": "∀ (m j p : ℕ) (hj : 1 ≤ j),\n  p ∈ intervalPrimes m j ↔\n      p.Prime ∧ 4 * m < j * p ∧ 2 * j * p ≤ 9 * m - 2",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.intervalPrimes_subset",
+      "kind": "theorem",
+      "type": "∀ (m j : ℕ),\n  intervalPrimes m j ⊆ C2Direct.primeSet (4 * m) (4 * m) m",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.fourPrimes_subset",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ),\n  fourPrimes m ⊆ C2Direct.primeSet (4 * m) (4 * m) m",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.mem_fourPrimes_prime",
+      "kind": "theorem",
+      "type": "∀ (m p : ℕ) (hp : p ∈ fourPrimes m),\n  p.Prime",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.intervalPrimes_disjoint",
+      "kind": "theorem",
+      "type": "∀ (m j k : ℕ)\n    (hm : 3 ≤ m) (hj : 1 ≤ j ∧ j ≤ 4) (hk : 1 ≤ k ∧ k ≤ 4)\n    (hjk : j ≠ k),\n  Disjoint (intervalPrimes m j) (intervalPrimes m k)",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.intervalPrimes_pairwise_disjoint",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ) (hm : 3 ≤ m),\n  Set.PairwiseDisjoint (↑(Finset.Icc 1 4) : Set ℕ) (intervalPrimes m)",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.p4_eq_interval_products",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ) (hm : 3 ≤ m),\n  p4 m = ∏ j ∈ Finset.Icc 1 4, ∏ p ∈ intervalPrimes m j, p",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.interval_prime_first_layer",
+      "kind": "theorem",
+      "type": "∀ (m j p : ℕ)\n    (hm : 3 ≤ m) (hj : 1 ≤ j ∧ j ≤ 4) (hp : p ∈ intervalPrimes m j),\n  C2Direct.layer (4 * m) (4 * m) m p = 1",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.first_layer_mem_cutoff",
+      "kind": "theorem",
+      "type": "∀ (m p : ℕ) (hp : p ∈ fourPrimes m),\n  1 ∈ Finset.Ico 1 (C2Direct.cutoff (4 * m) (4 * m) m p)",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.one_le_actual_exponent",
+      "kind": "theorem",
+      "type": "∀ (m p : ℕ) (hm : 3 ≤ m) (hp : p ∈ fourPrimes m),\n  1 ≤ C2Direct.exponent (4 * m) (4 * m) m p",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.p4_dvd_actual_c2",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ) (hm : 3 ≤ m),\n  p4 m ∣ C2Direct.c2 (4 * m) (4 * m) m",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.p4_pos",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ),\n  0 < p4 m",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.actual_c2_pos",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ),\n  0 < C2Direct.c2 (4 * m) (4 * m) m",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.p4_le_actual_c2",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ) (hm : 3 ≤ m),\n  p4 m ≤ C2Direct.c2 (4 * m) (4 * m) m",
+      "source": "Product.lean",
+      "audit": "AProduct.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.l4",
+      "kind": "def",
+      "type": "∀ (m : ℕ),\n  ℝ",
+      "source": "LogBridge.lean",
+      "audit": "ALog.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.l4_eq_log_p4",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ),\n  l4 m = Real.log (p4 m : ℝ)",
+      "source": "LogBridge.lean",
+      "audit": "ALog.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.l4_eq_interval_sums",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ) (hm : 3 ≤ m),\n  l4 m = ∑ j ∈ Finset.Icc 1 4, ∑ p ∈ intervalPrimes m j, Real.log (p : ℝ)",
+      "source": "LogBridge.lean",
+      "audit": "ALog.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.log_p4_le_log_actual_c2",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ) (hm : 3 ≤ m),\n  Real.log (p4 m : ℝ) ≤ Real.log (C2Direct.c2 (4 * m) (4 * m) m : ℝ)",
+      "source": "LogBridge.lean",
+      "audit": "ALog.lean"
+    },
+    {
+      "name": "Math.B699.C2FourIntervals.l4_le_log_actual_c2",
+      "kind": "theorem",
+      "type": "∀ (m : ℕ) (hm : 3 ≤ m),\n  l4 m ≤ Real.log (C2Direct.c2 (4 * m) (4 * m) m : ℝ)",
+      "source": "LogBridge.lean",
+      "audit": "ALog.lean"
+    }
+  ],
+  "module_map": [
+    {
+      "source": "Intervals.lean",
+      "audit": "AIntervals.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/C2FourIntervals/Intervals.lean",
+      "audit_target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/C2FourIntervals/AIntervals.lean",
+      "module": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.C2FourIntervals.Intervals",
+      "public_roots": [
+        "Math.B699.C2FourIntervals.four_interval_bounds",
+        "Math.B699.C2FourIntervals.four_interval_div",
+        "Math.B699.C2FourIntervals.four_interval_contributes",
+        "Math.B699.C2FourIntervals.four_interval_index_unique"
+      ]
+    },
+    {
+      "source": "Product.lean",
+      "audit": "AProduct.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/C2FourIntervals/Product.lean",
+      "audit_target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/C2FourIntervals/AProduct.lean",
+      "module": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.C2FourIntervals.Product",
+      "public_roots": [
+        "Math.B699.C2FourIntervals.intervalPrimes",
+        "Math.B699.C2FourIntervals.fourPrimes",
+        "Math.B699.C2FourIntervals.p4",
+        "Math.B699.C2FourIntervals.mem_intervalPrimes_iff",
+        "Math.B699.C2FourIntervals.intervalPrimes_subset",
+        "Math.B699.C2FourIntervals.fourPrimes_subset",
+        "Math.B699.C2FourIntervals.mem_fourPrimes_prime",
+        "Math.B699.C2FourIntervals.intervalPrimes_disjoint",
+        "Math.B699.C2FourIntervals.intervalPrimes_pairwise_disjoint",
+        "Math.B699.C2FourIntervals.p4_eq_interval_products",
+        "Math.B699.C2FourIntervals.interval_prime_first_layer",
+        "Math.B699.C2FourIntervals.first_layer_mem_cutoff",
+        "Math.B699.C2FourIntervals.one_le_actual_exponent",
+        "Math.B699.C2FourIntervals.p4_dvd_actual_c2",
+        "Math.B699.C2FourIntervals.p4_pos",
+        "Math.B699.C2FourIntervals.actual_c2_pos",
+        "Math.B699.C2FourIntervals.p4_le_actual_c2"
+      ]
+    },
+    {
+      "source": "LogBridge.lean",
+      "audit": "ALog.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/C2FourIntervals/LogBridge.lean",
+      "audit_target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/C2FourIntervals/ALog.lean",
+      "module": "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.C2FourIntervals.LogBridge",
+      "public_roots": [
+        "Math.B699.C2FourIntervals.l4",
+        "Math.B699.C2FourIntervals.l4_eq_log_p4",
+        "Math.B699.C2FourIntervals.l4_eq_interval_sums",
+        "Math.B699.C2FourIntervals.log_p4_le_log_actual_c2",
+        "Math.B699.C2FourIntervals.l4_le_log_actual_c2"
+      ]
+    }
+  ],
+  "aggregate": "Audit.lean",
+  "aggregate_target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/C2FourIntervals/Audit.lean"
+}

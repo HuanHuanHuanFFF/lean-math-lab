@@ -1,0 +1,342 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtStage0Pair27.Chunk013Data
+import Mathlib.Tactic.IntervalCases
+
+/-! UNCOMPILED direct-cell candidate; no row-wide decide. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 5000000
+set_option exponentiation.threshold 512
+
+namespace Math.B699.CRTStage0Pair27.Chunk013
+open Math.B699.CRTGrid
+open B699LowIndex.I11CrtStageMetadata
+
+theorem cellA107B1_check :
+    cellCheck (2 ^ 107) (7 ^ 1)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 1)) Stage00.upper cellA107B1 = true := by
+  decide +kernel
+
+theorem cellA107B2_check :
+    cellCheck (2 ^ 107) (7 ^ 2)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 2)) Stage00.upper cellA107B2 = true := by
+  decide +kernel
+
+theorem cellA107B3_check :
+    cellCheck (2 ^ 107) (7 ^ 3)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 3)) Stage00.upper cellA107B3 = true := by
+  decide +kernel
+
+theorem cellA107B4_check :
+    cellCheck (2 ^ 107) (7 ^ 4)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 4)) Stage00.upper cellA107B4 = true := by
+  decide +kernel
+
+theorem cellA107B5_check :
+    cellCheck (2 ^ 107) (7 ^ 5)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 5)) Stage00.upper cellA107B5 = true := by
+  decide +kernel
+
+theorem cellA107B6_check :
+    cellCheck (2 ^ 107) (7 ^ 6)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 6)) Stage00.upper cellA107B6 = true := by
+  decide +kernel
+
+theorem cellA107B7_check :
+    cellCheck (2 ^ 107) (7 ^ 7)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 7)) Stage00.upper cellA107B7 = true := by
+  decide +kernel
+
+theorem cellA107B8_check :
+    cellCheck (2 ^ 107) (7 ^ 8)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 8)) Stage00.upper cellA107B8 = true := by
+  decide +kernel
+
+theorem cellA107B9_check :
+    cellCheck (2 ^ 107) (7 ^ 9)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 9)) Stage00.upper cellA107B9 = true := by
+  decide +kernel
+
+theorem cellA107B10_check :
+    cellCheck (2 ^ 107) (7 ^ 10)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 10)) Stage00.upper cellA107B10 = true := by
+  decide +kernel
+
+theorem cellA107B11_check :
+    cellCheck (2 ^ 107) (7 ^ 11)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 11)) Stage00.upper cellA107B11 = true := by
+  decide +kernel
+
+theorem cellA107B12_check :
+    cellCheck (2 ^ 107) (7 ^ 12)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 12)) Stage00.upper cellA107B12 = true := by
+  decide +kernel
+
+theorem cellA107B13_check :
+    cellCheck (2 ^ 107) (7 ^ 13)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 13)) Stage00.upper cellA107B13 = true := by
+  decide +kernel
+
+theorem cellA107B14_check :
+    cellCheck (2 ^ 107) (7 ^ 14)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 14)) Stage00.upper cellA107B14 = true := by
+  decide +kernel
+
+theorem cellA107B15_check :
+    cellCheck (2 ^ 107) (7 ^ 15)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 15)) Stage00.upper cellA107B15 = true := by
+  decide +kernel
+
+theorem cellA107B16_check :
+    cellCheck (2 ^ 107) (7 ^ 16)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 16)) Stage00.upper cellA107B16 = true := by
+  decide +kernel
+
+theorem cellA107B17_check :
+    cellCheck (2 ^ 107) (7 ^ 17)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 17)) Stage00.upper cellA107B17 = true := by
+  decide +kernel
+
+theorem cellA107B18_check :
+    cellCheck (2 ^ 107) (7 ^ 18)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 18)) Stage00.upper cellA107B18 = true := by
+  decide +kernel
+
+theorem cellA107B19_check :
+    cellCheck (2 ^ 107) (7 ^ 19)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 19)) Stage00.upper cellA107B19 = true := by
+  decide +kernel
+
+theorem cellA107B20_check :
+    cellCheck (2 ^ 107) (7 ^ 20)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 20)) Stage00.upper cellA107B20 = true := by
+  decide +kernel
+
+theorem cellA107B21_check :
+    cellCheck (2 ^ 107) (7 ^ 21)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 21)) Stage00.upper cellA107B21 = true := by
+  decide +kernel
+
+theorem cellA107B22_check :
+    cellCheck (2 ^ 107) (7 ^ 22)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 22)) Stage00.upper cellA107B22 = true := by
+  decide +kernel
+
+theorem cellA107B23_check :
+    cellCheck (2 ^ 107) (7 ^ 23)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 23)) Stage00.upper cellA107B23 = true := by
+  decide +kernel
+
+theorem cellA107B24_check :
+    cellCheck (2 ^ 107) (7 ^ 24)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 24)) Stage00.upper cellA107B24 = true := by
+  decide +kernel
+
+theorem cellA107B25_check :
+    cellCheck (2 ^ 107) (7 ^ 25)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 25)) Stage00.upper cellA107B25 = true := by
+  decide +kernel
+
+theorem cellA107B26_check :
+    cellCheck (2 ^ 107) (7 ^ 26)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 26)) Stage00.upper cellA107B26 = true := by
+  decide +kernel
+
+theorem cellA107B27_check :
+    cellCheck (2 ^ 107) (7 ^ 27)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 27)) Stage00.upper cellA107B27 = true := by
+  decide +kernel
+
+theorem cellA107B28_check :
+    cellCheck (2 ^ 107) (7 ^ 28)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 28)) Stage00.upper cellA107B28 = true := by
+  decide +kernel
+
+theorem cellA107B29_check :
+    cellCheck (2 ^ 107) (7 ^ 29)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 29)) Stage00.upper cellA107B29 = true := by
+  decide +kernel
+
+theorem cellA107B30_check :
+    cellCheck (2 ^ 107) (7 ^ 30)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 30)) Stage00.upper cellA107B30 = true := by
+  decide +kernel
+
+theorem cellA107B31_check :
+    cellCheck (2 ^ 107) (7 ^ 31)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 31)) Stage00.upper cellA107B31 = true := by
+  decide +kernel
+
+theorem cellA107B32_check :
+    cellCheck (2 ^ 107) (7 ^ 32)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 32)) Stage00.upper cellA107B32 = true := by
+  decide +kernel
+
+theorem cellA107B33_check :
+    cellCheck (2 ^ 107) (7 ^ 33)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 33)) Stage00.upper cellA107B33 = true := by
+  decide +kernel
+
+theorem cellA107B34_check :
+    cellCheck (2 ^ 107) (7 ^ 34)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 34)) Stage00.upper cellA107B34 = true := by
+  decide +kernel
+
+theorem cellA107B35_check :
+    cellCheck (2 ^ 107) (7 ^ 35)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 35)) Stage00.upper cellA107B35 = true := by
+  decide +kernel
+
+theorem cellA107B36_check :
+    cellCheck (2 ^ 107) (7 ^ 36)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 36)) Stage00.upper cellA107B36 = true := by
+  decide +kernel
+
+theorem cellA107B37_check :
+    cellCheck (2 ^ 107) (7 ^ 37)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 37)) Stage00.upper cellA107B37 = true := by
+  decide +kernel
+
+theorem cellA107B38_check :
+    cellCheck (2 ^ 107) (7 ^ 38)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ 38)) Stage00.upper cellA107B38 = true := by
+  decide +kernel
+
+theorem rowA107_cell_check (b : ℕ) (hb0 : 1 ≤ b) (hb1 : b ≤ 38) :
+    cellCheck (2 ^ 107) (7 ^ b)
+      (heightCap Stage00.H Stage00.M (2 ^ 107))
+      (heightCap Stage00.H Stage00.M (7 ^ b)) Stage00.upper (rowA107 b) = true := by
+  interval_cases b
+  · simpa only [show rowA107 1 = cellA107B1 from rfl] using cellA107B1_check
+  · simpa only [show rowA107 2 = cellA107B2 from rfl] using cellA107B2_check
+  · simpa only [show rowA107 3 = cellA107B3 from rfl] using cellA107B3_check
+  · simpa only [show rowA107 4 = cellA107B4 from rfl] using cellA107B4_check
+  · simpa only [show rowA107 5 = cellA107B5 from rfl] using cellA107B5_check
+  · simpa only [show rowA107 6 = cellA107B6 from rfl] using cellA107B6_check
+  · simpa only [show rowA107 7 = cellA107B7 from rfl] using cellA107B7_check
+  · simpa only [show rowA107 8 = cellA107B8 from rfl] using cellA107B8_check
+  · simpa only [show rowA107 9 = cellA107B9 from rfl] using cellA107B9_check
+  · simpa only [show rowA107 10 = cellA107B10 from rfl] using cellA107B10_check
+  · simpa only [show rowA107 11 = cellA107B11 from rfl] using cellA107B11_check
+  · simpa only [show rowA107 12 = cellA107B12 from rfl] using cellA107B12_check
+  · simpa only [show rowA107 13 = cellA107B13 from rfl] using cellA107B13_check
+  · simpa only [show rowA107 14 = cellA107B14 from rfl] using cellA107B14_check
+  · simpa only [show rowA107 15 = cellA107B15 from rfl] using cellA107B15_check
+  · simpa only [show rowA107 16 = cellA107B16 from rfl] using cellA107B16_check
+  · simpa only [show rowA107 17 = cellA107B17 from rfl] using cellA107B17_check
+  · simpa only [show rowA107 18 = cellA107B18 from rfl] using cellA107B18_check
+  · simpa only [show rowA107 19 = cellA107B19 from rfl] using cellA107B19_check
+  · simpa only [show rowA107 20 = cellA107B20 from rfl] using cellA107B20_check
+  · simpa only [show rowA107 21 = cellA107B21 from rfl] using cellA107B21_check
+  · simpa only [show rowA107 22 = cellA107B22 from rfl] using cellA107B22_check
+  · simpa only [show rowA107 23 = cellA107B23 from rfl] using cellA107B23_check
+  · simpa only [show rowA107 24 = cellA107B24 from rfl] using cellA107B24_check
+  · simpa only [show rowA107 25 = cellA107B25 from rfl] using cellA107B25_check
+  · simpa only [show rowA107 26 = cellA107B26 from rfl] using cellA107B26_check
+  · simpa only [show rowA107 27 = cellA107B27 from rfl] using cellA107B27_check
+  · simpa only [show rowA107 28 = cellA107B28 from rfl] using cellA107B28_check
+  · simpa only [show rowA107 29 = cellA107B29 from rfl] using cellA107B29_check
+  · simpa only [show rowA107 30 = cellA107B30 from rfl] using cellA107B30_check
+  · simpa only [show rowA107 31 = cellA107B31 from rfl] using cellA107B31_check
+  · simpa only [show rowA107 32 = cellA107B32 from rfl] using cellA107B32_check
+  · simpa only [show rowA107 33 = cellA107B33 from rfl] using cellA107B33_check
+  · simpa only [show rowA107 34 = cellA107B34 from rfl] using cellA107B34_check
+  · simpa only [show rowA107 35 = cellA107B35 from rfl] using cellA107B35_check
+  · simpa only [show rowA107 36 = cellA107B36 from rfl] using cellA107B36_check
+  · simpa only [show rowA107 37 = cellA107B37 from rfl] using cellA107B37_check
+  · simpa only [show rowA107 38 = cellA107B38 from rfl] using cellA107B38_check
+
+theorem rowA107_block_check :
+    blockCheck 2 7 Stage00.H Stage00.M Stage00.upper 107 1 1 38 chunkData = true := by
+  unfold blockCheck
+  apply List.all_eq_true.mpr
+  intro aa haa
+  have hab := List.mem_range'_1.mp haa
+  have ha : aa = 107 := by omega
+  subst aa
+  apply List.all_eq_true.mpr
+  intro b hb
+  have hbb := List.mem_range'_1.mp hb
+  have h := rowA107_cell_check b hbb.1 (by omega)
+  simpa only [show chunkData 107 b = rowA107 b from rfl] using h
+
+end Math.B699.CRTStage0Pair27.Chunk013
+
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B1_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B2_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B3_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B4_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B5_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B6_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B7_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B8_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B9_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B10_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B11_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B12_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B13_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B14_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B15_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B16_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B17_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B18_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B19_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B20_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B21_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B22_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B23_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B24_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B25_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B26_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B27_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B28_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B29_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B30_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B31_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B32_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B33_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B34_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B35_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B36_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B37_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.cellA107B38_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.rowA107_cell_check
+#print axioms Math.B699.CRTStage0Pair27.Chunk013.rowA107_block_check

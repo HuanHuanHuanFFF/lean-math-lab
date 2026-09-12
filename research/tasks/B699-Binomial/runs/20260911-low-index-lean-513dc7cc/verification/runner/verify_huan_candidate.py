@@ -7,13 +7,16 @@ RUN=Path("research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc")
 ALLOWED={"propext","Classical.choice","Quot.sound"}
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument("--name",required=True);p.add_argument("--root",required=True);p.add_argument("--package-root",type=Path,required=True);p.add_argument("--reuse",action="append",default=[]);p.add_argument("--memory-mb",type=int,default=1536);a=p.parse_args();repo=Path.cwd();run=repo/RUN
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument("--name",required=True);p.add_argument("--root",required=True);p.add_argument("--package-root",type=Path,required=True);p.add_argument("--reuse",action="append",default=[]);p.add_argument("--memory-mb",type=int,default=1536);p.add_argument("--memory-wait-seconds",type=int,default=30);a=p.parse_args();repo=Path.cwd();run=repo/RUN
  assert a.name.replace("-","").replace("_","").isalnum();root=(RUN/a.root).as_posix();assert (repo/root).is_file();stamp=datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ");out=run/"verification"/("huan-candidate-"+a.name+"-"+stamp);out.mkdir(parents=True);reuse=[]
  for source in a.reuse:
   path=Path(source);obj=json.loads(path.read_text());ep=Path(obj["evidence"]) if "evidence" in obj and "compile_records" not in obj else path
   e=json.loads(ep.read_text());assert e["success"],"reuse must be complete successful report"
   if ep.as_posix() not in reuse:reuse.append(ep.as_posix())
  cmd=[sys.executable,"-B",str(RUN/"verification/runner/verify_huan.py"),"--repo",".","--package-root",str(a.package_root),"--root",root,"--memory-mb",str(a.memory_mb),"--timeout","900"]
+ assert 0<=a.memory_wait_seconds<=30
+ if a.memory_wait_seconds:
+  profile=out/"memory-profile.json";write_json(profile,{"kind":"huan_candidate_bounded_memory_wait","schema_version":1,"status":"resource_wait_only","target_root":root,"default_memory_mb":a.memory_mb,"available_memory_guard_reserve_mb":512,"temporary_memory_wait_seconds_max":a.memory_wait_seconds,"override_keys_are_repo_relative_source_paths":True,"overrides":[]});cmd.extend(["--memory-profile",profile.relative_to(repo).as_posix()])
  for ep in reuse:cmd.extend(["--reuse",ep])
  state={"status":"running","root":root,"name":a.name,"new_original_indices":[],"source_sha256_before":sha(repo/root),"command":cmd,"reuse":reuse};write_json(out/"state.json",state);before=set((run/"verification").glob("20*/evidence.json"));env=dict(os.environ,PYTHONUTF8="1",PYTHONDONTWRITEBYTECODE="1")
  with (out/"verifier.log").open("w",encoding="utf-8") as log:rc=subprocess.run(cmd,cwd=repo,env=env,stdout=log,stderr=subprocess.STDOUT,creationflags=getattr(subprocess,"CREATE_NO_WINDOW",0)).returncode

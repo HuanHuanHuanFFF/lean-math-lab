@@ -1,0 +1,1610 @@
+{
+  "utc": "2026-09-11T17:51:17.371627+00:00",
+  "status": "static exact parameter and source checks; no Lean or whole-tree recomputation",
+  "bool_delta_cases": [
+    {
+      "kind": "q",
+      "Bool": false,
+      "delta": 1,
+      "actual_root": "Math.B699.I11FiveThreeGrowth.Tree.q_tree_delta1",
+      "weight": "qSeedWeight1",
+      "lambda_exact": "440758604932333255282947863/39614081257132168796771975168",
+      "matches_consumer": true
+    },
+    {
+      "kind": "q",
+      "Bool": true,
+      "delta": 0,
+      "actual_root": "Math.B699.I11FiveThreeGrowth.Tree.q_tree_delta0",
+      "weight": "qSeedWeight0",
+      "lambda_exact": "440758604932333255282947863/39614081257132168796771975168",
+      "matches_consumer": true
+    },
+    {
+      "kind": "e",
+      "Bool": false,
+      "delta": 1,
+      "actual_root": "Math.B699.I11FiveThreeGrowth.Tree.e_tree_delta1",
+      "weight": "eSeedWeight1",
+      "lambda_exact": "618834739845914957406423393/39614081257132168796771975168",
+      "matches_consumer": true
+    },
+    {
+      "kind": "e",
+      "Bool": true,
+      "delta": 0,
+      "actual_root": "Math.B699.I11FiveThreeGrowth.Tree.e_tree_delta0",
+      "weight": "eSeedWeight0",
+      "lambda_exact": "618834739845914957406423393/39614081257132168796771975168",
+      "matches_consumer": true
+    }
+  ],
+  "source_v2_comparisons": [
+    {
+      "name": "I11FiveThreeShared.lean",
+      "integrated_sha256": "b4c9dce415c2ab42e30427c8cb0da1234efebcd00ea3173959ee77d3bea3ad0b",
+      "frozen_v2_sha256": "b4c9dce415c2ab42e30427c8cb0da1234efebcd00ea3173959ee77d3bea3ad0b",
+      "identical_bytes": true
+    },
+    {
+      "name": "I11FiveThreeLeaves.lean",
+      "integrated_sha256": "cbd77789f9636976b454daf0e033c2b8745efb6e23e79080975e7913048df83e",
+      "frozen_v2_sha256": "cbd77789f9636976b454daf0e033c2b8745efb6e23e79080975e7913048df83e",
+      "identical_bytes": true
+    },
+    {
+      "name": "I11FiveThreeTree.lean",
+      "integrated_sha256": "281f7ce24655e86d8f11aacb18e6f328eeef6c4eea474bf5dc82f7565e1848c2",
+      "frozen_v2_sha256": "281f7ce24655e86d8f11aacb18e6f328eeef6c4eea474bf5dc82f7565e1848c2",
+      "identical_bytes": true
+    }
+  ],
+  "sources": [
+    {
+      "path": "lean/Growth/I11FiveThreeShared.lean",
+      "sha256": "b4c9dce415c2ab42e30427c8cb0da1234efebcd00ea3173959ee77d3bea3ad0b",
+      "declarations": [
+        {
+          "line": 15,
+          "declaration": "def qSeedC : ℕ := 5"
+        },
+        {
+          "line": 16,
+          "declaration": "def qSeedD : ℕ := 3"
+        },
+        {
+          "line": 17,
+          "declaration": "def qSeedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 18,
+          "declaration": "def qLam : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 19,
+          "declaration": "noncomputable def qSeedCore : ℚ[X] := Math.B699.GrowthLeaf.qCore qSeedC qSeedD qSeedZ"
+        },
+        {
+          "line": 20,
+          "declaration": "noncomputable def qSeedWeight0 : ℚ[X] := Math.B699.GrowthLeaf.qWeight qSeedC qSeedD 0 qSeedZ"
+        },
+        {
+          "line": 21,
+          "declaration": "noncomputable def qSeedWeight1 : ℚ[X] := Math.B699.GrowthLeaf.qWeight qSeedC qSeedD 1 qSeedZ"
+        },
+        {
+          "line": 23,
+          "declaration": "def eSeedC : ℕ := 5"
+        },
+        {
+          "line": 24,
+          "declaration": "def eSeedD : ℕ := 3"
+        },
+        {
+          "line": 25,
+          "declaration": "def eSeedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 26,
+          "declaration": "def eLam : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 27,
+          "declaration": "noncomputable def eSeedCore : ℚ[X] := Math.B699.GrowthLeaf.eCore eSeedC eSeedD eSeedZ"
+        },
+        {
+          "line": 28,
+          "declaration": "noncomputable def eSeedWeight0 : ℚ[X] := Math.B699.GrowthLeaf.eWeight eSeedC eSeedD 0 eSeedZ"
+        },
+        {
+          "line": 29,
+          "declaration": "noncomputable def eSeedWeight1 : ℚ[X] := Math.B699.GrowthLeaf.eWeight eSeedC eSeedD 1 eSeedZ"
+        }
+      ]
+    },
+    {
+      "path": "lean/Growth/I11FiveThreeLeaves.lean",
+      "sha256": "cbd77789f9636976b454daf0e033c2b8745efb6e23e79080975e7913048df83e",
+      "declarations": [
+        {
+          "line": 20,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 21,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 22,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 23,
+          "declaration": "def leafA : ℚ := (0 : ℚ)"
+        },
+        {
+          "line": 24,
+          "declaration": "def leafB : ℚ := (1 : ℚ) / 4"
+        },
+        {
+          "line": 25,
+          "declaration": "def lam : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 27,
+          "declaration": "noncomputable def seedCore : ℚ[X] := qSeedCore"
+        },
+        {
+          "line": 28,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := qSeedWeight0"
+        },
+        {
+          "line": 29,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := qSeedWeight1"
+        },
+        {
+          "line": 30,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 31,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 32,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 33,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 35,
+          "declaration": "def gapCoeff0 : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 36,
+          "declaration": "def gapCoeff1 : ℚ := (440758604932333255282947863 : ℚ) / 4951760157141521099596496896"
+        },
+        {
+          "line": 37,
+          "declaration": "def gapCoeff2 : ℚ := (2466340214883642649531072929 : ℚ) / 9903520314283042199192993792"
+        },
+        {
+          "line": 38,
+          "declaration": "def gapCoeff3 : ℚ := (7405014031437608893719607678583 : ℚ) / 21663950687494154810734673920000"
+        },
+        {
+          "line": 39,
+          "declaration": "def gapCoeff4 : ℚ := (95332490922442741043362132547017333 : ℚ) / 379119137031147709187856793600000000"
+        },
+        {
+          "line": 40,
+          "declaration": "def gapCoeff5 : ℚ := (39670430644486954847846329106088029671 : ℚ) / 414661556127817806924218368000000000000"
+        },
+        {
+          "line": 41,
+          "declaration": "def gapCoeff6 : ℚ := (12324286812067408656091649600528543207 : ℚ) / 829323112255635613848436736000000000000"
+        },
+        {
+          "line": 42,
+          "declaration": "def gapCoeff7 : ℚ := (1775676005611106181597671095003937 : ℚ) / 414661556127817806924218368000000000000"
+        },
+        {
+          "line": 43,
+          "declaration": "def gapCoeff8 : ℚ := (369731348118972293105074115177249 : ℚ) / 3317292449022542455393746944000000000000"
+        },
+        {
+          "line": 45,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 56,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 60,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 63,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 66,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 75,
+          "declaration": "theorem leafMap_eq_path : leafMap = (halfLeft).comp halfLeft := by"
+        },
+        {
+          "line": 82,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 103,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 107,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 111,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 115,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 119,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 123,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 147,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 148,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 149,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 150,
+          "declaration": "def leafA : ℚ := (1 : ℚ) / 4"
+        },
+        {
+          "line": 151,
+          "declaration": "def leafB : ℚ := (5 : ℚ) / 16"
+        },
+        {
+          "line": 152,
+          "declaration": "def lam : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 154,
+          "declaration": "noncomputable def seedCore : ℚ[X] := qSeedCore"
+        },
+        {
+          "line": 155,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := qSeedWeight0"
+        },
+        {
+          "line": 156,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := qSeedWeight1"
+        },
+        {
+          "line": 157,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 158,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 159,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 160,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 162,
+          "declaration": "def gapCoeff0 : ℚ := (369731348118972293105074115177249 : ℚ) / 3317292449022542455393746944000000000000"
+        },
+        {
+          "line": 163,
+          "declaration": "def gapCoeff1 : ℚ := (18245183745938820981924870220577 : ℚ) / 414661556127817806924218368000000000000"
+        },
+        {
+          "line": 164,
+          "declaration": "def gapCoeff2 : ℚ := (766543279849715710917075037127142887 : ℚ) / 829323112255635613848436736000000000000"
+        },
+        {
+          "line": 165,
+          "declaration": "def gapCoeff3 : ℚ := (322734724471389386171108431758355233 : ℚ) / 59237365161116829560602624000000000000"
+        },
+        {
+          "line": 166,
+          "declaration": "def gapCoeff4 : ℚ := (885978943051477525012894979966834171 : ℚ) / 66345848980450849107874938880000000000"
+        },
+        {
+          "line": 167,
+          "declaration": "def gapCoeff5 : ℚ := (57817636381350243413549991788656947 : ℚ) / 3317292449022542455393746944000000000"
+        },
+        {
+          "line": 168,
+          "declaration": "def gapCoeff6 : ℚ := (16955820989485714047345776246518231 : ℚ) / 1326916979609016982157498777600000000"
+        },
+        {
+          "line": 169,
+          "declaration": "def gapCoeff7 : ℚ := (132442286437313101182334730034009 : ℚ) / 26538339592180339643149975552000000"
+        },
+        {
+          "line": 170,
+          "declaration": "def gapCoeff8 : ℚ := (861174230082936699880083337791677 : ℚ) / 1061533583687213585725999022080000000"
+        },
+        {
+          "line": 172,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 183,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 187,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 190,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 193,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 202,
+          "declaration": "theorem leafMap_eq_path : leafMap = (((halfLeft).comp halfRight).comp halfLeft).comp halfLeft := by"
+        },
+        {
+          "line": 209,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 230,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 234,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 238,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 242,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 246,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 250,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 274,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 275,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 276,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 277,
+          "declaration": "def leafA : ℚ := (5 : ℚ) / 16"
+        },
+        {
+          "line": 278,
+          "declaration": "def leafB : ℚ := (3 : ℚ) / 8"
+        },
+        {
+          "line": 279,
+          "declaration": "def lam : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 281,
+          "declaration": "noncomputable def seedCore : ℚ[X] := qSeedCore"
+        },
+        {
+          "line": 282,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := qSeedWeight0"
+        },
+        {
+          "line": 283,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := qSeedWeight1"
+        },
+        {
+          "line": 284,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 285,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 286,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 287,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 289,
+          "declaration": "def gapCoeff0 : ℚ := (861174230082936699880083337791677 : ℚ) / 1061533583687213585725999022080000000"
+        },
+        {
+          "line": 290,
+          "declaration": "def gapCoeff1 : ℚ := (1060137027979307893848493025413309 : ℚ) / 132691697960901698215749877760000000"
+        },
+        {
+          "line": 291,
+          "declaration": "def gapCoeff2 : ℚ := (44810612694977681202923132513546711 : ℚ) / 1326916979609016982157498777600000000"
+        },
+        {
+          "line": 292,
+          "declaration": "def gapCoeff3 : ℚ := (265856907827544995424425303158143283 : ℚ) / 3317292449022542455393746944000000000"
+        },
+        {
+          "line": 293,
+          "declaration": "def gapCoeff4 : ℚ := (7762510234924969148311747983401227771 : ℚ) / 66345848980450849107874938880000000000"
+        },
+        {
+          "line": 294,
+          "declaration": "def gapCoeff5 : ℚ := (44694626380374690417615292015255186919 : ℚ) / 414661556127817806924218368000000000000"
+        },
+        {
+          "line": 295,
+          "declaration": "def gapCoeff6 : ℚ := (10165367413616951722073280831646012923 : ℚ) / 165864622451127122769687347200000000000"
+        },
+        {
+          "line": 296,
+          "declaration": "def gapCoeff7 : ℚ := (6665895997418663206657908292392857 : ℚ) / 338499229492096168917729280000000000"
+        },
+        {
+          "line": 297,
+          "declaration": "def gapCoeff8 : ℚ := (72740506782795277279403626488339061 : ℚ) / 26538339592180339643149975552000000000"
+        },
+        {
+          "line": 299,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 310,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 314,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 317,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 320,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 329,
+          "declaration": "theorem leafMap_eq_path : leafMap = (((halfLeft).comp halfRight).comp halfLeft).comp halfRight := by"
+        },
+        {
+          "line": 336,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 357,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 361,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 365,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 369,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 373,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 377,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 401,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 402,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 403,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 404,
+          "declaration": "def leafA : ℚ := (3 : ℚ) / 8"
+        },
+        {
+          "line": 405,
+          "declaration": "def leafB : ℚ := (1 : ℚ) / 2"
+        },
+        {
+          "line": 406,
+          "declaration": "def lam : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 408,
+          "declaration": "noncomputable def seedCore : ℚ[X] := qSeedCore"
+        },
+        {
+          "line": 409,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := qSeedWeight0"
+        },
+        {
+          "line": 410,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := qSeedWeight1"
+        },
+        {
+          "line": 411,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 412,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 413,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 414,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 416,
+          "declaration": "def gapCoeff0 : ℚ := (72740506782795277279403626488339061 : ℚ) / 26538339592180339643149975552000000000"
+        },
+        {
+          "line": 417,
+          "declaration": "def gapCoeff1 : ℚ := (437849793994900164938579384670585929 : ℚ) / 16586462245112712276968734720000000000"
+        },
+        {
+          "line": 418,
+          "declaration": "def gapCoeff2 : ℚ := (18043628210494279810334082388273075707 : ℚ) / 165864622451127122769687347200000000000"
+        },
+        {
+          "line": 419,
+          "declaration": "def gapCoeff3 : ℚ := (104060454546880214515234454568738713063 : ℚ) / 414661556127817806924218368000000000000"
+        },
+        {
+          "line": 420,
+          "declaration": "def gapCoeff4 : ℚ := (117824344796102397418969391576275447271 : ℚ) / 331729244902254245539374694400000000000"
+        },
+        {
+          "line": 421,
+          "declaration": "def gapCoeff5 : ℚ := (3749737739506030247946633358544049517 : ℚ) / 11847473032223365912120524800000000000"
+        },
+        {
+          "line": 422,
+          "declaration": "def gapCoeff6 : ℚ := (28820197299977646537686632887625127419 : ℚ) / 165864622451127122769687347200000000000"
+        },
+        {
+          "line": 423,
+          "declaration": "def gapCoeff7 : ℚ := (4464368112200004398535843787596993901 : ℚ) / 82932311225563561384843673600000000000"
+        },
+        {
+          "line": 424,
+          "declaration": "def gapCoeff8 : ℚ := (23942167614913024364697160554187320097 : ℚ) / 3317292449022542455393746944000000000000"
+        },
+        {
+          "line": 426,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 437,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 441,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 444,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 447,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 456,
+          "declaration": "theorem leafMap_eq_path : leafMap = ((halfLeft).comp halfRight).comp halfRight := by"
+        },
+        {
+          "line": 463,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 484,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 488,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 492,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 496,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 500,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 504,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 528,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 529,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 530,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 531,
+          "declaration": "def leafA : ℚ := (1 : ℚ) / 2"
+        },
+        {
+          "line": 532,
+          "declaration": "def leafB : ℚ := (1 : ℚ)"
+        },
+        {
+          "line": 533,
+          "declaration": "def lam : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 535,
+          "declaration": "noncomputable def seedCore : ℚ[X] := qSeedCore"
+        },
+        {
+          "line": 536,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := qSeedWeight0"
+        },
+        {
+          "line": 537,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := qSeedWeight1"
+        },
+        {
+          "line": 538,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 539,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 540,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 541,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 543,
+          "declaration": "def gapCoeff0 : ℚ := (23942167614913024364697160554187320097 : ℚ) / 3317292449022542455393746944000000000000"
+        },
+        {
+          "line": 544,
+          "declaration": "def gapCoeff1 : ℚ := (6084695166113006770553785403799344493 : ℚ) / 82932311225563561384843673600000000000"
+        },
+        {
+          "line": 545,
+          "declaration": "def gapCoeff2 : ℚ := (49075951905596965777350485071399949819 : ℚ) / 165864622451127122769687347200000000000"
+        },
+        {
+          "line": 546,
+          "declaration": "def gapCoeff3 : ℚ := (51671141685703644861431291431390221819 : ℚ) / 82932311225563561384843673600000000000"
+        },
+        {
+          "line": 547,
+          "declaration": "def gapCoeff4 : ℚ := (258364598907990781527596725034577522151 : ℚ) / 331729244902254245539374694400000000000"
+        },
+        {
+          "line": 548,
+          "declaration": "def gapCoeff5 : ℚ := (258364602158202354671362636782228172263 : ℚ) / 414661556127817806924218368000000000000"
+        },
+        {
+          "line": 549,
+          "declaration": "def gapCoeff6 : ℚ := (3085310234526332786980635041 : ℚ) / 9903520314283042199192993792"
+        },
+        {
+          "line": 550,
+          "declaration": "def gapCoeff7 : ℚ := (440758604932333255282947863 : ℚ) / 4951760157141521099596496896"
+        },
+        {
+          "line": 551,
+          "declaration": "def gapCoeff8 : ℚ := (440758604932333255282947863 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 553,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 564,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 568,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 571,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 574,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 583,
+          "declaration": "theorem leafMap_eq_path : leafMap = halfRight := by"
+        },
+        {
+          "line": 590,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 611,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 615,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 619,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 623,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 627,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 631,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 655,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 656,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 657,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 658,
+          "declaration": "def leafA : ℚ := (0 : ℚ)"
+        },
+        {
+          "line": 659,
+          "declaration": "def leafB : ℚ := (1 : ℚ) / 4"
+        },
+        {
+          "line": 660,
+          "declaration": "def lam : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 662,
+          "declaration": "noncomputable def seedCore : ℚ[X] := eSeedCore"
+        },
+        {
+          "line": 663,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := eSeedWeight0"
+        },
+        {
+          "line": 664,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := eSeedWeight1"
+        },
+        {
+          "line": 665,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 666,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 667,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 668,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 670,
+          "declaration": "def gapCoeff0 : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 671,
+          "declaration": "def gapCoeff1 : ℚ := (618834739845914957406423393 : ℚ) / 4951760157141521099596496896"
+        },
+        {
+          "line": 672,
+          "declaration": "def gapCoeff2 : ℚ := (4331843178921404701844963751 : ℚ) / 9903520314283042199192993792"
+        },
+        {
+          "line": 673,
+          "declaration": "def gapCoeff3 : ℚ := (4254471926466068434663768487 : ℚ) / 4951760157141521099596496896"
+        },
+        {
+          "line": 674,
+          "declaration": "def gapCoeff4 : ℚ := (89004737380045003653791546683653 : ℚ) / 86655802749976619242938695680000"
+        },
+        {
+          "line": 675,
+          "declaration": "def gapCoeff5 : ℚ := (72270521850566552937396449907739671 : ℚ) / 94779784257786927296964198400000000"
+        },
+        {
+          "line": 676,
+          "declaration": "def gapCoeff6 : ℚ := (65005471542566555809389598110813207 : ℚ) / 189559568515573854593928396800000000"
+        },
+        {
+          "line": 677,
+          "declaration": "def gapCoeff7 : ℚ := (8096626181007147273754846444973937 : ℚ) / 94779784257786927296964198400000000"
+        },
+        {
+          "line": 678,
+          "declaration": "def gapCoeff8 : ℚ := (6847302208023252834919031166267249 : ℚ) / 758238274062295418375713587200000000"
+        },
+        {
+          "line": 680,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 691,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 695,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 698,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 701,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 710,
+          "declaration": "theorem leafMap_eq_path : leafMap = (halfLeft).comp halfLeft := by"
+        },
+        {
+          "line": 717,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 738,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 742,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 746,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 750,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 754,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 758,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 782,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 783,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 784,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 785,
+          "declaration": "def leafA : ℚ := (1 : ℚ) / 4"
+        },
+        {
+          "line": 786,
+          "declaration": "def leafB : ℚ := (3 : ℚ) / 8"
+        },
+        {
+          "line": 787,
+          "declaration": "def lam : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 789,
+          "declaration": "noncomputable def seedCore : ℚ[X] := eSeedCore"
+        },
+        {
+          "line": 790,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := eSeedWeight0"
+        },
+        {
+          "line": 791,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := eSeedWeight1"
+        },
+        {
+          "line": 792,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 793,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 794,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 795,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 797,
+          "declaration": "def gapCoeff0 : ℚ := (6847302208023252834919031166267249 : ℚ) / 758238274062295418375713587200000000"
+        },
+        {
+          "line": 798,
+          "declaration": "def gapCoeff1 : ℚ := (1244528044306261123100224705382781 : ℚ) / 18955956851557385459392839680000000"
+        },
+        {
+          "line": 799,
+          "declaration": "def gapCoeff2 : ℚ := (7816360552286564945579250544837227 : ℚ) / 37911913703114770918785679360000000"
+        },
+        {
+          "line": 800,
+          "declaration": "def gapCoeff3 : ℚ := (6916412278464410010178521135350379 : ℚ) / 18955956851557385459392839680000000"
+        },
+        {
+          "line": 801,
+          "declaration": "def gapCoeff4 : ℚ := (4306243798277819420497993404575601 : ℚ) / 10831975343747077405367336960000000"
+        },
+        {
+          "line": 802,
+          "declaration": "def gapCoeff5 : ℚ := (25850315907182716784236599908404247 : ℚ) / 94779784257786927296964198400000000"
+        },
+        {
+          "line": 803,
+          "declaration": "def gapCoeff6 : ℚ := (4356196084516364971747681885258347 : ℚ) / 37911913703114770918785679360000000"
+        },
+        {
+          "line": 804,
+          "declaration": "def gapCoeff7 : ℚ := (102899504003479085331965699814681 : ℚ) / 3791191370311477091878567936000000"
+        },
+        {
+          "line": 805,
+          "declaration": "def gapCoeff8 : ℚ := (16676321163660377906879916749061 : ℚ) / 6065906192498363347005708697600000"
+        },
+        {
+          "line": 807,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 818,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 822,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 825,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 828,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 837,
+          "declaration": "theorem leafMap_eq_path : leafMap = ((halfLeft).comp halfRight).comp halfLeft := by"
+        },
+        {
+          "line": 844,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 865,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 869,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 873,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 877,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 881,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 885,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 909,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 910,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 911,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 912,
+          "declaration": "def leafA : ℚ := (3 : ℚ) / 8"
+        },
+        {
+          "line": 913,
+          "declaration": "def leafB : ℚ := (1 : ℚ) / 2"
+        },
+        {
+          "line": 914,
+          "declaration": "def lam : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 916,
+          "declaration": "noncomputable def seedCore : ℚ[X] := eSeedCore"
+        },
+        {
+          "line": 917,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := eSeedWeight0"
+        },
+        {
+          "line": 918,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := eSeedWeight1"
+        },
+        {
+          "line": 919,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 920,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 921,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 922,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 924,
+          "declaration": "def gapCoeff0 : ℚ := (16676321163660377906879916749061 : ℚ) / 6065906192498363347005708697600000"
+        },
+        {
+          "line": 925,
+          "declaration": "def gapCoeff1 : ℚ := (63863707633124693736833467675929 : ℚ) / 3791191370311477091878567936000000"
+        },
+        {
+          "line": 926,
+          "declaration": "def gapCoeff2 : ℚ := (1623690338591557560088425635545707 : ℚ) / 37911913703114770918785679360000000"
+        },
+        {
+          "line": 927,
+          "declaration": "def gapCoeff3 : ℚ := (5480856366624798519225304281943063 : ℚ) / 94779784257786927296964198400000000"
+        },
+        {
+          "line": 928,
+          "declaration": "def gapCoeff4 : ℚ := (3315983344209211116625896320437271 : ℚ) / 75823827406229541837571358720000000"
+        },
+        {
+          "line": 929,
+          "declaration": "def gapCoeff5 : ℚ := (47563958289886098819816056539517 : ℚ) / 2707993835936769351341834240000000"
+        },
+        {
+          "line": 930,
+          "declaration": "def gapCoeff6 : ℚ := (110973649747911395386463132877419 : ℚ) / 37911913703114770918785679360000000"
+        },
+        {
+          "line": 931,
+          "declaration": "def gapCoeff7 : ℚ := (6776819463092208081878763901 : ℚ) / 18955956851557385459392839680000000"
+        },
+        {
+          "line": 932,
+          "declaration": "def gapCoeff8 : ℚ := (118499233281928165605428490097 : ℚ) / 758238274062295418375713587200000000"
+        },
+        {
+          "line": 934,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 945,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 949,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 952,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 955,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 964,
+          "declaration": "theorem leafMap_eq_path : leafMap = ((halfLeft).comp halfRight).comp halfRight := by"
+        },
+        {
+          "line": 971,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 992,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 996,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 1000,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 1004,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 1008,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 1012,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        },
+        {
+          "line": 1036,
+          "declaration": "def seedC : ℕ := 5"
+        },
+        {
+          "line": 1037,
+          "declaration": "def seedD : ℕ := 3"
+        },
+        {
+          "line": 1038,
+          "declaration": "def seedZ : ℚ := (1 : ℚ) / 4375"
+        },
+        {
+          "line": 1039,
+          "declaration": "def leafA : ℚ := (1 : ℚ) / 2"
+        },
+        {
+          "line": 1040,
+          "declaration": "def leafB : ℚ := (1 : ℚ)"
+        },
+        {
+          "line": 1041,
+          "declaration": "def lam : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 1043,
+          "declaration": "noncomputable def seedCore : ℚ[X] := eSeedCore"
+        },
+        {
+          "line": 1044,
+          "declaration": "noncomputable def seedWeight0 : ℚ[X] := eSeedWeight0"
+        },
+        {
+          "line": 1045,
+          "declaration": "noncomputable def seedWeight1 : ℚ[X] := eSeedWeight1"
+        },
+        {
+          "line": 1046,
+          "declaration": "noncomputable def leafMap : ℚ[X] := affine leafA leafB"
+        },
+        {
+          "line": 1047,
+          "declaration": "noncomputable def localCore : ℚ[X] := seedCore.comp leafMap"
+        },
+        {
+          "line": 1048,
+          "declaration": "noncomputable def localWeight0 : ℚ[X] := seedWeight0.comp leafMap"
+        },
+        {
+          "line": 1049,
+          "declaration": "noncomputable def localWeight1 : ℚ[X] := seedWeight1.comp leafMap"
+        },
+        {
+          "line": 1051,
+          "declaration": "def gapCoeff0 : ℚ := (118499233281928165605428490097 : ℚ) / 758238274062295418375713587200000000"
+        },
+        {
+          "line": 1052,
+          "declaration": "def gapCoeff1 : ℚ := (91391955429559333277913434493 : ℚ) / 18955956851557385459392839680000000"
+        },
+        {
+          "line": 1053,
+          "declaration": "def gapCoeff2 : ℚ := (1777828359681783993716674069299819 : ℚ) / 37911913703114770918785679360000000"
+        },
+        {
+          "line": 1054,
+          "declaration": "def gapCoeff3 : ℚ := (5331528670581606413482563142451819 : ℚ) / 18955956851557385459392839680000000"
+        },
+        {
+          "line": 1055,
+          "declaration": "def gapCoeff4 : ℚ := (49754258488789544524819955761712151 : ℚ) / 75823827406229541837571358720000000"
+        },
+        {
+          "line": 1056,
+          "declaration": "def gapCoeff5 : ℚ := (71072128183020999855143280715402263 : ℚ) / 94779784257786927296964198400000000"
+        },
+        {
+          "line": 1057,
+          "declaration": "def gapCoeff6 : ℚ := (4331843178921404701844963751 : ℚ) / 9903520314283042199192993792"
+        },
+        {
+          "line": 1058,
+          "declaration": "def gapCoeff7 : ℚ := (618834739845914957406423393 : ℚ) / 4951760157141521099596496896"
+        },
+        {
+          "line": 1059,
+          "declaration": "def gapCoeff8 : ℚ := (618834739845914957406423393 : ℚ) / 39614081257132168796771975168"
+        },
+        {
+          "line": 1061,
+          "declaration": "noncomputable def gapExpansion : ℚ[X] :="
+        },
+        {
+          "line": 1072,
+          "declaration": "theorem seed_parameter_bounds : 0 < seedD ∧ seedD < seedC ∧"
+        },
+        {
+          "line": 1076,
+          "declaration": "theorem leaf_interval_bounds : 0 ≤ leafA ∧ leafA < leafB ∧ leafB ≤ 1 := by"
+        },
+        {
+          "line": 1079,
+          "declaration": "theorem lam_pos : 0 < lam := by"
+        },
+        {
+          "line": 1082,
+          "declaration": "theorem actual_gap_eq : Polynomial.C lam - localCore = gapExpansion := by"
+        },
+        {
+          "line": 1091,
+          "declaration": "theorem leafMap_eq_path : leafMap = halfRight := by"
+        },
+        {
+          "line": 1098,
+          "declaration": "theorem gapExpansion_cone : BernsteinCone gapExpansion := by"
+        },
+        {
+          "line": 1119,
+          "declaration": "theorem local_gap_cone : BernsteinCone (Polynomial.C lam - localCore) := by"
+        },
+        {
+          "line": 1123,
+          "declaration": "theorem local_core_cone : BernsteinCone localCore := by"
+        },
+        {
+          "line": 1127,
+          "declaration": "theorem local_weight0_cone : BernsteinCone localWeight0 := by"
+        },
+        {
+          "line": 1131,
+          "declaration": "theorem local_weight1_cone : BernsteinCone localWeight1 := by"
+        },
+        {
+          "line": 1135,
+          "declaration": "theorem leaf_delta0 : GrowthTree lam localWeight0 localCore := by"
+        },
+        {
+          "line": 1139,
+          "declaration": "theorem leaf_delta1 : GrowthTree lam localWeight1 localCore := by"
+        }
+      ]
+    },
+    {
+      "path": "lean/Growth/I11FiveThreeTree.lean",
+      "sha256": "281f7ce24655e86d8f11aacb18e6f328eeef6c4eea474bf5dc82f7565e1848c2",
+      "declarations": [
+        {
+          "line": 13,
+          "declaration": "theorem qTreeNodeLRLDelta0 : GrowthTree qLam ((qSeedWeight0).comp (((halfLeft).comp halfRight).comp halfLeft)) ((qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft)) := by"
+        },
+        {
+          "line": 18,
+          "declaration": "theorem qTreeNodeLRDelta0 : GrowthTree qLam ((qSeedWeight0).comp ((halfLeft).comp halfRight)) ((qSeedCore).comp ((halfLeft).comp halfRight)) := by"
+        },
+        {
+          "line": 23,
+          "declaration": "theorem qTreeNodeLDelta0 : GrowthTree qLam ((qSeedWeight0).comp (halfLeft)) ((qSeedCore).comp (halfLeft)) := by"
+        },
+        {
+          "line": 28,
+          "declaration": "theorem qTreeNodeRootDelta0 : GrowthTree qLam (qSeedWeight0) (qSeedCore) := by"
+        },
+        {
+          "line": 33,
+          "declaration": "theorem q_tree_delta0 : GrowthTree qLam (qSeedWeight0) (qSeedCore) := by"
+        },
+        {
+          "line": 36,
+          "declaration": "theorem qTreeNodeLRLDelta1 : GrowthTree qLam ((qSeedWeight1).comp (((halfLeft).comp halfRight).comp halfLeft)) ((qSeedCore).comp (((halfLeft).comp halfRight).comp halfLeft)) := by"
+        },
+        {
+          "line": 41,
+          "declaration": "theorem qTreeNodeLRDelta1 : GrowthTree qLam ((qSeedWeight1).comp ((halfLeft).comp halfRight)) ((qSeedCore).comp ((halfLeft).comp halfRight)) := by"
+        },
+        {
+          "line": 46,
+          "declaration": "theorem qTreeNodeLDelta1 : GrowthTree qLam ((qSeedWeight1).comp (halfLeft)) ((qSeedCore).comp (halfLeft)) := by"
+        },
+        {
+          "line": 51,
+          "declaration": "theorem qTreeNodeRootDelta1 : GrowthTree qLam (qSeedWeight1) (qSeedCore) := by"
+        },
+        {
+          "line": 56,
+          "declaration": "theorem q_tree_delta1 : GrowthTree qLam (qSeedWeight1) (qSeedCore) := by"
+        },
+        {
+          "line": 59,
+          "declaration": "theorem eTreeNodeLRDelta0 : GrowthTree eLam ((eSeedWeight0).comp ((halfLeft).comp halfRight)) ((eSeedCore).comp ((halfLeft).comp halfRight)) := by"
+        },
+        {
+          "line": 64,
+          "declaration": "theorem eTreeNodeLDelta0 : GrowthTree eLam ((eSeedWeight0).comp (halfLeft)) ((eSeedCore).comp (halfLeft)) := by"
+        },
+        {
+          "line": 69,
+          "declaration": "theorem eTreeNodeRootDelta0 : GrowthTree eLam (eSeedWeight0) (eSeedCore) := by"
+        },
+        {
+          "line": 74,
+          "declaration": "theorem e_tree_delta0 : GrowthTree eLam (eSeedWeight0) (eSeedCore) := by"
+        },
+        {
+          "line": 77,
+          "declaration": "theorem eTreeNodeLRDelta1 : GrowthTree eLam ((eSeedWeight1).comp ((halfLeft).comp halfRight)) ((eSeedCore).comp ((halfLeft).comp halfRight)) := by"
+        },
+        {
+          "line": 82,
+          "declaration": "theorem eTreeNodeLDelta1 : GrowthTree eLam ((eSeedWeight1).comp (halfLeft)) ((eSeedCore).comp (halfLeft)) := by"
+        },
+        {
+          "line": 87,
+          "declaration": "theorem eTreeNodeRootDelta1 : GrowthTree eLam (eSeedWeight1) (eSeedCore) := by"
+        },
+        {
+          "line": 92,
+          "declaration": "theorem e_tree_delta1 : GrowthTree eLam (eSeedWeight1) (eSeedCore) := by"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Scaled/GrowthInputs.lean",
+      "sha256": "f75404ab5125f4b6219571d1aa80d66dcf83fff486986dd632e716e9d9e48e27",
+      "declarations": [
+        {
+          "line": 14,
+          "declaration": "def qLambda : ℚ := 440758604932333255282947863 / 39614081257132168796771975168"
+        },
+        {
+          "line": 15,
+          "declaration": "def eLambda : ℚ := 618834739845914957406423393 / 39614081257132168796771975168"
+        },
+        {
+          "line": 16,
+          "declaration": "def qBase : ℚ := beta 5 3 * qLambda"
+        },
+        {
+          "line": 17,
+          "declaration": "def eBase : ℚ := beta 5 3 * eLambda"
+        },
+        {
+          "line": 19,
+          "declaration": "theorem fixed_bases_pos : 0 < qLambda ∧ 0 < eLambda ∧ 0 < qBase ∧ 0 < eBase := by"
+        },
+        {
+          "line": 22,
+          "declaration": "theorem geometric_majorant (F K beta lam weight : ℚ) (m : ℕ)"
+        },
+        {
+          "line": 36,
+          "declaration": "theorem actual_q_growth_of_tree (delta m : ℕ) (hdelta : delta = 0 ∨ delta = 1)"
+        },
+        {
+          "line": 60,
+          "declaration": "theorem actual_e_growth_of_tree (delta m : ℕ) (hdelta : delta = 0 ∨ delta = 1)"
+        },
+        {
+          "line": 84,
+          "declaration": "theorem standard_bounds_from_fixed_trees"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Edge/FiveThree.lean",
+      "sha256": "7e06bc4e6fd3bae6cf19b5d93df31150c1e0e9ef6c22c79386af7b93d6e1d884",
+      "declarations": [
+        {
+          "line": 13,
+          "declaration": "def fiveThreeZ : ℕ := 5726930071079973414170"
+        },
+        {
+          "line": 14,
+          "declaration": "def fiveThreeY0 : ℕ := 2 ^ 15359"
+        },
+        {
+          "line": 15,
+          "declaration": "def fiveThreeM : ℕ := 213"
+        },
+        {
+          "line": 17,
+          "declaration": "theorem fiveThreeZ_gt_one : 1 < fiveThreeZ := by decide"
+        },
+        {
+          "line": 19,
+          "declaration": "def fiveThreeIndex (Y : ℕ) : ℕ := leastExponent fiveThreeZ Y fiveThreeZ_gt_one"
+        },
+        {
+          "line": 21,
+          "declaration": "theorem five_three_index_ge_original_m0 (Y : ℕ) (hY : fiveThreeY0 ≤ Y)"
+        },
+        {
+          "line": 30,
+          "declaration": "theorem five_three_extract_same_index (Y e f A C : ℕ)"
+        },
+        {
+          "line": 54,
+          "declaration": "def rowDelta (row : Bool) : ℕ := if row then 0 else 1"
+        },
+        {
+          "line": 56,
+          "declaration": "theorem rowDelta_cases (row : Bool) : rowDelta row = 0 ∨ rowDelta row = 1 := by"
+        },
+        {
+          "line": 59,
+          "declaration": "theorem five_three_row_degrees (m : ℕ) (hm : 1 ≤ m) (row : Bool) :"
+        },
+        {
+          "line": 63,
+          "declaration": "theorem five_three_actual_rows (m : ℕ) (hm : 1 ≤ m) (row : Bool) :"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Numeric/ActualNumeric.lean",
+      "sha256": "6f4072493d32babd114f957a73d53656f9013c00d5b3bb30714454fdb0e58231",
+      "declarations": [
+        {
+          "line": 16,
+          "declaration": "theorem actual_Z_eq_certificate : fiveThreeZ = certificateZ := rfl"
+        },
+        {
+          "line": 18,
+          "declaration": "theorem actual_a3_eq_rational : qRate qBase = a3Rational := by"
+        },
+        {
+          "line": 22,
+          "declaration": "theorem actual_a3_pow213_gt_48 : (48 : ℚ) < qRate qBase ^ 213 := by"
+        },
+        {
+          "line": 27,
+          "declaration": "theorem actual_numeric_certificates :"
+        },
+        {
+          "line": 39,
+          "declaration": "theorem five_three_edge_of_growth_trees"
+        }
+      ]
+    },
+    {
+      "path": "lean/I11Component/ActualComponentEdge.lean",
+      "sha256": "7b3e89c505548d1276134b43aa9652b0b7a476f11ea593ca32643a0c70ef4998",
+      "declarations": [
+        {
+          "line": 13,
+          "declaration": "theorem actual_five_three_component_edge"
+        }
+      ]
+    },
+    {
+      "path": "experiments/huan-i11-five-three-growth-tree-v2-5e2d13bb/FREEZE.json",
+      "sha256": "9998e321c133e5d3038821a7a4bb999048d99f08cdd14f8e22bc0e54680378ba",
+      "declarations": []
+    },
+    {
+      "path": "experiments/huan-i11-five-three-component-edge-5e2d13bb/FREEZE.json",
+      "sha256": "5276e0218d8b61c7410055700c3a9fbd30e3836bf6f4be2fd20fcd41e9bee522",
+      "declarations": []
+    }
+  ],
+  "current_import_targets_exist": true,
+  "worker_lean_runs": 0
+}

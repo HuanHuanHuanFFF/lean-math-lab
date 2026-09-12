@@ -1,0 +1,43 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T220245704271Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/BlockAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/BlockAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:03:25.895994Z
+# finished_utc: 2026-09-11T22:03:34.974561Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.blockCoverCheck (p q H M aStart aCount bStart bCount : ℕ)
+  (data : ℕ → ℕ → Math.B699.CRTGrid.CellData) (candidates : List B699LowIndex.NatInterval) : Bool
+'Math.B699.I11TerminalCRT.blockCoverCheck' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.rectangleCoverCheck (p q H M amax bmax : ℕ) (data : ℕ → ℕ → Math.B699.CRTGrid.CellData)
+  (candidates : List B699LowIndex.NatInterval) : Bool
+'Math.B699.I11TerminalCRT.rectangleCoverCheck' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.blockCoverCheck_cell {p q H M aStart aCount bStart bCount a b : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart bCount data candidates = true)
+  (ha0 : aStart ≤ a) (ha1 : a < aStart + aCount) (hb0 : bStart ≤ b) (hb1 : b < bStart + bCount) :
+  Math.B699.I11TerminalCRT.cellCoverCheck (p ^ a) (q ^ b) (Math.B699.CRTGrid.heightCap H M (p ^ a))
+      (Math.B699.CRTGrid.heightCap H M (q ^ b)) (data a b) candidates =
+    true
+'Math.B699.I11TerminalCRT.blockCoverCheck_cell' depends on axioms: [propext, Quot.sound]
+Math.B699.I11TerminalCRT.blockCoverCheck_append_rows {p q H M aStart leftCount rightCount bStart bCount : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hl : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart leftCount bStart bCount data candidates = true)
+  (hr :
+    Math.B699.I11TerminalCRT.blockCoverCheck p q H M (aStart + leftCount) rightCount bStart bCount data candidates =
+      true) :
+  Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart (leftCount + rightCount) bStart bCount data candidates = true
+'Math.B699.I11TerminalCRT.blockCoverCheck_append_rows' depends on axioms: [propext]
+Math.B699.I11TerminalCRT.blockCoverCheck_append_columns {p q H M aStart aCount bStart leftCount rightCount : ℕ}
+  {data : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hl : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart leftCount data candidates = true)
+  (hr :
+    Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount (bStart + leftCount) rightCount data candidates =
+      true) :
+  Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart (leftCount + rightCount) data candidates = true
+'Math.B699.I11TerminalCRT.blockCoverCheck_append_columns' depends on axioms: [propext, Quot.sound]
+Math.B699.I11TerminalCRT.blockCoverCheck_transfer_data {p q H M aStart aCount bStart bCount : ℕ}
+  {data data' : ℕ → ℕ → Math.B699.CRTGrid.CellData} {candidates : List B699LowIndex.NatInterval}
+  (hcheck : Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart bCount data candidates = true)
+  (hdata :
+    ∀ (a : ℕ), aStart ≤ a → a < aStart + aCount → ∀ (b : ℕ), bStart ≤ b → b < bStart + bCount → data a b = data' a b) :
+  Math.B699.I11TerminalCRT.blockCoverCheck p q H M aStart aCount bStart bCount data' candidates = true
+'Math.B699.I11TerminalCRT.blockCoverCheck_transfer_data' depends on axioms: [propext, Quot.sound]

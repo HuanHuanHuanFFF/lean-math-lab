@@ -1,0 +1,1 @@
+Start with REPORT.md. This is a frozen-ready UNCOMPILED candidate package; no Lean/Git execution occurred. Audit plan: AUDIT_PLAN.json. Exact finite evidence: exact-checks.json. Source binding: SOURCE_BINDINGS.json and SOURCE_MAP.json. The final all-delta actual qContent theorem has only delta=0 or1 and m>=224 as mathematical inputs.

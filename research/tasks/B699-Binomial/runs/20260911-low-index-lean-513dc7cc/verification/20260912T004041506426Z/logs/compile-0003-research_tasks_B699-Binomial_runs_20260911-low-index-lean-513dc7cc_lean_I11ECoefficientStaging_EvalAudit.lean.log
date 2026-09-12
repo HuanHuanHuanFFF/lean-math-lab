@@ -1,0 +1,39 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T004041506426Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11ECoefficientStaging/EvalAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11ECoefficientStaging/EvalAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T00:41:23.253246Z
+# finished_utc: 2026-09-12T00:41:32.170426Z
+# exit_code: 0
+# timed_out: False
+@Math.B699.I11ECoefficientStaging.coefficientPolynomial_eval_sum : ∀ {R : Type u_1} [inst : Semiring R] (n : ℕ)
+  (a : ℕ → ℤ) (f : ℤ →+* R) (z : R),
+  Polynomial.eval₂ f z (Math.B699.PadeConstruction.coefficientPolynomial n a) =
+    ∑ r ∈ Finset.range (n + 1), f (a r) * z ^ r
+'Math.B699.I11ECoefficientStaging.coefficientPolynomial_eval_sum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11ECoefficientStaging.coefficientPolynomial_eval_seven : ∀ {R : Type u_1} [inst : Semiring R] (a : ℕ → ℤ)
+  (f : ℤ →+* R) (z : R),
+  Polynomial.eval₂ f z (Math.B699.PadeConstruction.coefficientPolynomial 7 a) =
+    f (a 0) * z ^ 0 + f (a 1) * z ^ 1 + f (a 2) * z ^ 2 + f (a 3) * z ^ 3 + f (a 4) * z ^ 4 + f (a 5) * z ^ 5 +
+        f (a 6) * z ^ 6 +
+      f (a 7) * z ^ 7
+'Math.B699.I11ECoefficientStaging.coefficientPolynomial_eval_seven' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11ECoefficientStaging.coefficientPolynomial_eval_seven_of_coeffs : ∀ {R : Type u_1} [inst : Semiring R]
+  (a : ℕ → ℤ) (f : ℤ →+* R) (z : R) (c0 c1 c2 c3 c4 c5 c6 c7 : ℤ),
+  a 0 = c0 →
+    a 1 = c1 →
+      a 2 = c2 →
+        a 3 = c3 →
+          a 4 = c4 →
+            a 5 = c5 →
+              a 6 = c6 →
+                a 7 = c7 →
+                  Polynomial.eval₂ f z (Math.B699.PadeConstruction.coefficientPolynomial 7 a) =
+                    f c0 * z ^ 0 + f c1 * z ^ 1 + f c2 * z ^ 2 + f c3 * z ^ 3 + f c4 * z ^ 4 + f c5 * z ^ 5 +
+                        f c6 * z ^ 6 +
+                      f c7 * z ^ 7
+'Math.B699.I11ECoefficientStaging.coefficientPolynomial_eval_seven_of_coeffs' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

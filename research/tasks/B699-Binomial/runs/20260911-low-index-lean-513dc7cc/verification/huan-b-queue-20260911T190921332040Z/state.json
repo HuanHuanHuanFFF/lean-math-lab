@@ -1,0 +1,373 @@
+{
+  "status": "queue_finished",
+  "started_utc": "2026-09-11T19:09:21.333568+00:00",
+  "plan": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/notes/huan-b-proof-queue-plan-v6.json",
+  "plan_sha256": "fca0e9ea3b3c2720c53f9d41aa1f760de74001e01924bc4648abb3a1a93b95ec",
+  "jobs": [
+    {
+      "name": "i11-bounded-components",
+      "root": "lean/I11Bounded/Components.lean",
+      "source_sha256": "dccfe09a7594bf141ca35a2fd799d1ff3082d18ffe595e0358421791bb86d41c",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-bounded-components",
+        "--root",
+        "lean/I11Bounded/Components.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-bounded-strict-small-part.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/00-i11-bounded-components.log",
+      "exit_code": 1,
+      "finished_utc": "2026-09-11T19:09:59.538529+00:00"
+    },
+    {
+      "name": "i11-bounded-actual-bridge",
+      "root": "lean/I11Bounded/ActualBridge.lean",
+      "source_sha256": "612a8c2b665dd53bb92f5cc2b8aa41bd6eec3654464daac5c3af0e9d9073e5a6",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-bounded-components.json"
+      ],
+      "finished_utc": "2026-09-11T19:09:59.541204+00:00"
+    },
+    {
+      "name": "crt-pair-parameterization",
+      "root": "lean/CrtPair/ParameterizationAudit.lean",
+      "source_sha256": "6d27151968179989daf7d6a985ed594db362f77b67e1dbe5de1990e3c1ba956e",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "crt-pair-parameterization",
+        "--root",
+        "lean/CrtPair/ParameterizationAudit.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-block-sample-complete.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/02-crt-pair-parameterization.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-pair-parameterization.json",
+      "finished_utc": "2026-09-11T19:10:42.139753+00:00"
+    },
+    {
+      "name": "crt-pair-complete",
+      "root": "lean/CrtPair/Audit.lean",
+      "source_sha256": "6192cc9ef2a64736984c161c6d2efff3e694c06dcba4bb51ded2d0e9936f3042",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "crt-pair-complete",
+        "--root",
+        "lean/CrtPair/Audit.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-pair-parameterization.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/03-crt-pair-complete.log",
+      "exit_code": 1,
+      "finished_utc": "2026-09-11T19:11:16.289229+00:00"
+    },
+    {
+      "name": "i11-terminal-witness-pilot",
+      "root": "lean/I11Terminal/WitnessPilot.lean",
+      "source_sha256": "b4b86e99321576ee8296c275ce2a80a0bfe0b3d5dc03a6c295a1225a3967db73",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-terminal-witness-pilot",
+        "--root",
+        "lean/I11Terminal/WitnessPilot.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1280",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T004440769454Z/evidence.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/04-i11-terminal-witness-pilot.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-pilot.json",
+      "finished_utc": "2026-09-11T19:11:52.825371+00:00"
+    },
+    {
+      "name": "i11-scaled-gap",
+      "root": "lean/I11Scaled/ScaledGap.lean",
+      "source_sha256": "9eee2fa7dba19a9d391a53e74332e6f1bc5b14dd92540387ba33bd9fc05da6ef",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-scaled-gap",
+        "--root",
+        "lean/I11Scaled/ScaledGap.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-actual-bounds.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/05-i11-scaled-gap.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-gap.json",
+      "finished_utc": "2026-09-11T19:12:30.701248+00:00"
+    },
+    {
+      "name": "i11-scaled-selected-edge",
+      "root": "lean/I11Scaled/SelectedEdge.lean",
+      "source_sha256": "e9afcc4a18713a98e7af582d9ed64dfabeaf2cb95d6988940132a735abf72904",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-scaled-selected-edge",
+        "--root",
+        "lean/I11Scaled/SelectedEdge.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-gap.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/06-i11-scaled-selected-edge.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-selected-edge.json",
+      "finished_utc": "2026-09-11T19:13:07.556071+00:00"
+    },
+    {
+      "name": "i11-scaled-small-certificates",
+      "root": "lean/I11Scaled/SmallCertificates.lean",
+      "source_sha256": "0ae8e19eda35ca904f02ab66c0c7fc6bf6b28aad65190a8068c720d39d50d0fe",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-scaled-small-certificates",
+        "--root",
+        "lean/I11Scaled/SmallCertificates.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-growth-inputs.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-gap.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/07-i11-scaled-small-certificates.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-small-certificates.json",
+      "finished_utc": "2026-09-11T19:13:45.740508+00:00"
+    },
+    {
+      "name": "i11-five-three-fixed-edge",
+      "root": "lean/I11Scaled/FixedEdge.lean",
+      "source_sha256": "696dcceef0e2982103d2397a1e04cb04fc90b731cd0de353bad846f7ab6bc864",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-five-three-fixed-edge",
+        "--root",
+        "lean/I11Scaled/FixedEdge.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-selected-edge.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-scaled-small-certificates.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/08-i11-five-three-fixed-edge.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-fixed-edge.json",
+      "finished_utc": "2026-09-11T19:14:22.570304+00:00"
+    },
+    {
+      "name": "i11-five-three-actual-numeric",
+      "root": "lean/I11Numeric/ActualNumeric.lean",
+      "source_sha256": "6f4072493d32babd114f957a73d53656f9013c00d5b3bb30714454fdb0e58231",
+      "status": "failed_not_accepted",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-five-three-actual-numeric",
+        "--root",
+        "lean/I11Numeric/ActualNumeric.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-fixed-edge.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-numeric-selector.json",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-ratio-power.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/09-i11-five-three-actual-numeric.log",
+      "exit_code": 1,
+      "finished_utc": "2026-09-11T19:14:59.205523+00:00"
+    },
+    {
+      "name": "i11-component-window-pair",
+      "root": "lean/I11Component/WindowPair.lean",
+      "source_sha256": "462092e2203da235af103758b3f8af9c3cc3a1b73a8b734fb52e6f1ce3899e57",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual-numeric.json"
+      ],
+      "finished_utc": "2026-09-11T19:14:59.209034+00:00"
+    },
+    {
+      "name": "i11-five-three-component-edge",
+      "root": "lean/I11Component/ActualComponentEdge.lean",
+      "source_sha256": "7b3e89c505548d1276134b43aa9652b0b7a476f11ea593ca32643a0c70ef4998",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-component-window-pair.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-actual-numeric.json"
+      ],
+      "finished_utc": "2026-09-11T19:14:59.212703+00:00"
+    },
+    {
+      "name": "i11-five-three-actual-component-edge",
+      "root": "lean/I11Component/ActualInstance.lean",
+      "source_sha256": "1eacf0cf2993577e22b09448a01543ab5671e67a600e20b15218ba5871a9e5aa",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-component-edge.json"
+      ],
+      "finished_utc": "2026-09-11T19:14:59.216364+00:00"
+    },
+    {
+      "name": "crt-grid-cell",
+      "root": "lean/CrtGrid/Cell.lean",
+      "source_sha256": "46b5dba8e7762f28a0c5598da9354c2c5882e775e73877f0e5890b41ef71788f",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-pair-complete.json"
+      ],
+      "finished_utc": "2026-09-11T19:14:59.220350+00:00"
+    },
+    {
+      "name": "crt-grid-height-cap",
+      "root": "lean/CrtGrid/HeightCap.lean",
+      "source_sha256": "0001f7c2cddac643f07089bf72a61e338314310cb7bf0d43c14ba7d1bdfa813b",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-cell.json"
+      ],
+      "finished_utc": "2026-09-11T19:14:59.224795+00:00"
+    },
+    {
+      "name": "crt-grid-rectangles",
+      "root": "lean/CrtGrid/Grid.lean",
+      "source_sha256": "f5ff603661d00dbc36a12b4dce05a1e2ffdd303c693a5599bca5ff4077cd2adf",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-height-cap.json"
+      ],
+      "finished_utc": "2026-09-11T19:14:59.228118+00:00"
+    },
+    {
+      "name": "crt-grid-stage0-real-cell",
+      "root": "lean/CrtGrid/Sample37.lean",
+      "source_sha256": "baabff182bfef641cb6f9aaedd8035e58d4ffee3eae0cad8de4c587bf3f67856",
+      "status": "skipped_missing_successful_dependency",
+      "missing": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/crt-grid-rectangles.json"
+      ],
+      "finished_utc": "2026-09-11T19:14:59.232460+00:00"
+    },
+    {
+      "name": "i11-crt-stage-metadata",
+      "root": "lean/I11CrtStages/NumericMetadata.lean",
+      "source_sha256": "253965da6e9b38b91e13cce7501fab1eb96118fc1858c5b8e9e0ffd94fb99e11",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-crt-stage-metadata",
+        "--root",
+        "lean/I11CrtStages/NumericMetadata.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1280",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/upper-height-i11.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/17-i11-crt-stage-metadata.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-crt-stage-metadata.json",
+      "finished_utc": "2026-09-11T19:15:34.674442+00:00"
+    },
+    {
+      "name": "i11-two-five-growth-tree",
+      "root": "lean/Growth/I11TwoFiveTree.lean",
+      "source_sha256": "68315d8d101ef9675700c3ae593d2d81151b28ddff5bef4b1543e54adf0186cd",
+      "status": "accepted_prerequisite",
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\verification\\runner\\verify_huan_candidate.py",
+        "--name",
+        "i11-two-five-growth-tree",
+        "--root",
+        "lean/Growth/I11TwoFiveTree.lean",
+        "--package-root",
+        "D:\\CodingProject\\Math\\.lake\\packages",
+        "--memory-mb",
+        "1536",
+        "--reuse",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-five-three-growth-tree.json"
+      ],
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-b-queue-20260911T190921332040Z/18-i11-two-five-growth-tree.log",
+      "exit_code": 0,
+      "receipt": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-two-five-growth-tree.json",
+      "finished_utc": "2026-09-11T19:17:07.790070+00:00"
+    }
+  ],
+  "new_B_original_results": 0,
+  "finished_utc": "2026-09-11T19:17:07.791223+00:00"
+}

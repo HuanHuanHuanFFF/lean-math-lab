@@ -1,0 +1,7 @@
+# Fixed11seed lightG globalgraph discriminating probe
+
+Owner /root/i13_high_height. Writesonlythisdirectory,noLean,no largecertificate,oldpackagesunchanged. Start2026-09-12 05:37:29UTC;20minutecheckpoint05:57:29UTC,notadeadline. Fixed all11originali13seeds,coprime1<=d<c<=32,z<d/c. MaximizeT/c subjectlogAQ>0,andderive bothintegerthousandthcapsfromstrictcapacity. Checkall2^11orientations,all120distinctpositionassignments,andall10collisionpairs. Positivecontrololdtau12183/sigma934/chi1309. Targettau>12000andchi>1000.
+
+Reuseall1561exact5seedrowsfromhuan-i13-fixed-seed-ratio-probe-5e2d13bb;do not recomputethem. Other6seedsmayneednewsamegridintervalbounds. Floatingcalculationsonlyscreen;exactedgecaps/sourceversionsandglobalmonotonicupperboundwillbeverifiedbeforeconclusion. Finite-m/highheightobligationsremainopen evenifgraphpasses.
+
+Finalnegative: oldtau12183/chi1309reproduced;maxintegerenvelopegraph11716/1275;evenroundedUPoptimisticgraph11770/1277. Differentpositiongap230. Full3464ratioand2048*120graphchecksrecorded;noLeanorfiniteheightclaim. REPORT.md andSOURCE_MAP.json arehandoffentrypoints.

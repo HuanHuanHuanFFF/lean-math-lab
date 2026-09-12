@@ -1,0 +1,95 @@
+{
+  "status": "UNCOMPILED",
+  "own_public_roots": 8,
+  "typed_and_axiom_roots": 19,
+  "layers": [
+    {
+      "source": {
+        "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-initial-height-assembly-5e2d13bb/WindowBounds.lean",
+        "sha256": "f372cd3352d46ddbb99289cc38060e7eab79b027fd159d31dcd2dd30d647c83c",
+        "bytes": 1408
+      },
+      "audit": "WindowBoundsAudit.lean",
+      "roots": [
+        "Math.B699.I11InitialHeight.prime_component_le_of_window",
+        "Math.B699.I11InitialHeight.actual_prime_component_le",
+        "Math.B699.I11InitialHeight.ceil_half_positive",
+        "Math.B699.I11InitialHeight.n_le_twice_ceil_half"
+      ],
+      "imports": [
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11SmallPrimes.Window",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11Component.CeilHalf"
+      ],
+      "proposed_target": "lean/I11InitialHeight/WindowBounds.lean"
+    },
+    {
+      "source": {
+        "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-initial-height-assembly-5e2d13bb/Product.lean",
+        "sha256": "a0ff56512a90fadfdadd16734979308d56efacb0f99424fdf3c66407121ca38c",
+        "bytes": 3246
+      },
+      "audit": "ProductAudit.lean",
+      "roots": [
+        "Math.B699.I11InitialHeight.actual_components_product_bound",
+        "Math.B699.I11InitialHeight.actual_small_prime_part_bound"
+      ],
+      "imports": [
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-initial-height-assembly-5e2d13bb».WindowBounds",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11WeightedProduct.Product",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11Component.ActualInstance",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11TwoFiveFinal.Component",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11SevenTwoFinal.Component",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11ThreeTwoFinal.Component",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11FiveSevenFinal.Component"
+      ],
+      "proposed_target": "lean/I11InitialHeight/Product.lean"
+    },
+    {
+      "source": {
+        "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-initial-height-assembly-5e2d13bb/Height.lean",
+        "sha256": "4c0234f355d978ba6b43b5b08cfa714a9661aeb6ec29c29951671f4dedf99df5",
+        "bytes": 1128
+      },
+      "audit": "HeightAudit.lean",
+      "roots": [
+        "Math.B699.I11InitialHeight.actual_i11_below_15360"
+      ],
+      "imports": [
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-initial-height-assembly-5e2d13bb».Product",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.I11WeightedProduct.Tail"
+      ],
+      "proposed_target": "lean/I11InitialHeight/Height.lean"
+    },
+    {
+      "source": {
+        "path": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-i11-initial-height-assembly-5e2d13bb/Compression.lean",
+        "sha256": "f416fd0e7bfd19d713049660ab8ad8694b35c99c31bd595f5693266815f59b27",
+        "bytes": 921
+      },
+      "audit": "CompressionAudit.lean",
+      "roots": [
+        "Math.B699.I11InitialHeight.actual_i11_below_109"
+      ],
+      "imports": [
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-initial-height-assembly-5e2d13bb».Height",
+        "research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CubicBatches.ActualCompression"
+      ],
+      "proposed_target": "lean/I11InitialHeight/Compression.lean"
+    }
+  ],
+  "critical_imported_roots": [
+    "B699LargePrimeStructure.Common",
+    "B699LowIndex.I11SmallPrimes.primeWindow_nonempty",
+    "B699LowIndex.I11SmallPrimes.smallPrimePart_eq_four_components",
+    "Math.B699.I11TwoFiveFinalConsumers.actual_two_five_component_edge",
+    "Math.B699.I11SevenTwoFinalConsumers.actual_seven_two_component_edge",
+    "Math.B699.I11ThreeTwoFinalConsumers.actual_three_two_component_edge",
+    "B699LowIndex.I11FiveThreeFinalInstance.actual_five_three_component_edge",
+    "Math.B699.I11FiveSevenFinalConsumers.actual_five_seven_component_edge",
+    "Math.B699.I11WeightedProduct.i11_five_edges_product",
+    "Math.B699.I11WeightedProduct.i11_noCommon_false_of_product",
+    "Math.B699.I11VerifiedCubicCompression.actual_i11_below_109_of_initial_height"
+  ],
+  "type_audit": "#check @ applied to every own/critical imported root",
+  "acceptance": "parent serial full-closure Lean and type/axiom outputs; no errors, sorryAx, unexpected axioms or missing roots"
+}

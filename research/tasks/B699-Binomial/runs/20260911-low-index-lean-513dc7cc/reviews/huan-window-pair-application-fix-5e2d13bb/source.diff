@@ -1,0 +1,11 @@
+--- before
++++ after
+@@ -48,7 +48,7 @@
+     rw [hpInt, hqInt]
+     exact le_trans (integer_window_gap_le_ten wp.offset_lt wq.offset_lt) (by decide : (10 : ℤ) ≤ 24)
+   have hcof := five_three_edge_of_growth_trees qt et (ceilHalf n)
+-    (n.choose 11).factorization 5 (n.choose 11).factorization 3 wp.cofactor wq.cofactor
++    ((n.choose 11).factorization 5) ((n.choose 11).factorization 3) wp.cofactor wq.cofactor
+     hY wq.cofactor_pos hpBounds.1 hqBounds.1 hqBounds.2 hgap
+   rcases hcof with hP | hQ
+   · exact Or.inl (primeWindow_graph_capacity wp hP)

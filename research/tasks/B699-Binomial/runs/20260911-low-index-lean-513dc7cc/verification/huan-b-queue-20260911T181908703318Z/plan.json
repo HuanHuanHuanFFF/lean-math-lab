@@ -1,0 +1,60 @@
+{
+  "kind": "serial_fixed_source_cubic_numeric_batches",
+  "jobs": [
+    {
+      "name": "cubic-batch-old23chunk02",
+      "root": "lean/CubicBatches/Old23Chunk02.lean",
+      "source_sha256": "c7452e0b7a4df0b0672b1a884918e2bb6dc6b35b8db1a8fe81bbd2d7b6fc854f",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-continuous-cover.json"
+      ],
+      "memory_mb": 1280
+    },
+    {
+      "name": "cubic-data-pair23",
+      "root": "lean/CubicBatches/Pair23.lean",
+      "source_sha256": "5af29c78cce8c53ec0b33253bf205843dc94b7bdde206eebb6bcb2ff17f0ccbf",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-four-block-pilots.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-pair-cover.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-large-block-pilots.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-batch-old23chunk01.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-batch-old23chunk02.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-batch-old23chunk03.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-actual-block-compression",
+      "root": "lean/CubicBatches/ActualCompression.lean",
+      "source_sha256": "7d08601fe8511dccaf9f5ecad1f5be4325b98adc74acf1c2372f77cd8584ad87",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-six-pair-compression.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-data-pair23.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-data-pair25.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-data-pair27.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-data-pair35.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-data-pair37.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/cubic-data-pair57.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "unique_total_blocks": 387,
+  "new_chunk_jobs": 27,
+  "pair_jobs": 6,
+  "already_accepted_chunks": 2,
+  "new_B_original_results": 0,
+  "policy": "Only complete successful reports reused. Keep initial H theorem distinct.",
+  "final_consumer": "Conditional actuali11 height reduction; initialn<2^15360 remains explicit.",
+  "resource_decision": {
+    "utc": "2026-09-11T17:40:36.366731+00:00",
+    "measured_large_pilot_peak_MiB": 941.5859375,
+    "numeric_chunk_budget_MiB": 1280,
+    "fixed_reserve_MiB": 512,
+    "pair_and_final_budget_MiB": 1536,
+    "proof_or_source_change": false
+  },
+  "retry_from": "verification/huan-b-queue-20260911T174036497986Z/state.json",
+  "created_utc": "2026-09-11T18:19:08.563290+00:00"
+}

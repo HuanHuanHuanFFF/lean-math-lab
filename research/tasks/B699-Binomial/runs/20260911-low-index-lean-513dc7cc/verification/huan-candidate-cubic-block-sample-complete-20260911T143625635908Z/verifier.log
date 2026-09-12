@@ -1,0 +1,35 @@
+RESOURCE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CubicBlock/Residues.lean", "selected_memory_mb": 1024, "wait_snapshot_count": 0, "platform": "windows", "cpu_count": 16, "disk": [294517391360, 293160218624, 1357172736], "available_physical_bytes": 2274152448, "total_physical_bytes": 16851132416, "memory_load_percent": 86, "meminfo": ["MemAvailable: 2220852 kB"], "memory.max": null, "memory.current": null, "cpu.max": null}
+COMPILE {"source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CubicBlock/Residues.lean", "seconds": 8.112, "exit_code": 1, "failure": "Lean exit 1", "axiom_audit": {"declared_print_axioms": 0, "declared_names": [], "guarded_print_axioms": 0, "guarded_names": [], "actual_printed": 0, "guard_msgs_in_source": 0, "printed": [], "unexpected_axioms": [], "guarded_output_inferred": false}}
+# command: LEAN -j1 -M1024 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T143625799850Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CubicBlock/Residues.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CubicBlock/Residues.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T14:36:52.728297Z
+# finished_utc: 2026-09-11T14:37:00.840339Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CubicBlock\Residues.lean:23:2: error: Tactic `split_ifs` failed: no if-then-else conditions to split
+
+Q v : ℕ
+hQ : 0 < Q
+d : ℤ
+⊢ 0 <
+    have r := (↑v * d % ↑Q).toNat;
+    if r = 0 then Q else r
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CubicBlock\Residues.lean:36:2: error: Tactic `split_ifs` failed: no if-then-else conditions to split
+
+Q v X : ℕ
+d : ℤ
+hX : 0 < X
+hmod : ↑X ≡ ↑v * d [ZMOD ↑Q]
+hm : X % Q = (↑v * d % ↑Q).toNat
+⊢ (have r := (↑v * d % ↑Q).toNat;
+    if r = 0 then Q else r) ≤
+    X
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CubicBlock\Residues.lean:62:4: error: Type mismatch: After simplification, term
+  h
+ has type
+  ↑P * (↑v * ↑X) ≡ ↑X * 1 [ZMOD ↑Q]
+but is expected to have type
+  ↑P * (↑v * ↑X) ≡ ↑X [ZMOD ↑Q]
+
+EVIDENCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T143625799850Z/evidence.json
+RESULT {"success": false, "exit_code": 1, "compiled_count": 1, "reused_count": 1, "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.CubicBlock.Residues"}

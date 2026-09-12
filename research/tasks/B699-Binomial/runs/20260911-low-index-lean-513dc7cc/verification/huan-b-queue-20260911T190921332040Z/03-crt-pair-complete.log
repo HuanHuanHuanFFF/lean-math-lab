@@ -1,0 +1,35 @@
+{"status": "failed_not_accepted", "root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Audit.lean", "name": "crt-pair-complete", "new_original_indices": [], "source_sha256_before": "6192cc9ef2a64736984c161c6d2efff3e694c06dcba4bb51ded2d0e9936f3042", "reuse": ["research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T190959807207Z/evidence.json"], "exit_code": 1, "evidence": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T191042428078Z/evidence.json", "finished_utc": "2026-09-11T19:11:16.277597+00:00", "failure": "Compile failed: research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.CrtPair.Bounds"}
+FAILED_SOURCE research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Bounds.lean
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T191042428078Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Bounds.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/CrtPair/Bounds.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T19:11:08.276422Z
+# finished_utc: 2026-09-11T19:11:16.222170Z
+# exit_code: 1
+# timed_out: False
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtPair\Bounds.lean:41:2: error: Type mismatch
+  add_le_add_left (mul_le_mul_of_nonneg_left h (Decidable.byContradiction fun a => coordinateA_mono._proof_1_1 a)) ?m.26
+has type
+  ↑Q * t + ?m.26 ≤ ↑Q * T + ?m.26
+but is expected to have type
+  ↑(positiveResidue Q v d) + ↑Q * t ≤ ↑(positiveResidue Q v d) + ↑Q * T
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtPair\Bounds.lean:46:2: error: Type mismatch
+  add_le_add_left (mul_le_mul_of_nonneg_left h (Decidable.byContradiction fun a => coordinateC_mono._proof_1_1 a)) ?m.26
+has type
+  ↑P * t + ?m.26 ≤ ↑P * T + ?m.26
+but is expected to have type
+  baseC P Q v d + ↑P * t ≤ baseC P Q v d + ↑P * T
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\CrtPair\Bounds.lean:51:2: error: Tactic `apply` failed: could not unify the conclusion of `@add_le_add_right`
+  ?a + ?b ≤ ?a + ?c
+with the goal
+  min (↑P * coordinateA Q v d t) (↑Q * coordinateC P Q v d t) + ↑w ≤
+    min (↑P * coordinateA Q v d T) (↑Q * coordinateC P Q v d T) + ↑w
+
+Note: The full type of `@add_le_add_right` is
+  ∀ {α : Type ?u.12} [inst : Add α] [inst_1 : LE α] [AddLeftMono α] {b c : α}, b ≤ c → ∀ (a : α), a + b ≤ a + c
+
+P Q v w : ℕ
+d t T : ℤ
+h : t ≤ T
+⊢ min (↑P * coordinateA Q v d t) (↑Q * coordinateC P Q v d t) + ↑w ≤
+    min (↑P * coordinateA Q v d T) (↑Q * coordinateC P Q v d T) + ↑w
+

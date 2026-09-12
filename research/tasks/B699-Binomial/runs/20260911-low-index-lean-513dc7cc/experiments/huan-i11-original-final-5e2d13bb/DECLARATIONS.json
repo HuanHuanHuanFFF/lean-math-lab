@@ -1,0 +1,32 @@
+{
+  "status": "SOURCE_TYPES_UNCOMPILED",
+  "namespace": "Math.B699.I11OriginalFinal",
+  "public_roots": [
+    "Math.B699.I11OriginalFinal.stage04Data",
+    "Math.B699.I11OriginalFinal.candidate_list_eq",
+    "Math.B699.I11OriginalFinal.stage04_constants",
+    "Math.B699.I11OriginalFinal.stage04_small_cover",
+    "Math.B699.I11OriginalFinal.candidate_mem_of_stage04",
+    "Math.B699.I11OriginalFinal.common_i11",
+    "Math.B699.I11OriginalFinal.original_i11_gcd",
+    "Math.B699.I11OriginalFinal.original_i11"
+  ],
+  "final_root_contracts": {
+    "common_i11": "theorem common_i11 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) :\n    Common n 11 j",
+    "original_i11_gcd": "theorem original_i11_gcd :\n    ∀ n j : ℕ, 1 ≤ 11 ∧ 11 < j ∧ j ≤ n / 2 →\n      ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.gcd (Nat.choose n 11) (Nat.choose n j)",
+    "original_i11": "theorem original_i11 :\n    ∀ n j : ℕ, 1 ≤ 11 ∧ 11 < j ∧ j ≤ n / 2 →\n      ∃ p : ℕ, p.Prime ∧ 11 ≤ p ∧ p ∣ Nat.choose n 11 ∧ p ∣ Nat.choose n j"
+  },
+  "public_count": 8,
+  "final_count": 3,
+  "axiom_audits": [
+    "MembershipAudit.lean",
+    "FinalAudit.lean",
+    "Audit.lean"
+  ],
+  "expected_allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "actual_axiom_output": null
+}

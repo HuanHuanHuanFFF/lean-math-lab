@@ -1,0 +1,17 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T101839140777Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/MembershipAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11OriginalFinal/MembershipAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T10:19:25.434214Z
+# finished_utc: 2026-09-12T10:19:33.759027Z
+# exit_code: 0
+# timed_out: False
+stage04Data : SixPairGrids
+candidate_list_eq : candidates = extendedCandidates originalCandidates
+stage04_constants : stageConstantsCheck Stage04.H Stage04.M = true
+stage04_small_cover : coverCheck 24 (max Stage04.M 109) (extendedCandidates originalCandidates) = true
+@candidate_mem_of_stage04 : ∀ {n j : ℕ},
+  11 < j → j ≤ n / 2 → ¬Common n 11 j → n < Stage04.H → candidateMem n originalCandidates
+'Math.B699.I11OriginalFinal.stage04Data' does not depend on any axioms
+'Math.B699.I11OriginalFinal.candidate_list_eq' does not depend on any axioms
+'Math.B699.I11OriginalFinal.stage04_constants' depends on axioms: [propext]
+'Math.B699.I11OriginalFinal.stage04_small_cover' does not depend on any axioms
+'Math.B699.I11OriginalFinal.candidate_mem_of_stage04' depends on axioms: [propext, Classical.choice, Quot.sound]

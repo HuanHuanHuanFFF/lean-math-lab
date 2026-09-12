@@ -1,0 +1,942 @@
+{
+  "schema_version": 2,
+  "kind": "hash_checked_incremental",
+  "success": false,
+  "exit_code": 1,
+  "started_utc": "2026-09-11T16:48:59.273033Z",
+  "evidence_directory": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z",
+  "diagnostic_directory": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z",
+  "root_sources": [
+    "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Scaled/RatBounds.lean"
+  ],
+  "memory_mb": 1536,
+  "timeout_seconds": 900,
+  "base_verify_huan_sha256": "41FE5175A3FDC7DD3013B280B79B0915B5A3B92723D0169B2CCAB9770491E3B8",
+  "memory_profile": null,
+  "manifest_sha256": "fdbefe6c9b737713c8b9c602643afa154f49dda4f48bfc4d2f64183fdea728a0",
+  "source_commit": "f0b0cc10fbab9db7133aae9914178caf0b4c587b",
+  "runner_sha256": "f1471316e6391eee75ed72b5dfc6df2e694e557bd2b0dde68a1bf22d29f4a783",
+  "reuse_evidence": [],
+  "reuse_records": [],
+  "compile_records": [],
+  "commands": [
+    {
+      "label": "package-mathlib-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:48:59.383615Z",
+      "finished_utc": "2026-09-11T16:48:59.432563Z",
+      "seconds": 0.049,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-mathlib-head.log",
+      "log_sha256": "387b38a3c2987af17087bf93110ac8131bacdee17a40b57fb05967c7339fe053",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-mathlib-head.log",
+      "diagnostic_log_sha256": "77c7b539948b2875a3281f234e32cb8bff66cc0140ce035ef0885712c483387e",
+      "output_preview": "0df444a360eaa60ab8c11dca51a86af692955474\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39030784,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-mathlib-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/mathlib",
+        "-C",
+        "PACKAGE_ROOT/mathlib",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/mathlib -C PACKAGE_ROOT/mathlib status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:48:59.438355Z",
+      "finished_utc": "2026-09-11T16:48:59.526729Z",
+      "seconds": 0.088,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-mathlib-status.log",
+      "log_sha256": "749cc242727eff64043f177766b448c60b7479c88f6efc7307b8542adf8b3784",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-mathlib-status.log",
+      "diagnostic_log_sha256": "40bc9b3187f7ddd918adb19888773062fd6afe4cbcea324aac06dd479815e832",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40251392,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-plausible-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:48:59.533088Z",
+      "finished_utc": "2026-09-11T16:48:59.576928Z",
+      "seconds": 0.044,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-plausible-head.log",
+      "log_sha256": "de0202ad96da266ab495b59331ec2d62a68c4af63445e5ea041759c20705ee8a",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-plausible-head.log",
+      "diagnostic_log_sha256": "2263d51af69fd2d218b20800edcde90e131e8dd22bad900a44d30f70e0c064f2",
+      "output_preview": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40943616,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-plausible-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/plausible",
+        "-C",
+        "PACKAGE_ROOT/plausible",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/plausible -C PACKAGE_ROOT/plausible status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:48:59.582921Z",
+      "finished_utc": "2026-09-11T16:48:59.630727Z",
+      "seconds": 0.048,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-plausible-status.log",
+      "log_sha256": "4a424efd22d5d6f2b54ec1d708728c57d1154b7c70ad428c391e519af42bae6a",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-plausible-status.log",
+      "diagnostic_log_sha256": "fa5b2276c5c0228b2565f8ef32baa9377316b69ab0eca816eb80a3df16048af1",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39567360,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-LeanSearchClient-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:48:59.636204Z",
+      "finished_utc": "2026-09-11T16:48:59.678760Z",
+      "seconds": 0.043,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-LeanSearchClient-head.log",
+      "log_sha256": "d3ce0a7c0bb31c4be1dcc099b57e7aa20c426c5a6d8a7535811ed6cf1b0cd022",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-LeanSearchClient-head.log",
+      "diagnostic_log_sha256": "011077a732f0ce1f051f58bff1ceece5a001246f9b9849c14d3acbf80a041593",
+      "output_preview": "5f4d51b81cbd3f6b32b156bfad9056621a040404\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39677952,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-LeanSearchClient-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/LeanSearchClient",
+        "-C",
+        "PACKAGE_ROOT/LeanSearchClient",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/LeanSearchClient -C PACKAGE_ROOT/LeanSearchClient status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:48:59.683575Z",
+      "finished_utc": "2026-09-11T16:48:59.734386Z",
+      "seconds": 0.051,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-LeanSearchClient-status.log",
+      "log_sha256": "2a1cea68c415804a22c99a7914b708ccf0b454ac388137cb20a5cd5486c7d5ff",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-LeanSearchClient-status.log",
+      "diagnostic_log_sha256": "b26683cf06b8e3064ed5bd592f35af2644eba0ac63172040548d197a5d2226ea",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39378944,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-importGraph-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:48:59.739835Z",
+      "finished_utc": "2026-09-11T16:48:59.782225Z",
+      "seconds": 0.042,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-importGraph-head.log",
+      "log_sha256": "8c4f966fd6975a2e485d73021a58283ac32a6ff698cfbec59e2df60bdacb87b8",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-importGraph-head.log",
+      "diagnostic_log_sha256": "64339a35253cc6a8dea0238c390b0db47a6c7cb46f3a39c9cb3a1dc30f93d49d",
+      "output_preview": "16f02aa7642864af59f1ff0e384a015994db9118\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40300544,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-importGraph-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/importGraph",
+        "-C",
+        "PACKAGE_ROOT/importGraph",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/importGraph -C PACKAGE_ROOT/importGraph status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:48:59.787268Z",
+      "finished_utc": "2026-09-11T16:48:59.853579Z",
+      "seconds": 0.066,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-importGraph-status.log",
+      "log_sha256": "afaff5653de9e5fb9decf1b1c436b976ca7636bccf4681db0526b7a62deb7f2a",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-importGraph-status.log",
+      "diagnostic_log_sha256": "0cfca604136760fe9b592b830099b032f13a38568d59cdc70f455270e4599bef",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40779776,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-proofwidgets-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:48:59.941399Z",
+      "finished_utc": "2026-09-11T16:49:00.004722Z",
+      "seconds": 0.063,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-proofwidgets-head.log",
+      "log_sha256": "6040446abdcc9198592cde3348c86cd71794f77f5843b5c243dc206f693041d2",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-proofwidgets-head.log",
+      "diagnostic_log_sha256": "cccbafbe2fbf2bcab66f884e25f17c7dc23f6a3e94facdd72f4fe1b7c21b241d",
+      "output_preview": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39477248,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-proofwidgets-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/proofwidgets",
+        "-C",
+        "PACKAGE_ROOT/proofwidgets",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/proofwidgets -C PACKAGE_ROOT/proofwidgets status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:49:00.010661Z",
+      "finished_utc": "2026-09-11T16:49:00.081909Z",
+      "seconds": 0.071,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-proofwidgets-status.log",
+      "log_sha256": "730104ac1c51a9ecd224e039086a714a748f5f9b403c912666e610496ab92fb7",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-proofwidgets-status.log",
+      "diagnostic_log_sha256": "0f7dc11076b84a6487f1e92ee3e0d6dd99d6b346d174303a1c8c88c1d5fbd551",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39653376,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-aesop-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:49:00.089187Z",
+      "finished_utc": "2026-09-11T16:49:00.142052Z",
+      "seconds": 0.053,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-aesop-head.log",
+      "log_sha256": "3584f16ea70e190a26d3260df4c777061edcc2a68821b6a10444dbc54cbbf3a3",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-aesop-head.log",
+      "diagnostic_log_sha256": "dd9322016d1230147a20036b5d5095736bd7b35f64a3862b3677ddce736fb3de",
+      "output_preview": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40292352,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-aesop-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/aesop",
+        "-C",
+        "PACKAGE_ROOT/aesop",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/aesop -C PACKAGE_ROOT/aesop status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:49:00.148450Z",
+      "finished_utc": "2026-09-11T16:49:00.214021Z",
+      "seconds": 0.066,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-aesop-status.log",
+      "log_sha256": "a5678aed55f40af59a73e3dba59cbbc53da0aaa814fb875c58a4aa435bed1416",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-aesop-status.log",
+      "diagnostic_log_sha256": "40a480f67c19bcf70c2c2aa37d082a755d99ddf63ea6769e5f4cc11a9828c0c6",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40947712,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-Qq-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:49:00.223649Z",
+      "finished_utc": "2026-09-11T16:49:00.297256Z",
+      "seconds": 0.074,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-Qq-head.log",
+      "log_sha256": "24040e6bd7f6f7fade0d3890ff17a958eee191e4494e7e9a8beb6466626ad3b3",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-Qq-head.log",
+      "diagnostic_log_sha256": "2c6e42d0e6df1ff5803a36ca3b6981c4ca4a064964f0b5803cc9ef6bbf29aa47",
+      "output_preview": "92c15be17b7caf78c2ad767ec40f89052d908d81\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 36229120,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-Qq-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Qq",
+        "-C",
+        "PACKAGE_ROOT/Qq",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Qq -C PACKAGE_ROOT/Qq status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:49:00.303553Z",
+      "finished_utc": "2026-09-11T16:49:00.361930Z",
+      "seconds": 0.058,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-Qq-status.log",
+      "log_sha256": "5391e38f30e8963d7f6653d9851c287545f96cbdbc71ff099a47e572dc2e3ad8",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-Qq-status.log",
+      "diagnostic_log_sha256": "3929745181648cd3144b752a2c8dfaf5f43abb58ce325187df4f215e7d44b148",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40304640,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-batteries-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:49:00.370725Z",
+      "finished_utc": "2026-09-11T16:49:00.420021Z",
+      "seconds": 0.049,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-batteries-head.log",
+      "log_sha256": "037251b1af2cbc5fab346b85b158075c9c641fa07f4b4e11c3283514d2606d46",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-batteries-head.log",
+      "diagnostic_log_sha256": "42520f7014e696ccd40862f00285c6da630677824942ff1d5000b7df1cf13e30",
+      "output_preview": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 40357888,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-batteries-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/batteries",
+        "-C",
+        "PACKAGE_ROOT/batteries",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/batteries -C PACKAGE_ROOT/batteries status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:49:00.425942Z",
+      "finished_utc": "2026-09-11T16:49:00.485384Z",
+      "seconds": 0.059,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-batteries-status.log",
+      "log_sha256": "209068fb5f528dc9d43032e5834196222a9ab79c56d78d64f6e5145de1f3ad9b",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-batteries-status.log",
+      "diagnostic_log_sha256": "7222db6fef30bc7ca0e7895c08d9c77cbcaa499f90192c038a11e85a184cc4f4",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 41021440,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-Cli-head",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "rev-parse",
+        "--verify",
+        "HEAD"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli rev-parse --verify HEAD",
+      "started_utc": "2026-09-11T16:49:00.493158Z",
+      "finished_utc": "2026-09-11T16:49:00.538399Z",
+      "seconds": 0.045,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-Cli-head.log",
+      "log_sha256": "6f3c3ae701f5b22f0c33f1497e8ffa162839daf7ed3600fc13014caa0c10e358",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-Cli-head.log",
+      "diagnostic_log_sha256": "5fea8d79a66fb9a4b1524aea168a69f66c4ce2deb49accb6ecb924c8732676d0",
+      "output_preview": "6130a47896ce867c6a4a55373441e59e565bad0f\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39751680,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "package-Cli-status",
+      "command": [
+        "git",
+        "-c",
+        "safe.directory=PACKAGE_ROOT/Cli",
+        "-C",
+        "PACKAGE_ROOT/Cli",
+        "status",
+        "--porcelain=v1",
+        "--branch"
+      ],
+      "command_shell": "git -c safe.directory=PACKAGE_ROOT/Cli -C PACKAGE_ROOT/Cli status --porcelain=v1 --branch",
+      "started_utc": "2026-09-11T16:49:00.545724Z",
+      "finished_utc": "2026-09-11T16:49:00.597402Z",
+      "seconds": 0.052,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/package-Cli-status.log",
+      "log_sha256": "b3848016075121fbd251ff9aeac56fda4096c8daaf1d9fa65de4189746b92531",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/package-Cli-status.log",
+      "diagnostic_log_sha256": "97c34595839add5545a85aa71b592ba5e4e90e36c8d768cf031c3e08f69400b2",
+      "output_preview": "## HEAD (no branch)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 39956480,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    },
+    {
+      "label": "lean-version",
+      "command": [
+        "LEAN",
+        "--version"
+      ],
+      "command_shell": "LEAN --version",
+      "started_utc": "2026-09-11T16:49:00.602640Z",
+      "finished_utc": "2026-09-11T16:49:00.710540Z",
+      "seconds": 0.108,
+      "timeout_seconds": 900,
+      "exit_code": 0,
+      "timed_out": false,
+      "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/lean-version.log",
+      "log_sha256": "fc8a1897fe29059da4249d30be443649a2b20a441e62f10a525940346c62c06c",
+      "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/lean-version.log",
+      "diagnostic_log_sha256": "3c9758a36708b11366fd67a0e994c5a3ea9a7f56d916373cd7e911c339f23ce1",
+      "output_preview": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)\n",
+      "windows_process_tree": {
+        "sample_interval_seconds": 0.2,
+        "scope": "verification Python process and observed descendants",
+        "peak_tree_working_set_bytes": 36036608,
+        "peak_observed_process_count": 3,
+        "samples": 1,
+        "sampling_errors": []
+      }
+    }
+  ],
+  "all_new_project_closure_compiled": false,
+  "failure": "Insufficient available memory for the bounded serial compile",
+  "runner_support_sha256": "1db6f621565e2220a590141de3e98f743d03cde95cb04e798d62f0e883c82009",
+  "source_commit_role": "base Git commit; actual source closure bound by per-file SHA256",
+  "pins": [
+    {
+      "name": "mathlib",
+      "path": "PACKAGE_ROOT/mathlib",
+      "manifest_rev": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "input_rev": "v4.33.1",
+      "url": "https://github.com/leanprover-community/mathlib4",
+      "cache_path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "plausible",
+      "path": "PACKAGE_ROOT/plausible",
+      "manifest_rev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/plausible",
+      "cache_path": "PACKAGE_ROOT/plausible/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "LeanSearchClient",
+      "path": "PACKAGE_ROOT/LeanSearchClient",
+      "manifest_rev": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/LeanSearchClient",
+      "cache_path": "PACKAGE_ROOT/LeanSearchClient/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "importGraph",
+      "path": "PACKAGE_ROOT/importGraph",
+      "manifest_rev": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/import-graph",
+      "cache_path": "PACKAGE_ROOT/importGraph/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "16f02aa7642864af59f1ff0e384a015994db9118",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "proofwidgets",
+      "path": "PACKAGE_ROOT/proofwidgets",
+      "manifest_rev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/ProofWidgets4",
+      "cache_path": "PACKAGE_ROOT/proofwidgets/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "aesop",
+      "path": "PACKAGE_ROOT/aesop",
+      "manifest_rev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/aesop",
+      "cache_path": "PACKAGE_ROOT/aesop/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Qq",
+      "path": "PACKAGE_ROOT/Qq",
+      "manifest_rev": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "input_rev": "master",
+      "url": "https://github.com/leanprover-community/quote4",
+      "cache_path": "PACKAGE_ROOT/Qq/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "batteries",
+      "path": "PACKAGE_ROOT/batteries",
+      "manifest_rev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "input_rev": "main",
+      "url": "https://github.com/leanprover-community/batteries",
+      "cache_path": "PACKAGE_ROOT/batteries/.lake/build/lib/lean",
+      "cache_exists": true,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    },
+    {
+      "name": "Cli",
+      "path": "PACKAGE_ROOT/Cli",
+      "manifest_rev": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "input_rev": "v4.33.0",
+      "url": "https://github.com/leanprover/lean4-cli",
+      "cache_path": "PACKAGE_ROOT/Cli/.lake/build/lib/lean",
+      "cache_exists": false,
+      "safe_directory_scope": "process-local git -c only",
+      "observed_head": "6130a47896ce867c6a4a55373441e59e565bad0f",
+      "head_matches": true,
+      "clean": true,
+      "status_changes": [],
+      "head_command_exit_code": 0,
+      "status_command_exit_code": 0
+    }
+  ],
+  "toolchain": {
+    "declared": "leanprover/lean4:v4.33.1",
+    "observed": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "exit_code": 0
+  },
+  "policy": {
+    "files": 1,
+    "violations": [],
+    "exit_code": 0,
+    "log": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/20260911T164859268320Z/logs/source-policy.log",
+    "log_sha256": "513b71c8657afd207e3fe4b4ba97d6e1170268679d8b37c8fb072aa09f92efcb",
+    "diagnostic_log": ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/logs/source-policy.log",
+    "diagnostic_log_sha256": "513b71c8657afd207e3fe4b4ba97d6e1170268679d8b37c8fb072aa09f92efcb"
+  },
+  "source_closure": [
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Scaled/RatBounds.lean",
+      "module": "research.tasks.B699-Binomial.runs.20260911-low-index-lean-513dc7cc.lean.I11Scaled.RatBounds",
+      "imports": [
+        "Mathlib.Data.Rat.Cast.Order",
+        "Mathlib.Tactic.FieldSimp",
+        "Mathlib.Tactic.Positivity",
+        "Mathlib.Tactic.Ring",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum"
+      ],
+      "source_sha256_before": "a47d9d0ef88a10a47e4e8fbf954636d97227d4515932a5d6f94b5cc2579159b1"
+    }
+  ],
+  "package_imports": [
+    "Mathlib.Data.Rat.Cast.Order",
+    "Mathlib.Tactic.FieldSimp",
+    "Mathlib.Tactic.Linarith",
+    "Mathlib.Tactic.NormNum",
+    "Mathlib.Tactic.Positivity",
+    "Mathlib.Tactic.Ring"
+  ],
+  "fixed_cache_imports": [
+    {
+      "module": "Mathlib.Data.Rat.Cast.Order",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Data/Rat/Cast/Order.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Tactic.FieldSimp",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Tactic/FieldSimp.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Tactic.Linarith",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Tactic/Linarith.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Tactic.NormNum",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Tactic/NormNum.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Tactic.Positivity",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Tactic/Positivity.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    },
+    {
+      "module": "Mathlib.Tactic.Ring",
+      "kind": "package",
+      "package_prefix": "Mathlib",
+      "cache_candidates": [
+        {
+          "package": "mathlib",
+          "path": "PACKAGE_ROOT/mathlib/.lake/build/lib/lean/Mathlib/Tactic/Ring.olean",
+          "exists": true
+        }
+      ],
+      "cache_found": true
+    }
+  ],
+  "lean_path_public": [
+    ".tools/20260911-low-index-lean-513dc7cc/20260911T164859268320Z/olean",
+    "PINNED_PACKAGE_CACHE_ROOTS"
+  ],
+  "compile_resources": [
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11Scaled/RatBounds.lean",
+      "selected_memory_mb": 1536,
+      "platform": "windows",
+      "cpu_count": 16,
+      "disk": [
+        294517391360,
+        293247442944,
+        1269948416
+      ],
+      "available_physical_bytes": 1873002496,
+      "total_physical_bytes": 16851132416,
+      "memory_load_percent": 88,
+      "meminfo": [
+        "MemAvailable: 1829104 kB"
+      ],
+      "memory.max": null,
+      "memory.current": null,
+      "cpu.max": null,
+      "memory_gate_failure": "Insufficient available memory for the bounded serial compile"
+    }
+  ],
+  "finished_utc": "2026-09-11T16:49:57.289046Z",
+  "compiled_count": 0,
+  "reused_count": 0
+}

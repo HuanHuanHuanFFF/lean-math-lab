@@ -1,0 +1,47 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T08:51:05.981081+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "i11-terminal-coverage-assembly",
+      "root": "lean/I11TerminalCandidateCoverage/AssemblyAudit.lean",
+      "source_sha256": "9ff4ec8f5f804f12aa87bf935f0dfd8bd16be82d0f78f02a77a675dcf1a1c40a",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch00.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch01.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch02.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch03.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch04.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch05.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch06.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch07.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-groups-batch08.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-candidates.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-coverage-full-audit",
+      "root": "lean/I11TerminalCandidateCoverage/Audit.lean",
+      "source_sha256": "58155e7bc55de2f2213dc96f37fca88835d6f6295a4a5995a93b215fe119877d",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-coverage-assembly.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-row4-serial-elaboration",
+      "root": "lean/I11TermDiag/NoAsync4.lean",
+      "source_sha256": "033d66ddeef54a15c39e61275defa8561517c206a3d2a9229c54305446352cd3",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-pair23-data.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-membership-pair23-first-row.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0,
+  "diagnostic_only_last_job": true,
+  "purpose": "Retry Assembly after resource gate; isolate async elaboration effect using original proof bodies and end-of-file audits"
+}

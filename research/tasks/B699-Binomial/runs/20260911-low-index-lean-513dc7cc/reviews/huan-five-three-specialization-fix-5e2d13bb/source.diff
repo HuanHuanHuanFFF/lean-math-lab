@@ -1,0 +1,23 @@
+--- before
++++ applied
+@@ -44,12 +44,16 @@
+   have hY0 : 0 < fiveThreeY0 := Nat.pow_pos (by decide : 0 < (2 : ℕ))
+   have hM : 0 < fiveThreeM := by decide
+   constructor
+-  · exact least_capacity_forces_exponent 5 20 1000 354 fiveThreeZ fiveThreeM
++  · have hP := least_capacity_forces_exponent 5 20 1000 354 fiveThreeZ fiveThreeM
+       fiveThreeY0 Y e A (by decide) (by decide) fiveThreeZ_gt_one hY0 hY hM
+-      hprevious hrateP hbaseP hlookP hwindowP hsmallP
+-  · exact least_capacity_forces_exponent 3 35 1000 228 fiveThreeZ fiveThreeM
++    simp only [show 20 * 1000 = 20000 by decide,
++      show 1000 - 354 = 646 by decide] at hP
++    exact hP hprevious hrateP hbaseP hlookP hwindowP hsmallP
++  · have hQ := least_capacity_forces_exponent 3 35 1000 228 fiveThreeZ fiveThreeM
+       fiveThreeY0 Y f C (by decide) (by decide) fiveThreeZ_gt_one hY0 hY hM
+-      hprevious hrateQ hbaseQ hlookQ hwindowQ hsmallQ
++    simp only [show 35 * 1000 = 35000 by decide,
++      show 1000 - 228 = 772 by decide] at hQ
++    exact hQ hprevious hrateQ hbaseQ hlookQ hwindowQ hsmallQ
+ 
+ def rowDelta (row : Bool) : ℕ := if row then 0 else 1
+ 

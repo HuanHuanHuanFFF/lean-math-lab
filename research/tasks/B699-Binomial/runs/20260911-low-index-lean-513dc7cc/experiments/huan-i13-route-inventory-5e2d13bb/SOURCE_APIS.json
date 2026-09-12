@@ -1,0 +1,944 @@
+{
+  "status": "READ_ONLY_SOURCE_DECLARATION_INVENTORY",
+  "modules": [
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\SmallPrimeLocalization.lean",
+      "sha256": "663b2129a3b18e1ad8003be7cfef6792caf8375e986284b228f098921a8b6477",
+      "declarations": [
+        {
+          "line": 44,
+          "header": "theorem binomial_factorization_add_index_le {n i p : ℕ}\n    (hi : 1 ≤ i) (hin : i ≤ n) (hp : p.Prime) :\n    ∃ a < i, (n.choose i).factorization p + i.factorization p ≤\n      (n - a).factorization p"
+        },
+        {
+          "line": 68,
+          "header": "theorem binomial_prime_power_localization {n i p : ℕ}\n    (hi : 1 ≤ i) (hin : i ≤ n) (hp : p.Prime) :\n    ∃ a < i, p ^ ((n.choose i).factorization p + i.factorization p) ∣ n - a"
+        },
+        {
+          "line": 76,
+          "header": "theorem binomial_prime_power_localization_of_le {n i p e : ℕ}\n    (hi : 1 ≤ i) (hin : i ≤ n) (hp : p.Prime)\n    (he : e ≤ (n.choose i).factorization p) :\n    ∃ a < i, p ^ (e + i.factorization p) ∣ n - a"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\CofactorCover.lean",
+      "sha256": "2805041e81314db94f7c7d7837f651a2d64b1c41bf231ca628514d2c18d101c3",
+      "declarations": [
+        {
+          "line": 10,
+          "header": "theorem window_factorials_pos (s : ℕ) : 0 < windowFactorials s"
+        },
+        {
+          "line": 16,
+          "header": "theorem window_constant_pos (i r s : ℕ) : 0 < windowConstant i r s"
+        },
+        {
+          "line": 24,
+          "header": "theorem descFactorial_scaled_error_bound (n : ℕ) :\n    ∀ k : ℕ, k ≤ n →\n      n ^ (k + 1) ≤ n * n.descFactorial k +\n        (∑ a ∈ Finset.range k, a) * n ^ k"
+        },
+        {
+          "line": 58,
+          "header": "theorem pow_le_two_descFactorial {n i : ℕ} (hn : 0 < n) (hin : i ≤ n)\n    (hlarge : i * (i - 1) ≤ n) :\n    n ^ i ≤ 2 * n.descFactorial i"
+        },
+        {
+          "line": 72,
+          "header": "theorem noCommon_bernoulli_size {n i j r s : ℕ}\n    (hi : 2 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hsi : s < i)\n    (hlarge : i * (i - 1) ≤ n) (hno : ¬ Common n i j) :\n    windowConstant i r s * n ^ (i * (2 * s - r)) ≤\n      (2 * i.factorial) ^ (2 * s - r) *\n        (smallPrimePart n i) ^ (2 * s - r) * n ^ windowDegree i r s"
+        },
+        {
+          "line": 99,
+          "header": "theorem noCommon_small_part_lower_of_certificate {n i j r s H M d : ℕ}\n    (hi : 2 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hsi : s < i)\n    (hlambda : 0 < 2 * s - r)\n    (hH : i * (i - 1) ≤ H) (hHn : H ≤ n)\n    (hexponent : i * (2 * s - r) = heightExponent i r s + d)\n    (hcertificate : (2 * i.factorial) ^ (2 * s - r) ≤\n      windowConstant i r s * M ^ ((2 * s - r) * (smallPrimeCount i - 1)) * H ^ d)\n    (hno : ¬ Common n i j) :\n    n ^ smallPrimeCount i ≤ M ^ (smallPrimeCount i - 1) * smallPrimePart n i"
+        },
+        {
+          "line": 152,
+          "header": "theorem noCommon_two_large_small_prime_powers {n i j r s H M d : ℕ}\n    (hi : 2 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hsi : s < i)\n    (hcount : 2 ≤ smallPrimeCount i) (hM : 0 < M) (hlambda : 0 < 2 * s - r)\n    (hH : i * (i - 1) ≤ H) (hHn : H ≤ n)\n    (hexponent : i * (2 * s - r) = heightExponent i r s + d)\n    (hcertificate : (2 * i.factorial) ^ (2 * s - r) ≤\n      windowConstant i r s * M ^ ((2 * s - r) * (smallPrimeCount i - 1)) * H ^ d)\n    (hno : ¬ Common n i j) :\n    ∃ p q : ℕ, p.Prime ∧ p < i ∧ q.Prime ∧ q < i ∧ p ≠ q ∧\n      n ≤ M * p ^ (n.choose i).factorization p ∧\n      n ≤ M * q ^ (n.choose i).factorization q"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\LargeSmallPowers.lean",
+      "sha256": "2ed55e4a8be53589ed8fc82d89cc877c8281a291b34c4c35bfd88e94badf7aa2",
+      "declarations": [
+        {
+          "line": 11,
+          "header": "theorem nat_prod_lt_pow_of_pointwise_lt {S : Finset ℕ} {g : ℕ → ℕ} {n : ℕ}\n    (hn : 0 < n) (hS : S.Nonempty) (hg : ∀ p ∈ S, g p < n) :\n    S.prod g < n ^ S.card"
+        },
+        {
+          "line": 24,
+          "header": "theorem scaled_prod_lt_of_all_but_one_small {S : Finset ℕ} {f : ℕ → ℕ}\n    {n M p : ℕ} (hn : 0 < n) (ht : 2 ≤ S.card) (hp : p ∈ S)\n    (hfp : f p ≤ n) (hsmall : ∀ q ∈ S.erase p, M * f q < n) :\n    M ^ (S.card - 1) * S.prod f < n ^ S.card"
+        },
+        {
+          "line": 49,
+          "header": "theorem exists_two_large_factors_of_scaled_prod {S : Finset ℕ} {f : ℕ → ℕ}\n    {n M : ℕ} (hn : 0 < n) (_hM : 0 < M) (ht : 2 ≤ S.card)\n    (hf : ∀ p ∈ S, f p ≤ n)\n    (hprod : n ^ S.card ≤ M ^ (S.card - 1) * S.prod f) :\n    ∃ p ∈ S, ∃ q ∈ S, p ≠ q ∧ n ≤ M * f p ∧ n ≤ M * f q"
+        },
+        {
+          "line": 77,
+          "header": "theorem small_prime_part_eq_prod_small_primes (n i : ℕ) :\n    smallPrimePart n i = ((Finset.range i).filter Nat.Prime).prod\n      (fun p ↦ p ^ (n.choose i).factorization p)"
+        },
+        {
+          "line": 99,
+          "header": "theorem exists_two_large_small_prime_powers {n i M : ℕ}\n    (_hi : 2 ≤ i) (_hin : i ≤ n) (hcount : 2 ≤ smallPrimeCount i)\n    (hn : 0 < n) (hM : 0 < M)\n    (hU : n ^ smallPrimeCount i ≤\n      M ^ (smallPrimeCount i - 1) * smallPrimePart n i) :\n    ∃ p q : ℕ, p.Prime ∧ p < i ∧ q.Prime ∧ q < i ∧ p ≠ q ∧\n      n ≤ M * p ^ (n.choose i).factorization p ∧\n      n ≤ M * q ^ (n.choose i).factorization q"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260909-low-index-structure-b41a5a63\\lean\\LargeDivisorWitness.lean",
+      "sha256": "8123d5ec2a766974bf9cad0753b0261405ef71548cd3dee625fead65ef0c39f0",
+      "declarations": [
+        {
+          "line": 20,
+          "header": "theorem large_divisor_dvd_prime_part {n i D : ℕ}\n    (hin : i ≤ n) (hD : D ∣ n.choose i)\n    (hcop : D.Coprime (i - 1).factorial) :\n    D ∣ B699BridgeAudit.primePart i (n.choose i)"
+        },
+        {
+          "line": 40,
+          "header": "theorem common_of_large_divisor {n i j r s D : ℕ}\n    (hi : 2 ≤ i) (hij : i < j) (hjn : j ≤ n / 2) (hsi : s < i)\n    (_hDpos : 0 < D) (hcop : D.Coprime (i - 1).factorial)\n    (hnum : i.factorial * D ∣ n.descFactorial i)\n    (hcompare : n ^ windowDegree i r s <\n      windowConstant i r s * D ^ (2 * s - r)) :\n    ∃ p : ℕ, p.Prime ∧ i ≤ p ∧ p ∣ Nat.gcd (n.choose i) (n.choose j)"
+        },
+        {
+          "line": 64,
+          "header": "inductive RowWitness where"
+        },
+        {
+          "line": 70,
+          "header": "structure GoodSegment where"
+        },
+        {
+          "line": 76,
+          "header": "def goodSegmentBounds (g : GoodSegment) : ℕ × ℕ"
+        },
+        {
+          "line": 79,
+          "header": "def goodSegmentCheck (i r s : ℕ) (g : GoodSegment) : Bool"
+        },
+        {
+          "line": 89,
+          "header": "theorem goodSegmentCheck_sound {i r s : ℕ} {g : GoodSegment}\n    (hi : 2 ≤ i) (hsi : s < i) (hcheck : goodSegmentCheck i r s g = true)\n    {n j : ℕ} (hlo : g.lower ≤ n) (hup : n ≤ g.upper)\n    (hij : i < j) (hjn : j ≤ n / 2) : Common n i j"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\PadeInteger.lean",
+      "sha256": "8aa4bdbd7b3751fe96bd4d953ee68ab5b7fd2fa374cb5ce623d7d460d444044b",
+      "declarations": [
+        {
+          "line": 31,
+          "header": "noncomputable def coefficientPolynomial (n : ℕ) (a : ℕ → ℤ) : ℤ[X]"
+        },
+        {
+          "line": 34,
+          "header": "theorem coefficientPolynomial_coeff (n r : ℕ) (a : ℕ → ℤ) :\n    (coefficientPolynomial n a).coeff r = if r ≤ n then a r else 0"
+        },
+        {
+          "line": 40,
+          "header": "theorem coefficientPolynomial_natDegree_le (n : ℕ) (a : ℕ → ℤ) :\n    (coefficientPolynomial n a).natDegree ≤ n"
+        },
+        {
+          "line": 48,
+          "header": "def pCoefficient (A B C r : ℕ) : ℤ"
+        },
+        {
+          "line": 52,
+          "header": "def qMagnitude (A B C r : ℕ) : ℕ"
+        },
+        {
+          "line": 55,
+          "header": "def qCoefficient (A B C r : ℕ) : ℤ"
+        },
+        {
+          "line": 58,
+          "header": "def eCoefficient (A B C r : ℕ) : ℤ"
+        },
+        {
+          "line": 62,
+          "header": "noncomputable def pPolynomial (A B C : ℕ) : ℤ[X]"
+        },
+        {
+          "line": 65,
+          "header": "noncomputable def qPolynomial (A B C : ℕ) : ℤ[X]"
+        },
+        {
+          "line": 68,
+          "header": "noncomputable def ePolynomial (A B C : ℕ) : ℤ[X]"
+        },
+        {
+          "line": 72,
+          "header": "def qContent (A B C : ℕ) : ℕ"
+        },
+        {
+          "line": 88,
+          "header": "theorem qContent_dvd_qMagnitude (A B C r : ℕ) (hr : r ≤ A) :\n    qContent A B C ∣ qMagnitude A B C r"
+        },
+        {
+          "line": 92,
+          "header": "theorem qContent_dvd_qCoefficient (A B C r : ℕ) (hr : r ≤ A) :\n    (qContent A B C : ℤ) ∣ qCoefficient A B C r"
+        },
+        {
+          "line": 99,
+          "header": "theorem qContent_pos (A B C : ℕ) : 0 < qContent A B C"
+        },
+        {
+          "line": 111,
+          "header": "def bftContent (c d m delta : ℕ) : ℕ"
+        },
+        {
+          "line": 115,
+          "header": "def homogeneousValue (n : ℕ) (a : ℕ → ℤ) (x y : ℤ) : ℤ"
+        },
+        {
+          "line": 120,
+          "header": "theorem homogeneousValue_cast_eq (n : ℕ) (a : ℕ → ℤ) (x y : ℤ) (hy : y ≠ 0) :\n    (homogeneousValue n a x y : ℝ) =\n      (y : ℝ) ^ n * (coefficientPolynomial n a).eval₂ (Int.castRingHom ℝ)\n        ((x : ℝ) / (y : ℝ))"
+        },
+        {
+          "line": 141,
+          "header": "def qNormalizedCoefficient (A B C r : ℕ) : ℤ"
+        },
+        {
+          "line": 144,
+          "header": "def qNormalizedValue (A B C : ℕ) (x y : ℤ) : ℤ"
+        },
+        {
+          "line": 147,
+          "header": "theorem qContent_mul_normalizedCoefficient (A B C r : ℕ) (hr : r ≤ A) :\n    (qContent A B C : ℤ) * qNormalizedCoefficient A B C r = qCoefficient A B C r"
+        },
+        {
+          "line": 152,
+          "header": "theorem qContent_mul_normalizedValue (A B C : ℕ) (x y : ℤ) :\n    (qContent A B C : ℤ) * qNormalizedValue A B C x y =\n      homogeneousValue A (qCoefficient A B C) x y"
+        },
+        {
+          "line": 164,
+          "header": "theorem qNormalizedValue_cast_eq (A B C : ℕ) (x y : ℤ) (hy : y ≠ 0) :\n    (qNormalizedValue A B C x y : ℝ) =\n      (y : ℝ) ^ A / (qContent A B C : ℝ) *\n        (qPolynomial A B C).eval₂ (Int.castRingHom ℝ) ((x : ℝ) / (y : ℝ))"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Pade\\Rows.lean",
+      "sha256": "9436eed58f7a68a64de455efcd13d976ddf171b8f9874fc67fa09f39ea5d9901",
+      "declarations": [
+        {
+          "line": 21,
+          "header": "def normalizedDeterminant (u v : ℕ) (x y : ℤ) : ℤ"
+        },
+        {
+          "line": 26,
+          "header": "theorem content_product_mul_normalizedDeterminant (u v : ℕ) (x y : ℤ) :\n    (qContent u v u : ℤ) * (qContent (u - 1) (v + 1) (u - 1) : ℤ) *\n      normalizedDeterminant u v x y = rawHomogeneousDeterminant u v x y"
+        },
+        {
+          "line": 47,
+          "header": "theorem actual_normalized_rows_det_ne_zero (u v : ℕ) (hu : 1 ≤ u) {x y : ℤ}\n    (hx : x ≠ 0) (hy : y ≠ 0) : normalizedDeterminant u v x y ≠ 0"
+        },
+        {
+          "line": 55,
+          "header": "def actualPRow (u v : ℕ) (x y : ℤ) (upper : Bool) : ℤ"
+        },
+        {
+          "line": 58,
+          "header": "def actualQRow (u v : ℕ) (x y : ℤ) (upper : Bool) : ℤ"
+        },
+        {
+          "line": 63,
+          "header": "theorem actual_bft_integer_gap (u v : ℕ) (hu : 1 ≤ u) (x y : ℤ)\n    {r s a b U V D : ℤ}\n    (hx : x ≠ 0) (hy : y ≠ 0)\n    (hr : 0 ≤ r) (ha : a ≠ 0) (hb : 0 < b) (hV : V ≠ 0)\n    (hgap : |r * U - s * V| ≤ D) :\n    ∃ row : Bool,\n      b * actualQRow u v x y row * U - a * actualPRow u v x y row * V ≠ 0 ∧\n      r ≤ b * D * |actualQRow u v x y row| +\n        |r * a * actualPRow u v x y row - s * b * actualQRow u v x y row| * |V|"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Pade\\Content.lean",
+      "sha256": "8a708c481f81a8ea1e2ae66133e7e9093adfdbf488ade68c30099635fd773149",
+      "declarations": [
+        {
+          "line": 56,
+          "header": "theorem multichoose_convolution (a b k : ℕ) :\n    (∑ r ∈ Finset.range (k + 1), a.multichoose r * b.multichoose (k - r)) =\n      (a + b).multichoose k"
+        },
+        {
+          "line": 71,
+          "header": "theorem shifted_choose_convolution (u B k : ℕ) (hk : k ≤ u) :\n    (∑ r ∈ Finset.range (k + 1), (B + r).choose r * (2 * u - r).choose (k - r)) =\n      (2 * u + B + 1).choose k"
+        },
+        {
+          "line": 107,
+          "header": "theorem weighted_choose_convolution (u B k : ℕ) (hk : k ≤ u) :\n    (∑ r ∈ Finset.range (k + 1),\n      (2 * u - r).choose u * (B + r).choose r * (u - r).choose (k - r)) =\n      (2 * u - k).choose u * (2 * u + B + 1).choose k"
+        },
+        {
+          "line": 133,
+          "header": "theorem pCoefficient_eq_q_triangular (u B k : ℕ) (hk : k ≤ u) :\n    pCoefficient u B u k = (-1 : ℤ) ^ k *\n      ∑ r ∈ Finset.range (k + 1), qCoefficient u B u r * ((u - r).choose (k - r) : ℤ)"
+        },
+        {
+          "line": 166,
+          "header": "theorem qContent_dvd_pCoefficient (u B k : ℕ) (hk : k ≤ u) :\n    (qContent u B u : ℤ) ∣ pCoefficient u B u k"
+        },
+        {
+          "line": 175,
+          "header": "theorem qContent_dvd_pPolynomial_coeff (u B k : ℕ) :\n    (qContent u B u : ℤ) ∣ (pPolynomial u B u).coeff k"
+        },
+        {
+          "line": 184,
+          "header": "def pNormalizedCoefficient (u B r : ℕ) : ℤ"
+        },
+        {
+          "line": 187,
+          "header": "def pNormalizedValue (u B : ℕ) (x y : ℤ) : ℤ"
+        },
+        {
+          "line": 190,
+          "header": "theorem qContent_mul_pNormalizedCoefficient (u B r : ℕ) (hr : r ≤ u) :\n    (qContent u B u : ℤ) * pNormalizedCoefficient u B r = pCoefficient u B u r"
+        },
+        {
+          "line": 195,
+          "header": "theorem qContent_mul_pNormalizedValue (u B : ℕ) (x y : ℤ) :\n    (qContent u B u : ℤ) * pNormalizedValue u B x y =\n      homogeneousValue u (pCoefficient u B u) x y"
+        },
+        {
+          "line": 207,
+          "header": "theorem pNormalizedValue_cast_eq (u B : ℕ) (x y : ℤ) (hy : y ≠ 0) :\n    (pNormalizedValue u B x y : ℝ) =\n      (y : ℝ) ^ u / (qContent u B u : ℝ) *\n        (pPolynomial u B u).eval₂ (Int.castRingHom ℝ) ((x : ℝ) / (y : ℝ))"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Pade\\RawDet.lean",
+      "sha256": "f9cbc472834f0fcdb96817f3f7ee4d04b5520b90779764b5c50ce0d26ed4ef22",
+      "declarations": [
+        {
+          "line": 18,
+          "header": "noncomputable def rawPolynomialDeterminant (u v : ℕ) : ℤ[X]"
+        },
+        {
+          "line": 22,
+          "header": "def determinantMagnitude (u v : ℕ) : ℕ"
+        },
+        {
+          "line": 25,
+          "header": "def determinantConstant (u v : ℕ) : ℤ"
+        },
+        {
+          "line": 47,
+          "header": "theorem determinantMagnitude_recurrence (u v : ℕ) (hu : 2 ≤ u) :\n    u * (u - 1) * determinantMagnitude u v =\n      (v + 2) * (2 * u + v) * determinantMagnitude (u - 1) (v + 1)"
+        },
+        {
+          "line": 97,
+          "header": "theorem determinantConstant_recurrence (u v : ℕ) (hu : 2 ≤ u) :\n    recurrenceN u * determinantConstant u v =\n      -(recurrenceB u v) * determinantConstant (u - 1) (v + 1)"
+        },
+        {
+          "line": 107,
+          "header": "theorem determinantConstant_ne_zero (u v : ℕ) (hu : 1 ≤ u) : determinantConstant u v ≠ 0"
+        },
+        {
+          "line": 115,
+          "header": "theorem rawPolynomialDeterminant_recurrence (u v : ℕ) (hu : 2 ≤ u) :\n    C (recurrenceN u) * rawPolynomialDeterminant u v =\n      -(C (recurrenceB u v) * (X ^ 2 * rawPolynomialDeterminant (u - 1) (v + 1)))"
+        },
+        {
+          "line": 146,
+          "header": "theorem determinantConstant_one (v : ℕ) : determinantConstant 1 v = 2 * ((v : ℤ) + 2)"
+        },
+        {
+          "line": 191,
+          "header": "theorem rawPolynomialDeterminant_formula (u v : ℕ) (hu : 1 ≤ u) :\n    rawPolynomialDeterminant u v = C (determinantConstant u v) * X ^ (2 * u - 1)"
+        },
+        {
+          "line": 197,
+          "header": "theorem actual_polynomial_rows_det_ne_zero (u v : ℕ) (hu : 1 ≤ u) {z : ℝ} (hz : z ≠ 0) :\n    (rawPolynomialDeterminant u v).eval₂ (Int.castRingHom ℝ) z ≠ 0"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Moment\\Identity.lean",
+      "sha256": "58ec20412d6b14972eb24176d14c27a766fe4d6b89ebc0a9718f9c8e15f6008e",
+      "declarations": [
+        {
+          "line": 18,
+          "header": "theorem pSource_eq_actual_eval (A B C : ℕ) (z : ℚ) :\n    pSource A B C z = (pPolynomial A B C).eval₂ (Int.castRingHom ℚ) z"
+        },
+        {
+          "line": 27,
+          "header": "theorem qSource_eq_actual_eval (A B C : ℕ) (z : ℚ) :\n    qSource A B C z = (qPolynomial A B C).eval₂ (Int.castRingHom ℚ) z"
+        },
+        {
+          "line": 36,
+          "header": "theorem eSource_eq_actual_eval (A B C : ℕ) (z : ℚ) :\n    eSource A B C z = (ePolynomial A B C).eval₂ (Int.castRingHom ℚ) z"
+        },
+        {
+          "line": 45,
+          "header": "theorem actual_integer_pade_identity (A B C : ℕ) (z : ℚ) :\n    (pPolynomial A B C).eval₂ (Int.castRingHom ℚ) z -\n        (1 - z) ^ (B + C + 1) * (qPolynomial A B C).eval₂ (Int.castRingHom ℚ) z =\n      z ^ (A + C + 1) * (ePolynomial A B C).eval₂ (Int.castRingHom ℚ) z"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\HomRemainder\\Remainder.lean",
+      "sha256": "9ce51165d87486001436f9090a1cf164552a04b5c4260b38870a7bc04c71c8dd",
+      "declarations": [
+        {
+          "line": 24,
+          "header": "theorem raw_homogeneous_remainder_q (u v : ℕ) (x y : ℤ) (hy : y ≠ 0) :\n    (y : ℚ) ^ (u + v + 1) * (homogeneousValue u (pCoefficient u v u) x y : ℚ) -\n        ((y - x : ℤ) : ℚ) ^ (u + v + 1) *\n          (homogeneousValue u (qCoefficient u v u) x y : ℚ) =\n      (y : ℚ) ^ v * (x : ℚ) ^ (2 * u + 1) *\n        (ePolynomial u v u).eval₂ (Int.castRingHom ℚ) ((x : ℚ) / (y : ℚ))"
+        },
+        {
+          "line": 96,
+          "header": "theorem normalized_remainder_q (u v : ℕ) (x y : ℤ) (hy : y ≠ 0) :\n    (qContent u v u : ℚ) *\n      ((y : ℚ) ^ (u + v + 1) * (pNormalizedValue u v x y : ℚ) -\n        ((y - x : ℤ) : ℚ) ^ (u + v + 1) *\n          (qNormalizedValue u v u x y : ℚ)) =\n      (y : ℚ) ^ v * (x : ℚ) ^ (2 * u + 1) *\n        (ePolynomial u v u).eval₂ (Int.castRingHom ℚ) ((x : ℚ) / (y : ℚ))"
+        },
+        {
+          "line": 124,
+          "header": "theorem normalized_integer_error_cast_q (u v : ℕ) (x y : ℤ) (hy : y ≠ 0) :\n    (qContent u v u : ℚ) *\n      ((y ^ (u + v + 1) * pNormalizedValue u v x y -\n          (y - x) ^ (u + v + 1) * qNormalizedValue u v u x y : ℤ) : ℚ) =\n      (y : ℚ) ^ v * (x : ℚ) ^ (2 * u + 1) *\n        (ePolynomial u v u).eval₂ (Int.castRingHom ℚ) ((x : ℚ) / (y : ℚ))"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Growth\\ActualKernel.lean",
+      "sha256": "82962fb0fffebcb9fe1fdf6054ad861300365106cb85c2a150962c227949622a",
+      "declarations": [
+        {
+          "line": 30,
+          "header": "theorem qKernel_eq_weight_core (c d delta m : ℕ) (z : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hm : 1 ≤ m) :\n    qKernel (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta) z =\n      qWeight c d delta z * qCore c d z ^ (m - 1)"
+        },
+        {
+          "line": 38,
+          "header": "theorem eKernel_eq_weight_core (c d delta m : ℕ) (z : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hm : 1 ≤ m) :\n    eKernel (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta) z =\n      eWeight c d delta z * eCore c d z ^ (m - 1)"
+        },
+        {
+          "line": 46,
+          "header": "theorem qKernel_abs_moment_bound (c d delta m : ℕ) (z lam : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hm : 1 ≤ m) (hlam : 0 ≤ lam)\n    (tree : GrowthTree lam (qWeight c d delta z) (qCore c d z)) :\n    |moment (qKernel (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta) z)| ≤\n      lam ^ (m - 1) * moment (qWeight c d delta z)"
+        },
+        {
+          "line": 54,
+          "header": "theorem eKernel_abs_moment_bound (c d delta m : ℕ) (z lam : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hm : 1 ≤ m) (hlam : 0 ≤ lam)\n    (tree : GrowthTree lam (eWeight c d delta z) (eCore c d z)) :\n    |moment (eKernel (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta) z)| ≤\n      lam ^ (m - 1) * moment (eWeight c d delta z)"
+        },
+        {
+          "line": 62,
+          "header": "theorem prefactor_pos (A B C : ℕ) : 0 < prefactor A B C"
+        },
+        {
+          "line": 68,
+          "header": "theorem actual_q_eval_bound (c d delta m : ℕ) (z lam : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hm : 1 ≤ m) (hlam : 0 ≤ lam)\n    (tree : GrowthTree lam (qWeight c d delta z) (qCore c d z)) :\n    |(qPolynomial (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta)).eval₂\n        (Int.castRingHom ℚ) z| ≤\n      prefactor (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta) *\n        (lam ^ (m - 1) * moment (qWeight c d delta z))"
+        },
+        {
+          "line": 82,
+          "header": "theorem actual_e_eval_bound (c d delta m : ℕ) (z lam : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hm : 1 ≤ m) (hlam : 0 ≤ lam)\n    (tree : GrowthTree lam (eWeight c d delta z) (eCore c d z)) :\n    |(ePolynomial (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta)).eval₂\n        (Int.castRingHom ℚ) z| ≤\n      prefactor (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta) *\n        (lam ^ (m - 1) * moment (eWeight c d delta z))"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Growth\\Normalization.lean",
+      "sha256": "83c909757f3c03f48163de8b1733ce6dd9e817cd417f775f1df254ed7a266a4d",
+      "declarations": [
+        {
+          "line": 16,
+          "header": "noncomputable def actualQ (c d delta m : ℕ) (z : ℚ) : ℚ"
+        },
+        {
+          "line": 20,
+          "header": "noncomputable def actualE (c d delta m : ℕ) (z : ℚ) : ℚ"
+        },
+        {
+          "line": 24,
+          "header": "theorem prefactor_eq_factorialTerm (c d delta m : ℕ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hm : 1 ≤ m) :\n    prefactor (d * m - delta) ((c - d) * m + delta - 1) (d * m - delta) =\n      factorialTerm c d delta m"
+        },
+        {
+          "line": 46,
+          "header": "theorem actualQ_one_abs (c d delta : ℕ) (z : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hz : 0 ≤ z) :\n    |actualQ c d delta 1 z| = factorialTerm c d delta 1 * moment (qWeight c d delta z)"
+        },
+        {
+          "line": 61,
+          "header": "theorem actualE_one_abs (c d delta : ℕ) (z : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hz : z ≤ 1) :\n    |actualE c d delta 1 z| = factorialTerm c d delta 1 * moment (eWeight c d delta z)"
+        },
+        {
+          "line": 76,
+          "header": "theorem q_normalized_constant (c d delta : ℕ) (z lam : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hz : 0 ≤ z) :\n    (2 * factorialTerm c d delta 1 / beta c d) * moment (qWeight c d delta z) / lam =\n      2 * |actualQ c d delta 1 z| / (beta c d * lam)"
+        },
+        {
+          "line": 84,
+          "header": "theorem e_normalized_constant (c d delta : ℕ) (z lam : ℚ)\n    (hcd : d < c) (hdelta : delta ≤ d) (hz : z ≤ 1) :\n    (2 * factorialTerm c d delta 1 / beta c d) * moment (eWeight c d delta z) / lam =\n      2 * |actualE c d delta 1 z| / (beta c d * lam)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\Factorial\\FactorialCommon.lean",
+      "sha256": "0995a9105c3c2d13ce2ffdcdcc7853c26886d585b8e9f0fc9d396ae0e1c73fd6",
+      "declarations": [
+        {
+          "line": 32,
+          "header": "def factorialTerm (c d delta m : ℕ) : ℚ"
+        },
+        {
+          "line": 39,
+          "header": "def beta (c d : ℕ) : ℚ"
+        },
+        {
+          "line": 43,
+          "header": "theorem factorialTerm_pos (c d delta m : ℕ) :\n    0 < factorialTerm c d delta m"
+        },
+        {
+          "line": 49,
+          "header": "theorem factorial_add_cast (n k : ℕ) :\n    (((n + k).factorial : ℕ) : ℚ) =\n      ((n.factorial : ℕ) : ℚ) * (((n + 1).ascFactorial k : ℕ) : ℚ)"
+        },
+        {
+          "line": 54,
+          "header": "theorem factorial_cast_mul_pred (n : ℕ) (hn : 0 < n) :\n    ((n.factorial : ℕ) : ℚ) = (n : ℚ) * (((n - 1).factorial : ℕ) : ℚ)"
+        },
+        {
+          "line": 65,
+          "header": "theorem factorial_delta_one_eq (c d m : ℕ)\n    (hc : d < c) (hd : 0 < d) (hm : 0 < m) :\n    factorialTerm c d 1 m =\n      ((d : ℚ) ^ 2 / (((c + d : ℕ) : ℚ) * ((c - d : ℕ) : ℚ))) *\n        factorialTerm c d 0 m"
+        },
+        {
+          "line": 85,
+          "header": "theorem ratio_le_of_certificate\n    {a b d bn bd U W m : ℚ}\n    (hb : 0 < b) (hd : 0 < d) (hbd : 0 < bd)\n    (hm : 0 < m) (hW : 0 < W)\n    (hcert : a * bd * (m + 2) * U ≤\n      bn * b * d ^ 2 * (m + 1) ^ 3 * W) :\n    a * U / (b * d ^ 2 * m * (m + 1) * W) ≤\n      (bn / bd) * (m + 1) ^ 2 / (m * (m + 2))"
+        },
+        {
+          "line": 106,
+          "header": "theorem telescoping_bound_from_step\n    {F : ℕ → ℚ} {B : ℚ} (hB : 0 < B)\n    (hstep : ∀ m : ℕ, 1 ≤ m →\n      F (m + 1) ≤ F m * (B * ((m : ℚ) + 1) ^ 2 / ((m : ℚ) * (m + 2))))\n    {m : ℕ} (hm : 1 ≤ m) :\n    F m ≤ (2 * F 1 / B) * B ^ m * (m : ℚ) / ((m : ℚ) + 1)"
+        },
+        {
+          "line": 134,
+          "header": "theorem strict_bound_from_step\n    {F : ℕ → ℚ} {B : ℚ} (hB : 0 < B) (hF : 0 < F 1)\n    (hstep : ∀ m : ℕ, 1 ≤ m →\n      F (m + 1) ≤ F m * (B * ((m : ℚ) + 1) ^ 2 / ((m : ℚ) * (m + 2))))\n    {m : ℕ} (hm : 1 ≤ m) :\n    F m < (2 * F 1 / B) * B ^ m"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\RationalDivisor\\Content.lean",
+      "sha256": "4ed0d41a0b56a94586c0b56cdc34e14b52e54b83a99cb1c035dd0e6125548043",
+      "declarations": [
+        {
+          "line": 14,
+          "header": "def rationalDivisor (u v : ℕ) : ℚ"
+        },
+        {
+          "line": 17,
+          "header": "theorem rationalDivisor_pos (u v : ℕ) : 0 < rationalDivisor u v"
+        },
+        {
+          "line": 22,
+          "header": "theorem factorialNumerator_dvd_scaled_qContent (u v : ℕ) :\n    factorialNumerator u v ∣ factorialDenominator u v * qContent u v u"
+        },
+        {
+          "line": 34,
+          "header": "theorem positive_nat_quotient_of_scaled_dvd (N V q : ℕ)\n    (hN : 0 < N) (hV : 0 < V) (hq : 0 < q) (hd : N ∣ V * q) :\n    ∃ k : ℕ, 0 < k ∧ (q : ℚ) / ((N : ℚ) / (V : ℚ)) = (k : ℚ)"
+        },
+        {
+          "line": 53,
+          "header": "theorem qMagnitude_div_rationalDivisor_positive_integer\n    (u v h : ℕ) (hh : h ≤ u) :\n    ∃ k : ℕ, 0 < k ∧\n      (qMagnitude u v u h : ℚ) / rationalDivisor u v = (k : ℚ)"
+        },
+        {
+          "line": 64,
+          "header": "theorem qCoefficient_div_rationalDivisor_integer\n    (u v h : ℕ) (hh : h ≤ u) :\n    ∃ k : ℤ, (qCoefficient u v u h : ℚ) / rationalDivisor u v = (k : ℚ)"
+        },
+        {
+          "line": 73,
+          "header": "theorem qContent_div_rationalDivisor_positive_integer (u v : ℕ) :\n    ∃ k : ℕ, 0 < k ∧ (qContent u v u : ℚ) / rationalDivisor u v = (k : ℚ)"
+        },
+        {
+          "line": 81,
+          "header": "theorem rationalDivisor_le_qContent (u v : ℕ) :\n    rationalDivisor u v ≤ (qContent u v u : ℚ)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\I11Edge\\Capacity.lean",
+      "sha256": "7006611bfa0360bf34f55ee3600da7dd4ebb877e40f57deb5f05a62c84e0492d",
+      "declarations": [
+        {
+          "line": 11,
+          "header": "theorem small_cofactor_forces_exponent (p e A Y k T weight : ℕ)\n    (hp : 0 < p) (hweight : weight ≤ T)\n    (hwindow : Y ≤ p ^ e * A) (hsmall : A ^ T < Y ^ weight)\n    (hcapacity : (p ^ k) ^ T ≤ Y ^ (T - weight)) : k < e"
+        },
+        {
+          "line": 31,
+          "header": "theorem least_capacity_forces_exponent\n    (p k T weight Z M Y0 Y e A : ℕ) (hp : 0 < p) (hweight : weight ≤ T)\n    (hZ : 1 < Z) (hY0 : 0 < Y0) (hY : Y0 ≤ Y) (hM : 0 < M)\n    (hprevious : Z ^ (M - 1) ≤ 4 * Y0)\n    (hrate : p ^ (k * T) ≤ Z ^ (T - weight))\n    (hbase : (p ^ (k * T)) ^ M ≤ Y0 ^ (T - weight))\n    (hlookahead : 4 ^ (T - weight) * (p ^ (k * T)) ^ (M + 1) ≤\n      Z ^ ((T - weight) * M))\n    (hwindow : Y ≤ p ^ e * A) (hsmall : A ^ T < Y ^ weight) :\n    k * leastExponent Z Y hZ < e"
+        },
+        {
+          "line": 51,
+          "header": "theorem extract_prime_factor (p e k A : ℕ) (hke : k ≤ e) :\n    p ^ k * (p ^ (e - k) * A) = p ^ e * A"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\DiscreteSelector\\LeastExponent.lean",
+      "sha256": "a2379bb7bcc693e63b171b53a5b34fa155d172fec1eeaafb85a6ff25203548a1",
+      "declarations": [
+        {
+          "line": 15,
+          "header": "theorem exists_power_above_four_mul (Z Y : ℕ) (hZ : 1 < Z) :\n    ∃ m : ℕ, 4 * Y < Z ^ m"
+        },
+        {
+          "line": 19,
+          "header": "def leastExponent (Z Y : ℕ) (hZ : 1 < Z) : ℕ"
+        },
+        {
+          "line": 22,
+          "header": "theorem leastExponent_threshold (Z Y : ℕ) (hZ : 1 < Z) :\n    4 * Y < Z ^ leastExponent Z Y hZ"
+        },
+        {
+          "line": 26,
+          "header": "theorem leastExponent_minimal (Z Y : ℕ) (hZ : 1 < Z)\n    {k : ℕ} (hk : k < leastExponent Z Y hZ) : Z ^ k ≤ 4 * Y"
+        },
+        {
+          "line": 30,
+          "header": "theorem leastExponent_pos (Z Y : ℕ) (hZ : 1 < Z) (hY : 0 < Y) :\n    0 < leastExponent Z Y hZ"
+        },
+        {
+          "line": 38,
+          "header": "theorem leastExponent_previous (Z Y : ℕ) (hZ : 1 < Z) (hY : 0 < Y) :\n    Z ^ (leastExponent Z Y hZ - 1) ≤ 4 * Y"
+        },
+        {
+          "line": 43,
+          "header": "theorem leastExponent_lower_bound (Z Y0 Y M : ℕ) (hZ : 1 < Z)\n    (hY : Y0 ≤ Y) (hM : 0 < M) (hprevious : Z ^ (M - 1) ≤ 4 * Y0) :\n    M ≤ leastExponent Z Y hZ"
+        },
+        {
+          "line": 55,
+          "header": "theorem leastExponent_le_of_threshold (Z Y M : ℕ) (hZ : 1 < Z)\n    (hthreshold : 4 * Y < Z ^ M) : leastExponent Z Y hZ ≤ M"
+        },
+        {
+          "line": 59,
+          "header": "theorem leastExponent_eq_of_bracket (Z Y M : ℕ) (hZ : 1 < Z)\n    (hM : 0 < M) (hprevious : Z ^ (M - 1) ≤ 4 * Y)\n    (hthreshold : 4 * Y < Z ^ M) : leastExponent Z Y hZ = M"
+        },
+        {
+          "line": 67,
+          "header": "theorem lookahead_rate_extend (Z J alpha M k : ℕ)\n    (hrate : J ≤ Z ^ alpha)\n    (hlookahead : 4 ^ alpha * J ^ (M + 1) ≤ Z ^ (alpha * M)) :\n    4 ^ alpha * J ^ (M + 1 + k) ≤ Z ^ (alpha * (M + k))"
+        },
+        {
+          "line": 80,
+          "header": "theorem capacity_of_previous_bound (Z J alpha M m Y0 Y : ℕ)\n    (hY : Y0 ≤ Y) (hMm : M ≤ m) (hprevious : Z ^ (m - 1) ≤ 4 * Y)\n    (hrate : J ≤ Z ^ alpha) (hbase : J ^ M ≤ Y0 ^ alpha)\n    (hlookahead : 4 ^ alpha * J ^ (M + 1) ≤ Z ^ (alpha * M)) :\n    J ^ m ≤ Y ^ alpha"
+        },
+        {
+          "line": 103,
+          "header": "theorem leastExponent_capacity (Z J alpha M Y0 Y : ℕ) (hZ : 1 < Z)\n    (hY0 : 0 < Y0) (hY : Y0 ≤ Y) (hM : 0 < M)\n    (hprevious : Z ^ (M - 1) ≤ 4 * Y0)\n    (hrate : J ≤ Z ^ alpha) (hbase : J ^ M ≤ Y0 ^ alpha)\n    (hlookahead : 4 ^ alpha * J ^ (M + 1) ≤ Z ^ (alpha * M)) :\n    J ^ leastExponent Z Y hZ ≤ Y ^ alpha"
+        },
+        {
+          "line": 115,
+          "header": "theorem leastExponent_two_capacities (Z Jp alphaP Jq alphaQ M Y0 Y : ℕ)\n    (hZ : 1 < Z) (hY0 : 0 < Y0) (hY : Y0 ≤ Y) (hM : 0 < M)\n    (hprevious : Z ^ (M - 1) ≤ 4 * Y0)\n    (hrateP : Jp ≤ Z ^ alphaP) (hbaseP : Jp ^ M ≤ Y0 ^ alphaP)\n    (hlookaheadP : 4 ^ alphaP * Jp ^ (M + 1) ≤ Z ^ (alphaP * M))\n    (hrateQ : Jq ≤ Z ^ alphaQ) (hbaseQ : Jq ^ M ≤ Y0 ^ alphaQ)\n    (hlookaheadQ : 4 ^ alphaQ * Jq ^ (M + 1) ≤ Z ^ (alphaQ * M)) :\n    Jp ^ leastExponent Z Y hZ ≤ Y ^ alphaP ∧\n      Jq ^ leastExponent Z Y hZ ≤ Y ^ alphaQ"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CubicBlock\\Checker.lean",
+      "sha256": "6fd636014c6379bdc81c13c121251e9300958a891cda60e3082db98c3bbbab75",
+      "declarations": [
+        {
+          "line": 16,
+          "header": "def displacement (w k : ℕ) : ℤ"
+        },
+        {
+          "line": 21,
+          "header": "def residueChecks (p q u L b0 w v : ℕ) : Bool"
+        },
+        {
+          "line": 25,
+          "header": "theorem residueChecks_sound {p q u L b0 w v : ℕ}\n    (hcheck : residueChecks p q u L b0 w v = true) {d : ℤ}\n    (hlo : -(w : ℤ) ≤ d) (hhi : d ≤ (w : ℤ)) :\n    p ^ (u + 3 * L) < (positiveResidue (q ^ b0) v d) ^ 2"
+        },
+        {
+          "line": 45,
+          "header": "theorem residueChecks_zero {p q u L b0 w v : ℕ}\n    (hcheck : residueChecks p q u L b0 w v = true) :\n    p ^ (u + 3 * L) < (q ^ b0) ^ 2"
+        },
+        {
+          "line": 51,
+          "header": "def blockCheck (p q u L b0 w v : ℕ) : Bool"
+        },
+        {
+          "line": 58,
+          "header": "theorem blockCheck_sound {p q u L b0 w v a b A C : ℕ}\n    (hcheck : blockCheck p q u L b0 w v = true)\n    (hua : u ≤ a) (hau : a ≤ u + L) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hdist : Nat.dist (p ^ a * A) (q ^ b * C) ≤ w)\n    (hsmallA : A ^ 3 ≤ min (p ^ a * A) (q ^ b * C))\n    (hsmallC : C ^ 3 ≤ min (p ^ a * A) (q ^ b * C)) : False"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CubicCover\\Pair.lean",
+      "sha256": "51c4b6384a072b403fb5d381bba724f0b53d05097bb99c23d524cb864029374b",
+      "declarations": [
+        {
+          "line": 21,
+          "header": "theorem checked_pair_height_cut (p q w astart amax cut H : ℕ)\n    (rows : List BlockDatum) (hp : 2 ≤ p) (_hq : 2 ≤ q) (_hstart : 1 ≤ astart)\n    (hcover : coverageCheck p q w astart (amax + 1) rows = true)\n    (hcap : H ≤ p ^ (amax + 1)) (hcutw : w < (2 : ℕ) ^ cut)\n    (hcut : p ^ (3 * (astart - 1)) < ((2 : ℕ) ^ cut - w) ^ 2)\n    {n r s h k A C : ℕ} (hnH : n < H) (hr : r ≤ w) (hs : s ≤ w)\n    (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hP : n - r = p ^ h * A) (hQ : n - s = q ^ k * C)\n    (hsmallA : A ^ 3 ≤ min (n - r) (n - s))\n    (hsmallC : C ^ 3 ≤ min (n - r) (n - s)) : n < (2 : ℕ) ^ cut"
+        },
+        {
+          "line": 51,
+          "header": "def pairCheck (p q w astart amax cut H : ℕ) (rows : List BlockDatum) : Bool"
+        },
+        {
+          "line": 59,
+          "header": "theorem pairCheck_sound {p q w astart amax cut H n r s h k A C : ℕ}\n    {rows : List BlockDatum} (hcheck : pairCheck p q w astart amax cut H rows = true)\n    (hnH : n < H) (hr : r ≤ w) (hs : s ≤ w) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hP : n - r = p ^ h * A) (hQ : n - s = q ^ k * C)\n    (hsmallA : A ^ 3 ≤ min (n - r) (n - s))\n    (hsmallC : C ^ 3 ≤ min (n - r) (n - s)) : n < (2 : ℕ) ^ cut"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CubicCover\\Composition.lean",
+      "sha256": "d796fcfda5351465af0cc8c1fa1d2608f6e0f3e9b538dc7114d373ba8edd75b0",
+      "declarations": [
+        {
+          "line": 19,
+          "header": "theorem coverageCheck_empty (p q w endpoint : ℕ) :\n    coverageCheck p q w endpoint endpoint [] = true"
+        },
+        {
+          "line": 24,
+          "header": "theorem coverageCheck_single (p q w : ℕ) (row : BlockDatum)\n    (hrow : blockCheck p q row.u row.L row.b0 w row.v = true) :\n    coverageCheck p q w row.u (row.u + row.L + 1) [row] = true"
+        },
+        {
+          "line": 31,
+          "header": "theorem coverageCheck_append (p q w : ℕ) (left right : List BlockDatum) :\n    ∀ {start mid stop : ℕ},\n      coverageCheck p q w start mid left = true →\n      coverageCheck p q w mid stop right = true →\n      coverageCheck p q w start stop (left ++ right) = true"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CrtPair\\Consumer.lean",
+      "sha256": "15945b01d609ba898d23c23741e826446f7fefabbf04f993f322ab10674aabe0",
+      "declarations": [
+        {
+          "line": 15,
+          "header": "structure BoundsDatum where"
+        },
+        {
+          "line": 20,
+          "header": "def pairBoundCheck (P Q v capA capC w : ℕ) (d : ℤ) (bounds : BoundsDatum) : Bool"
+        },
+        {
+          "line": 26,
+          "header": "theorem pairBoundCheck_parameters {P Q v capA capC w A C : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d) :\n    ∃ t : ℤ, 0 ≤ t ∧ bounds.lo ≤ t ∧ t ≤ bounds.hi ∧\n      (A : ℤ) = coordinateA Q v d t ∧ (C : ℤ) = coordinateC P Q v d t"
+        },
+        {
+          "line": 49,
+          "header": "theorem pairBoundCheck_empty {P Q v capA capC w A C : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hempty : bounds.hi < bounds.lo)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d) : False"
+        },
+        {
+          "line": 60,
+          "header": "theorem pairBoundCheck_upper_int {P Q v capA capC w A C n : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + w) :\n    (n : ℤ) ≤ upperValue P Q v w d bounds.hi"
+        },
+        {
+          "line": 74,
+          "header": "theorem pairBoundCheck_upper_nat {P Q v capA capC w A C n : ℕ} {d : ℤ}\n    {bounds : BoundsDatum} (hcheck : pairBoundCheck P Q v capA capC w d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + w) :\n    n ≤ (upperValue P Q v w d bounds.hi).toNat"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\I11SmallPrimes\\Components.lean",
+      "sha256": "a5814a27ae1d05257dc95d67b5e725e446fdedab103827ca45bc650ccaf8ab97",
+      "declarations": [
+        {
+          "line": 16,
+          "header": "def primeComponent (n p : ℕ) : ℕ"
+        },
+        {
+          "line": 18,
+          "header": "theorem i11_small_primes :\n    (Finset.range 11).filter Nat.Prime = ({2, 3, 5, 7} : Finset ℕ)"
+        },
+        {
+          "line": 22,
+          "header": "theorem smallPrimePart_eq_four_components (n : ℕ) :\n    smallPrimePart n 11 =\n      primeComponent n 2 * primeComponent n 3 * primeComponent n 5 * primeComponent n 7"
+        },
+        {
+          "line": 28,
+          "header": "theorem primeComponent_bounds {n p : ℕ} (hn : 11 ≤ n) (hp : p.Prime) :\n    1 ≤ primeComponent n p ∧ primeComponent n p ≤ n"
+        },
+        {
+          "line": 35,
+          "header": "theorem four_prime_components_bounds {n : ℕ} (hn : 11 ≤ n) :\n    ∀ p ∈ ({2, 3, 5, 7} : Finset ℕ), 1 ≤ primeComponent n p ∧ primeComponent n p ≤ n"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\I11SmallPrimes\\Window.lean",
+      "sha256": "a7665f34b746c0c9f9911afbd55002e25f076d31c95abbc161f9d4ad04930c16",
+      "declarations": [
+        {
+          "line": 15,
+          "header": "structure PrimeWindow (n p : ℕ) where"
+        },
+        {
+          "line": 22,
+          "header": "theorem primeWindow_nonempty {n p : ℕ} (hn : 11 ≤ n) (hp : p.Prime) :\n    Nonempty (PrimeWindow n p)"
+        },
+        {
+          "line": 47,
+          "header": "theorem component_power_mul_le {C A n Y weight exponent : ℕ}\n    (hproduct : C * A ≤ n) (hcofactor : Y ^ weight ≤ C ^ exponent) :\n    A ^ exponent * Y ^ weight ≤ n ^ exponent"
+        },
+        {
+          "line": 58,
+          "header": "theorem primeWindow_graph_capacity {n p Y weight : ℕ} (window : PrimeWindow n p)\n    (hcofactor : Y ^ weight ≤ window.cofactor ^ 1000) :\n    (primeComponent n p) ^ 1000 * Y ^ weight ≤ n ^ 1000"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\I11WeightedProduct\\Product.lean",
+      "sha256": "b0b88546e80ea6919ec1f90dc86213029599be81957fe057eadbe0bbc925f8d7",
+      "declarations": [
+        {
+          "line": 21,
+          "header": "theorem zero_weight_bound {n Y A : ℕ} (hA : A ≤ n) :\n    A ^ 1000 * Y ^ 0 ≤ n ^ 1000"
+        },
+        {
+          "line": 26,
+          "header": "theorem four_weighted_product_le {n Y A2 A3 A5 A7 : ℕ}\n    (w2 w3 w5 w7 : ℕ) (hY : 1 ≤ Y) (hsum : 640 ≤ w2 + w3 + w5 + w7)\n    (h2 : A2 ^ 1000 * Y ^ w2 ≤ n ^ 1000)\n    (h3 : A3 ^ 1000 * Y ^ w3 ≤ n ^ 1000)\n    (h5 : A5 ^ 1000 * Y ^ w5 ≤ n ^ 1000)\n    (h7 : A7 ^ 1000 * Y ^ w7 ≤ n ^ 1000) :\n    (A2 * A3 * A5 * A7) ^ 1000 * Y ^ 640 ≤ n ^ 4000"
+        },
+        {
+          "line": 51,
+          "header": "theorem i11_five_edges_product {n Y A2 A3 A5 A7 : ℕ}\n    (hY : 1 ≤ Y) (h2n : A2 ≤ n) (h3n : A3 ≤ n)\n    (h5n : A5 ≤ n) (h7n : A7 ≤ n)\n    (h25 : A2 ^ 1000 * Y ^ 248 ≤ n ^ 1000 ∨ A5 ^ 1000 * Y ^ 252 ≤ n ^ 1000)\n    (h72 : A7 ^ 1000 * Y ^ 60 ≤ n ^ 1000 ∨ A2 ^ 1000 * Y ^ 330 ≤ n ^ 1000)\n    (h32 : A3 ^ 1000 * Y ^ 226 ≤ n ^ 1000 ∨ A2 ^ 1000 * Y ^ 268 ≤ n ^ 1000)\n    (h53 : A5 ^ 1000 * Y ^ 354 ≤ n ^ 1000 ∨ A3 ^ 1000 * Y ^ 228 ≤ n ^ 1000)\n    (h57 : A5 ^ 1000 * Y ^ 352 ≤ n ^ 1000 ∨ A7 ^ 1000 * Y ^ 216 ≤ n ^ 1000) :\n    (A2 * A3 * A5 * A7) ^ 1000 * Y ^ 640 ≤ n ^ 4000"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\I11WeightedProduct\\Tail.lean",
+      "sha256": "997eb5b62822a35807413d4b049cd4867ad78cfc538720f78d3f999864fef8d7",
+      "declarations": [
+        {
+          "line": 22,
+          "header": "theorem arithmetic_tail_power_bound {n Y U C : ℕ}\n    (hn : 0 < n) (hnY : n ≤ 2 * Y)\n    (hbase : n ^ 121 ≤ C * U ^ 11 * n ^ 84)\n    (hproduct : U ^ 1000 * Y ^ 640 ≤ n ^ 4000) :\n    n ^ 40 ≤ C ^ 1000 * 2 ^ 7040"
+        },
+        {
+          "line": 55,
+          "header": "theorem i11_factorial_tail_constant_lt :\n    ((2 * Nat.factorial 11) ^ 11) ^ 1000 * 2 ^ 7040 < (2 : ℕ) ^ 304040"
+        },
+        {
+          "line": 71,
+          "header": "theorem i11_noCommon_false_of_product {n j Y : ℕ}\n    (hheight : (2 : ℕ) ^ 15360 ≤ n) (hij : 11 < j) (hjn : j ≤ n / 2)\n    (hnY : n ≤ 2 * Y)\n    (hproduct : (smallPrimePart n 11) ^ 1000 * Y ^ 640 ≤ n ^ 4000)\n    (hno : ¬ Common n 11 j) : False"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\I11Cubic\\ActualCubic.lean",
+      "sha256": "ed1af4b1a7173d5192d592ba4c91cf980b1887f4e0e58ff80e8dee920169059b",
+      "declarations": [
+        {
+          "line": 19,
+          "header": "theorem actual_i11_cubic_bridge {n j : ℕ}\n    (hn : (2 : ℕ) ^ 98 ≤ n) (hij : 11 < j) (hjn : j ≤ n / 2)\n    (hno : ¬ Common n 11 j) :\n    ∃ p q h k a b A C : ℕ,\n      p.Prime ∧ q.Prime ∧ p ∈ ({2, 3, 5, 7} : Finset ℕ) ∧\n      q ∈ ({2, 3, 5, 7} : Finset ℕ) ∧ p ≠ q ∧\n      h = (n.choose 11).factorization p ∧ k = (n.choose 11).factorization q ∧\n      0 < h ∧ 0 < k ∧ a < 11 ∧ b < 11 ∧ 1 ≤ A ∧ 1 ≤ C ∧\n      n - a = p ^ h * A ∧ n - b = q ^ k * C ∧\n      A ^ 3 ≤ min (n - a) (n - b) ∧ C ^ 3 ≤ min (n - a) (n - b) ∧\n      Nat.dist (n - a) (n - b) ≤ 10"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CrtGrid\\Cell.lean",
+      "sha256": "46b5dba8e7762f28a0c5598da9354c2c5882e775e73877f0e5890b41ef71788f",
+      "declarations": [
+        {
+          "line": 11,
+          "header": "structure CellData where"
+        },
+        {
+          "line": 15,
+          "header": "def rowCheck (P Q v capA capC T : ℕ) (d : ℤ) (bounds : BoundsDatum) : Bool"
+        },
+        {
+          "line": 19,
+          "header": "def shifts : List ℤ"
+        },
+        {
+          "line": 21,
+          "header": "def shiftCheck (P Q capA capC T : ℕ) (ds : List ℤ) (data : CellData) : Bool"
+        },
+        {
+          "line": 24,
+          "header": "def cellCheck (P Q capA capC T : ℕ) (data : CellData) : Bool"
+        },
+        {
+          "line": 27,
+          "header": "theorem rowCheck_sound {P Q v capA capC T A C n : ℕ} {d : ℤ} {bounds : BoundsDatum}\n    (hcheck : rowCheck P Q v capA capC T d bounds = true)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + 10) : n ≤ T"
+        },
+        {
+          "line": 37,
+          "header": "theorem rowCheck_mono_target {P Q v capA capC T T' : ℕ} {d : ℤ} {bounds : BoundsDatum}\n    (hcheck : rowCheck P Q v capA capC T d bounds = true) (hT : T ≤ T') :\n    rowCheck P Q v capA capC T' d bounds = true"
+        },
+        {
+          "line": 45,
+          "header": "theorem mem_shifts {d : ℤ} (hlo : -10 ≤ d) (hhi : d ≤ 10) : d ∈ shifts"
+        },
+        {
+          "line": 56,
+          "header": "theorem shiftCheck_append {P Q capA capC T : ℕ} {left right : List ℤ} {data : CellData}\n    (hl : shiftCheck P Q capA capC T left data = true)\n    (hr : shiftCheck P Q capA capC T right data = true) :\n    shiftCheck P Q capA capC T (left ++ right) data = true"
+        },
+        {
+          "line": 64,
+          "header": "theorem cellCheck_sound {P Q capA capC T A C n : ℕ} {d : ℤ} {data : CellData}\n    (hcheck : cellCheck P Q capA capC T data = true)\n    (hdlo : -10 ≤ d) (hdhi : d ≤ 10)\n    (hA : 1 ≤ A) (hC : 1 ≤ C) (hAcap : A ≤ capA) (hCcap : C ≤ capC)\n    (heq : (P : ℤ) * (A : ℤ) - (Q : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (P * A) (Q * C) + 10) : n ≤ T"
+        },
+        {
+          "line": 74,
+          "header": "theorem cellCheck_mono_target {P Q capA capC T T' : ℕ} {data : CellData}\n    (hcheck : cellCheck P Q capA capC T data = true) (hT : T ≤ T') :\n    cellCheck P Q capA capC T' data = true"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CrtGrid\\Grid.lean",
+      "sha256": "f5ff603661d00dbc36a12b4dce05a1e2ffdd303c693a5599bca5ff4077cd2adf",
+      "declarations": [
+        {
+          "line": 10,
+          "header": "def blockCheck (p q H M T aStart aCount bStart bCount : ℕ)\n    (data : ℕ → ℕ → CellData) : Bool"
+        },
+        {
+          "line": 16,
+          "header": "def rectangleCheck (p q H M T amax bmax : ℕ) (data : ℕ → ℕ → CellData) : Bool"
+        },
+        {
+          "line": 19,
+          "header": "theorem blockCheck_cell {p q H M T aStart aCount bStart bCount a b : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : blockCheck p q H M T aStart aCount bStart bCount data = true)\n    (ha0 : aStart ≤ a) (ha1 : a < aStart + aCount)\n    (hb0 : bStart ≤ b) (hb1 : b < bStart + bCount) :\n    cellCheck (p ^ a) (q ^ b) (heightCap H M (p ^ a)) (heightCap H M (q ^ b)) T (data a b) = true"
+        },
+        {
+          "line": 30,
+          "header": "theorem blockCheck_append_rows {p q H M T aStart leftCount rightCount bStart bCount : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hl : blockCheck p q H M T aStart leftCount bStart bCount data = true)\n    (hr : blockCheck p q H M T (aStart + leftCount) rightCount bStart bCount data = true) :\n    blockCheck p q H M T aStart (leftCount + rightCount) bStart bCount data = true"
+        },
+        {
+          "line": 39,
+          "header": "theorem blockCheck_append_columns {p q H M T aStart aCount bStart leftCount rightCount : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hl : blockCheck p q H M T aStart aCount bStart leftCount data = true)\n    (hr : blockCheck p q H M T aStart aCount (bStart + leftCount) rightCount data = true) :\n    blockCheck p q H M T aStart aCount bStart (leftCount + rightCount) data = true"
+        },
+        {
+          "line": 51,
+          "header": "theorem blockCheck_mono_target {p q H M T T' aStart aCount bStart bCount : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : blockCheck p q H M T aStart aCount bStart bCount data = true) (hT : T ≤ T') :\n    blockCheck p q H M T' aStart aCount bStart bCount data = true"
+        },
+        {
+          "line": 65,
+          "header": "theorem blockCheck_transfer_data {p q H M T aStart aCount bStart bCount : ℕ}\n    {data data' : ℕ → ℕ → CellData}\n    (hcheck : blockCheck p q H M T aStart aCount bStart bCount data = true)\n    (hdata : ∀ a, aStart ≤ a → a < aStart + aCount →\n      ∀ b, bStart ≤ b → b < bStart + bCount → data a b = data' a b) :\n    blockCheck p q H M T aStart aCount bStart bCount data' = true"
+        },
+        {
+          "line": 81,
+          "header": "theorem rectangleCheck_sound {p q H M T amax bmax a b A C n : ℕ} {d : ℤ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : rectangleCheck p q H M T amax bmax data = true)\n    (ha0 : 1 ≤ a) (ha1 : a ≤ amax) (hb0 : 1 ≤ b) (hb1 : b ≤ bmax)\n    (hdlo : -10 ≤ d) (hdhi : d ≤ 10) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hAcap : A ≤ heightCap H M (p ^ a)) (hCcap : C ≤ heightCap H M (q ^ b))\n    (heq : ((p ^ a : ℕ) : ℤ) * (A : ℤ) - ((q ^ b : ℕ) : ℤ) * (C : ℤ) = d)\n    (hn : n ≤ min (p ^ a * A) (q ^ b * C) + 10) : n ≤ T"
+        },
+        {
+          "line": 93,
+          "header": "theorem exponent_le_of_pow_lt {p a amax H : ℕ} (hp : 1 < p)\n    (hcut : H ≤ p ^ (amax + 1)) (hsmall : p ^ a < H) : a ≤ amax"
+        },
+        {
+          "line": 103,
+          "header": "theorem grid_windows_sound {p q H M T amax bmax a b A C n r s : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : rectangleCheck p q H M T amax bmax data = true)\n    (hp : 1 < p) (hq : 1 < q)\n    (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1))\n    (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)\n    (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hAM : A ≤ M) (hCM : C ≤ M)\n    (hP : n - r = p ^ a * A) (hQ : n - s = q ^ b * C) : n ≤ T"
+        },
+        {
+          "line": 128,
+          "header": "theorem grid_windows_sound_swapped {p q H M T amax bmax a b A C n r s : ℕ}\n    {data : ℕ → ℕ → CellData}\n    (hcheck : rectangleCheck p q H M T amax bmax data = true)\n    (hp : 1 < p) (hq : 1 < q)\n    (hcutP : H ≤ p ^ (amax + 1)) (hcutQ : H ≤ q ^ (bmax + 1))\n    (ha : 1 ≤ a) (hb : 1 ≤ b) (hnH : n < H)\n    (hr : r < 11) (hs : s < 11) (hA : 1 ≤ A) (hC : 1 ≤ C)\n    (hAM : A ≤ M) (hCM : C ≤ M)\n    (hP : n - r = q ^ b * A) (hQ : n - s = p ^ a * C) : n ≤ T"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\CrtGrid\\HeightCap.lean",
+      "sha256": "0001f7c2cddac643f07089bf72a61e338314310cb7bf0d43c14ba7d1bdfa813b",
+      "declarations": [
+        {
+          "line": 11,
+          "header": "def heightCap (H M P : ℕ) : ℕ"
+        },
+        {
+          "line": 13,
+          "header": "theorem height_cap_of_product_le {A P n H M : ℕ} (hP : 0 < P)\n    (hproduct : A * P ≤ n) (hnH : n < H) (hM : A ≤ M) : A ≤ heightCap H M P"
+        },
+        {
+          "line": 20,
+          "header": "theorem height_cap_of_window {A P n a H M : ℕ} (hP : 0 < P)\n    (hM : A ≤ M) (hnH : n < H) (heq : n - a = P * A) : A ≤ heightCap H M P"
+        },
+        {
+          "line": 30,
+          "header": "theorem power_lt_height_of_window {A P n a H : ℕ} (hA : 1 ≤ A)\n    (hnH : n < H) (heq : n - a = P * A) : P < H"
+        },
+        {
+          "line": 40,
+          "header": "theorem actual_window_height_cap {n p H M : ℕ} (window : PrimeWindow n p)\n    (hp : p.Prime) (hnH : n < H) (hM : window.cofactor ≤ M) :\n    window.cofactor ≤ heightCap H M (primeComponent n p)"
+        },
+        {
+          "line": 50,
+          "header": "theorem integer_window_links {n a b : ℕ} (ha : a < 11) (hb : b < 11) :\n    -(10 : ℤ) ≤ ((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ) ∧\n    ((n - a : ℕ) : ℤ) - ((n - b : ℕ) : ℤ) ≤ 10 ∧\n    n ≤ min (n - a) (n - b) + 10"
+        }
+      ]
+    },
+    {
+      "path": "D:\\CodingProject\\Math\\.tools\\worktrees\\b699-huan-5e2d13bb\\research\\tasks\\B699-Binomial\\runs\\20260911-low-index-lean-513dc7cc\\lean\\I11TerminalCover\\Witness.lean",
+      "sha256": "c178b354cacabd99db9c0c046048289e43fea7246ac3b1b71142c17521d6c638",
+      "declarations": [
+        {
+          "line": 12,
+          "header": "inductive Witness where"
+        },
+        {
+          "line": 17,
+          "header": "def witnessBounds : Witness → NatInterval\n  | .good segment => goodSegmentBounds segment\n  | .special330 => (330, 330)\n\ndef witnessCheck : Witness → Bool\n  | .good segment => goodSegmentCheck 11 3 7 segment\n  | .special330 => true\n\n/-- Every original legal j is handled. The prime threshold remains inclusive. -/\ntheorem witnessCheck_sound {w : Witness} (hcheck : witnessCheck w = true)\n    {n j : ℕ} (hIn : intervalMem n (witnessBounds w))\n    (hij : 11 < j) (hjn : j ≤ n / 2) : Common n 11 j"
+        },
+        {
+          "line": 21,
+          "header": "def witnessCheck : Witness → Bool\n  | .good segment => goodSegmentCheck 11 3 7 segment\n  | .special330 => true\n\n/-- Every original legal j is handled. The prime threshold remains inclusive. -/\ntheorem witnessCheck_sound {w : Witness} (hcheck : witnessCheck w = true)\n    {n j : ℕ} (hIn : intervalMem n (witnessBounds w))\n    (hij : 11 < j) (hjn : j ≤ n / 2) : Common n 11 j"
+        },
+        {
+          "line": 26,
+          "header": "theorem witnessCheck_sound {w : Witness} (hcheck : witnessCheck w = true)\n    {n j : ℕ} (hIn : intervalMem n (witnessBounds w))\n    (hij : 11 < j) (hjn : j ≤ n / 2) : Common n 11 j"
+        }
+      ]
+    }
+  ],
+  "warning": "Presence of a declaration is not its acceptance; consult the separately checked receipts and the generic/specialized classification in REPORT."
+}

@@ -1,0 +1,101 @@
+{
+  "status": "FROZEN_NOT_INTEGRATED_NOT_COMPILED",
+  "frozen_utc": "2026-09-12T08:54:13.985089+00:00",
+  "files": [
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-terminal-checker-monotonicity-5e2d13bb/Cover.lean",
+      "source_in_package": "Cover.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/Cover.lean",
+      "sha256": "a50564af33e7f136da41bb42e7173a4f6de3434dd185549561cc8ef87f18b561",
+      "bytes": 3377,
+      "copy_mode": "exact_bytes_imports_already_targeted"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-terminal-checker-monotonicity-5e2d13bb/ACover.lean",
+      "source_in_package": "ACover.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ACover.lean",
+      "sha256": "f9343f43cb590713e9121accb5ddabf243c6f31bc704f1e5ea6b0229e2a428f9",
+      "bytes": 1905,
+      "copy_mode": "exact_bytes_imports_already_targeted"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-terminal-checker-monotonicity-5e2d13bb/RowCell.lean",
+      "source_in_package": "RowCell.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/RowCell.lean",
+      "sha256": "a9c4d630772b42ace501bef0dd595946f6eeb3ff7a94283620e6c2abdeb2a201",
+      "bytes": 2967,
+      "copy_mode": "exact_bytes_imports_already_targeted"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-terminal-checker-monotonicity-5e2d13bb/ARowCell.lean",
+      "source_in_package": "ARowCell.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ARowCell.lean",
+      "sha256": "6ecf2827283d74ae3621864e734a0975137be381c378df45be74f25e7b29f5c3",
+      "bytes": 2578,
+      "copy_mode": "exact_bytes_imports_already_targeted"
+    },
+    {
+      "source": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-terminal-checker-monotonicity-5e2d13bb/Audit.lean",
+      "source_in_package": "Audit.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/Audit.lean",
+      "sha256": "e648665c83c80a95710b8e24f825104c3a741e30da20eaa2c61c81dcf75095b4",
+      "bytes": 4197,
+      "copy_mode": "exact_bytes_imports_already_targeted"
+    }
+  ],
+  "serial_stages": [
+    {
+      "order": 1,
+      "audit_root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ACover.lean",
+      "core": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/Cover.lean",
+      "public_roots": [
+        "Math.B699.I11TerminalMono.coverCheck_empty_interval",
+        "Math.B699.I11TerminalMono.coverCheck_append",
+        "Math.B699.I11TerminalMono.coverCheck_of_isPrefix",
+        "Math.B699.I11TerminalMono.coverCheck_take",
+        "Math.B699.I11TerminalMono.sublist_counterexample",
+        "Math.B699.I11TerminalMono.not_coverCheck_sublist_mono"
+      ],
+      "expected_axiom_roots": 6,
+      "serial_only": true
+    },
+    {
+      "order": 2,
+      "audit_root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ARowCell.lean",
+      "core": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/RowCell.lean",
+      "public_roots": [
+        "Math.B699.I11TerminalMono.rowCoverCheck_append",
+        "Math.B699.I11TerminalMono.rowCoverCheck_of_isPrefix",
+        "Math.B699.I11TerminalMono.rowCoverCheck_take",
+        "Math.B699.I11TerminalMono.cellCoverCheck_append",
+        "Math.B699.I11TerminalMono.cellCoverCheck_of_isPrefix",
+        "Math.B699.I11TerminalMono.cellCoverCheck_take"
+      ],
+      "expected_axiom_roots": 6,
+      "serial_only": true
+    },
+    {
+      "order": 3,
+      "audit_root": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/Audit.lean",
+      "expected_axiom_roots": 12,
+      "serial_only": true
+    }
+  ],
+  "scope": "Prefix extension only; arbitrary Sublist implication is formally refuted in candidate",
+  "primary_consumer": "apply Math.B699.I11TerminalMono.cellCoverCheck_take candidates k; decide +kernel",
+  "consumer_effect": "Same original cellCoverCheck, P/Q/caps/data/21 shifts/global candidates; only the concrete premise uses candidates.take k",
+  "unchanged_original_definitions": [
+    "B699LowIndex.coverCheck",
+    "Math.B699.I11TerminalCRT.rowCoverCheck",
+    "Math.B699.I11TerminalCRT.cellCoverCheck"
+  ],
+  "runner": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_huan.py",
+  "resource_policy": "Use parent's serial runner and unchanged guards; no Lean executed by this worker",
+  "required_checks": [
+    "Fresh exact-source compilation and all12 transitive-axiom roots",
+    "Source/log/olean/toolchain/commands tied by the existing run verifier",
+    "Then a separately chosen failed-cell short-prefix pilot at the parent's resource budget",
+    "Do not claim global runtime repair or B699 acceptance from this helper alone"
+  ],
+  "repair_rule": "Preserve this frozen package; integrated repairs receive new hashes and evidence"
+}

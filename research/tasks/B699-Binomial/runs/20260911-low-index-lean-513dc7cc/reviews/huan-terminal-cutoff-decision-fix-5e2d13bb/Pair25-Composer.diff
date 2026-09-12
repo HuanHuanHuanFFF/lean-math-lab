@@ -1,0 +1,12 @@
+--- before
++++ after
+@@ -228,7 +228,8 @@
+   have hprop : 1 < (2 : ℕ) ∧ 1 < (5 : ℕ) ∧
+       Stage04.H ≤ (2 : ℕ) ^ (24 + 1) ∧ Stage04.H ≤ (5 : ℕ) ^ (10 + 1) :=
+     ⟨by decide, by decide, hp, hq⟩
+-  simpa only [cutoffCheck, pairData] using (decide_eq_true hprop)
++  simp only [cutoffCheck, decide_eq_true_eq]
++  exact hprop
+ 
+ theorem pair_check : pairGridCoverCheck 2 5 Stage04.H Stage04.M pairData candidates = true := by
+   exact pairGridCoverCheck_of_parts cutoff_check

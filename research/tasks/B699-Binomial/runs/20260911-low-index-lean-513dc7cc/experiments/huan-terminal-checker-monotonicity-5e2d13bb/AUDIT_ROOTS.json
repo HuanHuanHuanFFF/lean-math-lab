@@ -1,0 +1,125 @@
+{
+  "status": "UNCOMPILED",
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "public_roots": [
+    {
+      "name": "Math.B699.I11TerminalMono.coverCheck_empty_interval",
+      "kind": "theorem",
+      "type": "∀ (lo hi : ℕ) (cs : List NatInterval) (h : hi < lo),\n  coverCheck lo hi cs = true",
+      "source": "Cover.lean",
+      "audit": "ACover.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.coverCheck_append",
+      "kind": "theorem",
+      "type": "∀ (prefix suffix : List NatInterval),\n  ∀ lo hi : ℕ, coverCheck lo hi prefix = true →\n      coverCheck lo hi (prefix ++ suffix) = true",
+      "source": "Cover.lean",
+      "audit": "ACover.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.coverCheck_of_isPrefix",
+      "kind": "theorem",
+      "type": "∀ (lo hi : ℕ) (small large : List NatInterval)\n    (hprefix : small.IsPrefix large) (hcheck : coverCheck lo hi small = true),\n  coverCheck lo hi large = true",
+      "source": "Cover.lean",
+      "audit": "ACover.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.coverCheck_take",
+      "kind": "theorem",
+      "type": "∀ (lo hi : ℕ) (cs : List NatInterval) (k : ℕ)\n    (hcheck : coverCheck lo hi (cs.take k) = true),\n  coverCheck lo hi cs = true",
+      "source": "Cover.lean",
+      "audit": "ACover.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.sublist_counterexample",
+      "kind": "theorem",
+      "type": "([(1, 1)] : List NatInterval).Sublist [(2, 2), (1, 1)] ∧\n    coverCheck 1 1 [(1, 1)] = true ∧\n    coverCheck 1 1 [(2, 2), (1, 1)] = false",
+      "source": "Cover.lean",
+      "audit": "ACover.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.not_coverCheck_sublist_mono",
+      "kind": "theorem",
+      "type": "¬ (∀ (lo hi : ℕ) (small large : List NatInterval), small.Sublist large →\n      coverCheck lo hi small = true → coverCheck lo hi large = true)",
+      "source": "Cover.lean",
+      "audit": "ACover.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.rowCoverCheck_append",
+      "kind": "theorem",
+      "type": "∀ {P Q v capA capC : ℕ} {d : ℤ} {bounds : BoundsDatum}\n    (prefix suffix : List NatInterval)\n    (hcheck : rowCoverCheck P Q v capA capC d bounds prefix = true),\n  rowCoverCheck P Q v capA capC d bounds (prefix ++ suffix) = true",
+      "source": "RowCell.lean",
+      "audit": "ARowCell.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.rowCoverCheck_of_isPrefix",
+      "kind": "theorem",
+      "type": "∀ {P Q v capA capC : ℕ} {d : ℤ} {bounds : BoundsDatum}\n    (small large : List NatInterval) (hprefix : small.IsPrefix large)\n    (hcheck : rowCoverCheck P Q v capA capC d bounds small = true),\n  rowCoverCheck P Q v capA capC d bounds large = true",
+      "source": "RowCell.lean",
+      "audit": "ARowCell.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.rowCoverCheck_take",
+      "kind": "theorem",
+      "type": "∀ {P Q v capA capC : ℕ} {d : ℤ} {bounds : BoundsDatum}\n    (cs : List NatInterval) (k : ℕ)\n    (hcheck : rowCoverCheck P Q v capA capC d bounds (cs.take k) = true),\n  rowCoverCheck P Q v capA capC d bounds cs = true",
+      "source": "RowCell.lean",
+      "audit": "ARowCell.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.cellCoverCheck_append",
+      "kind": "theorem",
+      "type": "∀ {P Q capA capC : ℕ} {data : CellData}\n    (prefix suffix : List NatInterval)\n    (hcheck : cellCoverCheck P Q capA capC data prefix = true),\n  cellCoverCheck P Q capA capC data (prefix ++ suffix) = true",
+      "source": "RowCell.lean",
+      "audit": "ARowCell.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.cellCoverCheck_of_isPrefix",
+      "kind": "theorem",
+      "type": "∀ {P Q capA capC : ℕ} {data : CellData}\n    (small large : List NatInterval) (hprefix : small.IsPrefix large)\n    (hcheck : cellCoverCheck P Q capA capC data small = true),\n  cellCoverCheck P Q capA capC data large = true",
+      "source": "RowCell.lean",
+      "audit": "ARowCell.lean"
+    },
+    {
+      "name": "Math.B699.I11TerminalMono.cellCoverCheck_take",
+      "kind": "theorem",
+      "type": "∀ {P Q capA capC : ℕ} {data : CellData}\n    (cs : List NatInterval) (k : ℕ)\n    (hcheck : cellCoverCheck P Q capA capC data (cs.take k) = true),\n  cellCoverCheck P Q capA capC data cs = true",
+      "source": "RowCell.lean",
+      "audit": "ARowCell.lean"
+    }
+  ],
+  "module_map": [
+    {
+      "source": "Cover.lean",
+      "audit": "ACover.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/Cover.lean",
+      "audit_target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ACover.lean",
+      "public_roots": [
+        "Math.B699.I11TerminalMono.coverCheck_empty_interval",
+        "Math.B699.I11TerminalMono.coverCheck_append",
+        "Math.B699.I11TerminalMono.coverCheck_of_isPrefix",
+        "Math.B699.I11TerminalMono.coverCheck_take",
+        "Math.B699.I11TerminalMono.sublist_counterexample",
+        "Math.B699.I11TerminalMono.not_coverCheck_sublist_mono"
+      ]
+    },
+    {
+      "source": "RowCell.lean",
+      "audit": "ARowCell.lean",
+      "target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/RowCell.lean",
+      "audit_target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ARowCell.lean",
+      "public_roots": [
+        "Math.B699.I11TerminalMono.rowCoverCheck_append",
+        "Math.B699.I11TerminalMono.rowCoverCheck_of_isPrefix",
+        "Math.B699.I11TerminalMono.rowCoverCheck_take",
+        "Math.B699.I11TerminalMono.cellCoverCheck_append",
+        "Math.B699.I11TerminalMono.cellCoverCheck_of_isPrefix",
+        "Math.B699.I11TerminalMono.cellCoverCheck_take"
+      ]
+    }
+  ],
+  "aggregate_target": "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/Audit.lean"
+}

@@ -1,0 +1,30 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T220606515485Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/ActualAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCrt/ActualAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:06:47.460016Z
+# finished_utc: 2026-09-11T22:06:55.990566Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.actual_i11_candidateMem (data : Math.B699.I11CRTSixPair.SixPairGrids) {n j H M : ℕ}
+  {candidates : List B699LowIndex.NatInterval} (hconstants : Math.B699.I11CRTSixPair.stageConstantsCheck H M = true)
+  (check23 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 3 H M data.grid23 candidates = true)
+  (check25 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 5 H M data.grid25 candidates = true)
+  (check27 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 7 H M data.grid27 candidates = true)
+  (check35 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 5 H M data.grid35 candidates = true)
+  (check37 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 7 H M data.grid37 candidates = true)
+  (check57 : Math.B699.I11TerminalCRT.pairGridCoverCheck 5 7 H M data.grid57 candidates = true)
+  (hsmall : B699LowIndex.coverCheck 24 (max M 109) candidates = true) (hij : 11 < j) (hjn : j ≤ n / 2)
+  (hno : ¬B699LargePrimeStructure.Common n 11 j) (hnH : n < H) : B699LowIndex.I11TerminalCover.candidateMem n candidates
+'Math.B699.I11TerminalCRT.actual_i11_candidateMem' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.common_of_terminal_grid_checks (data : Math.B699.I11CRTSixPair.SixPairGrids) {n j H M : ℕ}
+  {candidates : List B699LowIndex.NatInterval} {witnesses : List B699LowIndex.I11TerminalCover.Witness}
+  (hconstants : Math.B699.I11CRTSixPair.stageConstantsCheck H M = true)
+  (check23 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 3 H M data.grid23 candidates = true)
+  (check25 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 5 H M data.grid25 candidates = true)
+  (check27 : Math.B699.I11TerminalCRT.pairGridCoverCheck 2 7 H M data.grid27 candidates = true)
+  (check35 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 5 H M data.grid35 candidates = true)
+  (check37 : Math.B699.I11TerminalCRT.pairGridCoverCheck 3 7 H M data.grid37 candidates = true)
+  (check57 : Math.B699.I11TerminalCRT.pairGridCoverCheck 5 7 H M data.grid57 candidates = true)
+  (hsmall : B699LowIndex.coverCheck 24 (max M 109) candidates = true)
+  (hwitness : B699LowIndex.I11TerminalCover.candidateIntervalsCheck candidates witnesses = true) (hij : 11 < j)
+  (hjn : j ≤ n / 2) (hnH : n < H) : B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCRT.common_of_terminal_grid_checks' depends on axioms: [propext, Classical.choice, Quot.sound]

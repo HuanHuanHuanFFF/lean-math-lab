@@ -1,0 +1,83 @@
+{
+  "status": "candidate_only",
+  "purpose": "i=11 cubic exponent blocks: preserve the old H=2^4096 source rows and propose only a H=2^15360 continuation",
+  "pade_construction_interface": {
+    "BlockDatum": {
+      "u": "Nat exponent start K",
+      "L": "Nat length",
+      "b0": "Nat modulus exponent B",
+      "v": "Nat inverse witness parsed from inverse_hex"
+    },
+    "coverageCheck": "coverageCheck p q w start stop rows",
+    "w": "old D field (i-1), here 10",
+    "start": "first_exponent; for high rows this is old max_exponent + 1",
+    "stop": "max_exponent + 1",
+    "H": "source_height_bits means 2^H; old=4096 and candidate=15360",
+    "cut": "small_exponent_height_bits; retained from old source and checked independently",
+    "rho": "r = Int.toNat (((v : Int) * d) % (Q : Int)); raw zero is represented by Q in the independent Python checker",
+    "signed_offsets": "d = -10,...,10, exactly 21 checks per block"
+  },
+  "old_field_mapping": {
+    "D": "w",
+    "source_height_bits": "H bit exponent",
+    "first_exponent": "astart",
+    "max_exponent": "amax",
+    "small_exponent_height_bits": "cut",
+    "blocks[].K": "BlockDatum.u",
+    "blocks[].L": "BlockDatum.L",
+    "blocks[].B": "BlockDatum.b0",
+    "blocks[].inverse_hex": "BlockDatum.v"
+  },
+  "pairs": [
+    {
+      "p": 2,
+      "q": 3,
+      "old_amax": 4095,
+      "high_astart": 4096,
+      "high_amax": 15359,
+      "old_cut": 68
+    },
+    {
+      "p": 2,
+      "q": 5,
+      "old_amax": 4095,
+      "high_astart": 4096,
+      "high_amax": 15359,
+      "old_cut": 66
+    },
+    {
+      "p": 2,
+      "q": 7,
+      "old_amax": 4095,
+      "high_astart": 4096,
+      "high_amax": 15359,
+      "old_cut": 65
+    },
+    {
+      "p": 3,
+      "q": 5,
+      "old_amax": 2584,
+      "high_astart": 2585,
+      "high_amax": 9691,
+      "old_cut": 75
+    },
+    {
+      "p": 3,
+      "q": 7,
+      "old_amax": 2584,
+      "high_astart": 2585,
+      "high_amax": 9691,
+      "old_cut": 75
+    },
+    {
+      "p": 5,
+      "q": 7,
+      "old_amax": 1764,
+      "high_astart": 1765,
+      "high_amax": 6615,
+      "old_cut": 109
+    }
+  ],
+  "low_branch": "The complete low interval through astart-1 is represented by the old source row's cut inequality; discarded_failure_exponents are retained as provenance and are not used as a coverage filter.",
+  "lean_table": "CubicBlockExtensionTable.lean defines rows_p_q, coverageCheck, blockCheck, signedChecks and allHighChains; it is a candidate source and was not run."
+}

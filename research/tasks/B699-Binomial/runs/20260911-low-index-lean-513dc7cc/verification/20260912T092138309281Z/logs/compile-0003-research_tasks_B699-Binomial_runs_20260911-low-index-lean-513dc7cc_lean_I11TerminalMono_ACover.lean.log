@@ -1,0 +1,49 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T092138309281Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ACover.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalMono/ACover.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T09:22:26.936227Z
+# finished_utc: 2026-09-12T09:22:34.091386Z
+# exit_code: 0
+# timed_out: False
+coverCheck_empty_interval : ∀ (lo hi : ℕ) (cs : List NatInterval), hi < lo → coverCheck lo hi cs = true
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\I11TerminalMono\ACover.lean:8:102: warning: Variable name `h` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _h
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Math.B699.I11TerminalMono.coverCheck_empty_interval' depends on axioms: [propext]
+coverCheck_append : ∀ (front suffix : List NatInterval) (lo hi : ℕ),
+  coverCheck lo hi front = true → coverCheck lo hi (front ++ suffix) = true
+'Math.B699.I11TerminalMono.coverCheck_append' depends on axioms: [propext]
+coverCheck_of_isPrefix : ∀ (lo hi : ℕ) (small large : List NatInterval),
+  small <+: large → coverCheck lo hi small = true → coverCheck lo hi large = true
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\I11TerminalMono\ACover.lean:18:5: warning: Variable name `hprefix` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hprefix
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\I11TerminalMono\ACover.lean:18:38: warning: Variable name `hcheck` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hcheck
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Math.B699.I11TerminalMono.coverCheck_of_isPrefix' depends on axioms: [propext]
+coverCheck_take : ∀ (lo hi : ℕ) (cs : List NatInterval) (k : ℕ),
+  coverCheck lo hi (List.take k cs) = true → coverCheck lo hi cs = true
+PROJECT_ROOT\research\tasks\B699-Binomial\runs\20260911-low-index-lean-513dc7cc\lean\I11TerminalMono\ACover.lean:23:5: warning: Variable name `hcheck` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hcheck
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Math.B699.I11TerminalMono.coverCheck_take' depends on axioms: [propext]
+sublist_counterexample : [(1, 1)].Sublist [(2, 2), (1, 1)] ∧
+  coverCheck 1 1 [(1, 1)] = true ∧ coverCheck 1 1 [(2, 2), (1, 1)] = false
+'Math.B699.I11TerminalMono.sublist_counterexample' does not depend on any axioms
+not_coverCheck_sublist_mono : ¬∀ (lo hi : ℕ) (small large : List NatInterval),
+    small.Sublist large → coverCheck lo hi small = true → coverCheck lo hi large = true
+'Math.B699.I11TerminalMono.not_coverCheck_sublist_mono' does not depend on any axioms
+def B699LowIndex.coverCheck : ℕ → ℕ → List NatInterval → Bool :=
+fun lo hi x => List.brecOn (motive := fun x => ℕ → Bool) x (coverCheck._f hi) lo

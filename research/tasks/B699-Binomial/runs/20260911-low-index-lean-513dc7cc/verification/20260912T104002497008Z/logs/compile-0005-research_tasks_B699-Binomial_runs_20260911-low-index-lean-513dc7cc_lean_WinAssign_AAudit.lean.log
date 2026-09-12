@@ -1,0 +1,53 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T104002497008Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WinAssign/AAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/WinAssign/AAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T10:41:02.261370Z
+# finished_utc: 2026-09-12T10:41:11.929015Z
+# exit_code: 0
+# timed_out: False
+Math.B699.WindowPrimeAssignment.primeSupport : ℕ → ℕ → Finset ℕ
+'Math.B699.WindowPrimeAssignment.primeSupport' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.primeComponent : ℕ → ℕ → ℕ → ℕ
+'Math.B699.WindowPrimeAssignment.primeComponent' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.assignedIndex : (n k : ℕ) → 1 ≤ k → k ≤ n → ℕ → ℕ
+'Math.B699.WindowPrimeAssignment.assignedIndex' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.choose_ne_zero : ∀ (n k : ℕ), k ≤ n → n.choose k ≠ 0
+'Math.B699.WindowPrimeAssignment.choose_ne_zero' depends on axioms: [propext]
+Math.B699.WindowPrimeAssignment.supported_prime : ∀ (n k p : ℕ),
+  p ∈ Math.B699.WindowPrimeAssignment.primeSupport n k → Nat.Prime p
+'Math.B699.WindowPrimeAssignment.supported_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.supported_exponent_pos : ∀ (n k p : ℕ),
+  p ∈ Math.B699.WindowPrimeAssignment.primeSupport n k → 0 < (n.choose k).factorization p
+'Math.B699.WindowPrimeAssignment.supported_exponent_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.component_pos : ∀ (n k p : ℕ),
+  p ∈ Math.B699.WindowPrimeAssignment.primeSupport n k → 0 < Math.B699.WindowPrimeAssignment.primeComponent n k p
+'Math.B699.WindowPrimeAssignment.component_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.components_coprime : ∀ (n k p q : ℕ),
+  p ∈ Math.B699.WindowPrimeAssignment.primeSupport n k →
+    q ∈ Math.B699.WindowPrimeAssignment.primeSupport n k →
+      p ≠ q →
+        (Math.B699.WindowPrimeAssignment.primeComponent n k p).Coprime
+          (Math.B699.WindowPrimeAssignment.primeComponent n k q)
+'Math.B699.WindowPrimeAssignment.components_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.assigned_index_spec : ∀ (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) (p : ℕ),
+  Nat.Prime p →
+    Math.B699.WindowPrimeAssignment.assignedIndex n k hk hkn p < k ∧
+      p ^ ((n.choose k).factorization p + k.factorization p) ∣
+        n - Math.B699.WindowPrimeAssignment.assignedIndex n k hk hkn p
+'Math.B699.WindowPrimeAssignment.assigned_index_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.component_dvd_assigned_window : ∀ (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) (p : ℕ),
+  Nat.Prime p →
+    Math.B699.WindowPrimeAssignment.primeComponent n k p ∣
+      n - Math.B699.WindowPrimeAssignment.assignedIndex n k hk hkn p
+'Math.B699.WindowPrimeAssignment.component_dvd_assigned_window' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+Math.B699.WindowPrimeAssignment.components_product : ∀ (n k : ℕ),
+  k ≤ n →
+    ∏ p ∈ Math.B699.WindowPrimeAssignment.primeSupport n k, Math.B699.WindowPrimeAssignment.primeComponent n k p =
+      n.choose k
+'Math.B699.WindowPrimeAssignment.components_product' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.WindowPrimeAssignment.assigned_index_spec : ∀ (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n) (p : ℕ),
+  Nat.Prime p →
+    Math.B699.WindowPrimeAssignment.assignedIndex n k hk hkn p < k ∧
+      p ^ ((n.choose k).factorization p + k.factorization p) ∣
+        n - Math.B699.WindowPrimeAssignment.assignedIndex n k hk hkn p

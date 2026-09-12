@@ -1,0 +1,87 @@
+{
+  "namespace": "Math.B699.I11InitialHeight",
+  "fixed_index": 11,
+  "original_Common": "exists prime p with11<=p and p divides gcd(choose(n,11),choose(n,j))",
+  "original_domain": [
+    "n,j:Nat",
+    "11<j",
+    "j<=n/2",
+    "not Common n11j"
+  ],
+  "actual_product": "smallPrimePart n11 = X2*X3*X5*X7, Xp=p^v_p(choose(n,11))",
+  "actual_Ap_bounds": "constructed from positive PrimeWindow cofactor, no external bound",
+  "actual_edges": [
+    [
+      2,
+      5,
+      248,
+      252
+    ],
+    [
+      7,
+      2,
+      60,
+      330
+    ],
+    [
+      3,
+      2,
+      226,
+      268
+    ],
+    [
+      5,
+      3,
+      354,
+      228
+    ],
+    [
+      5,
+      7,
+      352,
+      216
+    ]
+  ],
+  "Y": "ceilHalf n=(n+1)/2",
+  "Y_bounds": "1<=Y at high n; n<=2Y for all n",
+  "proof_route": [
+    "Assume n>=2^15360 only inside the contradiction.",
+    "Obtain all five actual raw component edges and four actual component upper bounds.",
+    "Apply all32-choice product theorem and substitute actual smallPrimePart identity.",
+    "Apply original noCommon_bernoulli_size tail via i11_noCommon_false_of_product; exponent gap40 yields contradiction.",
+    "Conclude n<2^15360 under only original hij/hjn/hno.",
+    "Supply this proved initial height to accepted full six-pair actual compression, concluding n<2^109."
+  ],
+  "final_roots": [
+    "Math.B699.I11InitialHeight.actual_i11_below_15360",
+    "Math.B699.I11InitialHeight.actual_i11_below_109"
+  ],
+  "no_external_final_inputs": [
+    "trees",
+    "numeric certificates",
+    "HeightValid",
+    "five edges",
+    "Ap<=n",
+    "U identity",
+    "product bound",
+    "initial height"
+  ],
+  "pending_acceptance": [
+    "three-two/five-seven final consumers and their amended upstream selectors",
+    "Product/Tail v15 checks",
+    "this own four-module assembly"
+  ],
+  "known_parent_owned_checks": [
+    "Tail has legacy explicit Nat.pow_pos exponents; parent waits for actual diagnostics and repairs integrated source only.",
+    "Remaining upstream selectors require double-Nat annotation normalization; FiveSeven basis_seven added in integrated copy; final public APIs unchanged."
+  ],
+  "proposed_self_target": "lean/I11InitialHeight/{WindowBounds,Product,Height,Compression}",
+  "component_import_targets": {
+    "ThreeTwo": "lean/I11ThreeTwoFinal/Component.lean",
+    "FiveSeven": "lean/I11FiveSevenFinal/Component.lean"
+  },
+  "expected_frontier_if_verified": "i11 counterexamples with unbounded n -> only n<2^109 with original j-domain; finite CRT and terminal certificates still required",
+  "actual_frontier_now": "own candidate not compiled; no original B count increase",
+  "new_Lean_invocations": 0,
+  "new_original_B_results": 0
+}

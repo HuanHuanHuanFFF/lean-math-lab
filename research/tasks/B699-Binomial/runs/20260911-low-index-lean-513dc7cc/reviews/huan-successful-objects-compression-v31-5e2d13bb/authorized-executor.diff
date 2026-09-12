@@ -1,0 +1,31 @@
+--- previous-fixed-binding
++++ authorized-current-binding
+@@ -27,8 +27,8 @@
+ WORKTREE = RUN.parents[4]
+ VERIFICATION = RUN / "verification"
+ TOOLS = WORKTREE / ".tools" / "20260911-low-index-lean-513dc7cc"
+-PLAN = OUT / "fixed-plan.json"
+-PLAN_SHA256 = "d38587420eeac24c7fd78f48e2a93d263dfa82a1e27a37b544fa50d37f09b3b4"
++PLAN = OUT / "authorized-plan-current.json"
++PLAN_SHA256 = "9a568f09c07ab5625779993ac917eb9498bb07db8f0c161fa516e0ac6b757125"
+ RUN_ID = "20260911-low-index-lean-513dc7cc"
+ 
+ 
+@@ -226,7 +226,7 @@
+     }
+     if actual_allowlist != planned_allowlist:
+         raise RuntimeError("complete selected path allowlist changed")
+-    cutoff = plan["scope"]["v31_object_cutoff_timestamp"]
++    cutoff = plan["scope"]["object_cutoff_timestamp"]
+     for item in selected:
+         links = item.get("links", [])
+         if not links:
+@@ -378,7 +378,7 @@
+         link_enumeration_error = None
+         try:
+             current_links = ended_same_identity_links(
+-                file_id(path), plan["scope"]["v31_object_cutoff_timestamp"]
++                file_id(path), plan["scope"]["object_cutoff_timestamp"]
+             )
+             if {str(link) for link in current_links} != {str(link) for link in link_paths}:
+                 raise RuntimeError("same-identity link set changed")

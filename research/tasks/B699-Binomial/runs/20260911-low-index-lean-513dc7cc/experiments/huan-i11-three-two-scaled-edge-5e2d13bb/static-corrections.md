@@ -1,0 +1,1 @@
+Static review found a retained I11DivisorSevenTwo namespace in the content_lower call, while the import and all row indices were already ThreeTwo. Corrected to the read actual API Math.B699.I11DivisorThreeTwo.qContent_lower before freeze. No accepted or frozen file was edited. No Lean run or mathematical counterexample occurred.

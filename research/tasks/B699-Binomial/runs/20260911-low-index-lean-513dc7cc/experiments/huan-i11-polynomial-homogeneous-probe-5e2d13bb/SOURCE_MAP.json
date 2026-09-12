@@ -1,0 +1,68 @@
+{
+  "owner": "/root/pade_construction",
+  "scope": "One fixed ThreeTwo ELeaf001; no other leaf generated or changed",
+  "target_original_namespace": "Math.B699.I11ThreeTwoGrowth.ELeaf001",
+  "candidate_namespace": "Math.B699.I11ELeaf001Homogeneous",
+  "replacement_namespace": "Math.B699.I11ELeaf001Replacement",
+  "target": "Polynomial.C lam - localCore = gapExpansion",
+  "constants": {
+    "c": 23,
+    "d": 15,
+    "z": "1/9",
+    "leafA": "1/4",
+    "leafB": "3/8",
+    "degree": 38,
+    "lam": "46880976166089921083/79228162514264337593543950336",
+    "denominator": "894045416874100774833775661901846480420864",
+    "scaledLambda": "529025545333459515807345893179392"
+  },
+  "homogeneous_identity": "K*(x+y)^38-(3*x+2*y)^15*(5*x+6*y)^15*(69*x+70*y)^8=sum(A_k*x^k*y^(38-k))",
+  "denominator_identity": "D=8^30*72^8",
+  "coefficient_identity": "A_k=D*gapCoeff_k; gapCoeff_k=(lambda-coreBernsteinCoeff_k)*choose(38,k)",
+  "dehomogenization": "y=1-x; x+y=1; exact source affine t=(3*x+2*(1-x))/8; denominator nonzero proved",
+  "data_prefix_exact": "Original prefix before seed_parameter_bounds, only namespace renamed and final namespace end added",
+  "replacement_exact": "Original file, only namespace renamed, one helper import prepended and actual_gap_eq proof body replaced",
+  "source_correspondence_checks": {
+    "data_prefix_exact": true,
+    "replacement_exact": true,
+    "all39_integer_coefficients_match": true,
+    "original_JSON_mapping_match": true,
+    "no_original_leaf_import": true
+  },
+  "candidate_layers": [
+    {
+      "module": "Data",
+      "sha256": "6a67a866c6d04dcf16e063b4ba032a9089ff4961e9d7717141e6b4f73279d087"
+    },
+    {
+      "module": "Homogeneous",
+      "sha256": "1a1fb895a90b160bf0e518c5269ade178a14003c695fc07c2d3e1fb4a515f51d"
+    },
+    {
+      "module": "Reduction",
+      "sha256": "63ad2d3169fe4427b6eca5ddd9c4c9f9ea3db9c52ffdd34b47effc6cc0c2c3fc"
+    },
+    {
+      "module": "ReplacementLeaf",
+      "sha256": "9315b5a5f5d319e40e964fc5dc2dd8a95d93b8461adb69fcf0d478bd15c72ce6"
+    }
+  ],
+  "audit_order": [
+    "HomogeneousAudit.lean",
+    "ReductionAudit.lean",
+    "ReplacementLeafAudit.lean",
+    "Audit.lean"
+  ],
+  "candidate_status": "UNCOMPILED; no Lean invocations; no measured object-size or memory reduction",
+  "parent_reported_baseline": {
+    "same_original_source_sha256": "5e33a2f774a4f1fdf57e8bd9809483fc58c4123d478854d679fb9925d4887629",
+    "1536_MiB": "kernel OOM at actual_gap_eq",
+    "3072_MiB": "complete acceptance reported by parent",
+    "seconds": 20.822,
+    "new_object_MiB": 14.358,
+    "axioms": "within std3",
+    "evidence_boundary": "parent status message, not a benchmark of this candidate"
+  },
+  "next_check": "Optional serialized HomogeneousAudit then ReductionAudit then ReplacementLeafAudit under parent verification; compare peak memory/object sizes only after actual success",
+  "frontier": "No change to mathematical coverage; original leaf already accepted at 3072 MiB. This is a bounded optional resource fallback."
+}

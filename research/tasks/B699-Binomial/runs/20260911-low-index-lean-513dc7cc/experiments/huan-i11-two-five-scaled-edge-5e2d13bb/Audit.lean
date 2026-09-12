@@ -1,0 +1,36 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».experiments.«huan-i11-two-five-scaled-edge-5e2d13bb».FixedEdge
+
+#print axioms Math.B699.I11TwoFiveScaled.twoFiveZ_gt_one
+#print axioms Math.B699.I11TwoFiveScaled.index_ge_M
+#print axioms Math.B699.I11TwoFiveScaled.index_ge_m0
+#print axioms Math.B699.I11TwoFiveScaled.extract_same_index
+#print axioms Math.B699.I11TwoFiveScaled.contentBase_pos
+#print axioms Math.B699.I11TwoFiveScaled.content_lower
+#print axioms Math.B699.I11TwoFiveScaled.q_content_identity
+#print axioms Math.B699.I11TwoFiveScaled.e_content_identity
+#print axioms Math.B699.I11TwoFiveScaled.actual_q_content_bound
+#print axioms Math.B699.I11TwoFiveScaled.actual_e_content_bound
+#print axioms Math.B699.I11TwoFiveScaled.actual_integer_gap
+#print axioms Math.B699.I11TwoFiveScaled.fixed_bases_pos
+#print axioms Math.B699.I11TwoFiveScaled.geometric_majorant
+#print axioms Math.B699.I11TwoFiveScaled.actual_q_growth_of_tree
+#print axioms Math.B699.I11TwoFiveScaled.actual_e_growth_of_tree
+#print axioms Math.B699.I11TwoFiveScaled.standard_bounds_from_fixed_trees
+#print axioms Math.B699.I11TwoFiveScaled.qRate_eq_seed
+#print axioms Math.B699.I11TwoFiveScaled.actual_q_gap_twice_lt
+#print axioms Math.B699.I11TwoFiveScaled.actual_e_gap_twice_lt
+#print axioms Math.B699.I11TwoFiveScaled.actual_integer_gap_sum_lt
+#print axioms Math.B699.I11TwoFiveScaled.fixed_initial_q_cap
+#print axioms Math.B699.I11TwoFiveScaled.fixed_initial_e_cap
+#print axioms Math.B699.I11TwoFiveScaled.fixed_qRate_ge_one
+#print axioms Math.B699.I11TwoFiveScaled.fixed_wRate_ge_Z
+#print axioms Math.B699.I11TwoFiveScaled.edge_of_actual_growth
+#print axioms Math.B699.I11TwoFiveScaled.two_five_edge_of_fixed_certificates
+#print axioms Math.B699.I11TwoFiveScaled.twoFiveIndex
+#print axioms Math.B699.I11TwoFiveScaled.content
+#print axioms Math.B699.I11TwoFiveScaled.qRow
+#print axioms Math.B699.I11TwoFiveScaled.rowError
+#print axioms Math.B699.I11TwoFiveScaled.qLambda
+#print axioms Math.B699.I11TwoFiveScaled.eLambda
+#print axioms Math.B699.I11TwoFiveScaled.qRate
+#print axioms Math.B699.I11TwoFiveScaled.wRate

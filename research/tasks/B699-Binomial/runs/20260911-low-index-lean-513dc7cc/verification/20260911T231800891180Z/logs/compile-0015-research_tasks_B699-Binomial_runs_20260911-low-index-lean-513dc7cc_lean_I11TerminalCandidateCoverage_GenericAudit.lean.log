@@ -1,0 +1,48 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T231800891180Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/GenericAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/GenericAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T23:18:43.079902Z
+# finished_utc: 2026-09-11T23:18:51.594144Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCandidateCoverage.IntervalSound : B699LowIndex.NatInterval → Prop
+'Math.B699.I11TerminalCandidateCoverage.IntervalSound' depends on axioms: [propext]
+Math.B699.I11TerminalCandidateCoverage.IntervalsSound : List B699LowIndex.NatInterval → Prop
+'Math.B699.I11TerminalCandidateCoverage.IntervalsSound' depends on axioms: [propext]
+Math.B699.I11TerminalCandidateCoverage.intervals_sound_nil : Math.B699.I11TerminalCandidateCoverage.IntervalsSound []
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_nil' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.intervals_sound_cons : ∀ {I : B699LowIndex.NatInterval}
+  {intervals : List B699LowIndex.NatInterval},
+  Math.B699.I11TerminalCandidateCoverage.IntervalSound I →
+    Math.B699.I11TerminalCandidateCoverage.IntervalsSound intervals →
+      Math.B699.I11TerminalCandidateCoverage.IntervalsSound (I :: intervals)
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_cons' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.intervals_sound_append : ∀ {left right : List B699LowIndex.NatInterval},
+  Math.B699.I11TerminalCandidateCoverage.IntervalsSound left →
+    Math.B699.I11TerminalCandidateCoverage.IntervalsSound right →
+      Math.B699.I11TerminalCandidateCoverage.IntervalsSound (left ++ right)
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_append' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.interval_sound_of_witness_checks : ∀
+  {witnesses : List B699LowIndex.I11TerminalCover.Witness} {lo hi : ℕ},
+  B699LowIndex.I11TerminalCover.witnessesCheck witnesses = true →
+    B699LowIndex.coverCheck lo hi (B699LowIndex.I11TerminalCover.witnessIntervals witnesses) = true →
+      Math.B699.I11TerminalCandidateCoverage.IntervalSound (lo, hi)
+'Math.B699.I11TerminalCandidateCoverage.interval_sound_of_witness_checks' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.interval_sound_of_interval_cover : ∀ {intervals : List B699LowIndex.NatInterval}
+  {lo hi : ℕ},
+  Math.B699.I11TerminalCandidateCoverage.IntervalsSound intervals →
+    B699LowIndex.coverCheck lo hi intervals = true → Math.B699.I11TerminalCandidateCoverage.IntervalSound (lo, hi)
+'Math.B699.I11TerminalCandidateCoverage.interval_sound_of_interval_cover' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.intervals_sound_congr : ∀ {left right : List B699LowIndex.NatInterval},
+  left = right →
+    Math.B699.I11TerminalCandidateCoverage.IntervalsSound left →
+      Math.B699.I11TerminalCandidateCoverage.IntervalsSound right
+'Math.B699.I11TerminalCandidateCoverage.intervals_sound_congr' depends on axioms: [propext]
+@Math.B699.I11TerminalCandidateCoverage.common_of_sound_candidates : ∀ {intervals : List B699LowIndex.NatInterval}
+  {n j : ℕ},
+  Math.B699.I11TerminalCandidateCoverage.IntervalsSound intervals →
+    B699LowIndex.I11TerminalCover.candidateMem n intervals → 11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCandidateCoverage.common_of_sound_candidates' depends on axioms: [propext]

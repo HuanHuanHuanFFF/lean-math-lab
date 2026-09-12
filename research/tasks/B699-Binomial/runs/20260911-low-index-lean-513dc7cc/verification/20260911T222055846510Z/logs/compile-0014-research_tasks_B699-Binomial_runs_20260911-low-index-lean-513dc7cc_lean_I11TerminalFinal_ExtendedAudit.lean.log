@@ -1,0 +1,26 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T222055846510Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/ExtendedAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalFinal/ExtendedAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T22:21:36.452607Z
+# finished_utc: 2026-09-11T22:21:45.134642Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCRT.extendedCandidates (cs : List B699LowIndex.NatInterval) : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCRT.extendedCandidates' does not depend on any axioms
+Math.B699.I11TerminalCRT.legal_n_ge24 {n j : ℕ} (hij : 11 < j) (hjn : j ≤ n / 2) : 24 ≤ n
+'Math.B699.I11TerminalCRT.legal_n_ge24' depends on axioms: [propext, Quot.sound]
+Math.B699.I11TerminalCRT.candidateMem_extended {n : ℕ} {cs : List B699LowIndex.NatInterval}
+  (hmember : B699LowIndex.I11TerminalCover.candidateMem n cs) :
+  B699LowIndex.I11TerminalCover.candidateMem n (Math.B699.I11TerminalCRT.extendedCandidates cs)
+'Math.B699.I11TerminalCRT.candidateMem_extended' does not depend on any axioms
+Math.B699.I11TerminalCRT.candidateMem_of_extended_ge24 {n : ℕ} {cs : List B699LowIndex.NatInterval}
+  (hmember : B699LowIndex.I11TerminalCover.candidateMem n (Math.B699.I11TerminalCRT.extendedCandidates cs))
+  (hn : 24 ≤ n) : B699LowIndex.I11TerminalCover.candidateMem n cs
+'Math.B699.I11TerminalCRT.candidateMem_of_extended_ge24' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.candidateMem_of_extended_legal {n j : ℕ} {cs : List B699LowIndex.NatInterval}
+  (hmember : B699LowIndex.I11TerminalCover.candidateMem n (Math.B699.I11TerminalCRT.extendedCandidates cs))
+  (hij : 11 < j) (hjn : j ≤ n / 2) : B699LowIndex.I11TerminalCover.candidateMem n cs
+'Math.B699.I11TerminalCRT.candidateMem_of_extended_legal' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCRT.smallCoverCheck_extended (M : ℕ) (cs : List B699LowIndex.NatInterval) :
+  B699LowIndex.coverCheck 24 (max M 109) (Math.B699.I11TerminalCRT.extendedCandidates cs) =
+    B699LowIndex.coverCheck 24 (max M 109) cs
+'Math.B699.I11TerminalCRT.smallCoverCheck_extended' depends on axioms: [propext, Quot.sound]

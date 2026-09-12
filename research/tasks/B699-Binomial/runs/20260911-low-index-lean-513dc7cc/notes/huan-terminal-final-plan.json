@@ -1,0 +1,45 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T22:14:26.200615+00:00",
+  "status": "prepared_not_running",
+  "new_B_original_results": 0,
+  "jobs": [
+    {
+      "name": "i11-terminal-extended",
+      "root": "lean/I11TerminalFinal/ExtendedAudit.lean",
+      "source_sha256": "b828d99c1b4fcfc9fd6475a5cf80ff71c3a2ad31f7ef51ba3dbae39926d7cf90",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-cover-consumer.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-final",
+      "root": "lean/I11TerminalFinal/FinalAudit.lean",
+      "source_sha256": "2bd0ed1acad7b7406f41370ad33f1aeadc4e1ff1d4d25573607cc2a6bcfc0dd0",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-extended.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-crt-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-extended-examples",
+      "root": "lean/I11TerminalFinal/ExamplesAudit.lean",
+      "source_sha256": "06fe9a2df5195c90d48bd8ad31c8837c912a0a65aca9c0e97ec6dd6ca76fa7ae",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-final.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-extended-full-audit",
+      "root": "lean/I11TerminalFinal/Audit.lean",
+      "source_sha256": "0add9961c5bfa5f5268dc6b055a712ad17ce65e3ffe1e0a0568f43abbab2fd2f",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-extended-examples.json"
+      ],
+      "memory_mb": 1536
+    }
+  ]
+}

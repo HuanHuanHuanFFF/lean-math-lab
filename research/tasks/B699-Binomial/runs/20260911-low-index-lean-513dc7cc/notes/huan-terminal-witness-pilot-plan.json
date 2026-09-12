@@ -1,0 +1,36 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-11T21:33:54.529209+00:00",
+  "status": "prepared_not_running",
+  "new_B_original_results": 0,
+  "jobs": [
+    {
+      "name": "i11-terminal-witness-append",
+      "root": "lean/I11TerminalCover/Append.lean",
+      "source_sha256": "552d92e24da2faba1b22a6e63eac4ea6e5834715ac765379368eb63dec82434f",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-cover-consumer.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-witness-chunk000",
+      "root": "lean/I11TerminalData/Chunk000.lean",
+      "source_sha256": "3a451b55c6def04a7922820c7cf8a473b972b848e018ed5e62f7246bd30a710b",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-append.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-pilot.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i11-terminal-witness-group000",
+      "root": "lean/I11TerminalData/Group000.lean",
+      "source_sha256": "7cd63006f328f39a2de6c3e0e73a087a49bad01a6d4242ed57264cdd9877855f",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-terminal-witness-chunk000.json"
+      ],
+      "memory_mb": 1536
+    }
+  ]
+}

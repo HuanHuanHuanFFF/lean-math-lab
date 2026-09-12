@@ -1,0 +1,34 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260912T085111592828Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/AssemblyAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCandidateCoverage/AssemblyAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-12T08:52:38.600452Z
+# finished_utc: 2026-09-12T08:52:46.676812Z
+# exit_code: 0
+# timed_out: False
+Math.B699.I11TerminalCandidateCoverage.allIntervals : List B699LowIndex.NatInterval
+'Math.B699.I11TerminalCandidateCoverage.allIntervals' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.allIntervals_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalCandidateCoverage.allIntervals
+'Math.B699.I11TerminalCandidateCoverage.allIntervals_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+Math.B699.I11TerminalCandidateCoverage.original_candidates_eq : Math.B699.I11TerminalMembership.originalCandidates =
+  Math.B699.I11TerminalCandidateCoverage.allIntervals
+'Math.B699.I11TerminalCandidateCoverage.original_candidates_eq' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.candidate_count : Math.B699.I11TerminalCandidateCoverage.allIntervals.length =
+  1055
+'Math.B699.I11TerminalCandidateCoverage.candidate_count' does not depend on any axioms
+Math.B699.I11TerminalCandidateCoverage.originalCandidates_sound : Math.B699.I11TerminalCandidateCoverage.IntervalsSound
+  Math.B699.I11TerminalMembership.originalCandidates
+'Math.B699.I11TerminalCandidateCoverage.originalCandidates_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.common_of_original_candidates : ∀ {n j : ℕ},
+  B699LowIndex.I11TerminalCover.candidateMem n Math.B699.I11TerminalMembership.originalCandidates →
+    11 < j → j ≤ n / 2 → B699LargePrimeStructure.Common n 11 j
+'Math.B699.I11TerminalCandidateCoverage.common_of_original_candidates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+@Math.B699.I11TerminalCandidateCoverage.prime_of_original_candidates : ∀ {n j : ℕ},
+  B699LowIndex.I11TerminalCover.candidateMem n Math.B699.I11TerminalMembership.originalCandidates →
+    11 < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ 11 ≤ p ∧ p ∣ (n.choose 11).gcd (n.choose j)
+'Math.B699.I11TerminalCandidateCoverage.prime_of_original_candidates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

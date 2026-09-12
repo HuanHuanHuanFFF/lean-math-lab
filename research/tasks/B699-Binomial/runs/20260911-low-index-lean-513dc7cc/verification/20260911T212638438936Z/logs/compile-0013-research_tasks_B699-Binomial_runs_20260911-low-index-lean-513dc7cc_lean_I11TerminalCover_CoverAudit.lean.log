@@ -1,0 +1,53 @@
+# command: LEAN -j1 -M1536 -DautoImplicit=false -DrelaxedAutoImplicit=false --root=PROJECT_ROOT -o .tools/20260911-low-index-lean-513dc7cc/20260911T212638438936Z/olean/research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCover/CoverAudit.olean research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/I11TerminalCover/CoverAudit.lean
+# cwd: PROJECT_ROOT
+# started_utc: 2026-09-11T21:27:15.385569Z
+# finished_utc: 2026-09-11T21:27:23.931893Z
+# exit_code: 0
+# timed_out: False
+B699LowIndex.I11TerminalCover.witnessIntervals (witnesses : List B699LowIndex.I11TerminalCover.Witness) :
+  List B699LowIndex.NatInterval
+'B699LowIndex.I11TerminalCover.witnessIntervals' does not depend on any axioms
+B699LowIndex.I11TerminalCover.witnessesCheck (witnesses : List B699LowIndex.I11TerminalCover.Witness) : Bool
+'B699LowIndex.I11TerminalCover.witnessesCheck' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.witnessCoverCheck (lo hi : ℕ) (witnesses : List B699LowIndex.I11TerminalCover.Witness) :
+  Bool
+'B699LowIndex.I11TerminalCover.witnessCoverCheck' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.candidateIntervalsCheck (candidate_intervals : List B699LowIndex.NatInterval)
+  (witnesses : List B699LowIndex.I11TerminalCover.Witness) : Bool
+'B699LowIndex.I11TerminalCover.candidateIntervalsCheck' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.candidateMem (n : ℕ) (candidate_intervals : List B699LowIndex.NatInterval) : Prop
+'B699LowIndex.I11TerminalCover.candidateMem' does not depend on any axioms
+B699LowIndex.I11TerminalCover.checked_witnesses_cover {witnesses : List B699LowIndex.I11TerminalCover.Witness}
+  (hchecks : B699LowIndex.I11TerminalCover.witnessesCheck witnesses = true) {n j : ℕ} {I : B699LowIndex.NatInterval}
+  (hI : I ∈ B699LowIndex.I11TerminalCover.witnessIntervals witnesses) (hIn : B699LowIndex.intervalMem n I)
+  (hij : 11 < j) (hjn : j ≤ n / 2) : B699LargePrimeStructure.Common n 11 j
+'B699LowIndex.I11TerminalCover.checked_witnesses_cover' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.common_of_cover_checks {witnesses : List B699LowIndex.I11TerminalCover.Witness}
+  {lo hi n j : ℕ} (hchecks : B699LowIndex.I11TerminalCover.witnessesCheck witnesses = true)
+  (hcover : B699LowIndex.coverCheck lo hi (B699LowIndex.I11TerminalCover.witnessIntervals witnesses) = true)
+  (hlo : lo ≤ n) (hhi : n ≤ hi) (hij : 11 < j) (hjn : j ≤ n / 2) : B699LargePrimeStructure.Common n 11 j
+'B699LowIndex.I11TerminalCover.common_of_cover_checks' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.witnessCoverCheck_sound {witnesses : List B699LowIndex.I11TerminalCover.Witness}
+  {lo hi n j : ℕ} (hcheck : B699LowIndex.I11TerminalCover.witnessCoverCheck lo hi witnesses = true) (hlo : lo ≤ n)
+  (hhi : n ≤ hi) (hij : 11 < j) (hjn : j ≤ n / 2) : B699LargePrimeStructure.Common n 11 j
+'B699LowIndex.I11TerminalCover.witnessCoverCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.candidateIntervalsCheck_member {candidate_intervals : List B699LowIndex.NatInterval}
+  {witnesses : List B699LowIndex.I11TerminalCover.Witness} {I : B699LowIndex.NatInterval} {n j : ℕ}
+  (hcheck : B699LowIndex.I11TerminalCover.candidateIntervalsCheck candidate_intervals witnesses = true)
+  (hI : I ∈ candidate_intervals) (hIn : B699LowIndex.intervalMem n I) (hij : 11 < j) (hjn : j ≤ n / 2) :
+  B699LargePrimeStructure.Common n 11 j
+'B699LowIndex.I11TerminalCover.candidateIntervalsCheck_member' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+B699LowIndex.I11TerminalCover.candidateIntervalsCheck_sound {candidate_intervals : List B699LowIndex.NatInterval}
+  {witnesses : List B699LowIndex.I11TerminalCover.Witness} {n j : ℕ}
+  (hcheck : B699LowIndex.I11TerminalCover.candidateIntervalsCheck candidate_intervals witnesses = true)
+  (hmember : B699LowIndex.I11TerminalCover.candidateMem n candidate_intervals) (hij : 11 < j) (hjn : j ≤ n / 2) :
+  B699LargePrimeStructure.Common n 11 j
+'B699LowIndex.I11TerminalCover.candidateIntervalsCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699LowIndex.I11TerminalCover.candidateIntervalsCheck_prime {candidate_intervals : List B699LowIndex.NatInterval}
+  {witnesses : List B699LowIndex.I11TerminalCover.Witness} {n j : ℕ}
+  (hcheck : B699LowIndex.I11TerminalCover.candidateIntervalsCheck candidate_intervals witnesses = true)
+  (hmember : B699LowIndex.I11TerminalCover.candidateMem n candidate_intervals) (hij : 11 < j) (hjn : j ≤ n / 2) :
+  ∃ p, Nat.Prime p ∧ 11 ≤ p ∧ p ∣ (n.choose 11).gcd (n.choose j)
+'B699LowIndex.I11TerminalCover.candidateIntervalsCheck_prime' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,26 @@
+=== reproduce_generate_thresholds.log ===
+BRIDGE (5, 7, 14) m0 1431 -> 608 rows 823 minmargin 644255445774279139/200000000000000000
+BRIDGE (9, 12, 20) m0 499 -> 25 rows 474 minmargin 430231029698796757/500000000000000000
+BRIDGE (5, 6, 15) m0 499 -> 228 rows 271 minmargin 1977998883982920551/500000000000000000
+BRIDGE (8, 8, 13) m0 499 -> 39 rows 460 minmargin 82224204007193701/200000000000000000
+BRIDGE (9, 11, 18) m0 499 -> 63 rows 436 minmargin 7365569869773867513/500000000000000000
+BRIDGE (10, 15, 19) m0 499 -> 40 rows 459 minmargin 4536411988746166417/1000000000000000000
+
+=== reproduce_verify_consumers.log ===
+{"status": "PASS_FRESH_ENDPOINT_AND_BOUNDED_CONSUMER_REGRESSION", "endpoint_rows": 32, "endpoint_tail_thresholds": {"4": 20, "10": 40}, "negative_tests_rejected": ["missing_endpoint", "composite_witness", "invalid_tail"], "bounded_consumers": {"3": {"rows": 34, "triples": 3534, "max_n": 800}, "9": {"rows": 118, "triples": 15947, "max_n": 800}}, "upstream_A_B_reverified": false, "new_full_indices": 0, "lean": false}
+
+=== reproduce_verify_pade_divisor_interface.log ===
+{"bridge_rows": 2923, "prime_power_records": 609501, "status": "PASS_TRANSPORT_FREE_PADE_FINITE_BRIDGE", "negative_tests_rejected": ["missing_accepted_m", "unsupported_exponent", "empty_product"], "depends_on_exact_G_formula": false, "depends_on_transport": false, "old_infinite_tail_adopted_not_reverified": true, "lean": false, "seconds": 5.582}
+
+=== reproduce_verify_structures.log ===
+PASS source + transport 20416
+PASS positive 40425
+PASS pade 15625 witnesses 4001
+PASS shared 13824
+PASS generalized 660
+{"source_manifest_files": 177, "transport_instances_two_implementations": 20416, "rejected_unsaturated_table": 1, "positive_content_full_square_indices": 40425, "pade_raw_coefficient_gcd": 15625, "pade_constructive_prime_witnesses": 4001, "shared_content_triples_with_quotient_bounds": 13824, "generalized_raw_content": 1946, "generalized_defect_ladders": 660, "status": "PASS_FRESH_BOUNDED_REGRESSION", "lean": false, "seconds": 2.795}
+
+=== reproduce_verify_thresholds.log ===
+PASS independent bridge {'raw_rows': 3926, 'accepted_bridge_rows': 2923, 'families': 6}
+{"raw_rows": 3926, "accepted_bridge_rows": 2923, "families": 6, "status": "PASS_FRESH_FINITE_BRIDGE_CHECK", "negative_tests_rejected": ["missing_row", "extra_prime_power", "classification", "artificially_lowered_m0", "source_boundary"], "prime_limit": 18603, "prime_count": 2128, "seconds": 19.487, "tail_reverified": false, "lean": false}
+

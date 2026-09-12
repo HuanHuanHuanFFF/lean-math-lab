@@ -1,0 +1,46 @@
+--- before
++++ after
+@@ -86,27 +86,27 @@
+ def pilotData : ℕ → ℕ → CellData :=
+   fun a b =>
+     if a = 105 ∧ b = 65 then cellA105B65
+-    if a = 105 ∧ b = 66 then cellA105B66
+-    if a = 105 ∧ b = 67 then cellA105B67
+-    if a = 105 ∧ b = 68 then cellA105B68
+-    if a = 106 ∧ b = 65 then cellA106B65
+-    if a = 106 ∧ b = 66 then cellA106B66
+-    if a = 106 ∧ b = 67 then cellA106B67
+-    if a = 106 ∧ b = 68 then cellA106B68
+-    if a = 107 ∧ b = 65 then cellA107B65
+-    if a = 107 ∧ b = 66 then cellA107B66
+-    if a = 107 ∧ b = 67 then cellA107B67
+-    if a = 107 ∧ b = 68 then cellA107B68
+-    if a = 108 ∧ b = 65 then cellA108B65
+-    if a = 108 ∧ b = 66 then cellA108B66
+-    if a = 108 ∧ b = 67 then cellA108B67
+-    if a = 108 ∧ b = 68 then cellA108B68
++    else if a = 105 ∧ b = 66 then cellA105B66
++    else if a = 105 ∧ b = 67 then cellA105B67
++    else if a = 105 ∧ b = 68 then cellA105B68
++    else if a = 106 ∧ b = 65 then cellA106B65
++    else if a = 106 ∧ b = 66 then cellA106B66
++    else if a = 106 ∧ b = 67 then cellA106B67
++    else if a = 106 ∧ b = 68 then cellA106B68
++    else if a = 107 ∧ b = 65 then cellA107B65
++    else if a = 107 ∧ b = 66 then cellA107B66
++    else if a = 107 ∧ b = 67 then cellA107B67
++    else if a = 107 ∧ b = 68 then cellA107B68
++    else if a = 108 ∧ b = 65 then cellA108B65
++    else if a = 108 ∧ b = 66 then cellA108B66
++    else if a = 108 ∧ b = 67 then cellA108B67
++    else if a = 108 ∧ b = 68 then cellA108B68
+     else outsideCell
+ 
+ theorem block_check :
+     blockCheck 2 3 stageH stageM stageT
+       105 4 65 4 pilotData = true := by
+-  decide
++  decide +kernel
+ 
+ end Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68
+ #print axioms Math.B699.CRTGrid.PilotStage0_23_A105to108_B65to68.block_check

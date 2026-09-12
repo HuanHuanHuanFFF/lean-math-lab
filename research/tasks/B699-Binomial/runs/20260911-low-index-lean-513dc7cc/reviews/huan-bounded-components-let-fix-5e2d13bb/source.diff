@@ -1,0 +1,11 @@
+--- before
++++ candidate
+@@ -24,7 +24,7 @@
+   have hcard : S.card = 4 := i11_smallPrimeCount
+   have hS : S.Nonempty := Finset.card_pos.mp (by rw [hcard]; decide)
+   have hsmall : S.prod (primeComponent n) = smallPrimePart n 11 := by
+-    simpa only [primeComponent] using Eq.symm (small_prime_part_eq_prod_small_primes n 11)
++    simpa only [S, primeComponent] using Eq.symm (small_prime_part_eq_prod_small_primes n 11)
+   have hproduct : S.prod f = M ^ 4 * smallPrimePart n 11 := by
+     dsimp only [f]
+     rw [Finset.prod_mul_distrib]

@@ -1,0 +1,56 @@
+{
+  "kind": "source_bound_b_prerequisite_queue",
+  "created_utc": "2026-09-12T04:18:50.983682+00:00",
+  "status": "prepared_not_running",
+  "jobs": [
+    {
+      "name": "i13-weighted-window-generic",
+      "root": "lean/I13Weight/GAudit.lean",
+      "source_sha256": "453dbb7fea4f0a565d4d8f57f5c0cd0542be4105f3a2968350ba405cb810d5d9",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/window-assignment-full-audit.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-weighted-two-windows",
+      "root": "lean/I13Weight/WAudit.lean",
+      "source_sha256": "923eee695e6d713bddb3548331b8f90b301c32613f5ccb42a973cf92216dd7a2",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-weighted-actual-positions",
+      "root": "lean/I13Weight/PAudit.lean",
+      "source_sha256": "1934b49d05c587fc65127120ea472e1702a73b93d6bc584b10a21619988a6ced",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/window-assignment-full-audit.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i11-actual-cubic-bridge.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-weighted-actual-transfer",
+      "root": "lean/I13Weight/TAudit.lean",
+      "source_sha256": "3ec604aa362154dc5017021dc3d0aceb33f70a28edceca9763244553e250f66b",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-weighted-window-generic.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-weighted-two-windows.json",
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-weighted-actual-positions.json"
+      ],
+      "memory_mb": 1536
+    },
+    {
+      "name": "i13-weighted-full-audit",
+      "root": "lean/I13Weight/Audit.lean",
+      "source_sha256": "b42e4a3fbb7b1ed396f2b19d23887b3deefbd78b9a070c299ab01eb303109975",
+      "reuse": [
+        "research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/huan-prerequisites/i13-weighted-actual-transfer.json"
+      ],
+      "memory_mb": 1536
+    }
+  ],
+  "new_B_original_results": 0
+}

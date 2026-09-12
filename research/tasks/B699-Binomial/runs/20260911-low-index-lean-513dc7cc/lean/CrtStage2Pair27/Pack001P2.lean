@@ -1,0 +1,282 @@
+import research.tasks.«B699-Binomial».runs.«20260911-low-index-lean-513dc7cc».lean.CrtStage2Pair27.Chunk001Data
+import Mathlib.Tactic.IntervalCases
+
+/-! UNCOMPILED direct-cell candidate; no row-wide decide. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 5000000
+set_option exponentiation.threshold 512
+
+namespace Math.B699.CRTStage2Pair27.Chunk001
+open Math.B699.CRTGrid
+open B699LowIndex.I11CrtStageMetadata
+
+theorem cellA13B1_check :
+    cellCheck (2 ^ 13) (7 ^ 1)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 1)) Stage02.upper cellA13B1 = true := by
+  decide +kernel
+
+theorem cellA13B2_check :
+    cellCheck (2 ^ 13) (7 ^ 2)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 2)) Stage02.upper cellA13B2 = true := by
+  decide +kernel
+
+theorem cellA13B3_check :
+    cellCheck (2 ^ 13) (7 ^ 3)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 3)) Stage02.upper cellA13B3 = true := by
+  decide +kernel
+
+theorem cellA13B4_check :
+    cellCheck (2 ^ 13) (7 ^ 4)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 4)) Stage02.upper cellA13B4 = true := by
+  decide +kernel
+
+theorem cellA13B5_check :
+    cellCheck (2 ^ 13) (7 ^ 5)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 5)) Stage02.upper cellA13B5 = true := by
+  decide +kernel
+
+theorem cellA13B6_check :
+    cellCheck (2 ^ 13) (7 ^ 6)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 6)) Stage02.upper cellA13B6 = true := by
+  decide +kernel
+
+theorem cellA13B7_check :
+    cellCheck (2 ^ 13) (7 ^ 7)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 7)) Stage02.upper cellA13B7 = true := by
+  decide +kernel
+
+theorem cellA13B8_check :
+    cellCheck (2 ^ 13) (7 ^ 8)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 8)) Stage02.upper cellA13B8 = true := by
+  decide +kernel
+
+theorem cellA13B9_check :
+    cellCheck (2 ^ 13) (7 ^ 9)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 9)) Stage02.upper cellA13B9 = true := by
+  decide +kernel
+
+theorem cellA13B10_check :
+    cellCheck (2 ^ 13) (7 ^ 10)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 10)) Stage02.upper cellA13B10 = true := by
+  decide +kernel
+
+theorem cellA13B11_check :
+    cellCheck (2 ^ 13) (7 ^ 11)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 11)) Stage02.upper cellA13B11 = true := by
+  decide +kernel
+
+theorem cellA13B12_check :
+    cellCheck (2 ^ 13) (7 ^ 12)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 12)) Stage02.upper cellA13B12 = true := by
+  decide +kernel
+
+theorem cellA13B13_check :
+    cellCheck (2 ^ 13) (7 ^ 13)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ 13)) Stage02.upper cellA13B13 = true := by
+  decide +kernel
+
+theorem rowA13_cell_check (b : ℕ) (hb0 : 1 ≤ b) (hb1 : b ≤ 13) :
+    cellCheck (2 ^ 13) (7 ^ b)
+      (heightCap Stage02.H Stage02.M (2 ^ 13))
+      (heightCap Stage02.H Stage02.M (7 ^ b)) Stage02.upper (rowA13 b) = true := by
+  interval_cases b
+  · simpa only [show rowA13 1 = cellA13B1 from rfl] using cellA13B1_check
+  · simpa only [show rowA13 2 = cellA13B2 from rfl] using cellA13B2_check
+  · simpa only [show rowA13 3 = cellA13B3 from rfl] using cellA13B3_check
+  · simpa only [show rowA13 4 = cellA13B4 from rfl] using cellA13B4_check
+  · simpa only [show rowA13 5 = cellA13B5 from rfl] using cellA13B5_check
+  · simpa only [show rowA13 6 = cellA13B6 from rfl] using cellA13B6_check
+  · simpa only [show rowA13 7 = cellA13B7 from rfl] using cellA13B7_check
+  · simpa only [show rowA13 8 = cellA13B8 from rfl] using cellA13B8_check
+  · simpa only [show rowA13 9 = cellA13B9 from rfl] using cellA13B9_check
+  · simpa only [show rowA13 10 = cellA13B10 from rfl] using cellA13B10_check
+  · simpa only [show rowA13 11 = cellA13B11 from rfl] using cellA13B11_check
+  · simpa only [show rowA13 12 = cellA13B12 from rfl] using cellA13B12_check
+  · simpa only [show rowA13 13 = cellA13B13 from rfl] using cellA13B13_check
+
+theorem rowA13_block_check :
+    blockCheck 2 7 Stage02.H Stage02.M Stage02.upper 13 1 1 13 chunkData = true := by
+  unfold blockCheck
+  apply List.all_eq_true.mpr
+  intro aa haa
+  have hab := List.mem_range'_1.mp haa
+  have ha : aa = 13 := by omega
+  subst aa
+  apply List.all_eq_true.mpr
+  intro b hb
+  have hbb := List.mem_range'_1.mp hb
+  have h := rowA13_cell_check b hbb.1 (by omega)
+  simpa only [show chunkData 13 b = rowA13 b from rfl] using h
+
+end Math.B699.CRTStage2Pair27.Chunk001
+
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B1_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B2_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B3_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B4_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B5_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B6_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B7_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B8_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B9_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B10_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B11_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B12_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA13B13_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.rowA13_cell_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.rowA13_block_check
+
+/-! UNCOMPILED direct-cell candidate; no row-wide decide. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option maxRecDepth 100000
+set_option maxHeartbeats 5000000
+set_option exponentiation.threshold 512
+
+namespace Math.B699.CRTStage2Pair27.Chunk001
+open Math.B699.CRTGrid
+open B699LowIndex.I11CrtStageMetadata
+
+theorem cellA14B1_check :
+    cellCheck (2 ^ 14) (7 ^ 1)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 1)) Stage02.upper cellA14B1 = true := by
+  decide +kernel
+
+theorem cellA14B2_check :
+    cellCheck (2 ^ 14) (7 ^ 2)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 2)) Stage02.upper cellA14B2 = true := by
+  decide +kernel
+
+theorem cellA14B3_check :
+    cellCheck (2 ^ 14) (7 ^ 3)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 3)) Stage02.upper cellA14B3 = true := by
+  decide +kernel
+
+theorem cellA14B4_check :
+    cellCheck (2 ^ 14) (7 ^ 4)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 4)) Stage02.upper cellA14B4 = true := by
+  decide +kernel
+
+theorem cellA14B5_check :
+    cellCheck (2 ^ 14) (7 ^ 5)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 5)) Stage02.upper cellA14B5 = true := by
+  decide +kernel
+
+theorem cellA14B6_check :
+    cellCheck (2 ^ 14) (7 ^ 6)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 6)) Stage02.upper cellA14B6 = true := by
+  decide +kernel
+
+theorem cellA14B7_check :
+    cellCheck (2 ^ 14) (7 ^ 7)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 7)) Stage02.upper cellA14B7 = true := by
+  decide +kernel
+
+theorem cellA14B8_check :
+    cellCheck (2 ^ 14) (7 ^ 8)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 8)) Stage02.upper cellA14B8 = true := by
+  decide +kernel
+
+theorem cellA14B9_check :
+    cellCheck (2 ^ 14) (7 ^ 9)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 9)) Stage02.upper cellA14B9 = true := by
+  decide +kernel
+
+theorem cellA14B10_check :
+    cellCheck (2 ^ 14) (7 ^ 10)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 10)) Stage02.upper cellA14B10 = true := by
+  decide +kernel
+
+theorem cellA14B11_check :
+    cellCheck (2 ^ 14) (7 ^ 11)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 11)) Stage02.upper cellA14B11 = true := by
+  decide +kernel
+
+theorem cellA14B12_check :
+    cellCheck (2 ^ 14) (7 ^ 12)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 12)) Stage02.upper cellA14B12 = true := by
+  decide +kernel
+
+theorem cellA14B13_check :
+    cellCheck (2 ^ 14) (7 ^ 13)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ 13)) Stage02.upper cellA14B13 = true := by
+  decide +kernel
+
+theorem rowA14_cell_check (b : ℕ) (hb0 : 1 ≤ b) (hb1 : b ≤ 13) :
+    cellCheck (2 ^ 14) (7 ^ b)
+      (heightCap Stage02.H Stage02.M (2 ^ 14))
+      (heightCap Stage02.H Stage02.M (7 ^ b)) Stage02.upper (rowA14 b) = true := by
+  interval_cases b
+  · simpa only [show rowA14 1 = cellA14B1 from rfl] using cellA14B1_check
+  · simpa only [show rowA14 2 = cellA14B2 from rfl] using cellA14B2_check
+  · simpa only [show rowA14 3 = cellA14B3 from rfl] using cellA14B3_check
+  · simpa only [show rowA14 4 = cellA14B4 from rfl] using cellA14B4_check
+  · simpa only [show rowA14 5 = cellA14B5 from rfl] using cellA14B5_check
+  · simpa only [show rowA14 6 = cellA14B6 from rfl] using cellA14B6_check
+  · simpa only [show rowA14 7 = cellA14B7 from rfl] using cellA14B7_check
+  · simpa only [show rowA14 8 = cellA14B8 from rfl] using cellA14B8_check
+  · simpa only [show rowA14 9 = cellA14B9 from rfl] using cellA14B9_check
+  · simpa only [show rowA14 10 = cellA14B10 from rfl] using cellA14B10_check
+  · simpa only [show rowA14 11 = cellA14B11 from rfl] using cellA14B11_check
+  · simpa only [show rowA14 12 = cellA14B12 from rfl] using cellA14B12_check
+  · simpa only [show rowA14 13 = cellA14B13 from rfl] using cellA14B13_check
+
+theorem rowA14_block_check :
+    blockCheck 2 7 Stage02.H Stage02.M Stage02.upper 14 1 1 13 chunkData = true := by
+  unfold blockCheck
+  apply List.all_eq_true.mpr
+  intro aa haa
+  have hab := List.mem_range'_1.mp haa
+  have ha : aa = 14 := by omega
+  subst aa
+  apply List.all_eq_true.mpr
+  intro b hb
+  have hbb := List.mem_range'_1.mp hb
+  have h := rowA14_cell_check b hbb.1 (by omega)
+  simpa only [show chunkData 14 b = rowA14 b from rfl] using h
+
+end Math.B699.CRTStage2Pair27.Chunk001
+
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B1_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B2_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B3_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B4_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B5_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B6_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B7_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B8_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B9_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B10_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B11_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B12_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.cellA14B13_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.rowA14_cell_check
+#print axioms Math.B699.CRTStage2Pair27.Chunk001.rowA14_block_check

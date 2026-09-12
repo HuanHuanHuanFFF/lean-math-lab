@@ -1,0 +1,109 @@
+{
+  "scope": "independent source/paper review, not Lean acceptance",
+  "claims": [
+    {
+      "id": "C1",
+      "claim": "Frozen seed, final weights and selector agree with FINAL_PLAN row0 and log-free-selector row0.",
+      "domain": "fixed c5,d4,p2,q5,P128,Q125,z3/128; M329; Y>=2^15359",
+      "sources": [
+        "Parameters.lean:9-56",
+        "GrowthInputs.lean:14-20",
+        "FINAL_PLAN.json:selected_plan.rows[0]"
+      ],
+      "check": "exact rational equality and integer comparison",
+      "gap": "No gap in source binding; historical qe metadata weights 253/257 are not current graph weights."
+    },
+    {
+      "id": "C2",
+      "claim": "Actual rows use u=4m-delta, v=m+delta-1; each delta has its own qContent.",
+      "domain": "m>=1, Bool true delta0 / false delta1",
+      "sources": [
+        "ActualRows.lean:18-49",
+        "lean/I11TwoFive/Prefix.lean:20-66",
+        "lean/Pade/Rows.lean:21-79"
+      ],
+      "check": "12 actual coefficient/homogeneous cases and 6 nonzero determinants; accepted prerequisite hash closures",
+      "gap": "New wrapper compilation pending."
+    },
+    {
+      "id": "C3",
+      "claim": "G times rowError equals 128^v*3^(2u+1)*E; uniform E scale is 839808^m.",
+      "domain": "m>=1, both delta rows; normalized bound m>=141",
+      "sources": [
+        "ActualRows.lean:44-83",
+        "lean/I11TwoFive/Prefix.lean:53-98"
+      ],
+      "check": "Both exact leftover factors 3/128 and 1/3; actual remainder tests and wrong D1-scale rejection",
+      "gap": "None found in mathematical scaling; wrapper compilation pending."
+    },
+    {
+      "id": "C4",
+      "claim": "L_target^(4m)<G for both deltas and both parity tracks; used as contentBase^m<=G.",
+      "domain": "all m>=141; delta0 or1",
+      "sources": [
+        "ActualRows.lean:32-36",
+        "lean/I11DivisorTwoFive/Threshold.lean:109-154"
+      ],
+      "check": "Accepted four-track receipt and complete current closure hashes; 4564 actual q_h/D tests over m141..144, both deltas",
+      "gap": "Finite rechecks do not independently prove the all-m theorem; that statement is adopted from accepted prerequisite."
+    },
+    {
+      "id": "C5",
+      "claim": "Q/E bounds are constructed from actual GrowthTree, actual factorialTerm and own delta initial constants.",
+      "domain": "all m>=1, delta0/1,z3/128; final consumer m>=141",
+      "sources": [
+        "GrowthInputs.lean:22-99",
+        "SmallCertificates.lean:13-31",
+        "lean/Factorial/Factorial5D4.lean:127-140",
+        "lean/Growth/Normalization.lean:46-89"
+      ],
+      "check": "All four exact m1 caps, 12 small moment identities, exact K1>K0; 19 degree9 leaf identities and source tree paths",
+      "gap": "Seven-layer chain and four tree sources are still uncompiled in this review."
+    },
+    {
+      "id": "C6",
+      "claim": "With a=b=1, an actual normalized row gives r<=24*abs(qRow)+abs(error)*abs(V).",
+      "domain": "m>=1;35m<=e;15m<=f;C>=1;integer prime-window gap<=24",
+      "sources": [
+        "ActualRows.lean:85-125",
+        "lean/Pade/Rows.lean:63-79"
+      ],
+      "check": "Direct call to accepted actual determinant consumer; 252 bounded integer-gap cases",
+      "gap": "None found; finite cases are tests, not the all-parameter proof."
+    },
+    {
+      "id": "C7",
+      "claim": "One least m yields both strict extraction inequalities35m<e and15m<f.",
+      "domain": "Y>=Y0, eight fixed numeric conditions, both cofactor cuts fail",
+      "sources": [
+        "Parameters.lean:15-56",
+        "SelectedEdge.lean:28-49",
+        "lean/I11Edge/Capacity.lean:11-49"
+      ],
+      "check": "Inspected same-index application; seven selector conditions via short bases; exact Z^328<=4Y0<Z^329",
+      "gap": "Eight concrete Lean numeric inputs are not supplied by FixedEdge."
+    },
+    {
+      "id": "C8",
+      "claim": "Actual scaled Q/E terms sum strictly below r and contradict the actual integer gap.",
+      "domain": "BQ,BE>0; actual growth; A3^m>48;2Nq<W^m;Nq=125^(5m)V",
+      "sources": [
+        "ScaledGap.lean:10-90",
+        "SelectedEdge.lean:40-76"
+      ],
+      "check": "Independent algebra and positivity review; W=(PQ)^5*L/(839808*BE)=128^5*Omega4_power_d",
+      "gap": "No max(P,Q)=Q error found; full proof text awaits serial Lean."
+    },
+    {
+      "id": "C9",
+      "claim": "Ordinary windows suffice for the stated cofactor disjunction; no hidden noCommon/component/initial-height premise.",
+      "domain": "all Nat Y,e,f,A,C with Y>=Y0,C>=1,Y<=2^e A,Y<=5^f C<=2Y, abs gap<=24",
+      "sources": [
+        "FixedEdge.lean:14-38",
+        "SelectedEdge.lean:23-26"
+      ],
+      "check": "Paper consumer derivation and complete quantified statement audit",
+      "gap": "Component wrapper, supplying four trees/eight numerics, other four graph edges and initial-height theorem remain outside this package."
+    }
+  ]
+}

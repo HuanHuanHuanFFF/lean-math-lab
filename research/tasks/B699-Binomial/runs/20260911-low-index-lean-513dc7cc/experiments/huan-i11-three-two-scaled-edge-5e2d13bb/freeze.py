@@ -1,0 +1,131 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import re,json,hashlib
+root=Path(r'D:/CodingProject/Math/.tools/worktrees/b699-huan-5e2d13bb')
+run=root/'research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc'
+out=run/'experiments/huan-i11-three-two-scaled-edge-5e2d13bb'
+assert not (out/'FREEZE.json').exists()
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+readme='''# 原 i11 (3,2) 的固定实际边候选
+
+完整证明文本，未运行 Lean。仅拥有本目录；(5,7)未在此包展开。开始于2026-09-11 21:03:36 UTC；21:23:36为检查点而非截止。当前原B仍0/19。
+
+## 数学范围与参数
+
+固定最初FINAL_PLAN row02，p3/q2，P9/Q8，a=b=1，D1，y9，z1/9，c23/d15。
+Lt=41069/31250，G阈值m0=160，M162，Z37002653975761602583641821923，Y0=2^15359。
+权重226/268，同一leastExponent Z Y提取46m、69m。未优化参数。
+
+最终Math.B699.I11ThreeTwoScaled.three_two_edge_of_fixed_certificates得到
+Y^226≤A^1000 或 Y^268≤C^1000。
+A,C是余因子；最终原始素数组件边仍要经primeWindow消费者转接。
+
+普通前提准确为Y,e,f,A,C∈Nat，Y0≤Y，1≤C，Y≤3^e*A，Y≤2^f*C≤2Y，以及整数绝对差≤24。差可为正/负/零，窗口可重合。没有额外互素条件、指数上界、位置相异条件。
+
+两δ都用同一m。true=δ0，false=δ1；uδ=15m−δ，vδ=8m+δ−1。Gδ是各自实际qContent(uδ,vδ,uδ)，直接调用集成Math.B699.I11DivisorThreeTwo.qContent_lower delta m hdelta hm160，不能拿另一δ的G替代。该集成源的接受仍以主任务实际receipt为准。
+
+## 真实阶乘前缀
+
+Factorial23D15只依赖已验FactorialCommon。实际F的精确比值为
+38·prod(i1..37)(38m+i) /
+[8·15²·m·(m+1)·prod(i1..14)(15m+i)²·prod(i1..7)(8m+i)]。
+
+对x=m−1，证书余式是36次、37项严格正系数多项式。系数由实际比值重新算出，与固定row02逐项一致。Lean候选用ring证明这个数值恒等式，不把余式或递推作为假设。
+
+对任意m≥1和δ0/1，证明
+Fδ(m)≤Kδβ^m m/(m+1)<β^m/2，
+并给出Fδ(m)<Kδβ^m。Kδ=2Fδ(1)/β，各δ分别保留。
+
+δ0：F1=60686307187038720；
+K0=62958057501119183131392267532646656036376953125/173480081281022661132807206949419654644504500496。
+δ1：F1=44915852358828000；
+K1=14165562937751816204563260194845497608184814453125/52737944709430888984373390912623575011929368150784。
+两K均<1/2。初始差比是225/304，未借用别的种子数值。
+
+## 实际Hom与缩放
+
+从已验实际P/Q/G和Hom定理直接证明：
+
+- Gδ·Qhatδ=9^(15m−δ)·Qδ(1/9)；
+- Gδ·[9^(23m)Phatδ−8^(23m)Qhatδ]=9^(8m+δ−1)·Eδ(1/9)。
+
+因此Q统一尺度9^15，E统一尺度9^8；δ0的E余下1/9，δ1余下1。a=b=1，所以整数间隙是9^(23m)≤24|Qhatδ|+|rowErrorδ||V|，没有7/2种子的3幂。
+
+实际增长率：
+qRate=9^8·Lt^15/(β·qLambda)，
+wRate=72^23·Lt^15/(9^8·β·eLambda)。
+qLambda=50045175481493571025/9903520314283042199192993792；
+eLambda=46880976166089921083/79228162514264337593543950336。
+m1的四个实际Q/E初值cap由低次数整数多项式直接展开证明文本给出，没有作为最后假设。
+
+## 最终特别前提与下一依赖
+
+最终仅保留四个实际GrowthTree（Q/E、各δ）以及八条数值命题：
+48<qRate(qBase)^162；
+Z^161≤4Y0；
+3^46000≤Z^774；
+(3^46000)^162≤Y0^774；
+4^774·(3^46000)^163≤Z^(774·162)；
+2^69000≤Z^732；
+(2^69000)^162≤Y0^732；
+4^732·(2^69000)^163≤Z^(732·162)。
+
+标准全m Q/E界由真实阶乘+Moment/Normalization+四树导出；真实G、Hom、行列式、F及所求边均不是最终假设。SelectedEdge的内部raw-growth参数在FixedEdge已被消去。反例边失败给严格46m<e、69m<f，而后才作Nat幂提取。
+
+尚需主任务实际编译本包；接Luna四树、七数值和第八率证书；再作primeWindow组件消费者。单个cofactor边不等于完整i11，更不等于原B699全n,j结果。
+
+## 精确检查和32次幂策略
+
+本代理只跑Python小整数/有理自检：
+- 37个差多项式系数完全匹配；
+- m1..24、两δ共48项真实F比值与加强式通过；
+- m1..4、两δ共8项实际P/Q/E、G整除归一化和Hom余项检查通过；
+- 四个m1 cap、qRate≥1、wRate≥固定Z通过。
+
+qRate=N/D：
+N=260741021762686709558443326807297290925847691799460950272067512220746702090113368004486096757194589047867047936，
+D=169902321422021445630803623539282409499132587269699763049402987792287945956193340180107043124735355377197265625。
+浮点诊断约1.5346524966838473；严格依据是上面的精确分数。
+
+64D^32≤N^32精确成立，最大11738bit。可据此直接得R^32≥64>48，再用R≥1和32≤162完成第八证书；无需展开162次幂，也不适用192≤M的旧方案。
+
+容量小幂可用3^4096≤2^6493、2^24294≤Z^256，p2用单位基。最大basis24295bit，所有纯指数余量为正。previous比较15280bit。没有展开巨大容量目标幂。以上有界计算不是Lean无界证明。
+
+## 源绑定、审计、冻结
+
+9实现模块、42条候选定理；全部定义一并审计共66根。9逐层Audit与总Audit共19个Lean文件。FactorialAudit保持先交付11根字节不变；总Audit另含其定义。
+
+逐层顺序见AUDIT_PLAN：FactorialAudit、Parameters/SourceRows、ActualRows、GrowthInputs、ScaledGap、SmallCertificates、SelectedEdge、FixedEdge、总Audit。公理审计器合成自测拒绝缺根、sorryAx、额外axiom、编译错误；实际Lean日志由主任务提供。该自测不算接受。
+
+只按imports映射：Factorial23D15到lean/Factorial/Factorial23D15；其余到lean/I11ThreeTwoEdge。G已指向集成lean/I11DivisorThreeTwo。固定参数、namespace和声明不改。
+
+INPUT_SOURCES绑定实际模板、旧7/2冻结来源、row02原数据、Common、集成G及已验receipt。旧7/2模板只是候选时就保持该证据边界，不能因复用而标为接受。静态修正了一处旧G namespace，记录见static-corrections；所有公式始终取当前3/2参数。
+
+所有新写入只在本目录，无Lean/Git/共享源修改，无新颖性声明。下一检查是主任务串行验Factorial23D15前缀，再验完整实际链。
+'''
+(out/'README.md').write_text(readme,encoding='utf-8')
+(out/'CHECKPOINT.md').write_text('''# Checkpoint
+
+Start: 2026-09-11 21:03:36 UTC. Planned checkpoint:21:23:36 UTC, not a total deadline.
+Actual: complete 9-module three-two candidate, 66-root audit, exact bounded diagnostics and source bindings. No Lean/Git.
+Expected route gain: remove true F/G/Hom/scaling glue for the fixed (3,2) edge, leaving only four trees/eight finite numeric statements.
+Original B still0/19. Next: parent serial verification and actual certificate instances. Five-seven is not included in this directory.
+''',encoding='utf-8')
+for rec in json.loads((out/'INPUT_SOURCES.json').read_text())['source_bindings']:
+    assert sha(root/rec['path'])==rec['sha256'],rec['path']
+assert sha(out/'Factorial23D15.lean')=='0cb23e593dfd24d332d48ef436d9584a1baf35ed523cae8094e1b4cb7a0b8f70'
+for p in out.glob('*.lean'):
+    s=p.read_text()
+    assert s.count('(')==s.count(')') and s.count('/-')==s.count('-/'),p
+    assert not re.search(r'\b(sorry|admit|native_decide)\b|^\s*(axiom|unsafe)\b',s,re.M),p
+mods=['Factorial23D15','Parameters','SourceRows','ActualRows','GrowthInputs','ScaledGap','SmallCertificates','SelectedEdge','FixedEdge']
+freeze={'utc':datetime.now(timezone.utc).isoformat(),'owner':'/root/pade_construction','status':'FROZEN_COMPLETE_PROOF_TEXT_UNCOMPILED',
+ 'start_utc':'2026-09-11T21:03:36Z','checkpoint_utc':'2026-09-11T21:23:36Z',
+ 'implementation_modules':9,'public_theorems':42,'audit_roots':66,'lean_files':len(list(out.glob('*.lean'))),
+ 'new_Lean_invocations':0,'new_Git_invocations':0,'new_original_B_results':0,
+ 'factorial_prefix_unchanged':True,'all_input_hashes_rechecked':True,
+ 'remaining':'parent fresh Lean audit, four trees/eight numerical instances and later component consumer',
+ 'files':{p.name:{'bytes':p.stat().st_size,'sha256':sha(p)} for p in sorted(out.iterdir()) if p.is_file()}}
+(out/'FREEZE.json').write_text(json.dumps(freeze,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+print(json.dumps({'freeze_sha256':sha(out/'FREEZE.json'),'README':sha(out/'README.md'),
+ 'core_hashes':{m:sha(out/(m+'.lean')) for m in mods}},indent=2))

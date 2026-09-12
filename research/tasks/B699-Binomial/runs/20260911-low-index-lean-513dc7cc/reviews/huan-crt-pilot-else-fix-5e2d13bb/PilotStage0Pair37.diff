@@ -1,0 +1,46 @@
+--- before
++++ after
+@@ -86,27 +86,27 @@
+ def pilotData : ℕ → ℕ → CellData :=
+   fun a b =>
+     if a = 21 ∧ b = 11 then cellA21B11
+-    if a = 21 ∧ b = 12 then cellA21B12
+-    if a = 21 ∧ b = 13 then cellA21B13
+-    if a = 21 ∧ b = 14 then cellA21B14
+-    if a = 22 ∧ b = 11 then cellA22B11
+-    if a = 22 ∧ b = 12 then cellA22B12
+-    if a = 22 ∧ b = 13 then cellA22B13
+-    if a = 22 ∧ b = 14 then cellA22B14
+-    if a = 23 ∧ b = 11 then cellA23B11
+-    if a = 23 ∧ b = 12 then cellA23B12
+-    if a = 23 ∧ b = 13 then cellA23B13
+-    if a = 23 ∧ b = 14 then cellA23B14
+-    if a = 24 ∧ b = 11 then cellA24B11
+-    if a = 24 ∧ b = 12 then cellA24B12
+-    if a = 24 ∧ b = 13 then cellA24B13
+-    if a = 24 ∧ b = 14 then cellA24B14
++    else if a = 21 ∧ b = 12 then cellA21B12
++    else if a = 21 ∧ b = 13 then cellA21B13
++    else if a = 21 ∧ b = 14 then cellA21B14
++    else if a = 22 ∧ b = 11 then cellA22B11
++    else if a = 22 ∧ b = 12 then cellA22B12
++    else if a = 22 ∧ b = 13 then cellA22B13
++    else if a = 22 ∧ b = 14 then cellA22B14
++    else if a = 23 ∧ b = 11 then cellA23B11
++    else if a = 23 ∧ b = 12 then cellA23B12
++    else if a = 23 ∧ b = 13 then cellA23B13
++    else if a = 23 ∧ b = 14 then cellA23B14
++    else if a = 24 ∧ b = 11 then cellA24B11
++    else if a = 24 ∧ b = 12 then cellA24B12
++    else if a = 24 ∧ b = 13 then cellA24B13
++    else if a = 24 ∧ b = 14 then cellA24B14
+     else outsideCell
+ 
+ theorem block_check :
+     blockCheck 3 7 stageH stageM stageT
+       21 4 11 4 pilotData = true := by
+-  decide
++  decide +kernel
+ 
+ end Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14
+ #print axioms Math.B699.CRTGrid.PilotStage0_37_A21to24_B11to14.block_check
