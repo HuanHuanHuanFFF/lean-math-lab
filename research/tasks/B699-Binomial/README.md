@@ -8,7 +8,8 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
-| [20260912-leader-r7-intake-4fe8697e](runs/20260912-leader-r7-intake-4fe8697e/README.md) | 当前接收：i14 全域纸面闭合、R7 前沿、ABCD/E 成果与三路研究任务 | [状态](runs/20260912-leader-r7-intake-4fe8697e/frontier.md) · [原件恢复](runs/20260912-leader-r7-intake-4fe8697e/ARCHIVES.json) · [任务](runs/20260912-leader-r7-intake-4fe8697e/prompts/README.md) |
+| [20260912-leader-r7-continuation-c8c256bc](runs/20260912-leader-r7-continuation-c8c256bc/README.md) | 当前接收：i9全局约束、i3双侧素数幂与五因子整行消费者；R7不变 | [状态](runs/20260912-leader-r7-continuation-c8c256bc/frontier.md) · [原件恢复](runs/20260912-leader-r7-continuation-c8c256bc/ARCHIVES.json) · [任务](runs/20260912-leader-r7-continuation-c8c256bc/prompts/README.md) |
+| [20260912-leader-r7-intake-4fe8697e](runs/20260912-leader-r7-intake-4fe8697e/README.md) | 上一接收：i14 全域纸面闭合、R7 前沿、ABCD/E 成果与三路研究任务 | [状态](runs/20260912-leader-r7-intake-4fe8697e/frontier.md) · [原件恢复](runs/20260912-leader-r7-intake-4fe8697e/ARCHIVES.json) · [任务](runs/20260912-leader-r7-intake-4fe8697e/prompts/README.md) |
 | [20260911-leader-intake-b-6e18713b](runs/20260911-leader-intake-b-6e18713b/README.md) | 上次 B 两轮成果接收与调度：精确内容、共同进位、百万约分分子子族 | [状态](runs/20260911-leader-intake-b-6e18713b/frontier.md) · [原件与恢复](runs/20260911-leader-intake-b-6e18713b/ARCHIVES.json) |
 | [20260911-leader-intake-bc-824984da](runs/20260911-leader-intake-bc-824984da/README.md) | 上次接收快照：三指标闭合、光滑窗口、统一核与当时 ABC 调度 | [状态](runs/20260911-leader-intake-bc-824984da/frontier.md) · [原件索引](runs/20260911-leader-intake-bc-824984da/ARCHIVES.json) |
 | [20260911-leader-dispatch-f71b38c0](runs/20260911-leader-dispatch-f71b38c0/README.md) | 上一轮任务调度与 huan 接续（历史快照） | [状态](runs/20260911-leader-dispatch-f71b38c0/frontier.md) · [核验责任](runs/20260911-leader-dispatch-f71b38c0/acceptance.md) |
@@ -46,4 +47,3 @@
 同题研究放在本目录。新独立推进放入 `runs/日期-主题-短标识/`；换模型、会话或并发数量不改变既有批次身份。详见[目录规则](../../../docs/STRUCTURE.md)。各批独立维护进度和报告，本页仅作题面与导航。
 
 正式模块：[CofactorCriterion](../../../Math/B699/CofactorCriterion.lean)、[公理检查](../../../Tests/B699CofactorCriterion.lean)、[示例](../../../Examples/CofactorCriterion.lean)。
-
