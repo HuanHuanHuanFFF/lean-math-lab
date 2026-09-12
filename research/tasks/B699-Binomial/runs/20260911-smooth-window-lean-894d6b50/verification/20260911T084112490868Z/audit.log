@@ -1,0 +1,15 @@
+B699.SmoothWindow.ordProj_smooth_two : ∀ (a b : ℕ), 2 ^ (2 ^ a * 3 ^ b).factorization 2 = 2 ^ a
+'B699.SmoothWindow.ordProj_smooth_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.ordProj_smooth_three : ∀ (a b : ℕ), 3 ^ (2 ^ a * 3 ^ b).factorization 3 = 3 ^ b
+'B699.SmoothWindow.ordProj_smooth_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.window_primary_le_of_power : ∀ {N r p t : ℕ},
+  Nat.Prime p → 2 ≤ t → r ≤ 3 → 4 ≤ N → p ^ N.factorization p = p ^ t → ∀ s ≤ 3, p ^ (N + r - s).factorization p ≤ p ^ t
+'B699.SmoothWindow.window_primary_le_of_power' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.smooth_collision_impossible : ∀ {a b r j : ℕ},
+  2 ≤ a →
+    2 ≤ b →
+      r ≤ 3 →
+        5 ≤ j →
+          j ≤ (2 ^ a * 3 ^ b + r) / 2 →
+            ∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ (2 ^ a * 3 ^ b + r).choose 4 ∧ p ∣ (2 ^ a * 3 ^ b + r).choose j
+'B699.SmoothWindow.smooth_collision_impossible' depends on axioms: [propext, Classical.choice, Quot.sound]

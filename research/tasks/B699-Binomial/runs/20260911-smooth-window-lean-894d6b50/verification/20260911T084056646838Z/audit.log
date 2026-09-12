@@ -1,0 +1,21 @@
+@B699.SmoothWindow.factorization_eq_of_dvd_not_dvd : ∀ {p n e : ℕ},
+  Nat.Prime p → p ^ e ∣ n → ¬p ^ (e + 1) ∣ n → n.factorization p = e
+'B699.SmoothWindow.factorization_eq_of_dvd_not_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.choose_four_product_nat : ∀ {n : ℕ}, 4 ≤ n → 24 * n.choose 4 = n * (n - 1) * (n - 2) * (n - 3)
+'B699.SmoothWindow.choose_four_product_nat' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.factorization_choose_four_add : ∀ {n p : ℕ},
+  4 ≤ n →
+    (n.choose 4).factorization p + (Nat.factorization 24) p =
+      n.factorization p + (n - 1).factorization p + (n - 2).factorization p + (n - 3).factorization p
+'B699.SmoothWindow.factorization_choose_four_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.ordProj_two_choose_four : ∀ {n : ℕ},
+  4 ≤ n → 4 * 2 ^ (n.choose 4).factorization 2 = 2 ^ (n - n % 4).factorization 2
+'B699.SmoothWindow.ordProj_two_choose_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.ordProj_three_choose_four_le : ∀ {n A : ℕ},
+  4 ≤ n → (∀ s ≤ 3, 3 ^ (n - s).factorization 3 ≤ A) → 3 ^ (n.choose 4).factorization 3 ≤ A
+'B699.SmoothWindow.ordProj_three_choose_four_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.smallPart23_window_upper : ∀ {n A B : ℕ},
+  4 ≤ n →
+    (∀ s ≤ 3, 2 ^ (n - s).factorization 2 ≤ A) →
+      (∀ s ≤ 3, 3 ^ (n - s).factorization 3 ≤ B) → 4 * B699.SmoothWindow.smallPart23 (n.choose 4) ≤ A * B
+'B699.SmoothWindow.smallPart23_window_upper' depends on axioms: [propext, Classical.choice, Quot.sound]

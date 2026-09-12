@@ -1,0 +1,37 @@
+B699.SmoothWindow.smooth_window_i4 : ∀ (a b r j : ℕ),
+  r ≤ 3 →
+    5 ≤ j →
+      j ≤ (2 ^ a * 3 ^ b + r) / 2 →
+        ∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ (2 ^ a * 3 ^ b + r).choose 4 ∧ p ∣ (2 ^ a * 3 ^ b + r).choose j
+'B699.SmoothWindow.smooth_window_i4' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.smooth_window_simultaneous : ∀ (a b r m j : ℕ),
+  r ≤ 3 →
+    4 ≤ m →
+      2 ^ a * 3 ^ b + r ≡ 4 [MOD B699.SmoothWindow.primeProduct m] →
+        5 ≤ j →
+          j ≤ (2 ^ a * 3 ^ b + r) / 2 →
+            ∃ p,
+              Nat.Prime p ∧
+                m < p ∧
+                  p ∣ (2 ^ a * 3 ^ b + r).choose j ∧ ∀ (i : ℕ), 4 ≤ i → i ≤ m → i < j → p ∣ (2 ^ a * 3 ^ b + r).choose i
+'B699.SmoothWindow.smooth_window_simultaneous' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.smooth_window_sixty : ∀ (k j : ℕ),
+  1 ≤ k →
+    5 ≤ j →
+      j ≤ 2 ^ (60 * k + 2) / 2 →
+        ∃ p,
+          Nat.Prime p ∧
+            17 ≤ p ∧
+              p ∣ (2 ^ (60 * k + 2)).choose j ∧ ∀ (i : ℕ), 4 ≤ i → i ≤ 14 → i < j → p ∣ (2 ^ (60 * k + 2)).choose i
+'B699.SmoothWindow.smooth_window_sixty' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.smooth_window_factorial : ∀ (m k j : ℕ),
+  5 ≤ m →
+    1 ≤ k →
+      5 ≤ j →
+        j ≤ 2 ^ (m.factorial * k + 2) / 2 →
+          ∃ p,
+            Nat.Prime p ∧
+              m < p ∧
+                p ∣ (2 ^ (m.factorial * k + 2)).choose j ∧
+                  ∀ (i : ℕ), 4 ≤ i → i ≤ m → i < j → p ∣ (2 ^ (m.factorial * k + 2)).choose i
+'B699.SmoothWindow.smooth_window_factorial' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,34 @@
+@B699.SmoothWindow.ordProj_eq_one_of_not_dvd : ∀ {p x : ℕ}, ¬p ∣ x → p ^ x.factorization p = 1
+'B699.SmoothWindow.ordProj_eq_one_of_not_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.window_bound_of_seven : ∀ {N p A : ℕ},
+  4 ≤ N →
+    p ^ (N - 3).factorization p ≤ A →
+      p ^ (N - 2).factorization p ≤ A →
+        p ^ (N - 1).factorization p ≤ A →
+          p ^ N.factorization p ≤ A →
+            p ^ (N + 1).factorization p ≤ A →
+              p ^ (N + 2).factorization p ≤ A →
+                p ^ (N + 3).factorization p ≤ A → ∀ {r : ℕ}, r ≤ 3 → ∀ s ≤ 3, p ^ (N + r - s).factorization p ≤ A
+'B699.SmoothWindow.window_bound_of_seven' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.power_predecessor : ∀ {q t : ℕ}, 1 ≤ t → q ^ t = q * q ^ (t - 1)
+'B699.SmoothWindow.power_predecessor' depends on axioms: [propext]
+@B699.SmoothWindow.ordProj_scaled_neighbors : ∀ {p q t C A : ℕ},
+  2 ≤ q →
+    2 ≤ t →
+      p ^ q.factorization p = C →
+        p ^ (q ^ (t - 1) - 1).factorization p ≤ A ∧ p ^ (q ^ (t - 1) + 1).factorization p ≤ A →
+          p ^ (q ^ t - q).factorization p ≤ C * A ∧ p ^ (q ^ t + q).factorization p ≤ C * A
+'B699.SmoothWindow.ordProj_scaled_neighbors' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.ordProj_shift_of_not_dvd : ∀ {p N d : ℕ},
+  ¬p ∣ N → p ∣ d → d ≤ N → p ^ (N - d).factorization p = 1 ∧ p ^ (N + d).factorization p = 1
+'B699.SmoothWindow.ordProj_shift_of_not_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.ordProj_shift_of_dvd : ∀ {p N d : ℕ},
+  p ∣ N → ¬p ∣ d → d ≤ N → p ^ (N - d).factorization p = 1 ∧ p ^ (N + d).factorization p = 1
+'B699.SmoothWindow.ordProj_shift_of_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.ordProj_mul_neighbors : ∀ {p c x C A : ℕ},
+  0 < c →
+    2 ≤ x →
+      p ^ c.factorization p = C →
+        p ^ (x - 1).factorization p ≤ A ∧ p ^ (x + 1).factorization p ≤ A →
+          p ^ (c * x - c).factorization p ≤ C * A ∧ p ^ (c * x + c).factorization p ≤ C * A
+'B699.SmoothWindow.ordProj_mul_neighbors' depends on axioms: [propext, Classical.choice, Quot.sound]

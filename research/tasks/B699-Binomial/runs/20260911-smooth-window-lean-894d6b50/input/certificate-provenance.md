@@ -1,0 +1,4 @@
+certificate.json逐字来自已验SHA256原ZIP的outputs/certificate.json。
+原ZIP SHA256: ddd1d3bf303e4c5088c45e9f319d5cd82ac1c73abd07964a7df76605b024474e
+证书 SHA256: d0393605cdad7448079f02edf082390db18b374b87b49392fd08e35cff6c50a7
+生成脚本只输出待Lean检查的源码，不把Python检查结果当作证明。

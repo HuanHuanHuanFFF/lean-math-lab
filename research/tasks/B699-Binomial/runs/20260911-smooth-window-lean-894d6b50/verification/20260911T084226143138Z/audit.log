@@ -1,0 +1,28 @@
+@B699.SmoothWindow.prime_dvd_primeProduct : ∀ {m p : ℕ},
+  Nat.Prime p → 5 ≤ p → p ≤ m → p ∣ B699.SmoothWindow.primeProduct m
+'B699.SmoothWindow.prime_dvd_primeProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.choose_four_modEq_one : ∀ {n p : ℕ}, Nat.Prime p → 5 ≤ p → n ≡ 4 [MOD p] → n.choose 4 ≡ 1 [MOD p]
+'B699.SmoothWindow.choose_four_modEq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.prime_not_dvd_choose_four : ∀ {n p : ℕ}, Nat.Prime p → 5 ≤ p → n ≡ 4 [MOD p] → ¬p ∣ n.choose 4
+'B699.SmoothWindow.prime_not_dvd_choose_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.same_prime_above_of_local_congruence : ∀ {n j m : ℕ},
+  4 ≤ m →
+    (∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ n.choose 4 ∧ p ∣ n.choose j) →
+      (∀ (p : ℕ), Nat.Prime p → 5 ≤ p → p ≤ m → n ≡ 4 [MOD p]) →
+        ∃ p, Nat.Prime p ∧ m < p ∧ p ∣ n.choose j ∧ ∀ (i : ℕ), 4 ≤ i → i ≤ m → i < j → p ∣ n.choose i
+'B699.SmoothWindow.same_prime_above_of_local_congruence' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.same_prime_above_of_product_congruence : ∀ {n j m : ℕ},
+  4 ≤ m →
+    (∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ n.choose 4 ∧ p ∣ n.choose j) →
+      n ≡ 4 [MOD B699.SmoothWindow.primeProduct m] →
+        ∃ p, Nat.Prime p ∧ m < p ∧ p ∣ n.choose j ∧ ∀ (i : ℕ), 4 ≤ i → i ≤ m → i < j → p ∣ n.choose i
+'B699.SmoothWindow.same_prime_above_of_product_congruence' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.pow_sixty_modEq : ∀ (k : ℕ), 2 ^ (60 * k + 2) ≡ 4 [MOD 5005]
+'B699.SmoothWindow.pow_sixty_modEq' depends on axioms: [propext]
+B699.SmoothWindow.primeProduct_fourteen : B699.SmoothWindow.primeProduct 14 = 5005
+'B699.SmoothWindow.primeProduct_fourteen' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.pow_sixty_modEq_nine : ∀ (k : ℕ), 2 ^ (60 * k + 2) ≡ 4 [MOD 9]
+'B699.SmoothWindow.pow_sixty_modEq_nine' depends on axioms: [propext]
+@B699.SmoothWindow.factorial_period_modEq : ∀ {m p : ℕ},
+  Nat.Prime p → 5 ≤ p → p ≤ m → ∀ (k : ℕ), 2 ^ (m.factorial * k + 2) ≡ 4 [MOD p]
+'B699.SmoothWindow.factorial_period_modEq' depends on axioms: [propext, Classical.choice, Quot.sound]

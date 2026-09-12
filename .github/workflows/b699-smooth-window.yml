@@ -1,0 +1,56 @@
+name: B699 smooth window Lean acceptance
+on:
+  push:
+    branches: ['GPT-work/b699-smooth-window-lean-20260911-894d6b50']
+    paths:
+      - '.github/workflows/b699-smooth-window.yml'
+      - 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50/lean/**'
+      - 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50/verification/runner/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: b699-smooth-window-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  B699_RUN: 'research/tasks/B699-Binomial/runs/20260911-smooth-window-lean-894d6b50'
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Preserve pinned dependencies and obtain matching focused cache
+        run: |
+          mkdir -p "$B699_RUN/verification/current"
+          git diff --exit-code -- lean-toolchain lake-manifest.json lakefile.toml
+          git rev-parse HEAD > "$B699_RUN/verification/current/source-sha.txt"
+          sha256sum lean-toolchain lake-manifest.json > "$B699_RUN/verification/current/pins.sha256"
+          python3 - <<'PY' > "$B699_RUN/verification/current/cache-modules.txt"
+          from pathlib import Path
+          import os,re
+          mods=set()
+          for p in (Path(os.environ['B699_RUN'])/'lean').glob('*.lean'):
+              mods.update(re.findall(r'^import (Mathlib\.[\w.]+)$',p.read_text(),re.M))
+          print('\n'.join(sorted(mods)))
+          PY
+          xargs lake exe cache get < "$B699_RUN/verification/current/cache-modules.txt"
+          git diff --exit-code -- lean-toolchain lake-manifest.json lakefile.toml
+          sha256sum -c "$B699_RUN/verification/current/pins.sha256"
+          echo "ELAN_HOME=$HOME/.elan" >> "$GITHUB_ENV"
+      - name: Compile all sources and enforce every imported std3 audit
+        run: python3 "$B699_RUN/verification/runner/compile_all.py"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-smooth-window-evidence
+          path: ${{ env.B699_RUN }}/verification
+          retention-days: 30
+          if-no-files-found: error

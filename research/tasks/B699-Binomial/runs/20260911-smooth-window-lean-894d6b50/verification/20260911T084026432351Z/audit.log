@@ -1,0 +1,48 @@
+B699.SmoothWindow.choose_mul_complement_comm : ∀ (a b c : ℕ),
+  a.choose b * (a - b).choose c = a.choose c * (a - c).choose b
+'B699.SmoothWindow.choose_mul_complement_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.coefficient_identity : ∀ {n i j r : ℕ},
+  r ≤ i →
+    i ≤ j → j ≤ n → n.choose j * j.choose r * (n - j).choose (i - r) = n.choose i * i.choose r * (n - i).choose (j - r)
+'B699.SmoothWindow.coefficient_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.divisor_dvd_coefficient : ∀ {n i j r V : ℕ},
+  r ≤ i → i ≤ j → j ≤ n → V ∣ n.choose i → V.Coprime (n.choose j) → V ∣ j.choose r * (n - j).choose (i - r)
+'B699.SmoothWindow.divisor_dvd_coefficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.choose_two_scaled : ∀ (n : ℕ), 4 ≤ n → 2 * ↑(n.choose 2) = ↑n * (↑n - 1)
+'B699.SmoothWindow.choose_two_scaled' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.choose_three_scaled : ∀ (n : ℕ), 4 ≤ n → 6 * ↑(n.choose 3) = ↑n * (↑n - 1) * (↑n - 2)
+'B699.SmoothWindow.choose_three_scaled' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.choose_four_scaled : ∀ (n : ℕ), 4 ≤ n → 24 * ↑(n.choose 4) = B699.SmoothWindow.fallingFour ↑n
+'B699.SmoothWindow.choose_four_scaled' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.scaled_coefficients : ∀ (j k : ℕ),
+  4 ≤ j →
+    4 ≤ k →
+      B699.SmoothWindow.fallingFour ↑j = 24 * ↑(j.choose 4) ∧
+        B699.SmoothWindow.scaledB ↑j ↑k = 24 * (↑(j.choose 3) * ↑k) ∧
+          B699.SmoothWindow.scaledC ↑j ↑k = 24 * (↑(j.choose 2) * ↑(k.choose 2)) ∧
+            B699.SmoothWindow.scaledD ↑j ↑k = 24 * (↑j * ↑(k.choose 3)) ∧
+              B699.SmoothWindow.fallingFour ↑k = 24 * ↑(k.choose 4)
+'B699.SmoothWindow.scaled_coefficients' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.actual_I_identity : ∀ (j k : ℕ),
+  4 ≤ j → 4 ≤ k → 8 * B699.SmoothWindow.actualI j k = ↑j * ↑k * (↑j - 1) * (↑k - 1) * (↑j + ↑k - 3) * (↑j + ↑k - 2)
+'B699.SmoothWindow.actual_I_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.actual_J_identity : ∀ (j k : ℕ),
+  4 ≤ j →
+    4 ≤ k →
+      16 * B699.SmoothWindow.actualJ j k = -↑j ^ 2 * ↑k ^ 2 * (↑j - 1) * (↑k - 1) * (↑j + ↑k - 3) ^ 2 * (↑j + ↑k - 2)
+'B699.SmoothWindow.actual_J_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+B699.SmoothWindow.actual_W_identity : ∀ (j k : ℕ),
+  4 ≤ j →
+    4 ≤ k →
+      256 * B699.SmoothWindow.actualW j k =
+        -↑j ^ 3 * ↑k ^ 3 * (↑j - 1) ^ 2 * (↑k - 1) ^ 2 * (↑j + ↑k - 3) ^ 3 * (↑j + ↑k - 2) ^ 2 *
+          B699.SmoothWindow.discriminantQ ↑j ↑k
+'B699.SmoothWindow.actual_W_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.divisor_dvd_actual_invariants : ∀ {n j V : ℕ},
+  5 ≤ j →
+    j ≤ n →
+      V ∣ n.choose 4 →
+        V.Coprime (n.choose j) →
+          ↑V ^ 2 ∣ B699.SmoothWindow.actualI j (n - j) ∧
+            ↑V ^ 3 ∣ B699.SmoothWindow.actualJ j (n - j) ∧ ↑V ^ 6 ∣ B699.SmoothWindow.actualW j (n - j)
+'B699.SmoothWindow.divisor_dvd_actual_invariants' depends on axioms: [propext, Classical.choice, Quot.sound]

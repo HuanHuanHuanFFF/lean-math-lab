@@ -1,0 +1,18 @@
+@B699.SmoothWindow.coprime_factor_of_noCommon : ∀ {N B V : ℕ},
+  V ∣ N → ¬2 ∣ V → ¬3 ∣ V → (¬∃ p, Nat.Prime p ∧ 5 ≤ p ∧ p ∣ N ∧ p ∣ B) → V.Coprime B
+'B699.SmoothWindow.coprime_factor_of_noCommon' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.boundCheck_sound : ∀ {n U V : ℕ} {useW : Bool},
+  B699.SmoothWindow.boundCheck n U V useW = true → B699.SmoothWindow.CommonFour n
+'B699.SmoothWindow.boundCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.carry_prime_dvd_choose : ∀ {n k p e : ℕ},
+  Nat.Prime p → k ≤ n → 1 ≤ e → n % p ^ e < k % p ^ e → p ∣ n.choose k
+'B699.SmoothWindow.carry_prime_dvd_choose' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.noCommon_mod_le : ∀ {n j p e : ℕ},
+  5 ≤ j →
+    j ≤ n / 2 →
+      Nat.Prime p →
+        5 ≤ p →
+          1 ≤ e →
+            4 < p ^ e →
+              n % p ^ e < 4 → (¬∃ q, Nat.Prime q ∧ 5 ≤ q ∧ q ∣ n.choose 4 ∧ q ∣ n.choose j) → j % p ^ e ≤ n % p ^ e
+'B699.SmoothWindow.noCommon_mod_le' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,41 @@
+@B699.SmoothWindow.quarticI_dvd : ∀ {D a b c d e : ℤ},
+  D ∣ a → D ∣ b → D ∣ c → D ∣ d → D ∣ e → D ^ 2 ∣ B699.SmoothWindow.quarticI a b c d e
+'B699.SmoothWindow.quarticI_dvd' depends on axioms: [propext, Quot.sound]
+@B699.SmoothWindow.quarticJ_dvd : ∀ {D a b c d e : ℤ},
+  D ∣ a → D ∣ b → D ∣ c → D ∣ d → D ∣ e → D ^ 3 ∣ B699.SmoothWindow.quarticJ a b c d e
+'B699.SmoothWindow.quarticJ_dvd' depends on axioms: [propext, Quot.sound]
+@B699.SmoothWindow.quarticW_dvd : ∀ {D a b c d e : ℤ},
+  D ∣ a → D ∣ b → D ∣ c → D ∣ d → D ∣ e → D ^ 6 ∣ B699.SmoothWindow.quarticW a b c d e
+'B699.SmoothWindow.quarticW_dvd' depends on axioms: [propext, Quot.sound]
+B699.SmoothWindow.scaled_I_identity : ∀ (x y : ℤ),
+  B699.SmoothWindow.quarticI (B699.SmoothWindow.fallingFour x) (B699.SmoothWindow.scaledB x y)
+      (B699.SmoothWindow.scaledC x y) (B699.SmoothWindow.scaledD x y) (B699.SmoothWindow.fallingFour y) =
+    72 * x * y * (x - 1) * (y - 1) * (x + y - 3) * (x + y - 2)
+'B699.SmoothWindow.scaled_I_identity' depends on axioms: [propext, Quot.sound]
+B699.SmoothWindow.scaled_J_identity : ∀ (x y : ℤ),
+  B699.SmoothWindow.quarticJ (B699.SmoothWindow.fallingFour x) (B699.SmoothWindow.scaledB x y)
+      (B699.SmoothWindow.scaledC x y) (B699.SmoothWindow.scaledD x y) (B699.SmoothWindow.fallingFour y) =
+    -864 * x ^ 2 * y ^ 2 * (x - 1) * (y - 1) * (x + y - 3) ^ 2 * (x + y - 2)
+'B699.SmoothWindow.scaled_J_identity' depends on axioms: [propext, Quot.sound]
+B699.SmoothWindow.scaled_W_identity : ∀ (x y : ℤ),
+  B699.SmoothWindow.quarticW (B699.SmoothWindow.fallingFour x) (B699.SmoothWindow.scaledB x y)
+      (B699.SmoothWindow.scaledC x y) (B699.SmoothWindow.scaledD x y) (B699.SmoothWindow.fallingFour y) =
+    -746496 * x ^ 3 * y ^ 3 * (x - 1) ^ 2 * (y - 1) ^ 2 * (x + y - 3) ^ 3 * (x + y - 2) ^ 2 *
+      B699.SmoothWindow.discriminantQ x y
+'B699.SmoothWindow.scaled_W_identity' depends on axioms: [propext, Quot.sound]
+@B699.SmoothWindow.discriminantQ_pos : ∀ {x y : ℤ}, 5 ≤ x → 5 ≤ y → 0 < B699.SmoothWindow.discriminantQ x y
+'B699.SmoothWindow.discriminantQ_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.scaled_I_pos : ∀ {x y : ℤ},
+  5 ≤ x →
+    5 ≤ y →
+      0 <
+        B699.SmoothWindow.quarticI (B699.SmoothWindow.fallingFour x) (B699.SmoothWindow.scaledB x y)
+          (B699.SmoothWindow.scaledC x y) (B699.SmoothWindow.scaledD x y) (B699.SmoothWindow.fallingFour y)
+'B699.SmoothWindow.scaled_I_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+@B699.SmoothWindow.scaled_W_neg : ∀ {x y : ℤ},
+  5 ≤ x →
+    5 ≤ y →
+      B699.SmoothWindow.quarticW (B699.SmoothWindow.fallingFour x) (B699.SmoothWindow.scaledB x y)
+          (B699.SmoothWindow.scaledC x y) (B699.SmoothWindow.scaledD x y) (B699.SmoothWindow.fallingFour y) <
+        0
+'B699.SmoothWindow.scaled_W_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
