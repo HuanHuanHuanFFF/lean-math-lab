@@ -51,6 +51,8 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
+最新回执：D接续轮已交付，B最近轮已交付，A-2尚未交付新结果。见 [D接续轮接收](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/D_TAIL_COMPLETION.md)；R7不变，两条i3条带不升级为整行或跨指标闭合。下方早前回执属于历史状态。
+
 最新用户回执：B接续v2的下一轮已交付，A-2、D当前轮仍运行。见 [B下一轮接收](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/B_NEXT_COMPLETION.md)；保留B的5块证明链，与D-general覆盖不重复计功。B下一步沿用v4的一般无界方向，待用户派发；不再派C₁=7。
 
 当前调度以[本批当前阶段](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/README.md#当前阶段)为准：网页端数学研究为主，Lean暂停新增派发，已有待验队列保留。
