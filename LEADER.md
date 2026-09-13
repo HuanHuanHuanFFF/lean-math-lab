@@ -43,7 +43,7 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 整合与发布
 
-使用唯一分支 `GPT-work/leader-integration`。将 main 和选定已交付提交整合进该分支，保留全部来源历史、run 身份和他人改动，不强推覆盖，不直接推 main。数学原件保持原字节；新的接收说明解释更新后的范围。
+使用用户于2026-09-13指定的唯一分支 `huan/leader`，接替原 `GPT-work/leader-integration` 的总控职责；旧分支与历史发布记录保留。将 main 和选定已交付提交整合进该分支，保留全部来源历史、run 身份和他人改动，不强推覆盖，不直接推 main。数学原件保持原字节；新的接收说明解释更新后的范围。
 
 可将不同证据等级的交付一起归档，但必须在清单中逐项标明状态。尚在 CI artifact、没有分支提交的成果，交给指定接收执行者恢复发布；Leader 可依据已交付发布提交继续做整合。大型附件通过文件传输保存，仓库用来源清单和恢复入口引用；二进制或完整 Base64 不进入聊天。
 
@@ -53,7 +53,7 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
-从[本批当前状态](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md)进入。A联合高度及四位置补交、B17/25与新相对高度、D尾部条带已交付；B/D下一轮据Luna回报运行中，A下一轮方向已定待派。R7与i9的58族数不变，Lean暂停新增派发。当前原件、证据等级与方向只在该页维护；[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)待用户合并。
+先读[本机总控接管记录](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/notes/20260913-huan-leader-takeover.md)，再从[本批当前状态](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md)进入。用户确认当前有三个6 Pro研究会话；Luna/max后续负责投递与回传，逐路任务和实际输入按回执登记。当前原件、证据等级与方向只在当前状态页维护。[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)已合并；接管基线、职责与发布断点见接管记录。
 
 上一接收从 [2026-09-12 R7 三路新成果与下一轮任务](research/tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/README.md) 进入：A 的 i9 全局约束、B 的双侧素数幂消费者、D 的五因子与平方根整行消费者，另补收D上一轮误接B任务的单侧a≤21闭合；当前D仍为D。A继续i9，B转向一般混合余因子，D保留自由探索。三份修订任务共用v2完整附件。R7 未减少，作者证据、独立接受和发布状态分别登记。
 
@@ -66,4 +66,3 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 上一调度入口：[B699 调度与 huan 接续](research/tasks/B699-Binomial/runs/20260911-leader-dispatch-f71b38c0/README.md)，其前沿与数量为当时快照。
 
 历史来源：[上一批整合](research/tasks/B699-Binomial/runs/20260910-leader-integration-ad35779e/README.md)。其他题目从 [研究索引](research/README.md) 找到入口。
-
