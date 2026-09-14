@@ -1,0 +1,180 @@
+{
+  "status": "PASS_NEW_PRIMITIVE_POWER_AND_HEIGHT_OBLIGATIONS",
+  "arithmetic": {
+    "obligations": 131,
+    "axis_position_h_cases": 30,
+    "cut_branches": [
+      3187,
+      926,
+      4277,
+      1090
+    ],
+    "order_table": [
+      [
+        3,
+        1,
+        1
+      ],
+      [
+        3,
+        2,
+        2
+      ],
+      [
+        7,
+        1,
+        1
+      ],
+      [
+        7,
+        2,
+        3
+      ],
+      [
+        7,
+        3,
+        6
+      ],
+      [
+        7,
+        4,
+        3
+      ],
+      [
+        7,
+        5,
+        6
+      ],
+      [
+        7,
+        6,
+        2
+      ]
+    ]
+  },
+  "negative_tests": {
+    "count": 22,
+    "results": [
+      {
+        "mutation": "missing_position",
+        "rejected": true,
+        "reason": "complete remaining position coverage"
+      },
+      {
+        "mutation": "wrong_m3_position",
+        "rejected": true,
+        "reason": "m=3 exact position"
+      },
+      {
+        "mutation": "weaken_scalar_constant",
+        "rejected": true,
+        "reason": "frozen scalar constant"
+      },
+      {
+        "mutation": "cut_weight_change",
+        "rejected": true,
+        "reason": "frozen cut parameters"
+      },
+      {
+        "mutation": "sum_same_prime_instead_of_max",
+        "rejected": true,
+        "reason": "all four cut branches, max not sum on same variable"
+      },
+      {
+        "mutation": "product_exponent_increase",
+        "rejected": true,
+        "reason": "exact product cut exponent"
+      },
+      {
+        "mutation": "wrong_validity_domain",
+        "rejected": true,
+        "reason": "frozen lower domains"
+      },
+      {
+        "mutation": "height_exponent_increase",
+        "rejected": true,
+        "reason": "position-sensitive exponent"
+      },
+      {
+        "mutation": "wrong_g_exponent",
+        "rejected": true,
+        "reason": "g exponent after n=g alpha"
+      },
+      {
+        "mutation": "axis_h_6",
+        "rejected": true,
+        "reason": "axis h exact safe range"
+      },
+      {
+        "mutation": "axis_h_11",
+        "rejected": true,
+        "reason": "axis h exact safe range"
+      },
+      {
+        "mutation": "axis_coeff_unbounded",
+        "rejected": true,
+        "reason": "axis coefficient and target constants"
+      },
+      {
+        "mutation": "normalize_row0",
+        "rejected": true,
+        "reason": "exclude row zero"
+      },
+      {
+        "mutation": "use_T_without_avoidance",
+        "rejected": true,
+        "reason": "avoidance before noCommon"
+      },
+      {
+        "mutation": "take_size_of_zero",
+        "rejected": true,
+        "reason": "division of zero is not a size bound"
+      },
+      {
+        "mutation": "omit_m3_factor",
+        "rejected": true,
+        "reason": "retain m=3 extra full factor"
+      },
+      {
+        "mutation": "allow_h1",
+        "rejected": true,
+        "reason": "proper powers h>=2"
+      },
+      {
+        "mutation": "wrong_log_power",
+        "rejected": true,
+        "reason": "log absorption exponent"
+      },
+      {
+        "mutation": "omit_sum_coprimality",
+        "rejected": true,
+        "reason": "primitive sum requires gcd=1"
+      },
+      {
+        "mutation": "truncate_full_exponents",
+        "rejected": true,
+        "reason": "complete exponents, including g"
+      },
+      {
+        "mutation": "declare_projection_counterexample",
+        "rejected": true,
+        "reason": "projection is NOT a counterexample"
+      },
+      {
+        "mutation": "wrong_projection_residue",
+        "rejected": true,
+        "reason": "projection n mod49"
+      }
+    ]
+  },
+  "frozen_sources": {
+    "member_references": 149,
+    "referenced_bytes_including_shared_duplicate_reference": 143929838,
+    "old_content_blocks_replayed": false,
+    "old_cubic_blocks_replayed": false,
+    "old_i9_terminal_replayed": false
+  },
+  "seconds": 0.2568489340001179,
+  "lean": false,
+  "scope": "finite arithmetic receiving; infinite proof in notes/PROOFS.md; not an old-chain replay"
+}

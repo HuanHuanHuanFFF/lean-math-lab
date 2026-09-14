@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "regenerated_certificate_byte_identical": true,
+  "seconds_diagnostic": 11.176691801000004,
+  "commands": [
+    {
+      "command": [
+        "python",
+        "generate.py",
+        "b699-d-transfer-regen-l60o299x"
+      ],
+      "returncode": 0,
+      "stdout": "{\"distinct_candidates\": 6604, \"divisor_instances\": 32138, \"max_n\": 170298128007, \"max_witness\": 647, \"templates\": 233}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "verify.py",
+        "certificate.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\"distinct_candidates\": 6604, \"divisor_instances\": 32138, \"max_n\": 170298128007, \"max_witness\": 647, \"mutation_tests\": 24, \"status\": \"PASS\", \"templates\": 233}",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "check_new.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"B50_lift_parameter_rows\": 196, \"B50_modular_checks\": 980, \"bridge_exact_checks\": 29416, \"free_position_regressions\": 94455, \"height_constant\": 4194304, \"row9_density\": \"7129/11025\", \"scope\": \"Regressions do not replace the infinite proofs. B50 source consumer inherited, not rerun.\", \"status\": \"PASS\"}",
+      "stderr": ""
+    }
+  ],
+  "lean_run": false,
+  "independent_human_review": false,
+  "upstream_B523_states_replayed": false
+}

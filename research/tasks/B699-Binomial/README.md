@@ -8,7 +8,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
-| [20260912-leader-r7-joint-58-c8c256bc](runs/20260912-leader-r7-joint-58-c8c256bc/README.md) | 当前接收：i9的58族、i3三商与9块、双残量及2^37∤n整行；R7不变 | [状态](runs/20260912-leader-r7-joint-58-c8c256bc/frontier.md) · [接受责任](runs/20260912-leader-r7-joint-58-c8c256bc/acceptance.md) · [v3任务](runs/20260912-leader-r7-joint-58-c8c256bc/prompts/README.md) |
+| [20260912-leader-r7-joint-58-c8c256bc](runs/20260912-leader-r7-joint-58-c8c256bc/README.md) | 当前 canonical 接收、研究调度与证据登记；各次交付保持来源和 run 身份 | [当前状态](runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md) · [接受责任](runs/20260912-leader-r7-joint-58-c8c256bc/acceptance.md) · [本轮接收与任务](runs/20260912-leader-r7-joint-58-c8c256bc/intake/20260914-outer-cubic-transfer/README.md) |
 | [20260912-leader-r7-continuation-c8c256bc](runs/20260912-leader-r7-continuation-c8c256bc/README.md) | 上一接收：i9约束、i3双侧与五因子消费者；补收D上一轮B任务的单侧a≤21闭合，修订三任务；R7不变 | [状态](runs/20260912-leader-r7-continuation-c8c256bc/frontier.md) · [原件恢复](runs/20260912-leader-r7-continuation-c8c256bc/ARCHIVES.json) · [任务](runs/20260912-leader-r7-continuation-c8c256bc/prompts/README.md) |
 | [20260912-leader-r7-intake-4fe8697e](runs/20260912-leader-r7-intake-4fe8697e/README.md) | 上一接收：i14 全域纸面闭合、R7 前沿、ABCD/E 成果与三路研究任务 | [状态](runs/20260912-leader-r7-intake-4fe8697e/frontier.md) · [原件恢复](runs/20260912-leader-r7-intake-4fe8697e/ARCHIVES.json) · [任务](runs/20260912-leader-r7-intake-4fe8697e/prompts/README.md) |
 | [20260911-leader-intake-b-6e18713b](runs/20260911-leader-intake-b-6e18713b/README.md) | 上次 B 两轮成果接收与调度：精确内容、共同进位、百万约分分子子族 | [状态](runs/20260911-leader-intake-b-6e18713b/frontier.md) · [原件与恢复](runs/20260911-leader-intake-b-6e18713b/ARCHIVES.json) |
@@ -48,4 +48,3 @@
 同题研究放在本目录。新独立推进放入 `runs/日期-主题-短标识/`；换模型、会话或并发数量不改变既有批次身份。详见[目录规则](../../../docs/STRUCTURE.md)。各批独立维护进度和报告，本页仅作题面与导航。
 
 正式模块：[CofactorCriterion](../../../Math/B699/CofactorCriterion.lean)、[公理检查](../../../Tests/B699CofactorCriterion.lean)、[示例](../../../Examples/CofactorCriterion.lean)。
-

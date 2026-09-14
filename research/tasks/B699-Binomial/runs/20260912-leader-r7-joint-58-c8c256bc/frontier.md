@@ -1,6 +1,8 @@
+> 最新整理入口：[七份成果总表](DELIVERIES.md)、[整理交接](notes/20260914-output-consolidation.md)。本文件保留历史前沿；当前结论、暂停与派发状态以 [CURRENT_STATUS.md](CURRENT_STATUS.md) 为准。
+
 # 本轮接收前沿：58族、三商与双残量
 
-> 当前状态统一见 [CURRENT_STATUS.md](CURRENT_STATUS.md)：A新交付已接收；据Luna回报B/D下一轮运行，A下一轮待派。下文为各次接收和责任的历史记录，保留原范围。
+> 当前状态统一见 [CURRENT_STATUS.md](CURRENT_STATUS.md)。2026-09-14四份新交付及VPS接续已登记；本文件保留各次历史前沿，不从下文“待派／运行中”推断实时状态，不在这里维护第二份 canonical。
 
 来源为2026-09-12三份新交付。以下登记作者结论和实际报告范围；Leader没有重跑数学验证、检查出版原文或运行Lean。**R7={3,4,5,6,7,8,9}不变，没有新增整指标闭合。** i14既有纸面＋精确证书状态不变，仍待Lean。
 

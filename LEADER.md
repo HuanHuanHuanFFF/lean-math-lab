@@ -43,7 +43,9 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 整合与发布
 
-使用用户于2026-09-13指定的唯一分支 `huan/leader`，接替原 `GPT-work/leader-integration` 的总控职责；旧分支与历史发布记录保留。将 main 和选定已交付提交整合进该分支，保留全部来源历史、run 身份和他人改动，不强推覆盖，不直接推 main。数学原件保持原字节；新的接收说明解释更新后的范围。
+上游本机 Leader 沿用 `huan/leader`；用户于2026-09-14指定独立 VPS Leader 使用 `GPT-work/leader`，从最新 `main` 建立。旧 `GPT-work/leader-integration`、上游分支及历史发布记录保留，同一研究 run 的身份和 canonical 状态入口不变。先核对分支、HEAD、未提交修改和来源基线；有分叉或未知修改先报告。只在相应授权内整合提交，不修改其他 Agent 分支，不强推覆盖，不直接推 main。数学原件保持原字节；新的接收说明解释更新后的范围。
+
+用户随后明确要求“每次整理好了就push一下”。这是持续授权：每次完成Leader成果接收或整理并通过相应行政/技术检查后，直接commit并普通推送到`GPT-work/leader`，核对远端提交SHA，再交付结果，不重复请求确认。当前已整理的累计内容也在本次授权范围。整理时的行政通过不替代数学接受，待核验成果须保留证据等级。此授权不恢复暂停的研究或Lean，也不包含merge、force push、删除、权限修改、PR创建及向其他会话发消息。
 
 可将不同证据等级的交付一起归档，但必须在清单中逐项标明状态。尚在 CI artifact、没有分支提交的成果，交给指定接收执行者恢复发布；Leader 可依据已交付发布提交继续做整合。大型附件通过文件传输保存，仓库用来源清单和恢复入口引用；二进制或完整 Base64 不进入聊天。
 
@@ -53,7 +55,9 @@ Leader 负责维护当前状态、安排研究与核验任务、控制资源、�
 
 ## 当前入口
 
-先读[本机总控接管记录](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/notes/20260913-huan-leader-takeover.md)，再从[本批当前状态](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md)进入。用户确认当前有三个6 Pro研究会话；Luna/max后续负责投递与回传，逐路任务和实际输入按回执登记。当前原件、证据等级与方向只在当前状态页维护。[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)已合并；接管基线、职责与发布断点见接管记录。
+先读[VPS 接管记录](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/notes/20260914-vps-leader-takeover.md)，再从[canonical 当前状态](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md)接续。十份交付统一在[成果索引](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/DELIVERIES.md)。A已交回nonic新成果，旧疑似卡住状态已更新，见[最新接收评估](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/notes/20260914-a-nonic-assessment.md)；B与误收B任务的新D两份i3成果保留准确身份。用户要求下一轮三份自主选法提示词，已准备[v3任务与共用附件](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/intake/20260914-open-next-round-v3/DISPATCH.md)，由用户投递，新D恢复i4–i8及跨指标主责；没有自动启动数学研究。最多两路实质研究并发，Lean继续暂停。整理后commit/push按上方持续授权执行，不重复询问；此前c69a037与578a33a仅本地提交，实际远端发布须核对ref，见[发布记录](research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/intake/20260914-leader-publication/README.md)。
+
+以下历史批次位于当前VPS稀疏检出的范围之外；本地路径未物化不表示材料已删除。需要读取时按接管记录的固定来源恢复，当前十份交付从上方成果索引进入。
 
 上一接收从 [2026-09-12 R7 三路新成果与下一轮任务](research/tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc/README.md) 进入：A 的 i9 全局约束、B 的双侧素数幂消费者、D 的五因子与平方根整行消费者，另补收D上一轮误接B任务的单侧a≤21闭合；当前D仍为D。A继续i9，B转向一般混合余因子，D保留自由探索。三份修订任务共用v2完整附件。R7 未减少，作者证据、独立接受和发布状态分别登记。
 
