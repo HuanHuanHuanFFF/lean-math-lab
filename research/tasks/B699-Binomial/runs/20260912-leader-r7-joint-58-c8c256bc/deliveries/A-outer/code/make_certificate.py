@@ -1,0 +1,28 @@
+"""Construct the small new-obligation certificate (not a discovery search)."""
+from pathlib import Path
+import json
+R=Path(__file__).resolve().parents[1]
+c={
+ 'schema':1,'positions':[[1,2],[2,1],[1,3],[3,1]],'m3_position':[3,1],
+ 'scalar_R':171603713767500,'scalar_R_bits':48,
+ 'finite_bits':4096,'branch_lower_bits':14000001,
+ 'log2_lower':'56/81','cut_log_threshold':9500000,
+ 'cuts':[[[7,540],[3,1090]],[[7,3187],[3,386]]],
+ 'weight_denominator':10000,'product_exponent':'463/5000',
+ 'product_branch_numerators':[3187,926,4277,1090],
+ 'weighted_constant':840,'constant_power':60,'height_bits':600,
+ 'height_cases':[
+  {'k':3,'w':10,'E':'4963/500','n_power':4963,'alpha_power':6000,'constant_bits':300000,'g_alpha_power':1037,'axis_h_max':5},
+  {'k':4,'w':9,'E':'54167/5000','n_power':54167,'alpha_power':60000,'constant_bits':3000000,'g_alpha_power':5833,'axis_h_max':10}],
+ 'axis_coefficient_bits':100,'axis_zero_bound_bits':21600,
+ 'normalized_first_row':1,'normalized_last_row':8,'prime_min':11,
+ 'requires_avoided_prime':True,'zero_values_allow_size_bound':False,
+ 'power_h_min':2,'power_constants':{'m1':6,'m3':6},
+ 'log_absorption_denominator':60,'power_contradiction_bits':480,
+ 'sum_requires_coprime':True,'sum_upper_constant':6,'sum_contradiction_bits':133,
+ 'primitive_full_exponents':['a+v2(g)','b+v5(g)','v_l(g): l!=2,5'],
+ 'projection':{'u_min':100000,'a_slope':140,'a_intercept':47,'b_slope':70,'b_intercept':23,
+   'm':3,'g':1,'position':[3,1],'mod9':3,'mod49':1,'mod11':7,
+   'common_prime':11,'is_noCommon_counterexample':False}
+}
+(R/'evidence/new_obligations.json').write_text(json.dumps(c,indent=2)+'\n')
