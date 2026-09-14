@@ -6,6 +6,8 @@ Pursue mathematical results checked by Lean. Explain progress and limitations in
 
 Leader work: read [LEADER.md](LEADER.md) before taking over the task command center, choosing directions, allocating workers/resources, writing task prompts, maintaining status, or integrating deliveries. The Leader owns coordination, evidence-status records, integration, and the next executable task; mathematical workers and designated verifiers own technical acceptance.
 
+For automatic B699 coordination, session recovery, staggered polling, evidence transfer, message-count tracking, and routine worker dispatch, read [AUTO.md](AUTO.md). It grants routine research-continuation authority within the current target; it does not grant merge, push, deletion, publication, authentication, or unrelated external-action authority.
+
 When acting as Leader, delegate mathematical review, certificate checks, Lean implementation, compilation, and axiom audits to named execution or verification tasks. The Leader may inspect supplied reports, branch/commit/PR state, file inventories and byte provenance, and package or integrate delivered files; these administrative checks do not constitute mathematical acceptance. Record the verifier, fixed source, accepted scope, and remaining gaps. If verification is missing, assign it and keep the result pending. Do not run proof checks in the Leader thread or silently take a worker's technical task back.
 
 ## Task Ownership and Delegation
@@ -91,10 +93,9 @@ On this Windows workstation keep new installations, downloads, caches, and tempo
 
 Use execution-location branch prefixes for new work: `huan/<topic>-<date>-<short-id>` on huan, `think/<topic>-<date>-<short-id>` on think, and `GPT-work/<topic>-<date>-<short-id>` for cloud Work VPS tasks. Dates use Asia/Shanghai. These branch names do not change the run-directory naming rules in `docs/STRUCTURE.md`; preserve existing branches and run identities.
 
-The sole Leader uses the persistent integration branch `GPT-work/leader-integration`, without a date or random suffix. Follow [LEADER.md](LEADER.md) for intake, synchronization, and handoff. Publish a PR to `main`; the user merges it unless they explicitly delegate that action. Leader intake never pushes directly to `main`. Ordinary workers publish only their own task branch under the session's authorization; they do not merge other ongoing tasks into their delivery.
+The sole Leader uses the persistent integration branch `huan/leader`, as specified by the user on 2026-09-13. Follow [LEADER.md](LEADER.md) for intake, synchronization, and handoff. Publish a PR to `main`; the user merges it unless they explicitly delegate that action. Leader intake never pushes directly to `main`. Ordinary workers publish only their own task branch under the session's authorization; they do not merge other ongoing tasks into their delivery.
 
 Use focused commit messages; existing examples use `feat:` and `ci:` with Chinese descriptions. Changes should state the claim, source, assumptions, verification, and remaining gaps. Commit, push, release, and contact others only within explicit authorization. Preserve published tags; verify the exact remote commit and report the observed CI status when publishing.
 
 API documentation CI is non-blocking for merge or push handoff. Once the required code/proof checks for the change pass, report the documentation build/deployment's current status and run link when available, then hand off without waiting or repeatedly polling for it. Report pending documentation CI as pending. Wait for documentation completion only when explicitly requested by the user.
-
 

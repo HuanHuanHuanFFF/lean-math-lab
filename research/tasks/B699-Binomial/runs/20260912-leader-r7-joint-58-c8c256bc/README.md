@@ -1,8 +1,8 @@
 # R7：当前交付、证据与异步调度
 
-本批负责人：5号Leader；保留原批次20260912-leader-r7-joint-58-c8c256bc的身份、历史记录和来源。当前以网页数学研究为主，Lean暂停新增派发。
+本批于2026-09-13按用户要求由本机总控接管，原5号Leader记录保留，见[接管记录](notes/20260913-huan-leader-takeover.md)；保留原批次20260912-leader-r7-joint-58-c8c256bc的身份、历史记录和来源。当前以网页数学研究为主，Lean暂停新增派发。
 
-**从[当前状态](CURRENT_STATUS.md)接续：A新联合高度及四位置补交已交付，B新高度/17与25块已交付，D条带已交付；据Luna回报B、D下一轮运行中，A下一轮待派发。R7不变，i9仍58族。**
+**从[当前状态](CURRENT_STATUS.md)接续：A新联合高度及四位置补交、B新高度/17与25块、D条带已交付。用户在接管时确认三个6 Pro会话运行中，逐路输入待Luna回执。作者报告层R7不变，i9仍58族。**
 
 | 入口 | 用途 |
 |---|---|
@@ -32,4 +32,4 @@
 
 ## 发布
 
-沿用GPT-work/leader-integration与[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)，用户合并。PR #15、#16已合并；PR #17尚未合并。作者纸面、出版依赖、精确证书、独立审读、Lean接受与Git发布分开记录。此前本批初始来源和旧PR断点保留在交接及各来源清单中。
+历史发布使用GPT-work/leader-integration与[PR #17](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/17)；PR #15、#16、#17均已合并。2026-09-13起按用户要求改用huan/leader，当前发布断点见[接管记录](notes/20260913-huan-leader-takeover.md)。作者纸面、出版依赖、精确证书、独立审读、Lean接受与Git发布分开记录。此前本批初始来源和旧PR断点保留在交接及各来源清单中。

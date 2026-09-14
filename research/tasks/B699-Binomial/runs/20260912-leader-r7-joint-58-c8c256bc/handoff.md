@@ -1,6 +1,6 @@
 # 5号Leader接续与发布记录
 
-> 当前状态统一见 [CURRENT_STATUS.md](CURRENT_STATUS.md)：A新交付已接收；据Luna回报B/D下一轮运行，A下一轮待派。下文为各次接收和责任的历史记录，保留原范围。
+> 2026-09-13已由本机总控接管，最新职责、main基线和发布断点见[接管记录](notes/20260913-huan-leader-takeover.md)，数学与逐路状态统一见[CURRENT_STATUS.md](CURRENT_STATUS.md)。下文保留5号Leader各次接收和责任的历史记录，不作为实时运行或PR状态。
 
 接续日期：2026-09-12（Asia/Shanghai）。继续原批次身份；负责人改由5号Leader接手。数学原件、v3任务正文及作者证据等级保持原样。
 
