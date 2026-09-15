@@ -1,5 +1,7 @@
 # B699：五小时纸面研究与跨领域连接
 
+接续入口：[OVERVIEW.md](OVERVIEW.md)。本轮结论、证明与交接分别见 [REPORT.md](REPORT.md)、[PROOFS.md](PROOFS.md)、[HANDOFF.md](HANDOFF.md)。本文件保留开工授权、基线和所有权，不替代最终数学前沿。
+
 ## 本轮授权和预算
 
 - 开工：2026-09-15 18:28:45 UTC = 2026-09-16 02:28:45 Asia/Shanghai。
