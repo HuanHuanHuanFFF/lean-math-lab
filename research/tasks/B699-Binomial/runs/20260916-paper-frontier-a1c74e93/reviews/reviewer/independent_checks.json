@@ -1,0 +1,138 @@
+{
+  "reviewer": "/root/reviewer",
+  "resources": {
+    "time_utc": "2026-09-15T17:09:15.537540+00:00",
+    "memory_status_ok": true,
+    "available_physical_bytes": 1697447936,
+    "logical_cpus": 16,
+    "D_free_bytes": 6482010112,
+    "platform": "Windows-11-10.0.26100-SP0",
+    "workload": "serial standard-library exact integer arithmetic; no Lean"
+  },
+  "source_hashes": {
+    "notes/nc3/PROOFS.md": {
+      "bytes": 7100,
+      "sha256": "adb2ed7ffe63850b8ea2ee89158563017fabfd9b0c2b7106b4651002c1f481bb"
+    },
+    "notes/nc3/BLOCK_EXTENSION.md": {
+      "bytes": 4672,
+      "sha256": "f7c221bb263cec2c356d174b58077b9ffe05d962dc62240a53cfa0b78aeae3a0"
+    },
+    "notes/main/02-h02-gcd-fourth.md": {
+      "bytes": 4594,
+      "sha256": "79a6931f47a72c27057d2e83369cb99ae7c754a983b21b59d6d72806c94a876f"
+    }
+  },
+  "status": "all bounded checks passed",
+  "nc3": {
+    "grid": {
+      "original_P": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23,
+        29,
+        31
+      ],
+      "original_A": "1..P-1",
+      "original_f": "1..3",
+      "original_d": "1..7",
+      "original_k": "1..10",
+      "extension_P": [
+        3,
+        5,
+        7
+      ],
+      "extension_d": "1..4",
+      "extension_A": "1..min(P^d-1,64), P^d-1, all powers of 2 below P^d",
+      "extension_f": "1..3",
+      "extension_k": "2..8"
+    },
+    "counters": {
+      "original_parameters": 31080,
+      "extension_parameters": 9513,
+      "valuation_checks": 40593,
+      "oddpart_cubic_checks": 40593,
+      "row128_checks": 21546
+    },
+    "min_m4_over_n": "27/8",
+    "min_parameters_P_A_f_d_k_n_m": [
+      3,
+      2,
+      1,
+      1,
+      2,
+      24,
+      3
+    ],
+    "distinct_direct_rows": 496,
+    "direct_row_cap": 5000,
+    "direct_original_binomial_pairs": 359169,
+    "boundary_checks": {
+      "12": {
+        "prime": 11,
+        "all_legal_j_verified": true
+      },
+      "24": {
+        "prime": 23,
+        "all_legal_j_verified": true
+      },
+      "240": {
+        "prime": 239,
+        "all_legal_j_verified": true
+      },
+      "1344": {
+        "W1_roots_mod_1343": [
+          0,
+          1,
+          238,
+          1106
+        ],
+        "gcd_at_238": 14,
+        "all_legal_j_verified": true
+      }
+    }
+  },
+  "h02": {
+    "Taylor_zero_checks": 37,
+    "positive_gap_coefficients": 45,
+    "gap_constant": 1874016,
+    "gap_degree": 8,
+    "cost_roles": [
+      {
+        "role": "3_at_0_2_at_2",
+        "residue_mod_72": 18,
+        "small_parts_without_isolated_5": [
+          1,
+          3,
+          2
+        ],
+        "base_cost": 18,
+        "max_with_single_5": 11250
+      },
+      {
+        "role": "2_at_0_3_at_2",
+        "residue_mod_72": 56,
+        "small_parts_without_isolated_5": [
+          1,
+          1,
+          4
+        ],
+        "base_cost": 4,
+        "max_with_single_5": 2500
+      }
+    ],
+    "global_algebra_certificate": "independent_h02_coefficients.json",
+    "constant_identity": "11250/144 = 625/8"
+  },
+  "limitations": [
+    "Finite NC3 samples do not prove the infinite theorem; independent paper argument is separate.",
+    "H02 polynomial coefficient identity is global on a,d>=0; NC5 hypotheses and prime-power transfer still require the accompanying paper proof.",
+    "No Lean or human peer review performed."
+  ],
+  "elapsed_seconds": 0.9353597999943304
+}
