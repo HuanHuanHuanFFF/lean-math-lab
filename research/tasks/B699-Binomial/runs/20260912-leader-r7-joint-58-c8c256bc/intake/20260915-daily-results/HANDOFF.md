@@ -24,6 +24,6 @@ V-20260915-A/B/D 已作为待派接受义务登记，独立执行者尚未指定
 
 本次来源是本地干净 `main@c0517376026da6f8c58185a5bd86327127d29ce3`；没有在本轮宣称已刷新远端。旧 `huan/leader@3a22fe6d9` 不是 main 的祖先，为保留分叉，使用新分支 `huan/leader-intake-20260915-6f28a9c4`。
 
-整理成果仅保存于本机本分支；没有推送、创建 PR、合并或改写 `huan/leader`、`GPT-work/leader`、main 及其他工作树。最终提交可通过本分支 Git 日志定位。原有针对 VPS `GPT-work/leader` 的持续推送授权没有被扩成新本机分支的远端发布授权。
+接收完成时整理仅保存于本机；用户随后于 2026-09-16 明确要求创建 PR，本机已正常推送本分支并创建 [PR #20](https://github.com/HuanHuanHuanFFF/lean-math-lab/pull/20)，详见[发布记录](PUBLICATION.md)。没有合并或改写 `huan/leader`、`GPT-work/leader`、main 及其他工作树。此次发布依据用户新的明确请求，不是把 VPS 的持续授权扩展到其他分支。
 
 后续发布时仅携带本批接收文件与六个 canonical 入口更新，先检查字节记录和实际分支。不要把 `E:\Download` 原 ZIP、`.tools/` 的临时恢复副本或旧任务包提交到仓库。准确重建 ZIP 容器仍需要原包，普通成员布局可以从 Git 内清单恢复。
