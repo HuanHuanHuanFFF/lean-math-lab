@@ -1,0 +1,128 @@
+"""Exact arithmetic for this delivery. No probabilistic primality or floating point."""
+from math import gcd, isqrt, prod, comb
+from fractions import Fraction
+
+SMALL = (2, 3, 5, 7)
+R = 171603713767500
+MODULUS = 176400
+RESIDUE = 174000
+CUBIC_K = {0: 2, 1: 2, 3: 12, 4: 48, 5: 120, 6: 240, 7: 420, 8: 672}
+ODD_ROWS = (1, 3, 5, 7)
+
+
+def valuation(n: int, p: int) -> int:
+    if n == 0 or p < 2:
+        raise ValueError('valuation requires nonzero n and p>=2')
+    n = abs(n)
+    e = 0
+    while n % p == 0:
+        n //= p
+        e += 1
+    return e
+
+
+def factor(n: int) -> dict[int, int]:
+    if n < 1:
+        raise ValueError('positive input required')
+    ans = {}
+    d = 2
+    while d * d <= n:
+        if n % d == 0:
+            e = 0
+            while n % d == 0:
+                e += 1
+                n //= d
+            ans[d] = e
+        d = 3 if d == 2 else d + 2
+    if n > 1:
+        ans[n] = 1
+    return ans
+
+
+def is_prime_trial(p: int) -> bool:
+    """Deterministic; callers cap the trial-division input when needed."""
+    if p < 2:
+        return False
+    if p == 2:
+        return True
+    return p % 2 != 0 and all(p % d for d in range(3, isqrt(p) + 1, 2))
+
+
+def smooth_part(n: int) -> int:
+    if n == 0:
+        raise ValueError('smooth part of zero is undefined')
+    n = abs(n)
+    s = 1
+    for p in SMALL:
+        while n % p == 0:
+            n //= p
+            s *= p
+    return s
+
+
+def rough_part(n: int) -> int:
+    return abs(n) // smooth_part(n)
+
+
+def factorial_v(n: int, p: int) -> int:
+    ans = 0
+    while n:
+        n //= p
+        ans += n
+    return ans
+
+
+def binomial_v(n: int, j: int, p: int) -> int:
+    if not (0 <= j <= n):
+        raise ValueError('illegal binomial index')
+    return factorial_v(n, p) - factorial_v(j, p) - factorial_v(n - j, p)
+
+
+def carry_layers(n: int, j: int, p: int) -> list[int]:
+    q = p
+    out = []
+    while q <= n:
+        out.append(int(j % q > n % q))
+        q *= p
+    return out
+
+
+def shifted(n: int, j: int, r: int, b: int) -> tuple[int, int, int]:
+    h = gcd(n - r, j - b)
+    return (n - r) // h, (j - b) // h, h
+
+
+def linear_product(d: int, c: int, r: int, b: int, source_row: int) -> int:
+    return prod(d * (b - u) + c * (source_row - r) for u in range(source_row + 1))
+
+
+def central_product(t: int) -> int:
+    return prod(7 - 2 * t - 2 * u for u in range(8))
+
+
+def row_consumer(n: int, r: int, p: int, e: int, i: int = 9) -> dict:
+    """A sufficient all-j certificate, not a complete B699 decision procedure.
+
+    Only deterministic primality p<=10^12 is implemented here. This is an
+    implementation resource bound, NOT a hypothesis of the mathematical theorem.
+    Any positive e with p**e | n-r is allowed; output says if that power is full.
+    """
+    if n < 20 or r not in ODD_ROWS or not (max(3, r + 1) <= i <= 9):
+        raise ValueError('outside proved theorem domain')
+    if smooth_part(n - 2) != 2:
+        raise ValueError('S_7(n-2) must equal 2')
+    if p < 11 or p > 10**12 or not is_prime_trial(p):
+        raise ValueError('a certified prime 11<=p<=10^12 is required by this implementation')
+    if e < 1 or e > n.bit_length():
+        raise ValueError('invalid exponent')
+    q = p**e
+    if (n - r) % q:
+        raise ValueError('p**e does not divide n-r')
+    cofactor = (n - r) // q
+    if n <= 2 + CUBIC_K[r] * cofactor**3:
+        raise ValueError('strict sufficient cubic inequality does not hold')
+    return {'status': 'ALL_LEGAL_J_CERTIFIED_BY_PAPER_THEOREM', 'i': i,
+            'r': r, 'p': p, 'e': e, 'full_power': (n-r) % (q*p) != 0,
+            'cofactor': cofactor, 'n': n,
+            'witness_set': 'the supplied prime together with prime divisors of (n-2)/2',
+            'lean': False}

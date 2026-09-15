@@ -1,0 +1,129 @@
+{
+  "run": "A-SUPPORT31-20260914-v3",
+  "timestamp": "2026-09-14T23:47:30.408923+08:00",
+  "status": "COMPLETE_NEW_MATH_AND_EXACT_REPLAY; ARCHIVE_AND_CLEAN_REPLAY_RECORDED_IN_SEPARATE_RELEASE_RECEIPT",
+  "input": "B699-ABD-open-next-round-20260914-v3.zip",
+  "frontier": {
+    "R7": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "i9_alpha_family_count": 58,
+    "i14_frozen_result_preserved": true
+  },
+  "new_theorems": [
+    {
+      "id": "A9-HEIGHT-S",
+      "quantifiers": "For each fixed finite prime S containing 2,3,5,7: NC9 and support(gcd(n,j)) within S imply log2(n)<H(S).",
+      "H": "2^(C+4)*(C+4); C=bit_length(504*44^(3|S|+2)*ceil(log2(max S))^(|S|-1))",
+      "remaining_unbounded": "The set S itself: its prime identities and cardinality."
+    },
+    {
+      "id": "A9-SUPPORT31",
+      "quantifiers": "All n,j with 10<=j<=floor(n/2) and 31-smooth gcd(n,j) satisfy Common9.",
+      "consequence": "Every NC9 gcd has a prime divisor at least37.",
+      "remaining_unbounded": "g with prime factors >=37; both double-high alpha families for arbitrary g."
+    }
+  ],
+  "positive_inputs": [
+    "New complete-power SC proof",
+    "BEG2013v1 Proposition3.10, rational finite place",
+    "Frozen A9-FINITE n<2^4096, only for SUPPORT31"
+  ],
+  "not_used_as_new_dependencies": [
+    "i14 global",
+    "A14-CUBIC-BLOCKS",
+    "BFT/content",
+    "old58 cuts",
+    "old quadratic positions",
+    "i3 NC conditions"
+  ],
+  "verification": {
+    "status": "PASS_SUPPORT31_COMPLETE_NEW_REPLAY_NO_DISCOVERY",
+    "seconds": 17.74154626499967,
+    "receiving_seconds": 2.0621734450000986,
+    "certificate_counts": {
+      "box_empty": 816,
+      "box_small": 144,
+      "double_normalized_boxes": 384,
+      "double_raw_cases": 2304,
+      "double_valuation_mismatches": 1920,
+      "exact_kernel_lattices": 18,
+      "full_power_slots": 45,
+      "kernel_column_congruences": 255,
+      "modular_log_identities": 80,
+      "single_normalized_boxes": 576,
+      "single_raw_cases": 1344,
+      "single_valuation_mismatches": 768
+    },
+    "negative_count": 28,
+    "equivalent_basis_acceptances": 2,
+    "diagnostic_counts": {
+      "avoiding_product_pairs": 5041,
+      "consumer_legal_pairs": 60701,
+      "nontrivial_avoiding_product_pairs": 3706,
+      "row0_avoiding_cases": 1816,
+      "row0_prime_power_cases": 7937,
+      "source_smooth_bound_n": 493,
+      "toy_congruence_vectors": 2228,
+      "toy_rhs_cases": 58,
+      "upper_carry_not_erased_cases": 56
+    },
+    "reassembled_certificate_equal": true,
+    "frozen_files_hash_checked": [
+      "inputs/task-v3-original.zip",
+      "sources/A9_FINITE_original.md",
+      "sources/task_README.md",
+      "sources/task_COMMON.md",
+      "sources/task_A.md"
+    ],
+    "certificate_sha256": "1e2b1ee98b5f9fa95dfefdb9963e01f07165d159e8e5e73ab5fd4725e47d23ca",
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "old_certificates_replayed": false,
+    "publication_formalized": false,
+    "lean": false,
+    "external_independent_review": false
+  },
+  "source_gap": {
+    "BEG_local_PDF_bytes": false,
+    "BEG_original_theorem_read_via_web": true
+  },
+  "bounds": {
+    "support": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      29,
+      31
+    ],
+    "C": 224,
+    "log2_n_upper": "228*2^228",
+    "each_prime_exponent_box": "[0,2^236]"
+  },
+  "no_lean": true,
+  "old_certificates_not_replayed": true,
+  "external_independent_review": false,
+  "git_writes": false,
+  "other_running_agents_used": false,
+  "restore_entry": [
+    "README.md",
+    "REPORT.md",
+    "notes/PROOFS.md",
+    "SOURCE_ADOPTION.md",
+    "FAILURE_BOUNDARIES.md",
+    "HANDOFF.md"
+  ],
+  "replay": "python3 -B code/reproduce.py --log-dir replay/local"
+}

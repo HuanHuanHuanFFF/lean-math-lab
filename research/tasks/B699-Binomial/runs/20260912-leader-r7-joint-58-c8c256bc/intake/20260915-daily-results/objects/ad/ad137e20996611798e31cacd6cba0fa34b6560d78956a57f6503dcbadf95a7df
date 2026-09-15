@@ -1,0 +1,50 @@
+"""Verify recorded bytes/member mappings only; never executes a historical checker."""
+from pathlib import Path
+import hashlib,json,zipfile
+ROOT=Path(__file__).resolve().parents[1]
+
+
+def stream_sha(f):
+    h=hashlib.sha256()
+    for block in iter(lambda:f.read(1024*1024),b''):
+        h.update(block)
+    return h.hexdigest()
+
+
+def run():
+    ledger=json.loads((ROOT/'sources/SOURCE_ADOPTION.json').read_text())
+    a=ledger['required_A_archive']
+    path=ROOT/a['stored_path']
+    with path.open('rb') as f:
+        assert stream_sha(f)==a['sha256']
+    assert path.stat().st_size==a['bytes']
+    records=ledger['records']
+    for r in records:
+        q=ROOT/r['stored_path']
+        with q.open('rb') as f:
+            assert stream_sha(f)==r['sha256']
+        assert q.stat().st_size==r['bytes']
+    checked={}
+    prefix=a['zip_prefix']
+    with zipfile.ZipFile(path) as z:
+        assert z.testzip() is None
+        for r in records:
+            if r['source']=='A-original.zip':
+                with z.open(r['zip_member']) as f:
+                    assert stream_sha(f)==r['sha256']
+        refs=json.loads(z.read(prefix+'SOURCE_INPUTS.json'))
+        reference_count=0
+        for older in refs['originals']:
+            for m in older['members']:
+                name=prefix+m['stored_path']
+                reference_count+=1
+                if name not in checked:
+                    with z.open(name) as f:
+                        checked[name]=(stream_sha(f),z.getinfo(name).file_size)
+                assert checked[name]==(m['sha256'],m['bytes'])
+        entries=len(z.infolist())
+    return {'status':'PASS_FIXED_SOURCE_BYTES_AND_MAPPINGS_ONLY','source_records':len(records),
+            'A_zip_entries':entries,'inherited_member_references':reference_count,
+            'unique_inherited_member_paths':len(checked),
+            'historical_mathematical_receivers_executed':0,
+            'whole_external_publication_closure_asserted':False}

@@ -1,0 +1,69 @@
+"""Exact multivariate integer polynomials in j,k,u,v. No external dependency."""
+from math import comb
+from typing import Dict, Tuple
+Exponent = Tuple[int, int, int, int]
+Poly = Dict[Exponent, int]
+ONE: Poly = {(0,0,0,0): 1}
+J: Poly = {(1,0,0,0): 1}
+K: Poly = {(0,1,0,0): 1}
+U: Poly = {(0,0,1,0): 1}
+V: Poly = {(0,0,0,1): 1}
+
+def add(*polys: Poly) -> Poly:
+    ans: Poly = {}
+    for p in polys:
+        for e,c in p.items(): ans[e] = ans.get(e,0) + c
+    return {e:c for e,c in ans.items() if c}
+
+def scale(p: Poly, a: int) -> Poly:
+    return {e:a*c for e,c in p.items() if a*c}
+
+def mul(p: Poly, q: Poly) -> Poly:
+    ans: Poly = {}
+    for e,a in p.items():
+        for f,b in q.items():
+            g=tuple(x+y for x,y in zip(e,f))
+            ans[g]=ans.get(g,0)+a*b
+    return {e:c for e,c in ans.items() if c}
+
+def serialize(p: Poly):
+    return [[*e,c] for e,c in sorted(p.items())]
+
+def deserialize(rows) -> Poly:
+    ans: Poly={}
+    for row in rows:
+        if len(row)!=5 or any(type(x) is not int for x in row):
+            raise ValueError('malformed polynomial row')
+        e=tuple(row[:4]); c=row[4]
+        if min(e)<0 or c==0 or e in ans: raise ValueError('invalid/duplicate monomial')
+        ans[e]=c
+    return ans
+
+def recurrence_polys():
+    """Generator implementation: differential/three-term recurrence."""
+    L=add(mul(V,K),scale(mul(U,J),-1))
+    N=add(J,K); uv=mul(U,V); d=add(V,scale(U,-1))
+    h=[ONE,L]
+    for m in range(1,9):
+        h.append(add(mul(add(L,scale(d,-m)),h[m]),
+                     scale(mul(mul(uv,add(N,scale(ONE,1-m))),h[m-1]),-m)))
+    return h
+
+def falling_coeffs(m: int):
+    """Univariate falling product, used only by independent formula checker."""
+    a=[1]
+    for r in range(m):
+        b=[0]*(len(a)+1)
+        for t,c in enumerate(a): b[t]-=r*c; b[t+1]+=c
+        a=b
+    return a
+
+def explicit_h(m: int) -> Poly:
+    """Independent implementation: m! times the binomial coefficient sum."""
+    h: Poly={}
+    for t in range(m+1):
+        for x,a in enumerate(falling_coeffs(t)):
+            for y,b in enumerate(falling_coeffs(m-t)):
+                c=(-1)**t*comb(m,t)*a*b
+                if c: h[(x,y,t,m-t)]=h.get((x,y,t,m-t),0)+c
+    return {e:c for e,c in h.items() if c}

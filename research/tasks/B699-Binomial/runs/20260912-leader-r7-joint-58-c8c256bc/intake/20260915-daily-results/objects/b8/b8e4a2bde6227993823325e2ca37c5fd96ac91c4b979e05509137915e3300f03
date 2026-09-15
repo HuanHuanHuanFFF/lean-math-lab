@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""Sparse exact rational polynomial identities, without a CAS or numerical interpolation."""
+from __future__ import annotations
+import argparse, json, math
+from fractions import Fraction
+from pathlib import Path
+
+NAMES='H U C F l L a b n X z Q V h t d y x'.split(); DIM=len(NAMES)
+class Poly:
+    def __init__(self,terms=None):
+        self.t={k:Fraction(v) for k,v in (terms or {}).items() if v}
+    @staticmethod
+    def co(x):
+        return x if isinstance(x,Poly) else Poly({(0,)*DIM:Fraction(x)})
+    def __add__(self,o):
+        d=self.t.copy()
+        for k,v in Poly.co(o).t.items():d[k]=d.get(k,0)+v
+        return Poly(d)
+    __radd__=__add__
+    def __neg__(self):return Poly({k:-v for k,v in self.t.items()})
+    def __sub__(self,o):return self+-Poly.co(o)
+    def __rsub__(self,o):return Poly.co(o)+-self
+    def __mul__(self,o):
+        d={}
+        for e,v in self.t.items():
+            for f,w in Poly.co(o).t.items():
+                k=tuple(x+y for x,y in zip(e,f));d[k]=d.get(k,0)+v*w
+        return Poly(d)
+    __rmul__=__mul__
+    def __pow__(self,k):
+        if not isinstance(k,int) or k<0:raise ValueError('nonnegative polynomial exponent')
+        r=Poly.co(1);a=self
+        while k:
+            if k&1:r=r*a
+            k//=2
+            if k:a=a*a
+        return r
+    def __truediv__(self,c):return self*Fraction(1,c)
+    def subst(self,name,value):
+        i=NAMES.index(name);result=Poly.co(0)
+        for e,v in self.t.items():
+            f=list(e);f[i]=0;result+=Poly({tuple(f):v})*Poly.co(value)**e[i]
+        return result
+    def zero(self):return not self.t
+
+def variable(name):
+    e=[0]*DIM;e[NAMES.index(name)]=1;return Poly({tuple(e):1})
+
+def identities():
+    H,U,C,F,l,L,a,b,n,X,z,Q,V,h,t,d,y,x=[variable(s) for s in NAMES]
+    rows=[]
+    def ck(name,expression):
+        if not expression.zero():raise ValueError('nonzero identity: '+name)
+        rows.append(name)
+    q=U*H*a*a-2*U*l*C*a*b+l*l*F*b*b;r=b*l*C-a*H
+    ck('quadratic_norm_with_exact_defect',H*q-U*r*r-L*l*l*b*b-l*l*b*b*(H*F-U*C*C-L))
+    ck('negative_discriminant_with_defect',(-2*U*l*C)**2-4*U*H*l*l*F+4*L*l*l*U+4*U*l*l*(H*F-U*C*C-L))
+    T=(n-1)*(n-2);E=b*T-2*a*X
+    P=E*E+2*a*(n-1)*(b*T+E)
+    Pa=b*b*T*T-4*a*b*T*(X-n+1)+4*a*a*X*(X-n+1)
+    ck('two_expansions_of_P',P-Pa)
+    Pc=P.subst('a',2).subst('b',1).subst('X',(n*n-y)/4)
+    ck('center_P_in_delta_squared',Pc-(y*y-2*n*y+4*n**3-19*n*n+28*n-12))
+    A=Q+4*U*(H+z);nV=2*(2*H+z)*A+2*V
+    ck('shared_full_4H_identity',nV+6*V-2*z*Q-4*H*(A+2*U*z+2*Q)+8*(H*Q-U*z*z-V))
+    nVz2=2*(2*H+z)*(Q*z*z+4*(H*Q-V)*(H+z))+2*V*z*z
+    R=16*Q*H**3+(24*Q*z-16*V)*H*H+(12*Q*z*z-24*V*z)*H+2*Q*z**3-6*V*z*z
+    ck('cubic_reconstruction_eliminating_U',nVz2-R)
+    rz=48*V*H**3+(72*V*z-16*V*z)*H*H+(36*V*z*z-24*V*z*z)*H+6*V*z**3-6*V*z**3
+    ck('zero_resonance_cubic',rz-4*V*H*(12*H*H+14*H*z+3*z*z))
+    ck('common_power_cancels_cubically',4*(d*h)*(12*(d*h)**2+14*(d*h)*(d*t)+3*(d*t)**2)-d**3*4*h*(12*h*h+14*h*t+3*t*t))
+    ck('resonance_t_three',12*h*h+42*h+27-3*(4*h*h+14*h+9))
+    ck('C_one_quadratic',3*(n*n-4*X)-(n*n+6*n-4)-2*(T-6*X))
+    ck('bernoulli_product_remainder',(n-1)**3*(n-2)**2-(n-7)*n**4-(19*n**3-25*n*n+16*n-4))
+    remainder=(19*n**3-25*n*n+16*n-4).subst('n',x+56)
+    if not all(v>0 for v in remainder.t.values()):raise ValueError('shifted endpoint coefficient not positive')
+    return rows,sorted([str(v) for v in remainder.t.values()])
+
+def basic_cases():
+    def val(n,p):
+        e=0
+        while n%p==0:n//=p;e+=1
+        return e
+    n,j=56,11
+    left=math.comb(n,3);right=math.comb(n,j)
+    if val(left,3)!=2 or val(right,3)!=1:raise ValueError('p=i full valuation')
+    p3=dict(n=n,j=j,source_v=2,target_v=1,full_modulus=27,
+        complete_modulus_divides=j*(j-1)*(j-2)%27==0,
+        wrongly_reduced_modulus_divides=j*(j-1)*(j-2)%9==0)
+    if p3['complete_modulus_divides'] or not p3['wrongly_reduced_modulus_divides']:raise ValueError('full 3-block control')
+    scalar=dict(t=1,n=8192,g=1,R=1,U=16,C_floor=6,CG_defect=8192-(32*6**3+2*6+2),Pi_status='not an assigned n,j; not a Pi solution')
+    if scalar['CG_defect']!=1266:raise ValueError('old scalar model defect')
+    return p3,scalar
+
+def main(out):
+    ids,coefs=identities();p3,scalar=basic_cases()
+    result={'status':'PASS','exact_polynomial_identities':ids,'shifted_positive_coefficients':coefs,'p_equals_i_control':p3,'old_scalar_model_control':scalar,
+            'constant_margin':[53,216],'infinite_claim_boundary':'Polynomial equalities only; divisibility, noCommon implications, and uniform inequalities are proved in notes/PROOFS.md.'}
+    if Fraction(7,4)-Fraction(325,216)!=Fraction(53,216):raise ValueError('constant margin')
+    out.write_text(json.dumps(result,ensure_ascii=False,sort_keys=True,indent=2)+'\n');print(json.dumps({'status':'PASS','polynomial_identities':len(ids),'full_power_control':True}))
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);ar=ap.parse_args();main(ar.out)

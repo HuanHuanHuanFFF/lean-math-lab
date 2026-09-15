@@ -1,0 +1,34 @@
+"""Additional content inputs for i12; exact tail split at theta's 1e8 threshold."""
+from pathlib import Path
+from fractions import Fraction as F
+import json,argparse
+from general_content import cell_catalog,ceil_sqrt,ETA,finite
+R=Path(__file__).resolve().parents[1]
+SPECS=[dict(e=4,d=2,f=1,g='7/10',M=1000000),dict(e=17,d=7,f=7,g='96/25',M=300000000)]
+
+def make_tail(sp,W=128):
+ e,d,f,M=[sp[k] for k in ['e','d','f','M']];total=F(0);rows=[]
+ for A,B,C,w,l,u,J in cell_catalog(e,d,f,W):
+  if A*M-B<1:continue
+  relative=A*M-B>=10**8
+  err=ETA*A if relative else max(ceil_sqrt(F(259,125)**2*A/M),ETA*A)
+  rate=A-(1+ETA)*C-err-B/M
+  if rate<=0:continue
+  rows.append(dict(w=w,l=str(l),u=str(u),J=J,A=str(A),B=str(B),C=str(C),error=str(err),rate=str(rate),error_source='relative_from_1e8' if relative else 'uniform_max'));total+=rate
+ assert total>F(sp['g'])
+ return dict(**sp,W=W,lower=str(total),target=sp['g'],margin=str(total-F(sp['g'])),rows=rows,passed=True)
+
+def prepare():
+ old=json.loads((R/'outputs/general_content_tail.json').read_text());new=[make_tail(sp) for sp in SPECS]
+ old['rows']=[r for r in old['rows'] if (r['e'],r['d'],r['f']) not in [(4,2,1),(17,7,7)]]+new;old['status']='PASS_EXACT_INFINITE_TAILS_WITH_CASE_SPECIFIC_THETA_ERROR'
+ (R/'outputs/general_content_tail.json').write_text(json.dumps(old,indent=2)+'\n');(R/'outputs/i12_content_tail.json').write_text(json.dumps(dict(status='PASS_EXACT_I12_CONTENT_TAILS',rows=new),indent=2)+'\n')
+ for x in new:print('TAIL',x['e'],x['d'],x['f'],'M',x['M'],'terms',len(x['rows']),'margin',float(F(x['margin'])),flush=True)
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('mode',choices=['prepare','finite']);ap.add_argument('--index',type=int,choices=[0,1],default=0);a=ap.parse_args()
+ if a.mode=='prepare':prepare()
+ else:
+  sp=SPECS[a.index].copy();del sp['M'];finite(sp,cache_name='i12_content_large' if a.index==1 else 'general_content')
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

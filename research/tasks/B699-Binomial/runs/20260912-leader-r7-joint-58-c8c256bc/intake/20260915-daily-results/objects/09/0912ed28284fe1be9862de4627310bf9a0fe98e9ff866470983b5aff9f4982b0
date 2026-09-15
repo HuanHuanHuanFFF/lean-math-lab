@@ -1,0 +1,49 @@
+"""Bind adopted bytes to the immutable user archive; no old math replay."""
+from pathlib import Path
+from hashlib import sha256
+from io import BytesIO
+from zipfile import ZipFile
+import json,argparse
+ROOT=Path(__file__).resolve().parents[1]
+EXPECTED='7afcc3b3d51c45fa0ae44030bdb2dd0932d0f9b5b2975f12de09734237e7aa1f'
+def digest(b):return sha256(b).hexdigest()
+def check():
+ raw=(ROOT/'input/originals/B699-R13-Pro-context-af3006e0.zip').read_bytes()
+ assert digest(raw)==EXPECTED
+ z=ZipFile(BytesIO(raw));assert z.testzip() is None
+ meta=json.loads(z.read('MANIFEST.json'));assert meta['source_ref']=='af3006e0fa696e9ad113450b3448e84bf304ba31'
+ for v in meta['navigation']+meta['originals']:
+  b=z.read(v['path']);assert len(b)==v['bytes'] and digest(b)==v['sha256']
+ iz=ZipFile(BytesIO(z.read('originals/i13-evidence.zip')))
+ shared=iz.read('input/B699-research-context-20260910.zip')
+ assert digest(shared)=='84d2b35b41ce151bde0d0dbdd44cb49104d026aacfa69f7138ea39d99f0826c5'
+ sz=ZipFile(BytesIO(shared));assert sz.testzip() is None
+ az=ZipFile(BytesIO(sz.read('originals/asymmetric-pade.zip')))
+ sl=ZipFile(BytesIO(sz.read('originals/shifted-slope.zip')))
+ assert az.testzip() is None and sl.testzip() is None
+ AP='B699-asymmetric-Pade/';SP='B699-shifted-slope-research-20260909/'
+ adopted=[]
+ for f in ['REPORT.md','evidence/small_box_verified.json','scripts/check_small_box.py','MANIFEST.sha256']:
+  b=sl.read(SP+f);dest=ROOT/'input/frozen-small-box'/Path(f).name
+  assert dest.read_bytes()==b;adopted.append({'new_path':str(dest.relative_to(ROOT)),'source_member':SP+f,'sha256':digest(b)})
+ f='code/adopted_asym/rational_intervals.py';b=iz.read(f)
+ assert (ROOT/'code/vendor/rational_intervals.py').read_bytes()==b
+ adopted.append({'new_path':'code/vendor/rational_intervals.py','source_member':'i13/'+f,'sha256':digest(b)})
+ src=iz.read('code/check_i13_cuts_independent.py').decode();body=src[src.index('SCALE=10**32'):src.index('def certify(row):')]
+ assert (ROOT/'code/vendor/decimal_intervals.py').read_text().endswith(body)
+ cuts=[]
+ for p in json.loads(az.read(AP+'results/refined_profiles.json'))['profiles']:cuts+=p['cuts']
+ cuts+=json.loads(iz.read('input/i13_cuts.json'))['cuts']
+ assert cuts==json.loads((ROOT/'input/frozen_cuts.json').read_text())
+ small=json.loads((ROOT/'input/frozen-small-box/small_box_verified.json').read_text())
+ assert (small['i'],small['N'],small['necessary_condition_survivors'])==(3,10000,0)
+ return {'status':'PASS_INPUT_BINDING','raw_input_sha256':EXPECTED,'raw_input_bytes':len(raw),
+         'frozen_ref':meta['source_ref'],'navigation_and_archive_hashes_checked':len(meta['navigation'])+len(meta['originals']),
+         'adopted_members':adopted,'frozen_cuts_rows':len(cuts),
+         'old_10000_check':'Adopted frozen proof and evidence; NOT rerun in this round',
+         'online_gate':'PR #8 merged and frozen/merge tree equality observed via connector; offline script does not assert current online state.'}
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);args=ap.parse_args();r=check()
+ args.out.parent.mkdir(parents=True,exist_ok=True);args.out.write_text(json.dumps(r,indent=2)+'\n')
+ print('PASS: original ZIP, frozen manifests, adopted small-box bytes and interval helper mapping.')
+if __name__=='__main__':main()

@@ -1,4 +1,4 @@
-> 最新整理入口：[七份成果总表](DELIVERIES.md)、[整理交接](notes/20260914-output-consolidation.md)。本文件保留历史前沿；当前结论、暂停与派发状态以 [CURRENT_STATUS.md](CURRENT_STATUS.md) 为准。
+> 最新整理入口：[2026-09-15 十八份成果](intake/20260915-daily-results/README.md)。本文件保留历史前沿；当前结论、暂停与派发状态以 [CURRENT_STATUS.md](CURRENT_STATUS.md) 为准。
 
 # 本轮接收前沿：58族、三商与双残量
 

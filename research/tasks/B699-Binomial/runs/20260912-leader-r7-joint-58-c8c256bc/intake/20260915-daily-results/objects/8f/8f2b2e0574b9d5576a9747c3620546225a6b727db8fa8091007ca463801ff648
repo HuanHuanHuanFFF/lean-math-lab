@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+"""Short exact certificates for infinite modular families and shared full divisors."""
+from __future__ import annotations
+import argparse,json,math
+from fractions import Fraction
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+
+def trial(n:int)->bool:
+    return n>=2 and all(n%d for d in range(2,math.isqrt(n)+1))
+
+def main()->None:
+    ap=argparse.ArgumentParser();ap.add_argument('--output',type=Path,required=True);args=ap.parse_args()
+    v0=408871;step=6163080;lowerstep=4622310
+    E=[14319,30635,45144,217448,218738,220002]
+    mods=[31,127,23,233,47];res=[0,1,2,0,1];periods=[5,7,11,29,23]
+    checks=[]
+    for p,r,o in zip(mods,res,periods):
+        assert trial(p) and pow(2,o,p)==1 and step%o==lowerstep%o==0
+        nj=pow(2,v0,p);jj=(pow(2,v0-3,p)+sum(pow(2,e,p)for e in E)+1)%p
+        assert jj==r
+        checks.append({'p':p,'order_multiple':o,'n_residue':nj,'j_residue':jj})
+    assert v0%6==1 and step%6==0 and len(set(E))==6 and E[0]>0
+    assert max(E)<v0-3 and lowerstep<step
+    # All t>=1: s=sum six powers+1 lies between n^(2/3) and n^(3/4).
+    # Upper: s<2^(max E + lowerstep*t +3), compare fourth powers.
+    up_intercept=3*v0-4*(max(E)+3);up_slope=3*step-4*lowerstep
+    low_at_one=3*(max(E)+lowerstep)-2*(v0+step)
+    low_slope=3*lowerstep-2*step
+    assert up_intercept>0 and up_slope==0 and low_at_one>0 and low_slope>0
+    # Thus 1/8<j/n<=1/8+n^(-1/4), Delta>=n/2, and generic GAP obstruction.
+    assert v0+step>=64
+    assert Fraction(3,4)-2*Fraction(1,2**16)>Fraction(1,2)
+    # Exact constants used in generic GAP proof (n>=2^64):
+    # rho=7/32+delta, 0<delta<3n^(-1/4); a<n^(1/6)/2.
+    # (3/2)n^(-1/12)<1/64 if n>=2^84, use >=2^96 in text.
+    assert Fraction(3,2)*Fraction(1,2**8)<Fraction(1,64)
+    assert Fraction(4,9)*Fraction(1,2**32)<Fraction(1,64)
+    assert v0+step>=96
+    # Small realizations of the full-divisor statement, checked against real binomials.
+    samples=[]
+    for r in (3,5,7,11):
+        assert trial(r);D=2**r-1
+        for h in range(1,6):
+            n=1+(4*h+1)*D
+            for j in [5,9,17,33]:
+                if j>n//2 or j.bit_count()*(j-1).bit_count()>=r:continue
+                W=D//math.gcd(D,j*(j-1));assert W>1
+                assert math.comb(n,j)%W==0
+                for i in range(2,min(2*r,j-1)+1):assert math.comb(n,i)%W==0
+                samples.append({'period':r,'n':n,'j':j,'W':W})
+    # Complete prime-power preservation, not only radicals.
+    pn=2**20;pj=9;D=(pn-1)//3;PW=D//math.gcd(D,pj*(pj-1))
+    assert PW%25==0 and math.comb(pn,3)%PW==0 and math.comb(pn,pj)%PW==0
+    # Moderate actual sparse points not satisfying either newest dyadic consumer.
+    small=[]
+    for t in [8,9,12,20]:
+        n=2**(12*t+1);j=2**(12*t-2)+2**(9*t)+1;delta=n-2*j
+        assert j.bit_count()==3 and j%2==1 and delta>=n//2
+        W=(n-1)//math.gcd(n-1,j*(j-1));assert W>1
+        assert 9*(delta-2)**2>n*n
+        small.append({'t':t,'v':12*t+1,'weight':3,'g':1,'W_bits':W.bit_length(),
+                      'B_DY_size_fails':True,'D_DYADIC_t_fails':True})
+    result={'mixed_family':{'v0':v0,'n_step':step,'lower_step':lowerstep,'lower_exponents':E,
+                           'parameter':'integer t>=1','weight':8,'g':1,'prime_checks':checks,
+                           'beta_cofactor_lower':31,'gamma_cofactor_lower':23,
+                           'gcd_block_lower':[31,127,23],
+                           'upper_power_margin':up_intercept,'lower_power_margin_at_one':low_at_one,
+                           'n_not_expanded':'the infinite proof and residue certificates use symbolic powers'},
+            'full_divisor_samples':samples,'prime_power_sample':{'n':pn,'j':pj,'D':D,'W':PW,'five_exponent_at_least':2},
+            'moderate_sparse_samples':small,'scope':'No Pi/noCommon assertion for examples; no audit of all historical consumers.'}
+    args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(result,indent=2,sort_keys=True)+'\n')
+    print('FAMILIES_CHECKED',len(samples),'full divisors; infinite families checked by symbolic margins and modular periods')
+if __name__=='__main__':main()

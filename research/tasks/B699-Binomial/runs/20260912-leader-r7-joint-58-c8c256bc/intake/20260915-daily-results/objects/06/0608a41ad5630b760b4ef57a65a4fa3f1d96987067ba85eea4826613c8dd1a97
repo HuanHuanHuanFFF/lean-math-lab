@@ -1,0 +1,74 @@
+"""Exact finite arithmetic helpers; sufficient conditions do not find a witness."""
+from itertools import product
+from math import comb, factorial
+from typing import Dict, List
+SMALL=(2,3,5,7)
+
+def vp(a:int,p:int)->int:
+    if a<=0 or p<2: raise ValueError('positive a and p>=2 required')
+    e=0
+    while a%p==0: a//=p; e+=1
+    return e
+
+def binomial_vp(n:int,j:int,p:int)->int:
+    if not 0<=j<=n or p<2: raise ValueError('invalid binomial valuation input')
+    z=0; q=p
+    while q<=n:
+        z+=n//q-j//q-(n-j)//q
+        q*=p
+    return z
+
+def coeff(n:int,j:int,m:int,u:int=1,v:int=1)->int:
+    if not 0<=j<=n or m<0 or u<=0 or v<=0:
+        raise ValueError('0<=j<=n, m>=0, u,v>0 required')
+    return sum((-u)**t*v**(m-t)*comb(j,t)*comb(n-j,m-t)
+               for t in range(max(0,m-(n-j)),min(j,m)+1))
+
+def smooth(a:int)->int:
+    if a<=0: raise ValueError("positive integer required")
+    s=1
+    for p in SMALL:
+        while a%p==0: a//=p;s*=p
+    return s
+
+def max_positions(n:int):
+    if n<20: raise ValueError('n>=20 required')
+    pos={}; powers={}
+    for p in SMALL:
+        ex=[vp(n-r,p) for r in range(9)]; mx=max(ex)
+        pos[p]=[r for r,x in enumerate(ex) if x==mx]; powers[p]=p**mx
+    return pos,powers
+
+def col3(n:int)->bool:
+    pos,_=max_positions(n)
+    return any(len(set(x))<=3 for x in product(*(pos[p] for p in SMALL)))
+
+def sufficient(n:int,j:int,mode:str,c:int=1,d:int=2)->bool:
+    """Evaluate ONLY the new theorem's stated sufficient predicates.
+
+    A True value uses the paper theorem and indicated frozen dependencies.
+    It is not a primality proof or an independently found common prime.
+    False means this sufficient condition is inapplicable, not a counterexample.
+    """
+    if type(n) is not int or type(j) is not int or not 10<=j<=n//2:
+        raise ValueError('legal i9 integers required')
+    if type(c) is not int or type(d) is not int or not 1<=c<d:
+        raise ValueError('integers 1<=c<d required')
+    if mode=='general-rational':
+        return (1<<76)*d**18<=n and 128*abs(c*n-d*j)**9<=n**5
+    if mode=='collision-rational':
+        return col3(n) and (1<<37)*d**8<=n and 128*abs(c*n-d*j)**9<=n**6
+    if mode=='general-central':
+        return (n-2*j)**9<=4*n**5
+    if mode=='collision-central':
+        return col3(n) and (n-2*j)**9<=4*n**6
+    raise ValueError('unknown mode')
+
+def factor(a:int)->Dict[int,int]:
+    """Trial division for bounded diagnostics only, not the infinite consumers."""
+    f={};p=2
+    while p*p<=a:
+        while a%p==0:f[p]=f.get(p,0)+1;a//=p
+        p+=1
+    if a>1:f[a]=f.get(a,0)+1
+    return f

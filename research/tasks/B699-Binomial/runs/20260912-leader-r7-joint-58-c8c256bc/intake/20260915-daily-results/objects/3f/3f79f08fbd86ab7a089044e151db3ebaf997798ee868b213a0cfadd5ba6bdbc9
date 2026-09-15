@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+"""Replay only this round in a clean temporary output directory."""
+import argparse,datetime,hashlib,json,platform,subprocess,sys,tempfile,time,importlib.util
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--record',default='replay/local');args=ap.parse_args()
+    rec=Path(args.record);rec=rec if rec.is_absolute() else ROOT/rec;rec.mkdir(parents=True,exist_ok=True)
+    spec=importlib.util.spec_from_file_location('manifest_verifier',ROOT/'verify_manifest.py');v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
+    before=v.verify(ROOT);start=now();t0=time.perf_counter();steps=[];matched=[]
+    try:
+        with tempfile.TemporaryDirectory(prefix='b699-new-replay-') as tmp:
+            out=Path(tmp)
+            commands=[
+             ('generate-gap','generate_gap.py',['gap_certificate.json']),
+             ('check-gap','check_gap.py',['gap_certificate.json','gap_check.json']),
+             ('algebra','algebra.py',['algebra.json']),
+             ('consumers','consumers.py',['consumers.json']),
+             ('boundary-diagnostic','probe_boundary.py',['boundary_probe.json']),
+             ('bad-inputs','bad_inputs.py',['gap_certificate.json','bad_inputs.json']),
+             ('source-bytes','check_sources.py',['sources.json'])]
+            for i,(name,script,files) in enumerate(commands,1):
+                cmd=[sys.executable,'-S','-B',str(ROOT/'code'/script)]+[str(out/f) for f in files]
+                sout=rec/f'{i:02d}-{name}.stdout.log';serr=rec/f'{i:02d}-{name}.stderr.log';at=now();tick=time.perf_counter()
+                with sout.open('wb') as so,serr.open('wb') as se:
+                    proc=subprocess.run(cmd,cwd=ROOT,stdout=so,stderr=se,check=False)
+                steps.append({'name':name,'command':cmd,'started_utc':at,'seconds':time.perf_counter()-tick,'exit_code':proc.returncode,'stdout':sout.name,'stderr':serr.name})
+                if proc.returncode:raise RuntimeError(f'{name} failed: {proc.returncode}')
+            expected=sorted((ROOT/'outputs').glob('*.json'))
+            for target in expected:
+                generated=out/target.name
+                assert generated.is_file() and generated.read_bytes()==target.read_bytes(),f'Output mismatch {target.name}'
+                matched.append({'file':target.name,'sha256':sha(generated),'bytes':generated.stat().st_size})
+        after=v.verify(ROOT);assert before==after
+        result={'status':'PASS_NEW_REPLAY','started_utc':start,'ended_utc':now(),'elapsed_seconds':time.perf_counter()-t0,'python':sys.version,'platform':platform.platform(),'steps':steps,'exact_outputs':matched,'static_before':before,'static_after_equal':True,'historical_math_replayed':False,'publication_proof_reproved':False,'Lean_executed':False,'independent_researcher_audit':False,'scope':'new exact identities/certificates and explicitly nonempty local diagnostic; paper and external theorem remain separate'}
+    except Exception as ex:
+        result={'status':'FAIL','started_utc':start,'ended_utc':now(),'steps':steps,'outputs_compared':matched,'error':repr(ex)}
+        (rec/'reproduction.json').write_text(json.dumps(result,ensure_ascii=False,sort_keys=True,indent=2)+'\n');raise
+    (rec/'reproduction.json').write_text(json.dumps(result,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':result['status'],'commands':len(steps),'exact_outputs':len(matched),'elapsed_seconds':result['elapsed_seconds'],'static_files':len(before)}))
+if __name__=='__main__':main()

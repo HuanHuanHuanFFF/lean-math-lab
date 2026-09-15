@@ -1,0 +1,34 @@
+"""Column-generation discovery. Determinants rounded only for discovery;
+every retained coefficient vector is then checked with exact integer arithmetic."""
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import combinations,islice
+import numpy as np, math,json,time
+R=Path(__file__).resolve().parents[1];D=json.loads((R/'evidence/critical_dual_discovery.json').read_text())
+pts=[(x,y) for x in range(15) for y in range(15-x)];w=list(map(F,D['exact']['point_multipliers']))
+ids=sorted(range(len(pts)),key=lambda k:w[k],reverse=True)[:30]
+X=np.array([[x*x,x*y,y*y,x,y,1] for x,y in pts],dtype=np.int64)
+it=iter(combinations(ids,5));seen=set();out=[];bad=0;n=0;t=time.monotonic()
+while True:
+ cc=list(islice(it,1000))
+ if not cc:break
+ mat=X[np.array(cc)];coef=np.stack([np.rint(np.linalg.det(mat[:,:,[j for j in range(6) if j!=k]])).astype(np.int64)*(-1)**k for k in range(6)],axis=1)
+ for ix,(inds,a) in enumerate(zip(cc,coef.tolist())):
+  n+=1
+  if not any(a):continue
+  if any(sum(int(X[p,k])*a[k] for k in range(6)) for p in inds):bad+=1;continue
+  g=math.gcd(*a);a=[v//g for v in a]
+  if next(v for v in a if v)!=abs(next(v for v in a if v)):a=[-v for v in a]
+  a=tuple(a)
+  if a in seen:continue
+  seen.add(a)
+  hit=[p for p in range(len(pts)) if sum(a[k]*int(X[p,k]) for k in range(6))==0]
+  price=sum(w[p] for p in hit)
+  if price>2:
+   copos=(a[0]>=0 and a[2]>=0 and a[1]>=0) or (a[0]<=0 and a[2]<=0 and a[1]<=0)
+   out.append({'coefficients':a,'price':str(price),'points':[pts[p] for p in hit],'nonnegative_quadratic_terms':copos})
+ if n%20000==0:print('tested',n,'distinct',len(seen),'improving',len(out),flush=True)
+out.sort(key=lambda d:F(d['price']),reverse=True)
+res={'sets_examined':n,'exact_rejection_after_float':bad,'distinct_conics':len(seen),'seconds':time.monotonic()-t,'improving':out}
+(R/'evidence/conic_discovery.json').write_text(json.dumps(res,indent=2)+'\n')
+print({k:v for k,v in res.items() if k!='improving'});print(out[:10])

@@ -1,0 +1,14 @@
+"""Recompute the 18 numeric obligations, without generating any graph certificate."""
+from pathlib import Path
+import json
+from exact_cuts import obligations
+from check_new_cuts_grid import check
+R=Path(__file__).resolve().parents[1]
+def main():
+ d=json.loads((R/'input/i12_cut_inputs.json').read_text());H=d['height_Y_bits'];assert d['denominator']==10000 and d['D']==24
+ rows=[dict(input=r,certificate=obligations(r,H,24)) for r in d['cuts']];assert all(x['certificate']['passed'] for x in rows)
+ (R/'outputs/i12_cut_certificates.json').write_text(json.dumps(dict(status='PASS_EXACT_I12_CUTS',H=H,rows=rows),indent=2)+'\n')
+ (R/'outputs/i12_grid_check.json').write_text(json.dumps(dict(status='PASS_I12_INDEPENDENT_GRID',H=H,rows=[check(r,H,24) for r in d['cuts']]),indent=2)+'\n');print('PASS I12 numerical rows',len(rows))
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

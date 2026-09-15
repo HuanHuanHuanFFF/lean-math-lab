@@ -1,0 +1,78 @@
+from __future__ import annotations
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import combinations,product
+import json,time
+ROOT=Path(__file__).resolve().parents[1]
+D=json.loads((ROOT/'evidence/rectangular_minima.json').read_text()); PS=D['primes']
+# vectors scaled by 1000; all floors below are exact.
+vs=[tuple(v) for v in D['vectors']]
+clauses=[[(1,287),(0,325),((1,0),600)],[(0,210),(4,82),((0,4),247)],[(0,120),(4,189),((0,4),292)]]
+B={(v,() ) for v in vs}
+for clause in clauses:
+ out=set()
+ for l,pp in B:
+  for k,v in clause:
+   ll=list(l);sums=dict(pp)
+   if isinstance(k,int):ll[k]=max(ll[k],v)
+   else:
+    k=tuple(sorted(k));sums[k]=max(sums.get(k,0),v)
+   sums={k:v for k,v in sums.items() if sum(ll[i] for i in k)<v}
+   out.add((tuple(ll),tuple(sorted(sums.items()))))
+ B=out
+print('branches',len(B),flush=True)
+# exact inverse, n<=3
+
+def inverse(M):
+ n=len(M);a=[[F(x) for x in row]+[F(int(k==i)) for k in range(n)] for i,row in enumerate(M)]
+ for j in range(n):
+  piv=next((k for k in range(j,n) if a[k][j]),None)
+  if piv is None:return None
+  a[j],a[piv]=a[piv],a[j];q=a[j][j];a[j]=[x/q for x in a[j]]
+  for k in range(n):
+   if k!=j:
+    q=a[k][j];a[k]=[x-q*y for x,y in zip(a[k],a[j])]
+ return [row[n:] for row in a]
+
+cache={}
+def vertex_templates(supports):
+ if supports in cache:return cache[supports]
+ r=len(supports);A=[[int(j in ss) for j in range(6)] for ss in supports];res=[]
+ for k in range(r+1):
+  for J in combinations(range(6),k):
+   for I in combinations(range(r),k):
+    inv=inverse([[A[i][j] for j in J] for i in I]) if k else []
+    if inv is not None:res.append((J,I,inv))
+ cache[supports]=A,res
+ return A,res
+
+def vertices(l,ss):
+ supports=tuple(k for k,v in ss); A,temps=vertex_templates(supports)
+ C=[F(v)-sum(l[j] for j in k) for k,v in ss]
+ seen=set()
+ for J,I,inv in temps:
+  yy=[sum((inv[k][q]*C[i] for q,i in enumerate(I)),F(0)) for k in range(len(J))]
+  if any(v<0 for v in yy):continue
+  y=[F(0)]*6
+  for j,v in zip(J,yy):y[j]=v
+  if any(sum(y[j] for j in k)<c for k,c in zip(supports,C)):continue
+  x=tuple(F(a)+b for a,b in zip(l,y))
+  if x not in seen:seen.add(x);yield x
+
+def eval_gamma(gamma):
+ t=time.monotonic(); allv=set()
+ for l,ss in B:
+  ss=ss+(((0,2,5),1000*gamma),)
+  allv.update(vertices(l,ss))
+ worst={}
+ for s in [F(9),F(19,2),F(39,4),F(10)]:
+  mn=None;xx=None
+  for v in allv:
+   x=sorted(a/1000 for a in v);S=sum(x);W=sum(r*a for r,a in enumerate(x));g=-s*s+(17+2*S)*s-90-W
+   if mn is None or g<mn:mn=g;xx=v
+  worst[str(s)]=(str(mn),[str(a/1000) for a in xx])
+ print('gamma',str(gamma),'vertices',len(allv),'worst',worst,'sec',round(time.monotonic()-t,3),flush=True)
+ return {'gamma':str(gamma),'vertices':len(allv),'worst':worst}
+if __name__=='__main__':
+ rows=[eval_gamma(g) for g in [F(9,16),F(3,5),F(2,3),F(3,4),F(1)]]
+ (ROOT/'evidence/gamma_probe.json').write_text(json.dumps({'branches':len(B),'rows':rows},indent=2)+'\n')

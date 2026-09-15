@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""Isolated exact acceptance, or clean regeneration followed by acceptance.
+Never edits the supplied original certificates. Linux, Python, C++17 and GMP.
+"""
+from pathlib import Path
+import argparse,subprocess,sys,json,time,shutil,hashlib,platform,resource,os
+R=Path(__file__).resolve().parents[1]
+VOLATILE={'seconds','elapsed_seconds','check_seconds','generate_seconds','stage_check_seconds','peak_rss_kib','generation_peak_rss_kib','bytes','certificate_bytes','calls','weight_calls'}
+def canonical(x):
+ if isinstance(x,dict):return {k:canonical(v) for k,v in sorted(x.items()) if k not in VOLATILE}
+ if isinstance(x,list):return [canonical(v) for v in x]
+ return x
+def digest(x):return hashlib.sha256(json.dumps(canonical(x),sort_keys=True,separators=(',',':')).encode()).hexdigest()
+def core_files(root):
+ fs=[]
+ for pattern in ['outputs/general_content_finite_*.json','outputs/content_independent_*.json','outputs/graph_covers/*.json','outputs/shared_blocks/*.json','outputs/i12_blocks/*.json','outputs/crt_stages_*.json','outputs/terminal_certificate_*.json','outputs/terminal_independent_*.json','outputs/terminal_summary_*.json','outputs/terminal_cost_*.json','outputs/crt_initial_estimate_*.json','input/i12_target.json','input/i15_target.json','input/i20_target.json']:
+  fs.extend(root.glob(pattern))
+ for f in ['general_content_tail.json','i12_content_tail.json','general_content_independent.json','i12_content_independent.json','i12_prime_cache_independent.json','independent_prime_sieve.json','new_cut_certificates.json','new_cuts_grid_check.json','i12_cut_certificates.json','i12_grid_check.json','new_height_certificates.json','i12_height_certificate.json','height_independent_check.json','shared_blocks_summary.json','i12_blocks_summary.json','separate_degree_regression.json']:
+  fs.append(root/'outputs'/f)
+ return sorted({p.relative_to(root).as_posix() for p in fs})
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--regenerate',action='store_true');ap.add_argument('--output-dir',type=Path);ap.add_argument('--python-blocks',action='store_true',help='Also repeat the already-run Python check of all 28 shared blocks.');a=ap.parse_args()
+ dst=(a.output_dir or R/('replay_'+time.strftime('%Y%m%d_%H%M%S'))).resolve();assert dst!=R and not dst.exists(),'output directory must be new';assert shutil.disk_usage(dst.parent).free>6*1024**3,'need at least 6 GiB free for isolated work'
+ dst.mkdir();shutil.copytree(R/'code',dst/'code',ignore=shutil.ignore_patterns('__pycache__'));(dst/'input').mkdir();(dst/'outputs').mkdir();(dst/'cache').mkdir();(dst/'build').mkdir();(dst/'logs').mkdir()
+ if a.regenerate:
+  for n in ['new_cut_inputs.json','i12_cut_inputs.json']:shutil.copy2(R/'input'/n,dst/'input'/n)
+ else:
+  shutil.copytree(R/'input',dst/'input',dirs_exist_ok=True);shutil.copytree(R/'outputs',dst/'outputs',dirs_exist_ok=True)
+ records=[];started=time.monotonic();py=sys.executable
+ def limit():
+  resource.setrlimit(resource.RLIMIT_AS,(3*1024**3,3*1024**3));os.environ['OMP_NUM_THREADS']='1'
+ def run(cmd,label):
+  k=len(records)+1;log=dst/'logs'/f'{k:02d}_{label}.log';tf=dst/'logs'/f'{k:02d}_{label}.time';t=time.monotonic();print('RUN',k,label,flush=True)
+  wrapped=['/usr/bin/time','-f','%e %M %x','-o',str(tf),*map(str,cmd)]
+  with log.open('w') as h:p=subprocess.run(wrapped,cwd=dst,stdout=h,stderr=subprocess.STDOUT,preexec_fn=limit)
+  ti=tf.read_text().strip().splitlines()[-1].split() if tf.exists() else []
+  rec=dict(command=list(map(str,cmd)),label=label,returncode=p.returncode,seconds=time.monotonic()-t,peak_rss_kib=int(ti[1]) if len(ti)==3 else None,log=log.relative_to(dst).as_posix());records.append(rec)
+  (dst/'logs/replay_progress.json').write_text(json.dumps(dict(status='RUNNING_UNTIL_FINAL_RECORD',records=records),indent=2)+'\n')
+  print('DONE',label,p.returncode,round(rec['seconds'],3),flush=True)
+  if p.returncode:raise RuntimeError(f'{label} failed; see {log}')
+ for stem,gmp in [('segmented_weight_cache',True),('check_segmented_weight_cache',True),('i12_finite_fast',False),('check_i12_finite',False),('generate_blocks',True),('check_blocks',True)]:
+  run(['g++','-O2','-std=c++17',f'code/{stem}.cpp',*(['-lgmpxx','-lgmp'] if gmp else []),'-o',f'build/{stem}'],'build_'+stem)
+ if a.regenerate:
+  run([py,'code/general_content.py','tail'],'new_content_tails_5')
+  run([py,'code/general_content.py','cache'],'small_prime_cache')
+  for ix in range(5):run([py,'code/general_content.py','finite','--index',ix],f'new_content_finite_{ix}')
+  run([py,'code/i12_content.py','prepare'],'i12_content_tails')
+  run([py,'code/i12_content.py','finite','--index',0],'i12_content_small_finite')
+  (dst/'cache/i12_content_large').mkdir(exist_ok=True)
+  run(['build/segmented_weight_cache',3100000000,'cache/i12_content_large'],'large_prime_cache_generate')
+  code="import sys;sys.path.insert(0,'code');from general_content import cell_catalog;from pathlib import Path;cc=cell_catalog(17,7,7,128);Path('input/i12_finite_catalog.txt').write_text(str(len(cc))+'\\n'+''.join(f'{31*w+J+2} {C.numerator} {C.denominator}\\n' for A,B,C,w,l,u,J in cc))"
+  run([py,'-c',code],'i12_finite_catalog')
+  run(['build/i12_finite_fast','input/i12_finite_catalog.txt','cache/i12_content_large/primes.u32','cache/i12_content_large/weights.u64','outputs/general_content_finite_17_7_7.json'],'i12_content_large_finite')
+ run([py,'code/check_general_content.py'],'independent_five_content_bounds')
+ run([py,'code/check_i12_content.py'],'independent_i12_content_bounds')
+ run([py,'code/exact_cuts.py'],'exact_34_cuts')
+ run([py,'code/check_new_cuts_grid.py'],'independent_34_cuts')
+ run([py,'code/verify_i12_numbers.py'],'i12_numeric_both_methods')
+ if a.regenerate:
+  run([py,'code/build_height_certificates.py'],'generate_15_20_heights')
+  run([py,'code/build_i12_height.py'],'generate_i12_height')
+ run([py,'code/check_height_independent.py'],'all_position_and_collision_branches')
+ run([py,'code/run_shared_blocks.py',*(['--generate'] if a.regenerate else [])],'shared_28_block_certificates')
+ run([py,'code/run_i12_blocks.py',*(['--generate'] if a.regenerate else [])],'i12_10_block_certificates')
+ if a.python_blocks:run([py,'code/run_shared_blocks.py','--python'],'python_all_28_shared_blocks')
+ for i in [12,15,20]:
+  if a.regenerate:
+   run([py,'code/generate_new_crt.py','--i',i],f'generate_crt_{i}')
+   run([py,'code/generate_new_terminal.py','--i',i],f'generate_terminal_{i}')
+  run([py,'code/check_new_terminal.py','--i',i],f'independent_crt_terminal_{i}')
+ run([py,'code/regression_separate_degree.py'],'exact_identity_regressions')
+ run([py,'code/bad_certificate_regression.py'],'bad_certificate_regressions')
+ names=core_files(R);dif=[];digests=[]
+ for n in names:
+  if not (dst/n).exists():dif.append(dict(file=n,error='missing'));continue
+  d1=digest(json.loads((R/n).read_text()));d2=digest(json.loads((dst/n).read_text()));digests.append(dict(file=n,expected=d1,actual=d2));
+  if d1!=d2:dif.append(dict(file=n,error='canonical mathematical mismatch'))
+ b1=json.loads((R/'outputs/bad_certificate_regression.json').read_text());b2=json.loads((dst/'outputs/bad_certificate_regression.json').read_text())
+ assert [(x['name'],x['status'],x['exception']) for x in b1['records']]==[(x['name'],x['status'],x['exception']) for x in b2['records']]
+ result=dict(status='PASS_CLEAN_REGENERATION_AND_ACCEPTANCE' if a.regenerate else 'PASS_ISOLATED_ACCEPTANCE',regenerated=a.regenerate,python_blocks_repeated=a.python_blocks,commands=len(records),all_commands_passed=all(r['returncode']==0 for r in records),mathematical_files=len(names),differences=dif,canonical_ignored_metadata_keys=sorted(VOLATILE),digests=digests,records=records,seconds=time.monotonic()-started,python=platform.python_version(),platform=platform.platform(),peak_command_rss_kib=max(r['peak_rss_kib'] or 0 for r in records),output_dir=str(dst))
+ if dif:result['status']='FAIL_MATHEMATICAL_COMPARISON'
+ (dst/'replay_result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({k:v for k,v in result.items() if k not in ['digests','records']},indent=2),flush=True)
+ if dif:raise RuntimeError('canonical comparison failed')
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

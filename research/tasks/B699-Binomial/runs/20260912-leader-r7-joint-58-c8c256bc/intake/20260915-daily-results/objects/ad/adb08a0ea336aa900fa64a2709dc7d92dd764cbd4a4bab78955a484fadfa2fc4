@@ -1,0 +1,27 @@
+import sympy as s
+from math import comb
+from fractions import Fraction
+n,x,d,t,y=s.symbols('n x d t y')
+E=d*d-3*n+2
+P=d**4-2*n*d*d+4*n**3-19*n*n+28*n-12
+D=(n-1)**3*(n-2)**2
+Dnorm=(1-t*y*y)**3*(1-2*t*y*y)**2
+
+def bernstein(poly):
+ po=s.Poly(s.expand(poly.subs({y:y/3,t:t/64})),y,t)
+ dy,dt=po.degree(y),po.degree(t)
+ coeff={mon:Fraction(c) for mon,c in po.terms()}
+ v=[]
+ for i in range(dy+1):
+  for j in range(dt+1):
+   b=sum(c*Fraction(comb(i,a),comb(dy,a))*Fraction(comb(j,b),comb(dt,b)) for (a,b),c in coeff.items() if a<=i and b<=j)
+   v.append(b)
+ return dy,dt,len(v),min(v),max(v)
+for delta in [-2,2]:
+ num=s.expand((E*P).subs(d,x+delta)*n**5-x**6*D)
+ # gap / y^2 = num/(2D n^5 y^2) and num/n^10/y^2
+ R=s.cancel(num.subs({n:1/(t*y*y),x:1/(t*y)})*t**10*y**18)
+ print('delta',delta,'R degree',s.Poly(R,y,t).degree_list(),'terms',len(s.Poly(R,y,t).terms()))
+ print('R=',s.factor(R))
+ for name,poly in [('lower',R-2*Dnorm),('upper',6*Dnorm-R)]:
+  print(name,bernstein(poly))

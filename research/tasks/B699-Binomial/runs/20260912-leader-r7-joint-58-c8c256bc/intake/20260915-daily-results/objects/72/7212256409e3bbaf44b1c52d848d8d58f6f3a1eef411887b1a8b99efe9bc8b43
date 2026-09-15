@@ -1,0 +1,97 @@
+"""Independent three-degree content certificate checker.
+Catalog: triple-floor cells (not the generator's merged endpoint partition).
+Primes: odd-only Eratosthenes (not the generator's all-integer sieve).
+Weights: five exact squarings. Finite blocks and infinite tails checked anew.
+"""
+from fractions import Fraction as F
+from pathlib import Path
+from array import array
+from bisect import bisect_right
+from itertools import product
+import json,math,time,hashlib,sys,argparse
+R=Path(__file__).resolve().parents[1];CACHE=R/'cache/content_checker';ETA=F(213,10**7)
+SPECS=[(2,2,1),(8,8,7),(11,11,4),(5,14,4),(12,20,7)]
+
+def catalog(e,d,f):
+ N=e+d+f;out=[]
+ for a,b,c in product(range(e),range(d),range(f)):
+  J=a+b+c;lo=max(F(a,e),F(b,d),F(c,f),F(J+2,N));hi=min(F(a+1,e),F(b+1,d),F(c+1,f),F(J+3,N))
+  if lo<hi:
+   assert lo==F(J+2,N);out.append((lo,hi,J))
+ out.sort();assert len(out)==len(set(out)) and all(a[1]<=b[0] for a,b in zip(out,out[1:]))
+ return out
+
+def rebuild_cache(limit=130000000):
+ ts=time.monotonic();CACHE.mkdir(parents=True,exist_ok=True);n=(limit+1)//2
+ sieve=bytearray(b'\1')*n;sieve[0]=0
+ for p in range(3,math.isqrt(limit)+1,2):
+  if sieve[p//2]:
+   k=(p*p)//2;sieve[k::p]=b'\0'*((n-1-k)//p+1)
+ ps=array('I',[2]);weights=array('Q',[0,32]);total=32
+ for j in range(1,n):
+  if sieve[j]:
+   p=2*j+1;x=p
+   for _ in range(5):x=x*x
+   total+=x.bit_length()-1;ps.append(p);weights.append(total)
+ del sieve
+ hashes={}
+ for name,a in [('primes.u32',ps),('weights.u64',weights)]:
+  with (CACHE/name).open('wb') as h:a.tofile(h)
+  hashes[name]=hashlib.sha256((CACHE/name).read_bytes()).hexdigest()
+ meta=dict(limit=limit,count=len(ps),last=ps[-1],total_weight=total,byteorder=sys.byteorder,hashes=hashes,seconds=time.monotonic()-ts)
+ (CACHE/'metadata.json').write_text(json.dumps(meta,indent=2)+'\n')
+ (R/'outputs/independent_prime_sieve.json').write_text(json.dumps(meta,indent=2)+'\n');print('ODD_SIEVE',json.dumps(meta),flush=True)
+ return ps,weights,meta
+
+def load_cache():
+ m=json.loads((CACHE/'metadata.json').read_text());assert m['byteorder']==sys.byteorder
+ for n,h in m['hashes'].items():assert hashlib.sha256((CACHE/n).read_bytes()).hexdigest()==h
+ ps=array('I');w=array('Q')
+ with (CACHE/'primes.u32').open('rb') as h:ps.fromfile(h,m['count'])
+ with (CACHE/'weights.u64').open('rb') as h:w.fromfile(h,m['count']+1)
+ return ps,w,m
+
+def check_one(triple,ps,weights,meta):
+ e,d,f=triple;N=e+d+f;cells=catalog(e,d,f);src=json.loads((R/f'outputs/general_content_finite_{e}_{d}_{f}.json').read_text());tails=json.loads((R/'outputs/general_content_tail.json').read_text())['rows'];tail=next(r for r in tails if tuple(r[x] for x in ['e','d','f'])==triple)
+ assert tuple(src[x] for x in ['e','d','f'])==triple and src['M']==tail['M'];M=tail['M'];g=F(src['g']);assert g==F(tail['g'])
+ assert src['m0']+1==src['first_m'] and src['blocks'][0]['a']==src['first_m'] and src['blocks'][-1]['b']==M-1
+ lo2=F(src['log2_lower']);partial=2*sum((F(1,3**(2*j+1)*(2*j+1)) for j in range(40)),F(0));assert 0<lo2<partial
+ weights_calls=0;next_m=src['first_m'];margin=None;cc=[]
+ for w in range(src['W']+1):
+  for l,u,J in cells:
+   C=F(1)/(w+u);cc.append((N*w+J+2,C.numerator,C.denominator))
+ for r in src['blocks']:
+  a,b=r['a'],r['b'];assert a==next_m and a<=b<M;total=0
+  for div,cn,cd in cc:
+   L=cn*b//cd;U=(N*a-2)//div
+   if U>L:
+    assert U<=meta['limit'];total+=weights[bisect_right(ps,U)]-weights[bisect_right(ps,L)]
+  assert total==r['weight'];v=F(total,32)*lo2-g*b;assert v>0
+  margin=v if margin is None or v<margin else margin;weights_calls+=1;next_m=b+1
+ assert next_m==M
+ total=F(0);seen=set()
+ for r in tail['rows']:
+  w=r['w'];l=F(r['l']);u=F(r['u']);J=r['J'];key=(w,l,u,J)
+  assert w>=0 and (l,u,J) in cells and key not in seen;seen.add(key)
+  A=1/(w+l);B=F(2,N)/(w+l);C=1/(w+u);err=F(r['error']);rate=A-(1+ETA)*C-err-B/M
+  assert (F(r['A']),F(r['B']),F(r['C']))==(A,B,C)
+  assert A*M-B>=1 and err>=0 and err>=ETA*A
+  if r.get('error_source','uniform_max')=='relative_from_1e8':assert A*M-B>=10**8
+  else:
+   assert r.get('error_source','uniform_max')=='uniform_max'
+   assert err*err>=F(259,125)**2*A/M
+  assert rate==F(r['rate']) and rate>0;total+=rate
+ assert total==F(tail['lower']) and total-g==F(tail['margin']) and total>g
+ return dict(status='PASS_INDEPENDENT_CONTENT',e=e,d=d,f=f,g=str(g),m0=src['m0'],finite_blocks=weights_calls,finite_last=M-1,infinite_first=M,tail_terms=len(seen),minimum_finite_margin=str(margin),infinite_margin=str(total-g),cells=len(cells))
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--cache',action='store_true');ap.add_argument('--index',type=int);a=ap.parse_args()
+ if a.cache:rebuild_cache();return
+ ps,w,m=load_cache() if a.index is not None else rebuild_cache();out=[];ts=time.monotonic()
+ for tr in ([SPECS[a.index]] if a.index is not None else SPECS):
+  r=check_one(tr,ps,w,m);out.append(r);print('CONTENT',json.dumps(r),flush=True)
+  (R/f"outputs/content_independent_{tr[0]}_{tr[1]}_{tr[2]}.json").write_text(json.dumps(r,indent=2)+'\n')
+ if a.index is None:(R/'outputs/general_content_independent.json').write_text(json.dumps(dict(status='PASS_ALL_FIVE_CONTENT_BOUNDS',rows=out,seconds=time.monotonic()-ts),indent=2)+'\n')
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

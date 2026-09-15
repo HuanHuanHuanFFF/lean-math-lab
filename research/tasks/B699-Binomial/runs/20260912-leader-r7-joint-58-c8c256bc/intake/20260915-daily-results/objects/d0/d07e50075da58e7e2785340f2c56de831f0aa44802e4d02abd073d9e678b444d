@@ -1,0 +1,117 @@
+"""Exact exhaustive cofactor-model certificates. No nonlinear numeric solver."""
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import combinations
+import argparse,json
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+ROOT=Path(__file__).resolve().parents[1];PS=[2,3,5,7,11,13]
+GAMMAS=[F(1223,1500),F(102,125)]
+
+def inputs(root=ROOT):
+ cs=json.loads((root/'input/frozen_cuts.json').read_text())
+ return [r for r in cs if r['p']<15 and r['q']<15]
+
+def minima(cs):
+ vv={(0,)*6};counts=[]
+ for c in cs:
+  p,q=PS.index(c['p']),PS.index(c['q']);out=set()
+  for x in vv:
+   if x[p]>=c['wp'] or x[q]>=c['wq']:out.add(x);continue
+   for k,v in [(p,c['wp']),(q,c['wq'])]:
+    a=list(x);a[k]=v;out.add(tuple(a))
+  reduced=[]
+  for a in sorted(out,key=lambda a:(sum(a),a)):
+   if not any(all(b[k]<=a[k] for k in range(6)) for b in reduced):reduced.append(a)
+  vv=set(reduced);counts.append(len(vv))
+ return sorted(vv),counts
+
+CLAUSES=[[(1,287),(0,325),((0,1),600)],[(0,210),(4,82),((0,4),247)],[(0,120),(4,189),((0,4),292)]]
+def branches(vv):
+ bb={(x,()) for x in vv}
+ for clause in CLAUSES:
+  out=set()
+  for l,ss in bb:
+   for k,v in clause:
+    ll=list(l);dd=dict(ss)
+    if isinstance(k,int):ll[k]=max(ll[k],v)
+    else:dd[k]=max(dd.get(k,0),v)
+    ss1=tuple(sorted((k,v) for k,v in dd.items() if sum(ll[j] for j in k)<v))
+    out.add((tuple(ll),ss1))
+  bb=out
+ return sorted(bb)
+
+def inv(M):
+ n=len(M);A=[[F(x) for x in row]+[F(int(i==j)) for j in range(n)] for i,row in enumerate(M)]
+ for k in range(n):
+  p=next((j for j in range(k,n) if A[j][k]),None)
+  if p is None:return None
+  A[k],A[p]=A[p],A[k];v=A[k][k];A[k]=[x/v for x in A[k]]
+  for j in range(n):
+   if j!=k:
+    v=A[j][k];A[j]=[x-v*y for x,y in zip(A[j],A[k])]
+ return [r[n:] for r in A]
+CACHE={}
+def templates(keys):
+ if keys not in CACHE:
+  rows=[]
+  for k in range(len(keys)+1):
+   for J in combinations(range(6),k):
+    for I in combinations(range(len(keys)),k):
+     Z=inv([[int(j in keys[i]) for j in J] for i in I]) if k else []
+     if Z is not None:rows.append((J,I,Z))
+  CACHE[keys]=rows
+ return CACHE[keys]
+
+def vertices(l,ss):
+ keys=tuple(k for k,v in ss);cc=[F(v)-sum(l[j] for j in k) for k,v in ss];ans=set()
+ for J,I,Z in templates(keys):
+  y=[F(0)]*6
+  for j,row in zip(J,Z):y[j]=sum((z*cc[i] for z,i in zip(row,I)),F(0))
+  if any(t<0 for t in y):continue
+  if any(sum(y[j] for j in k)<c for k,c in zip(keys,cc)):continue
+  ans.add(tuple(F(a)+b for a,b in zip(l,y)))
+ if not ans:raise ValueError('No vertices of nonempty upward polyhedron')
+ return ans
+
+def pos_value(x):
+ return -20000+sum((20-k)*v for k,v in enumerate(sorted(x)))
+def scalar_value(x):return sum(x)
+def augmented(ss,gamma,collision=None):
+ dd=dict(ss)
+ if gamma is not None:dd[(0,2,5)]=1000*gamma
+ if collision is not None:dd[collision]=max(dd.get(collision,0),1000)
+ return tuple(sorted(dd.items()))
+def one(bb,gamma,collision=None):
+ score=pos_value if collision is None else scalar_value
+ rows=[];globalm=None;globalx=None;allv=set();zero_vertices=set()
+ for idx,(l,ss) in enumerate(bb):
+  v=vertices(l,augmented(ss,gamma,collision));mm=min(map(score,v));xx=min(x for x in v if score(x)==mm)
+  rows.append({'branch':idx,'vertex_count':len(v),'minimum_scaled':str(mm),'witness_scaled':list(map(str,xx))})
+  if globalm is None or (mm,xx)<(globalm,globalx):globalm,globalx=mm,xx
+  allv.update(v)
+  if collision is None:zero_vertices.update(x for x in v if score(x)==0)
+ slope=None;slope_witness=None
+ if gamma==GAMMAS[0] and collision is None:
+  ratios=[(pos_value(x)/(sum(x[k] for k in (0,2,5))-1000*gamma),x) for x in allv if sum(x[k] for k in (0,2,5))>1000*gamma]
+  slope,slope_witness=min(ratios)
+  if not 0<slope<15:raise ValueError('Supporting slope not recession-safe')
+ return {'supporting_slope':None if slope is None else str(slope),'slope_witness':None if slope_witness is None else [str(t/1000) for t in slope_witness],
+  'gamma':None if gamma is None else str(gamma),'collision':None if collision is None else [PS[k] for k in collision],
+  'branch_count':len(bb),'vertices_distinct':len(allv),'minimum':str(globalm/1000),
+  'witness':[str(x/1000) for x in globalx], 'zero_vertices':[[str(x/1000) for x in z] for z in sorted(zero_vertices)],'branches':rows}
+
+def run(out):
+ cs=inputs();vv,hist=minima(cs);bb=branches(vv)
+ base={'source_cut_count':len(cs),'minimal_orthants':vv,'orthant_stage_counts':hist,
+       'branches':[{'lower':l,'sums':[[list(k),v] for k,v in ss]} for l,ss in bb]}
+ base['distinct']=[one(bb,g) for g in GAMMAS]
+ base['collisions']=[one(bb,None,p) for p in combinations(range(6),2)]
+ assert base['distinct'][0]['minimum']=='0'
+ assert base['distinct'][1]['minimum']=='1/100'
+ assert min(F(r['minimum']) for r in base['collisions'])==F(71,50)
+ out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(base,indent=2)+'\n')
+ print(json.dumps({'status':'EXACT_MODEL_CERTIFICATE','cuts':len(cs),'orthants':len(vv),'branches':len(bb),
+                   'distinct_minima':[r['minimum'] for r in base['distinct']], 'collision_minimum':'71/50','bytes':out.stat().st_size}))
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);a=p.parse_args();run(a.out)

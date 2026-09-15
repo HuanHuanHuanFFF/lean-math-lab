@@ -1,0 +1,74 @@
+{
+  "task": "B699 Pro C",
+  "date": "2026-09-11",
+  "full_problem_solved": false,
+  "exact_counterexample_found": false,
+  "new_full_indices_closed": [],
+  "frozen_R9_unchanged": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    14
+  ],
+  "lean_executed": false,
+  "external_independent_review_completed": false,
+  "repository_modified": false,
+  "claims": [
+    {
+      "id": "C-MASTER",
+      "statement": "For every fixed i>=2, coprime A,B>0 with B>=2 and integer h, legal noCommon inputs satisfying A*n-B*j=h lie in an explicit finite divisor/height domain.",
+      "status": "PAPER_PROVED_WITH_COMPONENT_REGRESSIONS",
+      "proof": "notes/MASTER_LINEAR_KERNEL.md",
+      "limitation": "i,A,B,h are not jointly bounded."
+    },
+    {
+      "id": "C-EXACT-RATIO",
+      "statement": "V_i(Bt) divides K_rat * choose(t,ceil(i/B)) under noCommon; exact factorial cancellation yields a sharper rational-ratio height.",
+      "status": "PAPER_PROVED_WITH_NONVACUOUS_PRIMEWISE_TESTS",
+      "proof": "notes/RATIONAL_CANCELLATION_PROOF.md"
+    },
+    {
+      "id": "C-CENTRAL-STRIP",
+      "statement": "For all legal n,i,j with 2<=i<=14 and 0<=n-2*j<=8, the original Common conclusion holds.",
+      "status": "PAPER_PLUS_EXACT_CERTIFICATE_PENDING_EXTERNAL_REVIEW_AND_LEAN",
+      "candidate_points": 807,
+      "proof": "notes/CENTRAL_KERNEL_PROOF.md",
+      "certificate": "evidence/central-divisor-certificate.json",
+      "verification": "evidence/central-divisor-verification.json"
+    },
+    {
+      "id": "C-RATIO-DENOMINATOR-8",
+      "statement": "For all legal n,i,j with 2<=i<=14 and n/gcd(n,j)<=8, the original Common conclusion holds.",
+      "status": "PAPER_PLUS_EXACT_CERTIFICATE_PENDING_EXTERNAL_REVIEW_AND_LEAN",
+      "candidate_points_for_B_3_to_8": 7391,
+      "B_equals_2_consumer": "C-CENTRAL-STRIP",
+      "proof": "notes/RATIONAL_CANCELLATION_PROOF.md",
+      "certificate": "evidence/rational-kernel-certificate.json",
+      "verification": "evidence/rational-kernel-verification.json"
+    },
+    {
+      "id": "C-CONTENT-DIGITS",
+      "statement": "The coefficient-content quotient divides both original binomial coefficients; a precise quotient-coordinate formula retains higher carries.",
+      "status": "PAPER_PROVED_WITH_EXACT_REGRESSIONS",
+      "proof": "notes/CONTENT_AND_DIGITS_PROOF.md",
+      "limitation": "No proof that the content quotient always has a prime >=i."
+    }
+  ],
+  "not_adopted_as_proof": [
+    {
+      "item": "i=3 content shadow scan through n=1000000",
+      "reason": "No proved unbounded tail for this scan."
+    },
+    {
+      "item": "Floating-point entropy optimization",
+      "reason": "Exploratory, no certified global inequality."
+    }
+  ],
+  "certificate_negative_test_instances": 29,
+  "source_archive_sha256": "a9b0ce24948d502f6e2c3dd0ea6cfe7dbb8cab78a852c0ce645720073e888a59"
+}

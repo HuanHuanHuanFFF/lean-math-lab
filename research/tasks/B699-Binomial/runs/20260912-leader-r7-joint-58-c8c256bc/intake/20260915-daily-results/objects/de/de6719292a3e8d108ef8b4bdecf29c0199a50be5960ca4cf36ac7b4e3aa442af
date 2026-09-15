@@ -1,0 +1,93 @@
+"""Semantic mutation tests for the exact SUPPORT31 receiver.
+
+These are implementation tests, not replacements for the mathematical proof.
+No mutated certificate is retained as accepted. Two unimodular changes are
+also accepted, to check that rejection is not merely a frozen byte hash.
+"""
+from __future__ import annotations
+import argparse
+import copy
+import json
+import time
+from pathlib import Path
+from verify import Rejected, verify_certificate, need
+
+
+def run(root: Path) -> dict:
+    base = json.loads((root / 'evidence/support31_certificate.json').read_text())
+    tests = []
+    def add(name, mutate, expected, category='mathematical'):
+        tests.append((name, mutate, expected, category))
+    add('changed_scope_remove_31', lambda x: x['support'].pop(), 'FIXED_SUPPORT31_SCOPE', 'scope')
+    add('changed_scope_add_37', lambda x: x['support'].append(37), 'FIXED_SUPPORT31_SCOPE', 'scope')
+    add('wrong_height_prefactor', lambda x: x['height'].__setitem__('U', x['height']['U'] - 1), 'HEIGHT_U')
+    add('wrong_C', lambda x: x['height'].__setitem__('C', 223), 'HEIGHT_C')
+    add('confuse_n_and_exponent_height', lambda x: x['height'].__setitem__('H', 236), 'HEIGHT_H')
+    add('truncate_exponent_box', lambda x: x['height'].__setitem__('box_upper', 1 << 235), 'HEIGHT_box_upper', 'coverage')
+    add('unproved_finite_gate', lambda x: x['height'].__setitem__('low_n_log2', 4095), 'FROZEN_FINITE_GATE', 'source_gate')
+    add('wrong_scalar_power', lambda x: x['scalar'].__setitem__('power', 9), 'SCALAR_SCHEMA')
+    add('wrong_scalar_degree', lambda x: x['scalar'].__setitem__('n_degree', 26), 'SCALAR_SCHEMA')
+    add('wrong_scalar_constant', lambda x: x['scalar'].__setitem__('R', 171603713767499), 'SCALAR_SCHEMA')
+    add('omit_entire_prime_cycle', lambda x: x['cycles']['single'].pop('7'), 'CYCLE_PRIME_COVERAGE', 'coverage')
+    add('replace_full_modulus_by_prime', lambda x: x['cycles']['single']['3'].__setitem__('modulus', 3), 'EXACT_MODULUS_GATE')
+    add('change_K', lambda x: x['cycles']['single']['5'].__setitem__('K', x['cycles']['single']['5']['K'] - 1), 'EXACT_MODULUS_GATE')
+    add('remove_2adic_sign_channel', lambda x: x['cycles']['single']['2']['orders'].pop(0), 'EXACT_GROUP_ORDER')
+    add('wrong_odd_generator', lambda x: x['cycles']['single']['3'].__setitem__('generator', 1), 'GENERATOR_ORDER_EXACT')
+    add('wrong_2adic_generator', lambda x: x['cycles']['single']['2'].__setitem__('generator', 3), 'TWO_ADIC_SIGN_SEPARATION')
+    add('omit_prime_31_log', lambda x: x['cycles']['double']['7']['logs'].pop('31'), 'LOG_BASE_COVERAGE', 'coverage')
+    add('change_modular_log', lambda x: x['cycles']['single']['3']['logs']['31'].__setitem__(0, (x['cycles']['single']['3']['logs']['31'][0] + 1) % x['cycles']['single']['3']['orders'][0]), 'EXACT_MODULAR_LOG_IDENTITY')
+    add('flip_2adic_sign', lambda x: x['cycles']['single']['2']['logs']['31'].__setitem__(0, 1-x['cycles']['single']['2']['logs']['31'][0]), 'EXACT_MODULAR_LOG_IDENTITY')
+    add('omit_lattice', lambda x: x['lattices'].pop(), 'COMPLETE_18_LATTICE_COVERAGE', 'coverage')
+    add('duplicate_lattice', lambda x: x['lattices'].append(copy.deepcopy(x['lattices'][0])), 'NO_DUPLICATE_LATTICE', 'coverage')
+    add('drop_prime_31_variable', lambda x: x['lattices'][0]['variables'].pop(), 'VARIABLE_SUPPORT_COVERAGE', 'coverage')
+    add('exchange_variable_labels_only', lambda x: x['lattices'][0]['variables'].reverse(), 'VARIABLE_SUPPORT_COVERAGE')
+    add('remove_basis_row', lambda x: x['lattices'][0]['basis'].pop(), 'BASIS_DIMENSION_INTEGER')
+    add('insert_fractional_basis_entry', lambda x: x['lattices'][0]['basis'][0].__setitem__(0, '1/2'), 'BASIS_DIMENSION_INTEGER')
+    add('perturb_basis_entry', lambda x: x['lattices'][0]['basis'][0].__setitem__(0, x['lattices'][0]['basis'][0][0] + 1), 'BASIS_KERNEL_MEMBERSHIP')
+    def proper_sublattice(x):
+        for row in x['lattices'][0]['basis']:
+            row[0] *= 2
+    add('proper_sublattice_passes_columns_but_not_index', proper_sublattice, 'BASIS_FULL_KERNEL_INDEX')
+    def singular_kernel_columns(x):
+        for row in x['lattices'][0]['basis']:
+            row[1] = row[0]
+    add('dependent_kernel_columns', singular_kernel_columns, 'BASIS_FULL_KERNEL_INDEX')
+    started = time.perf_counter(); receipts = []
+    for name, change, expected, category in tests:
+        bad = copy.deepcopy(base); change(bad); st = time.perf_counter()
+        try:
+            verify_certificate(bad)
+        except Rejected as exc:
+            reason = str(exc)
+            need(reason == expected, 'UNEXPECTED_MUTATION_REJECTION:' + name + ':' + reason)
+            receipts.append({'name': name, 'category': category, 'rejected_by': reason,
+                             'seconds': time.perf_counter()-st})
+        else:
+            raise AssertionError('MUTATION_ACCEPTED:' + name)
+    positives = []
+    for transformation in ('negate_column', 'swap_columns'):
+        good = copy.deepcopy(base)
+        for lat in good['lattices']:
+            for row in lat['basis']:
+                if transformation == 'negate_column':
+                    row[0] = -row[0]
+                else:
+                    row[0], row[1] = row[1], row[0]
+        counts = verify_certificate(good)
+        positives.append({'change': transformation, 'status': 'ACCEPTED_EQUIVALENT_FULL_KERNEL', 'counts': counts})
+    return {'status': 'PASS_28_SEMANTIC_REJECTIONS_AND_2_EQUIVALENT_ACCEPTANCES',
+            'seconds': time.perf_counter()-started, 'negative_count': len(receipts),
+            'negative_tests': receipts, 'positive_transformations': positives,
+            'historical_certificates_replayed': False, 'lean': False}
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
+    p.add_argument('--out', type=Path)
+    a=p.parse_args(); result=run(a.root)
+    out=a.out or a.root/'logs/negative_tests.json'; out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, indent=2))
+    print(json.dumps({k:result[k] for k in ('status','seconds','negative_count')}, indent=2))
+
+if __name__=='__main__':main()

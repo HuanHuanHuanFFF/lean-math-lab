@@ -1,0 +1,38 @@
+"""Fail-closed regression; not an independent proof audit."""
+import copy,json,sys
+from pathlib import Path
+from fractions import Fraction
+from check_gap import verify
+from consumers import reconstruct,dyadic_gate
+
+def run(path):
+    original=json.loads(Path(path).read_text());checks=[]
+    def reject(name,fn):
+        try:fn()
+        except (AssertionError,ValueError,ZeroDivisionError,KeyError,TypeError):checks.append(name);return
+        raise AssertionError('invalid input accepted: '+name)
+    def mutate(name,fn):
+        d=copy.deepcopy(original);fn(d);reject(name,lambda:verify(d))
+    mutate('missing-polynomial',lambda d:d['certificates'].pop())
+    mutate('missing-Bernstein-coordinate',lambda d:d['certificates'][0]['coefficients'].pop())
+    mutate('duplicated-coordinate',lambda d:d['certificates'][0]['coefficients'].__setitem__(1,d['certificates'][0]['coefficients'][0]))
+    mutate('zero-positive-margin',lambda d:d['certificates'][0]['coefficients'][0].__setitem__(2,0))
+    mutate('wrong-numerator',lambda d:d['certificates'][0]['coefficients'][0].__setitem__(2,999))
+    mutate('zero-denominator',lambda d:d['certificates'][0]['coefficients'][0].__setitem__(3,0))
+    mutate('wrong-shift',lambda d:d['certificates'][0].__setitem__('delta',1))
+    mutate('expanded-y-domain',lambda d:d['domain'].__setitem__('y_max',[1,2]))
+    mutate('wrong-degree',lambda d:d.__setitem__('degrees',[11,5]))
+    mutate('false-minimum',lambda d:d['certificates'][0].__setitem__('minimum',[100,1]))
+    reject('non-square-Y',lambda:reconstruct(1,1,29,1,11,1052))
+    reject('wrong-defect-divisor',lambda:reconstruct(1,1,29,3,11,1051))
+    reject('wrong-normalization',lambda:reconstruct(3,1,29,1,11,1051))
+    reject('zero-z',lambda:reconstruct(1,1,29,0,11,1051))
+    reject('invalid-sign',lambda:dyadic_gate(1<<24,100,0))
+    n=1<<24;x=(1<<20)+2;j=(n-x+2)//2
+    assert not dyadic_gate(n,j,1)
+    checks.append('full-two-power-condition-not-dropped')
+    assert Fraction(x**6,1<<120).denominator>1
+    checks.append('nonintegral-leading-term-exhibited')
+    return {'status':'PASS','rejected_or_exposed_count':len(checks),'tests':checks}
+if __name__=='__main__':
+    r=run(sys.argv[1]);Path(sys.argv[2]).write_text(json.dumps(r,sort_keys=True,indent=2)+'\n');print(json.dumps(r))

@@ -1,0 +1,82 @@
+"""Build the local source snapshot from an already prepared, fixed task packet.
+Usage: python3 code/assemble_inputs.py /path/to/prepared/task/root
+Copies original bytes; does not run any old mathematical receiver.
+"""
+from pathlib import Path
+import sys,hashlib,json,shutil,zipfile
+ROOT=Path(__file__).resolve().parents[1]
+PACKET_SHA='10311a858e4006dee9800bef43c6bc8e8dc3732a059e7cd25afe0f78404a525c'
+A_SHA='95d398cd0931ecd8551ef090edbae741e60124fba09e62ea8d71f306650de6d9'
+A_NAME='B699-ProA-i9-outer-exponent-primitivity-evidence-20260913.zip'
+PREFIX='B699-ProA-outer-exponent-20260913/'
+
+def sha(p):
+    h=hashlib.sha256()
+    with p.open('rb') as f:
+        for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+    return h.hexdigest()
+
+def cp(src,dst):
+    dst.parent.mkdir(parents=True,exist_ok=True)
+    if dst.exists() and sha(dst)!=sha(src):
+        raise RuntimeError('refuse to overwrite a different source snapshot: '+str(dst))
+    shutil.copyfile(src,dst)
+
+if __name__=='__main__':
+    if len(sys.argv)!=2:raise SystemExit(__doc__)
+    base=Path(sys.argv[1]).resolve()
+    archive=base/'archives'/A_NAME
+    assert sha(archive)==A_SHA
+    cp(archive,ROOT/'inputs/A-original.zip')
+    records=[]
+    task_files=['README.md','tasks/COMMON.md','tasks/A.md','context/RESEARCH_SNAPSHOT.md',
+                'prepare_inputs.py','ARCHIVES.json','PACKET_MANIFEST.json','administrative-review.md','provenance.json']
+    for rel in task_files:
+        src=base/rel;dst=ROOT/'sources/task-packet'/rel
+        cp(src,dst)
+        records.append({'source':'task-packet','original_path':rel,'stored_path':str(dst.relative_to(ROOT)),
+                        'sha256':sha(src),'bytes':src.stat().st_size,
+                        'actual_read':'whole task/README/context; administrative files for source checks, giant provenance only bounded beginning and parsed metadata',
+                        'adoption':'task authority / byte provenance; not a mathematical theorem'})
+    aroot=base/'inputs/A'/PREFIX
+    spec=[('REPORT.md','whole','reported inherited scope, not independent reproof'),
+          ('HANDOFF.md','whole','canonical continuation boundary'),
+          ('SESSION_STATE.json','whole','state boundary'),
+          ('FAILURE_BOUNDARIES.md','whole','avoid repeat of prior failed projections'),
+          ('SOURCE_INPUTS.json','parsed mappings, bounded header','149 frozen member references: byte audit only'),
+          ('notes/PROOFS.md','whole; especially sections 0--8','F1/F2 position and scalar; F3 heights; prior primitivity scope'),
+          ('inputs/fibres/B699-ProA-double-high-20260913/notes/PROOFS.md','sections 0--4, first 235 lines','frozen scalar and fibre bounds, no old blocks rerun'),
+          ('inputs/positions/B699-ProA-i9-quadratic-position-20260913/notes/PROOFS.md','sections 6--7 and adjacent boundary','remaining ordered positions; cut scope boundary, no old receiver rerun')]
+    for rel,read,adopt in spec:
+        src=aroot/rel;dst=ROOT/'sources/A-excerpts'/rel
+        cp(src,dst)
+        records.append({'source':'A-original.zip','zip_member':PREFIX+rel,'stored_path':str(dst.relative_to(ROOT)),
+                        'sha256':sha(src),'bytes':src.stat().st_size,'actual_read':read,'adoption':adopt})
+    droot=base/'inputs/D-new/B699-ProD-three-window-threshold-20260913'
+    for rel,read in [('REPORT.md','whole'),('HANDOFF.md','whole'),('notes/PROOFS.md','section7, lines269--295')]:
+        src=droot/rel;dst=ROOT/'sources/D-boundary-only'/rel
+        cp(src,dst)
+        records.append({'source':'D-new','original_path':'inputs/D-new/B699-ProD-three-window-threshold-20260913/'+rel,
+                        'stored_path':str(dst.relative_to(ROOT)),'sha256':sha(src),'bytes':src.stat().st_size,
+                        'actual_read':read,'adoption':'method boundary only: TW cannot cover A double-high; not a positive theorem dependency'})
+    ledger={'input_packet':{'filename':'B699-ABD-next-round-20260914-v1.zip','sha256':PACKET_SHA,
+                            'prepared_command':'python3 prepare_inputs.py A','command_log':'logs/prepare_inputs.log',
+                            'four_archives_restored':True,'original_unchanged':True,
+                            'entire_packet_redistributed':False},
+            'required_A_archive':{'original_filename':A_NAME,'stored_path':'inputs/A-original.zip',
+                                  'sha256':A_SHA,'bytes':archive.stat().st_size,'zip_prefix':PREFIX},
+            'records':records,
+            'not_adopted':['B mathematical results (restored only)','old D mathematics (restored only)',
+                           'any ongoing B/D result','new positive TW use','new BFT/content search'],
+            'missing_or_not_repeated':['No original-byte copy/hash of external S-parts PDF; web text and page-3 screenshot checked; container download failed',
+                                      'No global historical-container/publication completeness assertion',
+                                      'Old content/Padé/local-cubic/i9 finite computation not rerun',
+                                      'No Lean/kernel audit; no Git actions'],
+            'external_optional':[{'authors':'Yann Bugeaud; Jan-Hendrik Evertse; Kálmán Győry',
+                                  'title':'S-parts of values of univariate polynomials, binary forms and decomposable forms at integral points',
+                                  'url':'https://arxiv.org/pdf/1708.08290','locator':'Theorem 2.1(i), PDF page 3; contrast Theorem 2.2',
+                                  'access_date':'2026-09-14','verification':'parsed primary PDF text and visual screenshot of page 3',
+                                  'adoption':'optional non-effective finiteness appendix only; not core consumers',
+                                  'container_download':'failed','pdf_sha256':None}]}
+    (ROOT/'sources/SOURCE_ADOPTION.json').write_text(json.dumps(ledger,ensure_ascii=False,indent=2)+'\n')
+    print(json.dumps({'status':'SOURCE_SNAPSHOT_ASSEMBLED','records':len(records),'A_sha256':A_SHA},indent=2))

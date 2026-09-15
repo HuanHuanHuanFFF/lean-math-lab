@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""Discovery/generation only; final acceptance is standard-library verify.py."""
+import hashlib,itertools,json,math,platform,time
+from pathlib import Path
+import sympy
+from fractions import Fraction
+ROOT=Path(__file__).resolve().parents[1]
+LIMIT=64
+
+def sf(x,m):
+ out=1
+ for p in (2,3,5,7):
+  if p>=m: continue
+  while x%p==0:out*=p;x//=p
+ if m in (5,7) and x%m==0 and x%(m*m):out*=m
+ return out
+
+def criterion(n,m):
+ T=math.prod(sf(n-r,m) for r in range(4))
+ return T**6*(3*n*n-12*n+8)<2**20*(n-1)**6*(n-3)**3,T
+
+def vpbin(n,j,p):
+ ans=0;q=p
+ while q<=n:
+  ans+=n//q-j//q-(n-j)//q;q*=p
+ return ans
+
+primes={}
+def pratt(p):
+ p=int(p)
+ if str(p) in primes:return
+ if p==2:primes['2']={'p':2};return
+ factors={int(q):int(e) for q,e in sympy.factorint(p-1).items()}
+ for q in factors:pratt(q)
+ for a in range(2,p):
+  if pow(a,p-1,p)==1 and all(pow(a,(p-1)//q,p)!=1 for q in factors):break
+ else:raise ValueError('primality witness not found')
+ primes[str(p)]={'p':p,'base':a,'factors':[[q,factors[q]] for q in sorted(factors)]}
+
+def crt_build(seeds,lo,hi):
+ M=1;classes=[0]
+ for s in seeds:
+  q=s['p']**s['e'];inv=pow(M,-1,q);N=M*q
+  new=[]
+  for a in classes:
+   for b in range(s['r']+1):
+    c=a+M*((b-a)*inv%q)
+    z=max(0,(lo-c+N-1)//N)
+    if c+z*N<=hi:new.append(c)
+  M=N;classes=sorted(set(new))
+ js=[]
+ for a in classes:
+  st=a+M*max(0,(lo-a+M-1)//M)
+  js.extend(range(st,hi+1,M))
+ return M,sorted(js)
+
+def row(m,a,b,n,T):
+ factors=[];pool=[]
+ for r in range(m):
+  fs={int(p):int(e) for p,e in sympy.factorint(n-r).items()}
+  assert math.prod(p**e for p,e in fs.items())==n-r
+  factors.append([[p,fs[p]] for p in sorted(fs)])
+  for p,e in fs.items():
+   pratt(p)
+   if p>m or (p==m and e>=2):pool.append({'p':p,'e':e,'r':r})
+ pool.sort(key=lambda s: Fraction(s['p']**s['e'],s['r']+1),reverse=True)
+ seeds=[];M=1
+ for s in pool:
+  seeds.append(s);M*=s['p']**s['e']
+  if M>n:break
+ M,js=crt_build(seeds,m+1,n//2)
+ assert len(js)<1000000,('too many finite candidates',n,len(js))
+ witnesses=[]
+ for j in js:
+  for s in pool:
+   p=s['p'];e=vpbin(n,j,p)
+   if e>0:
+    witnesses.append([j,p,vpbin(n,m,p),e]);break
+  else:raise AssertionError(('unresolved ORIGINAL candidate',m,n,j))
+ return {'m':m,'a':a,'b':b,'n':n,'T':T,'factorizations':factors,'seeds':seeds,'modulus':M,'witnesses':witnesses,'seed_candidate_count':len(js)}
+
+def main():
+ start=time.monotonic();rows=[];stats=[]
+ for m in (4,5):
+  for h in range(4):
+   count=0;passing=0
+   for a in range(LIMIT):
+    for b in range(LIMIT):
+     n=2**a*3**b+h
+     if n<2*(m+1):continue
+     count+=1;ok,T=criterion(n,m)
+     if ok:passing+=1;continue
+     result=row(m,a,b,n,T);result['h']=h;rows.append(result)
+     print('row',m,h,a,b,n,'seed candidates',result['seed_candidate_count'],flush=True)
+   stats.append({'m':m,'h':h,'domain':count,'criterion_pass':passing,'exception_rows':count-passing})
+ cert={'schema':'b699-quartic-integer-gap-v2','cutoff':LIMIT,'rows':rows,'prime_certificates':primes,'stats':stats}
+ path=ROOT/'evidence'/'certificate.json'
+ path.write_text(json.dumps(cert,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+ report={'status':'GENERATION_COMPLETED_NOT_INDEPENDENT_ACCEPTANCE','python':platform.python_version(),'sympy':sympy.__version__,'seconds':time.monotonic()-start,'stats':stats,'prime_nodes':len(primes),'row_templates':len(rows),'distinct_target_rows':len({(r['m'],r['n']) for r in rows}),'seed_candidates':sum(r['seed_candidate_count'] for r in rows),'max_n':max(r['n'] for r in rows),'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
+ (ROOT/'logs'/'generation.json').write_text(json.dumps(report,indent=2)+'\n')
+ print(json.dumps(report,indent=2))
+if __name__=='__main__':main()

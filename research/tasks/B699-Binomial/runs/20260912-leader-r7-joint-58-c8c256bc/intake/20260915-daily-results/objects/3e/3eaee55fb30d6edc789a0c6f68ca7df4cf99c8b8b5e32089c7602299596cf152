@@ -1,0 +1,87 @@
+"""Archive the completed run and replay it from a clean extraction.
+
+No publication download or historical certificate replay is performed.
+The receipt is external to avoid a self-hashing or archive/replay cycle.
+"""
+from __future__ import annotations
+import argparse
+import datetime
+import hashlib
+import json
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+import tempfile
+import zipfile
+from zoneinfo import ZoneInfo
+
+
+def digest(path: Path) -> str:
+    h=hashlib.sha256()
+    with path.open('rb') as f:
+        for chunk in iter(lambda:f.read(1024*1024),b''):h.update(chunk)
+    return h.hexdigest()
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1])
+    p.add_argument('--output-dir',type=Path,default=Path('/mnt/data'))
+    a=p.parse_args();root=a.root.resolve();out=a.output_dir.resolve();out.mkdir(parents=True,exist_ok=True)
+    stem='B699-ProA-i9-support31';date='20260914-v3'
+    archive=out/f'{stem}-evidence-{date}.zip';report=out/f'{stem}-report-{date}.md'
+    receipt_path=out/f'{stem}-release-receipt-{date}.json'
+    manifest_path=root/'SHA256SUMS.json'
+    files=sorted(x for x in root.rglob('*') if x.is_file() and '__pycache__' not in x.parts and x.suffix!='.pyc' and x!=manifest_path)
+    if any(x.is_symlink() for x in files):raise RuntimeError('Symlink not permitted in release')
+    manifest={'schema':'SHA256-DATA-FILES-v1','self_included':False,
+              'files':[{'path':str(x.relative_to(root)),'bytes':x.stat().st_size,'sha256':digest(x)} for x in files]}
+    manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
+    with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+        for x in files+[manifest_path]:
+            comp=zipfile.ZIP_STORED if x.suffix=='.zip' else zipfile.ZIP_DEFLATED
+            z.write(x,str(Path(root.name)/x.relative_to(root)),compress_type=comp)
+    with zipfile.ZipFile(archive) as z:
+        bad=z.testzip()
+        if bad is not None:raise RuntimeError('CRC failure '+bad)
+        members=len(z.infolist())
+    shutil.copyfile(root/'REPORT.md',report)
+    with tempfile.TemporaryDirectory(prefix='support31-clean-',dir=out) as td:
+        clean=Path(td)
+        with zipfile.ZipFile(archive) as z:
+            for info in z.infolist():
+                target=(clean/info.filename).resolve()
+                if not target.is_relative_to(clean):raise RuntimeError('Unsafe archive path')
+            z.extractall(clean)
+        work=clean/root.name
+        check=json.loads((work/'SHA256SUMS.json').read_text())
+        for item in check['files']:
+            q=work/item['path']
+            if q.stat().st_size!=item['bytes'] or digest(q)!=item['sha256']:
+                raise RuntimeError('Extracted hash mismatch '+item['path'])
+        replay=clean/'actual-replay'
+        cmd=[sys.executable,'-S','-B',str(work/'code/reproduce.py'),'--root',str(work),'--log-dir',str(replay)]
+        process=subprocess.run(cmd,cwd=work,text=True,capture_output=True,check=False)
+        if process.returncode:
+            raise RuntimeError('Clean replay failure\n'+process.stdout+'\n'+process.stderr)
+        outputs={name:json.loads((replay/name).read_text()) for name in ['receipt.json','negative_tests.json','diagnostics.json']}
+        for item in check['files']:
+            if digest(work/item['path'])!=item['sha256']:
+                raise RuntimeError('Replay mutated archived source '+item['path'])
+        receipt={'status':'PASS_RELEASE_CRC_SHA256_AND_CLEAN_COMPLETE_NEW_REPLAY',
+                 'timestamp':datetime.datetime.now(ZoneInfo('Asia/Shanghai')).isoformat(),
+                 'archive':str(archive),'archive_bytes':archive.stat().st_size,'archive_sha256':digest(archive),
+                 'members':members,'data_members_sha256_checked':len(check['files']),
+                 'report':str(report),'report_sha256':digest(report),
+                 'clean_command_template':'python3 -S -B code/reproduce.py --root <clean-root> --log-dir <external-clean-log>',
+                 'clean_exit_code':process.returncode,'clean_stdout':process.stdout,'clean_stderr':process.stderr,
+                 'clean_outputs':outputs,'clean_frozen_bytes_unchanged_after_replay':True,
+                 'old_certificates_replayed':False,'lean':False,'publication_formalized':False,
+                 'external_independent_review':False}
+        receipt_path.write_text(json.dumps(receipt,ensure_ascii=False,indent=2))
+    print(json.dumps({k:receipt[k] for k in ['status','archive_bytes','archive_sha256','members','data_members_sha256_checked']},indent=2))
+    print('Clean new replay seconds:',outputs['receipt.json']['seconds'])
+    print('Report:',report);print('ZIP:',archive);print('Receipt:',receipt_path)
+
+if __name__=='__main__':main()

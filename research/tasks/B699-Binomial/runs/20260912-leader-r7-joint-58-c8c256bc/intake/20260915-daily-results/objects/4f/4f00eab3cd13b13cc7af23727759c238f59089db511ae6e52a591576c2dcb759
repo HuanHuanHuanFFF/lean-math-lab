@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+"""Record exact already-read source members; archival provenance, not math checking."""
+import argparse,hashlib,json,shutil,zipfile,sys
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('input_dir',type=Path,help='extracted original dispatch packet, after prepare_inputs.py D')
+parser.add_argument('--packet',type=Path,required=True,help='the exact original dispatch ZIP')
+args=parser.parse_args()
+INPUT=args.input_dir
+def sha(data):return hashlib.sha256(data).hexdigest()
+inv=json.loads((INPUT/'ARCHIVES.json').read_text());records=[]
+route_specs={
+'A':('B699-ProA-outer-exponent-20260913/',['REPORT.md','HANDOFF.md','FAILURE_BOUNDARIES.md','notes/PROOFS.md']),
+'B':('',['REPORT.md','HANDOFF.md','notes/FAILURES.md','notes/PROOFS.md']),
+'D-old':('B699-ProD-R7-transfer-verified-20260913/',['REPORT.md','HANDOFF.md','notes/FAILURES.md','notes/PROOFS.md','notes/MINIMAL_INTERFACE.md']),
+'D-new':('B699-ProD-three-window-threshold-20260913/',['REPORT.md','HANDOFF.md','notes/PROOFS.md','notes/FAILURES.md','notes/INTAKE_AND_DEPENDENCIES.md'])}
+for ent in inv['archives']:
+ route=ent['route'];arc=INPUT/ent['packet_path'];data=arc.read_bytes();assert sha(data)==ent['sha256']
+ rec=dict(ent);rec['packaged_archive']=None;rec['mathematical_adoption']='none in the new QIG/HEIGHT/S4S5 chain; boundary/reference only';rec['members']=[]
+ if route!='A':
+  dest=ROOT/'sources/archives'/arc.name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(arc,dest);rec['packaged_archive']=str(dest.relative_to(ROOT))
+ else:rec['omitted_archive_reason']='50.9 MB historical data not used; every text referenced this round is retained as an exact source member below. The supplied dispatch packet identifies the full archive.'
+ prefix,files=route_specs[route]
+ with zipfile.ZipFile(arc) as z:
+  for rel in files:
+   member=prefix+rel;raw=z.read(member);local=INPUT/'inputs'/route/member
+   assert local.read_bytes()==raw
+   dest=ROOT/'sources/snapshots'/route/rel;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
+   rec['members'].append({'member':member,'snapshot':str(dest.relative_to(ROOT)),'bytes':len(raw),'sha256':sha(raw),'status':'read/reference; not adopted as a new theorem premise'})
+ records.append(rec)
+for rel in ['README.md','tasks/COMMON.md','tasks/D.md','context/RESEARCH_SNAPSHOT.md','ARCHIVES.json','PACKET_MANIFEST.json','administrative-review.md','provenance.json','prepare_inputs.py']:
+ dst=ROOT/'sources/dispatch'/rel;dst.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(INPUT/rel,dst)
+packet=args.packet
+output={'schema':'b699-provenance-v1','dispatch_packet':{'name':packet.name,'bytes':packet.stat().st_size,'sha256':sha(packet.read_bytes())},'archives':records,'new_chain_dependencies':['integer factorial valuation identity derived in notes/PROOFS.md','integer polynomial identities verified by coefficient reconstruction','elementary valuation growth proved in notes/PROOFS.md','complete current finite certificate and recursively proved primes'],'not_adopted':['NC3 alpha shape','NC3 C_r exclusions','NC3 R/U/z/cubic prohibition','A NC9 heights/cuts/content blocks','old TW or COUNT as a premise of QIG'],'historical_math_replayed_this_round':False}
+(ROOT/'sources/SOURCE_MAP.json').write_text(json.dumps(output,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'status':'PASS_SOURCE_BYTES_BOUND','archives':len(records),'snapshots':sum(len(x['members']) for x in records),'packaged_archives':3,'dispatch_sha256':output['dispatch_packet']['sha256']},indent=2))

@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Exact original-input tests for B699 i=3.
+
+A True result is a sufficient condition under the accompanying paper proof,
+not a Lean certificate. False means not covered, never a counterexample.
+HEIGHT-B and LOG-BAND additionally adopt BEG2013, Theorem 2.3.
+No call constructs the number 2 ** (2 ** 1210 * L ** 132).
+"""
+from __future__ import annotations
+import argparse
+import json
+from math import gcd
+
+
+def _natural(value: int, name: str) -> None:
+    if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+        raise ValueError(name + ' must be a nonnegative integer')
+
+
+def legal_i3(n: int, j: int) -> bool:
+    _natural(n, 'n'); _natural(j, 'j')
+    return 4 <= j <= n // 2
+
+
+def dyadic(n: int, j: int) -> bool:
+    """Elementary DYADIC: exact non-strict input inequality; paper §3."""
+    if not legal_i3(n, j):
+        return False
+    g = gcd(n, j)
+    two_part = g & -g
+    return two_part >= 8 and 16 * (n - 2*j)**6 <= two_part * g * n**5
+
+
+def log_band(n: int, j: int) -> bool:
+    """LOG-BAND: adopts BEG2013 Thm. 2.3 in addition to the paper proof."""
+    if not legal_i3(n, j) or n < 56:
+        return False
+    ell = n.bit_length() - 1  # floor(log2 n), with no float rounding
+    return ell * n**660 >= (1 << 2266) * max(n**5, (n - 2*j)**6)**132
+
+
+def bounded_defect_plan(L: int) -> dict:
+    """Return a finite bound specification, not a completed finite search.
+
+    The input assumption is the canonical NC3 defect Bscr <= L. This function
+    does not assert that arbitrary raw (n,j) satisfy NC3 or have integer Bscr.
+    """
+    _natural(L, 'L')
+    if L == 0:
+        raise ValueError('L must be at least 1')
+    E = (1 << 1210) * L**132
+    return {
+        'L_hex': hex(L),
+        'assumptions': 'legal i3, full NC3, canonical Bscr <= L',
+        'publication': 'arXiv:1301.7168v1, Theorem 2.3',
+        'strict_n_bound': 'n < 2**E',
+        'E_hex': hex(E),
+        'n_bound_constructed': False,
+        'finite_search_performed': False,
+        'unbounded_without_L': True,
+    }
+
+
+def parse_integer(text: str) -> int:
+    try:
+        n = int(text, 16 if text.lower().startswith('0x') else 10)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError('use a decimal or 0x-prefixed integer') from exc
+    if n < 0:
+        raise argparse.ArgumentTypeError('integer must be nonnegative')
+    return n
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    sub = parser.add_subparsers(dest='command', required=True)
+    pair = sub.add_parser('pair')
+    pair.add_argument('n', type=parse_integer)
+    pair.add_argument('j', type=parse_integer)
+    pair.add_argument('--with-publication', action='store_true',
+                      help='also evaluate the publication-dependent LOG-BAND')
+    bound = sub.add_parser('bound')
+    bound.add_argument('L', type=parse_integer)
+    args = parser.parse_args()
+    if args.command == 'bound':
+        result = bounded_defect_plan(args.L)
+    else:
+        result = {'legal': legal_i3(args.n, args.j),
+                  'DYADIC': dyadic(args.n, args.j),
+                  'LOG_BAND': log_band(args.n, args.j) if args.with_publication else None,
+                  'False_means': 'not covered by that sufficient condition'}
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2))
+
+if __name__ == '__main__':
+    main()

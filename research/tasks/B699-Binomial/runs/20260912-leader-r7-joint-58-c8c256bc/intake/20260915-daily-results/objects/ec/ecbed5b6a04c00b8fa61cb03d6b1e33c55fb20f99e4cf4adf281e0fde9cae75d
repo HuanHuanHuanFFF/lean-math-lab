@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+"""Negative acceptance tests; the two implementations are by the same author."""
+from pathlib import Path
+import json,copy,argparse,time
+from verify import identities,certificate,row_check
+from diagnostics import scalar6,scalar8
+ROOT=Path(__file__).resolve().parents[1]
+
+def main(out):
+    f=json.loads((ROOT/'evidence/formulas.json').read_text());c=json.loads((ROOT/'evidence/finite_rows.json').read_text());res=[]
+    def rejected(name,fn):
+        try:fn()
+        except (ValueError,KeyError,IndexError,ArithmeticError) as e:
+            res.append({'name':name,'status':'REJECTED','reason':str(e)});return
+        raise AssertionError('mutation not rejected: '+name)
+    fm=[('A6 coefficient','A6',0),('q6 coefficient','q6',0),('A8 coefficient','A8',0),('B8 coefficient','B8',12)]
+    for name,key,index in fm:
+        z=copy.deepcopy(f)
+        if key=='q6':z[key][index][0][0]+=1
+        else:z[key][index][0]+=1
+        rejected(name,lambda z=z:identities(z))
+    for key,idx,val in [('E6_weights',0,10),('E8_weights',1,-2)]:
+        z=copy.deepcopy(f);z[key][idx]=val
+        rejected(key,lambda z=z:identities(z))
+    z=copy.deepcopy(f);z['E8_divisor']=1
+    rejected('discard universal divisor 5',lambda:identities(z))
+    edits=[
+      ('omit a six-window class',lambda x:x['classes6'].pop()),
+      ('omit an eight-window class',lambda x:x['classes8'].pop()),
+      ('duplicate a residue class',lambda x:x['classes8'].append(x['classes8'][0])),
+      ('wrong cluster witness',lambda x:x['classes8'][0].__setitem__(1,7)),
+      ('wrong six tail',lambda x:x.__setitem__('tail6',1200)),
+      ('wrong eight tail',lambda x:x.__setitem__('tail8',16384)),
+      ('wrong periodic modulus',lambda x:x.__setitem__('modulus8',44100)),
+      ('omit finite source6 row',lambda x:x['rows6'].pop()),
+      ('omit finite source8 row',lambda x:x['rows8'].pop()),
+      ('duplicate finite row',lambda x:x['rows8'].append(x['rows8'][0]))]
+    for name,edit in edits:
+        z=copy.deepcopy(c);edit(z)
+        rejected(name,lambda z=z:certificate(z))
+    base=copy.deepcopy(c['rows8'][0])
+    for name,field,val in [('composite witness','p',49),('threshold violation','p',7),('zero exponent','e',0),('missing first j','lo',10),('out of legal interval','hi',base['n'])]:
+        z=copy.deepcopy(base);z['cover'][0][field]=val
+        rejected(name,lambda z=z:row_check(z))
+    z=copy.deepcopy(base);z['cover']=[];rejected('empty finite cover',lambda:row_check(z))
+    endpoint={'i':7,'n':50,'cover':[{'lo':8,'hi':25,'p':7,'e':2}]}
+    assert row_check(endpoint)==[7]
+    z=copy.deepcopy(endpoint);z['cover'][0]['e']=1
+    rejected('radical in place of full 49',lambda:row_check(z))
+    rejected('single 7 cancels in source7',lambda:row_check({'i':7,'n':22,'cover':[{'lo':8,'hi':11,'p':7,'e':1}]}))
+    rejected('NC3 reused for six-window conclusion',lambda:scalar6(100,3))
+    rejected('degree6 source at target4',lambda:scalar6(100,4))
+    rejected('degree8 source at target7',lambda:scalar8(100,7))
+    out.mkdir(parents=True,exist_ok=True)
+    (out/'mutations.json').write_text(json.dumps({'status':'PASS_ALL_MUTANTS_REJECTED','rejected_count':len(res),
+       'positive_boundary_control':endpoint,'tests':res},sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':'PASS_ALL_MUTANTS_REJECTED','rejected_count':len(res)}))
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);args=ap.parse_args();main(args.out)

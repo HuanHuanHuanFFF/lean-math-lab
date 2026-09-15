@@ -1,0 +1,27 @@
+from pathlib import Path
+import sympy as s, math,json
+# load definitions without recomputing outputs
+exec(open(str(Path(__file__).with_name('transvectants.py'))).read().split('f=[choose')[0])
+a=s.symbols('a0:7')
+q=tv(a,a,6,6,4)
+gcd=math.gcd(*(int(c) for p in q for c in s.Poly(p,*a).coeffs()))
+print('q coefficient gcd',gcd,flush=True)
+q=[s.expand(p/gcd) for p in q]
+for r,p in enumerate(q):print('qbase',r,p,flush=True)
+B=s.expand(12*q[0]*q[4]-3*q[1]*q[3]+q[2]**2)
+A=-(120*a[0]*a[6]-20*a[1]*a[5]+8*a[2]*a[4]-3*a[3]**2)
+print('B polynomial terms',len(s.Poly(B,*a).terms()), 'gcd',math.gcd(*(int(c) for c in s.Poly(B,*a).coeffs())),flush=True)
+actual={a[t]:choose(j,t)*choose(k,6-t) for t in range(7)}
+Aact=s.factor(A.subs(actual));Bact=s.factor(B.subs(actual))
+print('A=',Aact,flush=True)
+print('B=',Bact,flush=True)
+print('B/A^2=',s.factor(Bact/Aact**2),flush=True)
+ratio=s.limit((Bact/Aact**2).subs(k,j),j,s.oo)
+print('leading ratio',ratio,flush=True)
+E=s.expand(s.numer(ratio)*A**2-s.denom(ratio)*B)
+e_gcd=math.gcd(*(int(c) for c in s.Poly(E,*a).coeffs()))
+print('E coeff gcd',e_gcd,flush=True)
+E=s.expand(E/e_gcd)
+Eact=s.factor(E.subs(actual))
+print('E exact',Eact,flush=True)
+with open(str(Path(__file__).with_name('sextic_expr.json')),'w') as w:json.dump({'qgcd':gcd,'q':list(map(str,q)),'A':str(A),'B':str(B),'E':str(E),'Eactual':str(Eact),'Aactual':str(Aact),'Bactual':str(Bact),'E_gcd':e_gcd,'ratio':str(ratio)},w,indent=2)

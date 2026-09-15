@@ -1,0 +1,43 @@
+"""Deterministic construction of the small exact parameter certificate (no search)."""
+import json
+from pathlib import Path
+from arithmetic import *
+
+ROOT = Path(__file__).resolve().parents[1]
+P, Q = 1000003, 1584059
+W = P**3 * Q
+certificate = {
+    'schema': 'B699-window-carry-v1',
+    'local': {'modulus': MODULUS, 'residue': RESIDUE,
+              'fixed_small_parts': {'2': 2, '4': 4, '5': 5, '6': 6, '7': 1, '8': 56},
+              'variable_rows': {'1': 7, '3': 3}},
+    'rows': [{'r': r, 'b_values': list(range(r+1)),
+              'degree': 5 if r == 2 else 3,
+              'offset': 4 if r == 2 else 2,
+              'coefficient': 96 if r == 2 else CUBIC_K[r]}
+             for r in range(9)],
+    'central': [{'t': t, 'product': central_product(t),
+                 'rough_product': rough_part(central_product(t))} for t in range(5)],
+    'source_consumer': {'rows': list(ODD_ROWS), 'prime_minimum': 11, 'index_maximum': 9,
+                        'minimum_i': {str(r): max(3, r+1) for r in ODD_ROWS}},
+    'carry': {'R': R, 'threshold': 64, 'R_power_two_exponent': 48,
+              'final_power_two_exponent': 204, 'valuation_multiplier': 30},
+    'prime_power_examples': [
+        {'n':128, 'j':11, 'r':7, 'p':11, 'full_exponent':2,
+         'radical_prefix_passes': True, 'full_prefix_passes':False, 'target_valuation':1},
+        {'n':139, 'j':22, 'r':7, 'p':11, 'full_exponent':1,
+         'radical_prefix_passes':True, 'full_prefix_passes':True, 'target_valuation':1}],
+    'infinite_row_example': {'P':P, 'Q':Q, 'W':W, 'E_period':84, 'E_offset':1,
+                             'n_offset':7, 'indices':[8,9]},
+    'failure_family': {'X_base':20, 'X_slope':70, 'X_offset':11, 'n_coefficient':120,
+                       'j_coefficient':2, 'j_offset':1, 'v_min':100000,
+                       'a_slope':280, 'a_offset':47, 'b_slope':140, 'b_offset':23,
+                       'resultants': [{'r':r,'b':b,'value':30*(b-1)**2-r}
+                                      for r in range(9) for b in range(r+1)],
+                       'common_prime':11, 'n_residue':7, 'j_residue':8},
+    'qualitative_appendix': {'roots':[0,1,3], 'S':[2,3,5,7],
+                            'epsilon':[1,6], 'discriminant':36,
+                            'remaining_n_exponent':12, 'constant_effective':False}
+}
+(ROOT/'evidence/certificate.json').write_text(json.dumps(certificate, ensure_ascii=False, indent=2)+'\n')
+print('WROTE_SMALL_EXACT_PARAMETER_CERTIFICATE')

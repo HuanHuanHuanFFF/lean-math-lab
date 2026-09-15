@@ -1,0 +1,169 @@
+from math import gcd, prod
+from functools import reduce
+from pathlib import Path
+import json, time
+import sympy as sp
+import sympy.polys.matrices.lll as lll_module
+# Discovery only: PythonMPQ lacks __floor__; avoid a float fallback.
+lll_module.mfloor = lambda x: x.numerator // x.denominator
+
+P=[2,3,5,7]; S=[2,3,5,7,11,13,17,19]; ROUGH=S[4:]
+BITS=1536
+
+def egcd(a,b):
+    aa,bb=a,b
+    u,v,uu,vv=1,0,0,1
+    while bb:
+        q=aa//bb;aa,bb=bb,aa-q*bb;u,uu=uu,u-q*uu;v,vv=vv,v-q*vv
+    if aa<0:aa,u,v=-aa,-u,-v
+    return aa,u,v
+
+def cyclic(q,bits):
+    K=1;M=q
+    while M<1<<bits:M*=q;K+=1
+    g={3:2,5:2,7:3}.get(q,5)
+    order0=q-1 if q!=2 else 1
+    offset=1 if q!=2 else 2
+    if q==2:
+        K=max(K,3)
+    order=order0*q**(K-offset)
+    h=pow(g,order0,M);qp=q**offset
+    lifts=[]
+    for i in range(K-offset):
+        coeff=((h-1)//qp)%q
+        assert coeff and (h-1)%qp==0
+        lifts.append((qp, pow(coeff,-1,q),pow(h,-1,M)))
+        h=pow(h,q,M);qp*=q
+    def log(x):
+        x%=M;assert gcd(x,q)==1
+        sign=0
+        if q==2:
+            sign=(x%4-1)//2
+            if sign:x=(-x)%M
+            t=0
+        else:
+            t=next(t for t in range(q-1) if pow(g,t,q)==x%q)
+            x=x*pow(pow(g,t,M),-1,M)%M
+        step=order0
+        for qp,inv,hinv in lifts:
+            assert (x-1)%qp==0
+            digit=((x-1)//qp*inv)%q
+            x=x*pow(hinv,digit,M)%M
+            t+=step*digit;step*=q
+        assert x==1 and 0<=t<order
+        return (sign,t) if q==2 else (t,)
+    logs={p:log(p) for p in S if p!=q}
+    return dict(q=q,K=K,modulus=M,generator=g,orders=([2,order] if q==2 else[order]),logs=logs)
+
+def identity(d):return [[int(i==j) for j in range(d)] for i in range(d)]
+def mm(A,B):return [[sum(a*b for a,b in zip(row,col)) for col in zip(*B)] for row in A]
+def mv(A,x):return [sum(a*b for a,b in zip(row,x)) for row in A]
+
+def kernel(rows,mods):
+    d=len(rows[0]);B=identity(d);stages=[]
+    for a,M in zip(rows,mods):
+        c=[sum(a[i]*B[i][j] for i in range(d)) for j in range(d)]
+        U=identity(d)
+        for j in range(1,d):
+            h,u,v=egcd(c[0],c[j])
+            if h==0:continue
+            T=identity(d);T[0][0]=u;T[j][0]=v;T[0][j]=-c[j]//h;T[j][j]=c[0]//h
+            U=mm(U,T);c=[sum(c[i]*T[i][k] for i in range(d)) for k in range(d)]
+        h0=c[0];h=gcd(h0,M);period=M//h
+        BU=mm(B,U)
+        stages.append(dict(a=a,M=M,h0=h0,h=h,period=period,BU=BU))
+        B=[[BU[i][j]*(period if j==0 else 1) for j in range(d)] for i in range(d)]
+    return B,stages
+
+def affine(stages,rhs):
+    d=len(stages[0]['a']);x=[0]*d
+    for st,b in zip(stages,rhs):
+        w=(b-sum(a*xi for a,xi in zip(st['a'],x)))%st['M']
+        if w%st['h']:return None
+        period=st['period'];t=0 if period==1 else(w//st['h']*pow(st['h0']//st['h'],-1,period))%period
+        x=[x[i]+st['BU'][i][0]*t for i in range(d)]
+    return x
+
+def rhslog(C,num,den=1):
+    def fac(v):
+        out={}
+        for p in S:
+            e=0
+            while v%p==0:v//=p;e+=1
+            if e:out[p]=e
+        assert v==1
+        return out
+    a=fac(num);b=fac(den)
+    return [sum((a.get(p,0)-b.get(p,0))*C['logs'][p][i] for p in C['logs'])%M for i,M in enumerate(C['orders'])]
+
+def certify_box(Bi,x0,lo,hi):
+    # coordinates z=Bi*(x-x0); if any interval lacks an integer, no box solution.
+    d=len(x0);v=Bi*sp.Matrix(x0);ints=[]
+    for i in range(d):
+        low=-v[i]+sum(min(Bi[i,j]*lo[j],Bi[i,j]*hi[j]) for j in range(d))
+        high=-v[i]+sum(max(Bi[i,j]*lo[j],Bi[i,j]*hi[j]) for j in range(d))
+        a=sp.ceiling(low);b=sp.floor(high)
+        if a>b:return dict(kind='empty_coordinate',coordinate=i)
+        ints.append((a,b))
+    if all(a==b for a,b in ints):
+        return dict(kind='unique_coordinates',coordinates=[int(a) for a,b in ints])
+    return dict(kind='unresolved',widths=[int(b-a) for a,b in ints])
+
+def main():
+    start=time.perf_counter();cache={q:cyclic(q,BITS) for q in P}
+    print('logs built',time.perf_counter()-start,flush=True)
+    out={'bits':BITS,'support':S,'cycles':cache,'cases':[]};E=1<<213
+    for p in P:
+      bases=[p]+ROUGH;d=len(bases)
+      for q in P:
+        if p==q:continue
+        C=cache[q];rows=[[C['logs'][z][i] for z in bases] for i in range(len(C['orders']))]
+        B,stages=kernel(rows,C['orders']);now=time.perf_counter()
+        L,T=sp.Matrix(B).T.lll_transform(delta=sp.QQ(3,4));Br=L.T;Bi=Br.inv()
+        print('LLL',p,q,'seconds',round(time.perf_counter()-now,3),flush=True)
+        ms=[1]
+        for ell in P:
+          if ell==p:continue
+          powers=[];pw=1
+          while pw<=8:powers.append(pw);pw*=ell
+          ms=[a*b for a in ms for b in powers]
+        rec={'p':p,'q':q,'bases':bases,'rows':rows,'mods':C['orders'],'B':B,'transform':[[int(v) for v in row] for row in T.tolist()], 'cases':[]}
+        for m in sorted(ms):
+          for r in range(1,9):
+            mt=m;rt=r
+            while mt%q==0 and rt%q==0:mt//=q;rt//=q
+            if mt%q==0 or rt%q==0:continue
+            rhs=rhslog(C,rt,mt);x=affine(stages,rhs)
+            if x is None:result={'kind':'inconsistent'}
+            else:result=certify_box(Bi,x,[0]*d,[E]*d)
+            rec['cases'].append(dict(m=m,r=r,rhs=rhs,result=result))
+            if result['kind']=='unique_coordinates':
+                xp=sp.Matrix(x)+Br*sp.Matrix(result['coordinates']);vv=list(map(int,xp))
+                result['candidate']=vv
+                if any(z<0 or z>E for z in vv):result['kind']='unique_outside'
+                elif sum(vv)*5+9<4096:result['kind']='unique_small'
+                else:print('NONSMALL unique',p,q,m,r,vv,flush=True)
+            if result['kind']=='unresolved':print('UNRESOLVED',p,q,m,r,flush=True)
+        out['cases'].append(rec)
+        Path(__file__).with_name('probe_results.json').write_text(json.dumps(out))
+    # pair high
+    bases=[2,5]+ROUGH;d=len(bases);rows=[];mods=[]
+    for q in [3,7]:
+        C=cache[q];rows += [[C['logs'][z][0] for z in bases]];mods+=C['orders']
+    B,stages=kernel(rows,mods);now=time.perf_counter()
+    L,T=sp.Matrix(B).T.lll_transform(delta=sp.QQ(3,4));Br=L.T;Bi=Br.inv()
+    print('LLL double seconds',round(time.perf_counter()-now,3),flush=True)
+    rec={'bases':bases,'rows':rows,'mods':mods,'B':B,'transform':[[int(v) for v in row] for row in T.tolist()], 'cases':[]}
+    for mu,r,s in [(1,1,2),(1,2,1),(1,1,3),(3,3,1)]:
+        rhs=rhslog(cache[3],r//mu) + rhslog(cache[7],s,mu)
+        x=affine(stages,rhs)
+        result={'kind':'inconsistent'} if x is None else certify_box(Bi,x,[0]*d,[E]*d)
+        rec['cases'].append(dict(mu=mu,r=r,s=s,rhs=rhs,result=result))
+        print('double',mu,r,s,result['kind'],flush=True)
+    out['double']=rec;out['seconds']=time.perf_counter()-start
+    Path(__file__).with_name('probe_results.json').write_text(json.dumps(out))
+    from collections import Counter
+    print(Counter(c['result']['kind'] for rec in out['cases'] for c in rec['cases']),flush=True)
+    print('DONE',out['seconds'],flush=True)
+
+if __name__=='__main__':main()

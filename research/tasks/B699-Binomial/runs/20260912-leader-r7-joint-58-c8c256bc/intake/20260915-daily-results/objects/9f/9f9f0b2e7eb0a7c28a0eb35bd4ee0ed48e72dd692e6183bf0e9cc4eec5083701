@@ -1,0 +1,58 @@
+"""Asymptotic search; no finite threshold or accepted theorem claimed."""
+from pathlib import Path
+import math,json,time,itertools,sys
+import numpy as np
+from scipy.special import digamma
+ROOT=Path(__file__).resolve().parents[1]
+
+def rates(cmax):
+ rr=[]
+ for c in range(2,cmax+1):
+  for d in range(1,c):
+   if math.gcd(c,d)>1:continue
+   N=c+d;inv=pow(d,-1,N);v=0
+   for j in range(N//2+1,N):
+    r=j*inv%N;g=d if j>=c else c-d
+    v+=float(digamma((1+g*r//N)/g)-digamma(r/N))
+   rr.append((c,d,v/d))
+ return rr
+
+def main():
+ import argparse
+ ap=argparse.ArgumentParser();ap.add_argument('--cmax',type=int,default=80);ap.add_argument('--kmax',type=int,default=24);ap.add_argument('--amax',type=int,default=256);args=ap.parse_args()
+ st=time.monotonic();gr=rates(args.cmax);S=np.array([c/d for c,d,l in gr]);LL=np.array([l for c,d,l in gr]);AL=(S+1)*np.log(S+1)-(S-1)*np.log(S-1)
+ out=[];counts=[]
+ for pp,qq in [(11,17),(13,19),(7,11),(13,17),(2,19),(5,19)]:
+  seen=set();rows=[];best=(-1,None)
+  for k in range(1,args.kmax+1):
+   for l in range(1,args.kmax+1):
+    P0=pp**k;Q0=qq**l
+    for aa in range(1,args.amax+1):
+     b0=aa*P0//Q0
+     for bb in [b0,b0+1]:
+      if not 1<=bb<=args.amax or math.gcd(aa,bb)>1:continue
+      D0=aa*P0-bb*Q0
+      if not D0:continue
+      if D0>0:p,q,h,j,a,b=pp,qq,k,l,aa,bb
+      else:p,q,h,j,a,b=qq,pp,l,k,bb,aa
+      tup=(p,q,h,j,a,b)
+      if tup in seen:continue
+      seen.add(tup)
+      P=p**h;Q=q**j;D=a*P-b*Q;z=D/(a*P)
+      if not 0<z<.5:continue
+      rt=np.sqrt(S*S*z*z+4-4*z);u=2*(S-1)/(S*(2-z)+rt);v=2/(2+S*z+rt)
+      lq=AL+(S-1)*np.log(u)+np.log1p(-u)+np.log1p(-(1-z)*u)
+      le=AL+np.log(v)+np.log1p(-v)+(S-1)*np.log1p(-z*v)
+      o3=(S-1)*math.log(P)+LL-math.log(a)-S*math.log(b)-lq
+      o4=S*math.log(min(P,Q))+LL-(S-1)*math.log(a*P)-2*math.log(D)-le
+      good=(o3>0)&(o4>0)&(S*z<1)
+      ixmax=int(np.argmax(np.minimum(o3,o4)))
+      if min(o3[ixmax],o4[ixmax])>best[0]:best=(float(min(o3[ixmax],o4[ixmax])),(tup,gr[ixmax][:2],float(o3[ixmax]),float(o4[ixmax])))
+      for ix in np.where(good)[0]:
+       c,d,logL=gr[ix];T=c*math.log(max(P,Q))+d*o4[ix]
+       wp=math.floor(1000*(1-c*math.log(P)/T))-1;wq=math.floor(1000*(1-c*math.log(Q)/T))-1
+       if min(wp,wq)<1:continue
+       rows.append(dict(p=p,q=q,k0=h,l0=j,a=a,b=b,D0=D,c=c,d=d,L1=math.exp(logL),m0=0,lnP=math.log(P),lnQ=math.log(Q),T=float(T),ell3=d*float(o3[ix]),wp=wp,wq=wq,unproved_finite_threshold=True))
+  out.extend(rows);counts.append(dict(pair=[pp,qq],seeds=len(seen),feasible=len(rows),best=best));print(counts[-1],flush=True)
+ (ROOT/'outputs/missing_pairs_probe.json').write_text(json.dumps(dict(status='ASYMPTOTIC_FLOAT_DESIGN_ONLY',args=vars(args),ratios=len(gr),rows=out,counts=counts,seconds=time.monotonic()-st),indent=2)+'\n');print('seconds',time.monotonic()-st)
+if __name__=='__main__':main()

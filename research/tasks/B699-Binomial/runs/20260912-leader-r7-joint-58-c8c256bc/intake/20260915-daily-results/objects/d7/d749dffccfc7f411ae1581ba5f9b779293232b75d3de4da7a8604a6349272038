@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+"""Rebuild current finite acceptance in a NEW directory outside this package.
+Uses the standard library only. Does not run generation or historical mathematics.
+"""
+import argparse,hashlib,json,platform,subprocess,sys,time,zipfile
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+
+def sha(b):return hashlib.sha256(b).hexdigest()
+def canonical(value):
+ if isinstance(value,dict):return {k:canonical(v) for k,v in value.items() if k not in ('seconds','python')}
+ if isinstance(value,list):return [canonical(v) for v in value]
+ return value
+
+def check_sources():
+ meta=json.loads((ROOT/'sources/SOURCE_MAP.json').read_text());n=snapshots=0
+ for entry in meta['archives']:
+  archive=ROOT/entry['packaged_archive'] if entry['packaged_archive'] else None
+  if archive:
+   assert archive.stat().st_size==entry['bytes'] and sha(archive.read_bytes())==entry['sha256'],'archive mismatch'
+   n+=1
+  for member in entry['members']:
+   p=ROOT/member['snapshot'];b=p.read_bytes()
+   assert len(b)==member['bytes'] and sha(b)==member['sha256'],'snapshot mismatch'
+   if archive:
+    with zipfile.ZipFile(archive) as z:assert z.read(member['member'])==b,'snapshot/archive member mismatch'
+   snapshots+=1
+ return {'status':'PASS_PACKAGED_SOURCE_BYTES','current_archives_verified':n,'text_snapshots_verified':snapshots,'A_original_archive':'not bundled; exact read texts retained and checked; original ZIP binding was checked on input collection','historical_mathematics_replayed':False}
+
+def check_manifest():
+ p=ROOT/'MANIFEST.json'
+ if not p.exists():return {'status':'NO_MANIFEST_WORKING_DIRECTORY','scope':'allowed only before release manifest creation'}
+ meta=json.loads(p.read_text());listed=set()
+ for e in meta['files']:
+  path=ROOT/e['path'];assert path.resolve().is_relative_to(ROOT) and not path.is_symlink(),'unsafe member'
+  b=path.read_bytes();assert len(b)==e['bytes'] and sha(b)==e['sha256'],'manifest mismatch: '+e['path'];listed.add(e['path'])
+ actual={str(p.relative_to(ROOT)) for p in ROOT.rglob('*') if p.is_file() and p.name!='MANIFEST.json'}
+ assert actual==listed,'missing or extra package members'
+ return {'status':'PASS_MANIFEST','files':len(listed),'manifest_sha256':sha(p.read_bytes())}
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--out',required=True,type=Path);args=ap.parse_args();out=args.out.resolve()
+ if out.is_relative_to(ROOT):raise SystemExit('Use a new output directory OUTSIDE this package.')
+ if out.exists() and any(out.iterdir()):raise SystemExit('Output directory must be new or empty.')
+ out.mkdir(parents=True,exist_ok=True);start=time.monotonic()
+ manifest=check_manifest();sources=check_sources();steps=[]
+ for stem in ('verify','regressions','mutations'):
+  target={'verify':'verification','regressions':'regressions','mutations':'mutations'}[stem]
+  output=out/(target+'.json');command=[sys.executable,'-S','-B',str(ROOT/'code'/f'{stem}.py'),'--out',str(output)]
+  began=time.monotonic()
+  p=subprocess.run(command,capture_output=True,text=True,timeout=120)
+  (out/(target+'.stdout')).write_text(p.stdout)
+  (out/(target+'.stderr')).write_text(p.stderr)
+  if p.returncode:raise SystemExit('Receiver failed: '+stem+'; inspect '+str(out))
+  actual=json.loads(output.read_text());reference=json.loads((ROOT/'evidence'/f'{target}.json').read_text())
+  a=json.dumps(canonical(actual),sort_keys=True,separators=(',',':')).encode();b=json.dumps(canonical(reference),sort_keys=True,separators=(',',':')).encode()
+  assert a==b,'deterministic mathematical output mismatch: '+target
+  steps.append({'name':target,'exit_code':p.returncode,'seconds':time.monotonic()-began,'deterministic_math_output_matches':True,'canonical_sha256':sha(a),'command_portable':['python3','-S','-B','code/'+stem+'.py','--out','<external-output>/'+target+'.json']})
+ result={'status':'PASS_CLEAN_CURRENT_D_REPRODUCTION','python':platform.python_version(),'seconds':time.monotonic()-start,'manifest':manifest,'sources':sources,'steps':steps,'comparison_rule':'Exact canonical JSON after dropping runtime seconds and Python version only; no mathematical fields ignored. Raw logs are retained.','scope':'current finite obligations and source bytes only; no historical mathematical replay, Lean, or external human review'}
+ (out/'REPRODUCTION.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False,indent=2))
+if __name__=='__main__':main()

@@ -1,0 +1,20 @@
+"""Portable source byte check. No network and no historical experiment replay."""
+import json,sys,hashlib
+from pathlib import Path
+from zipfile import ZipFile
+ROOT=Path(__file__).resolve().parents[1]
+def run():
+    m=json.loads((ROOT/'SOURCE_MAP.json').read_text());records=[]
+    for r in m['files']:
+        p=ROOT/r['path'];data=p.read_bytes()
+        assert len(data)==r['bytes'] and hashlib.sha256(data).hexdigest()==r['sha256']
+        if 'archive_member' in r:
+            with ZipFile(ROOT/r['upstream_archive']) as z:assert z.read(r['archive_member'])==data
+        records.append(r['path'])
+    with ZipFile(ROOT/'sources/previous-evidence.zip') as z:
+        for f in ['REPORT.md','HANDOFF.md','notes/PROOFS.md']:
+            assert z.read(f)==(ROOT/'sources/previous'/f).read_bytes()
+    assert not m['publication']['raw_pdf_included']
+    return {'status':'PASS','byte_checked_files':len(records),'paths':records,'historical_math_replayed':False,'publication_proof_checked_by_program':False}
+if __name__=='__main__':
+    o=run();Path(sys.argv[1]).write_text(json.dumps(o,ensure_ascii=False,sort_keys=True,indent=2)+'\n');print(json.dumps(o,ensure_ascii=False))

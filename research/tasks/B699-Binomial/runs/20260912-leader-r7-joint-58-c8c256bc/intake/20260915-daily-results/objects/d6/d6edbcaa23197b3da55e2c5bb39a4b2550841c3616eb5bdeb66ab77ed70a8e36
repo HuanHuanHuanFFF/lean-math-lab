@@ -1,0 +1,65 @@
+"""Exact primal/dual finite certificate. No LP, floating point, or discovery imports.
+A line through >=2 integer grid points has a primitive integer equation.
+All other real lines contain <=1 grid point, checked separately below.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import combinations
+from math import gcd
+import argparse,json
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+ROOT=Path(__file__).resolve().parents[1]
+PS=(2,3,5,7,11,13)
+POINTS=tuple((x,y) for x in range(15) for y in range(15-x))
+
+def line(p,q):
+    x,y=p;u,v=q
+    a,b,c=y-v,u-x,x*v-y*u
+    g=gcd(gcd(abs(a),abs(b)),abs(c));a,b,c=a//g,b//g,c//g
+    if a<0 or (a==0 and b<0):a,b,c=-a,-b,-c
+    return a,b,c
+
+def model(x):
+    cs=[c for c in json.loads((ROOT/'input/frozen_cuts.json').read_text()) if max(c['p'],c['q'])<15]
+    assert len(cs)==55 and len(x)==6 and min(x)>=0
+    for c in cs:
+        assert x[PS.index(c['p'])]>=F(c['wp'],1000) or x[PS.index(c['q'])]>=F(c['wq'],1000)
+    assert x[1]>=F(287,1000) or x[0]>=F(325,1000) or x[0]+x[1]>=F(3,5)
+    assert x[0]>=F(210,1000) or x[4]>=F(82,1000) or x[0]+x[4]>=F(247,1000)
+    assert x[0]>=F(120,1000) or x[4]>=F(189,1000) or x[0]+x[4]>=F(292,1000)
+
+def verify(cert):
+    assert cert['grid_i']==15 and cert['point_order']=='x-major; y=0..14-x'
+    x=tuple(map(F,cert['countermodel_prime_order']));model(x)
+    assert x==(F(271,1000),F(327,1000),F(743,1500),F(1,10),F(0),F(49,1000))
+    gamma=sum(x[i] for i in (0,2,5));assert gamma==F(1223,1500)
+    u=list(map(F,cert['point_weights']));assert len(u)==120 and min(u)>=0 and max(u)<=1
+    cc=sorted(x)+[F(1)]*9
+    masses=[sum(w for p,w in zip(POINTS,u) if sum(p)==a) for a in range(15)]
+    assert all(masses[a]>=cc[a] for a in range(15))
+    lines=sorted({line(p,q) for p,q in combinations(POINTS,2)})
+    assert len(lines)==3279
+    sums=[sum(w for (x,y),w in zip(POINTS,u) if a*x+b*y+c==0) for a,b,c in lines]
+    assert max(sums)<=1
+    # Unnormalised primal: m_a=20-a, vertical/horizontal weights 10-r.
+    m=list(range(20,5,-1));E=110
+    for x,y in POINTS:assert max(10-x,0)+max(10-y,0)>=m[x+y]
+    assert sum(F(w)*c for w,c in zip(m,cc))==E
+    assert sum((20-r)*v for r,v in enumerate(sorted(x for x in tuple(map(F,cert['countermodel_prime_order'])))))==20
+    # Scope stress test: the line packing is NOT a certificate for arbitrary conics.
+    conic=(5,6,6,-77,-84,324)
+    cp=[p for p in POINTS if conic[0]*p[0]**2+conic[1]*p[0]*p[1]+conic[2]*p[1]**2+conic[3]*p[0]+conic[4]*p[1]+conic[5]==0]
+    mass=sum(u[POINTS.index(p)] for p in cp)
+    assert len(cp)==8 and mass>2
+    return {'status':'EXACT_ALL_AFFINE_LINE_PACKING','grid_points':120,'distinct_affine_lines':len(lines),
+            'nonzero_point_weights':sum(w>0 for w in u),'max_line_mass':str(max(sums)),
+            'row_slack_min':str(min(m-c for m,c in zip(masses,cc))),
+            'critical_gamma':str(gamma),'safe_gamma':'102/125','gap':'1/1500',
+            'primal_degree':E,'primal_numerator_exponent':'110',
+            'singleton_line_bound':str(max(u)),
+            'nonlinear_scope_check':{'conic':list(conic),'point_count':len(cp),'mass':str(mass),'degree':2,'packing_fails_for_this_conic':True}}
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--certificate',type=Path,required=True);p.add_argument('--out',type=Path,required=True)
+    a=p.parse_args();r=verify(json.loads(a.certificate.read_text()));a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r))

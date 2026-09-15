@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+"""Read sealed inputs and replay all new checks into a separate output directory.
+
+Only Python standard library is required. The imported checker does not prove
+BEG2013 or the infinite handwritten proof. No old mathematics is re-executed.
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import os
+import platform
+import subprocess
+import sys
+import tempfile
+import time
+from pathlib import Path
+from verify_manifest import verify
+
+
+def main() -> None:
+    ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--out',type=Path)
+    args=ap.parse_args(); root=Path(__file__).resolve().parent
+    out=(args.out.resolve() if args.out else Path(tempfile.mkdtemp(prefix='b699-b-replay-')))
+    if out==root or out.is_relative_to(root):
+        raise ValueError('--out must be outside the sealed package')
+    if out.exists() and any(out.iterdir()):
+        raise ValueError('--out must be new or empty, preserving previous replay logs')
+    out.mkdir(parents=True,exist_ok=True)
+    initial=verify(root)
+    steps=[]; start=time.perf_counter()
+    env=os.environ.copy();env['PYTHONDONTWRITEBYTECODE']='1'
+    def step(name: str,script: str,tail: list[str]):
+        cmd=[sys.executable,'-S','-B',str(root/script),*tail]
+        t=time.perf_counter()
+        cp=subprocess.run(cmd,cwd=root,env=env,capture_output=True,text=True,check=False)
+        (out/(name+'.stdout.txt')).write_text(cp.stdout)
+        (out/(name+'.stderr.txt')).write_text(cp.stderr)
+        steps.append({'name':name,'command':[Path(sys.executable).name,'-S','-B',script,*tail],
+                      'exit_code':cp.returncode,'wall_seconds':time.perf_counter()-t})
+        if cp.returncode:
+            raise RuntimeError(name+' failed; see captured stdout/stderr')
+    step('01-generate','code/generate.py',['--out',str(out/'build')])
+    new=(out/'build/certificate.json').read_bytes(); old=(root/'evidence/certificate.json').read_bytes()
+    if new!=old:raise ValueError('regenerated certificate not byte-identical')
+    step('02-check','code/check.py',['--certificate',str(root/'evidence/certificate.json'),'--out',str(out/'checked')])
+    step('03-sources','code/source_audit.py',['--out',str(out/'checked/source_audit.json')])
+    step('04-api','code/api_check.py',['--out',str(out/'checked/api.json')])
+    comparisons=[]
+    for p in sorted((root/'outputs').glob('*.json')):
+        fresh=out/'checked'/p.name
+        if not fresh.is_file() or fresh.read_bytes()!=p.read_bytes():
+            raise ValueError('fresh output differs: '+p.name)
+        comparisons.append({'path':'outputs/'+p.name,'byte_identical':True,
+                            'sha256':hashlib.sha256(p.read_bytes()).hexdigest()})
+    final=verify(root)
+    receipt={'status':'PASS_CLEAN_NEW_REPLAY','python':sys.version,'platform':platform.platform(),
+             'new_commands':steps,'wall_seconds':time.perf_counter()-start,
+             'manifest_before':initial,'manifest_after':final,
+             'regenerated_certificate_byte_identical':True,'output_comparisons':comparisons,
+             'publication_pdf_bytes_verified':False,'old_mathematics_replayed':False,
+             'Lean':False,'independent_researcher_or_human_review':False,
+             'new_closed_indices':0,'R7':[3,4,5,6,7,8,9]}
+    (out/'reproduction.json').write_text(json.dumps(receipt,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':receipt['status'],'outputs_compared':len(comparisons),
+                      'wall_seconds':receipt['wall_seconds'],'output_directory':str(out)},ensure_ascii=False))
+
+if __name__=='__main__':main()

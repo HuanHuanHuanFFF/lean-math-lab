@@ -1,0 +1,49 @@
+"""Reassemble the compact certificate from the actual discovery transcripts.
+
+This does not run LLL or redo the discrete-log search. To regenerate those
+transcripts, use the two discovery scripts listed in README. The default
+output is a candidate file; the accepted certificate is never overwritten.
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+from pathlib import Path
+from support_bounds import height_for_support
+from verify import verify_certificate, need
+
+
+def assemble(root: Path):
+    s=json.loads((root/'discovery/probe31_results.json').read_text())
+    d=json.loads((root/'discovery/all_pairs_results.json').read_text())
+    height=height_for_support(s['support']);height['low_n_log2']=4096
+    cert={'schema':'B699-A-SUPPORT31-v1','support':s['support'],'height':height,
+          'scalar':{'R':171603713767500,'power':10,'n_degree':27},
+          'cycles':{'single':s['cycles'],'double':d['cycles']},'lattices':[]}
+    for row in s['cases']:
+        b,t=row['B'],row['transform'];n=len(b)
+        # SymPy returns L=T*B^T. Hence the column basis is L^T=B*T^T.
+        basis=[[sum(b[i][k]*t[j][k] for k in range(n)) for j in range(n)] for i in range(n)]
+        cert['lattices'].append({'kind':'single','high':[row['p']], 'q_list':[row['q']],
+                                 'variables':row['bases'],'basis':basis})
+    for row in d['cases']:
+        cert['lattices'].append({'kind':'double','high':row['pair'], 'q_list':row['others'],
+                                 'variables':row['bases'],'basis':row['basis']})
+    return cert
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]);p.add_argument('--out',type=Path)
+    a=p.parse_args();c=assemble(a.root);counts=verify_certificate(c)
+    out=a.out or a.root/'logs/reassembled_candidate.json'
+    need(out.resolve()!=(a.root/'evidence/support31_certificate.json').resolve(),'DO_NOT_OVERWRITE_ACCEPTED_CERTIFICATE')
+    out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(c,indent=2))
+    original=json.loads((a.root/'evidence/support31_certificate.json').read_text())
+    need(c==original,'DISCOVERY_REASSEMBLY_MUST_MATCH')
+    rec={'status':'PASS_REASSEMBLED_CERTIFICATE_IDENTICAL_AS_DATA','counts':counts,
+         'sha256':hashlib.sha256(out.read_bytes()).hexdigest()}
+    (a.root/'logs/reassembly.json').write_text(json.dumps(rec,indent=2))
+    print(json.dumps({'status':rec['status'],'sha256':rec['sha256']},indent=2))
+
+if __name__=='__main__':main()

@@ -1,0 +1,76 @@
+"""Exact numerical obligations for separately homogenized three-degree Padé cuts.
+Publication dependencies are checked against a frozen literal table; new content
+claims require the corresponding completed finite and infinite certificates.
+All acceptance comparisons below are rational, including the common threshold.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+import json,sys,math
+R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'code/vendor'))
+from rational_intervals import I,logq,logI,sqrtq,decimal_outer
+from design_certified_content import TABLE
+QDEN=10000
+
+def exact_rates(row):
+ p,q,k,l,a,b,e,d,f=[row[x] for x in ['p','q','k0','l0','a','b','e','d','f']]
+ assert p!=q and all(isinstance(v,int) and v>=1 for v in [p,q,k,l,a,b,e,d,f])
+ assert all(all(v%j for j in range(2,math.isqrt(v)+1)) for v in [p,q])
+ P=p**k;Q=q**l;D=a*P-b*Q;assert 0<D<a*P and D==row['D0']
+ z=F(D,a*P);h=1-z;N=e+d+f;c=d+f
+ alpha=N*logq(F(N))-e*logq(F(e))-d*logq(F(d))-f*logq(F(f))
+ bq=f*(1+h)+d+e*h;tq=(2*f/(I.point(bq)+sqrtq(bq*bq-4*h*N*f))).rounded()
+ be=e*(1+z)+d+f*z;te=(2*e/(I.point(be)+sqrtq(be*be-4*z*N*e))).rounded()
+ assert 0<tq.lo<tq.hi<1 and 0<te.lo<te.hi<1
+ lq=alpha+f*logI(tq)+d*logI(1-tq)+e*logI(1-h*tq)
+ le=alpha+e*logI(te)+d*logI(1-te)+f*logI(1-z*te)
+ if row['content_source']=='BFT_5_1':
+  assert e==d
+  L,m0=TABLE[(c,d)];assert F(row['L'])==F(L,10000) and row['m0']==m0
+  g=d*logq(F(L,10000))
+ elif row['content_source']=='new_general_content':
+  fc=json.loads((R/f'outputs/general_content_finite_{e}_{d}_{f}.json').read_text())
+  tc=next(x for x in json.loads((R/'outputs/general_content_tail.json').read_text())['rows'] if [x[k] for k in ['e','d','f']]==[e,d,f])
+  assert F(row['g'])==F(fc['g'])==F(tc['g']) and row['m0']==fc['m0'] and fc['M']==tc['M']
+  g=I.point(F(row['g']))
+ else:raise ValueError('Unknown content dependency')
+ O=f*logq(F(P))-max(e,d)*logq(F(a))-c*logq(F(b))-lq+g
+ T=e*logq(F(P))+c*logq(F(Q))-(c-min(e,d))*logq(F(a))-(e+d)*logq(F(D))-le+g
+ wp,wq=row['wp'],row['wq'];assert 0<wp<QDEN and 0<wq<QDEN
+ ap=(e+f)*logq(F(P));aq=c*logq(F(Q));assert ap.lo>1 and aq.lo>1
+ beta=min(F(QDEN-wp,QDEN)/ap.hi,F(QDEN-wq,QDEN)/aq.hi)
+ return dict(O=O,T=T,beta=beta,d1=beta*T.lo-1,d2=beta*O.lo,K0=(1<<N)*max(f,e*d),m0=row['m0'],log_Q=lq,log_E=le,tQ=tq,tE=te)
+
+def obligations(row,H,D=24):
+ r=exact_rates(row);x=F(H,2);b=r['beta'];T=r['T'];O=r['O'];d1=r['d1'];d2=r['d2'];K=r['K0']
+ assert d1>0 and d2>0
+ margins=dict(content_start=b*x-1-r['m0'],tail1=d1*x-logq(x).hi-T.hi-logq(F(8*K)).hi,tail2=d2*x-logq(x).hi-O.hi-logq(F(4*D*K)).hi,monotone1=d1*x-1,monotone2=d2*x-1)
+ return dict(passed=all(v>0 for v in margins.values()),H=H,D=D,margins={k:str(v) for k,v in margins.items()},beta=str(b),O=O.json(),T=T.json(),d1=str(d1),d2=str(d2),K0=K,m0=r['m0'],display=dict(O=decimal_outer(O),T=decimal_outer(T)))
+
+def main():
+ design=json.loads((R/'outputs/certified_content_design.json').read_text());rows=design['all_edges']
+ # Keep every nondominated row needed by the two successful indices.
+ rows=[r for r in rows if max(r['p'],r['q'])<20]
+ selected=[]
+ for r in rows:
+  rr={k:v for k,v in r.items() if not k.startswith('display_')}
+  for H in [1<<h for h in range(16,25)]:
+   out=obligations(rr,H)
+   if out['passed']:break
+  assert out['passed'];selected.append(dict(input=rr,certificate=out));print('CUT',len(selected),rr['p'],rr['q'],(rr['e'],rr['d'],rr['f']),'bits',H,flush=True)
+ common=max(r['certificate']['H'] for r in selected)
+ for r in selected:r['certificate']=obligations(r['input'],common);assert r['certificate']['passed']
+ (R/'input/new_cut_inputs.json').write_text(json.dumps(dict(denominator=QDEN,height_Y_bits=common,D=24,cuts=[r['input'] for r in selected]),indent=2)+'\n')
+ (R/'outputs/new_cut_certificates.json').write_text(json.dumps(dict(status='PASS_RATIONAL_NUMERICAL_OBLIGATIONS',denominator=QDEN,H=common,cuts=selected),indent=2)+'\n')
+ print('COMMON',common,'rows',len(selected),flush=True)
+def verify_inputs():
+ inp=json.loads((R/'input/new_cut_inputs.json').read_text());H=inp['height_Y_bits'];D=inp['D'];assert inp['denominator']==QDEN
+ selected=[]
+ for r in inp['cuts']:
+  o=obligations(r,H,D);assert o['passed'];selected.append(dict(input=r,certificate=o))
+ out=dict(status='PASS_RATIONAL_NUMERICAL_OBLIGATIONS',denominator=QDEN,H=H,cuts=selected)
+ (R/'outputs/new_cut_certificates.json').write_text(json.dumps(out,indent=2)+'\n')
+ print('PASS',len(selected),'exact cuts; Y bits',H)
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ if '--design' in sys.argv:main()
+ else:verify_inputs()

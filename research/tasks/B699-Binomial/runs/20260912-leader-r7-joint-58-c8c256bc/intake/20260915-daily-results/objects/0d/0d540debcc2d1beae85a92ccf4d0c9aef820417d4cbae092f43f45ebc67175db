@@ -1,0 +1,25 @@
+from pathlib import Path
+import sympy as s, math,json,time
+exec(open(str(Path(__file__).with_name('transvectants.py'))).read().split('f=[choose')[0])
+a=s.symbols('a0:9')
+q=tv(a,a,8,8,4)
+gcd=math.gcd(*(int(c) for p in q for c in s.Poly(p,*a).coeffs()))
+print('q gcd',gcd,flush=True)
+q=[s.expand(p/gcd) for p in q]
+B=tv(q,a,8,8,8)[0]
+gcdB=math.gcd(*(int(c) for c in s.Poly(B,*a).coeffs()))
+B=s.expand(B/gcdB)
+print('B gcd',gcdB,'terms',len(s.Poly(B,*a).terms()),flush=True)
+A=280*a[0]*a[8]-35*a[1]*a[7]+10*a[2]*a[6]-5*a[3]*a[5]+2*a[4]**2
+actual={a[t]:choose(j,t)*choose(k,8-t) for t in range(9)}
+Aact=s.factor(A.subs(actual));print('A=',Aact,flush=True)
+Bact=s.factor(B.subs(actual));print('B=',Bact,flush=True)
+ratio=s.factor(Bact**2/Aact**3); print('ratio=',ratio,flush=True)
+r=s.limit(ratio.subs(k,j),j,s.oo);print('leading=',r,flush=True)
+E=s.expand(s.numer(r)*A**3-s.denom(r)*B**2)
+eg=math.gcd(*(int(c) for c in s.Poly(E,*a).coeffs()));E=s.expand(E/eg)
+print('E coeff gcd=',eg,'terms',len(s.Poly(E,*a).terms()),flush=True)
+# don't expand Eact naively, use formulas
+Eact=s.factor((s.numer(r)*Aact**3-s.denom(r)*Bact**2)/eg)
+print('E actual=',Eact,flush=True)
+with open(str(Path(__file__).with_name('octic_expr.json')),'w') as w:json.dump({'qgcd':gcd,'q':list(map(str,q)),'Bgcd':gcdB,'A':str(A),'B':str(B),'E':str(E),'Eactual':str(Eact),'Aactual':str(Aact),'Bactual':str(Bact),'E_gcd':eg,'ratio':str(r)},w,indent=2)

@@ -1,0 +1,191 @@
+{
+  "status": "PASS_NEW_ACCEPTANCE_FROM_EMPTY_OUTPUT",
+  "started_utc": "2026-09-11T01:25:05.655043+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.35-x86_64-with-glibc2.41",
+  "total_seconds": 8.7229072920004,
+  "commands": [
+    {
+      "name": "sources",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-pro-b-r12-next/new/code/check_sources.py",
+        "--out",
+        "/tmp/b699-prob-fresh-5i934hi7/source_binding_check.json"
+      ],
+      "returncode": 0,
+      "seconds": 1.2766138390002197,
+      "cumulative_child_maxrss_kib": 252648,
+      "log": "01-sources.log"
+    },
+    {
+      "name": "graph_generate",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-pro-b-r12-next/new/code/build_graph_certificate.py",
+        "--out",
+        "/tmp/b699-prob-fresh-5i934hi7/graph_certificate.json"
+      ],
+      "returncode": 0,
+      "seconds": 1.1841325880000113,
+      "cumulative_child_maxrss_kib": 252648,
+      "log": "02-graph_generate.log"
+    },
+    {
+      "name": "graph_independent",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-pro-b-r12-next/new/code/check_graph_independent.py",
+        "--certificate",
+        "/tmp/b699-prob-fresh-5i934hi7/graph_certificate.json",
+        "--out",
+        "/tmp/b699-prob-fresh-5i934hi7/graph_independent.json"
+      ],
+      "returncode": 0,
+      "seconds": 1.352389058999961,
+      "cumulative_child_maxrss_kib": 252648,
+      "log": "03-graph_independent.log"
+    },
+    {
+      "name": "affine_packing",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-pro-b-r12-next/new/code/check_affine_packing.py",
+        "--certificate",
+        "/mnt/data/b699-pro-b-r12-next/new/input/critical_affine_packing.json",
+        "--out",
+        "/tmp/b699-prob-fresh-5i934hi7/affine_packing_check.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.6096381930001371,
+      "cumulative_child_maxrss_kib": 252648,
+      "log": "04-affine_packing.log"
+    },
+    {
+      "name": "consumer_arithmetic",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-pro-b-r12-next/new/code/check_consumer_arithmetic.py",
+        "--out",
+        "/tmp/b699-prob-fresh-5i934hi7/consumer_arithmetic.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.6438542509999934,
+      "cumulative_child_maxrss_kib": 252648,
+      "log": "05-consumer_arithmetic.log"
+    },
+    {
+      "name": "i3_coverage",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-pro-b-r12-next/new/code/check_i3_coverage.py",
+        "--out",
+        "/tmp/b699-prob-fresh-5i934hi7/i3_coverage_check.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.5936514129998613,
+      "cumulative_child_maxrss_kib": 252648,
+      "log": "06-i3_coverage.log"
+    },
+    {
+      "name": "negative_cases",
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/b699-pro-b-r12-next/new/code/check_negative_cases.py",
+        "--certificate",
+        "/tmp/b699-prob-fresh-5i934hi7/graph_certificate.json",
+        "--out",
+        "/tmp/b699-prob-fresh-5i934hi7/negative_cases.json"
+      ],
+      "returncode": 0,
+      "seconds": 3.0273946629999955,
+      "cumulative_child_maxrss_kib": 252648,
+      "log": "07-negative_cases.log"
+    }
+  ],
+  "generated_outputs": [
+    {
+      "path": "evidence/affine_packing_check.json",
+      "bytes": 596,
+      "sha256": "33e7f20a946ee1519e1f66e13c2fd6cb52b179ca435465a7c891dc4702f4a89c",
+      "identical": true
+    },
+    {
+      "path": "evidence/consumer_arithmetic.json",
+      "bytes": 5027,
+      "sha256": "70ef7b14beb789e6a830d849457fdaef6af1c0424cf0efe840d99691efd2a870",
+      "identical": true
+    },
+    {
+      "path": "evidence/graph_certificate.json",
+      "bytes": 964041,
+      "sha256": "27c7336b961f13958f26fb17d0aed4ed3ce01a9b7e43519a6b568554eafc2517",
+      "identical": true
+    },
+    {
+      "path": "evidence/graph_independent.json",
+      "bytes": 2609,
+      "sha256": "65c52c41489ec4eee80b7a65ba7af18fe0231fe0ac18f8df48f2b959f1f5ecdb",
+      "identical": true
+    },
+    {
+      "path": "evidence/i3_coverage_check.json",
+      "bytes": 3421,
+      "sha256": "27776d0254b49f13c7a5ac08cd1099415d69ebfcc6db718f3fe326e9ca74cc90",
+      "identical": true
+    },
+    {
+      "path": "evidence/negative_cases.json",
+      "bytes": 1541,
+      "sha256": "ef7ca3657ef5c3ceeedbf7e25e3c5d7230ff4fe5824552747daf9512720520d8",
+      "identical": true
+    },
+    {
+      "path": "evidence/source_binding_check.json",
+      "bytes": 1002,
+      "sha256": "4826ee20d5096d79e04450107a8ffcaf14e7a21b0eda389f8351823790dedcef",
+      "identical": true
+    }
+  ],
+  "source_input_file_count": 33,
+  "source_input_hashes": {
+    "code/build_graph_certificate.py": "a12d7be2f617345a01a42a9d3fea1ba686d39f3acaef559ca149493c1ae02248",
+    "code/check_affine_packing.py": "61e0341381256898f54b8224050660f202b67c41071b35dab3415c329b773d95",
+    "code/check_consumer_arithmetic.py": "6c57e2710ae58f1b3137a2b1470435958edfa1c909d24022715abae1a6cb3dbe",
+    "code/check_graph_independent.py": "4fbf50d39dbc288ebe62fb71d71c5d9b3fd8b3fee26a591ed627a96f03f80d79",
+    "code/check_i3_coverage.py": "a8da18af0818ab637afd554e611a67ef89772004ee9478c3947cbe0b3c57b897",
+    "code/check_negative_cases.py": "d2ed0a1b05bea7011d7fbb4ad4acd89bb914c0dc5c0013f99f666ad479166bfb",
+    "code/check_sources.py": "236e8159630f6ee26703190667d7c8082f6f020ccd4d40a29df8e7ecbf2cd4e6",
+    "code/probe_all_lines.py": "13a7198b45607fe059fc5cca5ff3395d2081be19fafd9ee264b6fab91f2b8ffd",
+    "code/probe_arithmetic.py": "08d6b6de9cb1872bdb9e86e2314a6463baf27ea093bd38ee99e1c50136946c79",
+    "code/probe_conic_graph.py": "2d235d72348ff6404428ee58b643b6602fa8885192f59e5f6fe647d17bd7237c",
+    "code/probe_conics.py": "580e977b564c19acfbaf30faa4617e59c104fc7890492012f43ec34a825799ad",
+    "code/probe_critical_dual.py": "d635994a111225c3a2b4b85ce518eb832c24c34544fa71f8a206842898778a9b",
+    "code/probe_exact_moments.py": "21a4fd949120a68f84a273ec4bb7dd8bda5130396ae515a7712bd5746036b156",
+    "code/probe_gamma.py": "3b63a21be570c9455cdedd8de59c14c8bb370439609afe9ab2f82ae490a20e73",
+    "code/reproduce.py": "caee43483450b285321af373adf172aba3e708dfa1a3cdfacf9ff78d13c3bff2",
+    "input/SOURCE_BINDINGS.json": "24754cd018a959fc3076308924af392f9b9eca14e0537d7c8896909fff56d82f",
+    "input/adopted/asymmetric-report-frozen.md": "386d3f86800f764b2e9bda1cd83d80c84848a3a11540674d39a74c7a01d7afeb",
+    "input/adopted/free-degree-frozen.md": "e43298c7a6f346719ebca65646b4a322f831c7c4bea3d79462745a3a80afefbf",
+    "input/adopted/i13-proofs-frozen.md": "908501b70721203752852db256d68a39cab8516dc9657fd49280bdbabb6c2706",
+    "input/adopted/navigation-CURRENT_STATE.md": "123951cabac7e17ff0b3a8c46565ff90338df2f8e326f864818bcb442dd5ad56",
+    "input/adopted/navigation-SOURCE_MAP.md": "02df3111eab19e0a7b7c5004d83253c1ef04e475d48d649745219816f39d4634",
+    "input/adopted/navigation-TASK_PROTOCOL.md": "6cc684f4907840ce3559a1b8604f666b2bf5d2aa46e884862383381653bc9e91",
+    "input/adopted/new-pair-frozen.md": "9664c4d6b435376781bf8165a0e9290c0452478ad616e061dfd549a99fdad16d",
+    "input/adopted/old-method-boundary.md": "4caa2279974e7dd1982030f4cd869b5c29658ce6ff520964419a3e25880499f0",
+    "input/adopted/quotient-frozen.md": "ff5c05401777345650decce05b99fd97534b2bcb07ac56ea6d15c3cfe48fe33c",
+    "input/adopted/r12-report-frozen.md": "3a12170445bfdba70b7e25649fb74ea619c87f6380ad55c18c4326533223dd45",
+    "input/adopted/r13-source-checker-frozen.py": "0912ed28284fe1be9862de4627310bf9a0fe98e9ff866470983b5aff9f4982b0",
+    "input/adopted/rational-tubes-frozen.md": "982a1c6bbb12634b5f7dce694ac558e9492f9454577e9dc78976abd6cc639685",
+    "input/adopted/results__refined_profiles.json": "9ec5d543549097426beaa1759ba9952b4907ea2da6344b6dd7daea740c2f0d34",
+    "input/critical_affine_packing.json": "4817c832eb4aca22c7fd5555b2d98b0d1f73146267422bf8a80795d8f467c05a",
+    "input/frozen_cuts.json": "4d34c2444f16f2a2736395bd6a3876b08c9df969a466d6af32517d0aeab94365",
+    "input/new_pair_cuts.json": "505604cce68bffb70aab3cdb8e6153e7960c2628f1180348f546656d62eb56a6",
+    "input/originals/B699-R12-dispatch-context.zip": "ff40cf6a2e5487819afa55ddc2616ac3fc106455a75ea8ae147244faa1d73262"
+  },
+  "before_after_identical": true,
+  "fresh_output_was_empty": true,
+  "old_full_replays_run": false,
+  "Lean_run": false,
+  "independent_human_or_second_session_review": false
+}

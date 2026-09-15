@@ -1,0 +1,5 @@
+First independent checker execution: exit 1.
+At check.py line 48, j0=evaluate(p,x)/8 was a float when p was an integer dictionary. AttributeError: float has no attribute denominator.
+Fixed evaluate() to convert every coefficient and the initial sum to Fraction. This run was not accepted; no theorem or certificate was weakened.
+
+Second preflight: CRT discovery used period 924 of selected zero sets. The independent checker required a full x=2^t period at every one of 97,257,23,29 and rejected it (AssertionError at pow(2,period,p)==1). Adopted the common full period 3696 before acceptance; main height and family results are unchanged. No failed run is counted as PASS.

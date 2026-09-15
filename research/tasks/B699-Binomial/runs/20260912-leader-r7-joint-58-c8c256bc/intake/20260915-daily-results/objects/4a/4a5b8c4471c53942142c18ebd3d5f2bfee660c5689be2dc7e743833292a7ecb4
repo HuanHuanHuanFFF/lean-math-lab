@@ -1,0 +1,22 @@
+import sympy as S
+from math import comb
+import json,time
+from pathlib import Path
+j,k=S.symbols('j k'); n=S.symbols('n')
+def fall(x,r): return S.prod(x-a for a in range(r))
+start=time.time(); records=[]
+for m in [1,2,3,4]:
+ d=2*m+1;r=2*m
+ base=fall(j,m)*fall(k,m)
+ vals=[0,0,0]
+ for i in range(r+1):
+  A=fall(j,d-i)*fall(k,i)
+  B=fall(j,d-i-1)*fall(k,i+1)
+  C=fall(j,i+1)*fall(k,d-i-1)
+  D=fall(j,i)*fall(k,d-i)
+  for pos,e in enumerate([A*C,A*D+B*C,B*D]):
+   vals[pos]+=(-1)**i*comb(r,i)*S.cancel(e/base)
+ vals=[S.factor(v) for v in vals]
+ print('m',m, 'base',str(base),'quotients',list(map(str,vals)),flush=True)
+ records.append({'m':m,'base':str(base),'quotients':list(map(str,vals))})
+Path(__file__).resolve().parents[1].joinpath('discovery/quadratic_covariant.json').write_text(json.dumps({'records':records,'seconds':time.time()-start},indent=2))

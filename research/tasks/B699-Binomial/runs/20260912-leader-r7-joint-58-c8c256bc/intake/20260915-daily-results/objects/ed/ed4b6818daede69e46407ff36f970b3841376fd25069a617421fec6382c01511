@@ -1,0 +1,13 @@
+"""Usage: python3 code/row_consumer.py --n N --r 7 --p P --e E --i 9"""
+import argparse, json
+from arithmetic import row_consumer
+
+parser=argparse.ArgumentParser(description=__doc__)
+for key in ['n','r','p','e']:
+    parser.add_argument('--'+key,required=True,type=int)
+parser.add_argument('--i',type=int,default=9)
+a=parser.parse_args()
+try:
+    print(json.dumps(row_consumer(a.n,a.r,a.p,a.e,a.i),ensure_ascii=False,indent=2))
+except ValueError as e:
+    parser.exit(2,'Not certified by this sufficient criterion: '+str(e)+'\n')

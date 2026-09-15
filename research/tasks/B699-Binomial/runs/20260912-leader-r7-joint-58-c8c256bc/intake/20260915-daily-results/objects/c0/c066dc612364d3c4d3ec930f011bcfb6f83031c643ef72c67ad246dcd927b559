@@ -1,0 +1,175 @@
+#!/usr/bin/env python3
+"""Exact new obligations. No historical large checker is rerun."""
+from __future__ import annotations
+import argparse, json, math
+from fractions import Fraction
+from pathlib import Path
+
+
+def vp(n: int,p: int)->int:
+    if n<=0 or p<2: raise ValueError('valuation domain')
+    e=0
+    while n%p==0: n//=p; e+=1
+    return e
+
+def isprime(n:int)->bool:
+    if n<2:return False
+    return all(n%d for d in range(2,math.isqrt(n)+1))
+
+def choose_v(n:int,k:int,p:int)->int:
+    if not(0<=k<=n) or not isprime(p):raise ValueError('binomial valuation domain')
+    ans=0;q=p
+    while q<=n:
+        ans+=n//q-k//q-(n-k)//q;q*=p
+    return ans
+
+def canonical(n:int,j:int)->dict:
+    if n%4 or not 4<=j<n//2:raise ValueError('strict legal Pi domain')
+    k=n-j;lam=3 if vp(n-1,3)==1 else 1
+    mu=3 if vp((n-2)//2,3)==1 else 1
+    N=(n-1)//lam;K=(n-2)//(2*mu);ell=lam*mu
+    if j*(j-1)%N or j*(j-1)*(j-2)%K:raise ValueError('Pi fails')
+    Cs=[math.gcd(K,j-r) for r in range(3)];C=Cs[1];F=Cs[0]*Cs[2]
+    assert math.prod(Cs)==K
+    H=Fraction(j*k,N*F);U=Fraction((j-1)*(k-1),N*C*C)
+    assert H.denominator==U.denominator==1
+    H=int(H);U=int(U);g=math.gcd(n,j);z=ell*C-2*H
+    assert H*F-U*C*C==lam and z>0 and z%2 and math.gcd(H,C)==1
+    assert H%(g*g)==0
+    return dict(n=n,j=j,g=g,alpha=n//g,lam=lam,mu=mu,ell=ell,V=lam**3*mu**2,
+                N=N,K=K,Cs=Cs,C=C,F=F,H=H,U=U,z=z)
+
+def form(d:dict,a:int,b:int):
+    H,U,C,F,e=d['H'],d['U'],d['C'],d['F'],d['ell']
+    r=b*e*C-a*H
+    Q=U*H*a*a-2*U*e*C*a*b+e*e*F*b*b
+    assert H*Q==U*r*r+d['lam']*e*e*b*b
+    return r,Q
+
+def witnesses(n,j,limit=1000):
+    for p in range(3,limit+1,2):
+        if not isprime(p):continue
+        x=choose_v(n,3,p)
+        if x:
+            y=choose_v(n,j,p)
+            if y:return {'p':p,'source_v':x,'target_v':y}
+    return None
+
+def sample_status(n:int,j:int)->dict:
+    assert n%4==0 and 4<=j<n//2
+    lam=3 if vp(n-1,3)==1 else 1; mu=3 if vp((n-2)//2,3)==1 else 1
+    V=lam**3*mu**2;g=math.gcd(n,j);Delta=n-2*j;E=Delta*Delta-3*n+2
+    umin=8 if j%2 else (3 if lam==1 else 1)
+    def sm(x):return math.prod(p**vp(x,p) for p in (2,3,5,7))
+    old_center=E<=0 or V*E*E<=4*umin*(n-1)**3
+    old_endpoint=2*V*j*j*(j-1)**2<=g*g*(n-1)**3
+    tw=64*8*(n-1)**3>sm(n)**4*sm(n-1)**3*sm(n-2)**2
+    N=(n-1)//lam;K=(n-2)//(2*mu)
+    Cs=[math.gcd(K,j-r) for r in range(3)]
+    return dict(bits=n.bit_length(),g=g,alpha_is_power_two=((n//g)&((n//g)-1))==0,
+                lam=lam,mu=mu,old_center=old_center,old_endpoint=old_endpoint,TW=tw,
+                Cs_at_least_11=all(C>=11 for C in Cs),Pi_first=j*(j-1)%N==0,
+                Pi_second=j*(j-1)*(j-2)%K==0,common_prime=witnesses(n,j))
+
+def crt(cs):
+    x=0;M=1
+    for a,m in cs:
+        assert math.gcd(M,m)==1
+        x += ((a-x)*pow(M,-1,m)%m)*M;M*=m;x%=M
+    return x,M
+
+def generate(out:Path):
+    out.mkdir(parents=True,exist_ok=True)
+    pairs=[(76672,26775),(18610024,7865522),(2218328,468787),(78090488,16502461)]
+    records=[];checks=0
+    for n,j in pairs:
+        d=canonical(n,j); rr=[]
+        for a in range(1,33):
+            for b in range(1,17):
+                r,Q=form(d,a,b);T=(n-1)*(n-2);X=j*(n-j)
+                E=b*T-2*a*X;P=E*E+2*a*(n-1)*(b*T+E)
+                assert Q>0 and P>0
+                assert 2*C_or(d)*(n-1)*T*Q==d['lam']*d['ell']*P
+                assert 2*(n-1)**3*(n-2)**2*r*Q==d['V']*E*P
+                checks+=1
+                if (a,b) in ((2,1),(3,1),(4,1),(6,1),(8,1),(11,5)):rr.append([a,b,r,Q])
+        Q=form(d,2,1)[1];B=d['z']*Q;J=d['ell']**2*d['F']+2*d['U']*d['z']+2*Q
+        assert Q%2 and J%2 and J>0
+        assert d['V']*(n+6)-2*B==4*d['H']*J
+        assert (B-3*d['V'])%d['g']==0 # even n and alpha even is needed; all listed alphas even
+        d['center_Q']=Q;d['B']=B;d['J']=J;d['forms']=rr
+        d['common_prime']=witnesses(n,j)
+        records.append(d)
+    write(out/'forms.json',{'actual_Pi_examples':records,'all_ab_identity_checks':checks,
+        'boundary_note':'None is asserted NC3; examples have a common odd prime and non-admissible alpha.'})
+
+    # Exact constants used in the uniform gap proof. Positivity beyond endpoints is proved in PROOFS.
+    constants={'a2_threshold':72**3,'a3_threshold':108**3,
+       'gap_margin':[53,216], 'integer_rational_margin_check': Fraction(7,4)-Fraction(325,216)==Fraction(53,216),
+       'n56_product_margin':8*55**3*54**2-7*56**5,
+       'resonance_t1_min_odd_factor':29,'resonance_t3_min_h2_factor':53,
+       'resonance_t3_allowed_max':27}
+    assert constants['n56_product_margin']>0
+    write(out/'constants.json',constants)
+
+    examples=[]
+    for t in range(2,8):
+        n=1<<(30*t);Delta=(1<<(24*t))+2;j=(n-Delta)//2
+        assert n>=72**3 and 27*Delta**6<=n**5
+        st=sample_status(n,j);assert not st['old_center'] and not st['old_endpoint'] and not st['TW']
+        assert st['g']==1
+        examples.append({'family':'center','parameter':t,'n':str(n),'j':str(j),**st})
+    for v in (37,40,60,91,120):
+        n=1<<v;d0=math.isqrt(n*n//3);Delta=4*(d0//4)+2;j=(n-Delta)//2
+        E=(n-1)*(n-2)-6*j*(n-j)
+        assert abs(E)<12*n and n>=108**3 and 27*abs(E)**3<=n**5
+        st=sample_status(n,j);assert st['g']==1 and not st['old_center'] and not st['old_endpoint'] and not st['TW']
+        examples.append({'family':'quadratic','parameter':v,'n':str(n),'j':str(j),**st})
+    modulus=2*233*1103*2089*3*5*7*11*13*17
+    assert modulus < (1<<49)
+    mix=[]
+    for u in range(3):
+        t=30+58*u;n=1<<(30*t)
+        congr=[(1,2),(0,233),(1,1103),(2,2089),(0,3),(0,5),(0,7)]
+        congr += [(n%p,p) for p in (11,13,17)]
+        x,L=crt(congr);assert L==modulus
+        target=n//2-(1<<(24*t-1))-1;j=target-(target-x)%L
+        Delta=n-2*j
+        assert (1<<(24*t))+2<=Delta<(1<<(24*t+1))
+        assert 27*Delta**6<=n**5
+        st=sample_status(n,j)
+        assert st['g']==1 and st['Cs_at_least_11']
+        assert not st['old_center'] and not st['old_endpoint'] and not st['TW']
+        assert all((n-1)%p==0 for p in (31,41,61))
+        assert all(((n-2)//2)%p==0 for p in (233,1103,2089))
+        assert all(j%p==0 for p in (3,5,7,233))
+        assert all((n-j)%p==0 for p in (11,13,17,2089))
+        # Store all integers (even the 4381-bit n) in files only, never dump to tool output.
+        mix.append({'u':u,'t':t,'n':str(n),'j':str(j),**st})
+    prime_cert=[]
+    for p,e in [(233,29),(1103,29),(2089,29),(31,5),(41,20),(61,60)]:
+        assert isprime(p) and pow(2,e,p)==1
+        prime_cert.append({'prime':p,'period':e,'pow_mod':1})
+    write(out/'families.json',{'examples':examples,'mixed_examples':mix,'modulus':modulus,
+        'prime_period_certificates':prime_cert,'mixed_cofactor_lower_bounds':[105,2431],
+        'proof_scope':'Infinite bounds and CRT coverage are proved symbolically in notes/PROOFS.md; these are exact regression samples, not an exhaustive original-domain check.'})
+
+    # Small resonance algebra table is auxiliary; proof covers all H by valuations/odd factors.
+    resonance=[]
+    for lam,mu in [(1,1),(1,3),(3,1)]:
+        ell=lam*mu;V=lam**3*mu**2
+        for z in range(1,3*V+1,2):
+            if (3*V)%z:continue
+            Q=3*V//z
+            resonance.append({'lam':lam,'mu':mu,'V':V,'z':z,'Q':Q})
+    assert len(resonance)==2+4+5
+    write(out/'resonance.json',{'finite_factor_types':resonance,
+        'symbolic_cases':['t=1: odd factor >=29 >3','t=3: integrality and U>0 give h>=2, odd numerator >=53>27','t>=9: right-hand 3-valuation exactly 1, left-hand at least 6'],
+        'claim':'B != 3V under full NC3; no scan in H,g,R,U,C,n.'})
+    print(json.dumps({'status':'PASS','Pi_examples':len(records),'form_checks':checks,
+                      'family_samples':len(examples)+len(mix),'resonance_factor_types':len(resonance)},ensure_ascii=False))
+
+def C_or(d):return d['C']
+def write(p,x):p.write_text(json.dumps(x,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--out',required=True,type=Path);args=ap.parse_args();generate(args.out)

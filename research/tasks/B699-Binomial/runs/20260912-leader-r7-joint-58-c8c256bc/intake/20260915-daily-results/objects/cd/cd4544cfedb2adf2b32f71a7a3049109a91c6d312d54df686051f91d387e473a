@@ -1,0 +1,99 @@
+{
+  "status": "PASS_FINAL_ZIP_AND_CLEAN_REPLAY",
+  "delivery": "B699-ProD-quartic-gap-shifted-smooth-20260914",
+  "zip": {
+    "filename": "B699-ProD-quartic-gap-shifted-smooth-20260914.zip",
+    "bytes": 1201523,
+    "sha256": "6fe555795567a3cac52d985767727a6e4693f8717c7af93c5de85308c0427065",
+    "members": 72,
+    "crc_test": "PASS",
+    "duplicate_or_unsafe_members": false
+  },
+  "manifest": {
+    "status": "PASS_MANIFEST",
+    "files": 71,
+    "manifest_sha256": "a10479b5f0b9982d25138796348a332d675fd9265897a3607977bdf4b08e375d"
+  },
+  "certificate_sha256": "d15cd25c8375b59e7b752c11417b76eae549ce47cf91cb33261fc8c24bc42cf0",
+  "clean_reproduction": {
+    "status": "PASS_CLEAN_CURRENT_D_REPRODUCTION",
+    "python": "3.13.5",
+    "seconds": 5.823112148999826,
+    "manifest": {
+      "status": "PASS_MANIFEST",
+      "files": 71,
+      "manifest_sha256": "a10479b5f0b9982d25138796348a332d675fd9265897a3607977bdf4b08e375d"
+    },
+    "sources": {
+      "status": "PASS_PACKAGED_SOURCE_BYTES",
+      "current_archives_verified": 3,
+      "text_snapshots_verified": 18,
+      "A_original_archive": "not bundled; exact read texts retained and checked; original ZIP binding was checked on input collection",
+      "historical_mathematics_replayed": false
+    },
+    "steps": [
+      {
+        "name": "verification",
+        "exit_code": 0,
+        "seconds": 0.30549719000009645,
+        "deterministic_math_output_matches": true,
+        "canonical_sha256": "8a6ae1b7ae3acd492016b1a67a08f97da57681b9ed47e692b6ce3e1e846798f8",
+        "command_portable": [
+          "python3",
+          "-S",
+          "-B",
+          "code/verify.py",
+          "--out",
+          "<external-output>/verification.json"
+        ]
+      },
+      {
+        "name": "regressions",
+        "exit_code": 0,
+        "seconds": 0.45808826299980865,
+        "deterministic_math_output_matches": true,
+        "canonical_sha256": "96ac61501372501b77bc5b3fa9b919823c5efa5a21f888e31c7ebc8f78a7a479",
+        "command_portable": [
+          "python3",
+          "-S",
+          "-B",
+          "code/regressions.py",
+          "--out",
+          "<external-output>/regressions.json"
+        ]
+      },
+      {
+        "name": "mutations",
+        "exit_code": 0,
+        "seconds": 5.046460427000056,
+        "deterministic_math_output_matches": true,
+        "canonical_sha256": "02809a66aead483b829169dcd0412ca24099ed63b16d756116a2a3d3e2c85a6f",
+        "command_portable": [
+          "python3",
+          "-S",
+          "-B",
+          "code/mutations.py",
+          "--out",
+          "<external-output>/mutations.json"
+        ]
+      }
+    ],
+    "comparison_rule": "Exact canonical JSON after dropping runtime seconds and Python version only; no mathematical fields ignored. Raw logs are retained.",
+    "scope": "current finite obligations and source bytes only; no historical mathematical replay, Lean, or external human review"
+  },
+  "new_theorem_scope": "all legal i4 and i5 for n=2^a3^b+h, a,b>=0, h=0..3; QIG and COLOC4 as specified in PROOFS",
+  "R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "whole_indices_closed": 0,
+  "lean_run": false,
+  "external_human_review": false,
+  "git_actions": false,
+  "verification_wall_seconds": 5.857266016999802
+}

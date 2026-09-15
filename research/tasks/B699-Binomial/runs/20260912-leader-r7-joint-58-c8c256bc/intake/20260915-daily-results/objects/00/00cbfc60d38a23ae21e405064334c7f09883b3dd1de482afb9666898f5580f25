@@ -1,0 +1,603 @@
+#!/usr/bin/env python3
+"""Safely restore the two Pro member trees from the compact packet.
+
+The command is data-only. It validates declared member sizes and SHA-256 values,
+streams files into a new destination, and recreates the two omitted nested
+B699-R12-dispatch-context.zip paths by hardlink or byte-for-byte copy. It never
+imports, runs, compiles, or otherwise interprets research files.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import stat
+import sys
+import tempfile
+import zipfile
+
+ROOT = Path(__file__).resolve().parent
+SOURCES_PATH = ROOT / "PACKET_SOURCES.json"
+MAX_MEMBER_BYTES = 64 * 1024 * 1024
+MAX_SHARED_TOTAL_BYTES = 120 * 1024 * 1024
+MAX_OUTER_TOTAL_BYTES = 500 * 1024 * 1024
+CHUNK = 1024 * 1024
+SHA_RE = re.compile(r"^[0-9a-fA-F]{64}$")
+SHARED_REL = "shared/B699-R12-dispatch-context.zip"
+
+
+class PacketError(RuntimeError):
+    pass
+
+
+def fail(message: str) -> None:
+    raise PacketError(message)
+
+
+def safe_rel(value: str, *, label: str) -> str:
+    if not isinstance(value, str) or not value or "\x00" in value:
+        fail(f"unsafe {label}")
+    if "\\" in value or "//" in value:
+        fail(f"unsafe {label}: {value!r}")
+    if value.startswith("/"):
+        fail(f"absolute {label}: {value!r}")
+    path = PurePosixPath(value)
+    if path.is_absolute() or any(part in ("", ".", "..") for part in path.parts):
+        fail(f"unsafe {label}: {value!r}")
+    return "/".join(path.parts)
+
+
+def reject_symlink_components(path: Path, *, root: Path) -> None:
+    try:
+        relative = path.relative_to(root)
+    except ValueError:
+        fail(f"path outside controlled root: {path}")
+    current = root
+    for part in relative.parts:
+        current = current / part
+        try:
+            mode = current.lstat().st_mode
+        except FileNotFoundError:
+            continue
+        if stat.S_ISLNK(mode):
+            fail(f"symlink component rejected: {current}")
+
+
+def packet_path(value: str, *, label: str) -> Path:
+    relative = safe_rel(value, label=label)
+    path = ROOT.joinpath(*relative.split("/"))
+    root_resolved = ROOT.resolve()
+    path_resolved = path.resolve()
+    if path_resolved != root_resolved and root_resolved not in path_resolved.parents:
+        fail(f"packet path escapes root: {value!r}")
+    reject_symlink_components(path, root=ROOT)
+    return path
+
+
+def regular_file(path: Path, *, label: str, root: Path = ROOT, max_bytes: int = MAX_MEMBER_BYTES) -> os.stat_result:
+    reject_symlink_components(path, root=root)
+    try:
+        st = path.lstat()
+    except FileNotFoundError:
+        fail(f"missing {label}: {path}")
+    if not stat.S_ISREG(st.st_mode):
+        fail(f"non-regular {label}: {path}")
+    if st.st_size > max_bytes:
+        fail(f"{label} too large: {st.st_size}")
+    return st
+
+
+def load_sources() -> dict:
+    regular_file(SOURCES_PATH, label="PACKET_SOURCES.json", max_bytes=8 * 1024 * 1024)
+    try:
+        data = json.loads(SOURCES_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError) as exc:
+        fail(f"cannot read PACKET_SOURCES.json: {exc}")
+    if not isinstance(data, dict) or data.get("schema") != "b699-r9-abc-context-sources-v1":
+        fail("unsupported PACKET_SOURCES.json schema")
+    if not isinstance(data.get("archives"), dict):
+        fail("PACKET_SOURCES.json has no archives map")
+    return data
+
+
+def sha256_file(path: Path) -> tuple[int, str]:
+    digest = hashlib.sha256()
+    total = 0
+    with path.open("rb") as stream:
+        while True:
+            block = stream.read(CHUNK)
+            if not block:
+                break
+            total += len(block)
+            digest.update(block)
+    return total, digest.hexdigest()
+
+
+def checked_sha(value: object, *, label: str) -> str:
+    text = str(value)
+    if not SHA_RE.fullmatch(text):
+        fail(f"invalid SHA-256 for {label}")
+    return text.lower()
+
+
+def digest_stream(stream, *, expected_size: int, expected_sha: str, label: str, output=None) -> int:
+    if expected_size < 0 or expected_size > MAX_MEMBER_BYTES:
+        fail(f"invalid declared size for {label}")
+    expected_sha = checked_sha(expected_sha, label=label)
+    digest = hashlib.sha256()
+    total = 0
+    while True:
+        block = stream.read(CHUNK)
+        if not block:
+            break
+        total += len(block)
+        if total > expected_size or total > MAX_MEMBER_BYTES:
+            fail(f"size limit exceeded while reading {label}")
+        digest.update(block)
+        if output is not None:
+            output.write(block)
+    if total != expected_size:
+        fail(f"size mismatch for {label}: {total} != {expected_size}")
+    actual = digest.hexdigest()
+    if actual != expected_sha:
+        fail(f"SHA-256 mismatch for {label}: {actual} != {expected_sha}")
+    return total
+
+
+def ensure_new_parent(path: Path, *, root: Path) -> None:
+    try:
+        relative = path.relative_to(root)
+    except ValueError:
+        fail(f"restore path escapes destination: {path}")
+    current = root
+    for part in relative.parts[:-1]:
+        current = current / part
+        try:
+            st = current.lstat()
+        except FileNotFoundError:
+            current.mkdir()
+            continue
+        if stat.S_ISLNK(st.st_mode):
+            fail(f"destination symlink rejected: {current}")
+        if not stat.S_ISDIR(st.st_mode):
+            fail(f"destination parent is not a directory: {current}")
+
+
+def target_path(dest: Path, restore_root: str, restore_name: str) -> Path:
+    root_name = safe_rel(restore_root, label="restore root")
+    name = safe_rel(restore_name, label="restore member path")
+    base = dest.joinpath(*root_name.split("/"))
+    output = base.joinpath(*name.split("/"))
+    base_resolved = base.resolve()
+    output_resolved = output.resolve()
+    if output_resolved != base_resolved and base_resolved not in output_resolved.parents:
+        fail(f"restore path escapes {restore_root}: {restore_name!r}")
+    reject_symlink_components(output, root=dest)
+    return output
+
+
+def write_target(target: Path, *, dest: Path, expected_size: int, expected_sha: str, label: str, source_stream) -> int:
+    ensure_new_parent(target, root=dest)
+    try:
+        target.lstat()
+    except FileNotFoundError:
+        pass
+    else:
+        fail(f"refusing same-name overwrite: {target}")
+    try:
+        with target.open("xb") as output:
+            total = digest_stream(source_stream, expected_size=expected_size, expected_sha=expected_sha, label=label, output=output)
+    except Exception:
+        try:
+            target.unlink()
+        except FileNotFoundError:
+            pass
+        raise
+    os.chmod(target, 0o644)
+    return total
+
+
+def materialize(source: Path, target: Path, *, dest: Path, expected_size: int, expected_sha: str, label: str, link_mode: str) -> str:
+    """Create target by hardlink where requested/possible, otherwise stream-copy."""
+    source_root: Path | None = None
+    for candidate in (ROOT, dest):
+        try:
+            source.resolve().relative_to(candidate.resolve())
+        except ValueError:
+            continue
+        source_root = candidate
+        break
+    if source_root is None:
+        fail(f"source outside controlled roots: {source}")
+    regular_file(source, label=label, root=source_root, max_bytes=MAX_MEMBER_BYTES)
+    ensure_new_parent(target, root=dest)
+    try:
+        target.lstat()
+    except FileNotFoundError:
+        pass
+    else:
+        fail(f"refusing same-name overwrite: {target}")
+    if link_mode in ("auto", "hardlink"):
+        try:
+            os.link(source, target)
+            st = target.stat()
+            if st.st_size != expected_size:
+                target.unlink()
+                fail(f"hardlink size mismatch for {label}")
+            os.chmod(target, 0o644)
+            return "hardlink"
+        except OSError:
+            if link_mode == "hardlink":
+                raise
+    try:
+        with source.open("rb") as stream:
+            write_target(target, dest=dest, expected_size=expected_size, expected_sha=expected_sha, label=label, source_stream=stream)
+    except Exception:
+        try:
+            target.unlink()
+        except FileNotFoundError:
+            pass
+        raise
+    return "copy"
+
+
+def packet_files(data: dict) -> tuple[dict[str, dict], list[str], dict[str, str]]:
+    """Validate metadata and packet payload trees; return mappings and omissions."""
+    archives = data["archives"]
+    if set(archives) != {"pro-a", "pro-b"}:
+        fail("archives must contain exactly pro-a and pro-b")
+    expected_storage: dict[str, dict] = {}
+    omitted: list[str] = []
+    restore_roots: dict[str, str] = {}
+    total_declared = 0
+    for archive_id in ("pro-a", "pro-b"):
+        archive = archives[archive_id]
+        if not isinstance(archive, dict) or not isinstance(archive.get("members"), list):
+            fail(f"invalid member map for {archive_id}")
+        restore_root = safe_rel(str(archive.get("restore_root", archive_id)), label=f"{archive_id} restore root")
+        restore_roots[archive_id] = restore_root
+        root_prefix = archive.get("root_prefix")
+        if root_prefix is not None:
+            root_prefix = safe_rel(str(root_prefix), label=f"{archive_id} root prefix")
+        source_names: set[str] = set()
+        restore_names: set[str] = set()
+        stored_count = 0
+        omitted_count = 0
+        for member in archive["members"]:
+            if not isinstance(member, dict):
+                fail(f"invalid member entry in {archive_id}")
+            source_name = safe_rel(member.get("source_member"), label=f"{archive_id} source member")
+            relative_name = safe_rel(member.get("relative_member"), label=f"{archive_id} relative member")
+            restore_name = safe_rel(member.get("restore_path"), label=f"{archive_id} restore path")
+            if source_name in source_names or restore_name in restore_names:
+                fail(f"duplicate member mapping in {archive_id}: {source_name}")
+            source_names.add(source_name)
+            restore_names.add(restore_name)
+            if root_prefix is not None:
+                prefix = root_prefix + "/"
+                if not source_name.startswith(prefix) or source_name[len(prefix):] != relative_name:
+                    fail(f"root stripping mismatch in {archive_id}: {source_name}")
+            elif source_name != relative_name:
+                fail(f"relative member mismatch in {archive_id}: {source_name}")
+            try:
+                size = int(member["size"])
+            except (KeyError, TypeError, ValueError):
+                fail(f"invalid member size in {archive_id}: {source_name}")
+            if size < 0 or size > MAX_MEMBER_BYTES:
+                fail(f"invalid member size in {archive_id}: {source_name}")
+            sha = checked_sha(member.get("sha256"), label=f"{archive_id}:{source_name}")
+            total_declared += size
+            if total_declared > MAX_OUTER_TOTAL_BYTES:
+                fail("declared payload exceeds bound")
+            storage = member.get("storage")
+            if not isinstance(storage, dict):
+                fail(f"missing storage map in {archive_id}: {source_name}")
+            kind = storage.get("kind")
+            if kind == "packet-file":
+                path_rel = safe_rel(storage.get("path"), label=f"{archive_id} packet storage")
+                expected_root = f"sources/{archive_id}/"
+                if not path_rel.startswith(expected_root) or path_rel[len(expected_root):] != relative_name:
+                    fail(f"packet storage mismatch in {archive_id}: {source_name}")
+                if path_rel in expected_storage:
+                    fail(f"duplicate packet storage path: {path_rel}")
+                expected_storage[path_rel] = {"size": size, "sha256": sha, "label": f"{archive_id}:{source_name}"}
+                stored_count += 1
+            elif kind == "shared-file":
+                if safe_rel(storage.get("path"), label="shared storage") != SHARED_REL:
+                    fail(f"unexpected shared storage path for {archive_id}:{source_name}")
+                omitted.append(f"{archive_id}:{source_name}")
+                omitted_count += 1
+            else:
+                fail(f"unknown storage kind {kind!r} in {archive_id}")
+        if stored_count != int(archive.get("stored_member_count", -1)):
+            fail(f"stored member count mismatch for {archive_id}")
+        if omitted_count != int(archive.get("omitted_member_count", -1)):
+            fail(f"omitted member count mismatch for {archive_id}")
+        if len(archive["members"]) != int(archive.get("member_count", -1)):
+            fail(f"member count mismatch for {archive_id}")
+        if omitted_count != 1:
+            fail(f"expected exactly one omitted shared member for {archive_id}")
+    if len(omitted) != 2:
+        fail("expected two omitted shared members")
+    for archive_id in ("pro-a", "pro-b"):
+        root_rel = f"sources/{archive_id}"
+        root = packet_path(root_rel, label=root_rel)
+        if not root.exists() or root.is_symlink() or not root.is_dir():
+            fail(f"missing packet source tree: {root_rel}")
+        actual: set[str] = set()
+        for current, dirs, files in os.walk(root, topdown=True, followlinks=False):
+            current_path = Path(current)
+            kept: list[str] = []
+            for name in dirs:
+                path = current_path / name
+                st = path.lstat()
+                if stat.S_ISLNK(st.st_mode):
+                    fail(f"symlink packet directory: {path}")
+                if not stat.S_ISDIR(st.st_mode):
+                    fail(f"non-directory packet node: {path}")
+                kept.append(name)
+            dirs[:] = kept
+            for name in files:
+                path = current_path / name
+                st = path.lstat()
+                if not stat.S_ISREG(st.st_mode):
+                    fail(f"non-regular packet member: {path}")
+                rel = path.relative_to(ROOT).as_posix()
+                actual.add(rel)
+        expected = {name for name in expected_storage if name.startswith(f"sources/{archive_id}/")}
+        if actual != expected:
+            missing = sorted(expected - actual)[:3]
+            extra = sorted(actual - expected)[:3]
+            fail(f"packet tree mismatch {archive_id}: missing={missing} extra={extra}")
+    for path_rel, expected in expected_storage.items():
+        path = packet_path(path_rel, label=path_rel)
+        st = regular_file(path, label=expected["label"])
+        if st.st_size != expected["size"]:
+            fail(f"packet member size mismatch: {path_rel}")
+        size, sha = sha256_file(path)
+        if (size, sha) != (expected["size"], expected["sha256"]):
+            fail(f"packet member SHA-256 mismatch: {path_rel}")
+    return expected_storage, omitted, restore_roots
+
+
+def verify_shared(data: dict) -> Path:
+    shared_meta = data.get("shared")
+    if not isinstance(shared_meta, dict):
+        fail("shared metadata missing")
+    path_rel = safe_rel(shared_meta.get("path"), label="shared path")
+    if path_rel != SHARED_REL:
+        fail(f"unexpected shared path: {path_rel}")
+    expected_size = int(shared_meta.get("size", -1))
+    expected_sha = checked_sha(shared_meta.get("sha256"), label="shared ZIP")
+    path = packet_path(path_rel, label="shared ZIP")
+    st = regular_file(path, label="shared ZIP")
+    if st.st_size != expected_size:
+        fail(f"shared ZIP size mismatch: {st.st_size} != {expected_size}")
+    size, sha = sha256_file(path)
+    if (size, sha) != (expected_size, expected_sha):
+        fail(f"shared ZIP SHA-256 mismatch: {sha} != {expected_sha}")
+    return path
+
+
+def shared_index(path: Path, *, with_hashes: bool) -> tuple[zipfile.ZipFile, dict[str, tuple[zipfile.ZipInfo, int, str | None]]]:
+    try:
+        zf = zipfile.ZipFile(path, "r")
+    except (OSError, zipfile.BadZipFile) as exc:
+        fail(f"cannot open shared ZIP: {exc}")
+    index: dict[str, tuple[zipfile.ZipInfo, int, str | None]] = {}
+    total = 0
+    try:
+        for info in zf.infolist():
+            if info.is_dir():
+                continue
+            name = safe_rel(info.filename, label="shared ZIP member")
+            mode = (info.external_attr >> 16) & 0xFFFF
+            if stat.S_ISLNK(mode):
+                fail(f"symlink in shared ZIP: {name}")
+            if name in index:
+                fail(f"duplicate shared ZIP member: {name}")
+            if info.file_size > MAX_MEMBER_BYTES:
+                fail(f"shared ZIP member too large: {name}")
+            total += info.file_size
+            if total > MAX_SHARED_TOTAL_BYTES:
+                fail("shared ZIP uncompressed size exceeds bound")
+            digest: str | None = None
+            if with_hashes:
+                h = hashlib.sha256()
+                read = 0
+                with zf.open(info, "r") as stream:
+                    while True:
+                        block = stream.read(CHUNK)
+                        if not block:
+                            break
+                        read += len(block)
+                        if read > info.file_size or read > MAX_MEMBER_BYTES:
+                            fail(f"shared member exceeded declared size: {name}")
+                        h.update(block)
+                if read != info.file_size:
+                    fail(f"shared member size mismatch: {name}")
+                digest = h.hexdigest()
+            index[name] = (info, info.file_size, digest)
+    except Exception:
+        zf.close()
+        raise
+    return zf, index
+
+
+def restore(data: dict, dest: Path, *, link_mode: str, extract_shared: bool) -> dict:
+    dest = dest.expanduser().resolve()
+    if dest.exists() and dest.is_symlink():
+        fail(f"destination symlink rejected: {dest}")
+    if dest.exists() and not dest.is_dir():
+        fail(f"destination is not a directory: {dest}")
+    dest.mkdir(parents=True, exist_ok=True)
+    try:
+        if any(dest.iterdir()):
+            fail(f"destination must be empty: {dest}")
+    except OSError as exc:
+        fail(f"cannot inspect destination: {exc}")
+    # Keep this operation away from the packet itself.
+    if dest.resolve() == ROOT.resolve():
+        fail("destination cannot be the packet root")
+
+    expected_storage, _omitted, restore_roots = packet_files(data)
+    shared_path = verify_shared(data)
+    shared_meta = data["shared"]
+    shared_size = int(shared_meta["size"])
+    shared_sha = checked_sha(shared_meta["sha256"], label="shared ZIP")
+    expected_outputs: set[str] = set()
+    restored_count = 0
+    restored_bytes = 0
+    nested_modes: list[str] = []
+
+    shared_target = dest / Path(*SHARED_REL.split("/"))
+    shared_mode = materialize(shared_path, shared_target, dest=dest, expected_size=shared_size, expected_sha=shared_sha, label="shared historical ZIP", link_mode=link_mode)
+    expected_outputs.add(shared_target.relative_to(dest).as_posix())
+    restored_count += 1
+    restored_bytes += shared_size
+
+    for archive_id in ("pro-a", "pro-b"):
+        archive = data["archives"][archive_id]
+        restore_root = restore_roots[archive_id]
+        for member in archive["members"]:
+            source_name = safe_rel(member["source_member"], label=f"{archive_id} source member")
+            restore_name = safe_rel(member["restore_path"], label=f"{archive_id} restore path")
+            size = int(member["size"])
+            sha = checked_sha(member["sha256"], label=f"{archive_id}:{source_name}")
+            target = target_path(dest, restore_root, restore_name)
+            key = target.relative_to(dest).as_posix()
+            if key in expected_outputs:
+                fail(f"same-name restore collision: {key}")
+            storage = member["storage"]
+            kind = storage["kind"]
+            if kind == "packet-file":
+                source = packet_path(storage["path"], label=f"{archive_id} packet member")
+                st = regular_file(source, label=f"{archive_id}:{source_name}")
+                if st.st_size != size:
+                    fail(f"packet source size mismatch: {source_name}")
+                with source.open("rb") as stream:
+                    restored_bytes += write_target(target, dest=dest, expected_size=size, expected_sha=sha, label=f"{archive_id}:{source_name}", source_stream=stream)
+            elif kind == "shared-file":
+                if size != shared_size or sha != shared_sha:
+                    fail(f"shared nested bytes mismatch: {archive_id}:{source_name}")
+                nested_modes.append(materialize(shared_target, target, dest=dest, expected_size=size, expected_sha=sha, label=f"{archive_id}:{source_name}", link_mode=link_mode))
+                restored_bytes += size
+            else:
+                fail(f"unknown storage kind {kind!r}")
+            expected_outputs.add(key)
+            restored_count += 1
+
+    shared_history_files: list[str] = []
+    shared_history_bytes = 0
+    if extract_shared:
+        history_root = dest / "shared-history"
+        history_root.mkdir()
+        zf, index = shared_index(shared_path, with_hashes=True)
+        try:
+            for name in sorted(index):
+                info, size, sha = index[name]
+                assert sha is not None
+                target = history_root.joinpath(*name.split("/"))
+                key = target.relative_to(dest).as_posix()
+                if key in expected_outputs:
+                    fail(f"shared history restore collision: {key}")
+                with zf.open(info, "r") as stream:
+                    shared_history_bytes += write_target(target, dest=dest, expected_size=size, expected_sha=sha, label=f"shared-history:{name}", source_stream=stream)
+                expected_outputs.add(key)
+                shared_history_files.append(key)
+                restored_count += 1
+        finally:
+            zf.close()
+
+    record = {
+        "schema": "b699-r9-abc-context-restore-v1",
+        "packet_sources": "PACKET_SOURCES.json",
+        "packet_sources_sha256": sha256_file(SOURCES_PATH)[1],
+        "restored_member_count": restored_count,
+        "restored_payload_bytes": restored_bytes,
+        "shared_archive": {
+            "path": SHARED_REL,
+            "size": shared_size,
+            "sha256": shared_sha,
+            "materialization": shared_mode,
+        },
+        "nested_shared_paths": [
+            "pro-a/originals/B699-R12-dispatch-context.zip",
+            "pro-b/input/originals/B699-R12-dispatch-context.zip",
+        ],
+        "nested_materializations": nested_modes,
+        "shared_history": {
+            "option": "--extract-shared",
+            "extracted": extract_shared,
+            "root": "shared-history" if extract_shared else None,
+            "member_count": len(shared_history_files),
+            "bytes": shared_history_bytes,
+        },
+        "outer_archives_reconstructed": False,
+        "code_execution": False,
+    }
+    record_bytes = (json.dumps(record, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+    record_path = dest / "RESTORE_METADATA.json"
+    with record_path.open("xb") as stream:
+        stream.write(record_bytes)
+    os.chmod(record_path, 0o644)
+
+    actual: set[str] = set()
+    for current, dirs, files in os.walk(dest, topdown=True, followlinks=False):
+        current_path = Path(current)
+        kept: list[str] = []
+        for name in dirs:
+            path = current_path / name
+            st = path.lstat()
+            if stat.S_ISLNK(st.st_mode):
+                fail(f"restored symlink directory: {path}")
+            if not stat.S_ISDIR(st.st_mode):
+                fail(f"restored non-directory node: {path}")
+            kept.append(name)
+        dirs[:] = kept
+        for name in files:
+            path = current_path / name
+            st = path.lstat()
+            if not stat.S_ISREG(st.st_mode):
+                fail(f"restored non-regular file: {path}")
+            actual.add(path.relative_to(dest).as_posix())
+    expected_with_record = expected_outputs | {"RESTORE_METADATA.json"}
+    if actual != expected_with_record:
+        missing = sorted(expected_with_record - actual)[:3]
+        extra = sorted(actual - expected_with_record)[:3]
+        fail(f"restored tree mismatch: missing={missing} extra={extra}")
+    return {
+        "status": "ok",
+        "dest": str(dest),
+        "restored_member_count": restored_count,
+        "restored_payload_bytes": restored_bytes,
+        "nested_shared_paths": 2,
+        "shared_materialization": shared_mode,
+        "nested_materializations": nested_modes,
+        "shared_history_extracted": extract_shared,
+        "shared_history_member_count": len(shared_history_files),
+        "outer_archives_reconstructed": False,
+        "code_execution": False,
+    }
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Restore B699 R9 ABC Pro member trees")
+    parser.add_argument("--dest", required=True, type=Path, help="new empty destination directory")
+    parser.add_argument("--extract-shared", action="store_true", help="also unpack the shared historical ZIP under shared-history/")
+    parser.add_argument("--link-mode", choices=("auto", "copy", "hardlink"), default="auto", help="materialize shared ZIP paths by hardlink when possible (default: auto)")
+    args = parser.parse_args(argv)
+    try:
+        result = restore(data=load_sources(), dest=args.dest.expanduser(), link_mode=args.link_mode, extract_shared=args.extract_shared)
+        print(json.dumps(result, ensure_ascii=False, separators=(",", ":")))
+        return 0
+    except (PacketError, OSError, ValueError, KeyError, TypeError, zipfile.BadZipFile) as exc:
+        print(json.dumps({"status": "error", "error": str(exc)}, ensure_ascii=False, separators=(",", ":")), file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

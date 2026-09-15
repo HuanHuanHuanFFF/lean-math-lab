@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+import argparse,copy,json,math
+from pathlib import Path
+from check_evidence import check_digital,check_cyclic
+ROOT=Path(__file__).resolve().parents[1]
+
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--input',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args()
+    d=json.loads((a.input/'digital_certificate.json').read_text());c=json.loads((a.input/'cyclic_certificate.json').read_text())
+    outcomes=[]
+    def test(name,kind,change):
+        data=copy.deepcopy(d if kind=='d' else c);change(data)
+        try:(check_digital if kind=='d' else check_cyclic)(data)
+        except (ValueError,KeyError,TypeError,ZeroDivisionError,OverflowError):outcomes.append({'name':name,'rejected':True})
+        else:raise AssertionError('bad certificate accepted: '+name)
+    test('delete_exponent_row','d',lambda x:x['rows'].pop())
+    test('extend_odd_weight_without_coverage','d',lambda x:x.update(odd_weight=9))
+    test('omit_isolated_three_cancellation','d',lambda x:x['rows'][1].update(**{'lambda':1}))
+    test('composite_factor','d',lambda x:x['rows'][0]['factors'][0].__setitem__(0,9))
+    test('drop_full_prime_power','d',lambda x:next(r for r in x['rows'] if any(e>1 for p,e in r['factors']))['factors'].__setitem__(0,[3,1]))
+    test('false_CRT_count','d',lambda x:x['rows'][0].update(crt_roots=0))
+    test('delete_retained_candidate','d',lambda x:next(r for r in x['rows']if r['retained'])['retained'].pop())
+    test('false_second_remainder','d',lambda x:x['candidates'][0].update(second_remainder=0))
+    test('false_summary','d',lambda x:x['summary'].update(candidates=0))
+    test('delete_cyclic_low_state','c',lambda x:x['rows'].pop())
+    test('change_cyclic_original_j','c',lambda x:x['rows'][0].update(j=86))
+    test('claim_cyclic_second_divisibility','c',lambda x:x['rows'][0].update(second_remainder=0))
+    test('wrong_eliminant','c',lambda x:x['rows'][0].update(eliminant=0))
+    # Actual counterexamples to stronger, tempting helper statements.
+    assert (12-1).bit_count()!=12 .bit_count()-1
+    outcomes.append({'name':'odd_digit_formula_used_on_even_j','rejected':True,'j':12})
+    n,j=16,5;D=n-1;W=D//math.gcd(D,j*(j-1))
+    assert W==3 and math.comb(n,3)%W!=0
+    outcomes.append({'name':'uncancelled_full_three_as_common_divisor','rejected':True,'n':n,'j':j,'wrong_W':W})
+    assert math.comb(8,1)%7!=0 and math.comb(8,7)%7!=0
+    outcomes.append({'name':'full_divisor_transfer_includes_i1_or_p_equals_i','rejected':True,'n':8,'p':7})
+    assert 0 .bit_count()<7
+    outcomes.append({'name':'zero_multiple_in_digit_lower_bound','rejected':True,'value':0})
+    a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps({'tests':outcomes,'count':len(outcomes)},sort_keys=True,indent=2)+'\n')
+    print('REJECTED',len(outcomes),'bad certificates or false helper variants')
+if __name__=='__main__':main()

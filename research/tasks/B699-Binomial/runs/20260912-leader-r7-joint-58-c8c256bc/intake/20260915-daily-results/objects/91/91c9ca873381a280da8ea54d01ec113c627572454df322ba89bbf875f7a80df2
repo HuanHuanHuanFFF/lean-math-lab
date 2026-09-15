@@ -1,0 +1,73 @@
+"""Verify graph-cover DAGs against accepted cut inputs; recompute all consumers.
+No graph generator, optimization routine, or height-generator import.
+"""
+from pathlib import Path
+from itertools import combinations
+import json,math,sys
+R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'code/vendor'))
+from parameters import parameters as make_parameters
+
+def obj(kind,pa,z):
+ if kind=='weighted':return sum(a*b for a,b in zip(pa,sorted(z)))
+ a,b=pa;return sum(z[k] for k in range(len(z)) if k not in [a,b])+max(z[a]+z[b],10000)
+
+def check_dag(c,ps,allowed,kind,params,target):
+ assert c['kind']==kind and c['params']==params and c['target']==target
+ edges=c['edges'];nodes=c['nodes'];seen=set();allowed=set(allowed)
+ assert edges and len({tuple(e) for e in edges})==len(edges)
+ for a,b,v,w in edges:
+  assert 0<=a<b<len(ps) and (ps[a],ps[b],v,w) in allowed
+ def go(k,z):
+  assert 0<=k<len(nodes);r=nodes[k];assert r['z']==z
+  if k in seen:return
+  seen.add(k)
+  if r.get('leaf',False):
+   v=obj(kind,params,z);assert v==r['value'] and v>=target;return
+  a,b,v,w=edges[r['edge']];assert z[a]<v and z[b]<w and len(r['children'])==2
+  for t,val,ch in [(a,v,r['children'][0]),(b,w,r['children'][1])]:
+   nz=z[:];nz[t]=val;assert sum(nz)>sum(z);go(ch,nz)
+ go(0,[0]*len(ps));assert len(seen)==len(nodes)
+ return len(nodes)
+
+def main():
+ inp=json.loads((R/'input/new_cut_inputs.json').read_text());assert inp['denominator']==10000;Q=10000;out=[]
+ for i in [12,15,20]:
+  inp=json.loads((R/('input/i12_cut_inputs.json' if i==12 else 'input/new_cut_inputs.json')).read_text())
+  t=json.loads((R/f'input/i{i}_target.json').read_text());ps=[x for x in range(2,i) if all(x%d for d in range(2,math.isqrt(x)+1))];nt=len(ps);assert t['primes']==ps and t['denominator']==Q
+  allowed=[]
+  for r in inp['cuts']:
+   p,q,a,b=[r[k] for k in ['p','q','wp','wq']]
+   if max(p,q)>=i:continue
+   allowed.append((p,q,a,b) if p<q else (q,p,b,a))
+  s=t['position_s'];ws=[2*s-a for a in range(i)];assert min(ws)>0
+  c=json.loads((R/f'outputs/graph_covers/i{i}_weighted.json').read_text());nodes=check_dag(c,ps,allowed,'weighted',ws[:nt],t['weighted_min']);edge_n=len(c['edges'])
+  witness=t['weighted_witness'];assert len(witness)==nt and all(witness[a]>=v or witness[b]>=w for a,b,v,w in c['edges']);assert obj('weighted',ws[:nt],witness)==t['weighted_min']
+  cases=t['collision_cases'];assert {tuple(r['pair']) for r in cases}==set(combinations(ps,2)) and len(cases)==nt*(nt-1)//2
+  for r in cases:
+   a,b=[ps.index(p) for p in r['pair']];f=R/'outputs/graph_covers'/r['file'];c=json.loads(f.read_text());n=check_dag(c,ps,allowed,'collision',[a,b],r['minimum']);assert n==r['nodes'];nodes+=n
+   z=r['witness'];assert all(z[u]>=v or z[vv]>=w for u,vv,v,w in c['edges']);assert obj('collision',[a,b],z)==r['minimum']
+  chi=min(r['minimum'] for r in cases);assert t['collision_min']==chi and nodes==t['graph_nodes'] and edge_n==t['cut_count']
+  H=t['height_bits'];assert H==inp['height_Y_bits']+1==t['cut_height_bits']+1 and H>i and H>10
+  S=sum(ws);T=sum(ws[:nt]);E=s*(s+1);gamma=Q*(S-E-T)+t['weighted_min'];fb=math.factorial(i).bit_length();rhs=2*s*Q*fb+Q*S+t['weighted_min']
+  assert (S,T,gamma,rhs)==(t['position_sum'],t['top_weight_sum'],t['distinct_gamma'],t['distinct_rhs_log2_upper']) and gamma>0 and H*gamma>rhs
+  par=make_parameters(i,t['r'],t['s']);lam=par['lam'];EE=par['E'];K=par['K'];assert (lam,EE,K)==(t['lambda_'],t['E'],int(t['K']))
+  delta=Q*(lam*(i-nt)-EE)+lam*chi;crhs=lam*Q*fb+lam*(Q+chi);assert (delta,crhs)==(t['collision_delta'],t['collision_rhs_log2_upper']) and delta>0 and H*delta>crhs
+  h=t['cube_bits'];assert (1<<h)>=i*(i-1)
+  if i==12:
+   J=3*lam*i-lam*(2*nt+1)-3*EE
+   assert t['cube_type']=='constant_factor' and t['cube_factor']==[1025,1024] and J==t['cube_J']>0 and (1<<h)>=1025*(i-1)
+   assert K**3*1024**(lam*(nt-1))*(1<<(h*J))>(2*math.factorial(i))**(3*lam)*1025**(lam*(nt-1))
+  else:
+   J=10*lam*i-lam*(7*nt+3)-10*EE;assert J==t['cube_J']>0 and h>=10
+   assert K**10*(1<<(h*J))>(2*math.factorial(i))**(10*lam)
+  point_checks=0
+  for a in range(i):
+   for b in range(a+1):
+    cc=a-b;assert max(a-t['r'],0)+max(t['s']-b,0)+max(t['s']-cc,0)>=lam
+    assert max(s-b,0)+max(s-cc,0)>=2*s-a;point_checks+=1
+  row=dict(i=i,height_bits=H,edges=edge_n,graph_nodes=nodes,collision_cases=len(cases),weighted_min=t['weighted_min'],distinct_gamma=gamma,collision_min=chi,collision_delta=delta,cube_bits=h,cube_J=J,pointwise_transfer_checks=point_checks)
+  out.append(row);print('HEIGHT_PASS',json.dumps(row),flush=True)
+ (R/'outputs/height_independent_check.json').write_text(json.dumps(dict(status='PASS_INDEPENDENT_DAG_HEIGHT_AND_CUBE',profiles=out),indent=2)+'\n')
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

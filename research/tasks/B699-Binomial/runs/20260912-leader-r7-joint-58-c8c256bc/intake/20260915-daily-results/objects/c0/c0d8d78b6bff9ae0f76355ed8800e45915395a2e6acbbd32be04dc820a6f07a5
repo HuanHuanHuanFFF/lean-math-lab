@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+"""Build finite certificates. The infinite claims are proved in notes/PROOFS.md."""
+from __future__ import annotations
+import argparse
+import json
+from math import gcd, prod
+from pathlib import Path
+
+PRIMES = (3, 5, 7, 11, 13, 17, 19, 23, 31, 41, 61, 73, 127)
+PLAIN_U = (5, 6, 7, 10, 20, 40)
+MIXED_W = (0, 1, 2)
+
+
+def val(x: int, p: int) -> int:
+    if x <= 0 or p < 2:
+        raise ValueError('positive x, p>=2 required')
+    e = 0
+    while x % p == 0:
+        x //= p
+        e += 1
+    return e
+
+
+def incremental_crt(items: list[tuple[int, int]]) -> tuple[int, int]:
+    x, m = 0, 1
+    for p, a in items:
+        if gcd(m, p) != 1:
+            raise ValueError('coprime moduli required')
+        x += m * (((a - x) * pow(m, -1, p)) % p)
+        m *= p
+    return x % m, m
+
+
+def source_valuation(n: int, p: int) -> int:
+    return sum(val(n-r, p) for r in range(3)) - val(6, p)
+
+
+def find_witness(n: int, j: int) -> dict:
+    for p in PRIMES:
+        sv = source_valuation(n, p)
+        if sv <= 0:
+            continue
+        q = p
+        for e in range(1, 65):
+            if j % q > n % q:
+                return dict(p=p, source_v=sv, carry_exponent=e,
+                            source='exact three-factor valuation', target='one exact positive carry layer')
+            q *= p
+    raise RuntimeError('No small carry witness found; do not report this as a counterexample.')
+
+
+def point(n: int, j: int) -> dict:
+    if not 4 <= j <= n//2:
+        raise ValueError('illegal source i3 input')
+    g = gcd(n, j)
+    lam = 3 if val(n-1, 3) == 1 else 1
+    mu = 3 if val((n-2)//2, 3) == 1 else 1
+    N, K = (n-1)//lam, (n-2)//(2*mu)
+    cs = [gcd(K, j-r) for r in range(3)]
+    pi = [j*(j-1) % N == 0, j*(j-1)*(j-2) % K == 0]
+    return dict(n_hex=hex(n), j_hex=hex(j), g_hex=hex(g), n_bits=n.bit_length(),
+                t=val(g, 2), v=val(n, 2), Cs_hex=[hex(c) for c in cs],
+                Pi=pi, alpha_shape='power_of_two' if n//g & (n//g-1) == 0 else 'not_asserted',
+                witness=find_witness(n, j))
+
+
+def family(u: int, mixed: bool) -> dict:
+    n, gg, alpha = 1 << (48*u), 1 << (4*u), 1 << (44*u)
+    beta_star = (1 << (44*u-1)) - (1 << (37*u-1)) - 1
+    extra = {}
+    beta = beta_star
+    if mixed:
+        items = [(2, 1), (31, 0), (127, pow(gg, -1, 127)),
+                 (23, 2*pow(gg, -1, 23) % 23)]
+        items += [(p, 0) for p in (3, 5, 7)]
+        items += [(p, alpha % p) for p in (11, 13, 17)]
+        b, L = incremental_crt(items)
+        beta = b + ((beta_star-b)//L)*L
+        extra = {'crt_residue': b, 'crt_modulus': L,
+                 'conditions': [[p, a] for p, a in items], 'w': (u-377)//385}
+    ans = point(n, gg*beta)
+    ans.update(kind='mixed' if mixed else 'plain', u=u, **extra)
+    return ans
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--out', type=Path, required=True)
+    args = ap.parse_args()
+    args.out.mkdir(parents=True, exist_ok=True)
+    cert = {
+        'schema': 'b699-B-dyadic-defect-height-v1',
+        'claims': {'dyadic_min_t': 3, 'dyadic_coefficient': 16,
+                   'height_binary_exponent_constant': 1210, 'height_power': 132,
+                   'logband_binary_constant': 2266, 'logband_n_power': 660,
+                   'external_input': 'BEG2013 arXiv:1301.7168v1 Theorem 2.3 (2.7)',
+                   'all_i3_closed': False, 'lean': False, 'independent_researcher': False},
+        'plain_u': list(PLAIN_U), 'mixed_w': list(MIXED_W),
+        'points': [family(u, False) for u in PLAIN_U] +
+                  [family(377+385*w, True) for w in MIXED_W],
+        'pi_fixtures': [[76672,26775], [18610024,7865522],
+                        [2218328,468787], [78090488,16502461]],
+        'symbolic_log_family': {'r_min': 1, 't_exponent_offset': 3060,
+                               't_exponent_slope': 800, 'n_exponent_multiplier': 6,
+                               'delta_t_multiplier': 5, 'delta_r_multiplier': 1,
+                               'delta_addend': 2, 'expanded_n_constructed': False},
+        'failure_points': [point(1 << 240, ((1 << 240)-(1 << 205)-2)//2),
+                           point(1 << 240, ((1 << 240)-(1 << 220)-(1 << 21))//2)],
+        'negative_controls': {
+            'missing_valuation_gap': {'n': 256, 'g': 8, 'H': 64,
+                                      'J': 1, 'V': 27, 'Bscr': 3409,
+                                      'kind': 'abstract shared-identity model; not Pi or NC3'},
+            'p_equals_i': {'n': 56, 'j': 11, 'p': 3, 'source_v': 2,
+                           'target_v': 1, 'full_window_power': 27,
+                           'wrong_reduced_power': 9},
+        },
+    }
+    data = json.dumps(cert, ensure_ascii=False, sort_keys=True, indent=2) + '\n'
+    (args.out/'certificate.json').write_text(data)
+    summary = {'schema': cert['schema'], 'points': len(cert['points']),
+               'largest_n_bits': max(p['n_bits'] for p in cert['points']),
+               'symbolic_n_constructed': False,
+               'meaning': 'finite certificate generation only; no infinite search or proof-by-scan'}
+    (args.out/'generation.json').write_text(json.dumps(summary, indent=2)+'\n')
+    print(json.dumps(summary))
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,158 @@
+{
+  "started_utc": "2026-09-15T04:24:12.579264+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "historical_replay_run": false,
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-periodic-20260915/code/generate.py",
+        "--out",
+        "/tmp/b699_periodic_s8_umtvb"
+      ],
+      "returncode": 0,
+      "seconds": 0.025305591000005734,
+      "stdout": "generate.py.stdout.txt",
+      "stderr": "generate.py.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-periodic-20260915/code/check_certificate.py",
+        "--out",
+        "/tmp/b699_periodic_s8_umtvb"
+      ],
+      "returncode": 0,
+      "seconds": 0.034561953000093126,
+      "stdout": "check_certificate.py.stdout.txt",
+      "stderr": "check_certificate.py.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-periodic-20260915/code/symbolic.py",
+        "--out",
+        "/tmp/b699_periodic_s8_umtvb"
+      ],
+      "returncode": 0,
+      "seconds": 0.02528166499996587,
+      "stdout": "symbolic.py.stdout.txt",
+      "stderr": "symbolic.py.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-periodic-20260915/code/regress.py",
+        "--out",
+        "/tmp/b699_periodic_s8_umtvb"
+      ],
+      "returncode": 0,
+      "seconds": 0.31442369399997006,
+      "stdout": "regress.py.stdout.txt",
+      "stderr": "regress.py.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-periodic-20260915/code/bad_inputs.py",
+        "--out",
+        "/tmp/b699_periodic_s8_umtvb"
+      ],
+      "returncode": 0,
+      "seconds": 0.044269497000186675,
+      "stdout": "bad_inputs.py.stdout.txt",
+      "stderr": "bad_inputs.py.stderr.txt"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-periodic-20260915/code/sources_check.py",
+        "--out",
+        "/tmp/b699_periodic_s8_umtvb"
+      ],
+      "returncode": 0,
+      "seconds": 0.0373453800000334,
+      "stdout": "sources_check.py.stdout.txt",
+      "stderr": "sources_check.py.stderr.txt"
+    }
+  ],
+  "comparisons": [
+    {
+      "file": "bad_inputs.json",
+      "byte_equal": true,
+      "sha256": "e0838eabc34f89bb214864e38f92918c41e171457720c00d1dc0525e571fbcb0",
+      "bytes": 410
+    },
+    {
+      "file": "certificate_check.json",
+      "byte_equal": true,
+      "sha256": "38cef54d639cbacae2072add2965f050a3b81ea3a34228ccfb0cacd86a3a38a2",
+      "bytes": 194
+    },
+    {
+      "file": "exploration.json",
+      "byte_equal": true,
+      "sha256": "31e9fce961c855ba58af9a09dba64a26a27bc89c1dfc62733df7663a43066e37",
+      "bytes": 1607
+    },
+    {
+      "file": "identities.json",
+      "byte_equal": true,
+      "sha256": "5be8b89de013101ada643b75988c53eb5dcda288ee513138a188e058f2c3bfb6",
+      "bytes": 635
+    },
+    {
+      "file": "period_certificate.json",
+      "byte_equal": true,
+      "sha256": "b7bade7028fe6a3a3bc9c9dafbed33af2963aa6317008695ad47b418a830c6bd",
+      "bytes": 1521
+    },
+    {
+      "file": "regression.json",
+      "byte_equal": true,
+      "sha256": "5e6f98fb66df05b6f0a8140e5c1f31058ac473ff6564d08c7bf0b111819a5494",
+      "bytes": 1349
+    },
+    {
+      "file": "source_check.json",
+      "byte_equal": true,
+      "sha256": "cede6641dde2321c371d57b7bdaa5e899ac71aace47894c0bb37e064f6a16995",
+      "bytes": 177
+    }
+  ],
+  "expected_outputs": [
+    "bad_inputs.json",
+    "certificate_check.json",
+    "exploration.json",
+    "identities.json",
+    "period_certificate.json",
+    "regression.json",
+    "source_check.json"
+  ],
+  "actual_outputs": [
+    "bad_inputs.json",
+    "certificate_check.json",
+    "exploration.json",
+    "identities.json",
+    "period_certificate.json",
+    "regression.json",
+    "source_check.json"
+  ],
+  "static_files_checked": 30,
+  "static_before_after_equal": true,
+  "elapsed_seconds": 0.48714004800012844,
+  "status": "passed"
+}

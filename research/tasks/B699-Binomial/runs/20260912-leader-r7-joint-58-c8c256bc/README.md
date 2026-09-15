@@ -1,15 +1,17 @@
 # R7：当前交付、证据与异步调度
 
-本批于2026-09-14由独立 VPS Leader 在 GPT-work/leader 接续，见[VPS 接管记录](notes/20260914-vps-leader-takeover.md)。保留原批次20260912-leader-r7-joint-58-c8c256bc的身份、历史记录和来源；[本机接管记录](notes/20260913-huan-leader-takeover.md)属于上一快照。十份交付已整理，新v3自主选法提示词与附件已准备；投递观察、运行确认与Lean暂停状态按当前状态分别登记。
+本批保留 `20260912-leader-r7-joint-58-c8c256bc` 的身份、历史记录与来源。2026-09-15 本机新增接收 Pro A/B/D 各六份成果，见[十八份成果目录](intake/20260915-daily-results/README.md)；此前 VPS 接续及十份交付保留为历史快照，见[VPS 接管记录](notes/20260914-vps-leader-takeover.md)。
 
-**从[当前状态](CURRENT_STATUS.md)接续：B与误收B任务的新D均报告固定规范缺陷后的全参数有效高度，各另有初等无限输入消费者；一般缺陷无界，i3未闭合。A已交回nonic新成果，新增无界参数中心与可变分母带，未闭合整族。R7不变、i9仍58族；最新三稿均待独立数学接受。**
+从[当前状态](CURRENT_STATUS.md)接续；今天的跨路增量和边界见[合并阅读](intake/20260915-daily-results/SUMMARY.md)。作者报告中 R7 仍为七个指标；D 的 i5/i7 参数族进一步减少，A/B 新增统一约束和多类无限消费者。此次仅提取、整理与字节检查，未新增数学或 Lean 接受。
 
 | 入口 | 用途 |
 |---|---|
+| [2026-09-15 十八份成果](intake/20260915-daily-results/README.md) | A/B/D 各六轮报告、完整成员映射、无 ZIP 保存与恢复 |
+| [今天的合并阅读](intake/20260915-daily-results/SUMMARY.md) | 作者实际前沿变化、继承结果和未解参数 |
 | [A-nonic最新接收](notes/20260914-a-nonic-assessment.md) | 新中心/有理带、冻结依赖与58族未变的边界 |
 | [本轮两份i3新稿](notes/20260914-dyadic-pair-assessment.md) | 固定缺陷全参数高度、两种覆盖、重叠与证据缺口 |
 | [当前状态与方向](CURRENT_STATUS.md) | 最新准确声明、剩余无界量、派发回执和Leader取舍 |
-| [十份成果总入口](DELIVERIES.md) | 本轮三份、上一轮三份与四份启动材料的报告、失败边界、原件和哈希总表 |
+| [成果总入口](DELIVERIES.md) | 今天十八份和此前十份接收的报告、失败边界、原件与哈希导航 |
 | [下一轮提示词与共用附件](intake/20260914-open-next-round-v3/DISPATCH.md) | v3三路已见用户投递，D身份正确；运行与采用未确认 |
 | [前次恢复交接](notes/20260914-output-consolidation.md) | 来源核对、证据边界、投递观察与未发布断点 |
 | [A/D本轮推进评价](notes/20260914-window-quartic-assessment.md) | 区分无限族闭合、非有效有限性、结构进展和全题剩余瓶颈 |

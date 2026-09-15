@@ -1,0 +1,7 @@
+"""Locate the immutable source used by optional discovery probes."""
+from pathlib import Path
+R=Path(__file__).resolve().parents[1]
+def i18_path():
+    packaged=R/'originals/restored/packages/i18'
+    development=R.parent/'frozen_packet/packages/i18'
+    return packaged if packaged.exists() or not development.exists() else development

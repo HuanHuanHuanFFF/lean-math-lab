@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""Bounded regressions, old/new comparisons and explicit failure boundaries."""
+from __future__ import annotations
+from pathlib import Path
+from math import prod,comb,gcd
+import argparse,json,time
+ROOT=Path(__file__).resolve().parents[1]
+
+def small(x,m):
+    if x<=0 or m not in (4,5,6,7,8,9):raise ValueError('target/window domain')
+    t=1
+    for p in (2,3,5,7):
+        if p>=m:continue
+        while x%p==0:x//=p;t*=p
+    if m in (5,7) and x%m==0 and x%(m*m)!=0:t*=m
+    return t
+
+def scalar6(n,m):
+    if m not in (6,7,8,9) or n<2*(m+1):raise ValueError('SIXG is not an NC3/NC4 consumer')
+    T=prod(small(n-r,m) for r in range(6))
+    return T**4*(3*n*n-20*n+24)<2**18*27*(n-1)**4*(n-3)**3*(n-5)**2
+
+def scalar8(n,m=8):
+    if m not in (8,9) or n<2*(m+1):raise ValueError('EIGHTG target domain')
+    T=prod(small(n-r,m) for r in range(8))
+    R=6*n**4-89*n**3+462*n*n-1072*n+960
+    return T**6*(n-6)**2*R<5*3**8*2**47*(n-1)**6*(n-3)**6*(n-5)**4*(n-7)**3
+
+def old4(n,m):
+    T=prod(small(n-r,m) for r in range(4))
+    return T**6*(3*n*n-12*n+8)<2**20*(n-1)**6*(n-3)**3
+
+def strip(g,m):
+    for p in (2,3,5,7):
+        if p<m:
+            while g%p==0:g//=p
+    return g
+
+def vbin(n,j,p):
+    # floor valuation; independent of certificate receiver's factorial implementation
+    ans=0;q=p
+    while q<=n:
+        ans+=n//q-j//q-(n-j)//q;q*=p
+    return ans
+
+def run(out):
+    stats={str(i):{'legal_pairs':0,'accepted_pairs':0,'accepted_rows':0} for i in (6,7,8)}
+    for n in range(14,385):
+        flags={m:(scalar6(n,m) if m<8 else scalar8(n)) for m in (6,7,8) if n>=2*(m+1)}
+        for m,a in flags.items():stats[str(m)]['accepted_rows']+=int(a)
+        binoms={m:comb(n,m) for m in flags};b=1
+        for j in range(1,n//2+1):
+            b=b*(n-j+1)//j
+            for m,a in flags.items():
+                if j>m:
+                    stats[str(m)]['legal_pairs']+=1
+                    if a:
+                        assert strip(gcd(b,binoms[m]),m)>1,(n,m,j)
+                        stats[str(m)]['accepted_pairs']+=1
+    comparison={}
+    for m in (6,7,8):
+        gain=[];loss=[];both_fail=[]
+        for n in range(18,32768):
+            old=old4(n,m);new=scalar6(n,m) if m<8 else scalar8(n)
+            if new and not old:gain.append(n)
+            if old and not new:loss.append(n)
+            if not old and not new:both_fail.append(n)
+        comparison[str(m)]={'range':[18,32767],'new_not_old_count':len(gain),
+           'old_not_new_count':len(loss),'both_scalar_fail_count':len(both_fail),
+           'new_not_old_rows':gain,'old_not_new_rows':loss,'both_fail_last':both_fail[-12:]}
+    # A large, finite difference point and genuine source/target witness.
+    c=json.loads((ROOT/'evidence/finite_rows.json').read_text())
+    c8={r:hs for r,*hs in c['classes8']}
+    examples=[]
+    for n in (258051,252450,240625,230400,8752,17500):
+        examples.append({'n':n,'class8':c8.get(n%88200),
+           'old4_m8':old4(n,8),'new8':scalar8(n),'old4_m6':old4(n,6),'new6':scalar6(n,6),
+           'small8_first4':[small(n-r,8) for r in range(4)],
+           'small8_first8':[small(n-r,8) for r in range(8)]})
+    endpoints={
+       'full49_boundary7':{'n':50,'i':7,'j':8,'p':7,'source_v':vbin(50,7,7),'target_v':vbin(50,8,7),
+          'passes_mod7':8%7<=50%7,'passes_mod49':8%49<=50%49,
+          's7_49':small(49,7),'q7_49':49//small(49,7)},
+       'singleton7_not_target_source':{'n':22,'i':7,'j':11,'p':7,'source_v':vbin(22,7,7),'target_v':vbin(22,11,7),'s7_21':small(21,7)},
+       'full_power_countercheck':{'n':26,'i':4,'j':6,'p':5,'passes_mod5':6%5<=26%5,'passes_mod25':6%25<=26%25}}
+    assert endpoints['full49_boundary7']['source_v']==endpoints['full49_boundary7']['target_v']==1
+    assert endpoints['full49_boundary7']['q7_49']==49
+    assert endpoints['singleton7_not_target_source']['source_v']==0
+    # Full small parts versus lcm of maximal powers; bounded independent regression.
+    factorial_tests=0; profile_unique_tests={6:{},8:{}}
+    for n in range(18,10001):
+        for d,ps in ((6,(2,3,5)),(8,(2,3,5,7))):
+            maxima=[];positions=[]
+            for p in ps:
+                vals=[]
+                for r in range(d):
+                    x=n-r;e=0
+                    while x%p==0:x//=p;e+=1
+                    vals.append(e)
+                e=max(vals);maxima.append(p**e);positions.append(vals.index(e))
+            M=prod(maxima);T=prod(small(n-r,d) for r in range(d))
+            fac=120 if d==6 else 5040
+            assert T<=fac*M;factorial_tests+=1
+            failed=(not scalar6(n,7)) if d==6 else (not scalar8(n))
+            cutoff=1800 if d==6 else 32768
+            if failed and n>=cutoff:
+                assert M>n if d==6 else M>n*n
+                key=tuple(zip(maxima,positions))
+                assert key not in profile_unique_tests[d]
+                profile_unique_tests[d][key]=n
+    out.mkdir(parents=True,exist_ok=True)
+    data={'status':'PASS_BOUNDED_DIAGNOSTICS_NOT_INFINITE_PROOF',
+      'binomial_regression':{'n_range':[14,384],'targets':stats},
+      'comparison':comparison,'examples':examples,'endpoints':endpoints,
+      'maximal_power_product_regressions':factorial_tests,
+      'distinct_failed_profiles_checked':{str(d):len(x) for d,x in profile_unique_tests.items()}}
+    (out/'diagnostics.json').write_text(json.dumps(data,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':data['status'],'regression':stats,
+                     'comparisons':{m:{k:v for k,v in s.items() if k.endswith('count')} for m,s in comparison.items()}}))
+
+if __name__=='__main__':
+    a=argparse.ArgumentParser();a.add_argument('--out',required=True,type=Path);args=a.parse_args();run(args.out)

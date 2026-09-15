@@ -1,0 +1,39 @@
+"""Small exact sparse polynomial ring; discovery/acceptance generation only."""
+from fractions import Fraction as F
+
+def clean(p):
+    return {k:F(v) for k,v in p.items() if v}
+
+def const(c, n=2): return {(0,)*n:F(c)} if c else {}
+def var(i, n=2):
+    a=[0]*n;a[i]=1
+    return {tuple(a):F(1)}
+def add(*ps):
+    d={}
+    for p in ps:
+        for k,v in p.items():d[k]=d.get(k,F(0))+v
+    return clean(d)
+def scale(p,c):return clean({k:v*c for k,v in p.items()})
+def mul(*ps):
+    if not ps:return const(1)
+    n=len(next(iter(next(p for p in ps if p)), (0,0))) if any(ps) else 2
+    d=const(1,n)
+    for p in ps:
+        e={}
+        for a,v in d.items():
+            for b,w in p.items():
+                k=tuple(x+y for x,y in zip(a,b));e[k]=e.get(k,F(0))+v*w
+        d=clean(e)
+    return d
+def power(p,k):
+    assert k>=0
+    n=len(next(iter(p),(0,0)));d=const(1,n)
+    while k:
+        if k&1:d=mul(d,p)
+        p=mul(p,p);k//=2
+    return d
+def sub(p,q):return add(p,scale(q,-1))
+def evaluate(p,vals):
+    return sum((c*__import__('functools').reduce(lambda a,b:a*b,(F(v)**e for v,e in zip(vals,k)),F(1)) for k,c in p.items()),F(0))
+def disc3(a,b,c,d):
+    return add(mul(power(b,2),power(c,2)),scale(mul(a,power(c,3)),-4),scale(mul(power(b,3),d),-4),scale(mul(power(a,2),power(d,2)),-27),scale(mul(a,b,c,d),18))

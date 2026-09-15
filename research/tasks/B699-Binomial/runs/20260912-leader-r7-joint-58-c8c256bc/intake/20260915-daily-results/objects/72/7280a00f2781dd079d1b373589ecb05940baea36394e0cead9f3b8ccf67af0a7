@@ -1,0 +1,43 @@
+from lattice31_probe import *
+from itertools import combinations, product
+from collections import Counter
+
+def main2():
+    now=time.perf_counter();cache={q:cyclic(q,1280) for q in P};E=1<<236
+    out={'bits':1280,'support':S,'cycles':cache,'cases':[]}
+    for pair in combinations(P,2):
+        others=[q for q in P if q not in pair];bases=list(pair)+ROUGH;d=len(bases)
+        rows=[];mods=[]
+        for q in others:
+            C=cache[q];rows += [[C['logs'][z][i] for z in bases] for i in range(len(C['orders']))];mods+=C['orders']
+        B,stages=kernel(rows,mods);t=time.perf_counter()
+        L,T=sp.Matrix(B).T.lll_transform(delta=sp.QQ(3,4));Br=L.T;Bi=Br.inv()
+        print('LLL',pair,'s',round(time.perf_counter()-t,3),flush=True)
+        rec={'pair':pair,'others':others,'bases':bases,'rows':rows,'mods':mods,'basis':[[int(v) for v in row] for row in Br.tolist()],'cases':[]}
+        ms=[1]
+        for q in others:
+            vals=[];t=1
+            while t<=8:vals.append(t);t*=q
+            ms=[a*b for a in ms for b in vals]
+        for m,r,s in product(sorted(ms),range(1,9),range(1,9)):
+            rhs=[];ok=True
+            for q,off in zip(others,[r,s]):
+                mt,rt=m,off
+                while mt%q==0 and rt%q==0:mt//=q;rt//=q
+                if mt%q==0 or rt%q==0:ok=False;break
+                rhs+=rhslog(cache[q],rt,mt)
+            if not ok:continue
+            x=affine(stages,rhs)
+            res={'kind':'inconsistent'} if x is None else certify_box(Bi,x,[0]*d,[E]*d)
+            if res['kind']=='unique_coordinates':
+                xp=sp.Matrix(x)+Br*sp.Matrix(res['coordinates']);vv=list(map(int,xp));res['candidate']=vv
+                if any(z<0 or z>E for z in vv):res['kind']='unique_outside'
+                elif sum(vv)*5+10<4096:res['kind']='unique_small'
+                else: print('BAD UNIQUE',pair,m,r,s,vv,flush=True)
+            if res['kind']=='unresolved':print('UNRESOLVED',pair,m,r,s,res['widths'],flush=True)
+            rec['cases'].append({'m':m,'r':r,'s':s,'rhs':rhs,'result':res})
+        out['cases'].append(rec);Path(__file__).with_name('all_pairs_results.json').write_text(json.dumps(out))
+        print('result',Counter(c['result']['kind'] for c in rec['cases']),flush=True)
+    out['seconds']=time.perf_counter()-now;Path(__file__).with_name('all_pairs_results.json').write_text(json.dumps(out))
+    print('DONE',out['seconds'],flush=True)
+if __name__=='__main__':main2()

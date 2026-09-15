@@ -1,0 +1,45 @@
+"""Replay ALL new checks, without discovery, network, Lean or old certificates.
+
+Outputs go to --log-dir so a clean archive replay need not modify frozen logs.
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import platform
+import sys
+import time
+from pathlib import Path
+import diagnostics
+import negative_tests
+from assemble_certificate import assemble
+from verify import verify_certificate, verify_inputs, need
+
+
+def main():
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1])
+    p.add_argument('--log-dir',type=Path)
+    a=p.parse_args();root=a.root.resolve();out=a.log_dir or root/'logs/final'
+    out.mkdir(parents=True,exist_ok=True);started=time.perf_counter();audit=[]
+    cpath=root/'evidence/support31_certificate.json';cert=json.loads(cpath.read_text())
+    frozen=verify_inputs(root);t=time.perf_counter();counts=verify_certificate(cert,audit)
+    (out/'box_audit.json').write_text(json.dumps(audit,separators=(',',':')))
+    receiving=time.perf_counter()-t
+    reconstructed=assemble(root);need(reconstructed==cert,'EXACT_DISCOVERY_TO_CERTIFICATE_LINK')
+    neg=negative_tests.run(root);(out/'negative_tests.json').write_text(json.dumps(neg,indent=2))
+    diag=diagnostics.run();(out/'diagnostics.json').write_text(json.dumps(diag,indent=2))
+    receipt={'status':'PASS_SUPPORT31_COMPLETE_NEW_REPLAY_NO_DISCOVERY',
+             'seconds':time.perf_counter()-started,'receiving_seconds':receiving,
+             'certificate_counts':counts,'negative_count':neg['negative_count'],
+             'equivalent_basis_acceptances':len(neg['positive_transformations']),
+             'diagnostic_counts':diag['counts'],
+             'reassembled_certificate_equal':True,'frozen_files_hash_checked':frozen,
+             'certificate_sha256':hashlib.sha256(cpath.read_bytes()).hexdigest(),
+             'python':sys.version,'platform':platform.platform(),
+             'old_certificates_replayed':False,'publication_formalized':False,
+             'lean':False,'external_independent_review':False}
+    (out/'receipt.json').write_text(json.dumps(receipt,indent=2))
+    print(json.dumps({k:receipt[k] for k in ('status','seconds','receiving_seconds','negative_count')},indent=2))
+
+if __name__=='__main__':main()

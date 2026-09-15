@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""One-time extraction of exact read-only source members from the frozen input.
+Uses a trie-like per-chain cache; does not execute historical certificate programs.
+"""
+from pathlib import Path
+import io,json,zipfile,hashlib
+root=Path(__file__).resolve().parents[1]
+base=root/'inputs/A-window-carry-original.zip'
+outer=['B699-ProA-window-carry-20260914/inputs/A-original.zip']
+base58=outer+['B699-ProA-outer-exponent-20260913/adopted/BASELINE_58_FAMILIES.zip']
+packet=base58+['B699-ProA-i9-58-families-20260912-v2/adopted/INPUT_TASK_PACKET.zip']
+collision=packet+['originals/PRO-A.zip']
+i14=collision+['B699-ProA-R7-collision-20260912/adopted-inputs/B699-ProA-i14-closed-i9-finite-evidence-20260911.zip']
+cache={():base.read_bytes()}
+def archive(chain):
+    t=tuple(chain)
+    if t not in cache:
+        with zipfile.ZipFile(io.BytesIO(archive(t[:-1]))) as z:cache[t]=z.read(t[-1])
+    return cache[t]
+def save(chain,member,target,status,sections):
+    with zipfile.ZipFile(io.BytesIO(archive(chain))) as z: data=z.read(member)
+    p=root/target;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(data)
+    records.append({'container':'inputs/A-window-carry-original.zip','archive_chain':chain,
+     'member':member,'file':target,'sha256':hashlib.sha256(data).hexdigest(),
+     'status':status,'sections':sections})
+records=[]
+for name in ['REPORT.md','HANDOFF.md','SESSION_STATE.json','notes/PROOFS.md','notes/FAILURE_BOUNDARIES.md']:
+    try:save([], 'B699-ProA-window-carry-20260914/'+name,'sources/latest/'+name,'read_frontier_boundary','whole report / relevant window interface')
+    except KeyError: pass
+oldmap=json.loads((root/'sources/initial_map.json').read_text())
+for row in oldmap:
+    save(outer,row['member'],row['file'],
+         'adopted' if row['file'] in ['sources/58_proofs.md','sources/selected_cuts.json'] else 'read_frontier_or_probe_boundary',
+         '58 §§1.1,1.2,3.3; cuts indices5,7' if '58' in row['file'] or 'selected_cuts' in row['file'] else 'no new positive dependency')
+with zipfile.ZipFile(io.BytesIO(archive(i14))) as z:
+    candidates=[n for n in z.namelist() if n.endswith('notes/I9_FINITE.md') or n.endswith('notes/PROOFS.md')]
+    print('frozen i14 proof members',candidates)
+for suffix,target,sections in [('notes/I9_FINITE.md','sources/i9_finite_original.md','§§0–4, A9-FINITE'),
+                              ('notes/PROOFS.md','sources/i14_local_original.md','§7, local cubic block interface')]:
+    member=next(n for n in candidates if n.endswith(suffix))
+    save(i14,member,target,'adopted_frozen_not_replayed',sections)
+archive_records=[{'archive_chain':list(k),'sha256':hashlib.sha256(v).hexdigest(),'bytes':len(v)} for k,v in cache.items()]
+(root/'sources/MAP.json').write_text(json.dumps({'original_sha256':hashlib.sha256(base.read_bytes()).hexdigest(),
+  'records':records,'archive_chain_hashes':archive_records},ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'status':'SOURCE_BYTES_EXTRACTED','members':len(records),'archives':len(cache)},ensure_ascii=False))

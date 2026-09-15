@@ -1,0 +1,72 @@
+"""Replay only NEW acceptance computations into a fresh output directory.
+Frozen evidence is compared byte-for-byte and never overwritten.
+"""
+from pathlib import Path
+from hashlib import sha256
+from datetime import datetime,timezone
+import argparse,json,os,platform,subprocess,sys,tempfile,time
+try:
+    import resource
+except ImportError:
+    resource=None
+
+def child_rss_kib():
+    if resource is None:return None
+    raw=resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+    return raw//1024 if sys.platform=="darwin" else raw
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+ROOT=Path(__file__).resolve().parents[1]
+
+def hfile(p):
+    h=sha256()
+    with p.open('rb') as f:
+        for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+    return h.hexdigest()
+def inputs():
+    return {str(p.relative_to(ROOT)):hfile(p) for top in ['code','input'] for p in sorted((ROOT/top).rglob('*')) if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc'}
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--record',type=Path,default=Path('replay/local'));a=p.parse_args()
+    record=a.record if a.record.is_absolute() else ROOT/a.record
+    if record.exists() and any(record.iterdir()):raise SystemExit('Refusing to overwrite a nonempty replay directory: '+str(record))
+    record.mkdir(parents=True,exist_ok=True);before=inputs();start=time.monotonic();started=datetime.now(timezone.utc).isoformat()
+    with tempfile.TemporaryDirectory(prefix='b699-prob-fresh-') as td:
+        out=Path(td);assert not any(out.iterdir())
+        defs=[
+          ('sources','check_sources.py',['--out',str(out/'source_binding_check.json')]),
+          ('graph_generate','build_graph_certificate.py',['--out',str(out/'graph_certificate.json')]),
+          ('graph_independent','check_graph_independent.py',['--certificate',str(out/'graph_certificate.json'),'--out',str(out/'graph_independent.json')]),
+          ('light_generate','build_light_certificate.py',['--out',str(out/'light_graph_certificate.json')]),
+          ('light_independent','check_light_independent.py',['--certificate',str(out/'light_graph_certificate.json'),'--out',str(out/'light_graph_independent.json')]),
+          ('affine_packing','check_affine_packing.py',['--certificate',str(ROOT/'input/critical_affine_packing.json'),'--out',str(out/'affine_packing_check.json')]),
+          ('consumer_arithmetic','check_consumer_arithmetic.py',['--out',str(out/'consumer_arithmetic.json')]),
+          ('i3_coverage','check_i3_coverage.py',['--out',str(out/'i3_coverage_check.json')]),
+          ('negative_cases','check_negative_cases.py',['--certificate',str(out/'light_graph_certificate.json'),'--out',str(out/'negative_cases.json')])]
+        runs=[]
+        env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',PYTHONHASHSEED='0')
+        for ix,(name,script,args) in enumerate(defs,1):
+            cmd=[sys.executable,str(ROOT/'code'/script)]+args;t=time.monotonic()
+            with (record/f'{ix:02d}-{name}.log').open('w') as log:
+                res=subprocess.run(cmd,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT)
+            runs.append({'name':name,'argv':cmd,'returncode':res.returncode,'seconds':time.monotonic()-t,
+                         'cumulative_child_maxrss_kib':child_rss_kib(),
+                         'log':f'{ix:02d}-{name}.log'})
+            if res.returncode:
+                (record/'reproduction.json').write_text(json.dumps({'status':'FAILED','started_utc':started,'commands':runs},indent=2)+'\n')
+                raise SystemExit(f'Acceptance failed: {name}')
+        products=[]
+        for f in sorted(out.glob('*.json')):
+            frozen=ROOT/'evidence'/f.name
+            if not frozen.exists() or f.read_bytes()!=frozen.read_bytes():raise SystemExit('Frozen output mismatch: '+f.name)
+            products.append({'path':'evidence/'+f.name,'bytes':f.stat().st_size,'sha256':hfile(f),'identical':True})
+        after=inputs();assert before==after
+        result={'status':'PASS_NEW_ACCEPTANCE_FROM_EMPTY_OUTPUT','started_utc':started,'python':sys.version,
+                'platform':platform.platform(),'total_seconds':time.monotonic()-start,
+                'commands':runs,'generated_outputs':products,'source_input_file_count':len(before),
+                'source_input_hashes':before,'before_after_identical':True,'fresh_output_was_empty':True,
+                'old_full_replays_run':False,'Lean_run':False,'independent_human_or_second_session_review':False}
+        (record/'reproduction.json').write_text(json.dumps(result,indent=2)+'\n')
+        print(json.dumps({'status':result['status'],'commands':len(runs),'outputs':len(products),'seconds':round(result['total_seconds'],3),
+                          'cumulative_child_maxrss_kib':max((r['cumulative_child_maxrss_kib'] for r in runs if r['cumulative_child_maxrss_kib'] is not None),default=None),'record':str(record/'reproduction.json')}))
+if __name__=='__main__':main()

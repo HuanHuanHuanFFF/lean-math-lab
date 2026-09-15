@@ -1,0 +1,115 @@
+#!/usr/bin/env python3
+"""Second implementation: certify primes, complementary-factor CRT, exact coverage."""
+from __future__ import annotations
+import argparse, functools, itertools, json, math
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+
+def require(test:bool,label:str)->None:
+    if not test:raise ValueError(label)
+
+def bits(n:int)->int:
+    return sum(int(c) for c in bin(n)[2:])
+
+@functools.lru_cache(maxsize=None)
+def is_prime(n:int)->bool:
+    if n<2:return False
+    if n%2==0:return n==2
+    if n%3==0:return n==3
+    d=5
+    while d*d<=n:
+        if n%d==0 or n%(d+2)==0:return False
+        d+=6
+    return True
+
+def check_digital(data:dict)->dict:
+    require(data.get('schema')=='B699-digital-v3-v1','schema')
+    require((data.get('all_weight'),data.get('odd_weight'))==(3,8),'claim')
+    expected=[]
+    for v in range(3,113):
+        n=2**v;u=n-1;e3=0
+        while u%3==0:u//=3;e3+=1
+        la=3 if e3==1 else 1
+        if v<=56*bits(la): expected.append((v,la))
+    require([x['v']for x in data['rows']]==[v for v,la in expected],'exponent coverage')
+    recovered=[];nr=0;primes=set();root_max=0
+    for row,(v,la) in zip(data['rows'],expected):
+        n=2**v;N=(n-1)//la
+        require(row['lambda']==la and row['N']==N,'normalization')
+        fac=row['factors'];require(fac==sorted(fac),'factor order')
+        require(len({p for p,e in fac})==len(fac),'duplicate prime')
+        powers=[]
+        for p,e in fac:
+            require(isinstance(e,int) and e>0 and is_prime(p),'factor primality')
+            powers.append(p**e);primes.add(p)
+        require(math.prod(powers)==N,'complete prime powers')
+        found=[];all_roots=[]
+        # A receives complete factors of j, B receives factors of j-1.
+        for assignment in itertools.product((False,True),repeat=len(powers)):
+            A=math.prod(q for q,on in zip(powers,assignment)if on);B=N//A
+            r=0 if B==1 else A*pow(A,-1,B)
+            require(0<=r<N and r*(r-1)%N==0,'CRT root')
+            all_roots.append(r)
+            start=(4-r+N-1)//N;end=(n//2-r)//N
+            for a in range(start,end+1):
+                j=r+a*N
+                if j<4:continue
+                w=bits(j)
+                if w>3 and (j%2==0 or w>8):continue
+                jj=j;t=0
+                while jj%2==0:jj//=2;t+=1
+                digit_limit=bits(la)*w*(w-1)+w*bits(la*(2**t-1))
+                if v>digit_limit or 4*t-1>v:continue
+                # Second projection is checked with its denominator cancelled,
+                # rather than by trusting the displayed raw remainder.
+                divisor=(n-2)//math.gcd(n-2,6)
+                require(j*(j-1)*(j-2)%divisor!=0,'second projection survives')
+                found.append({'v':v,'n':n,'j':j,'t':t,'weight':w,
+                              'second_remainder':(6*j*(j-1)*(j-2))%(n-2)})
+        require(len(set(all_roots))==2**len(powers),'duplicate/missing CRT choices')
+        require(row['crt_roots']==len(all_roots),'root count')
+        nr+=len(all_roots);root_max=max(root_max,len(all_roots))
+        found.sort(key=lambda x:x['j'])
+        require(row['retained']==found,'retained candidates')
+        recovered+=found
+    recovered.sort(key=lambda x:(x['v'],x['j']))
+    require(data['candidates']==recovered,'global candidates')
+    summary={'rows':len(expected),'crt_roots':nr,'candidates':len(recovered),'survivors':0}
+    require(data['summary']==summary,'summary')
+    return {**summary,'unique_certified_primes':len(primes),'largest_prime':max(primes),
+            'largest_root_count':root_max,'odd_candidates':sum(x['j']%2 for x in recovered),
+            'largest_candidate_n':max(x['n']for x in recovered),'largest_candidate_j':max(x['j']for x in recovered)}
+
+def check_cyclic(data:dict)->dict:
+    require(data['schema']=='B699-cyclic-family-v1','cyclic schema')
+    expected=[]
+    # Recover low domain from the analytic tail conditions, not generator loops.
+    for k in range(4,7):
+        for x in range(4,128):
+            if x%2 or x%k:continue
+            if k==5 and x>=18:continue
+            if k==6 and x>=8:continue
+            expected.append((k,x))
+    require([(r['degree'],r['base'])for r in data['rows']]==expected,'cyclic coverage')
+    for r,(k,x) in zip(data['rows'],expected):
+        n=pow(x,k);numer=x*(n-1);den=k*(x-1)
+        require(numer%den==0,'cyclic integrality');j=numer//den
+        require(4<=j<n//2 and math.gcd(n,j)==x//k,'cyclic original legality')
+        D=(n-2)//math.gcd(n-2,6)
+        require(j*(j-1)*(j-2)%D!=0,'cyclic second projection')
+        eliminant=6*x*(x-k*(x-1))*(x-2*k*(x-1))
+        correct={'degree':k,'base':x,'n':n,'j':j,'first_remainder':j*(j-1)%(n-1),
+                 'second_remainder':6*j*(j-1)*(j-2)%(n-2),
+                 'eliminant':eliminant,'eliminant_remainder':eliminant%(n-2)}
+        require(r==correct and correct['first_remainder']==0,'cyclic record')
+    require(data['summary']=={'rows':len(expected),'survivors':0},'cyclic summary')
+    return data['summary']
+
+def main()->None:
+    ap=argparse.ArgumentParser();ap.add_argument('--input',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args()
+    d=check_digital(json.loads((args.input/'digital_certificate.json').read_text()))
+    c=check_cyclic(json.loads((args.input/'cyclic_certificate.json').read_text()))
+    result={'digital':d,'cyclic':c,'prime_test':'complete 6k±1 trial division to integer square root'}
+    args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
+    print('ACCEPTED',json.dumps(result,sort_keys=True))
+if __name__=='__main__':main()

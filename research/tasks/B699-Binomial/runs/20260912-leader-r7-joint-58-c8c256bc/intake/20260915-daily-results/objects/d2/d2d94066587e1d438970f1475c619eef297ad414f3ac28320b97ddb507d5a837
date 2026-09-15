@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+"""Rebuild fresh evidence and replay new checks outside this release directory."""
+from __future__ import annotations
+from pathlib import Path
+import argparse,hashlib,json,os,subprocess,sys,time
+ROOT=Path(__file__).resolve().parents[1]
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--out',type=Path,required=True)
+    out=parser.parse_args().out.resolve()
+    if out==ROOT or ROOT in out.parents:raise ValueError('use an output directory outside the release')
+    if out.exists() and any(out.iterdir()):raise ValueError('output directory must be new or empty')
+    out.mkdir(parents=True,exist_ok=True)
+    env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1');steps=[];start=time.perf_counter()
+    commands=[('generate.py',['--out',str(out/'finite_rows.regenerated.json')]),
+              ('verify.py',['--out',str(out)]),('diagnostics.py',['--out',str(out)]),
+              ('mutations.py',['--out',str(out)]),('profile_tests.py',['--out',str(out)])]
+    for name,args in commands:
+        cmd=[sys.executable,str(ROOT/'code'/name),*args];t=time.perf_counter()
+        process=subprocess.run(cmd,capture_output=True,text=True,env=env,cwd=ROOT)
+        (out/(name+'.stdout.txt')).write_text(process.stdout)
+        (out/(name+'.stderr.txt')).write_text(process.stderr)
+        steps.append({'command':cmd,'returncode':process.returncode,'seconds':time.perf_counter()-t})
+        if process.returncode:raise RuntimeError(f'{name} failed; see output logs')
+    checks=[]
+    for expected,actual in [(ROOT/'evidence/finite_rows.json',out/'finite_rows.regenerated.json')]+[(ROOT/'outputs'/name,out/name) for name in ['acceptance.json','diagnostics.json','mutations.json','profiles.json']]:
+        a=expected.read_bytes();b=actual.read_bytes()
+        if a!=b:raise ValueError(f'nonidentical regenerated file {actual.name}')
+        checks.append({'name':expected.name,'bytes':len(a),'sha256':hashlib.sha256(a).hexdigest(),'byte_identical':True})
+    receipt={'status':'PASS_FRESH_NEW_CHAIN_REPLAY','python':sys.version,'steps':steps,
+             'comparisons':checks,'seconds':time.perf_counter()-start,
+             'infinite_argument':'author proof in notes/PROOFS.md; code not a substitute',
+             'old_chain_replayed':False,'lean':False,'independent_human_review':False}
+    (out/'REPLAY_RECEIPT.json').write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+    print(json.dumps({'status':receipt['status'],'seconds':receipt['seconds'],'byte_identical_files':len(checks)}))
+if __name__=='__main__':main()

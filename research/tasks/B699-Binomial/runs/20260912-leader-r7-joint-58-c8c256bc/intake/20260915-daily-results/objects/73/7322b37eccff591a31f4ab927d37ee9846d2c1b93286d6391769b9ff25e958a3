@@ -1,0 +1,92 @@
+"""Exact constants and non-vacuous valuation tests for the symbolic consumer.
+These tests do not assume or search for noCommon; D is computed as actual avoiding part.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+from math import factorial,comb,gcd,prod
+import argparse,json
+PS=(2,3,5,7,11,13)
+
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+
+def vp(a,p):
+    if a<=0:raise ValueError('valuation input must be positive')
+    e=0
+    while a%p==0:e+=1;a//=p
+    return e
+
+def factors(n):
+    out={};p=2
+    while p*p<=n:
+        while n%p==0:out[p]=out.get(p,0)+1;n//=p
+        p+=1 if p==2 else 2
+    if n>1:out[n]=out.get(n,0)+1
+    return out
+
+def vchoose(n,k,p):
+    q=p;s=0
+    while q<=n:s+=n//q-k//q-(n-k)//q;q*=p
+    return s
+
+def sample(n,j):
+    i=15;k=n-j;assert i<j<=n//2
+    rows=[factors(n-a) for a in range(i)];w=[20-a for a in range(i)]
+    selected=[];qs=[];aa=[]
+    for p in PS:
+        ex=[f.get(p,0) for f in rows];r=ex.index(max(ex));Q=p**ex[r]
+        selected.append(r);qs.append(Q);aa.append((n-r)//Q)
+        for a in range(i):
+            if a!=r:assert ex[a]<=vp(abs(a-r),p)
+    small=prod(prod(p**e for p,e in row.items() if p<i)**wt for row,wt in zip(rows,w))
+    bound=factorial(14)**20*prod(Q**w[r] for Q,r in zip(qs,selected))
+    assert bound%small==0
+    Drows=[];D=1;localizations=0
+    for a,row in enumerate(rows):
+        da=1
+        for p,e in row.items():
+            if p<i or vchoose(n,j,p)>0:continue
+            Q=p**e;b=j%Q;c=k%Q
+            assert Q>i and n%Q==a and b+c==a
+            assert max(10-b,0)+max(10-c,0)>=20-a
+            da*=Q;localizations+=1
+        Drows.append(da);D*=da
+    T=prod((j-b)**(10-b)*(k-b)**(10-b) for b in range(10))
+    lhs=prod(d**wt for d,wt in zip(Drows,w));assert T%lhs==0
+    choosef=factors(comb(n,i));Da=prod(p**e for p,e in choosef.items() if p>=i and vchoose(n,j,p)==0)
+    assert D==Da
+    V=prod(p**e for p,e in choosef.items() if p>=i)
+    for a,b in [(a,b) for a in range(6) for b in range(a+1,6) if selected[a]==selected[b]]:
+        assert aa[a]*aa[b]>=n-selected[a]
+    return {'n':n,'i':i,'j':j,'actual_D':str(D),'actual_V':str(V),
+            'D_equals_V':D==V,'row_localizations':localizations,
+            'max_positions':selected,'cofactor_collision_pairs':sum(selected[a]==selected[b] for a in range(6) for b in range(a+1,6))}
+
+def verify():
+    assert factorial(14)<2**37 and factorial(15)<2**41
+    assert 100*20*37+10501==84501
+    assert 1500*41+24543==86043 and 43*2001==86043
+    assert 84501>65536 and 65536>2001
+    assert F(195)-105+(F(20)+F(1,100))==F(110)+F(1,100)
+    assert F(15)*F(681,500)+225-245==F(43,100)
+    examples=[sample(n,j) for n,j in [(102,17),(102,34),(578,289),(586,289),(500,51),(1000,170),(172,34),(181,34),(512,221),(1040,289),(257,85),(300,102)]]
+    assert any(int(r['actual_D'])>1 for r in examples) and any(not r['D_equals_V'] for r in examples)
+    n,i,j,p=4394,13,2197,13;e=vchoose(n,i,p)
+    assert e==2 and vchoose(n,j,p)==0
+    Q=p**(e+1);assert Q==2197 and n%Q<i and j%Q<=n%Q
+    # The proposed joint interface is false without a lower threshold.
+    # 2^5*1=32, 5^2*1=25, 13^1*2=26, all distinct within [25,39].
+    assert max(32,25,26)-min(32,25,26)<=14 and 2**125<25**102
+    assert gcd(1,2)==gcd(1,5)==gcd(2,13)==1
+    return {'status':'EXACT_CONSUMER_ARITHMETIC_AND_ACTUAL_D_TESTS',
+            'constants':{'source_Y_exponent':65535,'unconditional_collision_cutoff_n_exponent':65536,
+                         'distinct_internal_bound_n_exponent':84501,'collision_internal_bound_n_exponent':2001,
+                         'factorial14_bound':37,'factorial15_bound':41},
+            'hypothetical_interface':'T(N*) on distinct canonical 2/5/13 window values: (ABC)^125 >= Y^102',
+            'conditional_original_height':'n < max(N*+14,2^84501)',
+            'actual_D_samples':examples,
+            'prime_equals_index_test':{'n':n,'i':i,'j':j,'p':p,'v_p_choose_n_i':e,'compensated_modulus':Q},
+            'unthresholded_T_counterexample':{'Y':25,'values':[32,25,26],'cofactors':[1,1,2],'power125_left':str(2**125),'power102_right':str(25**102)},
+            'not_verified':'symbolic noCommon proof is in PROOFS.md, not certified by these finite samples'}
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);a=p.parse_args();r=verify();a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps({'status':r['status'],'actual_D_samples':len(r['actual_D_samples']),'prime_equals_index':r['prime_equals_index_test']}))

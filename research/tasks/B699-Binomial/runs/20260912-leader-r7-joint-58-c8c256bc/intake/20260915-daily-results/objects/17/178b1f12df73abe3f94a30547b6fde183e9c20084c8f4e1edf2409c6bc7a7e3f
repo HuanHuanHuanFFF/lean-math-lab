@@ -1,0 +1,130 @@
+"""Independent exact reconstruction: grid DFS, product clauses, Cramer determinants.
+Does NOT import the generator or its inverse/vertex/objective routines."""
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import product,combinations,permutations
+import argparse,json
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+ROOT=Path(__file__).resolve().parents[1];PS=(2,3,5,7,11,13)
+
+def rectangular(cs):
+ domain=[{0} for _ in PS]
+ for c in cs:domain[PS.index(c['p'])].add(c['wp']);domain[PS.index(c['q'])].add(c['wq'])
+ domain=[sorted(s) for s in domain];best=[];nodes=0
+ def dfs(a):
+  nonlocal nodes,best
+  nodes+=1;k=len(a)
+  if any(all(v[j]<= (a[j] if j<k else 0) for j in range(6)) for v in best):return
+  for c in cs:
+   p,q=PS.index(c['p']),PS.index(c['q'])
+   if p<k and q<k and a[p]<c['wp'] and a[q]<c['wq']:return
+  if k==6:
+   aa=tuple(a);best=[v for v in best if not all(aa[j]<=v[j] for j in range(6))];best.append(aa);return
+  low=0
+  for c in cs:
+   p,q=PS.index(c['p']),PS.index(c['q'])
+   if q==k and p<k and a[p]<c['wp']:low=max(low,c['wq'])
+   if p==k and q<k and a[q]<c['wq']:low=max(low,c['wp'])
+  for v in domain[k]:
+   if v>=low:dfs(a+[v])
+ dfs([]);return sorted(best),nodes
+
+def branch_grid(vs):
+ # Each tuple is (singleton coordinate or coordinate tuple, required millilog).
+ clauses=[[(1,287),(0,325),((0,1),600)],[(0,210),(4,82),((0,4),247)],[(0,120),(4,189),((0,4),292)]]
+ bb=set()
+ for v in vs:
+  for opt in product(*clauses):
+   l=list(v);s={}
+   for k,t in opt:
+    if isinstance(k,int):l[k]=max(l[k],t)
+    else:s[k]=max(s.get(k,0),t)
+   bb.add((tuple(l),tuple(sorted((k,t) for k,t in s.items() if sum(l[j] for j in k)<t))))
+ return sorted(bb)
+
+def determinant(a):
+ n=len(a)
+ if n==0:return 1
+ total=0
+ for p in permutations(range(n)):
+  v=1
+  for i,j in enumerate(p):v*=a[i][j]
+  if v:
+   if sum(p[i]>p[j] for i in range(n) for j in range(i+1,n))%2:v=-v
+   total+=v
+ return total
+
+TEMPS={}
+def templates(keys):
+ if keys not in TEMPS:
+  ts=[]
+  for k in range(len(keys)+1):
+   for js in combinations(range(6),k):
+    for rows in combinations(range(len(keys)),k):
+     mat=[[int(j in keys[r]) for j in js] for r in rows]
+     d=determinant(mat)
+     if d:
+      # adjugate integer cofactors, not matrix inversion
+      adj=[[(-1)**(a+b)*determinant([[mat[u][v] for v in range(k) if v!=a] for u in range(k) if u!=b]) for b in range(k)] for a in range(k)]
+      ts.append((js,rows,d,adj))
+  TEMPS[keys]=ts
+ return TEMPS[keys]
+
+def recover(l,sums):
+ keys=tuple(k for k,t in sums);rhs=[F(t)-sum(l[j] for j in k) for k,t in sums];out=set()
+ for js,rows,d,adj in templates(keys):
+  inc=[F(0)]*6
+  for j,cof in zip(js,adj):inc[j]=sum((q*rhs[r] for q,r in zip(cof,rows)),F(0))/d
+  if min(inc)<0:continue
+  if any(sum(inc[j] for j in key)<v for key,v in zip(keys,rhs)):continue
+  out.add(tuple(F(l[j])+inc[j] for j in range(6)))
+ if not out:raise ValueError('Vertex reconstruction empty')
+ return out
+
+def score(v,collision):
+ if collision:return sum(v)
+ # Equivalent to sorted weights, computed without sorting.
+ return F(35*sum(v)-sum(abs(v[i]-v[j]) for i in range(6) for j in range(i+1,6)),2)-20000
+
+def verify(cert):
+ cs=[r for r in json.loads((ROOT/'input/frozen_cuts.json').read_text()) if max(r['p'],r['q'])<15]
+ vs,nodes=rectangular(cs);bb=branch_grid(vs)
+ if vs!=list(map(tuple,cert['minimal_orthants'])):raise ValueError('Orthant list mismatch')
+ b0=[{'lower':list(l),'sums':[[list(k),v] for k,v in ss]} for l,ss in bb]
+ if b0!=cert['branches']:raise ValueError('Polyhedron branch mismatch')
+ if len(cert['distinct'])!=2 or len(cert['collisions'])!=15:raise ValueError('Case coverage mismatch')
+ if any(r['collision'] is not None for r in cert['distinct']):raise ValueError('Distinct cases cannot assume collisions')
+ if [r['gamma'] for r in cert['distinct']]!=['1223/1500','102/125']:raise ValueError('Joint thresholds changed')
+ if [r['collision'] for r in cert['collisions']]!=[list(p) for p in combinations(PS,2)]:raise ValueError('Collision coverage changed')
+ if any(r['gamma'] is not None for r in cert['collisions']):raise ValueError('Collision cases must be joint-free')
+ if cert['source_cut_count']!=55:raise ValueError('Incorrect cut count')
+ totalvertices=0;cases=[]
+ for case in cert['distinct']+cert['collisions']:
+  gamma=F(case['gamma']) if case['gamma'] is not None else None;collision=tuple(PS.index(p) for p in case['collision']) if case['collision'] else None
+  found=[];allv=set();global_min=None;gx=None;zero_vertices=set()
+  for idx,(l,ss) in enumerate(bb):
+   d=dict(ss)
+   if gamma is not None:d[0,2,5]=1000*gamma
+   if collision:d[collision]=max(d.get(collision,0),1000)
+   v=recover(l,tuple(sorted(d.items())));totalvertices+=len(v);allv.update(v)
+   if collision is None:zero_vertices.update(x for x in v if score(x,collision)==0)
+   m=min(score(x,collision) for x in v);x=min(x for x in v if score(x,collision)==m)
+   found.append({'branch':idx,'vertex_count':len(v),'minimum_scaled':str(m),'witness_scaled':list(map(str,x))})
+   if global_min is None or (m,x)<(global_min,gx):global_min,gx=m,x
+  if found!=case['branches'] or str(global_min/1000)!=case['minimum'] or len(allv)!=case['vertices_distinct']:raise ValueError('Certificate data mismatch')
+  if [str(t/1000) for t in gx]!=case['witness']:raise ValueError('Global witness mismatch')
+  if [[str(t/1000) for t in z] for z in sorted(zero_vertices)]!=case['zero_vertices']:raise ValueError('Zero vertex mismatch')
+  if gamma==F(1223,1500) and collision is None:
+   ratios=[(score(x,False)/(sum(x[k] for k in (0,2,5))-1000*gamma),x) for x in allv if sum(x[k] for k in (0,2,5))>1000*gamma]
+   slope,sw=min(ratios)
+   if slope!=F(543,160) or case['supporting_slope']!=str(slope) or case['slope_witness']!=[str(t/1000) for t in sw]:raise ValueError('Supporting slope mismatch')
+  elif case['supporting_slope'] is not None or case['slope_witness'] is not None:raise ValueError('Unexpected slope field')
+  cases.append({'gamma':case['gamma'],'collision':case['collision'],'minimum':case['minimum'],'supporting_slope':case['supporting_slope']})
+ if [r['minimum'] for r in cert['distinct']]!=['0','1/100']:raise ValueError('Distinct conclusions failed')
+ expected_zero=['271/1000','327/1000','743/1500','1/10','0','49/1000']
+ if cert['distinct'][0]['zero_vertices']!=[expected_zero]:raise ValueError('Unique critical zero not established')
+ if min(F(r['minimum']) for r in cert['collisions'])!=F(71,50):raise ValueError('Collision bound failed')
+ return {'status':'EXACT_RECONSTRUCTION_AGREEMENT','grid_nodes':nodes,'orthants':len(vs),'branches':len(bb),'polyhedra_checked':len(bb)*len(cases),'branch_vertices_checked':totalvertices,'cases':cases}
+if __name__=='__main__':
+ p=argparse.ArgumentParser();p.add_argument('--certificate',type=Path,required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args();res=verify(json.loads(a.certificate.read_text()));a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(res,indent=2)+'\n');print(json.dumps({k:v for k,v in res.items() if k!='cases'}))

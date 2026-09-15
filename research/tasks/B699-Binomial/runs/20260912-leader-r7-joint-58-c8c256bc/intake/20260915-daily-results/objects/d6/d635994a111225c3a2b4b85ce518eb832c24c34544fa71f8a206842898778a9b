@@ -1,0 +1,64 @@
+"""Floating discovery, followed by a separate rational dual certificate."""
+from pathlib import Path
+from itertools import combinations
+from fractions import Fraction as F
+import math,json,time
+import numpy as np
+from scipy.optimize import linprog
+from scipy.sparse import lil_matrix
+R=Path(__file__).resolve().parents[1]
+pts=[(x,y) for x in range(15) for y in range(15-x)]
+lines=set()
+for (x,y),(u,v) in combinations(pts,2):
+ a=y-v;b=u-x;c=x*v-y*u;g=math.gcd(math.gcd(a,b),c);a//=g;b//=g;c//=g
+ if a<0 or a==0 and b<0:a=-a;b=-b;c=-c
+ lines.add((a,b,c))
+lines=sorted(lines);n=15+len(lines)
+x=sorted([F(271,1000),F(327,1000),F(743,1500),F(1,10),F(0),F(49,1000)])
+w=x+[F(1)]*9
+A=lil_matrix((len(pts)+14,n))
+for idx,(x0,y0) in enumerate(pts):
+ A[idx,x0+y0]=1
+ for j,(a,b,c) in enumerate(lines):
+  if a*x0+b*y0+c==0:A[idx,15+j]=-1
+for a in range(14):A[len(pts)+a,a]=-1;A[len(pts)+a,a+1]=1
+E=lil_matrix((1,n));E[0,:15]=1;c=np.array([-float(a) for a in w]+[1]*len(lines))
+t=time.monotonic();res=linprog(c,A_ub=A.tocsr(),b_ub=np.zeros(A.shape[0]),A_eq=E.tocsr(),b_eq=[1],bounds=(0,None),method='highs')
+out={'discovery_status':int(res.status),'objective':res.fun,'seconds':time.monotonic()-t,'line_count':len(lines)}
+print(out,flush=True)
+if res.status==0:
+ import sympy as sp
+ mu=F(0)
+ active=[k for k,a in enumerate(res.ineqlin.marginals) if a < -1e-9]
+ eqrows=[];eqvals=[]
+ for k in range(15):
+  row=[]
+  for idx in active:
+   if idx<len(pts):row.append(int(sum(pts[idx])==k))
+   else:
+    h=idx-len(pts);row.append(-int(h==k)+int(h+1==k))
+  eqrows.append(row);eqvals.append(sp.Rational(w[k].numerator,w[k].denominator))
+ for j,line in enumerate(lines):
+  if res.lower.marginals[15+j]>1e-9:continue
+  a,b,c0=line
+  eqrows.append([int(a*pts[idx][0]+b*pts[idx][1]+c0==0) if idx<len(pts) else 0 for idx in active]);eqvals.append(sp.Rational(1))
+ sol,params=sp.Matrix(eqrows).gauss_jordan_solve(sp.Matrix(eqvals))
+ print('dual rank recovery',len(active),'equations',len(eqrows),'parameters',len(params),flush=True)
+ if len(params):raise ValueError('Underdetermined exact dual')
+ dual=[F(0)]*len(res.ineqlin.marginals)
+ for idx,q in zip(active,sol):dual[idx]=-F(int(q.p),int(q.q))
+ # exact certificate: c-A^T dual-E^T mu >=0
+ assert all(a<=0 for a in dual)
+ col=[]
+ for k in range(15):
+  val=-w[k]-mu-sum(dual[ii] for ii,p in enumerate(pts) if sum(p)==k)
+  if k<14:val+=dual[len(pts)+k]
+  if k>0:val-=dual[len(pts)+k-1]
+  col.append(val)
+ for line in lines:
+  a,b,c0=line;col.append(1+sum(dual[ii] for ii,(x0,y0) in enumerate(pts) if a*x0+b*y0+c0==0))
+ out['exact']={'mu':str(mu),'min_dual_slack':str(min(col)),'point_multipliers':[str(-a) for a in dual[:len(pts)]],'monotonicity_multipliers':[str(-a) for a in dual[len(pts):]],'countermodel':[str(a) for a in x], 'm':[str(F(float(a)).limit_denominator(10**7)) for a in res.x[:15]],'line_weights':[[list(l),str(F(float(res.x[15+j])).limit_denominator(10**7))] for j,l in enumerate(lines) if res.x[15+j]>1e-8]}
+ if min(col)<0:out['exact']['status']='rationalization failed'
+ else:out['exact']['status']='rational dual checked'
+ print({'mu':str(mu),'min_slack':str(min(col)),'nonzero_point_weights':sum(a!=0 for a in dual[:len(pts)])},flush=True)
+(R/'evidence/critical_dual_discovery.json').write_text(json.dumps(out,indent=2)+'\n')

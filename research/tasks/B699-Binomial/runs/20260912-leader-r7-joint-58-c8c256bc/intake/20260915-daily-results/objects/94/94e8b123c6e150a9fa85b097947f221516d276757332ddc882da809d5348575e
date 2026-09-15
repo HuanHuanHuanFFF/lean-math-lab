@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""Generate finite, complete periodic row certificates. Standard library only."""
+from __future__ import annotations
+from pathlib import Path
+import argparse, json, math, itertools, time
+
+ROOT=Path(__file__).resolve().parents[1]
+
+def vp(x:int,p:int)->int:
+    if x<=0: raise ValueError('valuation needs a positive integer')
+    e=0
+    while x%p==0: x//=p; e+=1
+    return e
+
+def maxima_positions(n:int,p:int,d:int)->set[int]:
+    vals=[vp(n-r,p) for r in range(d)]
+    mx=max(vals)
+    return {r for r,v in enumerate(vals) if v==mx}
+
+def classes(d:int)->list[list[int]]:
+    primes=(2,3,5) if d==6 else (2,3,5,7)
+    modulus=1800 if d==6 else 88200
+    answer=[]
+    for r in range(modulus):
+        # modulus+r is strictly beyond the window, including residue zero.
+        sets=[maxima_positions(modulus+r,p,d) for p in primes]
+        if d==6:
+            ss=set.intersection(*sets)
+            if ss: answer.append([r,min(ss)])
+        else:
+            first=next(iter(sets[0])) # the maximum 2-power in 8 terms is unique
+            left=[ss for ss in sets if first not in ss]
+            ss=set.intersection(*left) if left else {first}
+            if ss: answer.append([r,first,min(ss)])
+    return answer
+
+def factors(n:int)->list[tuple[int,int]]:
+    fs=[];p=2
+    while p*p<=n:
+        if n%p==0:
+            e=0
+            while n%p==0: n//=p;e+=1
+            fs.append((p,e))
+        p+=1 if p==2 else 2
+    if n>1: fs.append((n,1))
+    return fs
+
+def val_choose(n:int,j:int,p:int)->int:
+    out=0; q=p
+    while q<=n:
+        out+=n//q-j//q-(n-j)//q
+        q*=p
+    return out
+
+def make_row(n:int,i:int)->dict:
+    primes=sorted({p for r in range(i) for p,e in factors(n-r)
+                   if p>=i and val_choose(n,i,p)>0})
+    lo=i+1;hi=n//2;intervals=[]
+    for p in primes:
+        q=p;e=1
+        while q<=n:
+            rem=n%q
+            for w in range(hi//q+1):
+                a=max(lo,w*q+rem+1);b=min(hi,(w+1)*q-1)
+                if a<=b: intervals.append((a,b,p,e))
+            q*=p;e+=1
+    intervals.sort(); cover=[];cur=lo;idx=0
+    while cur<=hi:
+        best=None
+        while idx<len(intervals) and intervals[idx][0]<=cur:
+            x=intervals[idx]
+            if best is None or x[1]>best[1]: best=x
+            idx+=1
+        if best is None or best[1]<cur:
+            raise ArithmeticError(f'uncovered target={i}, n={n}, j={cur}')
+        cover.append({'lo':cur,'hi':best[1],'p':best[2],'e':best[3]})
+        cur=best[1]+1
+    return {'i':i,'n':n,'cover':cover}
+
+def build()->dict:
+    c6=classes(6);c8=classes(8)
+    rows6=[make_row(r,i) for r,*_ in c6 for i in (6,7)
+           if 2*(i+1)<=r<1800]
+    rows8=[make_row(r,8) for r,*_ in c8 if 18<=r<32768]
+    return {'schema':'b699-D-even-gap-clusters-v1',
+            'tail6':1800,'tail8':32768,'modulus6':1800,'modulus8':88200,
+            'classes6':c6,'classes8':c8,'rows6':rows6,'rows8':rows8}
+
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True)
+    args=ap.parse_args();t=time.perf_counter();data=build()
+    args.out.parent.mkdir(parents=True,exist_ok=True)
+    args.out.write_text(json.dumps(data,ensure_ascii=False,sort_keys=True,separators=(',',':'))+'\n')
+    print(json.dumps({'status':'GENERATED','seconds':time.perf_counter()-t,
+      'classes6':len(data['classes6']),'classes8':len(data['classes8']),
+      'rows6':len(data['rows6']),'rows8':len(data['rows8']),
+      'intervals6':sum(len(r['cover']) for r in data['rows6']),
+      'intervals8':sum(len(r['cover']) for r in data['rows8'])}))

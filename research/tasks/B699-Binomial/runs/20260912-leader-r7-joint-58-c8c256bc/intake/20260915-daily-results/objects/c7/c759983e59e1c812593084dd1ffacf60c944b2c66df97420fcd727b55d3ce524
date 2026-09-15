@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""Exact finite-model diagnostic only. No integer counterexample is constructed."""
+from pathlib import Path
+from fractions import Fraction as F
+import json
+root=Path(__file__).resolve().parents[1]
+obj=json.loads((root/'sources/position_witnesses.json').read_text())
+rows=[]
+for w in obj['witnesses']:
+    cells={(r,s):F(w['cell_masses'][r*(r+1)//2+s]) for r in range(9) for s in range(r+1)}
+    vals=[]
+    for h in range(6):
+        for b in range(h+1):
+            mass=sum(v for (r,s),v in cells.items() if h<=r<=h+3 and b<=s<=b+r-h)
+            vals.append((mass,h,b))
+    maximum,h,b=max(vals)
+    rows.append({'position':w['positions'],'max':str(maximum),'h':h,'b':b,
+                 'violations':sum(x>F(17,6) for x,_,_ in vals)})
+assert rows==json.loads((root/'quartic_triangle_probe.json').read_text())
+print(json.dumps({'status':'REPRODUCED_FINITE_MODEL_PROBE_ONLY','models':len(rows),'translated_triangles_per_model':21,'new_exclusions':0}))

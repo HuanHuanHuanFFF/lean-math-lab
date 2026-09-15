@@ -1,0 +1,131 @@
+#!/usr/bin/env python3
+"""Rebuild new evidence in an empty directory and compare every expected byte.
+
+The static source manifest is checked before and after. This is not Lean,
+independent mathematical peer review, or a reproof of the infinite derivations.
+"""
+from __future__ import annotations
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+import os
+from pathlib import Path
+import platform
+import subprocess
+import sys
+import tempfile
+import time
+
+ROOT = Path(__file__).resolve().parents[1]
+NAMES = ('digital_certificate.json', 'cyclic_certificate.json', 'second_check.json',
+         'structure_check.json', 'family_check.json', 'bad_inputs.json', 'source_check.json')
+
+def sha(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open('rb') as f:
+        for block in iter(lambda: f.read(1 << 20), b''):
+            h.update(block)
+    return h.hexdigest()
+
+def utc() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+def save(path: Path, data: object) -> None:
+    path.write_text(json.dumps(data, ensure_ascii=False, sort_keys=True, indent=2) + '\n', encoding='utf-8')
+
+def verify() -> dict:
+    spec = importlib.util.spec_from_file_location('frozen_manifest', ROOT/'verify_manifest.py')
+    if spec is None or spec.loader is None:
+        raise RuntimeError('cannot load manifest checker')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.verify(ROOT)
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--record', default='replay/local', type=Path)
+    args = ap.parse_args()
+    if sys.flags.optimize:
+        raise SystemExit('Do not disable Python assertions with -O or PYTHONOPTIMIZE.')
+    record = (ROOT / args.record).resolve() if not args.record.is_absolute() else args.record.resolve()
+    replay_root = (ROOT/'replay').resolve()
+    if record == replay_root or replay_root not in record.parents:
+        raise SystemExit('--record must be a subdirectory of this package replay/.')
+    record.mkdir(parents=True, exist_ok=True)
+    receipt = record / 'reproduction.json'
+    if receipt.exists():
+        raise SystemExit(f'Refusing to overwrite an existing receipt: {receipt}')
+    start = time.monotonic()
+    result = {'schema': 'B699-ProB-v3-reproduction-1', 'status': 'RUNNING', 'started_utc': utc(),
+              'python': sys.version, 'platform': platform.platform(), 'commands': [],
+              'proof_level': 'Author code replay and exact certificate checking; no Lean or independent researcher review.',
+              'empty_output_directory': True}
+    save(receipt, result)
+    try:
+        result['source_before'] = verify()
+        expected_hashes = {name: sha(ROOT/'outputs'/name) for name in NAMES}
+        with tempfile.TemporaryDirectory(prefix='b699-prob-v3-empty-') as tmp:
+            out = Path(tmp)/'outputs'
+            out.mkdir()
+            commands = [
+                ('build', ['build_evidence.py', '--output', str(out)]),
+                ('independent-check', ['check_evidence.py', '--input', str(out), '--output', str(out/'second_check.json')]),
+                ('structure', ['check_structure.py', '--output', str(out/'structure_check.json')]),
+                ('families', ['check_families.py', '--output', str(out/'family_check.json')]),
+                ('bad-inputs', ['check_bad_inputs.py', '--input', str(out), '--output', str(out/'bad_inputs.json')]),
+                ('sources', ['check_sources.py', '--output', str(out/'source_check.json')]),
+            ]
+            env = os.environ.copy()
+            env.pop('PYTHONOPTIMIZE', None)
+            env['PYTHONDONTWRITEBYTECODE'] = '1'
+            for idx, (name, tail) in enumerate(commands, 1):
+                cmd = [sys.executable, '-S', '-B', str(ROOT/'code'/tail[0]), *tail[1:]]
+                stdout_path = record / f'{idx:02d}-{name}.stdout.txt'
+                stderr_path = record / f'{idx:02d}-{name}.stderr.txt'
+                tick = time.monotonic()
+                begun = utc()
+                with stdout_path.open('wb') as stdout, stderr_path.open('wb') as stderr:
+                    proc = subprocess.run(cmd, cwd=ROOT, env=env, stdout=stdout, stderr=stderr, check=False)
+                command_record = {'name': name, 'command': cmd, 'cwd': str(ROOT), 'started_utc': begun,
+                                  'returncode': proc.returncode, 'elapsed_seconds': time.monotonic()-tick,
+                                  'stdout': stdout_path.relative_to(ROOT).as_posix(),
+                                  'stderr': stderr_path.relative_to(ROOT).as_posix(),
+                                  'stdout_sha256': sha(stdout_path), 'stderr_sha256': sha(stderr_path)}
+                result['commands'].append(command_record)
+                save(receipt, result)
+                if proc.returncode:
+                    raise RuntimeError(f'{name} returned {proc.returncode}; see saved stderr/stdout')
+            actual_names = sorted(p.name for p in out.iterdir() if p.is_file())
+            if actual_names != sorted(NAMES):
+                raise ValueError(f'generated file coverage differs: {actual_names}')
+            comparisons = []
+            for name in NAMES:
+                actual = sha(out/name)
+                if actual != expected_hashes[name]:
+                    # Preserve the mismatch rather than silently replacing frozen evidence.
+                    import shutil
+                    shutil.copyfile(out/name, record/('MISMATCH-'+name))
+                    raise ValueError(f'generated output differs: {name}')
+                comparisons.append({'path': 'outputs/'+name, 'bytes': (out/name).stat().st_size,
+                                    'sha256': actual, 'byte_identical': True})
+            result['comparisons'] = comparisons
+        result['source_after'] = verify()
+        if result['source_before'] != result['source_after']:
+            raise ValueError('static sources changed during execution')
+        result['status'] = 'PASS_EXACT_REPLAY'
+    except Exception as exc:
+        result['status'] = 'FAILED'
+        result['error'] = str(exc)
+        raise
+    finally:
+        result['finished_utc'] = utc()
+        result['elapsed_seconds'] = time.monotonic()-start
+        save(receipt, result)
+    print(json.dumps({'status': result['status'], 'commands': len(result['commands']),
+                      'identical_outputs': len(result['comparisons']),
+                      'record': str(receipt), 'elapsed_seconds': result['elapsed_seconds']}, sort_keys=True))
+
+if __name__ == '__main__':
+    main()

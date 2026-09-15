@@ -1,0 +1,40 @@
+# B699 R7：A／B／D统一任务包 v2
+
+本包为 **B699-R7-ABD-task-pack-20260912-v2.zip**，替换此前三原包版本。用户分别向原A、B、D会话投递自己的任务，每位只附本ZIP，无需另收旧包。完整任务在 tasks/PRO-A.md、tasks/PRO-B.md、tasks/PRO-D.md；只执行对应一份。
+
+## 先确认时序和归属
+
+新增的 originals/D-previous-B-task.zip 是 **D上一轮误收到B任务后已经完成的产出**。原文件名、报告仍标Pro B，为保存原字节没有改名正文；实际产出者按用户确认为D。它不代表当前D改任B，当前D继续五因子、整行／跨指标与自由探索。详见 context/D_PREVIOUS_B_INTAKE.md。
+
+## 当前范围与任务
+
+R7={3,4,5,6,7,8,9}不变。原题：1≤i<j≤⌊n/2⌋ 时，存在同一个素数p≥i同时整除C(n,i)、C(n,j)。保留p=i、完整素数幂；D=V只在完整noCommon下使用。
+
+补交作者报告：i3中只要β=j/gcd(n,j)或γ=(n−j)/gcd(n,j)任一侧为aP^r、1≤a≤21，就覆盖全部合法n,j，另一侧不限形状。一般行单侧纯素数幂及非平方立方分支已包含。一般a仍无界，R7不减项，作者纸面＋精确证书不等于独立完整验收或Lean。i14沿用上一批证据等级。
+
+| 接收者 | 完整任务 | 先读与主方向 |
+|---|---|---|
+| 原Pro A | tasks/PRO-A.md | A的REPORT、HANDOFF、SESSION_STATE、notes/PROOFS、FAILURE_BOUNDARIES；继续i9的84族无界指数。B/D按实际借用读取 |
+| 原Pro B | tasks/PRO-B.md | 先读归属修正及D-previous-B-task中的REPORT、HANDOFF、PROOFS、MINIMAL_INTERFACE、FAILURES，再接自己的双侧结果和D五因子；转向两侧规范余因子都≥23的混合区域 |
+| 原Pro D | tasks/PRO-D.md | 先读自己原D包的REPORT、HANDOFF、PROOFS、MINIMAL_INTERFACE、FAILURES与归属修正；一般结构、整行／跨指标和自由探索方向不变 |
+
+若旧任务已有中间成果，保留记录，按本次前沿调整下一步。B不再主攻已经覆盖的q³；D不重复上一轮误派任务。任务实际投递由用户完成，任务文件存在不表示其他会话已启动。
+
+## 四份完整原件
+
+| 包内路径 | 身份 | 解压后的报告根 |
+|---|---|---|
+| originals/PRO-A.zip | A最新i9约束交付 | B699-ProA-R7-collision-20260912/ |
+| originals/PRO-B.zip | B最新双侧平方／素数幂交付 | 解压目录根 |
+| originals/PRO-D.zip | D最新五因子／整行交付 | B699-ProD-R7-20260912/ |
+| originals/D-previous-B-task.zip | D上一轮误接B任务的补交 | B699-ProB-R7-primepower-closure-20260912/ |
+
+四个ZIP均为用户原件的原始字节，外包只用短别名。完整原名、来源身份、根路径与哈希在 SOURCE_REVISION.json。将每个原包解压到单独目录，不把同名REPORT或HANDOFF覆盖到一起。
+
+A包的adopted-inputs/保留旧i14完整ZIP；B包的sources/b-original.zip、sources/d-original.zip保留其采用旧包，它们继续包含各自冻结上游。新补交也保留当时实际获得的来源文本。先读最新交接，仅按实际证明需要递归恢复；不要默认重跑全部历史大证书。补交作者当时没有取得的最新A/B原包现已在本包补齐，不倒填作者阅读记录。
+
+context/是Leader整理，数学准确前提以原件证明为准。context内沿用仓库相对链接：基目录为下列固定源码的run；在附件环境中直接读originals里的对应文件即可，不把仓库链接当成本机路径。固定数学来源与本次任务修订提交：`e94b9c2455d6b35e923a064d45adf51e78c50369`，仓库 `HuanHuanHuanFFF/lean-math-lab`，run为 `research/tasks/B699-Binomial/runs/20260912-leader-r7-continuation-c8c256bc`。包的保存与最终发布信息另见仓库最终提交的TASK_PACKAGE.json。
+
+## 交付要求
+
+运行verify_packet.py可核对本包成员大小与SHA256，仅用于传输检查。研究者按实际采用做前提检查，在独立目录写新结果。报告＋证据ZIP应明确准确覆盖、依赖、实际核验、失败诊断与仍无界量词；有限回归不证明无限链，保留原件和失败记录。

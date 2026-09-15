@@ -1,0 +1,123 @@
+{
+  "started_utc": "2026-09-15T06:47:58.469054+00:00",
+  "ended_utc": "2026-09-15T06:47:58.870341+00:00",
+  "status": "PASS",
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-renormalized-20260915/code/generate.py",
+        "--out",
+        "/tmp/b699-new-two-block-6tkoeyyq/outputs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0402975429997241,
+      "log": "01-generate.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-renormalized-20260915/code/check_certificate.py",
+        "--input",
+        "/tmp/b699-new-two-block-6tkoeyyq/outputs",
+        "--out",
+        "/tmp/b699-new-two-block-6tkoeyyq/outputs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06580063699993843,
+      "log": "02-check_certificate.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-renormalized-20260915/code/identities.py",
+        "--out",
+        "/tmp/b699-new-two-block-6tkoeyyq/outputs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.042909968999993,
+      "log": "03-identities.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-renormalized-20260915/code/regressions.py",
+        "--out",
+        "/tmp/b699-new-two-block-6tkoeyyq/outputs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.16285953500027972,
+      "log": "04-regressions.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-renormalized-20260915/code/bad_inputs.py",
+        "--input",
+        "/tmp/b699-new-two-block-6tkoeyyq/outputs",
+        "--out",
+        "/tmp/b699-new-two-block-6tkoeyyq/outputs"
+      ],
+      "exit_code": 0,
+      "seconds": 0.061112744999718416,
+      "log": "05-bad_inputs.py.log"
+    }
+  ],
+  "byte_comparisons": [
+    {
+      "file": "bad_inputs.json",
+      "equal": true,
+      "sha256": "403bb7940e4d2bc8d142f36523fe1fba8f645b4f07c2dfc157e28c3f0a516381"
+    },
+    {
+      "file": "certificate_check.json",
+      "equal": true,
+      "sha256": "8ea48e08d8f919565293e36814cfc872606f18cd423fff23935145d8db39f5ad"
+    },
+    {
+      "file": "finite_bottom.json",
+      "equal": true,
+      "sha256": "95adbe37b22d299dd7a75338e6172d65bef28f604aacc800da393898e80ee482"
+    },
+    {
+      "file": "identities.json",
+      "equal": true,
+      "sha256": "684b2e3a1058e4d5acdac98352e3040310ffaa9ba752aa00bdaf4b89fa6eb2f5"
+    },
+    {
+      "file": "modular_certificate.json",
+      "equal": true,
+      "sha256": "f86661b6e803583d72955adfe25aab1d3109d82b75bcd57e577c3a47e18ef112"
+    },
+    {
+      "file": "regressions.json",
+      "equal": true,
+      "sha256": "a4c59c1a24a3c990d42cfeee1bfb55a2875bda1be14dbc9c19147e2cf11adf7f"
+    }
+  ],
+  "manifest_before": {
+    "status": "PASS_MANIFEST",
+    "frozen_files": 35,
+    "adopted_members": 3,
+    "old_archive_sha256": "2359c1e2041400eec6f24d472b0a386e87ff52e47885f8cd224b3303424e7126"
+  },
+  "manifest_after": {
+    "status": "PASS_MANIFEST",
+    "frozen_files": 35,
+    "adopted_members": 3,
+    "old_archive_sha256": "2359c1e2041400eec6f24d472b0a386e87ff52e47885f8cd224b3303424e7126"
+  },
+  "historical_acceptance_replayed": false,
+  "lean_executed": false,
+  "external_independent_review": false
+}

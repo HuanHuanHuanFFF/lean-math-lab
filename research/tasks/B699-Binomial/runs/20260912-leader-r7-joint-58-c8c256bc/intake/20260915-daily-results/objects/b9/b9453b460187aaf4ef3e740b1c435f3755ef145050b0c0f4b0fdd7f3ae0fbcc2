@@ -1,0 +1,53 @@
+"""Explicit B699 i9 NC height for fixed prime support; no giant n is constructed.
+
+The mathematical result uses BEG2013v1 Proposition 3.10 and the elementary
+A9 scalar.  It does not itself close the finite box.  This module computes
+the exact integers appearing in that bound, not a binomial search.
+"""
+from __future__ import annotations
+import argparse
+import json
+from math import isqrt
+from typing import Iterable
+
+
+def is_prime(n: int) -> bool:
+    if not isinstance(n, int) or isinstance(n, bool) or n < 2:
+        return False
+    if n % 2 == 0:
+        return n == 2
+    return all(n % d for d in range(3, isqrt(n) + 1, 2))
+
+
+def height_for_support(primes: Iterable[int]) -> dict:
+    s = sorted(set(primes) | {2, 3, 5, 7})
+    if not all(is_prime(p) for p in s):
+        raise ValueError("The supplied support must consist of primes.")
+    k, pmax = len(s), max(s)
+    log_cap = (pmax - 1).bit_length()  # ceil(log_2 pmax), exactly
+    prefactor = 504 * 44 ** (3 * k + 2) * log_cap ** (k - 1)
+    c = prefactor.bit_length()       # strict prefactor < 2**c
+    h = (1 << (c + 4)) * (c + 4)
+    box_bits = c + 4 + (c + 3).bit_length()
+    return {
+        "support": s, "k": k, "L": log_cap, "U": prefactor, "C": c,
+        "H": h, "box_bits": box_bits, "box_upper": 1 << box_bits,
+        "meaning": "NC9 and prime_support(n) within support imply log2(n)<H; each full prime exponent <H<=box_upper",
+        "n_upper_bound_symbolic": "2**H",
+        "global_i9_finite": False,
+    }
+
+
+def main() -> None:
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--support", default="2,3,5,7,11,13,17,19,23,29,31")
+    args = p.parse_args()
+    try:
+        result = height_for_support(int(x.strip()) for x in args.support.split(",") if x.strip())
+    except (TypeError, ValueError) as exc:
+        p.error(str(exc))
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()

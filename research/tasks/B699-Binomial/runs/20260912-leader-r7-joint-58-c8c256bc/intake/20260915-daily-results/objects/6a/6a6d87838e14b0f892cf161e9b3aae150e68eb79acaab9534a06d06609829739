@@ -1,0 +1,55 @@
+"""Reconstruct CRT in the reverse cofactor direction and all terminal rows.
+Uses neither new generator nor its cache; accepts only primitive integer checks.
+"""
+from pathlib import Path
+import sys,json,time,resource,argparse,math
+R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'code/vendor'))
+from check_certificate import require,make_parameters,reconstruct_stage,union,trial_prime,check_top_interval,check_large_row
+from reverse_crt import check_symbolic_stage
+from parameters import parameters as make_parameters
+
+def check_special(i,x):
+ n=x['n'];require(i==12 and n==126,'special domain');nxt=i+1;count=0
+ for a,b,p in x['j_intervals']:
+  require(a==nxt and a<=b<=n//2 and p>=i and trial_prime(p),'special coverage or prime')
+  require(math.comb(n,i)%p==0,'special first binomial')
+  for j in range(a,b+1):require(math.comb(n,j)%p==0,'special second binomial');count+=1
+  nxt=b+1
+ require(nxt==n//2+1,'special missing tail');return count
+
+def check(row):
+ i=row['i'];require(i in [12,15,20],'new target');source=json.loads((R/f'input/i{i}_target.json').read_text());p=make_parameters(i,source['r'],source['s'])
+ require((row['r'],row['s'])==(source['r'],source['s']),'parameter mismatch')
+ require(p['K']==int(source['K']) and p['lam']==source['lambda_'] and p['E']==source['E'],'scalar parameters')
+ bs=next(x for x in json.loads((R/('outputs/i12_blocks_summary.json' if i==12 else 'outputs/shared_blocks_summary.json')).read_text())['profiles'] if x['i']==i)
+ require(bs['source_height_bits']==source['height_bits'] and bs['destination_height_bits']==row['height_bits'],'block-height input')
+ H=1<<row['height_bits'];pairs=0;times=[];require(row['bound_stages'],'missing stages')
+ for ix,st in enumerate(row['bound_stages']):
+  require(int(st['H'])==H,'height induction');ts=time.monotonic();new=check_symbolic_stage(p,st);pairs+=st['prime_power_pairs'];times.append(time.monotonic()-ts)
+  require(new<H if ix<len(row['bound_stages'])-1 else new==H,'contraction or final fixed point');H=new
+ term=row['terminal_cover'];require(int(term['H'])==H,'terminal height');iv,new=reconstruct_stage(p,term);require(new==H,'CRT versus explicit cover')
+ expected=union([[2*i+2,term['start']-1]]+iv);require(row['candidate_intervals']==expected,'candidate omission')
+ ps=row['prime_witnesses'];require(ps==sorted(set(ps)),'canonical prime list')
+ for q in ps:require(trial_prime(q),'composite witness')
+ given=[];used=set();top=0;sp=set(ps)
+ for a,b,q in row['top_prime_intervals']:
+  check_top_interval(i,a,b,q,sp);given.append([a,b]);used.add(q);top+=b-a+1
+ require(used==sp,'unused prime witness');ds=row['large_divisor_rows'];require(len({n for n,D in ds})==len(ds),'repeated divisor row')
+ for n,D in ds:check_large_row(p,n,int(D));given.append([n,n])
+ specials=row.get('special_rows',[])
+ require(len({x['n'] for x in specials})==len(specials),'duplicate special row')
+ for x in specials:
+  check_special(i,x);given.append([x['n'],x['n']])
+ require(row['unresolved_rows']==[],'unresolved row');require(union(given)==expected,'terminal cover hole')
+ total=sum(b-a+1 for a,b in expected);require(top+len(ds)+len(specials)==total,'overlapping witnesses')
+ summary=dict(i=i,total_rows=total,candidate_intervals=len(expected),max_candidate_n=expected[-1][1],top_prime_intervals=len(row['top_prime_intervals']),top_prime_rows=top,large_divisor_rows=len(ds),unresolved=0)
+ if specials:summary['special_rows']=len(specials)
+ for k,v in summary.items():require(row['summary'][k]==v,'false summary '+k)
+ return dict(status='PASS_COMPLETE_REVERSE_CRT_AND_TERMINAL',**summary,terminal_height=H,CRT_stages=len(row['bound_stages']),CRT_pairs=pairs,raw_intervals=term['raw_intervals'],unique_primes=len(ps),max_prime=max(ps),stage_check_seconds=times)
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--i',type=int,choices=[12,15,20],required=True);a=ap.parse_args();ts=time.monotonic();row=json.loads((R/f'outputs/terminal_certificate_{a.i}.json').read_text());out=check(row);out.update(seconds=time.monotonic()-ts,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+ (R/f'outputs/terminal_independent_{a.i}.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out,indent=2))
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

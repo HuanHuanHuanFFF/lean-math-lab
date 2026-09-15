@@ -1,0 +1,30 @@
+"""Minimal-dependency replacement: only 17 frozen rectangular inequalities.
+The free-degree and two (2,11) three-way lemmas are NOT assumptions here.
+"""
+from pathlib import Path
+from itertools import combinations
+from fractions import Fraction as F
+import argparse,json
+import build_graph_certificate as a
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+ROOT=Path(__file__).resolve().parents[1]
+
+def run(out):
+    allcuts=a.inputs();idx=json.loads((ROOT/'input/rectangular_subset.json').read_text())['selected_filtered_indices']
+    assert len(idx)==17 and len(set(idx))==17 and all(0<=i<55 for i in idx)
+    cs=[allcuts[i] for i in idx];vv,hist=a.minima(cs)
+    assert vv==a.minima(allcuts)[0]
+    bb=[(v,()) for v in vv]
+    d={'assumptions':'17 rectangular clauses only; no three-branch clauses',
+       'original_rectangular_count':55,'selected_filtered_indices':idx,'source_cut_count':17,
+       'minimal_orthants':vv,'orthant_stage_counts':hist,'branches':[{'lower':v,'sums':[]} for v in vv],
+       'distinct':[a.one(bb,g) for g in a.GAMMAS],
+       'collisions':[a.one(bb,None,p) for p in combinations(range(6),2)]}
+    assert [z['minimum'] for z in d['distinct']]==['0','1/100']
+    assert min(F(z['minimum']) for z in d['collisions'])==F(681,500)
+    out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(d,indent=2)+'\n')
+    print(json.dumps({'status':'RECTANGULAR_ONLY_CERTIFICATE','source_clauses':17,'orthants':len(vv),
+                      'distinct_minima':['0','1/100'],'collision_minimum':'681/500','bytes':out.stat().st_size}))
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);z=p.parse_args();run(z.out)

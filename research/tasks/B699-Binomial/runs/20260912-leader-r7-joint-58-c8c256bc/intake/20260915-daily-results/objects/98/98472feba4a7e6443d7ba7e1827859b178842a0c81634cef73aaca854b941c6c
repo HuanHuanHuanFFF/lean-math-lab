@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+"""Generate finite algebra/constant data, not an infinite theorem prover."""
+from pathlib import Path
+import json
+from algebra import recurrence_polys,serialize
+root=Path(__file__).resolve().parents[1]
+(root/'evidence').mkdir(exist_ok=True)
+cert={
+ 'schema':'B699-A-NONIC-BANDS-v1',
+ 'degree':9,'adjacent_degree':8,'prime_threshold':11,
+ 'factorial_bound':40320,'source_constant':80640,
+ 'large_zone':16,'small_majorant':20,'ratio_lower':[1,2],
+ 'small_K8_power':20,'small_K9_power':21,
+ 'general_gate_power':76,'general_gate_degree':18,
+ 'collision_gate_power':37,'collision_gate_degree':8,
+ 'band_multiplier':128,'central_rhs_multiplier':4,
+ 'general_source_degree':5,'collision_source_degree':6,
+ 'finite_bit_height':4096,'local_bit_height':14000001,
+ 'cut_log_threshold':9500000,'cut_indices':[5,7],
+ 'cut_weights':[[2847,3231],[3915,2644]],'cut_denominator':10000,
+ 'H':[serialize(h) for h in recurrence_polys()],
+ 'integer_family':{
+  'x_base':20,'x_slope':70,'x_offset':11,'n_coefficient':120,
+  'near_center_power':392,'comparison_start':21,
+  'outer_threshold_start':100000,
+  'a_slope':280,'a_offset':47,'b_slope':140,'b_offset':23,
+  'residue_modulus':176400,'residue':174000
+ }
+}
+(root/'evidence/certificate.json').write_text(json.dumps(cert,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'status':'GENERATED_NOT_ACCEPTED','H_term_counts':[len(h) for h in cert['H']]},ensure_ascii=False))

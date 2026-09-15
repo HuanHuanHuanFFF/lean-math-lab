@@ -1,0 +1,46 @@
+"""Generate a complete rational Bernstein certificate, no floating point."""
+import sys,json
+from pathlib import Path
+from fractions import Fraction as F
+from math import comb
+from poly import const,var,add,mul,power,scale,sub,evaluate
+
+def objects(delta):
+    n,x=var(0),var(1); one=const(1); d=add(x,const(delta))
+    E=add(power(d,2),scale(n,-3),const(2))
+    P=add(power(d,4),scale(mul(n,power(d,2)),-2),scale(power(n,3),4),scale(power(n,2),-19),scale(n,28),const(-12))
+    D=mul(power(sub(n,one),3),power(add(n,const(-2)),2))
+    numerator=sub(mul(E,P,power(n,5)),mul(power(x,6),D))
+    R={}
+    for (a,b),c in numerator.items():
+        # New variable order is (y=x/n, t=n/x^2).
+        k=(18-2*a-b,10-a-b);R[k]=R.get(k,F(0))+c
+    R={k:c for k,c in R.items() if c}
+    assert all(min(k)>=0 for k in R)
+    y,t=var(0),var(1); v=mul(t,power(y,2))
+    Dnorm=mul(power(sub(one,v),3),power(sub(one,scale(v,2)),2))
+    return R,Dnorm
+
+def bernstein(p):
+    c={k:v*F(1,3)**k[0]*F(1,64)**k[1] for k,v in p.items()}
+    rows=[]
+    for i in range(13):
+        for j in range(6):
+            b=sum((v*F(comb(i,a),comb(12,a))*F(comb(j,h),comb(5,h)) for (a,h),v in c.items() if a<=i and h<=j),F(0))
+            assert b>0
+            rows.append([i,j,b.numerator,b.denominator])
+    return rows
+
+def generate():
+    out={'schema':'B699.shifted-dyadic-gap.v1','domain':{'y_max':[1,3],'t_max':[1,64]},'degrees':[12,5],'certificates':[]}
+    for delta in (-2,2):
+        R,D=objects(delta)
+        for side,p in [('lower',sub(R,scale(D,2))),('upper',sub(scale(D,6),R))]:
+            coeff=bernstein(p)
+            mn=min(F(a[2],a[3]) for a in coeff)
+            out['certificates'].append({'delta':delta,'side':side,'coefficients':coeff,'minimum':[mn.numerator,mn.denominator]})
+    return out
+if __name__=='__main__':
+    path=Path(sys.argv[1]);path.parent.mkdir(parents=True,exist_ok=True)
+    out=generate();path.write_text(json.dumps(out,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':'PASS','polynomials':4,'positive_coefficients':312,'minimums':[c['minimum'] for c in out['certificates']]}))

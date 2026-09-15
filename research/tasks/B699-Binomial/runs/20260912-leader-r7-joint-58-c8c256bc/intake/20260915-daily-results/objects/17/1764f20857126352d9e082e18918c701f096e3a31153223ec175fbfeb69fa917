@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Actual fail-closed mutations of the independent checker, not tests of the generator."""
+from __future__ import annotations
+import argparse,contextlib,copy,io,json,tempfile
+from pathlib import Path
+import check as verifier
+
+FILES=('forms.json','families.json','constants.json','resonance.json')
+def execute(root:Path,out:Path):
+    base={name:json.loads((root/name).read_text()) for name in FILES}
+    cases=[]
+    def add(name,file,mutator):cases.append((name,file,mutator))
+    add('missing_nonempty_Pi_case','forms.json',lambda x:x['actual_Pi_examples'].pop())
+    add('changed_middle_H','forms.json',lambda x:x['actual_Pi_examples'][0].__setitem__('H',6))
+    add('incomplete_block_assignment','forms.json',lambda x:x['actual_Pi_examples'][0]['Cs'].__setitem__(0,17))
+    add('changed_signed_r','forms.json',lambda x:x['actual_Pi_examples'][0]['forms'][0].__setitem__(2,2))
+    add('changed_positive_Q','forms.json',lambda x:x['actual_Pi_examples'][0]['forms'][0].__setitem__(3,28))
+    add('false_resonance_B','forms.json',lambda x:x['actual_Pi_examples'][0].__setitem__('B',3))
+    add('drop_source_power','forms.json',lambda x:x['actual_Pi_examples'][0]['common_prime'].__setitem__('source_v',0))
+    def move_j(x):x['examples'][0]['j']=str(int(x['examples'][0]['j'])+2)
+    add('change_same_n_j','families.json',move_j)
+    add('missing_family_sample','families.json',lambda x:x['examples'].pop())
+    add('composite_prime_witness','families.json',lambda x:x['examples'][0]['common_prime'].__setitem__('p',9))
+    def changePi(x):x['mixed_examples'][0]['Pi_first']=not x['mixed_examples'][0]['Pi_first']
+    add('upgrade_Common_sample_to_Pi','families.json',changePi)
+    add('wrong_CRT_modulus','families.json',lambda x:x.__setitem__('modulus',x['modulus']-1))
+    add('false_prime_period','families.json',lambda x:x['prime_period_certificates'][0].__setitem__('period',30))
+    add('lost_strict_gap_margin','constants.json',lambda x:x.__setitem__('gap_margin',[0,1]))
+    add('lower_threshold_without_proof','constants.json',lambda x:x.__setitem__('a2_threshold',0))
+    add('missing_resonance_type','resonance.json',lambda x:x['finite_factor_types'].pop())
+    records=[]
+    with tempfile.TemporaryDirectory(prefix='b699-mutations-') as td:
+        work=Path(td)
+        def put(d):
+            for name,obj in d.items():(work/name).write_text(json.dumps(obj)+'\n')
+        put(base)
+        with contextlib.redirect_stdout(io.StringIO()):verifier.main(work,work/'ok.json')
+        for name,file,mut in cases:
+            d=copy.deepcopy(base);mut(d[file]);put(d)
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):verifier.main(work,work/'bad.json')
+            except (ValueError,AssertionError) as exc:
+                records.append({'name':name,'rejected':True,'reason':str(exc)})
+            else:raise RuntimeError('mutation incorrectly accepted: '+name)
+    out.write_text(json.dumps({'status':'PASS','rejected_mutations':records,'count':len(records)},ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':'PASS','bad_inputs_rejected':len(records)}))
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--input',type=Path,required=True);ap.add_argument('--out',type=Path,required=True);a=ap.parse_args();execute(a.input,a.out)

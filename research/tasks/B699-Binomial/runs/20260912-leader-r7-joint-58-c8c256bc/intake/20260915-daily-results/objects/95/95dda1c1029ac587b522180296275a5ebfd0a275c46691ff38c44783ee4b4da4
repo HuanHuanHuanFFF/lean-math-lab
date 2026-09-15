@@ -1,0 +1,65 @@
+{
+  "status": "PASS_CLEAN_CURRENT_D_REPRODUCTION",
+  "python": "3.13.5",
+  "seconds": 5.637696111000423,
+  "manifest": {
+    "status": "NO_MANIFEST_WORKING_DIRECTORY",
+    "scope": "allowed only before release manifest creation"
+  },
+  "sources": {
+    "status": "PASS_PACKAGED_SOURCE_BYTES",
+    "current_archives_verified": 3,
+    "text_snapshots_verified": 18,
+    "A_original_archive": "not bundled; exact read texts retained and checked; original ZIP binding was checked on input collection",
+    "historical_mathematics_replayed": false
+  },
+  "steps": [
+    {
+      "name": "verification",
+      "exit_code": 0,
+      "seconds": 0.2718235709999135,
+      "deterministic_math_output_matches": true,
+      "canonical_sha256": "8a6ae1b7ae3acd492016b1a67a08f97da57681b9ed47e692b6ce3e1e846798f8",
+      "command_portable": [
+        "python3",
+        "-S",
+        "-B",
+        "code/verify.py",
+        "--out",
+        "<external-output>/verification.json"
+      ]
+    },
+    {
+      "name": "regressions",
+      "exit_code": 0,
+      "seconds": 0.46013698199976716,
+      "deterministic_math_output_matches": true,
+      "canonical_sha256": "96ac61501372501b77bc5b3fa9b919823c5efa5a21f888e31c7ebc8f78a7a479",
+      "command_portable": [
+        "python3",
+        "-S",
+        "-B",
+        "code/regressions.py",
+        "--out",
+        "<external-output>/regressions.json"
+      ]
+    },
+    {
+      "name": "mutations",
+      "exit_code": 0,
+      "seconds": 4.8985334959998,
+      "deterministic_math_output_matches": true,
+      "canonical_sha256": "02809a66aead483b829169dcd0412ca24099ed63b16d756116a2a3d3e2c85a6f",
+      "command_portable": [
+        "python3",
+        "-S",
+        "-B",
+        "code/mutations.py",
+        "--out",
+        "<external-output>/mutations.json"
+      ]
+    }
+  ],
+  "comparison_rule": "Exact canonical JSON after dropping runtime seconds and Python version only; no mathematical fields ignored. Raw logs are retained.",
+  "scope": "current finite obligations and source bytes only; no historical mathematical replay, Lean, or external human review"
+}

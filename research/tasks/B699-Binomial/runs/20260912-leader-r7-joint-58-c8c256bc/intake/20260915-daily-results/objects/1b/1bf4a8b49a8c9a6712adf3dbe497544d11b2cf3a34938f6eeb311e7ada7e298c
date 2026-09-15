@@ -1,0 +1,145 @@
+#!/usr/bin/env python3
+"""Finite diagnostics; they do not prove unbounded consumers."""
+import argparse,json,math,platform,time
+from fractions import Fraction as Q
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+
+def factor(x):
+ ans={};p=2
+ while p*p<=x:
+  while x%p==0:ans[p]=ans.get(p,0)+1;x//=p
+  p=3 if p==2 else p+2
+ if x>1:ans[x]=ans.get(x,0)+1
+ return ans
+
+def rough(x,m):
+ return math.prod(p**e for p,e in factor(x).items() if p>m or (p==m and e>=2))
+
+def val(x,p):
+ e=0
+ while x and x%p==0:e+=1;x//=p
+ return e
+
+def vpchoose(n,j,p):
+ def vf(x):
+  ans=0
+  while x:x//=p;ans+=x
+  return ans
+ return vf(n)-vf(j)-vf(n-j)
+
+def bound(n,m):
+ T=math.prod((n-r)//rough(n-r,m) for r in range(4))
+ return T**6*(3*n*n-12*n+8)<2**20*(n-1)**6*(n-3)**3
+
+def run(limit):
+ pairs=normalizations=coeff_divisions=target_checks=positive_tests=rough_proper=0
+ for n in range(10,limit+1):
+  fs=[factor(n-r) for r in range(4)]
+  ps={p:e for f in fs for p,e in f.items() if p>=5}
+  criteria={m:bound(n,m) for m in range(4,10) if n>=2*(m+1)}
+  for j in range(5,n//2+1):
+   pairs+=1;k=n-j;cnj=math.comb(n,j)
+   coeff=[math.comb(j,t)*math.comb(k,4-t) for t in range(5)]
+   e,d,c,b,a=coeff
+   I=12*a*e-3*b*d+c*c
+   J=72*a*c*e+9*b*c*d-27*a*d*d-27*b*b*e-2*c**3
+   X=j*k
+   assert 8*I==X*(X-n+1)*(n-3)*(n-2)
+   assert -16*J==X*X*(X-n+1)*(n-3)**2*(n-2)
+   V=math.prod(p**h for p,h in ps.items() if cnj%p)
+   assert all(z%V==0 for z in coeff);coeff_divisions+=len(coeff)
+   if V>1:rough_proper+=1
+   assert I%V**2==0 and J%V**3==0
+   A=I//V**2;B=-J//V**3;E=B*B-2*A**3
+   assert E>=1
+   numerator=X**3*(X-n+1)**2*(n-3)**3*(n-2)**2*((n-1)*(n-2)-X)
+   assert 256*V**6*E==numerator
+   normalizations+=1;positive_tests+=1
+   for m,ok in criteria.items():
+    if not ok or m>=j:continue
+    good=[p for p,h in ps.items() if (p>m or (p==m and h>=2)) and cnj%p==0]
+    assert good,(n,m,j)
+    assert all(math.comb(n,m)%p==0 for p in good)
+    target_checks+=1
+ # Complete prime-power/endpoint controls, not purported counterexamples.
+ controls=[]
+ def save(name,values,condition):
+  assert condition;controls.append({'name':name,**values})
+ n,j,p=26,6,5
+ save('radical loses a higher-level carry',{'n':n,'j':j,'p':p,'q':25,'r':1,'base_remainders':[n%p,j%p],'full_remainders':[n%25,j%25]},j%p<=n%p and j%25>n%25 and vpchoose(n,j,p)>0)
+ for n,j,p,m in [(46,23,5,5),(22,11,7,7)]:
+  u=vpchoose(n,4,p);v=vpchoose(n,j,p);w=vpchoose(n,m,p)
+  save('single source power does not transfer to prime endpoint',{'n':n,'j':j,'p':p,'m':m,'valuations':[u,v,w]},u==1 and v>0 and w==0)
+ for n,j,p,m in [(52,10,5,5),(27,6,5,5),(100,8,7,7)]:
+  u=vpchoose(n,4,p);v=vpchoose(n,j,p);w=vpchoose(n,m,p)
+  save('source exponent, not gcd exponent, controls endpoint',{'n':n,'j':j,'p':p,'m':m,'valuations':[u,v,w]},u>=2 and v==1 and w>=1)
+ n,j=244,122;G=math.gcd(math.comb(n,3),math.comb(n,j));p=241
+ save('source3-only witness cannot substitute for source4',{'n':n,'j':j,'source3_gcd':G,'source3_odd_prime_support':sorted(q for q in factor(G) if q>2),'source4_witness':p},sorted(q for q in factor(G) if q>2)==[3] and vpchoose(n,4,p)>0 and vpchoose(n,j,p)>0)
+ n,j=12,5;k=n-j;V=math.prod(rough(n-r,4) for r in range(4));I=Q(j*k*(j-1)*(k-1)*(n-3)*(n-2),8)
+ save('normalization is not unconditional',{'n':n,'j':j,'V':V,'I_over_V2':str(I/V**2)},(I/V**2).denominator>1)
+ # Exact finite diagnostics of the smooth-part estimates; infinite proof is prose.
+ smooth_configs=0
+ for a in range(65):
+  for b in range(65):
+   for h in range(4):
+    u=(1<<a)*3**b;n=u+h;t=max(a,b)
+    if n<10:continue
+    small=[]
+    for r in range(4):
+     x=n-r;y=x
+     for p in (2,3):
+      while y%p==0:y//=p
+     small.append(x//y)
+    T4=math.prod(small)
+    T5=T4*math.prod(5 if (n-r)%5==0 and (n-r)%25!=0 else 1 for r in range(4))
+    assert T4<=24*(t+1)*n
+    assert T5<=120*(t+1)*n and T5<=5*T4
+    if min(a,b)>=2:assert T4<=6*u
+    if n<10000:assert T4==math.prod((n-r)//rough(n-r,4) for r in range(4))
+    smooth_configs+=1
+ # All n in the four residue classes in this finite box really satisfy the new rule.
+ coloc=0
+ for n in range(10,20001):
+  if n%36 not in (0,1,2,3):continue
+  T=1
+  for r in range(4):
+   x=n-r
+   for p in (2,3):
+    while x%p==0:T*=p;x//=p
+  assert T<=6*n and T**6*(3*n*n-12*n+8)<2**20*(n-1)**6*(n-3)**3
+  coloc+=1
+ # Exact example beyond the inherited v<4096 i9 finite region; one j, not whole-row proof.
+ v=4118;n=1<<v;j=(n-1)//3;p=11
+ assert n%3==1 and n%11==3 and j%11==8
+ giant={'v':v,'n_expression':'2^4118','j_expression':'(n-1)/3','prime':11,'n_mod_11':n%11,'j_mod_11':j%11,'target_valuations':{str(m):vpchoose(n,m,p) for m in range(4,10)},'j_valuation':vpchoose(n,j,p),'source3_valuation':vpchoose(n,3,p)}
+ assert min(giant['target_valuations'].values())>0 and giant['j_valuation']>0 and giant['source3_valuation']==0
+ # Exact failure of the new sufficient row test is not a counterexample.
+ boundary=[]
+ for n in (1218,2433,3648,14337,14338,14339,28674,28675,43011):
+  assert not bound(n,4)
+  for h in range(4):
+   u=n-h
+   for p in (2,3):
+    while u%p==0:u//=p
+   assert u>1
+  j=n//2
+  for m in (4,5):
+   src=math.comb(n,m);gcd=math.gcd(src,math.comb(n,j))
+   p=next(p for p in factor(gcd) if p>=m)
+   assert vpchoose(n,m,p)>0 and vpchoose(n,j,p)>0
+   boundary.append({'n':n,'j':j,'i':m,'p':p,'source_valuation':vpchoose(n,m,p),'j_valuation':vpchoose(n,j,p)})
+ # Explicit residue-transfer family uses a source4 prime and has no source5/7.
+ transfer=[]
+ for t in range(1,11):
+  v=12*t+2;n=1<<v
+  assert n%5==4 and n%7==4
+  assert all((n-r)%p for r in range(4) for p in (5,7))
+  transfer.append({'t':t,'v':v,'n_mod5':4,'n_mod7':4})
+ return {'status':'PASS_FINITE_REGRESSIONS','n_max':limit,'legal_n_j_pairs':pairs,'full_avoiding_part_normalizations':normalizations,'nontrivial_avoiding_parts':rough_proper,'coefficient_divisibility_checks':coeff_divisions,'positive_integer_gaps':positive_tests,'threshold_target_checks':target_checks,'smooth_bound_configurations':smooth_configs,'colocated_residue_rows_up_to_20000':coloc,'negative_and_endpoint_controls':controls,'large_example':giant,'row_test_failure_real_common_witnesses':boundary,'higher_index_residue_examples':transfer,'scope':'finite regressions and one large witness only; not infinite proofs or external review'}
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--limit',type=int,default=320);ap.add_argument('--out',type=Path,default=ROOT/'evidence/regressions.json');args=ap.parse_args()
+ st=time.monotonic();res=run(args.limit);res['seconds']=time.monotonic()-st;res['python']=platform.python_version()
+ args.out.parent.mkdir(parents=True,exist_ok=True);args.out.write_text(json.dumps(res,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:v for k,v in res.items() if k not in ['negative_and_endpoint_controls','large_example']},ensure_ascii=False,indent=2))
+if __name__=='__main__':main()

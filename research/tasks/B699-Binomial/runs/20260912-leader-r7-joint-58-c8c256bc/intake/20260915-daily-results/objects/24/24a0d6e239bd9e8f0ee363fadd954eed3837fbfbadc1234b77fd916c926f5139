@@ -1,0 +1,119 @@
+"""Exact checks accompanying the all-n coverage-obstruction proof.
+No binomial j-box is enumerated. Sample unions are interval arithmetic only.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+from math import isqrt,gcd,comb
+import argparse,json
+
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+
+def root(x,k):
+    if x<0 or k<1:raise ValueError('Invalid integer root')
+    lo,hi=0,1<<((x.bit_length()+k-1)//k)
+    while lo<hi:
+        m=(lo+hi+1)//2
+        if m**k<=x:lo=m
+        else:hi=m-1
+    assert lo**k<=x<(lo+1)**k
+    return lo
+
+def ceildiv(a,b):return -((-a)//b)
+def unions(iv):
+    out=[]
+    for a,b in sorted(iv):
+        if a>b:continue
+        if out and a<=out[-1][1]+1:out[-1][1]=max(out[-1][1],b)
+        else:out.append([a,b])
+    return out
+
+def count_bands(n):
+    B=root(n//512,6);H=root(n*n//8,3);iv=[];tube_count=0
+    for b in range(3,B+1):
+        for a in range(1,(b-1)//2+1):
+            x=max(4,ceildiv(a*(n-1)-H,b));y=min(n//2,(a*(n-1)+H)//b)
+            iv.append((x,y));tube_count+=1
+    # Stronger frozen edge/centre necessary inequalities, not their coarse corollaries.
+    lo,hi=3,n//2
+    while lo<hi:
+        j=(lo+hi+1)//2
+        if 9*j*j*(j-1)**2<=4*(n-2)*(n-1)**2:lo=j
+        else:hi=j-1
+    edge_end=lo;iv.append((4,edge_end))
+    lo,hi=4,n//2
+    while lo<hi:
+        j=(lo+hi)//2;d=n-2*j
+        if 9*(d*d-1)**2<=2*(n-2)*(n-1)**2:hi=j
+        else:lo=j+1
+    centre_start=lo;iv.append((centre_start,n//2))
+    merged=unions(iv);covered=sum(b-a+1 for a,b in merged);legal=n//2-3
+    assert 16*covered<n and 3*(legal-covered)>n
+    return {'n':n,'b_max':B,'rational_tubes':tube_count,'union_intervals':len(merged),
+            'covered_j_count':covered,'uncovered_j_count':legal-covered,
+            'edge_end':edge_end,'centre_start':centre_start}
+
+def explicit_family(k):
+    n=1<<(12*k);j=isqrt(2*(n//4)**2);L=n-1;d=n-2*j;B=root(n//512,6)
+    assert 4<=j<=n//2 and n%4==0
+    assert j>=n//3 and 4*d>n
+    assert 4*(n-2)*L*L<9*j*j*(j-1)**2
+    assert 2*(n-2)*L*L<9*(d*d-1)**2
+    checked=0;smallest=None
+    for b in range(3,B+1):
+        am=(b-1)//2
+        if am==0:continue
+        q=b*j//L
+        for a in {max(1,min(am,q)),max(1,min(am,q+1))}:
+            h=abs(b*j-a*L);assert 8*h**3>n*n;checked+=1
+            margin=8*h**3-n*n
+            if smallest is None or margin<smallest:smallest=margin
+    ratio=n//gcd(n,j);assert ratio&(ratio-1)==0
+    return {'k':k,'n':n,'j':j,'b_max':B,'nearest_numerators_checked':checked,
+            'tube_cubic_margin_min':str(smallest),'n_over_gcd_n_j':ratio,
+            'claim':'outside stated bands and has dyadic n/gcd; NOT a noCommon witness'}
+
+def factor(n):
+    out={};p=2
+    while p*p<=n:
+        while n%p==0:out[p]=out.get(p,0)+1;n//=p
+        p+=1 if p==2 else 2
+    if n>1:out[n]=out.get(n,0)+1
+    return out
+
+def vf(n,p):
+    ans=0
+    while n:n//=p;ans+=n
+    return ans
+
+def arithmetic_countermodel():
+    n,j=335548,115092;L=n-1;N=n-2
+    assert n%4==0 and j*(j-1)%L==0
+    q=j*(j-1)//L;assert q*(j-2)%N==0
+    C=comb(n,3);fc=factor(C);gg={}
+    for p,e in fc.items():
+        ep=vf(n,p)-vf(j,p)-vf(n-j,p)
+        if min(e,ep):gg[p]=min(e,ep)
+    g=1
+    for p,e in gg.items():g*=p**e
+    assert gg.get(3)==1 and any(p>=3 for p in gg)
+    return {'n':n,'i':3,'j':j,'q':q,'choose_n_3':C,'choose_n_3_factorization':fc,
+            'gcd_factorization':gg,'gcd_value':g,'n_over_gcd_n_j':n//gcd(n,j),
+            'diagnosis':'4|n plus two unscaled quotient divisibilities are arithmetically feasible; this is NOT a B699 counterexample, since p=3 and other common primes occur'}
+
+def verify():
+    ratio=F(1,32)+F(1,131072)+F(3,128)+F(1,4194304)
+    assert ratio<F(1,16)
+    assert F(7,16)*(1<<24)-4>F(1,3)*(1<<24)
+    # For t=n^(1/6)>=16: t^3(t-7)>14 guarantees the explicit quadratic-irrational gap.
+    assert 16**3*(16-7)>14
+    return {'status':'EXACT_COVERAGE_OBSTRUCTION_CHECKS',
+            'all_n_threshold':'2^24','covered_fraction_upper':'1/16','uncovered_fraction_lower':'1/3',
+            'ratio_bound_at_threshold':str(ratio),'ratio_margin':str(F(1,16)-ratio),
+            'sample_unions':[count_bands(1<<r) for r in (24,30,36)],
+            'explicit_uncovered_family':[explicit_family(k) for k in range(2,7)],
+            'weak_quotient_countermodel':arithmetic_countermodel()}
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);a=p.parse_args();r=verify()
+    a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(r,indent=2)+'\n')
+    print(json.dumps({'status':r['status'],'union_samples':len(r['sample_unions']),'explicit_family_samples':len(r['explicit_uncovered_family']),'weak_model_gcd':r['weak_quotient_countermodel']['gcd_factorization']}))

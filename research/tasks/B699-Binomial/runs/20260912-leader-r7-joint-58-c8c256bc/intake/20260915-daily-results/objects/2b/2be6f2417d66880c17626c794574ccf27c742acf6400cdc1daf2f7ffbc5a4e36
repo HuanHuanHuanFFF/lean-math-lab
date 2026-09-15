@@ -1,0 +1,29 @@
+"""i12: exact cut obligations, complete graph cases and constant-factor cube bridge."""
+from pathlib import Path
+import json,math
+from itertools import combinations
+from build_height_certificates import cover,check_cover,objective,K_of
+from probe_weighted_asymmetric import solve,nondominated
+from exact_cuts import obligations
+from check_new_cuts_grid import check
+R=Path(__file__).resolve().parents[1]
+def main():
+ inp=json.loads((R/'input/i12_cut_inputs.json').read_text());assert inp['denominator']==10000;Q=10000;H0=inp['height_Y_bits'];H=H0+1;rows=inp['cuts']
+ outs=[dict(input=r,certificate=obligations(r,H0,inp['D'])) for r in rows];assert all(r['certificate']['passed'] for r in outs)
+ (R/'outputs/i12_cut_certificates.json').write_text(json.dumps(dict(status='PASS_EXACT_I12_CUTS',H=H0,rows=outs),indent=2)+'\n')
+ (R/'outputs/i12_grid_check.json').write_text(json.dumps(dict(status='PASS_I12_INDEPENDENT_GRID',H=H0,rows=[check(r,H0,inp['D']) for r in rows]),indent=2)+'\n')
+ i=12;ps=[2,3,5,7,11];t=5;pos_s=8;ws=[2*pos_s-a for a in range(i)];es=nondominated(rows);dest=R/'outputs/graph_covers';dest.mkdir(exist_ok=True)
+ ans=solve(ps,es,lambda z:objective('weighted',ws[:t],z));tau=ans['min'];c=cover(ps,es,'weighted',ws[:t],tau);check_cover(c);nodes=len(c['nodes']);(dest/'i12_weighted.json').write_text(json.dumps(c,separators=(',',':'))+'\n');cases=[]
+ for a,b in combinations(range(t),2):
+  res=solve(ps,es,lambda z:objective('collision',[a,b],z));c=cover(ps,es,'collision',[a,b],res['min']);check_cover(c);fn=f'i12_collision_{ps[a]}_{ps[b]}.json';(dest/fn).write_text(json.dumps(c,separators=(',',':'))+'\n');cases.append(dict(pair=[ps[a],ps[b]],minimum=res['min'],witness=res['witness'],file=fn,nodes=len(c['nodes'])));nodes+=len(c['nodes'])
+ chi=min(c['minimum'] for c in cases);S=sum(ws);T=sum(ws[:t]);EP=pos_s*(pos_s+1);gamma=Q*(S-EP-T)+tau;fb=math.factorial(i).bit_length();drhs=2*pos_s*Q*fb+Q*S+tau;assert gamma>0 and H*gamma>drhs
+ r,s=3,8;lam,E,K=K_of(i,r,s);delta=Q*(lam*(i-t)-E)+lam*chi;crhs=lam*Q*fb+lam*(Q+chi);assert delta>0 and H*delta>crhs
+ # T_p=((1025/1024)*n^2)^(1/3), rather than a weakened fixed exponent.
+ J=3*lam*i-lam*(2*t+1)-3*E;assert J>0;h=14
+ while K**3*1024**(lam*(t-1))*(1<<(h*J))<=(2*math.factorial(i))**(3*lam)*1025**(lam*(t-1)):h+=1
+ assert (1<<h)>=1025*(i-1) and (1<<h)>=i*(i-1)
+ p=dict(i=i,primes=ps,height_bits=H,cut_height_bits=H0,denominator=Q,cut_count=len(es),cut_inputs=[x[4] for x in es],position_s=pos_s,weighted_min=tau,weighted_witness=ans['witness'],position_sum=S,top_weight_sum=T,distinct_gamma=gamma,distinct_rhs_log2_upper=drhs,collision_min=chi,collision_cases=cases,collision_delta=delta,collision_rhs_log2_upper=crhs,r=r,s=s,lambda_=lam,E=E,K=str(K),cube_bits=h,cube_J=J,cube_type='constant_factor',cube_factor=[1025,1024],graph_nodes=nodes)
+ (R/'input/i12_target.json').write_text(json.dumps(p,indent=2)+'\n');(R/'outputs/i12_height_certificate.json').write_text(json.dumps(dict(status='PASS_EXACT_I12_HEIGHT',profile=p),indent=2)+'\n');print('I12 HEIGHT',H,'weighted',tau,'gamma',gamma,'chi',chi,'delta',delta,'cube',h,'nodes',nodes,flush=True)
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

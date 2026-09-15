@@ -1,0 +1,24 @@
+"""Exact bounded local diagnostic. PASS means the experiment was reproduced,
+not that a fixed defect is closed, and not that its local models are Pi/NC3.
+"""
+import sys,json
+from math import isqrt
+from pathlib import Path
+
+def run():
+    B=29;period=360;survivors=set(range(period));steps=[]
+    for p in range(3,1001,2):
+        if any(p%d==0 for d in range(2,isqrt(p)+1)) or pow(2,period,p)!=1:continue
+        sq={y*y%p for y in range(p)};ns=set()
+        for h in range(p):
+            y2=(6728*h**3+9628*h*h+4445*h+676)%p
+            if y2 in sq:ns.add((464*h**3+680*h*h+324*h+52)%p)
+        removed=sorted(r for r in survivors if pow(2,r,p) not in ns)
+        survivors-=set(removed)
+        steps.append({'modulus':p,'removed_exponent_classes':removed,'classes_remaining':len(survivors)})
+    # Exact canonical lambda=mu=1 filter at 3; n=2^s.
+    survivors={r for r in survivors if pow(2,r,9) in [0,1,2,3,6]}
+    assert survivors=={6}
+    return {'status':'REPRODUCED_NONEMPTY_LOCAL_RESIDUAL','defect':29,'z':1,'lambda':1,'mu':1,'g':1,'c':1,'period':360,'prime_modulus_ceiling':1000,'steps':steps,'remaining_exponent_classes':sorted(survivors),'missing':'other defects, divisors z, normalization branches, actual integral H/Y, full alpha/Pi/noCommon are NOT exhausted'}
+if __name__=='__main__':
+    r=run();Path(sys.argv[1]).write_text(json.dumps(r,sort_keys=True,indent=2)+'\n');print(json.dumps({k:r[k] for k in ['status','defect','period','remaining_exponent_classes']}))

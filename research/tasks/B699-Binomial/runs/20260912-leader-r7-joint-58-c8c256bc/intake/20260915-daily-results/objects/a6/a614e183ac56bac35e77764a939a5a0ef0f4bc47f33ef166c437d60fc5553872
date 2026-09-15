@@ -1,0 +1,39 @@
+import sympy as S
+from math import comb,factorial
+import json,time
+from pathlib import Path
+j,k,n,X=S.symbols('j k n X')
+def fall(x,r): return S.prod(x-a for a in range(r))
+def trans_binary(A,B,r):
+ d=len(A)-1;e=len(B)-1
+ out=[S.S(0)]*(d+e-2*r+1)
+ for a in range(d+1):
+  for b in range(e+1):
+   s=a+b-r
+   if not 0<=s<len(out):continue
+   C=0
+   for i in range(r+1):
+    if a>=r-i and d-a>=i and b>=i and e-b>=r-i:
+     C+=(-1)**i*comb(r,i)*factorial(a)//factorial(a-r+i)*factorial(d-a)//factorial(d-a-i)*factorial(b)//factorial(b-i)*factorial(e-b)//factorial(e-b-r+i)
+   if C: out[s]+=C*A[a]*B[b]
+ return [S.expand(x) for x in out]
+start=time.time(); r=6;F=[fall(j,a)*fall(k,9-a)/(factorial(a)*factorial(9-a)) for a in range(10)]
+base=fall(j,3)*fall(k,3)
+q=[0]*7
+for i in range(7):
+ for a in range(4):
+  for b in range(4):
+   e=fall(j,6-i+a)*fall(k,3+i-a)*fall(j,i+b)*fall(k,9-i-b)
+   q[a+b]+=(-1)**i*comb(6,i)*S.cancel(e/base)/(factorial(a)*factorial(3-a)*factorial(b)*factorial(3-b))
+q=[S.factor(x) for x in q]
+print('q/base',list(map(str,q)),flush=True)
+Iq=S.factor(trans_binary(q,q,6)[0]);print('Iq/base2',str(Iq),flush=True)
+Cl=1680*fall(j,4)*fall(k,4)*fall(n-5,4)
+I_l=8*Cl**2*((j-4)**2*(k-4)**2-j*(j-4)*k*(k-4))
+IqFull=S.factor(base**2*Iq)
+common=S.gcd(IqFull,S.factor(I_l.subs(n,j+k)))
+print('COMMON',str(S.factor(common)),flush=True)
+print('IQ REST',str(S.factor(IqFull/common)),flush=True)
+print('IL REST',str(S.factor(I_l.subs(n,j+k)/common)),flush=True)
+root=Path(__file__).resolve().parents[1]
+(root/'discovery/nonic_invariants.json').write_text(json.dumps({'q_base':str(base),'q_rest':list(map(str,q)),'Iq_rest':str(Iq),'common':str(common),'Iq_after':str(S.factor(IqFull/common)),'Il_after':str(S.factor(I_l.subs(n,j+k)/common)),'seconds':time.time()-start},indent=2))

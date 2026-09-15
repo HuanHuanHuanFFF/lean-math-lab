@@ -1,0 +1,37 @@
+"""Exact hypothetical-edge test. No additional Diophantine inequality is proved."""
+import json,math
+from pathlib import Path
+from itertools import combinations
+from build_height_certificates import K_of,objective
+from probe_weighted_asymmetric import solve,nondominated
+R=Path(__file__).resolve().parents[1]
+def test(i,p,q,w,rows):
+ ps=[p for p in range(2,i) if all(p%d for d in range(2,math.isqrt(p)+1))];t=len(ps)
+ base=[r for r in rows if max(r['p'],r['q'])<i];base.append(dict(p=p,q=q,wp=w,wq=w,condition_only=True));es=nondominated(base)
+ candidates=[]
+ for s in range((i+1)//2,i):
+  ws=[2*s-a for a in range(i)];z=solve(ps,es,lambda x:objective('weighted',ws[:t],x));net=10000*(sum(ws)-s*(s+1)-sum(ws[:t]))+z['min'];candidates.append(dict(s=s,net=net,minimum=z['min'],witness=z['witness']))
+ best=max(candidates,key=lambda r:r['net']);cols=[]
+ for a,b in combinations(range(t),2):
+  z=solve(ps,es,lambda x:objective('collision',[a,b],x));cols.append(dict(pair=[ps[a],ps[b]],minimum=z['min'],witness=z['witness']))
+ chi=min(z['minimum'] for z in cols);par=[]
+ for r in range(i):
+  for s in range(1,i):
+   l,E,K=K_of(i,r,s)
+   if l>0:par.append((10000*(l*(i-t)-E)+l*chi,r,s))
+ delta,r,s=max(par)
+ return dict(passed=best['net']>0 and delta>0,weighted=best,collision_min=chi,collision_delta=delta,r=r,s=s)
+def main():
+ rows=json.loads((R/'input/new_cut_inputs.json').read_text())['cuts']+json.loads((R/'input/i12_cut_inputs.json').read_text())['cuts'];out=[]
+ for i,p,q in [(10,3,7),(14,11,13),(14,7,13),(14,3,13)]:
+  lo=1;hi=9999;upper=test(i,p,q,hi,rows)
+  if not upper['passed']:out.append(dict(i=i,pair=[p,q],status='NO_WEIGHT_BELOW_ONE_IN_THIS_TEST'));continue
+  while lo<hi:
+   mid=(lo+hi)//2
+   if test(i,p,q,mid,rows)['passed']:hi=mid
+   else:lo=mid+1
+  good=test(i,p,q,lo,rows);bad=test(i,p,q,lo-1,rows);assert good['passed'] and not bad['passed'];r=dict(i=i,pair=[p,q],denominator=10000,first_grid_weight=lo,pass_case=good,preceding_failure=bad);out.append(r);print(i,[p,q],lo,good,flush=True)
+ (R/'outputs/next_conditional_interfaces.json').write_text(json.dumps(dict(status='CONDITIONAL_GRAPH_INTERFACES_ONLY_UNPROVED_CUTS',rows=out),indent=2)+'\n')
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

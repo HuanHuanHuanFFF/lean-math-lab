@@ -1,8 +1,18 @@
 # 已接收成果索引
 
-本入口统一登记本次 VPS 接管收到的十份原交付：四份启动材料、随后返回的 A/B/新D 三份成果，以及本轮A-nonic、B与误收B任务的新D三份成果。它负责找文件与追来源；唯一可变研究前沿仍为 [CURRENT_STATUS](CURRENT_STATUS.md)，接受责任见 [acceptance](acceptance.md)。旧 D、新 D 保持独立署名。
+本入口登记已归档的作者交付，负责找文件与追来源；唯一可变研究前沿仍为 [CURRENT_STATUS](CURRENT_STATUS.md)，接受责任见 [acceptance](acceptance.md)。旧 D、新 D 保持独立署名。
 
-## 最新A-nonic
+## 2026-09-15：A／B／D 各六份成果
+
+用户本次直接提供十八份 ZIP，已递归提取并保持原字节，原包留在外部 `E:\Download`，仓库中不保存本批 ZIP。普通文件、嵌套历史和精确复用位置均见本批来源清单；嵌套历史不计为十八项新研究贡献。
+
+- [十八份报告、完整性和恢复总入口](intake/20260915-daily-results/README.md)
+- [A 路六轮整理](intake/20260915-daily-results/notes/A.md) · [B 路六轮整理](intake/20260915-daily-results/notes/B.md) · [D 路六轮整理](intake/20260915-daily-results/notes/D.md)
+- [本次原包及逐成员清单](intake/20260915-daily-results/SOURCES.json) · [行政字节检查](intake/20260915-daily-results/BYTE_RECEIPT.json)
+
+以下保留 2026-09-14 VPS 接管时的十份原交付及其历史接收说明。[DELIVERIES.json](DELIVERIES.json) 是该十份的来源快照，今天十八份使用上方独立 SOURCES；两份来源清单共同定位材料，不互相覆盖。
+
+## 历史：2026-09-14 A-nonic
 
 Pro A新增一般与COL3中心带、可变分母带，可覆盖无界参数；58族、外层绝对界与完整双高幂族仍未闭合。各带的初等/冻结依赖分列，未独立接受。
 

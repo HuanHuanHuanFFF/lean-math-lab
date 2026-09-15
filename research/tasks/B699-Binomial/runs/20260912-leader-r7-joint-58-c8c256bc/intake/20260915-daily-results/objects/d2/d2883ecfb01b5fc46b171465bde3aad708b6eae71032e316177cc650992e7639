@@ -1,0 +1,26 @@
+# 接续断点：SUPPORT31
+
+先读REPORT.md、notes/PROOFS.md、SOURCE_ADOPTION.md、FAILURE_BOUNDARIES.md和SESSION_STATE.json。
+
+本轮已实际接受两个新模块：
+
+1. **HEIGHT-S**：给有限素数集S含{2,3,5,7}，NC9且support(gcd(n,j))⊆S，推出n<2^H(S)。H显式，所有幂指数一起有效界定；S本身仍无界。
+2. **SUPPORT31**：全部合法n,j，gcd(n,j)为31-光滑即可Common9。两个双高幂α族和全部56单高幂α族的整个31-光滑g子族闭合，不限制a,b或g中11个指数。潜在反例的g必须含≥37素因子。
+
+R7及58族计数不变，i14旧成果不变。新消费者不依赖旧中心带、旧位置cuts、i14局部接口或B/D的NC3条件。正向源：新初等SC、BEG2013v1 Proposition3.10、冻结A9-FINITE（最后一项只用于SUPPORT31）。
+
+## 实际接收
+
+`python3 code/reproduce.py --log-dir <新目录>`，标准库，约18秒，包含主证书、完整从发现记录重组、28损坏拒绝、2等价格基正向测试、有限回归。原目录日志在logs/final。发现程序不在接收路径上；不要将旧证书未重跑说成新失败。
+
+指数盒是每个素数指数≤2^236，**不是n≤2^236**。主证书全部18格/960盒，所有剩余候选n≤8。不要把这个非法小点作为反例。
+
+## 源码与原件
+
+原v3保持字节不变存于inputs/task-v3-original.zip。新compact证书evidence/support31_certificate.json由discovery/probe31_results.json及all_pairs_results.json构建。全部原发现脚本也保留，含旧探针/失败日志；它们不是新增正向前提。
+
+BEG网页原稿已核对；本地PDF字节缺失，见sources/PUBLICATION_READ_RECORD.md。没有Lean、没有Git写入。
+
+## 下一障碍，不限定下一轮方法
+
+未决量不是固定支持内部的指数，而是support(g)本身：其最大素因子与种类可能继续增大。HEIGHT-S给每个固定支持终止界，不能据此把所有支持的并集误写成有限。单纯逐次提高31不是外层问题的解决；可自行判断如何将粗素数的身份、同一n,j的上层进位、完整幂分配与该新接口联立。

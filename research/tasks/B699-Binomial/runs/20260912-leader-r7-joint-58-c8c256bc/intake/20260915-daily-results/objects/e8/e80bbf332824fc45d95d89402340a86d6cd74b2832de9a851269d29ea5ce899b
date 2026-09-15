@@ -1,0 +1,39 @@
+"""Semantic/coverage mutations of the NEW certificate; no historical tests relabelled."""
+import copy
+from verify import validate, CheckFailure
+
+
+def run(c):
+    cases=[]
+    def case(name, mutate, category='arithmetic'):
+        d=copy.deepcopy(c)
+        mutate(d)
+        try:
+            validate(d)
+        except (CheckFailure,ValueError,KeyError) as e:
+            cases.append({'name':name,'category':category,'status':'REJECTED','reason':str(e)})
+        else:
+            raise AssertionError('corrupted certificate accepted: '+name)
+    case('omit_shift_7_7',lambda d:d['rows'][7]['b_values'].pop(),'coverage')
+    case('omit_entire_row8',lambda d:d['rows'].pop(),'coverage')
+    case('row7_cubic_constant_418',lambda d:d['rows'][7].update(coefficient=418))
+    case('row3_cubic_constant_10',lambda d:d['rows'][3].update(coefficient=10))
+    case('row2_use_false_cubic',lambda d:d['rows'][2].update(degree=3,offset=2))
+    case('row2_quintic_constant_92',lambda d:d['rows'][2].update(coefficient=92))
+    case('lose_full_7_factor_row8',lambda d:d['local']['fixed_small_parts'].update({'8':8}))
+    case('alter_actual_max7_congruence',lambda d:d['local'].update(residue=174400))
+    case('drop_complete_central_prime13',lambda d:d['central'][4].update(rough_product=11))
+    case('omit_central_distance4',lambda d:d['central'].pop(),'coverage')
+    case('invalid_source_i7_from_row7',lambda d:d['source_consumer']['minimum_i'].update({'7':7}))
+    case('use_prime7_for_i9',lambda d:d['source_consumer'].update(prime_minimum=7))
+    case('layer_threshold_too_small',lambda d:d['carry'].update(threshold=16))
+    case('unsupported_stronger_final_exponent190',lambda d:d['carry'].update(final_power_two_exponent=190))
+    case('radical_prefix_as_full_prefix',lambda d:d['prime_power_examples'][0].update(full_prefix_passes=True))
+    case('ignore_upper_carry_above_full_q',lambda d:d['prime_power_examples'][1].update(target_valuation=0))
+    case('infinite_family_wrong_period83',lambda d:d['infinite_row_example'].update(E_period=83))
+    case('infinite_family_composite_P',lambda d:d['infinite_row_example'].update(P=1000005))
+    case('resultant_zero_invented',lambda d:d['failure_family']['resultants'][0].update(value=0))
+    case('failure_family_mislabelled_no_common',lambda d:d['failure_family'].update(j_residue=7))
+    case('ineffective_constant_mislabelled_effective',lambda d:d['qualitative_appendix'].update(constant_effective=True),'scope')
+    return {'status':'PASS_ALL_NEW_MUTATIONS_REJECTED','count':len(cases),'tests':cases,
+            'interpretation':'rejection by this specified receiver, not proof that every mutated mathematical statement is false'}
