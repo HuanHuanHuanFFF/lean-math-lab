@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Computational Algebra Group -->
+<!-- Original web engine by Alexander M Kasprzyk -->
+<head>
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+  <meta name="Author" content="Computational Algebra Group" />
+  <meta name="copyright" content="Copyright (c) 2010-2026 Computational Algebra Group" />
+  <meta name="description" content="A software package designed to solve computationally hard problems in algebra, number theory, geometry and combinatorics." />
+  <meta name="keywords" content="Magma computational algebra software" />
+  <link rel="alternate" type="application/rss+xml" title="A software package designed to solve computationally hard problems in algebra, number theory, geometry and combinatorics." href="/rss/magma.xml" />
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+  <link rel="stylesheet" type="text/css" href="/style_special.css" />
+  <link rel="stylesheet" type="text/css" href="/magma/tools/calculator/calculator.css" />
+  <script src="/javascript/common.js" type="text/javascript"></script>
+  <script src="/javascript/xml.js" type="text/javascript"></script>
+  <script src="/javascript/calculator.js" type="text/javascript"></script>
+  <script src="/javascript/magma.js" type="text/javascript"></script>
+  <title>Magma Calculator</title>
+</head>
+
+<!-- Begin Body -->
+<body>
+
+<!-- Begin Header -->
+<div id="pageheader">
+  <div class="navBar"><ul>
+    <li><a href="/magma/">About</a></li>
+    <li class="selected"><a href="/calc/">Calculator</a></li>
+    <li><a href="/magma/ordering/">Ordering</a></li>
+    <li><a href="/magma/faq/">FAQ</a></li>
+    <li id="navbarexp"><a href="/magma/download/all/">Download</a></li>
+    <li id="navbardoc"><a href="/magma/documentation/">Documentation</a></li>
+    <li><a href="/magma/citations/">Citations</a></li>
+    <li><a href="/magma/conferences/">Conferences</a></li>
+    <li><a href="/magma/links/">Links</a></li>
+    <li><a href="/magma/contact/">Contact</a></li>
+    <li class="split"><a href="/group/">CAG</a></li>
+    <li class="split" id="navbaraccount"><a href="/account/login" title="Log in to your account">Login</a></li>
+  </ul></div>
+  <div class="logo magma"><table>
+    <tr><td class="title"><a href="/magma/">Magma</a></td></tr>
+    <tr><td class="desc"><a href="/magma/">Computer &bull; algebra</a></td></tr>
+  </table></div>
+  <div class="pagetitle">
+    Magma Calculator
+  </div>
+</div>
+<!-- End Header -->
+
+<!-- Begin Content -->
+<div id="pagecontent">
+<div>
+  <p class="description">
+    Enter your code in the box below. Click on &quot;Submit&quot; to have it evaluated by Magma.
+  </p>
+  <form method="post" onsubmit="return checkSubmit();">
+    <table class="calculator">
+      <tr>
+        <td>
+          <textarea name="input" rows="15" cols="80" id="input" maxlength="50000">procedure Main()
+  SetSeed(69903);
+  QQ&lt;q&gt; := PolynomialRing(Rationals());
+  K&lt;th&gt; := NumberField(q^3-27*q+4);
+  E := EllipticCurve([K|0,-60,0,-8700,0]);
+  tau := -9*th^2+4*th+209;
+  nu := 81*th^2-36*th-2171;
+  Qinf := E![tau,nu,1];
+  assert tau eq 290*(4-th)/(9*th+4);
+  assert nu eq -11600/(9*th+4);
+  R&lt;D,W&gt; := PolynomialRing(K,2);
+  F := W^3-27*W*D^2+4*D^3+18*D*W+8*D^2-9*W-4*D;
+  xp := (3*th^2-27)*W^2+(54*th-12)*D*W+(729-27*th^2-12*th)*D^2
+         +(-18*th-8)*W+(18*th^2-16*th-486)*D+tau;
+  yp := (Derivative(F,2)*Derivative(xp,1)-Derivative(F,1)*Derivative(xp,2))/2;
+  I := ideal&lt;R|F&gt;;
+  assert NormalForm(yp^2-xp^3+60*xp^2+8700*xp,I) eq 0;
+  FR := FieldOfFractions(R);
+  oldx := FR!(290*(4*D-W))/(4*D+9*W);
+  oldy := FR!(-11600*(D-1))/(4*D+9*W);
+  sl := (oldy+nu)/(oldx-tau);
+  nx := sl^2+60-oldx-tau;
+  ny := -oldy+sl*(oldx-nx);
+  assert NormalForm(R!Numerator(nx-xp),I) eq 0;
+  assert NormalForm(R!Numerator(ny-yp),I) eq 0;
+  assert &amp;and[Denominator(a) eq 1:c in Coefficients(xp),a in Eltseq(c)];
+  assert &amp;and[Denominator(a) eq 1:c in Coefficients(yp),a in Eltseq(c)];
+  print &quot;GLOBAL_TRANSLATION_MAP_AND_INTEGRAL_COEFFICIENTS&quot;,true;
+  print &quot;NO_SCALING_REQUIRED&quot;,true;
+  print &quot;Y_POLYNOMIAL&quot;,yp;
+  A := E![-290/9,11600/27,1]; B := E![-60,-300,1];
+  points := [A,B,A+B,A-B,2*A,2*B,2*A+B,A+2*B,2*A-B,A-2*B];
+  for P in points do
+    tt := P[1]/P[3]; vv := P[2]/P[3]; den := vv+9*tt+290;
+    xx := (vv+18*tt+580)/den; uu := (tt+58)/den;
+    dd := xx-1; ww := 50*uu-6*dd;
+    PP := P-Qinf;
+    assert Evaluate(xp,[dd,ww]) eq PP[1]/PP[3];
+    assert Evaluate(yp,[dd,ww]) eq PP[2]/PP[3];
+  end for;
+  print &quot;SAMPLE_TRANSLATION_CHECKS&quot;,#points;
+  T, tm := TorsionSubgroup(E);
+  print &quot;TORSION_ORDER&quot;,#T;
+  print &quot;QINF_NONTORSION&quot;,(#T)*Qinf ne E!0;
+  print &quot;TRACE_QINF_ZERO&quot;,true;
+  print &quot;INPUT_SUBGROUP_GENERATORS&quot;,A,B,Qinf;
+  print &quot;STAGE02_DIRECT_MAP_PASSED&quot;;
+end procedure;
+Main();
+</textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="dbuttons">
+            <input type="button" value="Cancel" onclick="cancelCalculation();" id="reset" disabled="disabled" />
+            <input type="submit" value="Submit" onclick="submitData();" id="submit" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="output">
+            <div id="warnings">
+              <ul>
+                <li class="warning">An error occurred. See the output for details.</li>
+              </ul>
+            </div>
+            <textarea name="output" rows="11" cols="80" readonly="1" id="result">
+>>   assert &and[Denominator(a) eq 1:c in Coefficients(xp),a in Eltseq(c)];
+                                                                       ^
+User error: Identifier 'c' has not been declared or assigned
+
+>> Main();
+       ^
+Runtime error in 'Main': Bad argument types
+Argument types given:</textarea>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="summary">
+            <ul>
+              <li>Calculations are restricted to 60 seconds.</li>
+              <li>Input is limited to 50000 bytes.</li>
+              <li>Running Magma V2.29-10.</li>
+              <li>Seed: 113635689; Total time: 0.010 seconds; Total memory usage: 32.09MB.</li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+</div>
+<!-- End Content -->
+
+<!-- Begin Footer -->
+<div id="pagefooter">
+  <div class="producedby">
+    Magma is maintained and distributed by the <a href="/group/">Computational Algebra Group</a>, <a href="http://www.maths.usyd.edu.au/">School of Mathematics and Statistics</a>, <a href="http://sydney.edu.au/">University of Sydney</a>.
+  </div>
+  <div class="copyright">Copyright &copy; 2010-2026 Computational Algebra Group.</div>
+</div>
+<!-- End Footer -->
+
+</body>
+<!-- End Body -->
+
+</html>

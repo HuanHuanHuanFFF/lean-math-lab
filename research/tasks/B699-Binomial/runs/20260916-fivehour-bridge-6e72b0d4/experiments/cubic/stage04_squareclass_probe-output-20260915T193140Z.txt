@@ -1,0 +1,80 @@
+Magma Calculator
+About
+Calculator
+Ordering
+FAQ
+Download
+Documentation
+Citations
+Conferences
+Links
+Contact
+CAG
+Login
+Magma
+Computer • algebra
+Magma Calculator
+Enter your code in the box below. Click on "Submit" to have it evaluated by Magma.
+procedure Main()
+  QQ<z> := PolynomialRing(Rationals());
+  K<th> := NumberField(z^3-27*z+4);
+  tau := -9*th^2+4*th+209;
+  ds := [1,-2,-15,-87,-290,30,145,174];
+  print "RESULT NORM_TAU",Norm(tau);
+  for d in ds do
+    ok, root := IsSquare(tau/d);
+    f := d^3*z^6-141*d^2*z^4-13920*d*z^2-84100;
+    facts := Factorization(f);
+    print "RESULT SQUARECLASS",d,ok,"FACTOR_DEGREES",[Degree(p[1]):p in facts];
+    if ok then print "RESULT SQUARE_ROOT",d,Eltseq(root);end if;
+    print "FACTOR_POLYNOMIALS",d,facts;
+  end for;
+  print "RESULT SQUARECLASS_PROBE_COMPLETE",true;
+end procedure;
+Main();
+RESULT NORM_TAU 84100
+RESULT SQUARECLASS 1 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS 1 [
+    <z^6 - 141*z^4 - 13920*z^2 - 84100, 1>
+]
+RESULT SQUARECLASS -2 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS -2 [
+    <z^6 + 141/2*z^4 - 3480*z^2 + 21025/2, 1>
+]
+RESULT SQUARECLASS -15 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS -15 [
+    <z^6 + 47/5*z^4 - 928/15*z^2 + 3364/135, 1>
+]
+RESULT SQUARECLASS -87 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS -87 [
+    <z^6 + 47/29*z^4 - 160/87*z^2 + 100/783, 1>
+]
+RESULT SQUARECLASS -290 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS -290 [
+    <z^6 + 141/290*z^4 - 24/145*z^2 + 1/290, 1>
+]
+RESULT SQUARECLASS 30 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS 30 [
+    <z^6 - 47/10*z^4 - 232/15*z^2 - 841/270, 1>
+]
+RESULT SQUARECLASS 145 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS 145 [
+    <z^6 - 141/145*z^4 - 96/145*z^2 - 4/145, 1>
+]
+RESULT SQUARECLASS 174 false FACTOR_DEGREES [ 6 ]
+FACTOR_POLYNOMIALS 174 [
+    <z^6 - 47/58*z^4 - 40/87*z^2 - 25/1566, 1>
+]
+RESULT SQUARECLASS_PROBE_COMPLETE true
+Calculations are restricted to 60 seconds.
+Input is limited to 50000 bytes.
+Running Magma V2.29-10.
+Seed: 3338941647; Total time: 0.020 seconds; Total memory usage: 32.09MB.
+Magma is maintained and distributed by the
+Computational Algebra Group
+,
+School of Mathematics and Statistics
+,
+University of Sydney
+.
+Copyright © 2010-2026 Computational Algebra Group.

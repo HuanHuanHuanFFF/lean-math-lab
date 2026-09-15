@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Computational Algebra Group -->
+<!-- Original web engine by Alexander M Kasprzyk -->
+<head>
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+  <meta name="Author" content="Computational Algebra Group" />
+  <meta name="copyright" content="Copyright (c) 2010-2026 Computational Algebra Group" />
+  <meta name="description" content="A software package designed to solve computationally hard problems in algebra, number theory, geometry and combinatorics." />
+  <meta name="keywords" content="Magma computational algebra software" />
+  <link rel="alternate" type="application/rss+xml" title="A software package designed to solve computationally hard problems in algebra, number theory, geometry and combinatorics." href="/rss/magma.xml" />
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+  <link rel="stylesheet" type="text/css" href="/style_special.css" />
+  <link rel="stylesheet" type="text/css" href="/magma/tools/calculator/calculator.css" />
+  <script src="/javascript/common.js" type="text/javascript"></script>
+  <script src="/javascript/xml.js" type="text/javascript"></script>
+  <script src="/javascript/calculator.js" type="text/javascript"></script>
+  <script src="/javascript/magma.js" type="text/javascript"></script>
+  <title>Magma Calculator</title>
+</head>
+
+<!-- Begin Body -->
+<body>
+
+<!-- Begin Header -->
+<div id="pageheader">
+  <div class="navBar"><ul>
+    <li><a href="/magma/">About</a></li>
+    <li class="selected"><a href="/calc/">Calculator</a></li>
+    <li><a href="/magma/ordering/">Ordering</a></li>
+    <li><a href="/magma/faq/">FAQ</a></li>
+    <li id="navbarexp"><a href="/magma/download/all/">Download</a></li>
+    <li id="navbardoc"><a href="/magma/documentation/">Documentation</a></li>
+    <li><a href="/magma/citations/">Citations</a></li>
+    <li><a href="/magma/conferences/">Conferences</a></li>
+    <li><a href="/magma/links/">Links</a></li>
+    <li><a href="/magma/contact/">Contact</a></li>
+    <li class="split"><a href="/group/">CAG</a></li>
+    <li class="split" id="navbaraccount"><a href="/account/login" title="Log in to your account">Login</a></li>
+  </ul></div>
+  <div class="logo magma"><table>
+    <tr><td class="title"><a href="/magma/">Magma</a></td></tr>
+    <tr><td class="desc"><a href="/magma/">Computer &bull; algebra</a></td></tr>
+  </table></div>
+  <div class="pagetitle">
+    Magma Calculator
+  </div>
+</div>
+<!-- End Header -->
+
+<!-- Begin Content -->
+<div id="pagecontent">
+<div>
+  <p class="description">
+    Enter your code in the box below. Click on &quot;Submit&quot; to have it evaluated by Magma.
+  </p>
+  <form method="post" onsubmit="return checkSubmit();">
+    <table class="calculator">
+      <tr>
+        <td>
+          <textarea name="input" rows="15" cols="80" id="input" maxlength="50000">procedure Main()
+  SetSeed(69904);
+  QQ&lt;q&gt; := PolynomialRing(Rationals());
+  K&lt;th&gt; := NumberField(q^3-27*q+4);
+  E := EllipticCurve([K|0,-60,0,-8700,0]);
+  A := E![-290/9,11600/27,1]; B := E![-60,-300,1];
+  Qinf := E![-9*th^2+4*th+209,81*th^2-36*th-2171,1];
+  T, tm := TorsionSubgroup(E);
+  assert #T eq 2;
+  assert 2*Qinf ne E!0;
+  print &quot;RESULT FIELD_SIGNATURE&quot;,Signature(K);
+  print &quot;RESULT INPUT_SUBGROUP_RANK&quot;,3;
+  print &quot;RESULT SUBGROUP_COVERAGE&quot;,&quot;E(Q)-Qinf lies inside &lt;A,B,Qinf,torsion&gt;; not claiming full E(K)&quot;;
+  t0 := Cputime();
+  IP := IntegralPoints(E : FBasis := [A,B,Qinf], SafetyFactor := 2);
+  elapsed := Cputime(t0);
+  print &quot;INTEGRAL_POINT_LIST_BEGIN&quot;;
+  for P in IP do print [Eltseq(P[1]/P[3]),Eltseq(P[2]/P[3])]; end for;
+  print &quot;INTEGRAL_POINT_LIST_END&quot;;
+  orig := {};
+  rational_images := 0;
+  for P in IP do
+    for sign in [-1,1] do
+      S := sign*P+Qinf;
+      if S eq E!0 then
+        Include(~orig,&lt;Integers()!1,Integers()!0&gt;);
+        continue;
+      end if;
+      tt := S[1]/S[3]; vv := S[2]/S[3];
+      ok1, tq := IsCoercible(Rationals(),tt);
+      ok2, vq := IsCoercible(Rationals(),vv);
+      if not (ok1 and ok2) then continue; end if;
+      rational_images +:= 1;
+      den := vq+9*tq+290;
+      if den eq 0 then continue; end if;
+      xx := (vq+18*tq+580)/den; uu := (tq+58)/den;
+      if Denominator(xx) eq 1 and Denominator(uu) eq 1 then
+        x := Integers()!xx; u := Integers()!uu;
+        assert 4*u*(25*u-3*(x-1))*(25*u-6*(x-1))-(x-1-9*u)*(x^2-2) eq 0;
+        Include(~orig,&lt;x,u&gt;);
+      end if;
+    end for;
+  end for;
+  mirror := {};
+  for pair in orig do
+    x := pair[1];u := pair[2];
+    if x lt 20 or u lt 1 or x mod 5 ne 0 then continue;end if;
+    xx := x div 5;s := 0;
+    while xx mod 2 eq 0 do xx div:=2;s+:=1;end while;
+    if xx ne 1 or not (s mod 6 in {0,2}) or u mod 3 eq 0 then continue;end if;
+    if (25*u*(x+1)) mod 3 ne 0 then continue;end if;
+    zz := 25*u*(x+1) div 3;
+    if 4 le zz and zz le x^2-4 then Include(~mirror,&lt;x,u,s,zz&gt;);end if;
+  end for;
+  print &quot;RESULT INTEGRAL_POINTS_UP_TO_SIGN&quot;,#IP;
+  print &quot;RESULT RATIONAL_TRANSLATED_IMAGES&quot;,rational_images;
+  print &quot;RESULT ORIGINAL_INTEGER_POINTS&quot;,Sort(Setseq(orig));
+  print &quot;RESULT MIRROR_CANDIDATES&quot;,Sort(Setseq(mirror));
+  print &quot;RESULT CPU_SECONDS&quot;,elapsed;
+  print &quot;RESULT COMPLETE_ROUTINE_RETURNED&quot;,true;
+end procedure;
+Main();
+</textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="dbuttons">
+            <input type="button" value="Cancel" onclick="cancelCalculation();" id="reset" disabled="disabled" />
+            <input type="submit" value="Submit" onclick="submitData();" id="submit" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="output">
+            <div id="warnings">
+              <ul>
+                <li class="warning">An error occurred. See the output for details.</li>
+              </ul>
+            </div>
+            <textarea name="output" rows="13" cols="80" readonly="1" id="result">RESULT FIELD_SIGNATURE 3 0
+RESULT INPUT_SUBGROUP_RANK 3
+RESULT SUBGROUP_COVERAGE E(Q)-Qinf lies inside <A,B,Qinf,torsion>; not claiming 
+full E(K)
+
+Main(
+)
+>>   IP := IntegralPoints(E : FBasis := [A,B,Qinf], SafetyFactor := 2);
+                         ^
+Runtime error in 'IntegralPoints': Not implemented yet for curves with 
+nontrivial torsion</textarea>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="summary">
+            <ul>
+              <li>Calculations are restricted to 60 seconds.</li>
+              <li>Input is limited to 50000 bytes.</li>
+              <li>Running Magma V2.29-10.</li>
+              <li>Seed: 2092927208; Total time: 0.050 seconds; Total memory usage: 32.09MB.</li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+</div>
+<!-- End Content -->
+
+<!-- Begin Footer -->
+<div id="pagefooter">
+  <div class="producedby">
+    Magma is maintained and distributed by the <a href="/group/">Computational Algebra Group</a>, <a href="http://www.maths.usyd.edu.au/">School of Mathematics and Statistics</a>, <a href="http://sydney.edu.au/">University of Sydney</a>.
+  </div>
+  <div class="copyright">Copyright &copy; 2010-2026 Computational Algebra Group.</div>
+</div>
+<!-- End Footer -->
+
+</body>
+<!-- End Body -->
+
+</html>

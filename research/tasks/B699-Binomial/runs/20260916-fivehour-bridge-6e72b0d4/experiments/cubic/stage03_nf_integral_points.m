@@ -1,0 +1,62 @@
+procedure Main()
+  SetSeed(69904);
+  QQ<q> := PolynomialRing(Rationals());
+  K<th> := NumberField(q^3-27*q+4);
+  E := EllipticCurve([K|0,-60,0,-8700,0]);
+  A := E![-290/9,11600/27,1]; B := E![-60,-300,1];
+  Qinf := E![-9*th^2+4*th+209,81*th^2-36*th-2171,1];
+  T, tm := TorsionSubgroup(E);
+  assert #T eq 2;
+  assert 2*Qinf ne E!0;
+  print "RESULT FIELD_SIGNATURE",Signature(K);
+  print "RESULT INPUT_SUBGROUP_RANK",3;
+  print "RESULT SUBGROUP_COVERAGE","E(Q)-Qinf lies inside <A,B,Qinf,torsion>; not claiming full E(K)";
+  t0 := Cputime();
+  IP := IntegralPoints(E : FBasis := [A,B,Qinf], SafetyFactor := 2);
+  elapsed := Cputime(t0);
+  print "INTEGRAL_POINT_LIST_BEGIN";
+  for P in IP do print [Eltseq(P[1]/P[3]),Eltseq(P[2]/P[3])]; end for;
+  print "INTEGRAL_POINT_LIST_END";
+  orig := {};
+  rational_images := 0;
+  for P in IP do
+    for sign in [-1,1] do
+      S := sign*P+Qinf;
+      if S eq E!0 then
+        Include(~orig,<Integers()!1,Integers()!0>);
+        continue;
+      end if;
+      tt := S[1]/S[3]; vv := S[2]/S[3];
+      ok1, tq := IsCoercible(Rationals(),tt);
+      ok2, vq := IsCoercible(Rationals(),vv);
+      if not (ok1 and ok2) then continue; end if;
+      rational_images +:= 1;
+      den := vq+9*tq+290;
+      if den eq 0 then continue; end if;
+      xx := (vq+18*tq+580)/den; uu := (tq+58)/den;
+      if Denominator(xx) eq 1 and Denominator(uu) eq 1 then
+        x := Integers()!xx; u := Integers()!uu;
+        assert 4*u*(25*u-3*(x-1))*(25*u-6*(x-1))-(x-1-9*u)*(x^2-2) eq 0;
+        Include(~orig,<x,u>);
+      end if;
+    end for;
+  end for;
+  mirror := {};
+  for pair in orig do
+    x := pair[1];u := pair[2];
+    if x lt 20 or u lt 1 or x mod 5 ne 0 then continue;end if;
+    xx := x div 5;s := 0;
+    while xx mod 2 eq 0 do xx div:=2;s+:=1;end while;
+    if xx ne 1 or not (s mod 6 in {0,2}) or u mod 3 eq 0 then continue;end if;
+    if (25*u*(x+1)) mod 3 ne 0 then continue;end if;
+    zz := 25*u*(x+1) div 3;
+    if 4 le zz and zz le x^2-4 then Include(~mirror,<x,u,s,zz>);end if;
+  end for;
+  print "RESULT INTEGRAL_POINTS_UP_TO_SIGN",#IP;
+  print "RESULT RATIONAL_TRANSLATED_IMAGES",rational_images;
+  print "RESULT ORIGINAL_INTEGER_POINTS",Sort(Setseq(orig));
+  print "RESULT MIRROR_CANDIDATES",Sort(Setseq(mirror));
+  print "RESULT CPU_SECONDS",elapsed;
+  print "RESULT COMPLETE_ROUTINE_RETURNED",true;
+end procedure;
+Main();

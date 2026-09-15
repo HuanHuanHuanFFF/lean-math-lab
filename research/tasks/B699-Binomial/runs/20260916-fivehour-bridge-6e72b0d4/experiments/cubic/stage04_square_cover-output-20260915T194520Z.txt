@@ -1,0 +1,67 @@
+Magma Calculator
+About
+Calculator
+Ordering
+FAQ
+Download
+Documentation
+Citations
+Conferences
+Links
+Contact
+CAG
+Login
+Magma
+Computer • algebra
+Magma Calculator
+Enter your code in the box below. Click on "Submit" to have it evaluated by Magma.
+procedure Main()
+  SetSeed(69905);
+  P<Z,U,T> := ProjectiveSpace(Rationals(),2);
+  D := 5*Z^2-T^2;
+  ff := 4*U*T*(25*U*T-3*D)*(25*U*T-6*D)
+         -(D-9*U*T)*(25*Z^4-2*T^4);
+  print "RESULT PLANE_POLYNOMIAL_IRREDUCIBLE",IsIrreducible(ff);
+  C := Curve(P,ff);
+  gg := Genus(C);
+  print "RESULT SQUARE_COVER_GENUS",gg;
+  phi := CanonicalMap(C);
+  CC := phi(C);
+  print "RESULT CANONICAL_GENUS",Genus(CC);
+  print "RESULT CANONICAL_AMBIENT_DIM",Dimension(AmbientSpace(CC));
+  assert gg eq 4 and Genus(CC) eq 4;
+  print "CANONICAL_EQUATIONS",DefiningEquations(CC);
+  aut := AutomorphismGroup(CC);
+  print "RESULT AUT_OVER_Q_ORDER",Order(aut);
+  print "RESULT GENERATOR_ORDERS",[Order(g):g in Generators(aut)];
+  CQ, quotient_map := CurveQuotient(aut);
+  print "RESULT FULL_AUT_QUOTIENT_GENUS",Genus(CQ);
+  print "RESULT COVER_STRUCTURE_PROBE_COMPLETE",true;
+end procedure;
+Main();
+RESULT PLANE_POLYNOMIAL_IRREDUCIBLE true
+RESULT SQUARE_COVER_GENUS 4
+RESULT CANONICAL_GENUS 4
+RESULT CANONICAL_AMBIENT_DIM 3
+CANONICAL_EQUATIONS [
+    $.1^3 - 9/5*$.1^2*$.2 + 81/100*$.1*$.2^2 - 1/20*$.2^3 + 9/25*$.1^2*$.4 - 
+        36/125*$.1*$.2*$.4 + 1/100*$.2^2*$.4 + 27/1250*$.1*$.4^2 + 
+        1/250*$.2*$.4^2 - 1/1250*$.4^3,
+    $.3^2 - $.2*$.4
+]
+RESULT AUT_OVER_Q_ORDER 2
+RESULT GENERATOR_ORDERS [ 2 ]
+RESULT FULL_AUT_QUOTIENT_GENUS 1
+RESULT COVER_STRUCTURE_PROBE_COMPLETE true
+Calculations are restricted to 60 seconds.
+Input is limited to 50000 bytes.
+Running Magma V2.29-10.
+Seed: 871427397; Total time: 4.960 seconds; Total memory usage: 184.72MB.
+Magma is maintained and distributed by the
+Computational Algebra Group
+,
+School of Mathematics and Statistics
+,
+University of Sydney
+.
+Copyright © 2010-2026 Computational Algebra Group.
