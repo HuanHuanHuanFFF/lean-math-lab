@@ -1,0 +1,35 @@
+"""Complete symbolic CRT descent. Every stage is saved; no cofactor-grid scan."""
+from pathlib import Path
+import json,sys,time,resource,argparse
+R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'code/vendor'))
+from crt_bound_probe import params,primes,vp,get_M
+from crt_fast import bound
+
+def estimate(row,H):
+ p=params(row);i=row['i'];M=get_M(p,H);start=max(i*(i-1),M+1);fc=raw=0;colors=[]
+ for prime in primes(i):
+  v=vp(i,prime);Q=prime**(v+1);cap=M//prime**v;cnt=0
+  while Q<H:
+   lo=max(1,(start-i+Q)//Q);hi=min(cap,(H-1)//Q)
+   if lo<=hi:raw+=hi-lo+1;fc+=1;cnt+=1
+   Q*=prime
+  colors.append(cnt)
+ pairs=sum(a*b for k,a in enumerate(colors) for b in colors[k+1:])
+ return dict(i=i,H=str(H),M=str(M),start=str(start),power_families=fc,pairs=pairs,displacement_tests=(2*i-1)*pairs,raw_intervals=raw,event_upper_bytes=raw*2*192,low_rows=max(0,min(H,start)-(2*i+2)))
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--i',type=int,choices=[12,15,20],required=True);a=ap.parse_args();i=a.i
+ row=json.loads((R/f'input/i{i}_target.json').read_text());bs=json.loads((R/('outputs/i12_blocks_summary.json' if i==12 else 'outputs/shared_blocks_summary.json')).read_text());pr=next(r for r in bs['profiles'] if r['i']==i)
+ assert pr['source_height_bits']==row['height_bits'];H=1<<pr['destination_height_bits'];st=time.monotonic();steps=[]
+ est=estimate(row,H);(R/f'outputs/crt_initial_estimate_{i}.json').write_text(json.dumps(est,indent=2)+'\n');print('ESTIMATE',json.dumps(est),flush=True)
+ while True:
+  ts=time.monotonic();r=bound(row,H);r['seconds']=time.monotonic()-ts;steps.append(r)
+  (R/f'outputs/crt_stages_{i}.json').write_text(json.dumps(steps,indent=2)+'\n');print('STEP',len(steps),'H',H,'next',r['next_H'],'pairs',r['prime_power_pairs'],'seconds',r['seconds'],flush=True)
+  new=int(r['next_H']);assert new<=H
+  if new==H:break
+  H=new
+ cost=estimate(row,H);cost.update(CRT_stages=len(steps),total_pairs=sum(r['prime_power_pairs'] for r in steps),seconds=time.monotonic()-st,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+ (R/f'outputs/terminal_cost_{i}.json').write_text(json.dumps(cost,indent=2)+'\n');print('FINAL',json.dumps(cost),flush=True)
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

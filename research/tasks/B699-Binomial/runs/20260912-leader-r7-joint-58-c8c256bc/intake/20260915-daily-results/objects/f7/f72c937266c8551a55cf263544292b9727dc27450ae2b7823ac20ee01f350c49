@@ -1,0 +1,25 @@
+"""One-time local intake. Not called by the portable reproducer."""
+import json,hashlib,shutil
+from pathlib import Path
+from zipfile import ZipFile
+ROOT=Path(__file__).resolve().parents[1]
+INPUT=Path('/mnt/data/b699-open-v2-input')
+OUTER=Path('/mnt/data/B699-ABD-open-next-round-20260914-v2.zip')
+def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+rows=[]
+for route in ['A','B','D']:
+    for f in ['REPORT.md','HANDOFF.md','notes/PROOFS.md'] if route=='B' else ['REPORT.md','notes/PROOFS.md'] if route=='A' else ['REPORT.md']:
+        src=INPUT/'reading'/route/f
+        dest=ROOT/'sources'/('previous' if route=='B' else 'reference-'+route)/f
+        dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(src,dest)
+        rows.append({'packet_member':f'reading/{route}/{f}','path':str(dest.relative_to(ROOT)),'bytes':dest.stat().st_size,'sha256':digest(dest),'use':'adopted' if route=='B' else 'read for boundary; no mathematical input used'})
+archive=INPUT/'archives/B699-R7-ProB-integer-form-and-five-sixths-bands-evidence(1).zip'
+dest=ROOT/'sources/previous-evidence.zip';shutil.copyfile(archive,dest)
+rows.append({'packet_member':'archives/'+archive.name,'path':str(dest.relative_to(ROOT)),'bytes':dest.stat().st_size,'sha256':digest(dest),'use':'unchanged raw mathematical source'})
+# D-tail source text adopted only where B repeats and cites it; retain exact bytes.
+rel='sources/D-tail/notes/PROOFS.md';src=INPUT/'inputs/B'/rel
+dest=ROOT/'sources/D-tail-PROOFS.md';shutil.copyfile(src,dest)
+rows.append({'upstream_archive':'sources/previous-evidence.zip','archive_member':rel,'path':str(dest.relative_to(ROOT)),'bytes':dest.stat().st_size,'sha256':digest(dest),'use':'adopted positive z and canonical projection lemmas; re-stated in previous proof'})
+obj={'outer_file':OUTER.name,'outer_sha256':digest(OUTER),'prepared_command':'python3 prepare_inputs.py B','files':rows,'publication':{'title':'Effective Results for Hyper- and Superelliptic Equations over Number Fields','authors':['Attila Berczes','Jan-Hendrik Evertse','Kalman Gyory'],'version':'arXiv:1301.7168v1, 30 Jan 2013','url':'https://arxiv.org/pdf/1301.7168v1','adopted':'Theorem 2.1, printed page 4; definitions printed pages 3-4','read':'parsed original and rendered PDF page 4 via web screenshot','raw_pdf_included':False,'download_failure':'curl exit 6: Could not resolve host: arxiv.org; raw log replay/pdf-download.log','bound_used':{'degree':3,'power':3,'field':'Q','S':['infinite'],'s':1,'d':1,'D_K':1,'Q_S':1}}}
+(ROOT/'SOURCE_MAP.json').write_text(json.dumps(obj,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+print(json.dumps({'copied_files':len(rows),'outer_sha256':obj['outer_sha256'],'previous_zip_sha256':digest(ROOT/'sources/previous-evidence.zip')}))

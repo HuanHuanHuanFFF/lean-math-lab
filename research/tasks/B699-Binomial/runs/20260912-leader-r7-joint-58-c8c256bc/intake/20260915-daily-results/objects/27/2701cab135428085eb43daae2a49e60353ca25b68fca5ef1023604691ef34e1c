@@ -1,0 +1,5 @@
+# 日志口径
+
+outputs/replays中的最终结果记录是重放完成状态。active_*.json是当时启动PID记录，不表示交付后仍在运行；没有后台任务被委托继续。各replay_progress.json是在每步完成时保存的检查点，最终结论见对应replay_result的副本。failed_clean_wrapper是实际失败的第一次包装重放；不是通过记录。空的编译stdout日志来自实际成功编译，不承担数学证据。
+
+最初的探索/部分计算不进入143份核心数学数据的重生成比较。33项坏证书的临时污染数据未覆盖正式证书。当前完整链的证据优先级见REPORT、HANDOFF和reproduce.py。

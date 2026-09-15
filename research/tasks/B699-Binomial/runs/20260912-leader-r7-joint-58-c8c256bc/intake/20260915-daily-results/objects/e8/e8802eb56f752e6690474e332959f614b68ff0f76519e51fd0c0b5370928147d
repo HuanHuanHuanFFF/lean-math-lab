@@ -1,0 +1,61 @@
+"""Verify frozen bytes and the provenance/thresholds of the 55 clauses.
+No old theorem generator, proof checker, Lean, or repository access is run.
+"""
+from pathlib import Path
+from io import BytesIO
+from zipfile import ZipFile
+from hashlib import sha256
+import argparse,json
+ROOT=Path(__file__).resolve().parents[1]
+EXPECTED='ff40cf6a2e5487819afa55ddc2616ac3fc106455a75ea8ae147244faa1d73262'
+
+def digest(b):return sha256(b).hexdigest()
+def verify():
+    raw=(ROOT/'input/originals/B699-R12-dispatch-context.zip').read_bytes()
+    assert digest(raw)==EXPECTED and len(raw)==39610422
+    z=ZipFile(BytesIO(raw));assert z.testzip() is None
+    m=json.loads(z.read('PACKET_SOURCES.json'));binding=json.loads((ROOT/'input/SOURCE_BINDINGS.json').read_text())
+    assert binding['dispatch_sha256']==EXPECTED and binding['dispatch_bytes']==len(raw)
+    cached={}
+    def stored(s):
+        if s['kind']=='package-file':return z.read(s['path'])
+        raise ValueError('No silent fallback for unimplemented source layout')
+    for r in binding['records']:
+        if 'package_path' in r:b=z.read(r['package_path'])
+        else:
+            rr=next(v for v in m['archives'][r['archive']]['members'] if v['restore_path']==r['restore_path'])
+            assert rr['sha256']==r['sha256'] and rr['storage']==r['storage'];b=stored(rr['storage'])
+        assert len(b)==r['size'] and digest(b)==r['sha256']
+        assert b==(ROOT/r['output_path']).read_bytes()
+    # Recover only named nested files. Opening an archive is not replaying its old experiments.
+    rz=ZipFile(BytesIO(z.read(m['shared_r13_path'])))
+    rprefix='B699-R13-quotient-free-degree/'
+    ctxt=ZipFile(BytesIO(rz.read(rprefix+'input/originals/B699-R13-Pro-context-af3006e0.zip')))
+    iz=ZipFile(BytesIO(ctxt.read('originals/i13-evidence.zip')))
+    shared=iz.read('input/B699-research-context-20260910.zip')
+    assert digest(shared)=='84d2b35b41ce151bde0d0dbdd44cb49104d026aacfa69f7138ea39d99f0826c5'
+    sz=ZipFile(BytesIO(shared));az=ZipFile(BytesIO(sz.read('originals/asymmetric-pade.zip')))
+    ap='B699-asymmetric-Pade/'
+    pro=az.read(ap+'results/refined_profiles.json')
+    assert pro==(ROOT/'input/adopted/results__refined_profiles.json').read_bytes()
+    assert az.read(ap+'REPORT.md')==(ROOT/'input/adopted/asymmetric-report-frozen.md').read_bytes()
+    profiles=json.loads(pro)['profiles'];cc=[]
+    for p in profiles:
+        assert p['cut_height_bits']<=65535;cc.extend(p['cuts'])
+    ic=json.loads(iz.read('input/i13_cuts.json'));cc.extend(ic['cuts'])
+    assert cc==json.loads((ROOT/'input/frozen_cuts.json').read_text())
+    cuts=[c for c in cc if max(c['p'],c['q'])<15];assert len(cuts)==55
+    np=json.loads((ROOT/'input/new_pair_cuts.json').read_text())
+    assert [x['thresholds_per_1000'] for x in np]==[[210,82,247],[120,189,292]]
+    assert all(x['height_bits']==131072 and x['difference_bound']==24 for x in np)
+    free=(ROOT/'input/adopted/free-degree-frozen.md').read_text()
+    assert '2^65536' in free and '287/1000' in free and '325/1000' in free and 'AB≥Y^{3/5}' in free.replace(' ','')
+    return {'status':'FROZEN_BYTE_AND_CLAUSE_BINDING','dispatch_sha256':EXPECTED,'dispatch_bytes':len(raw),
+            'adopted_member_count':len(binding['records']),'applicable_rectangular_clauses':55,
+            'asymmetric_profile_thresholds':[{k:p[k] for k in ['i','cut_height_bits']} for p in profiles],
+            'i13_cut_threshold_adopted':'Y>=2^8191','free_degree_threshold':'Y>=2^65536',
+            'two_new_pair_threshold':'Y>=2^131072','common_Y_threshold':'2^131072',
+            'fixed_Leader_ref':'9d4228e3ed0de4bb6b8e555ca59af3f53d578c67',
+            'old_mathematics_replayed':False,'repository_state_queried_this_round':False}
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--out',type=Path,required=True);a=p.parse_args();r=verify();a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps({k:v for k,v in r.items() if k!='asymmetric_profile_thresholds'}))

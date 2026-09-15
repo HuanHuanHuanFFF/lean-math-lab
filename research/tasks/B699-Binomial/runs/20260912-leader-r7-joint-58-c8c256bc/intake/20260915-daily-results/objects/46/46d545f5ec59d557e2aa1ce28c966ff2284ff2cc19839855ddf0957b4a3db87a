@@ -1,0 +1,40 @@
+# B699 R9：三个 Pro 共用上下文包
+
+把本包上传给三个会话，分别发送 prompts/ 中对应的任务；A、B接续原会话，C新开会话。先读 navigation/CURRENT_STATE.md 和 navigation/TASK_PROTOCOL.md。C再读 navigation/GLOBAL_PROOF_MAP.md，随后自主选择原始推导。
+
+这是研究输入与调度快照。新12、15、20为纸面＋精确证书交付，独立核验和Lean待完成；本次整理没有运行数学检查。
+
+## 直接阅读
+
+- sources/pro-a/HANDOFF.md、REPORT.md：新增12、15、20，R12→R9。
+- sources/pro-b/HANDOFF.md、REPORT.md：联合接口、i3覆盖障碍及下一步边界。
+- global/repository/：补充的18份整体证明报告与完整推导，保留固定仓库路径及原字节。
+- navigation/GLOBAL_PROOF_MAP.md：按研究问题选择上述原始推导。
+- shared/B699-R12-dispatch-context.zip：历史R12材料的唯一副本，含更早i18、R13、R12等成果。
+
+先读报告，按需要加载代码、证书与旧材料。大量JSON和完整日志无需一次灌入聊天；ZIP不转Base64。
+
+## 需要完整包布局时再恢复
+
+在本包解压根目录运行：
+
+~~~bash
+python3 prepare_context.py --dest restored --extract-shared
+~~~
+
+restored须为新目录或空目录。此命令仅复制、解压并核对字节，不执行任何研究代码，得到：
+
+- restored/pro-a/：完整A成员，包括 originals/B699-R12-dispatch-context.zip。
+- restored/pro-b/：完整B成员，包括 input/originals/B699-R12-dispatch-context.zip。
+- restored/shared-history/：展开的历史R12上下文。更早原件按其中prepare_context.py与navigation/SOURCE_MAP.md继续恢复。
+- restored/RESTORE_METADATA.json：恢复记录。
+
+只需恢复A/B时可去掉--extract-shared。在新的工作目录开展本轮研究，输入原件保持不变。
+
+如实际需要重跑A完整数学链，按A原报告准备Linux/POSIX、Python3、C++17、GMP及至少6GiB空闲工作盘；该重跑不是阅读资料或C探索的启动条件。B正式检查使用Python标准库。研究者根据实际采用范围决定检查，不必全面复算历史。
+
+## 来源与证据
+
+来源映射见 navigation/SOURCE_MAP.md、PACKET_SOURCES.json、GLOBAL_SOURCES.json。重复的历史ZIP只存一份，两套原成员均可恢复；新ZIP的字节与两个源外层ZIP不同，不冒充原始外层ZIP。
+
+旧原件中的未解集合、任务预算、PR等待要求是历史记录；本轮任务见prompts，当前证据等级见navigation/CURRENT_STATE.md。三个会话可立即基于冻结输入独立开工。

@@ -1,0 +1,14 @@
+import math,json,time
+from pathlib import Path
+root=Path(__file__).resolve().parents[1]
+out={'description':'Diagnostic only: symmetric-three-design divisibility without design existence','limit_n':10000,'hits':[]}
+t=time.monotonic()
+for n in range(8,10001):
+ for j in range(4,n//2+1):
+  if j*(j-1)%(n-1):continue
+  q=j*(j-1)//(n-1)
+  if q*(j-2)%(n-2)==0:
+   out['hits'].append([n,j,q,q*(j-2)//(n-2)])
+out['seconds']=time.monotonic()-t
+(root/'evidence/design-divisibility-probe.json').write_text(json.dumps(out,indent=2))
+print('count',len(out['hits']),'examples',out['hits'][:20],'seconds',out['seconds'])

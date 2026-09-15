@@ -1,0 +1,28 @@
+import json,math,time,itertools
+from pathlib import Path
+import sympy as sp
+out=Path(__file__).resolve().parents[2]/'outputs'
+r=[];allcs=[];t=time.time()
+for v in range(3,113):
+ n=1<<v
+ if v>56 and (v%2 or v%6==0):continue
+ def v3(k):
+  e=0
+  while k%3==0:k//=3;e+=1
+  return e
+ lam=3 if v3(n-1)==1 else 1
+ N=(n-1)//lam
+ fac={int(p):int(e) for p,e in sp.factorint(N).items()}
+ roots=[0];mod=1
+ for p,e in fac.items():
+  q=p**e;inv=pow(mod,-1,q)
+  roots=[x+mod*((b-x)*inv%q) for x in roots for b in [0,1]];mod*=q
+ js=[]
+ for rr in roots:
+  for j in range(rr,n//2+1,N):
+   if j>=4 and j%2 and j.bit_count()<=8 and v<=lam.bit_count()*j.bit_count()*(j.bit_count()-1):
+    js.append(j);allcs.append([v,j,j.bit_count(),(6*j*(j-1)*(j-2))%(n-2)])
+ r.append({'v':v,'lambda':lam,'N':N,'factors':[[p,e]for p,e in sorted(fac.items())],'root_count':len(roots),'j':sorted(js)})
+print('seconds',time.time()-t,'rows',len(r),'roots',sum(x['root_count'] for x in r),'candidates',len(allcs),'survivors',sum(x[-1]==0 for x in allcs),'largest prime',max(p for x in r for p,e in x['factors']))
+print('candidates first',allcs[:20])
+(out/'digital_probe_w8.json').write_text(json.dumps({'rows':r,'candidates':allcs},indent=2)+'\n')

@@ -1,0 +1,24 @@
+"""Verify all frozen package members; allow new user-created replay directories only."""
+from pathlib import Path
+from hashlib import sha256
+import json,sys
+ROOT=Path(__file__).resolve().parent
+if not __debug__:raise RuntimeError('Do not run verification under Python -O.')
+
+def digest(p):
+    h=sha256()
+    with p.open('rb') as f:
+        for b in iter(lambda:f.read(1<<20),b''):h.update(b)
+    return h.hexdigest()
+def verify():
+    data=json.loads((ROOT/'MANIFEST.json').read_text());records=data['files'];expected=set()
+    for r in records:
+        name=r['path'];assert name not in expected and '..' not in Path(name).parts;expected.add(name)
+        p=ROOT/name
+        if not p.is_file() or p.stat().st_size!=r['bytes'] or digest(p)!=r['sha256']:
+            raise ValueError('Frozen member mismatch: '+name)
+    actual={p.relative_to(ROOT).as_posix() for p in ROOT.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc'}
+    bad={n for n in actual-expected-{'MANIFEST.json'} if not n.startswith('replay/')}
+    if bad:raise ValueError('Unexpected non-replay files: '+str(sorted(bad)))
+    return {'status':'ALL_FROZEN_MEMBERS_MATCH','files':len(records),'total_frozen_bytes':sum(r['bytes'] for r in records),'new_replay_files':len(actual-expected-{'MANIFEST.json'})}
+if __name__=='__main__':print(json.dumps(verify()))

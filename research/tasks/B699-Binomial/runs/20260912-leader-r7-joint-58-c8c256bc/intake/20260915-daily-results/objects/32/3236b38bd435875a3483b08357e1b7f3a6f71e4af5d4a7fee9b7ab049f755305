@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+"""Recover one bounded/unbounded-exponent profile exactly. No box enumeration."""
+from __future__ import annotations
+import argparse,json,math
+from diagnostics import scalar6,scalar8
+
+def recover(target:int,exponents:list[int],positions:list[int])->dict:
+    if target not in (6,7,8,9):raise ValueError('target must be 6,7,8,9')
+    d=6 if target in (6,7) else 8
+    primes=[2,3,5] if d==6 else [2,3,5,7]
+    if len(exponents)!=len(primes) or len(positions)!=len(primes):raise ValueError('wrong profile dimension')
+    if any(not isinstance(e,int) or e<0 for e in exponents):raise ValueError('negative exponent')
+    if any(not isinstance(h,int) or not 0<=h<d for h in positions):raise ValueError('invalid position')
+    qs=[p**e for p,e in zip(primes,exponents)];M=math.prod(qs)
+    n=0;modulus=1
+    for q,h in zip(qs,positions):
+        if q==1:continue
+        n+=modulus*((h-n)*pow(modulus,-1,q)%q);modulus*=q
+    n%=M
+    cutoff=1800 if d==6 else 32768
+    result={'target':target,'window':d,'M':M,'least_CRT_n':n,'tail_eligible':n>=cutoff}
+    if n<max(cutoff,2*(target+1)):
+        result['status']='NO_TAIL_CANDIDATE';return result
+    true=True
+    for p,q,h in zip(primes,qs,positions):
+        vals=[]
+        for r in range(d):
+            z=n-r;v=1
+            while z%p==0:z//=p;v*=p
+            vals.append(v)
+        true&=(max(vals)==q and vals[h]==q)
+    result['actual_max_profile']=bool(true)
+    accepted=scalar6(n,target) if d==6 else scalar8(n,target)
+    result['row_consumer_accepts']=accepted
+    result['status']='UNRESOLVED_BY_THIS_CONSUMER' if true and not accepted else 'PROFILE_REJECTED_OR_ROW_PROVED'
+    return result
+
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--target',type=int,required=True)
+    p.add_argument('--exponents',type=int,nargs='+',required=True);p.add_argument('--positions',type=int,nargs='+',required=True)
+    a=p.parse_args();print(json.dumps(recover(a.target,a.exponents,a.positions),indent=2))

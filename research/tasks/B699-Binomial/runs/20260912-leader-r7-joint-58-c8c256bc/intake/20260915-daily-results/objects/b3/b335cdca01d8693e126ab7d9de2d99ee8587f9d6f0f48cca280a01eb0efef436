@@ -1,0 +1,61 @@
+"""Generate a complete terminal cover and retain EVERY unresolved n.
+Full-prime-power divisors are used; trial division is deterministic.
+"""
+from pathlib import Path
+import sys,json,math,time,functools,resource,argparse
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'code/vendor'))
+from crt_bound_probe import params,primes
+from extra_terminal_probe import explicit_cover
+
+def merge(iv):
+ out=[]
+ for a,b in sorted(iv):
+  if a>b:continue
+  if out and a<=out[-1][1]+1:out[-1][1]=max(out[-1][1],b)
+  else:out.append([a,b])
+ return out
+@functools.lru_cache(maxsize=200000)
+def prime(n):
+ if n<2:return False
+ if n%2==0:return n==2
+ return all(n%d for d in range(3,math.isqrt(n)+1,2))
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--i',type=int,choices=[12,15,20],required=True);args=ap.parse_args();start=time.monotonic();i=args.i;row=json.loads((ROOT/f'input/i{i}_target.json').read_text());par=params(row)
+ bs=next(p for p in json.loads((ROOT/('outputs/i12_blocks_summary.json' if i==12 else 'outputs/shared_blocks_summary.json')).read_text())['profiles'] if p['i']==i);stages=json.loads((ROOT/f'outputs/crt_stages_{i}.json').read_text())
+ H=int(stages[-1]['next_H']);cost=json.loads((ROOT/f'outputs/terminal_cost_{i}.json').read_text())
+ assert cost['event_upper_bytes']<128*1024**2
+ terminal=explicit_cover(row,H);terminal['ell']=2;terminal['rows']=sum(b-a+1 for a,b in terminal['segments'])
+ terminal['next_H']=max(terminal['start'],terminal['segments'][-1][1]+1 if terminal['segments'] else terminal['start'])
+ assert terminal['next_H']==H and terminal['raw_intervals']==cost['raw_intervals']
+ candidate=merge([[2*i+2,terminal['start']-1]]+terminal['segments']);top=[];large=[];unresolved=[];ps=primes(i)
+ for a,b in candidate:
+  n=a
+  while n<=b:
+   p=next((p for p in range(n,n-i,-1) if prime(p)),None)
+   if p is not None:
+    end=min(b,p+i-1);top.append([n,end,p]);n=end+1
+   else:
+    D=math.comb(n,i)
+    for q in ps:
+     while D%q==0:D//=q
+    if par['K']*D**par['lam']>n**par['E']:large.append([n,str(D)])
+    else:unresolved.append(n)
+    n+=1
+ special=[]
+ if i==12 and 126 in unresolved:
+  segments=[[13,60,61],[61,63,41]]
+  for a,b,q in segments:
+   assert prime(q) and q>=i and math.comb(126,i)%q==0
+   for j in range(a,b+1):assert math.comb(126,j)%q==0
+  special=[dict(n=126,j_intervals=segments)];unresolved.remove(126)
+ summary=dict(i=i,total_rows=sum(b-a+1 for a,b in candidate),candidate_intervals=len(candidate),max_candidate_n=candidate[-1][1],
+  top_prime_intervals=len(top),top_prime_rows=sum(b-a+1 for a,b,p in top),large_divisor_rows=len(large),unresolved=len(unresolved),seconds=time.monotonic()-start,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+ if special:summary['special_rows']=len(special)
+ out=dict(i=i,height_bits=bs['destination_height_bits'],r=row['r'],s=row['s'],bound_stages=stages,terminal_cover=terminal,candidate_intervals=candidate,
+   top_prime_intervals=top,large_divisor_rows=large,unresolved_rows=unresolved,summary=summary,prime_witnesses=sorted({p for a,b,p in top}))
+ if special:out['special_rows']=special
+ (ROOT/f'outputs/terminal_certificate_{i}.json').write_text(json.dumps(out,separators=(',',':'))+'\n')
+ (ROOT/f'outputs/terminal_summary_{i}.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary,indent=2));print('UNRESOLVED',unresolved)
+if __name__=='__main__':main()

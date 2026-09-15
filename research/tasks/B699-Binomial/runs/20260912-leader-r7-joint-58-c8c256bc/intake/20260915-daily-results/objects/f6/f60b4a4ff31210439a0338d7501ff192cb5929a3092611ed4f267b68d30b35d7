@@ -1,0 +1,388 @@
+#!/usr/bin/env python3
+"""Author's second implementation. No import of generate.py or old proof code.
+
+Checks finite algebra, certificate completeness, exact arithmetic and negative
+controls. It does not re-prove BEG2013 or formally verify the paper proof.
+"""
+from __future__ import annotations
+import argparse
+import copy
+import hashlib
+import json
+from fractions import Fraction
+from math import comb, gcd, isqrt, prod
+from pathlib import Path
+
+
+def require(ok: bool, message: str) -> None:
+    if not ok:
+        raise ValueError(message)
+
+
+def v2(a: int) -> int:
+    require(a != 0, 'v2(0) is not a finite valuation')
+    x = abs(a)
+    return (x & -x).bit_length()-1
+
+
+def vp(a: int, p: int) -> int:
+    require(a > 0 and p >= 2, 'vp input')
+    e, q = 0, p
+    while a % q == 0:
+        e += 1
+        q *= p
+    return e
+
+
+def prime(p: int) -> bool:
+    return p >= 2 and all(p % d for d in range(2, isqrt(p)+1))
+
+
+def choose_vp(n: int, j: int, p: int) -> int:
+    # Counts carries, unlike the factorial-difference generator.
+    q, a = p, 0
+    while q <= n:
+        a += j % q > n % q
+        q *= p
+    return a
+
+
+def witness(n: int, j: int, obj: dict) -> None:
+    p, e = obj['p'], obj['carry_exponent']
+    require(prime(p) and p >= 3, 'prime or i3 threshold')
+    require(1 <= e <= 64, 'carry exponent range')
+    source = sum(vp(n-r, p) for r in range(3)) - vp(6, p)
+    require(source == obj['source_v'] and source > 0, 'source valuation')
+    require(j % (p**e) > n % (p**e), 'target carry is not positive')
+
+
+def params(n: int, j: int) -> tuple:
+    require(n % 4 == 0 and 4 <= j < n//2, 'strict Pi domain')
+    g = gcd(n,j)
+    lam = 3 if vp(n-1,3)==1 else 1
+    mu = 3 if vp((n-2)//2,3)==1 else 1
+    N,K = (n-1)//lam, (n-2)//(2*mu)
+    Cs=[gcd(K,j-r) for r in range(3)]
+    return g,lam,mu,N,K,Cs
+
+
+def geometry(n: int, j: int, V: int) -> tuple[int,int,int,int]:
+    delta=n-2*j
+    T=(n-1)*(n-2)
+    E=delta*delta-3*n+2
+    P=E*E+4*(n-1)*(T+E)
+    return E,P,V*E*P,2*(n-1)**3*(n-2)**2
+
+
+def dyadic_test(n: int,j: int) -> bool:
+    if not (4 <= j <= n//2): return False
+    g=gcd(n,j); t=v2(g)
+    return t >= 3 and 16*(n-2*j)**6 <= (1<<t)*g*n**5
+
+
+def log_test(n: int,j: int) -> bool:
+    if not (n>=56 and 4<=j<=n//2): return False
+    # The integer bit length supplies floor(log2 n), without floating point.
+    return (n.bit_length()-1)*n**660 >= (1<<2266)*max(n**5,(n-2*j)**6)**132
+
+
+class Poly:
+    """Tiny exact sparse Z-polynomial implementation for identities only."""
+    def __init__(self, d: int, terms=None):
+        self.d=d
+        if terms is None: terms={}
+        if isinstance(terms,int): terms={(0,)*d: terms}
+        self.p={tuple(k):int(v) for k,v in terms.items() if v}
+    def coerce(self,x):
+        return x if isinstance(x,Poly) else Poly(self.d,int(x))
+    def __add__(self,x):
+        x=self.coerce(x); require(x.d==self.d,'poly dimension')
+        p=self.p.copy()
+        for k,v in x.p.items(): p[k]=p.get(k,0)+v
+        return Poly(self.d,p)
+    __radd__=__add__
+    def __neg__(self): return Poly(self.d,{k:-v for k,v in self.p.items()})
+    def __sub__(self,x): return self+-self.coerce(x)
+    def __rsub__(self,x): return self.coerce(x)+-self
+    def __mul__(self,x):
+        x=self.coerce(x); p={}
+        for a,b in self.p.items():
+            for c,e in x.p.items():
+                k=tuple(i+j for i,j in zip(a,c)); p[k]=p.get(k,0)+b*e
+        return Poly(self.d,p)
+    __rmul__=__mul__
+    def __pow__(self,n):
+        require(isinstance(n,int) and n>=0,'polynomial power')
+        a,b=Poly(self.d,1),self
+        while n:
+            if n&1: a=a*b
+            b=b*b; n//=2
+        return a
+    @staticmethod
+    def vars(d):
+        return [Poly(d,{tuple(int(k==i) for k in range(d)):1}) for i in range(d)]
+
+
+def algebra() -> dict:
+    checks=[]
+    def zero(name,p):
+        require(not p.p, 'polynomial identity: '+name); checks.append(name)
+    H,z,Q,U=Poly.vars(4)
+    V=H*Q-U*z**2
+    w=2*H+z
+    ell2F=Q+4*U*(H+z)
+    nV=2*w*ell2F+2*V
+    J=3*Q+4*U*H+6*U*z
+    zero('shared defect after HQ=Uz2+V',nV+6*V-2*z*Q-4*H*J)
+    f=(z*Q)*w**3-2*V*z*w**2-2*V*z**2*w+V*z**3
+    zero('new fixed cubic',2*f-nV*z**3)
+    B,V,z=Poly.vars(3)
+    a,b,c,d=B,-2*V*z,-2*V*z*z,V*z**3
+    disc=b*b*c*c-4*a*c**3-4*b**3*d-27*a*a*d*d+18*a*b*c*d
+    expected=V*V*z**6*(-27*B*B+104*B*V+48*V*V)
+    zero('cubic discriminant',disc-expected)
+    H,z=Poly.vars(2); w=2*H+z
+    zero('old zero defect formula',6*w**3-4*z*w*w-4*z*z*w+2*z**3-4*H*(12*H*H+14*H*z+3*z*z))
+    n,X=Poly.vars(2)
+    zero('core monotone product',n**4*(n-2)**2-64*X*X*(X-n+1)-(n*n-4*X)*(16*X*X+(n-2)**2*(n*n+4*X)))
+    x,=Poly.vars(1); n=x+56
+    positive=8*(n-1)**3*(n-2)**2-7*n**5
+    require(all(c>=0 for c in positive.p.values()) and positive.p.get((0,),0)>0, 'n>=56 denominator bound')
+    checks.append('n>=56 denominator positive coefficient proof')
+    positive_L=10*(x+1)**132-(x+1)-9
+    require(all(c>=0 for c in positive_L.p.values()),'height low-order terms')
+    checks.append('9+L<=10 L132 for L>=1')
+    require(Fraction(343,864)>Fraction(1,3),'core constant')
+    require((2-Fraction(27,28))*64-Fraction(11*27,7)==Fraction(167,7),'dyadic strict margin')
+    require(81*82==6642 < 2**13,'height coefficient bound')
+    require(90**2 < 2**13 and 60*13+33*13==1209,'BEG arithmetic')
+    require(4*33==132 and 1210+8*132==2266 and 5*132==660,'height/log powers')
+    # f mod 2 = X^3+1; its derivative X^2 has no common root over F2.
+    require((0**3+1)%2==1 and (1*1)%2==1,'separable reduction')
+    return {'identities_and_positive_polynomials': checks, 'count':len(checks),
+            'dyadic_strict_margin':'167/7', 'height_bound':'n < 2^(2^1210 L^132)',
+            'publication_theorem_reproved':False}
+
+
+def validate_point(p: dict, compare_old=True) -> dict:
+    n,j,g0=int(p['n_hex'],16),int(p['j_hex'],16),int(p['g_hex'],16)
+    require(4<=j<n//2 and n%4==0,'point legality')
+    g,lam,mu,N,K,Cs=params(n,j)
+    V=lam**3*mu**2
+    require(g==g0 and n.bit_length()==p['n_bits'],'point canonical gcd/size')
+    require(v2(g)==p['t'] and v2(n)==p['v'],'complete dyadic powers')
+    require([hex(c) for c in Cs]==p['Cs_hex'],'full canonical gcd blocks')
+    Pi=[j*(j-1)%N==0,j*(j-1)*(j-2)%K==0]
+    require(Pi==p['Pi'],'projection truth flags')
+    witness(n,j,p['witness'])
+    if not compare_old:
+        return {'Pi':Pi,'witness_prime':p['witness']['p']}
+    u=p['u']; delta=n-2*j
+    require(u>=5 and n==(1<<(48*u)) and g==(1<<(4*u)),'family n/g')
+    require((1<<(41*u))<=delta<(1<<(41*u+1)),'complete family delta interval')
+    require(dyadic_test(n,j),'new dyadic consumer')
+    E,P,num,den=geometry(n,j,V)
+    require(V==1 and E>0 and 2*E>delta*delta,'family normalization/central lower bound')
+    # Finite, exact sufficient inequalities for the universal no-old-GAP proof.
+    T=(n-1)*(n-2); X=j*(n-j)
+    require(16*X>3*T and 4*X<T,'rho in (3/8,1/2)')
+    require(64*n**5<T**3,'GAP error/T <1/12')
+    require(4*T>3*n*n,'T>3n2/4')
+    require(4096*delta**12<729*n**11,'aE<n2/4 after old height guard')
+    require(27*E**3>n**5 and 27*n>64,'all old GAP branches rejected')
+    require(E*E>12*(n-1)**3,'old D center does not reject')
+    require(2*j*j*(j-1)**2>g*g*(n-1)**3,'old D endpoint does not reject')
+    require(512*(n-1)**3<n**4,'old TW fails since S(n)=n')
+    require(num>(g+3*V)*den,'old standalone g size condition passes')
+    require(num<(2*(1<<v2(g))*g+3*V)*den,'amplified exact gap rejects')
+    beta,alpha=j//g,n//g
+    if p['kind']=='plain':
+        require(beta==(1<<(44*u-1))-(1<<(37*u-1))-1,'plain beta')
+    elif p['kind']=='mixed':
+        require(u==377+385*p['w'],'mixed arithmetic progression')
+        require(all((48*u-1)%o==0 for o in (5,7,11)),'K prime periods')
+        items=p['conditions']; moduli=[q for q,_ in items]
+        require(moduli==[2,31,127,23,3,5,7,11,13,17],'CRT complete moduli')
+        L=prod(moduli)
+        require(L==46227191010==p['crt_modulus'] and L<2**36,'CRT modulus')
+        # Global CRT sum, not the incremental implementation in the generator.
+        x=sum(a*(L//q)*pow(L//q,-1,q) for q,a in items)%L
+        require(x==p['crt_residue'] and beta%L==x,'global CRT')
+        require(beta%2==1 and g*beta%31==0 and g*beta%127==1 and g*beta%23==2,'C assignments')
+        require(all(beta%q==0 for q in (3,5,7)) and all((alpha-beta)%q==0 for q in (11,13,17)),'cofactor assignments')
+        star=(1<<(44*u-1))-(1<<(37*u-1))-1
+        require(star-L<beta<=star,'largest CRT member below beta star')
+        require(all(K%q==0 for q in (31,127,23)) and all(N%q==0 for q in (3,5,7)),'actual N/K prime factors')
+        require(Cs[0]>=31 and Cs[1]>=127 and Cs[2]>=23,'mixed block lower bounds')
+    else: raise ValueError('unknown family kind')
+    return {'kind':p['kind'],'u':u,'n_bits':n.bit_length(),
+            'Pi':Pi,'Bgeom_is_integer':num%den==0,'Bgeom_num_bits':num.bit_length(),
+            'Bgeom_den_bits':den.bit_length(),'witness_prime':p['witness']['p'],
+            'new_dyadic':True,'all_old_GAP_parameters_rejected_by_paper_conditions':True,
+            'old_D_center':False,'old_D_endpoint':False,'old_TW':False,
+            'old_g_size_passes':True}
+
+
+EXPECTED_CLAIMS={'dyadic_min_t':3,'dyadic_coefficient':16,'height_binary_exponent_constant':1210,
+                 'height_power':132,'logband_binary_constant':2266,'logband_n_power':660,
+                 'external_input':'BEG2013 arXiv:1301.7168v1 Theorem 2.3 (2.7)',
+                 'all_i3_closed':False,'lean':False,'independent_researcher':False}
+
+
+def header(cert: dict) -> None:
+    require(cert['schema']=='b699-B-dyadic-defect-height-v1','schema')
+    require(cert['claims']==EXPECTED_CLAIMS,'claim scope or constants')
+    require(cert['plain_u']==[5,6,7,10,20,40] and cert['mixed_w']==[0,1,2],'parameter set')
+    expected=[('plain',u) for u in cert['plain_u']]+[('mixed',377+385*w) for w in cert['mixed_w']]
+    require([(p['kind'],p['u']) for p in cert['points']]==expected,'finite sample completeness/order')
+    require(cert['pi_fixtures']==[[76672,26775],[18610024,7865522],[2218328,468787],[78090488,16502461]],'Pi fixtures')
+    expected_symbolic={'r_min':1,'t_exponent_offset':3060,'t_exponent_slope':800,'n_exponent_multiplier':6,
+                      'delta_t_multiplier':5,'delta_r_multiplier':1,'delta_addend':2,'expanded_n_constructed':False}
+    require(cert['symbolic_log_family']==expected_symbolic,'symbolic family or false execution claim')
+    require(3060-(2266+6*132)==2 and 800-6*132==8,'symbolic log family margins')
+
+
+def pi_checks(fixtures: list) -> dict:
+    rows=[]
+    for n,j in fixtures:
+        g,lam,mu,N,K,Cs=params(n,j); C=Cs[1]; F=Cs[0]*Cs[2]
+        require(j*(j-1)%N==0 and j*(j-1)*(j-2)%K==0,'fixture Pi')
+        H=Fraction(j*(n-j),N*F); U=Fraction((j-1)*(n-j-1),N*C*C)
+        require(H.denominator==U.denominator==1,'canonical integer residuals')
+        H,U=int(H),int(U); ell=lam*mu; V=lam**3*mu**2
+        z=ell*C-2*H; Q=ell*ell*F-4*U*(H+z); B=z*Q
+        J=3*Q+4*U*H+6*U*z
+        require(z>0 and z%2 and Q>0 and Q%2,'positive odd center form')
+        require(H*Q==U*z*z+V and V*(n+6)-2*B==4*H*J,'old identities')
+        w=ell*C
+        f=B*w**3-2*V*z*w*w-2*V*z*z*w+V*z**3
+        require(2*f==V*z**3*n,'new cubic on actual Pi')
+        E,P,num,den=geometry(n,j,V)
+        require(num==B*den,'geometric defect')
+        require(16*(n-1)**3*H*H*U<V*n**4,'core')
+        disc=V*V*z**6*(-27*B*B+104*B*V+48*V*V)
+        require(disc%2==1,'uniform discriminant parity')
+        alpha=n//g
+        c=alpha>>v2(alpha)
+        rows.append({'n':n,'j':j,'g':g,'Bscr':B,'z':z,'Q':Q,'alpha_odd_part':c,
+                     'valid_NC3_alpha_shape':c in (1,3),'is_NC3_counterexample':False})
+    return {'actual_Pi_inputs':rows,'count':len(rows),
+            'boundary':'These points satisfy Pi, but all fail the NC3 alpha condition. New identities are checked; no NC3 witnesses asserted.'}
+
+
+def local_valuations() -> dict:
+    count=0
+    for t in range(2,19):
+        for d in (1,3,5,7):
+            for R in (1,3,5):
+                for J in (1,3,5):
+                    for V in (1,9,27):
+                        for c in (1,3):
+                            for v in (2*t+3,4*t-1,4*t+2):
+                                g=d*(1<<t); H=g*g*R; n=c*d*(1<<v)
+                                D=V*(n//2)-2*H*J
+                                require(v2(D)==2*t+1,'local exact dyadic valuation')
+                                require(D%((1<<(t+1))*g)==0,'amplified divisor')
+                                count+=1
+    for p,order in ((31,5),(127,7),(23,11)):
+        require(prime(p) and pow(2,order,p)==1 and all(pow(2,a,p)!=1 for a in range(1,order)),'full prime period')
+    return {'arithmetic_states':count,'full_prime_periods':3,
+            'meaning':'Local identity lemma only. These abstract states are not asserted Pi or NC3.'}
+
+
+def direct_regression() -> dict:
+    checked=accepted=0
+    # Finite diagnostics only; no inference beyond this finite domain.
+    for n in range(16,2049,8):
+        c3=comb(n,3)
+        for j in range(8,n//2+1,8):
+            checked+=1
+            if dyadic_test(n,j):
+                z=gcd(c3,comb(n,j))
+                z >>= v2(z)
+                require(z>1,'finite original i3 consumer check')
+                accepted+=1
+    n,j,p=56,11,3
+    require(choose_vp(n,3,p)==2 and choose_vp(n,j,p)==1,'p=i=3')
+    require(j%27>n%27 and not j%9>n%9,'full 3^3 versus erroneous 3^2')
+    return {'legal_n_j_pairs_checked':checked,'dyadic_accepted_with_exact_binomial_gcd':accepted,
+            'domain':'n=16,24,...,2048; j=8,16,...,floor(n/2)',
+            'p_equals_i_full_power_control':True,'infinite_coverage_by_scan':False}
+
+
+def negative_tests(cert: dict) -> dict:
+    done=[]
+    def rejected(name,fn):
+        try: fn()
+        except (ValueError,KeyError,TypeError,AssertionError): done.append(name); return
+        raise ValueError('bad evidence was accepted: '+name)
+    for key,new in [('dyadic_min_t',2),('dyadic_coefficient',8),('height_binary_exponent_constant',1208),
+                    ('height_power',131),('logband_binary_constant',2265),('logband_n_power',659),
+                    ('all_i3_closed',True),('lean',True),('independent_researcher',True),
+                    ('external_input','none')]:
+        bad=copy.deepcopy(cert);bad['claims'][key]=new
+        rejected('altered_'+key,lambda b=bad:header(b))
+    bad=copy.deepcopy(cert);bad['points'].pop()
+    rejected('missing_sample',lambda:header(bad))
+    bad=copy.deepcopy(cert);bad['points'].append(bad['points'][0])
+    rejected('duplicate_sample',lambda:header(bad))
+    bad=copy.deepcopy(cert);bad['symbolic_log_family']['expanded_n_constructed']=True
+    rejected('invented_huge_execution',lambda:header(bad))
+    for key,new in [('g_hex','0x1'),('t',1),('n_bits',7),('j_hex','0x1'),('Cs_hex',['0x2']*3),('Pi',[True,True])]:
+        bad=copy.deepcopy(cert['points'][0]);bad[key]=new
+        rejected('wrong_point_'+key,lambda b=bad:validate_point(b))
+    for key,new in [('p',2),('source_v',0),('carry_exponent',0)]:
+        bad=copy.deepcopy(cert['points'][0]);bad['witness'][key]=new
+        rejected('wrong_witness_'+key,lambda b=bad:validate_point(b))
+    bad=copy.deepcopy(cert['points'][-1]);bad['crt_modulus']+=2
+    rejected('incorrect_CRT_period',lambda:validate_point(bad))
+    # Dropping the valuation gap really can change the arithmetic conclusion.
+    m=cert['negative_controls']['missing_valuation_gap']
+    D=m['Bscr']-3*m['V']
+    require(D==m['V']*m['n']//2-2*m['H']*m['J'],'reverse arithmetic model')
+    require(v2(D)!=2*v2(m['g'])+1 and m['n']%4==0,'missing gap reverses conclusion')
+    rejected('zero_has_finite_valuation',lambda:v2(0))
+    require(not dyadic_test(512,31),'odd gcd is outside DYADIC')
+    return {'rejected':done,'count':len(done),
+            'reverse_model_actual_v2':v2(D),'reverse_model_false_claim_v2':2*v2(m['g'])+1,
+            'reverse_model_is_Pi':False,'reverse_model_is_counterexample':False}
+
+
+def main() -> None:
+    ap=argparse.ArgumentParser()
+    ap.add_argument('--certificate',type=Path,required=True)
+    ap.add_argument('--out',type=Path,required=True)
+    args=ap.parse_args(); cert=json.loads(args.certificate.read_text())
+    args.out.mkdir(parents=True,exist_ok=True)
+    header(cert)
+    results={'algebra':algebra(), 'families':{'points':[validate_point(p) for p in cert['points']]},
+             'Pi':pi_checks(cert['pi_fixtures']), 'dyadic_local':local_valuations(),
+             'original_regression':direct_regression(), 'negative':negative_tests(cert)}
+    failures=[]
+    for p in cert['failure_points']:
+        validate_point(p,False)
+        n,j=int(p['n_hex'],16),int(p['j_hex'],16)
+        require(not dyadic_test(n,j) and not log_test(n,j),'claimed unaccepted point')
+        failures.append({'n_hex':p['n_hex'],'j_hex':p['j_hex'],'g_hex':p['g_hex'],
+                         'dyadic':False,'log_band':False,'common_prime':p['witness']['p'],
+                         'counterexample':False})
+    results['boundaries']={'actual_unaccepted_inputs':failures,
+                           'HEIGHT-B_finite_search_performed':False,
+                           'BEG_pdf_full_proof_replayed':False,
+                           'symbolic_log_family_expanded':False}
+    for name,x in results.items():
+        (args.out/(name+'.json')).write_text(json.dumps(x,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    summary={'status':'PASS_DYADIC_CONSUMERS_AND_DEFECT_HEIGHT_INTERFACE',
+             'algebra_checks':results['algebra']['count'],'infinite_families_numeric_samples':len(cert['points']),
+             'max_n_bits':max(p['n_bits'] for p in cert['points']),
+             'actual_Pi_cases':results['Pi']['count'],
+             'dyadic_local_states':results['dyadic_local']['arithmetic_states'],
+             'direct_regression':results['original_regression'],
+             'bad_evidence_rejected':results['negative']['count'],
+             'publication':'BEG2013 Theorem 2.3 is a paper dependency, not a theorem checked by this program.',
+             'R7':[3,4,5,6,7,8,9], 'new_closed_indices':0,
+             'Lean':False,'independent_human_or_researcher_review':False}
+    (args.out/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    print(json.dumps(summary,ensure_ascii=False))
+
+if __name__=='__main__': main()

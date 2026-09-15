@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+"""Independent integer reconstruction; deliberately imports no generator functions."""
+from __future__ import annotations
+from pathlib import Path
+from math import gcd,isqrt,prod
+import json,argparse
+
+def check(ok,message):
+    if not ok:raise ValueError(message)
+
+def ordval(x,p):
+    ans=0
+    while x%p==0:x//=p;ans+=1
+    return ans
+
+def prime(p):
+    if p<2:return False
+    if p%2==0:return p==2
+    f=3
+    while f*f<=p:
+        if p%f==0:return False
+        f+=2
+    return True
+
+def carry(n,j,p):
+    check(prime(p),'prime witness invalid')
+    # Carry when adding j and n-j, independent of floor-factorial differences.
+    k=n-j;cnt=0;c=0
+    while j or k or c:
+        a=j%p;b=k%p
+        c=(a+b+c)//p;cnt+=c;j//=p;k//=p
+    return cnt
+
+def data(n,j):
+    check(n%4==0 and 4<=j and 2*j<n,'Pi legal range')
+    la=3 if ordval(n-1,3)==1 else 1
+    mu=3 if ordval(n//2-1,3)==1 else 1
+    N=(n-1)//la;K=(n//2-1)//mu;C0=gcd(j,K);C=gcd(j-1,K);C2=gcd(j-2,K)
+    check(j*(j-1)%N==0 and j*(j-1)*(j-2)%K==0,'exact Pi')
+    check(C0*C*C2==K,'complete prime-power allocation')
+    h,rem=divmod(j*(n-j),N*C0*C2);check(rem==0,'middle integer')
+    u,rem=divmod((j-1)*(n-j-1),N*C*C);check(rem==0,'other window integer')
+    return la,mu,N,K,C0,C,C2,h,u
+
+def families(path):
+    x=json.loads(path.read_text());total=0
+    check([(e['family'], e['parameter']) for e in x['examples']]==[('center',t) for t in range(2,8)]+[('quadratic',v) for v in (37,40,60,91,120)],'fixed regression coverage')
+    check([e['u'] for e in x['mixed_examples']]==[0,1,2],'mixed sample coverage')
+    check(x['modulus']==2*233*1103*2089*3*5*7*11*13*17,'CRT modulus')
+    for e in x['examples']+x['mixed_examples']:
+        n=int(e['n']);j=int(e['j']);D=(n-1)*(n-2);Delta=n-2*j
+        check(n%4==0 and 4<=j<n//2 and gcd(n,j)==1,'family domain/alpha')
+        if e.get('family')=='quadratic':
+            q=isqrt(n*n//3)
+            # reconstruct by closest member of the 2 mod 4 class, using modulus remainder.
+            d=q-q%4+2
+            check(Delta==d,'quadratic rounding')
+            a=3;b=1
+        else:
+            a=2;b=1
+            if 'u' in e:
+                t=30+58*e['u'];check(n==(1<<(30*t)),'mixed n')
+                mods=[2,233,1103,2089,3,5,7,11,13,17]
+                rs=[1,0,1,2,0,0,0,n%11,n%13,n%17]
+                mod=prod(mods)
+                # simultaneous CRT sum, not the incremental generator.
+                rep=sum(r*(mod//m)*pow(mod//m,-1,m) for r,m in zip(rs,mods))%mod
+                target=n//2-(1<<(24*t-1))-1
+                recovered=rep+((target-rep)//mod)*mod
+                check(j==recovered,'mixed complete CRT class')
+                check(all(j%p==0 for p in (3,5,7,233)),'beta support')
+                check(all((n-j)%p==0 for p in (11,13,17,2089)),'gamma support')
+                K=(n-2)//2
+                check(all(gcd(K,j-r)>=p for r,p in [(0,233),(1,1103),(2,2089)]),'three actual gcd blocks')
+            else:
+                t=e['parameter'];check(n==(1<<(30*t)),'center n')
+                check(Delta==(1<<(24*t))+2,'center delta')
+        E=b*D-2*a*j*(n-j)
+        check(n>=(36*a*b)**3 and 27*abs(E)**3<=n**5,'new exact gap acceptance')
+        la=3 if ordval(n-1,3)==1 else 1;mu=3 if ordval((n-2)//2,3)==1 else 1;V=la**3*mu**2
+        Es=Delta*Delta-3*n+2;u0=8 if j%2 else (3 if la==1 else 1)
+        check(Es>0 and V*Es*Es>4*u0*(n-1)**3,'D exact center not accepting')
+        check(2*V*j*j*(j-1)**2>gcd(n,j)**2*(n-1)**3,'D exact endpoint not accepting')
+        def small(t):
+            z=1
+            for p in (2,3,5,7):
+                while t%p==0:z*=p;t//=p
+            return z
+        check(512*(n-1)**3<=small(n)**4*small(n-1)**3*small(n-2)**2,'TW not accepting')
+        w=e['common_prime']
+        check(w is not None,'required regression witness absent')
+        check(e['old_center'] is False and e['old_endpoint'] is False and e['TW'] is False,'comparison flags')
+        N=(n-1)//la;K=(n-2)//(2*mu)
+        check(e['Pi_first']==(j*(j-1)%N==0) and e['Pi_second']==(j*(j-1)*(j-2)%K==0),'Pi truth flags')
+        if w:
+            check(w['p']>=3 and carry(n,3,w['p'])==w['source_v']>0,'source complete carry')
+            check(carry(n,j,w['p'])==w['target_v']>0,'target complete carry')
+        total+=1
+    for d in x['prime_period_certificates']:
+        p=d['prime'];check(prime(p),'period prime')
+        v=1
+        for _ in range(d['period']):v=v*2%p
+        check(v==1,'period repeated modular doubling')
+    return total
+
+def forms(path):
+    xs=json.loads(path.read_text());total=0
+    check([(d['n'],d['j']) for d in xs['actual_Pi_examples']]==[(76672,26775),(18610024,7865522),(2218328,468787),(78090488,16502461)],'fixed nonempty Pi regression coverage')
+    for d in xs['actual_Pi_examples']:
+        n,j=d['n'],d['j'];la,mu,N,K,C0,C,C2,H,U=data(n,j);ell=la*mu;V=la**3*mu**2
+        check([C0,C,C2]==d['Cs'] and H==d['H'] and U==d['U'],'raw reconstruction')
+        T=(n-1)*(n-2);X=j*(n-j)
+        for a in range(1,33):
+            for b in range(1,17):
+                E=b*T-2*a*X
+                # different polynomial expansion of P
+                P=b*b*T*T-4*a*b*T*(X-n+1)+4*a*a*X*(X-n+1)
+                Q,qrem=divmod(la*ell*P,2*C*(n-1)*T)
+                r,rrem=divmod(ell*C*E,T)
+                check(qrem==rrem==0 and Q>0,'independent rational integer formula')
+                check((U*r*r+V*b*b)==H*Q,'divisor normalization')
+                check(Q==U*H*a*a-2*U*ell*C*a*b+ell*ell*C0*C2*b*b,'quadratic form exact')
+                if (a,b) in ((2,1),(3,1),(4,1),(6,1),(8,1),(11,5)):
+                    check([a,b,r,Q] in d['forms'],'stored form exact')
+                if (a,b)==(2,1):
+                    z=r;B=r*Q
+                    J=(V*(n+6)-2*B)//(4*H)
+                    check(V*(n+6)-2*B==4*H*J and J>0 and J%2,'full 4H congruence')
+                    check(J==ell*ell*C0*C2+2*U*z+2*Q,'shared windows identity')
+                    check(B==d['B'] and Q==d['center_Q'],'center fields')
+                total+=1
+        w=d['common_prime'];check(w is not None and w['p']>=3 and w['source_v']>0 and w['target_v']>0,'nonempty odd weak test witness')
+        check(carry(n,3,w['p'])==w['source_v'] and carry(n,j,w['p'])==w['target_v'],'weak prime valuations')
+    check(total==xs['all_ab_identity_checks'],'count agreement')
+    return total
+
+def main(root,out):
+    a=forms(root/'forms.json');b=families(root/'families.json')
+    c=json.loads((root/'constants.json').read_text())
+    check(c['a2_threshold']==72**3 and c['a3_threshold']==108**3,'consumer thresholds')
+    check(c['gap_margin']==[53,216] and 7*216-4*325==4*53,'rational gap margin')
+    check(c['n56_product_margin']==8*55**3*54**2-7*56**5>0,'constant endpoint')
+    check((c['resonance_t1_min_odd_factor'],c['resonance_t3_min_h2_factor'],c['resonance_t3_allowed_max'])==(29,53,27),'resonance constants')
+    x=json.loads((root/'resonance.json').read_text());rows=[]
+    for la,mu in [(1,1),(1,3),(3,1)]:
+        V=la**3*mu**2
+        # prime-power exponent enumeration, independent of odd divisor scan
+        zz=1
+        while zz<=3*V:
+            rows.append(dict(lam=la,mu=mu,V=V,z=zz,Q=3*V//zz));zz*=3
+    check(rows==x['finite_factor_types'],'resonance factors exact equality')
+    result={'status':'PASS','independent_form_checks':a,'independent_family_samples':b,
+            'resonance_factor_types':len(rows),'method':'direct raw Pi reconstruction; expanded E polynomial; simultaneous CRT; base-p addition carries'}
+    out.write_text(json.dumps(result,ensure_ascii=False,sort_keys=True,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--input',required=True,type=Path);ap.add_argument('--out',required=True,type=Path);ar=ap.parse_args();main(ar.input,ar.out)

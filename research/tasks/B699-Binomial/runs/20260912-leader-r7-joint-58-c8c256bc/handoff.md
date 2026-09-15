@@ -1,4 +1,4 @@
-> 最新整理入口：[七份成果总表](DELIVERIES.md)、[整理交接](notes/20260914-output-consolidation.md)。本文件保留历史前沿；当前结论、暂停与派发状态以 [CURRENT_STATUS.md](CURRENT_STATUS.md) 为准。
+> 最新整理入口：[2026-09-15 十八份成果](intake/20260915-daily-results/README.md)。本机在 `huan/leader-intake-20260915-6f28a9c4` 接收十八份原包，原件与嵌套成员已映射；三路文档整理不构成数学接受。当前结论与待办见 [CURRENT_STATUS.md](CURRENT_STATUS.md) 和本批交接，以下保留旧发布历史。
 
 # 5号Leader接续与发布记录
 

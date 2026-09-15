@@ -1,0 +1,17 @@
+# Checkpoint 001 — 2026-09-14
+
+New derivation (not Lean): from NC4, the entire >=5 part V of choose(n,4) divides every coefficient of F=sum_t choose(j,t)choose(k,4-t) X^t. Full prime-power allocation justified at every q=p^e || n-r, r=0..3.
+
+For binary-quartic invariants I=12ae-3bd+c^2 and J=72ace+9bcd-27ad^2-27b^2e-2c^3:
+I=X(X-n+1)(n-3)(n-2)/8,
+J=-X^2(X-n+1)(n-3)^2(n-2)/16, X=jk.
+
+A=I/V^2 and B=-J/V^3 are positive integers under NC4. Their difference E=B^2-2A^3 is strictly positive, since (n-1)(n-2)-X>0. Its exact expression has total numerator degree17 instead of18. A sufficient row criterion is
+T^6(3n^2-12n+8)<2^20(n-1)^6(n-3)^3,
+T=product_{r=0}^3 2^v2(n-r)3^v3(n-r).
+
+For n>=10, the coarser bound E<d^6/[2^16(n-1)] holds when T<=dn, using a degree7 polynomial positive after shift n=10.
+
+If n=2^a3^b and a,b>=2 then T=6n. Otherwise T<=24t*n, t=max(a,b), for t>=2 via elementary LTE for 2^even-1 and 3^even-1. For t>=64, 2^t-1>2916t^6 by exact base and ratio induction. Therefore any NC4 on a 3-smooth row has min(a,b)<=1 and max(a,b)<64. This finite domain must be fully regenerated and verified, not treated as already accepted.
+
+Bounded discovery (a,b<=100) found 23 rows failing the sharp invariant test, max n=129140163. No finite tail acceptance has yet been run. No new R7 item closed. No use of NC3 / old C_r / B cubic forbidden shape.

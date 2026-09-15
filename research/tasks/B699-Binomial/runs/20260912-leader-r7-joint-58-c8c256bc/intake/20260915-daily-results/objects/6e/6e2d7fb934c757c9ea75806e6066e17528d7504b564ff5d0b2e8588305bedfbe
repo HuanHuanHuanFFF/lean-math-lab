@@ -1,0 +1,14 @@
+"""Three-window parameters re-derived for every i>=3; no imported range claim."""
+from math import prod
+
+def parameters(i,r,s):
+ if not (isinstance(i,int) and i>=3 and 0<=r<i and 1<=s<i and 2*s>r):raise ValueError('three-window domain')
+ ps=[p for p in range(2,i+1) if all(p%q for q in range(2,p))]
+ def fact_v(n,p):
+  total=0
+  while n:n//=p;total+=n
+  return total
+ ell=i-1-r;lam=2*s-r;E=s*(s+1)+ell*(ell+1)//2
+ exps={p:(s*(s+1) if p==2 else 0)+2*sum(fact_v(k,p) for k in range(1,s+1))+sum(fact_v(k,p) for k in range(1,ell+1)) for p in ps}
+ K=prod(p**a for p,a in exps.items());t=sum(p<i for p in ps)
+ return dict(i=i,r=r,s=s,L=ell,lam=lam,E=E,ps=ps,t=t,K=K,K_exps=exps,d=E-lam*(i-t))

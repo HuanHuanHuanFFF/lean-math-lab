@@ -1,0 +1,28 @@
+import math,random,json,time
+from pathlib import Path
+P=[31,127,23,233,47];target=[0,1,2,0,1]
+mod=math.prod(P); period=math.lcm(5,7,11,29,23)
+vals=[1]*period
+for e in range(1,period): vals[e]=2*vals[e-1]%mod
+rr=0;mm=1
+for p,b in zip(P,target):rr+=mm*((b-rr)*pow(mm,-1,p)%p);mm*=p
+rng=random.Random(699314);table={};t0=time.time()
+for a in range(50000):
+ es=tuple(rng.sample(range(1,period),3));s=sum(vals[e] for e in es)%mod
+ table.setdefault(s,es)
+found=None
+for count in range(1,200001):
+ es=tuple(rng.sample(range(1,period),3));s=sum(vals[e] for e in es)%mod
+ other=table.get((rr-1-pow(2,408868,mod)-s)%mod)
+ if other and len(set(es+other))==6:
+  found=sorted(es+other);break
+assert found
+v=0;mm=1
+for q,r in [(5,1),(7,1),(11,1),(29,0),(23,0),(6,1)]:
+ v+=mm*((r-v)*pow(mm,-1,q)%q);mm*=q
+while v<max(found)+4:v+=mm
+out={'moduli':P,'j_residues':target,'power_period':period,'v0':v,'step':mm,'exponents':found, 'highest_offset':-3, 'n_step':4*mm, 'lower_step':3*mm,'search_left':50000,'search_right':count,'hash_table_size':len(table),'search_seconds':time.time()-t0}
+assert v%6==1
+assert all((sum(pow(2,e,p)for e in found)+1+pow(2,v-3,p))%p==r for p,r in zip(P,target))
+print(out)
+(Path(__file__).resolve().parents[2]/'outputs'/'mixed_gap_family_discovery.json').write_text(json.dumps(out,indent=2)+'\n')

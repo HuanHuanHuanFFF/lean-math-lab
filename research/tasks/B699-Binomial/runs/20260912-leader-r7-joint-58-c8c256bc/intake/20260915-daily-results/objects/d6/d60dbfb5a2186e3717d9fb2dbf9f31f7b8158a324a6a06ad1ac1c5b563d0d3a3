@@ -1,0 +1,34 @@
+"""Fail-closed regression for actual checker interfaces, not simulated PASS flags."""
+from pathlib import Path
+from copy import deepcopy
+import argparse,json
+import check_light_independent as graph
+import check_affine_packing as packing
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+ROOT=Path(__file__).resolve().parents[1]
+
+def run(cert):
+    p=json.loads((ROOT/'input/critical_affine_packing.json').read_text());out=[]
+    def rejected(name,base,change,check):
+        bad=deepcopy(base);change(bad)
+        try:check(bad)
+        except (AssertionError,ValueError,KeyError,IndexError,TypeError) as e:
+            out.append({'name':name,'rejected':True,'exception':type(e).__name__});return
+        raise AssertionError('Bad certificate accepted: '+name)
+    rejected('missing_distinct_case',cert,lambda d:d['distinct'].pop(),graph.verify)
+    rejected('missing_collision_pair',cert,lambda d:d['collisions'].pop(),graph.verify)
+    rejected('missing_polyhedral_branch',cert,lambda d:d['branches'].pop(),graph.verify)
+    rejected('missing_branch_vertex_data',cert,lambda d:d['distinct'][0]['branches'].pop(),graph.verify)
+    rejected('changed_joint_threshold',cert,lambda d:d['distinct'][0].update(gamma='4/5'),graph.verify)
+    rejected('inflated_positive_surplus',cert,lambda d:d['distinct'][1].update(minimum='1/50'),graph.verify)
+    rejected('missing_unique_zero_witness',cert,lambda d:d['distinct'][0].update(zero_vertices=[]),graph.verify)
+    rejected('collision_silently_uses_joint_hypothesis',cert,lambda d:d['collisions'][0].update(gamma='102/125'),graph.verify)
+    rejected('wrong_source_count',cert,lambda d:d.update(source_cut_count=16),graph.verify)
+    rejected('negative_packing_mass',p,lambda d:d['point_weights'].__setitem__(0,'-1'),packing.verify)
+    rejected('excess_singleton_mass',p,lambda d:d['point_weights'].__setitem__(0,'2'),packing.verify)
+    rejected('lost_row_mass',p,lambda d:d['point_weights'].__setitem__(1,'0'),packing.verify)
+    rejected('wrong_critical_prime_assignment',p,lambda d:d['countermodel_prime_order'].__setitem__(0,'0'),packing.verify)
+    return {'status':'REAL_BAD_CERTIFICATES_REJECTED','count':len(out),'cases':out}
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--certificate',type=Path,required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args();r=run(json.loads(a.certificate.read_text()));a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps({'status':r['status'],'count':r['count']}))

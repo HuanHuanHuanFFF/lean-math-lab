@@ -1,0 +1,30 @@
+# B699 R9 ABC context core
+
+This packet stores the two Pro evidence archives as byte-addressable member trees and stores the identical historical `B699-R12-dispatch-context.zip` exactly once. The two source outer ZIPs are intentionally omitted; their size and SHA-256 plus every member mapping are recorded in `PACKET_SOURCES.json`. The packet does not claim to reconstruct either original outer ZIP byte stream.
+
+The compact core layout is:
+
+- `shared/B699-R12-dispatch-context.zip` — exact shared historical ZIP bytes (39,610,422 bytes).
+- `sources/pro-a/` — every A member except its nested shared ZIP, with A's one top directory stripped.
+- `sources/pro-b/` — every B member except its nested shared ZIP.
+
+Restore all member trees and recreate the two omitted nested ZIP paths with:
+
+```text
+python3 prepare_context.py --dest /path/to/new-empty-directory
+```
+
+The destination must be new or empty. The command streams and hashes bytes, rejects unsafe paths and symlinks, and never imports or executes research code. It recreates:
+
+- `pro-a/originals/B699-R12-dispatch-context.zip`
+- `pro-b/input/originals/B699-R12-dispatch-context.zip`
+
+Use `--extract-shared` to additionally unpack the historical shared ZIP under `shared-history/`; the extraction is data-only and is recorded in `RESTORE_METADATA.json`.
+
+When the leader supplies final `navigation/` and `global/` context, include that directory at the ZIP root with:
+
+```text
+python3 build_context.py --extras /path/to/extras --output /path/to/B699-R9-ABC-context.zip
+```
+
+All extras files are path-checked and collisions with packet entries are rejected.

@@ -1,0 +1,19 @@
+{
+  "schema": "b699-r9-abc-context-metadata-v1",
+  "name": "B699-R9-ABC-context",
+  "description": "Compact byte-addressable context core for the B699 R9 ABC GPT-6 Pro handoff.",
+  "source_records": "PACKET_SOURCES.json",
+  "layout": {
+    "shared": "shared/B699-R12-dispatch-context.zip stores the exact historical shared ZIP once.",
+    "pro_a": "sources/pro-a contains every member of the Pro-A outer ZIP except its nested shared ZIP, with the one outer top directory stripped.",
+    "pro_b": "sources/pro-b contains every member of the Pro-B outer ZIP except its nested shared ZIP.",
+    "extras": "A caller-supplied extras directory may be added at ZIP root by build_context.py; root files such as README.md, prompts/, navigation/, and global/ are supplied at final build time."
+  },
+  "outer_archive_statement": "The original Pro-A and Pro-B outer ZIP attachments remain authoritative source bytes. This compact packet stores their nonshared member bytes and the shared historical ZIP once; it does not reconstruct or claim either omitted outer ZIP archive hash.",
+  "integrity_statement": "PACKET_SOURCES.json records each source outer archive size/SHA-256, each member source name, stripped relative path, size, SHA-256, and packet storage mapping. The shared nested ZIP bytes are checked against both source member paths.",
+  "safety_statement": "build_context.py and prepare_context.py validate safe paths, reject symlinks and same-name overwrites, stream bytes, and check SHA-256 values. They never execute research code, certificates, or Lean.",
+  "restore_command": "python3 prepare_context.py --dest <new-empty-directory> [--extract-shared]",
+  "build_command": "python3 build_context.py --extras <extras-directory> --output <B699-R9-ABC-context.zip>",
+  "default_output": "deliverables/B699-R9-ABC-context.zip",
+  "code_execution": false
+}

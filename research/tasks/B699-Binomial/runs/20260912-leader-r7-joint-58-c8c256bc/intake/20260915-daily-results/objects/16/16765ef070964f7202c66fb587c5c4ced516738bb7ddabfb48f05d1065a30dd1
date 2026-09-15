@@ -1,0 +1,167 @@
+"""Exact canonical reconstruction and shifted two-power consumers.
+No primality heuristics; finite examples do not carry the infinite proof.
+"""
+import sys,json,hashlib
+from pathlib import Path
+from math import gcd,isqrt
+from fractions import Fraction as F
+
+PAIRS={(1,1),(1,3),(3,1)}
+MIXED_OFFSET=4798950109491
+MIXED_MODULUS=5374077819110
+
+def vp(a,p):
+    assert a>0 and p>=2
+    t=0
+    while a%p==0:a//=p;t+=1
+    return t
+
+def facval(n,p):
+    r=0
+    while n:n//=p;r+=n
+    return r
+
+def chooseval(n,j,p):return facval(n,p)-facval(j,p)-facval(n-j,p)
+def normalize(n):
+    assert n>=8 and n%4==0
+    M=(n-2)//2
+    lam=3 if vp(n-1,3)==1 else 1
+    mu=3 if vp(M,3)==1 else 1
+    return lam,mu,(n-1)//lam,M//mu
+
+def canonical(n,j):
+    assert n%4==0 and 4<=j<n//2
+    lam,mu,N,K=normalize(n);ell=lam*mu;V=lam**3*mu**2
+    assert j*(j-1)%N==0 and j*(j-1)*(j-2)%K==0
+    k=n-j;cs=[gcd(K,j-s) for s in range(3)];C=cs[1];F0=cs[0]*cs[2]
+    assert cs[0]*C*cs[2]==K
+    assert j*k%(N*F0)==0 and (j-1)*(k-1)%(N*C*C)==0
+    H=j*k//(N*F0);U=(j-1)*(k-1)//(N*C*C);g=gcd(n,j)
+    assert H%(g*g)==0
+    z=ell*C-2*H;Q=ell*ell*F0-4*U*(H+z)
+    assert z>0 and z%2==1 and Q>0 and Q%2==1 and H*Q==U*z*z+V
+    return dict(n=n,j=j,lam=lam,mu=mu,N=N,K=K,Cs=cs,C=C,F=F0,H=H,U=U,g=g,R=H//(g*g),z=z,Q=Q,B=z*Q,V=V)
+
+def reconstruct(lam,mu,B,z,C,Y):
+    assert (lam,mu) in PAIRS and B>0 and B%2 and z>0 and B%z==0 and C>0 and C%2
+    ell=lam*mu;V=lam**3*mu**2;Q=B//z
+    assert ell*C>z and (ell*C-z)%2==0
+    H=(ell*C-z)//2
+    assert H*Q>V and (H*Q-V)%(z*z)==0
+    U=(H*Q-V)//(z*z)
+    assert (U*C*C+lam)%H==0
+    F0=(U*C*C+lam)//H
+    assert F0>0 and gcd(C,F0)==1
+    n=2*mu*C*F0+2; assert n%4==0 and normalize(n)[:2]==(lam,mu)
+    assert isinstance(Y,int) and Y>0
+    f=2*mu*Q*Q*C**3-8*Q*ell*ell*C*C+ell*(8*V-5*Q*z)*C+Q*z*z+10*V*z
+    assert f==2*lam*z**3*Y*Y
+    j=n//2-C*Y;assert 4<=j<n//2
+    d=canonical(n,j)
+    assert [d[k] for k in ['B','z','C','H','U','F','Q']]==[B,z,C,H,U,F0,Q]
+    return n,j
+
+def theta(n,delta):
+    E=delta*delta-3*n+2
+    P=delta**4-2*n*delta*delta+4*n**3-19*n*n+28*n-12
+    return F(E*P,2*(n-1)**3*(n-2)**2)
+
+def dyadic_gate(n,j,eps):
+    assert eps in [-1,1]
+    if n<8 or n%4 or not (4<=j<n//2):return False
+    v=vp(n,2);m=n>>v;lam,mu,_,_=normalize(n);V=lam**3*mu**2
+    x=n-2*j+2*eps
+    return x>0 and 64*n<=x*x and 9*x*x<=n*n and 6*V*m**5*x*x<=n*n and (x**6)%(1<<(5*v))==0
+
+def enumerate_old_gap(n,j):
+    # Complete old GAP check: b>=1, oddpart(a)=1 or3.
+    # Outside a/4 < b < a, |E| is large by proof §6.3.
+    t=(n.bit_length()-2)//6;X=1<<t;assert n==2*X**6
+    limit=2*X//5;T=(n-1)*(n-2);target=2*j*(n-j)
+    count=0
+    for c in [1,3]:
+        a=c
+        while a<=limit:
+            maxb=X*X//(27*a)
+            lo=max(1,a//4);hi=min(maxb,a)
+            if lo<=hi:
+                q=target*a//T
+                bs={lo,hi,min(hi,max(lo,q)),min(hi,max(lo,q+1))}
+                for b in bs:
+                    E=b*T-a*target
+                    assert 27*abs(E)**3>n**5;count+=1
+            a*=2
+    return count
+
+def crt(mods,rs):
+    r=0;mod=1
+    for p,s in zip(mods,rs):
+        assert gcd(p,mod)==1
+        r+=mod*((s-r)*pow(mod,-1,p)%p);mod*=p
+    return r,mod
+
+def run():
+    rows=[(76672,26775),(18610024,7865522),(2218328,468787),(78090488,16502461)]
+    pi_records=[]
+    for n,j in rows:
+        d=canonical(n,j);Y=(n-2*j)//(2*d['C']);assert 2*d['C']*Y==n-2*j
+        assert reconstruct(d['lam'],d['mu'],d['B'],d['z'],d['C'],Y)==(n,j)
+        assert theta(n,n-2*j)*d['V']==d['B']
+        X=d['lam']*d['mu']*d['C'];z=d['z'];Q=d['Q'];V=d['V']
+        assert 2*Q*X**3-4*V*X*X-4*V*z*X+2*V*z*z==n*V*z*z
+        d['Y']=Y
+        p=next(p for p in [3,5,7,11,13,17,19,23,29,31,37,41] if chooseval(n,3,p)>0 and chooseval(n,j,p)>0)
+        d['common_prime']=p;d['actual_valuations']=[chooseval(n,3,p),chooseval(n,j,p)]
+        pi_records.append(d)
+    assert chooseval(56,3,3)==2 and chooseval(56,11,3)==1
+    # Non-closed-theorem demonstration: omitting the full two-power condition
+    # loses integrality of the quantized leading term.
+    n=1<<24;x=(1<<20)+2
+    assert 64*n<=x*x and 9*x*x<=n*n and 6*x*x<=n*n
+    assert F(x**6,1<<120).denominator!=1
+    samples=[];rational_tests=0
+    for t in [2,3,4,6,10,15,25]:
+        X=1<<t;n=X**6
+        for q in sorted({1,max(1,X//4),X//3}):
+            for sigma in [-1,1]:
+                j=n//2-q*X**5//2+sigma;eps=sigma
+                assert dyadic_gate(n,j,eps)
+                x=n-2*j+2*eps
+                err=theta(n,n-2*j)-F(x**6,2*n**5)
+                assert F(x*x,n*n)<err<3*F(x*x,n*n)
+                quantum=2*err
+                assert 0<quantum<1
+                rational_tests+=1
+        # Store reproducible inputs, not massive n/j decimal strings.
+        samples.append({'t':t,'q_cases':sorted({1,max(1,X//4),X//3}),'both_shifts_checked':True})
+    mods=[2,233,1103,2089,5,7,11,13]
+    desired=[1,58,826,520,1,6,10,5]
+    assert crt(mods,desired)==(MIXED_OFFSET,MIXED_MODULUS)
+    # All claimed small primes are checked by complete trial division.
+    for p in mods[1:]+[3,31]:
+        assert all(p%d for d in range(2,isqrt(p)+1))
+    for p in mods[1:]:assert pow(2,1740,p)==1
+    assert MIXED_OFFSET%2 and (64*MIXED_OFFSET*MIXED_OFFSET).bit_length()==91
+    mixed=[]
+    for t in [1769,3509]:
+        X=1<<t;n=2*X**6;q=X//4+MIXED_OFFSET;j=X**6-q*X**5-1;k=n-j
+        assert X>=64*MIXED_OFFSET**2 and dyadic_gate(n,j,-1) and gcd(n,j)==1
+        lam,mu,N,K=normalize(n);assert (lam,mu)==(1,1)
+        cs=[gcd(K,j-s) for s in range(3)]
+        assert all(c%p==0 for c,p in zip(cs,[233,1103,2089]))
+        assert j%(5*7*233)==0 and k%(11*13*2089)==0
+        assert N%31==0
+        # These are Common inputs, not Pi models; here p=3 is an explicit witness.
+        assert j%9==5 and n%9==2
+        assert chooseval(n,3,3)>0 and chooseval(n,j,3)>0
+        E=(n-2*j)**2-3*n+2
+        assert E*E>32*(n-1)**3
+        assert 2*j*j*(j-1)**2>(n-1)**3
+        assert n**4>512*(n-1)**3
+        checks=enumerate_old_gap(n,j) if t==1769 else 0
+        # No claim about the union of every historic consumer.
+        mixed.append({'t':t,'offset':MIXED_OFFSET,'n_bits':n.bit_length(),'g':1,'block_divisors':[233,1103,2089],'beta_cofactor_lower':35,'gamma_cofactor_lower':143,'canonical_normalization':[lam,mu],'common_prime':3,'common_valuations':[chooseval(n,3,3),chooseval(n,j,3)],'not_Pi':j*(j-1)%N!=0 or j*(j-1)*(j-2)%K!=0,'old_GAP_superset_nearest_b_checks':checks})
+    return {'status':'PASS','Pi_round_trips':pi_records,'dyadic_samples':samples,'exact_gap_evaluations':rational_tests,'mixed_family':{'period':1740,'t_base':29,'t_parameter_lower':1,'offset':MIXED_OFFSET,'offset_modulus':MIXED_MODULUS,'CRT_conditions':list(zip(mods,desired)),'records':mixed},'p_equals_i_regression':[56,11,3,2,1],'scope':'finite exact implementation regression; infinite family and comparison are proved in notes/PROOFS.md'}
+if __name__=='__main__':
+    result=run();Path(sys.argv[1]).write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':'PASS','Pi_round_trips':len(result['Pi_round_trips']),'dyadic_evaluations':result['exact_gap_evaluations'],'mixed_records':len(result['mixed_family']['records']),'old_GAP_checks':result['mixed_family']['records'][0]['old_GAP_superset_nearest_b_checks']}))

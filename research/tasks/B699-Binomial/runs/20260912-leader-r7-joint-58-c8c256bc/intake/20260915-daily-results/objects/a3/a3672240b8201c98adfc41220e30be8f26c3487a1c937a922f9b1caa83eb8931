@@ -1,0 +1,93 @@
+{
+  "comparisons": [
+    {
+      "byte_identical": true,
+      "bytes": 502566,
+      "name": "finite_rows.json",
+      "sha256": "585a8870871a598ea81ba3611fb577e14f8b560377508fbd9f41309da1f0dd91"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 598,
+      "name": "acceptance.json",
+      "sha256": "b0600266db7bb7dd42feacfe5cb64c6e632672c533eada90138bd4811f435ca4"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 35302,
+      "name": "diagnostics.json",
+      "sha256": "bcedf67d2f5e55cfff95d25b0b122322e60b4b3acb73983881a400756bda50b3"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 3754,
+      "name": "mutations.json",
+      "sha256": "42a56d84f6a49a443818d818fc590efba1eb551f33c908db165d87cfbe8551da"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 1955,
+      "name": "profiles.json",
+      "sha256": "cc0732549e99c7bfffd53451f0b63f3914b97f47b4d3eb70229f4da6d9176f6b"
+    }
+  ],
+  "independent_human_review": false,
+  "infinite_argument": "author proof in notes/PROOFS.md; code not a substitute",
+  "lean": false,
+  "old_chain_replayed": false,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "seconds": 9.696372153000084,
+  "status": "PASS_FRESH_NEW_CHAIN_REPLAY",
+  "steps": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/D-next-20260914/code/generate.py",
+        "--out",
+        "/mnt/data/D-even-gap-prepack-replay/finite_rows.regenerated.json"
+      ],
+      "returncode": 0,
+      "seconds": 3.794548054999723
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/D-next-20260914/code/verify.py",
+        "--out",
+        "/mnt/data/D-even-gap-prepack-replay"
+      ],
+      "returncode": 0,
+      "seconds": 1.165524959999857
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/D-next-20260914/code/diagnostics.py",
+        "--out",
+        "/mnt/data/D-even-gap-prepack-replay"
+      ],
+      "returncode": 0,
+      "seconds": 1.4203820789998645
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/D-next-20260914/code/mutations.py",
+        "--out",
+        "/mnt/data/D-even-gap-prepack-replay"
+      ],
+      "returncode": 0,
+      "seconds": 2.7923793909999404
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/D-next-20260914/code/profile_tests.py",
+        "--out",
+        "/mnt/data/D-even-gap-prepack-replay"
+      ],
+      "returncode": 0,
+      "seconds": 0.5225048620000052
+    }
+  ]
+}

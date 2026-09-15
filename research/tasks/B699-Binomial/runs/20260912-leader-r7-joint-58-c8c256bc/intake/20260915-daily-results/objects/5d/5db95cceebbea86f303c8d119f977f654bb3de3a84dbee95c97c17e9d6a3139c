@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+"""Bounded search diagnostic, NOT an infinite proof and not required by any theorem."""
+import argparse,json,math
+from pathlib import Path
+
+def main(out,limit):
+    checked=0;found=[]
+    for la,mu in [(1,1),(1,3),(3,1)]:
+        ell=la*mu;V=la**3*mu**2
+        for z in range(1,3*V+1,2):
+            if 3*V%z:continue
+            Q=3*V//z
+            for H in range(1,limit+1):
+                checked+=1
+                if (2*H+z)%ell:continue
+                C=(2*H+z)//ell
+                num=H*Q-V
+                if num<=0 or num%(z*z):continue
+                U=num//(z*z)
+                if (U*C*C+la)%H:continue
+                F=(U*C*C+la)//H;n=2*mu*C*F+2
+                if n%4:continue
+                N=(n-1)//la
+                if la*N!=n-1:continue
+                X=H*N*F;disc=n*n-4*X
+                if disc<0:continue
+                delta=math.isqrt(disc)
+                if delta*delta!=disc or (n-delta)%2:continue
+                j=(n-delta)//2
+                if not 4<=j<n//2:continue
+                K=C*F
+                if j*(j-1)%N or j*(j-1)*(j-2)%K:continue
+                found.append(dict(n=n,j=j,lam=la,mu=mu,C=C,H=H,U=U,z=z,Q=Q))
+    result={'role':'bounded diagnostic only, not proof of absence beyond H='+str(limit),
+            'H_max':limit,'states_checked':checked,'actual_Pi_examples':found}
+    out.write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'diagnostic_only':True,'checked':checked,'found':len(found)}))
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--out',required=True,type=Path);ap.add_argument('--H-max',type=int,default=20000);a=ap.parse_args();main(a.out,a.H_max)

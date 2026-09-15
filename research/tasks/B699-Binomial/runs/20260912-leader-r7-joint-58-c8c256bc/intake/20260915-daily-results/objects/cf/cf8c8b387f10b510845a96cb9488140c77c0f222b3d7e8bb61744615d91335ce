@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+"""Byte integrity check; this is not a mathematical proof replay."""
+from pathlib import Path
+import hashlib,json
+r=Path(__file__).resolve().parents[1]
+m=json.loads((r/'MANIFEST.json').read_text())
+for name,entry in m['files'].items():
+ p=r/name
+ if not p.is_file() or p.stat().st_size!=entry['bytes'] or hashlib.sha256(p.read_bytes()).hexdigest()!=entry['sha256']:
+  raise SystemExit('FAILED: '+name)
+print(json.dumps({'status':'PASS_MANIFEST_BYTES','members':len(m['files'])}))

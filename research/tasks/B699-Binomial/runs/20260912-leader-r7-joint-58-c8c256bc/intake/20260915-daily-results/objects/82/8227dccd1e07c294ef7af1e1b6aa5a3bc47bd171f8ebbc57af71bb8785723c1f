@@ -1,0 +1,43 @@
+# B699 Pro A — SUPPORT31 (v3)
+
+阅读顺序：REPORT.md → notes/PROOFS.md → SOURCE_ADOPTION.md → FAILURE_BOUNDARIES.md。
+恢复入口：HANDOFF.md及SESSION_STATE.json。
+
+## 完整重放本轮新义务
+
+Python3标准库即可（实际环境Python3.13.5）。从此根目录运行：
+
+```sh
+python3 -B code/reproduce.py --log-dir replay/local
+```
+
+这会重放：完整18格与960个指数盒、冻结原件哈希、发现记录与紧凑证书精确一致性、28项损坏拒绝、2项等价格基接受、有限回归。正常约18秒。它不联网、不运行LLL，不读取全部旧嵌套历史、不重放旧A9有限证书、不进行Lean或Git操作。
+
+单独主接收：`python3 -B code/verify.py --log-dir replay/main`，约2秒。
+一般支持高度：`python3 -B code/support_bounds.py --support 2,3,5,7,37`。只输出H和指数盒界，绝不构造2^H。
+
+## 发现搜索与证书压缩分开
+
+新证书不需要重做发现。要复现实际发现过程，先复制本交付目录作为工作副本，避免覆盖归档日志。发现额外依赖SymPy，实际采用1.14.0：
+
+```sh
+python3 discovery/lattice31_probe.py > replay-discovery-single.log
+python3 discovery/all_pairs_probe.py > replay-discovery-double.log
+python3 code/assemble_certificate.py --out replay-candidate.json
+```
+
+前两项在本次分别约133和114秒；会更新discovery中的结果JSON。第三项不用SymPy，只把已发现整数基重组并交给独立于LLL的接收器。接受要求18个格核的完整指数，而非信任LLL变换；后续不同环境返回不同的等价基时，也应走数学接收，不能仅凭字节不同判错。
+
+保留的旧S19探针、旧四位置double探针与诊断开发失败，只是方法记录。最终正向链用全部六种双型素数对、所有非零偏移。
+
+## 文件结构与依赖等级
+
+- notes/PROOFS.md：无限量词、出版特化、格覆盖与原题连接。
+- code/：标准库接收、一般界计算、诊断、损坏测试、证书重组。
+- evidence/：163676字节紧凑整数证书。
+- discovery/：实际发现源码与结果，非可信接收核心。
+- logs/final/：发布前实际全部新重放；其他logs保留阶段记录和真实失败。
+- inputs/task-v3-original.zip：用户唯一v3原件，未经修改。
+- sources/：新采用的冻结有限接口、任务正文和出版阅读记录。
+
+本轮新完整重放不等于旧证明链全部重验；纸面、出版输入、程序证书、有限回归、Lean、外部审读分别登记。最终ZIP的SHA256和干净目录重放收据为另一个实际交付文件；内部SHA256SUMS.json不包含自身。

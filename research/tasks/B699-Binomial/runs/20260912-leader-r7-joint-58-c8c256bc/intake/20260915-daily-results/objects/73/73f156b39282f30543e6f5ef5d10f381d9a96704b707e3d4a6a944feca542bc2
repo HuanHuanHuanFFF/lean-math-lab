@@ -1,0 +1,73 @@
+"""Archive this delivery and actually replay NEW checks in a clean extraction.
+Usage: python3 code/package_release.py --archive PATH.zip --clean-dir EMPTY_PATH --receipt PATH.json
+No old mathematics is executed. The receipt is separate to avoid self-hashing.
+"""
+from pathlib import Path
+import argparse,hashlib,json,zipfile,subprocess,sys,shutil
+from datetime import datetime,timezone
+ROOT=Path(__file__).resolve().parents[1]
+
+def file_sha(p):
+    h=hashlib.sha256()
+    with p.open('rb') as f:
+        for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+    return h.hexdigest()
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--archive',type=Path,required=True)
+    parser.add_argument('--clean-dir',type=Path,required=True)
+    parser.add_argument('--receipt',type=Path,required=True)
+    a=parser.parse_args()
+    for p in ROOT.rglob('__pycache__'):
+        shutil.rmtree(p)
+    files=sorted(p for p in ROOT.rglob('*') if p.is_file() and p.name!='MANIFEST.json')
+    manifest={'scope':'all release members except this MANIFEST.json itself',
+              'hash':'SHA256','entries':[{'path':str(p.relative_to(ROOT)),
+              'bytes':p.stat().st_size,'sha256':file_sha(p)} for p in files]}
+    (ROOT/'MANIFEST.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+    files.append(ROOT/'MANIFEST.json')
+    archive=a.archive.resolve()
+    if archive.exists():raise SystemExit('refuse to overwrite existing archive')
+    with zipfile.ZipFile(archive,'w',allowZip64=True) as z:
+        for p in sorted(files):
+            name=str(Path(ROOT.name)/p.relative_to(ROOT))
+            z.write(p,name,compress_type=zipfile.ZIP_STORED if p.suffix=='.zip' else zipfile.ZIP_DEFLATED,
+                    compresslevel=None if p.suffix=='.zip' else 6)
+    clean=a.clean_dir.resolve()
+    clean.mkdir(parents=True,exist_ok=True)
+    if any(clean.iterdir()):raise SystemExit('clean directory is not empty')
+    with zipfile.ZipFile(archive) as z:
+        assert z.testzip() is None
+        for info in z.infolist():
+            dst=(clean/info.filename).resolve()
+            if clean not in dst.parents:raise RuntimeError('unsafe zip member')
+        z.extractall(clean)
+        zip_members=len(z.infolist())
+    extracted=clean/ROOT.name
+    m=json.loads((extracted/'MANIFEST.json').read_text())
+    for x in m['entries']:
+        p=extracted/x['path']
+        assert p.stat().st_size==x['bytes'] and file_sha(p)==x['sha256']
+    out=clean/'fresh-replay-output'
+    cmd=[sys.executable,'code/reproduce.py','--out',str(out)]
+    result=subprocess.run(cmd,cwd=extracted,text=True,capture_output=True,check=True,timeout=120)
+    (clean/'fresh-replay-command.stdout.txt').write_text(result.stdout)
+    (clean/'fresh-replay-command.stderr.txt').write_text(result.stderr)
+    data={p.stem:json.loads(p.read_text()) for p in out.glob('*.json')}
+    assert data['acceptance']['status']=='PASS_NEW_WINDOW_CARRY_RECEIVING_NO_HISTORY_REPLAY'
+    # The extraction has not been modified by the replay (outputs are elsewhere).
+    for x in m['entries']:
+        assert file_sha(extracted/x['path'])==x['sha256']
+    receipt={'status':'PASS_RELEASE_CRC_SHA256_AND_CLEAN_NEW_REPLAY',
+             'utc_time':datetime.now(timezone.utc).isoformat(),
+             'archive':archive.name,'archive_bytes':archive.stat().st_size,'archive_sha256':file_sha(archive),
+             'zip_members':zip_members,'manifest_data_members':len(m['entries']),
+             'manifest_excludes_itself':True,'clean_command':cmd,'clean_replay':data,
+             'clean_command_stdout':result.stdout,'clean_command_stderr':result.stderr,
+             'old_large_mathematical_replays':0,'lean':False,'external_independent_review':False}
+    a.receipt.write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+'\n')
+    print(json.dumps({k:v for k,v in receipt.items() if k not in ['clean_replay','clean_command_stdout','clean_command_stderr']},indent=2))
+    print('clean seconds:',data['acceptance']['seconds'])
+
+if __name__=='__main__':main()

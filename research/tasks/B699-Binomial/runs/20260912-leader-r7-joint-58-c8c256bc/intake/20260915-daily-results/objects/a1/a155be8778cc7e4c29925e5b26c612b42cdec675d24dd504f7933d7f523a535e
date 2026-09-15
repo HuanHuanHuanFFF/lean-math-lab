@@ -1,0 +1,26 @@
+from pathlib import Path
+import sympy as s, math, json, time
+j,k=s.symbols('j k')
+def choose(x,r):return s.prod(x-q for q in range(r))/s.Integer(math.factorial(r))
+def tv(f,g,degf,degg,r):
+ out=[0]*(degf+degg-2*r+1)
+ for a,fa in enumerate(f):
+  for b,gb in enumerate(g):
+   q=a+b-r
+   if not 0<=q<len(out):continue
+   c=0
+   for l in range(r+1):
+    if a>=r-l and degf-a>=l and b>=l and degg-b>=r-l:
+     c+=(-1)**l*math.comb(r,l)*math.prod(range(a-(r-l)+1,a+1))*math.prod(range(degf-a-l+1,degf-a+1))*math.prod(range(b-l+1,b+1))*math.prod(range(degg-b-(r-l)+1,degg-b+1))
+   if c:out[q]+=c*fa*gb
+ return [s.factor(e) for e in out]
+f=[choose(j,a)*choose(k,6-a) for a in range(7)]
+print('start',flush=True)
+A=tv(f,f,6,6,6)[0]
+print('A=',A,flush=True)
+q=tv(f,f,6,6,4)
+for r,v in enumerate(q): print('q',r,v,flush=True)
+B=tv(q,q,4,4,4)[0]
+print('B=',B,flush=True)
+print('B/A^2=',s.factor(B/A**2),flush=True)
+with open(str(Path(__file__).with_name('tv_expr.json')),'w') as w:json.dump({'A':str(A),'q':list(map(str,q)),'B':str(B)},w,indent=2)

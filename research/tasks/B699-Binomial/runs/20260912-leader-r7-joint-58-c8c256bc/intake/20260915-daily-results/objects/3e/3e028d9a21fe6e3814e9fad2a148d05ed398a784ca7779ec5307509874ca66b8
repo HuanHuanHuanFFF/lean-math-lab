@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+"""Semantic negative tests for the finite receiver; not a proof of the receiver."""
+import argparse,copy,json,platform,time
+from pathlib import Path
+import verify
+ROOT=Path(__file__).resolve().parents[1]
+
+def run(path):
+ original=json.loads(path.read_text());tests=[]
+ def test(name,mutate):
+  bad=copy.deepcopy(original);mutate(bad)
+  try:verify.validate_certificate(bad)
+  except verify.Reject as e:tests.append({'name':name,'result':'REJECTED','reason':str(e)});return
+  raise AssertionError('bad certificate accepted: '+name)
+ def row(c):return c['rows'][0]
+ witness_row=next(i for i,r in enumerate(original['rows']) if r['witnesses'])
+ power_row=next((i,k) for i,r in enumerate(original['rows']) for k,s in enumerate(r['seeds']) if s['e']>1)
+ node=next(p for p in original['prime_certificates'] if int(p)>7)
+ test('wrong schema',lambda c:c.update(schema='b699-quartic-integer-gap-v1'))
+ test('unproved larger exponent cutoff',lambda c:c.update(cutoff=65))
+ test('unproved smaller exponent cutoff',lambda c:c.update(cutoff=63))
+ test('omit one exceptional template',lambda c:c['rows'].pop())
+ test('duplicate exceptional template',lambda c:c['rows'].append(copy.deepcopy(c['rows'][0])))
+ test('change shift while retaining old row',lambda c:row(c).update(h=4))
+ test('change actual n',lambda c:row(c).update(n=row(c)['n']+1))
+ test('replace complete small part',lambda c:row(c).update(T=row(c)['T']+1))
+ test('change summary accepted count',lambda c:c['stats'][0].update(criterion_pass=c['stats'][0]['criterion_pass']+1))
+ test('omit prime certificate',lambda c:c['prime_certificates'].pop(node))
+ test('invalid base-prime axiom',lambda c:c['prime_certificates']['2'].update(base=1))
+ test('invalid order base',lambda c:c['prime_certificates'][node].update(base=1))
+ test('incomplete p-1 factorization',lambda c:c['prime_certificates'][node]['factors'].pop())
+ test('cyclic prime proof',lambda c:c['prime_certificates'][node].update(factors=[[int(node),1]]))
+ def carmichael(c):
+  c['prime_certificates']['561']={'p':561,'base':2,'factors':[[2,4],[5,1],[7,1]]}
+ test('Carmichael Fermat-only impostor 561',carmichael)
+ test('wrong factorization product',lambda c:row(c)['factorizations'][0][0].__setitem__(1,row(c)['factorizations'][0][0][1]+1))
+ test('omit final target-window factorization',lambda c:row(c)['factorizations'].pop())
+ test('omit all CRT seeds',lambda c:row(c).update(seeds=[]))
+ test('repeat a CRT prime',lambda c:row(c)['seeds'].append(copy.deepcopy(row(c)['seeds'][0])))
+ test('radical substituted for complete seed power',lambda c:c['rows'][power_row[0]]['seeds'][power_row[1]].update(e=1))
+ test('out-of-window position',lambda c:row(c)['seeds'][0].update(r=row(c)['m']))
+ test('fabricate CRT modulus',lambda c:row(c).update(modulus=row(c)['modulus']+1))
+ test('understate surviving j count',lambda c:c['rows'][witness_row].update(seed_candidate_count=0))
+ test('drop a required j witness',lambda c:c['rows'][witness_row]['witnesses'].pop())
+ test('duplicate a j witness',lambda c:c['rows'][witness_row]['witnesses'].append(copy.deepcopy(c['rows'][witness_row]['witnesses'][0])))
+ test('put witness below prime threshold',lambda c:c['rows'][witness_row]['witnesses'][0].__setitem__(1,3))
+ test('set target source valuation to zero',lambda c:c['rows'][witness_row]['witnesses'][0].__setitem__(2,0))
+ test('claim false j valuation',lambda c:c['rows'][witness_row]['witnesses'][0].__setitem__(3,9999))
+ test('move witness outside legal half-row',lambda c:c['rows'][witness_row]['witnesses'][0].__setitem__(0,c['rows'][witness_row]['n']))
+ return {'status':'PASS_ALL_SEMANTIC_MUTATIONS_REJECTED','tests':len(tests),'results':tests,'scope':'author rejection tests only; not independent human review, Lean, or an exhaustive audit of verifier defects'}
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--certificate',type=Path,default=ROOT/'evidence/certificate.json');ap.add_argument('--out',type=Path,default=ROOT/'evidence/mutations.json');args=ap.parse_args()
+ t=time.monotonic();res=run(args.certificate);res['python']=platform.python_version();res['seconds']=time.monotonic()-t
+ args.out.parent.mkdir(parents=True,exist_ok=True);args.out.write_text(json.dumps(res,ensure_ascii=False,indent=2)+'\n');print(json.dumps(res,ensure_ascii=False,indent=2))
+if __name__=='__main__':main()

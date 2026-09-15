@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+from pathlib import Path
+import argparse,json,hashlib,zipfile
+ROOT=Path(__file__).resolve().parents[1]
+def digest(x):return hashlib.sha256(x).hexdigest()
+def main():
+ a=argparse.ArgumentParser();a.add_argument('--output',type=Path,required=True);args=a.parse_args()
+ m=json.loads((ROOT/'sources/SOURCE_MAP.json').read_text())
+ for r in m['archives']:
+  b=(ROOT/r['path']).read_bytes()
+  if len(b)!=r['bytes'] or digest(b)!=r['sha256']:raise ValueError('archive changed')
+ for r in m['members']:
+  b=(ROOT/r['copy']).read_bytes()
+  with zipfile.ZipFile(ROOT/r['archive'])as z:original=z.read(r['member'])
+  if b!=original or len(b)!=r['bytes'] or digest(b)!=r['sha256']:raise ValueError('source member changed')
+ out={'archives_verified':len(m['archives']),'adopted_text_members_verified':len(m['members']),
+      'packet_sha256':m['packet']['sha256'],'status':'bytes only; not upstream mathematical reacceptance'}
+ args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(out,sort_keys=True,indent=2)+'\n')
+ print('SOURCE_BYTES_VERIFIED',len(m['archives']),len(m['members']))
+if __name__=='__main__':main()

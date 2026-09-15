@@ -1,0 +1,73 @@
+"""Independent DFS/one-halfspace reconstruction of the rectangular-only consumer.
+No generator imports. Reuses exact checker helpers, not the full-model hypotheses.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import combinations
+import argparse,json
+from check_graph_independent import rectangular,score,PS
+if not __debug__:
+    raise RuntimeError("Verification requires assertions enabled; do not run Python with -O.")
+ROOT=Path(__file__).resolve().parents[1]
+
+def recover_one(l,ss):
+    # Direct geometric decomposition, no matrices or imported vertex routines.
+    assert len(ss)==1
+    key,total=ss[0];deficit=F(total)-sum(l[k] for k in key)
+    if deficit<=0:return {tuple(map(F,l))}
+    out=set()
+    for k in key:
+        v=list(map(F,l));v[k]+=deficit;out.add(tuple(v))
+    return out
+
+def verify(cert):
+    cs=[c for c in json.loads((ROOT/'input/frozen_cuts.json').read_text()) if max(c['p'],c['q'])<15]
+    indices=json.loads((ROOT/'input/rectangular_subset.json').read_text())['selected_filtered_indices']
+    assert len(cs)==55 and len(indices)==17 and len(set(indices))==17
+    assert cert['selected_filtered_indices']==indices and cert['source_cut_count']==17 and cert['original_rectangular_count']==55
+    small=[cs[i] for i in indices];vv,nodes=rectangular(small);original,nodes_full=rectangular(cs)
+    assert vv==original==list(map(tuple,cert['minimal_orthants']))
+    # Direct implication witness: each subset-minimal orthant satisfies every full clause.
+    for v in vv:
+        for c in cs:assert v[PS.index(c['p'])]>=c['wp'] or v[PS.index(c['q'])]>=c['wq']
+    assert cert['branches']==[{'lower':list(v),'sums':[]} for v in vv]
+    assert len(cert['distinct'])==2 and len(cert['collisions'])==15
+    assert [d['gamma'] for d in cert['distinct']]==['1223/1500','102/125']
+    assert all(d['collision'] is None for d in cert['distinct'])
+    assert [d['collision'] for d in cert['collisions']]==[list(p) for p in combinations(PS,2)]
+    assert all(d['gamma'] is None for d in cert['collisions'])
+    records=[];vertices_checked=0
+    for case in cert['distinct']+cert['collisions']:
+        gamma=F(case['gamma']) if case['gamma'] is not None else None
+        collision=tuple(PS.index(p) for p in case['collision']) if case['collision'] else None
+        ss=[]
+        if gamma is not None:ss.append(((0,2,5),1000*gamma))
+        if collision:ss.append((collision,1000))
+        ss=tuple(sorted(ss));allv=set();rows=[];zero=set();mm=None;wx=None
+        for ix,l in enumerate(vv):
+            vs=recover_one(l,ss);allv.update(vs);vertices_checked+=len(vs)
+            m=min(score(x,collision) for x in vs);w=min(x for x in vs if score(x,collision)==m)
+            rows.append({'branch':ix,'vertex_count':len(vs),'minimum_scaled':str(m),'witness_scaled':list(map(str,w))})
+            if mm is None or (m,w)<(mm,wx):mm,wx=m,w
+            if collision is None:zero.update(v for v in vs if score(v,None)==0)
+        assert case['branches']==rows and case['branch_count']==len(vv)
+        assert case['vertices_distinct']==len(allv) and case['minimum']==str(mm/1000)
+        assert case['witness']==[str(t/1000) for t in wx]
+        assert case['zero_vertices']==[[str(t/1000) for t in x] for x in sorted(zero)]
+        if gamma==F(1223,1500):
+            ratios=[(score(x,None)/(sum(x[k] for k in (0,2,5))-1000*gamma),x) for x in allv if sum(x[k] for k in (0,2,5))>1000*gamma]
+            slope,sw=min(ratios)
+            assert slope==F(543,160) and case['supporting_slope']==str(slope)
+            assert case['slope_witness']==[str(t/1000) for t in sw]
+        else:assert case['supporting_slope'] is None and case['slope_witness'] is None
+        records.append({'gamma':case['gamma'],'collision':case['collision'],'minimum':case['minimum'],'supporting_slope':case['supporting_slope']})
+    assert [r['minimum'] for r in cert['distinct']]==['0','1/100']
+    assert cert['distinct'][0]['zero_vertices']==[['271/1000','327/1000','743/1500','1/10','0','49/1000']]
+    assert min(F(d['minimum']) for d in cert['collisions'])==F(681,500)
+    return {'status':'INDEPENDENT_RECTANGULAR_ONLY_RECONSTRUCTION','source_clauses':17,
+            'equivalent_full_rectangles':55,'orthants':len(vv),'subset_grid_nodes':nodes,
+            'full_grid_nodes':nodes_full,'polyhedra_checked':len(vv)*len(records),
+            'branch_vertices_checked':vertices_checked,'three_way_lemmas_used':False,'cases':records}
+if __name__=='__main__':
+    p=argparse.ArgumentParser();p.add_argument('--certificate',type=Path,required=True);p.add_argument('--out',type=Path,required=True);a=p.parse_args()
+    r=verify(json.loads(a.certificate.read_text()));a.out.parent.mkdir(parents=True,exist_ok=True);a.out.write_text(json.dumps(r,indent=2)+'\n');print(json.dumps({k:v for k,v in r.items() if k!='cases'}))

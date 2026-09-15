@@ -1,0 +1,28 @@
+"""Finite design check with all seven proved content bounds, not a proof of cuts."""
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import combinations
+import math,json
+from design_certified_content import rates,TABLE,FZ
+from probe_weighted_asymmetric import solve,nondominated
+R=Path(__file__).resolve().parents[1]
+def main():
+ old=json.loads((FZ/'outputs/full_seed_pool_probe.json').read_text())['all_feasible'];custom=json.loads((FZ/'outputs/custom_ratio_probe.json').read_text())['all_rows'];seeds={tuple(r[k] for k in ['p','q','k0','l0','a','b']) for r in old+custom}
+ all_specs=json.loads((R/'outputs/general_content_tail.json').read_text())['rows'];rows=[]
+ for seed in sorted(seeds):
+  if max(seed[:2])>=15:continue
+  for (c,d),(L,m0) in TABLE.items():
+   r=rates(seed,d,d,c-d,d*math.log(L/10000))
+   if r:rows.append(dict(r,content_source='BFT_5_1',L=str(F(L,10000)),m0=m0))
+  for sp in all_specs:
+   e,d,f=sp['e'],sp['d'],sp['f'];r=rates(seed,e,d,f,float(F(sp['g'])))
+   if r:rows.append(dict(r,content_source='new_general_content',g=sp['g'],m0=json.loads((R/f'outputs/general_content_finite_{e}_{d}_{f}.json').read_text())['m0']))
+ es=nondominated(rows);profiles=[]
+ for i in [10,14]:
+  ps=[p for p in [2,3,5,7,11,13] if p<i];ee=[x for x in es if max(x[0],x[1])<i];options=[]
+  for s in range((i+1)//2,i):
+   w=[2*s-a for a in range(i)];res=solve(ps,ee,lambda z:sum(a*b for a,b in zip(w,sorted(z))));net=10000*(sum(w)-s*(s+1)-sum(w[:len(ps)]))+res['min'];options.append(dict(s=s,net=net,**res))
+  best=max(options,key=lambda x:x['net']);profiles.append(dict(i=i,primes=ps,best=best,edges=[x[4] for x in ee]));print(i,best,flush=True)
+ out=dict(status='FLOAT_DESIGN_ONLY_FULL_SEVEN_CONTENT_SEED_CATALOG',seed_count=len(seeds),content_bounds=len(all_specs),feasible_rows=len(rows),profiles=profiles)
+ (R/'outputs/next_catalog_probe.json').write_text(json.dumps(out,indent=2)+'\n')
+if __name__=='__main__':main()

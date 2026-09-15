@@ -1,0 +1,94 @@
+{
+  "status": "PASS_SAME_SESSION_SECOND_IMPLEMENTATION_NOT_LEAN",
+  "central": {
+    "cells": 117,
+    "pairs": 29939,
+    "max_height": 12609,
+    "endpoint_prime_witnesses": 1454,
+    "higher_carry_witnesses": 8318
+  },
+  "ratios": {
+    "cells": 130,
+    "pairs": 50330,
+    "max_n_bound": 100936,
+    "endpoint_prime_witnesses": 302,
+    "higher_carry_witnesses": 15210
+  },
+  "negative_tests": [
+    {
+      "mutation": "delete central witness",
+      "status": "REJECTED",
+      "reason": "central domain has a missing/duplicate point"
+    },
+    {
+      "mutation": "duplicate central witness",
+      "status": "REJECTED",
+      "reason": "central domain has a missing/duplicate point"
+    },
+    {
+      "mutation": "use p=1",
+      "status": "REJECTED",
+      "reason": "not an eligible prime"
+    },
+    {
+      "mutation": "use composite p=4",
+      "status": "REJECTED",
+      "reason": "not an eligible prime"
+    },
+    {
+      "mutation": "use h=0",
+      "status": "REJECTED",
+      "reason": "invalid carry exponent"
+    },
+    {
+      "mutation": "delete central cell",
+      "status": "REJECTED",
+      "reason": "wrong number of central cells"
+    },
+    {
+      "mutation": "omit p=i cancellation allowance",
+      "status": "REJECTED",
+      "reason": "central kernel or height mismatch"
+    },
+    {
+      "mutation": "replace full prime powers by radical",
+      "status": "REJECTED",
+      "reason": "central kernel or height mismatch"
+    },
+    {
+      "mutation": "delete ratio witness",
+      "status": "REJECTED",
+      "reason": "ratio domain has missing/duplicate point"
+    },
+    {
+      "mutation": "wrong ratio carry",
+      "status": "REJECTED",
+      "reason": "invalid carry exponent"
+    },
+    {
+      "mutation": "alter rational numerator",
+      "status": "REJECTED",
+      "reason": "ratio domain has missing/duplicate point"
+    },
+    {
+      "mutation": "omit ratio cell",
+      "status": "REJECTED",
+      "reason": "wrong number of ratio cells"
+    },
+    {
+      "mutation": "alter ratio kernel",
+      "status": "REJECTED",
+      "reason": "ratio parameters mismatch"
+    },
+    {
+      "mutation": "lower cutoff without tail proof",
+      "status": "REJECTED",
+      "reason": "invalid cutoff"
+    },
+    {
+      "mutation": "replace endpoint witness by p<i",
+      "status": "REJECTED"
+    }
+  ],
+  "seconds": 1.268531798999902
+}

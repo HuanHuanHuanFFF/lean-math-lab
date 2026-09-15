@@ -1,0 +1,27 @@
+# 实际执行记录（可移植路径）
+
+所有写入位于本轮独立工作目录；未运行任何Git命令或修改研究仓库。
+
+启动：在解压的原始dispatch根目录运行`python3 prepare_inputs.py D`，恢复四原包。之后的字节复查为：
+
+```text
+python3 prepare_inputs.py D --check-only
+```
+
+本轮开发与接收实际执行了：
+
+```text
+python3 -B code/generate_certificate.py
+python3 -S -B code/verify.py --out evidence/verification.json
+python3 -S -B code/regressions.py
+python3 -S -B code/mutations.py
+python3 -S -B code/collect_sources.py <dispatch-dir> --packet <original-dispatch.zip>
+python3 -S -B code/reproduce.py --out <new-external-pre-release-dir>
+```
+
+生成器最后又重跑一次，证书字节与原冻结版本完全相同；见regeneration.json。
+`pre_release_reproduction.stdout`发生在最终manifest生成前，故其NO_MANIFEST_WORKING_DIRECTORY是该阶段标签；最终发布以外置ZIP干净解包收据为准。
+
+历史h=0阶段完成82个例外行／4个j，然后扩展h=0..3。当前证书为212模板／202不同目标行／12个j，旧检查点不得覆盖当前接收记录。
+实际环境：Python3.13.5；生成端SymPy1.14.0。标准库接收端用-S -B禁用site包依赖与pyc写入。
+所有探索和修正见corrections.md，探索结果不作为无限证明或反例。

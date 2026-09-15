@@ -1,0 +1,41 @@
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import combinations
+import sys,math,json,time
+import numpy as np
+from scipy.optimize import linprog
+from scipy.sparse import lil_matrix
+sys.path.insert(0,str(Path(__file__).resolve().parent));import probe_gamma as z
+R=Path(__file__).resolve().parents[1]
+v=set()
+for l,ss in z.B:v.update(z.vertices(l,ss))
+vv=[]
+for a in sorted(v,key=lambda a:(sum(a),a)):
+ if not any(all(b[t]<=a[t] for t in range(6)) for b in vv):vv.append(a)
+print('base vertices',len(v),'Pareto',len(vv),flush=True)
+i=15;pts=[(x,y) for x in range(i) for y in range(i-x)];lines=set()
+for (x,y),(u,v) in combinations(pts,2):
+ A=y-v;B=u-x;C=x*v-y*u;g=math.gcd(math.gcd(A,B),C);A//=g;B//=g;C//=g
+ if A<0 or A==0 and B<0:A=-A;B=-B;C=-C
+ lines.add((A,B,C))
+lines=sorted(lines);print('lines',len(lines),flush=True)
+for tag,linepool in [('3dir',[l for l in lines if l[0]==0 or l[1]==0 or l[0]==l[1]]),('all',lines)]:
+ nl=len(linepool);N=i+nl+1;con=lil_matrix((len(pts)+len(vv)+i-1,N));rhs=np.zeros(con.shape[0]);idx=0
+ for x,y in pts:
+  con[idx,x+y]=1
+  for k,(a,b,c) in enumerate(linepool):
+   if a*x+b*y+c==0:con[idx,i+k]=-1
+  idx+=1
+ for vv0 in vv:
+  cc=[float(x/1000) for x in sorted(vv0)]+[1]*(i-6)
+  for a in range(i):con[idx,a]=-cc[a]
+  for k in range(nl):con[idx,i+k]=1
+  con[idx,-1]=1;idx+=1
+ for a in range(i-1):con[idx,a]=-1;con[idx,a+1]=1;idx+=1
+ eq=lil_matrix((1,N));eq[0,:i]=1;c=np.zeros(N);c[-1]=-1
+ t0=time.monotonic();res=linprog(c,A_ub=con.tocsr(),b_ub=rhs,A_eq=eq.tocsr(),b_eq=[1],bounds=[(0,None)]*(N-1)+[(None,None)],method='highs',options={'time_limit':60})
+ out={'model':tag,'status':res.status,'message':res.message,'gain':None if res.fun is None else -res.fun,'seconds':time.monotonic()-t0}
+ if res.x is not None:
+  out['m']=res.x[:i].tolist();out['lines']=[[list(l),float(res.x[i+k])] for k,l in enumerate(linepool) if res.x[i+k]>1e-8]
+ print(out,flush=True)
+ (R/f'evidence/all_lines_{tag}.json').write_text(json.dumps(out,indent=2))

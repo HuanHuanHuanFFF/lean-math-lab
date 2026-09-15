@@ -1,0 +1,36 @@
+# B699 Pro D · even-gap / cluster closure · 20260914
+
+本包包含本轮完整新证明、来源边界、可重建的精确证据和运行记录。指定v3原包未取得；详见SOURCE_ADOPTION.md。主结果在i6/i7/i8，附安全i9转移；R7不变。
+
+阅读顺序：REPORT.md → SOURCE_ADOPTION.md → notes/PROOFS.md → HANDOFF.md。
+
+## 重放
+
+生产代码只用Python标准库；本次执行版本写在replay/PREPACK_RECEIPT.json与最终外置发布收据。
+
+```sh
+python3 code/reproduce.py --out /tmp/b699-even-gap-new-replay
+```
+
+输出目录必须不存在或为空，且位于本包外。会重生成有限行证书，重新验收全部新多项式/周期/行区间，做有界直接gcd回归、28项坏证据测试和7个指定profile控制，并比较5份数学文件的精确字节。日志和运行时间写在指定目录。没有旧历史证书重放、Lean、外部网络或Git操作。
+
+恢复一个指定的最大幂profile（不是枚举所有指数）：
+
+```sh
+python3 code/profile_candidate.py --target 6 --exponents 11 3 2 --positions 4 0 2
+```
+
+将恢复n=2052，返回UNRESOLVED_BY_THIS_CONSUMER；此状态不表示NC或反例。
+
+## 内容
+
+- notes/PROOFS.md：完整无限论证、全参数量词、失败边界。
+- evidence/：有限域/类表/连续区间、整数式系数、profile实例。
+- code/：独立于生成器的接收器、标准库有理多项式、回归与负测。
+- outputs/：本次实际得到的4份确定性数学输出。
+- sources/：逐字节冻结的必要历史文本和来源映射；不继承其旧收据为本次验收。
+- exploration/：有限发现脚本与表达式记录；探索需要SymPy，生产不需要。
+- logs/、replay/：开发失败和实际复算记录。
+- MANIFEST.json：固定文件的SHA256与大小；manifest自身除外。ZIP哈希在外置发布收据，避免自引用。
+
+代码和第二实现均由本会话作者编写。本文不声称Lean、独立研究者或人工验收。

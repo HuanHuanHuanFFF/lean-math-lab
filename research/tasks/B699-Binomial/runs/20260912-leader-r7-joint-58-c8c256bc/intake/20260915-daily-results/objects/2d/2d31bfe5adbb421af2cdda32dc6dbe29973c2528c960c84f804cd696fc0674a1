@@ -1,0 +1,52 @@
+#!/usr/bin/env python3
+"""Byte/provenance audit only. Does not run any old research checker."""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import zipfile
+from pathlib import Path
+
+
+def audit(root: Path) -> dict:
+    mapping = json.loads((root/'sources/SOURCE_MAP.json').read_text())
+    matched = 0
+    for row in mapping['copies'] + mapping['packet_texts']:
+        b = (root/row['copy']).read_bytes()
+        if len(b) != row['bytes'] or hashlib.sha256(b).hexdigest() != row['sha256']:
+            raise ValueError('copy hash mismatch: '+row['copy'])
+        if row.get('archive_bundled'):
+            path = root/row['bundled_archive']
+            if hashlib.sha256(path.read_bytes()).hexdigest() != row['archive_sha256']:
+                raise ValueError('frozen B archive changed')
+            with zipfile.ZipFile(path) as z:
+                if z.read(row['archive_member']) != b:
+                    raise ValueError('source member differs')
+        matched += 1
+    lineage = json.loads((root/'sources/INHERITED_LINEAGE.json').read_text())
+    for row in lineage['members']:
+        with zipfile.ZipFile(root/row['archive']) as z:
+            b=z.read(row['member'])
+        if len(b)!=row['bytes'] or hashlib.sha256(b).hexdigest()!=row['sha256']:
+            raise ValueError('lineage member differs')
+    ref=json.loads((root/'sources/references/BEG2013.json').read_text())
+    if ref['version']!='arXiv:1301.7168v1' or ref['theorem']!='Theorem 2.3':
+        raise ValueError('changed publication interface')
+    if ref['pdf_sha256'] is not None or ref['pdf_bytes_obtained']:
+        raise ValueError('invented PDF byte acquisition')
+    if ref['adopted_specialization']['bound']!='m <= 90^120 A^33':
+        raise ValueError('changed theorem specialization')
+    return {'status':'PASS_SOURCE_BYTES_AND_DECLARED_BOUNDARIES',
+            'copy_records':matched, 'bundled_lineage_members':len(lineage['members']),
+            'frozen_B_archive_retained':True,'old_mathematics_replayed':False,
+            'publication_pdf_raw_hash_available':False,
+            'publication_version':'arXiv:1301.7168v1'}
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--out',type=Path,required=True)
+    args=parser.parse_args()
+    result=audit(Path(__file__).resolve().parents[1])
+    args.out.parent.mkdir(parents=True,exist_ok=True)
+    args.out.write_text(json.dumps(result,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    print(json.dumps(result,ensure_ascii=False,sort_keys=True))

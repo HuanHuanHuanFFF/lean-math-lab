@@ -1,0 +1,160 @@
+#!/usr/bin/env python3
+"""Fresh exact receiver; does not import generate.py or any historical code."""
+from __future__ import annotations
+from pathlib import Path
+from fractions import Fraction
+from itertools import product
+from math import prod,isqrt
+import json,argparse,time,sys
+from poly import P,choose,form
+ROOT=Path(__file__).resolve().parents[1]
+
+def require(b,msg):
+    if not b:raise ValueError(msg)
+
+def identities(f):
+    j=P.var(0);k=P.var(1);n=j+k;X=j*k
+    a=[choose(j,t)*choose(k,6-t) for t in range(7)]
+    A=form(f['A6'],a);q=[form(row,a) for row in f['q6']]
+    B=12*q[0]*q[4]-3*q[1]*q[3]+q[2]**2
+    exactA=X*(X-n+1)*(X-2*n+4)*(n-3)*(n-4)*(n-5)/72
+    require(A==exactA,'sextic A identity')
+    e6=f['E6_weights'][0]*A**2+f['E6_weights'][1]*B
+    six=X**2*(X-n+1)**2*(X-2*n+4)*(n-5)**2*(n-4)**2*(n-3)*((n-2)*(n-3)-X)/1728
+    require(e6==six,'sextic cancellation identity')
+    # These closed q-forms also provide a short factor-by-factor audit.
+    qclosed=[
+      j*k**2*(j-1)*(k-3)*(k-2)*(k-1)**2*(n-5)*(n-4)/576,
+      j*k**2*(j-2)*(j-1)*(k-3)*(k-2)*(k-1)*(n-5)*(n-4)/144,
+      j*k*(j-2)*(j-1)*(k-2)*(k-1)*(n-5)*(n-4)*(3*X-5*n+15)/288,
+      j**2*k*(j-3)*(j-2)*(j-1)*(k-2)*(k-1)*(n-5)*(n-4)/144,
+      j**2*k*(j-3)*(j-2)*(j-1)**2*(k-1)*(n-5)*(n-4)/576]
+    require(q==qclosed,'five sextic quadratic coefficient identities')
+    aa=[choose(j,t)*choose(k,8-t) for t in range(9)]
+    A8=form(f['A8'],aa);B8=form(f['B8'],aa)
+    A8ex=X*(X-n+1)*(X-2*n+4)*(X-3*n+9)*(n-7)*(n-6)*(n-5)*(n-4)/6912
+    B8ex=X**2*(X-n+1)**2*(X-2*n+4)*(X-3*n+9)*(n-7)**2*(n-6)**2*(n-5)*(n-4)/331776
+    require(A8==A8ex,'octic A identity');require(B8==B8ex,'octic B identity')
+    W=X*(X-n+1)*(n-7)*(n-6)-(X-2*n+4)*(X-3*n+9)*(n-5)*(n-4)
+    common=X**3*(X-n+1)**3*(X-2*n+4)**2*(X-3*n+9)**2*(n-7)**3*(n-6)**3*(n-5)**2*(n-4)**2
+    eight=common*W/(5*2**24*3**8)
+    e8=(f['E8_weights'][0]*B8**2+f['E8_weights'][1]*A8**3)/f['E8_divisor']
+    require(e8==eight,'octic cancellation identity')
+    # Universal divisibility by 5 is on integer coefficients, not just test values.
+    require([(c%5,ids) for c,ids in f['A8'] if c%5]==[(2,[4,4])],'A8 modulo 5')
+    require([(c%5,ids) for c,ids in f['B8'] if c%5]==[(2,[4,4,4])],'B8 modulo 5')
+    require((2**2-3*2**3)%5==0,'integer defect modulo 5')
+    Wshift=W.subst(j+6,k+6)
+    require(len(Wshift.c)==19 and min(Wshift.c.values())>0,'W positivity expansion')
+    # Monotonicity endpoints. Derivatives were explicitly written in PROOFS.
+    u=P.var(0)
+    der8=2*u**3-33*u**2+162*u-218
+    der8shift=der8.subst(u+18,P(0))
+    require(all(v>0 for v in der8shift.c.values()),'octic monotonicity')
+    d6der=(2*(u-2)*(u-3)-3*u**2/4).subst(u+14,P(0))
+    require(all(v>0 for v in d6der.c.values()),'sextic monotonicity')
+    # Exact center substitutions and cross-multiplied denominator cancellations.
+    s6=six.subst(u/2,u/2); p6=prod((u-r for r in range(6)),start=P(1))
+    D6=(u-1)**4*(u-3)**3*(u-5)**2
+    require(2**18*27*s6*D6==p6**4*(3*u**2-20*u+24),'six-window row bound formula')
+    s8=eight.subst(u/2,u/2);p8=prod((u-r for r in range(8)),start=P(1))
+    R4=6*u**4-89*u**3+462*u**2-1072*u+960
+    D8=(u-1)**6*(u-3)**6*(u-5)**4*(u-7)**3
+    require(5*3**8*2**47*s8*D8==p8**6*(u-6)**2*R4,'eight-window row bound formula')
+    require(all(v>0 for v in (6*u**4-R4).subst(u+18,P(0)).c.values()),'R4 upper bound')
+    require(2**18*27*1800**3 > 6*840**4,'six-window infinite tail constant')
+    require(5*3**8*2**47*32768 > 8*5040**6,'eight-window infinite tail constant')
+    require(1800>=90 and 32768>=532,'Bernoulli tail thresholds')
+    return {'symbolic_identities':12,'positivity_expansions':4,'tail_integer_comparisons':4,
+            'W_positive_terms':19,'source_degree6':6,'source_degree8':8}
+
+def period_classes(d):
+    # Different from generator: use truncated valuation tables and all candidate covers.
+    ps=(2,3,5) if d==6 else (2,3,5,7);mods=(8,9,25) if d==6 else (8,9,25,49)
+    L=prod(mods); tables={}
+    for p,m in zip(ps,mods):
+        t=[]
+        for residue in range(m):
+            vals=[]
+            for h in range(d):
+                z=(residue-h)%m
+                if z==0:
+                    e=0;w=m
+                    while w%p==0:w//=p;e+=1
+                else:
+                    e=0
+                    while z%p==0:z//=p;e+=1
+                vals.append(e)
+            mx=max(vals);t.append({h for h,e in enumerate(vals) if e==mx})
+        tables[p]=t
+    expected=[]
+    for n in range(L):
+        masks=[0]*d
+        for pos,(p,m) in enumerate(zip(ps,mods)):
+            for h in tables[p][n%m]:masks[h]|=1<<pos
+        full=(1<<len(ps))-1
+        if d==6:
+            opts=[h for h in range(d) if masks[h]==full]
+            if opts:expected.append([n,min(opts)])
+        else:
+            first=n%8
+            opts=([first] if masks[first]==full else [h for h in range(d) if (masks[first]|masks[h])==full])
+            if opts:expected.append([n,first,min(opts)])
+    return expected
+
+def prime(p):
+    if not isinstance(p,int) or p<2:return False
+    if p%2==0:return p==2
+    return all(p%d for d in range(3,isqrt(p)+1,2))
+
+def vf(n,p):
+    v=0
+    while n:n//=p;v+=n
+    return v
+
+def row_check(row):
+    i=row['i'];n=row['n'];cur=i+1;end=n//2
+    require(i in (6,7,8) and n>=2*(i+1),'legal row')
+    witnesses=[]
+    for b in row['cover']:
+        l=b['lo'];r=b['hi'];p=b['p'];e=b['e']
+        require(all(isinstance(z,int) for z in (l,r,p,e)),'integer interval fields')
+        require(l==cur and l<=r<=end,'complete consecutive interval cover')
+        require(p>=i and prime(p),'prime and threshold including p=i')
+        require(vf(n,p)-vf(i,p)-vf(n-i,p)>0,'source complete binomial valuation')
+        require(1<=e<=n.bit_length(),'legal power exponent')
+        q=p**e
+        require(l//q==r//q and l%q>n%q,'whole interval carry layer')
+        witnesses.append(p);cur=r+1
+    require(cur==end+1,'no uncovered endpoint')
+    return witnesses
+
+def certificate(c):
+    require(c['schema']=='b699-D-even-gap-clusters-v1','schema')
+    require((c['tail6'],c['tail8'],c['modulus6'],c['modulus8'])==(1800,32768,1800,88200),'thresholds and periods')
+    c6=period_classes(6);c8=period_classes(8)
+    require(c['classes6']==c6,'complete 76-class table')
+    require(c['classes8']==c8,'complete 12518-class table')
+    ex6=[(i,r) for r,*_ in c6 for i in (6,7) if 2*(i+1)<=r<1800]
+    ex8=[(8,r) for r,*_ in c8 if 18<=r<32768]
+    require([(r['i'],r['n']) for r in c['rows6']]==ex6,'complete finite six-window row domain')
+    require([(r['i'],r['n']) for r in c['rows8']]==ex8,'complete finite eight-window row domain')
+    ws=[]
+    for r in c['rows6']+c['rows8']:ws+=row_check(r)
+    return {'classes6':len(c6),'classes8':len(c8),'finite_rows6':len(ex6),'finite_rows8':len(ex8),
+            'intervals6':sum(len(r['cover']) for r in c['rows6']),
+            'intervals8':sum(len(r['cover']) for r in c['rows8']),
+            'legal_j_covered6':sum(r['n']//2-r['i'] for r in c['rows6']),
+            'legal_j_covered8':sum(r['n']//2-r['i'] for r in c['rows8']),
+            'distinct_prime_witnesses':len(set(ws)),'largest_witness_prime':max(ws),
+            'boundary_prime7_intervals':sum(b['p']==7 for r in c['rows6'] if r['i']==7 for b in r['cover'])}
+
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);args=ap.parse_args()
+    t=time.perf_counter();f=json.loads((ROOT/'evidence/formulas.json').read_text());c=json.loads((ROOT/'evidence/finite_rows.json').read_text())
+    a=identities(f);b=certificate(c)
+    args.out.mkdir(parents=True,exist_ok=True)
+    (args.out/'acceptance.json').write_text(json.dumps({'status':'PASS_NEW_EVEN_GAPS_AND_COMPLETE_PERIODIC_ROWS',
+           'algebra':a,'certificate':b},indent=2,sort_keys=True)+'\n')
+    print(json.dumps({'status':'PASS_NEW_EVEN_GAPS_AND_COMPLETE_PERIODIC_ROWS','seconds':time.perf_counter()-t,'python':sys.version}))
+if __name__=='__main__':main()

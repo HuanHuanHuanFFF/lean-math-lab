@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Verify every sealed member, its size, and absence of unlisted files."""
+from __future__ import annotations
+import hashlib
+import json
+from pathlib import Path
+
+
+def verify(root: Path) -> dict:
+    root = root.resolve()
+    manifest = json.loads((root/'MANIFEST.json').read_text())
+    listed = manifest['files']
+    names = [x['path'] for x in listed]
+    if len(set(names)) != len(names):
+        raise ValueError('duplicate manifest paths')
+    actual = {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file()}
+    if actual != set(names) | {'MANIFEST.json'}:
+        raise ValueError('manifest coverage differs: ' + str(sorted(actual ^ (set(names)|{'MANIFEST.json'}))))
+    for row in listed:
+        p = root/row['path']
+        if not p.resolve().is_relative_to(root) or p.is_symlink():
+            raise ValueError('unsafe path')
+        data = p.read_bytes()
+        if len(data) != row['bytes'] or hashlib.sha256(data).hexdigest() != row['sha256']:
+            raise ValueError('hash/size mismatch: '+row['path'])
+    return {'status':'PASS_MANIFEST', 'listed_files':len(listed), 'root':'sealed package'}
+
+if __name__ == '__main__':
+    print(json.dumps(verify(Path(__file__).parent),sort_keys=True))

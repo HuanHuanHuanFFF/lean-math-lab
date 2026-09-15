@@ -1,0 +1,69 @@
+"""Floating design with exact integer graph minimization. Not a proof certificate."""
+from pathlib import Path
+import sys,math,json,time,itertools
+import numpy as np
+ROOT=Path(__file__).resolve().parents[1]
+FROZEN=__import__('frozen_paths').i18_path()
+sys.path.insert(0,str(ROOT/'code/vendor'))
+from probe_weighted_asymmetric import nondominated,solve
+
+def make_pool(mode):
+ old=json.loads((FROZEN/'outputs/full_seed_pool_probe.json').read_text())['all_feasible']
+ cust=json.loads((FROZEN/'outputs/custom_ratio_probe.json').read_text())['all_rows']
+ actual=json.loads((FROZEN/'input/i18_cut_inputs.json').read_text())['cuts']
+ # reuse exact published rate rows and add the three already certified G bounds
+ seeds={tuple(r[k] for k in ['p','q','k0','l0','a','b']) for r in old}
+ if mode=='asym':return old+cust
+ for p,q,k,l,a,b in seeds:
+  P=p**k;Q=q**l;D=a*P-b*Q;z=D/(a*P)
+  for c,d,L,m0 in [(3,2,8103/5000,12018),(15,8,4541/2500,4211),(15,11,361/250,1373)]:
+   s=c/d
+   if s*z>=1:continue
+   rt=math.sqrt(s*s*z*z+4-4*z);u=2*(s-1)/(s*(2-z)+rt);v=2/(2+s*z+rt)
+   al=(s+1)*math.log(s+1)-(s-1)*math.log(s-1)
+   lq=al+(s-1)*math.log(u)+math.log1p(-u)+math.log1p(-(1-z)*u)
+   le=al+math.log(v)+math.log1p(-v)+(s-1)*math.log1p(-z*v)
+   O=(c-d)*math.log(P)-d*math.log(a)-c*math.log(b)+d*math.log(L)-d*lq
+   T=d*math.log(P)+c*math.log(Q)-(c-d)*math.log(a)-2*d*math.log(D)+d*math.log(L)-d*le
+   if O<=0 or min(T-c*math.log(P),T-c*math.log(Q))<=0:continue
+   old.append(dict(p=p,q=q,k0=k,l0=l,a=a,b=b,D0=D,c=c,d=d,L1=str(L),m0=m0,ell3=O,T=T,lnP=math.log(P),lnQ=math.log(Q),content_source='new_prime_interval_bound'))
+ return old
+
+def main():
+ import argparse
+ ap=argparse.ArgumentParser();ap.add_argument('--mode',choices=['actual','asym'],default='actual');ap.add_argument('--i',type=int,default=20);ap.add_argument('--steps',type=int,default=80);args=ap.parse_args()
+ start=time.monotonic();i=args.i;ps=[p for p in [2,3,5,7,11,13,17,19] if p<i]
+ pool=[r for r in make_pool(args.mode) if max(r['p'],r['q'])<i]
+ print('pool',len(pool),flush=True)
+ old=json.loads((FROZEN/'input/frozen_next_condition.json').read_text())['old_accepted_cuts']+json.loads((FROZEN/'input/i18_cut_inputs.json').read_text())['cuts']
+ initial=[r for r in old if max(r['p'],r['q'])<i]
+ for r in pool:
+  wp=math.floor(1000*(1-r['c']*r['lnP']/r['T']))-1;wq=math.floor(1000*(1-r['c']*r['lnQ']/r['T']))-1
+  if min(wp,wq)>0:initial.append(dict(r,wp=wp,wq=wq,design_mode=args.mode))
+ es=nondominated(initial);new=[];trace=[]
+ # Arrays for evaluating continuous degree best candidates at the corner.
+ pp=np.array([ps.index(r['p']) for r in pool]);qq=np.array([ps.index(r['q']) for r in pool]);A=np.array([r['c']*r['lnP'] for r in pool]);B=np.array([r['c']*r['lnQ'] for r in pool]);T=np.array([r['T'] for r in pool]);O=np.array([r['ell3'] for r in pool]);
+ for step in range(args.steps):
+  opts=[]
+  for s in range((i+1)//2,i):
+   w=[2*s-a for a in range(i)];base=1000*(sum(w)-s*(s+1)-sum(w[:len(ps)]))
+   ans=solve(ps,es,lambda z,w=w:sum(a*b for a,b in zip(w[:len(ps)],sorted(z))))
+   opts.append(dict(s=s,base=base,net=base+ans['min'],**ans))
+  best=max(opts,key=lambda r:r['net']);trace.append(best);z=np.array(best['witness'])/1000
+  print('step',step,'net',best['net'],'s',best['s'],'z',best['witness'],'states',best['states'],'edges',len(es),flush=True)
+  if best['net']>200:break
+  x=z[pp];y=z[qq]
+  # Complete breakpoints for the concave piecewise-linear gap at a fixed corner.
+  taus=np.stack([1/T,np.where(T>O,1/(T-O),1/T),(1-x)/A,(1-y)/B])
+  gap=np.minimum(T*taus-1,O*taus)-np.maximum(A*taus-1+x,0)-np.maximum(B*taus-1+y,0)
+  gidx=np.unravel_index(np.argmax(gap),gap.shape);maxgap=float(gap[gidx]);rowidx=gidx[1];tau=float(taus[gidx]);r=pool[rowidx]
+  if maxgap<=.0025:
+   print('NO STRONG VIOLATION maxgap',maxgap,flush=True);break
+  # Pure rectangle: both thresholds increased by < gap/2, so sum branch is paid.
+  ep=maxgap*.45
+  wp=math.floor((x[rowidx]+ep)*1000);wq=math.floor((y[rowidx]+ep)*1000)
+  rr=dict(r,wp=wp,wq=wq,tau=tau,design_gap=maxgap,design_mode=args.mode)
+  new.append(rr);es=nondominated([e[4] for e in es]+[rr]);print('ADD',[(k,rr[k]) for k in ['p','q','c','d','wp','wq','tau']],flush=True)
+ out=dict(status='FLOAT_DESIGN_EXACT_GRAPH_ONLY',mode=args.mode,i=i,ps=ps,trace=trace,new=new,edges=[r[4] for r in es],pool_count=len(pool),seconds=time.monotonic()-start)
+ (ROOT/f'outputs/free_boxes_{args.mode}_{i}.json').write_text(json.dumps(out,indent=2)+'\n')
+if __name__=='__main__':main()

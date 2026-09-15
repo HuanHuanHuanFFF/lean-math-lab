@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Fail-closed SHA-256/size manifest, excluding only generated replay/cache files."""
+from pathlib import Path
+import hashlib,json,sys
+ROOT=Path(__file__).resolve().parent
+
+def ignored(rel):
+    return rel=='MANIFEST.json' or rel.startswith('replay/') or '__pycache__' in Path(rel).parts or rel.endswith('.pyc')
+def hashes(root=ROOT):
+    result={}
+    for p in sorted(root.rglob('*')):
+        if not p.is_file():continue
+        rel=p.relative_to(root).as_posix()
+        if ignored(rel):continue
+        if p.is_symlink():raise ValueError('symlink not permitted: '+rel)
+        data=p.read_bytes();result[rel]={'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}
+    return result
+
+def verify(root=ROOT):
+    expected=json.loads((root/'MANIFEST.json').read_text())['files'];actual=hashes(root)
+    if set(actual)!=set(expected):raise ValueError('static file set differs: '+str(sorted(set(actual)^set(expected))))
+    for name in expected:
+        if actual[name]!=expected[name]:raise ValueError('static file hash differs: '+name)
+    return actual
+if __name__=='__main__':
+    try:
+        r=verify();print(json.dumps({'status':'PASS','static_files':len(r),'bytes':sum(v['bytes'] for v in r.values())}))
+    except Exception as e:
+        print(str(e),file=sys.stderr);raise SystemExit(2)

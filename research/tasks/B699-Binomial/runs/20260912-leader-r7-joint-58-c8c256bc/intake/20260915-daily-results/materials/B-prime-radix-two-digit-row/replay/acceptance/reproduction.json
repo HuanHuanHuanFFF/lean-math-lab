@@ -1,0 +1,131 @@
+{
+  "started_utc": "2026-09-15T10:05:21.530570+00:00",
+  "commands": [
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-prime-digit-20260915/code/generate.py",
+        "--out",
+        "/tmp/b699-prime-digit-93vq9_82"
+      ],
+      "returncode": 0,
+      "seconds": 0.14422386099977302,
+      "log": "replay/acceptance/01-generate.log"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-prime-digit-20260915/code/check.py",
+        "--certificate",
+        "/tmp/b699-prime-digit-93vq9_82/certificate.json",
+        "--out",
+        "/tmp/b699-prime-digit-93vq9_82/independent.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.16078587399988464,
+      "log": "replay/acceptance/02-check.log"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-prime-digit-20260915/code/algebra.py",
+        "--out",
+        "/tmp/b699-prime-digit-93vq9_82/algebra.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.09504969599993274,
+      "log": "replay/acceptance/03-algebra.log"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-prime-digit-20260915/code/regression.py",
+        "--out",
+        "/tmp/b699-prime-digit-93vq9_82/regression.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.2016836749999129,
+      "log": "replay/acceptance/04-regression.log"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-prime-digit-20260915/code/bad_inputs.py",
+        "--certificate",
+        "/tmp/b699-prime-digit-93vq9_82/certificate.json",
+        "--out",
+        "/tmp/b699-prime-digit-93vq9_82/bad_inputs.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.3603502139999364,
+      "log": "replay/acceptance/05-bad_inputs.log"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-prime-digit-20260915/code/check_sources.py",
+        "--out",
+        "/tmp/b699-prime-digit-93vq9_82/sources.json"
+      ],
+      "returncode": 0,
+      "seconds": 0.1277556810000533,
+      "log": "replay/acceptance/06-check_sources.log"
+    }
+  ],
+  "outputs": [
+    {
+      "file": "algebra.json",
+      "sha256": "18140eec358cb57241a1950901e7c8c05db2eba69178cd1b10fa8d42faf8d6ae",
+      "byte_equal": true
+    },
+    {
+      "file": "bad_inputs.json",
+      "sha256": "473847a1bbfe9dc6e7b847ac55a6d8563da882b47448ae1e09b8cd01c732bb4e",
+      "byte_equal": true
+    },
+    {
+      "file": "certificate.json",
+      "sha256": "6948a7b7090c9431101b5363658a885fa3596ee3a3ccd997e13c25c19e74afe9",
+      "byte_equal": true
+    },
+    {
+      "file": "generation.json",
+      "sha256": "0b1dcf7b3770c7bc4bc6c8d00204968345db798e9fdd461ddb9e1a376265f738",
+      "byte_equal": true
+    },
+    {
+      "file": "independent.json",
+      "sha256": "36e287e09328f628bbe19da82123aaa489c72f0287ced80b70dc5e8fffb95335",
+      "byte_equal": true
+    },
+    {
+      "file": "regression.json",
+      "sha256": "044d89f524036c69811b86aae02f5f32c103e11af4cd7a0c1fcd84bd31943da6",
+      "byte_equal": true
+    },
+    {
+      "file": "sources.json",
+      "sha256": "58ff35b6a1efe15b098ec3aa1ac3d368d1dc1a78c8e8e88e04b0adc2e7b40732",
+      "byte_equal": true
+    }
+  ],
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "status": "PASS",
+  "static_files": 33,
+  "static_before_after_equal": true,
+  "seconds": 1.122589799999787,
+  "child_max_rss_kib": 15744,
+  "finished_utc": "2026-09-15T10:05:22.653369+00:00"
+}

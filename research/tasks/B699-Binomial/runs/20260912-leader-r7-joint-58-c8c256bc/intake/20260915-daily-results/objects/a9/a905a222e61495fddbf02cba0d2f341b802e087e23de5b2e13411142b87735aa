@@ -1,0 +1,108 @@
+"""Second exact numerical checker: fixed integer grid and -log(1-u) series.
+Grid primitives adapted from the byte-preserved frozen i18 alternate checker;
+new unequal-degree roots/rates/thresholds are implemented here independently.
+No imports of the primary certifier or generator arithmetic.
+"""
+from fractions import Fraction as F
+from pathlib import Path
+import json,math
+R=Path(__file__).resolve().parents[1]
+SCALE=10**32
+def ceildiv(a,b):return -((-a)//b)
+class V:
+    def __init__(self,lo,hi):
+        assert lo<=hi;self.lo=lo;self.hi=hi
+    @staticmethod
+    def exact(x):
+        if isinstance(x,V):return x
+        x=F(x);return V(x.numerator*SCALE//x.denominator,ceildiv(x.numerator*SCALE,x.denominator))
+    def __add__(a,b):
+        b=V.exact(b);return V(a.lo+b.lo,a.hi+b.hi)
+    __radd__=__add__
+    def __neg__(a):return V(-a.hi,-a.lo)
+    def __sub__(a,b):return a+-V.exact(b)
+    def __rsub__(a,b):return V.exact(b)+-a
+    def __mul__(a,b):
+        b=V.exact(b);p=[a.lo*b.lo,a.lo*b.hi,a.hi*b.lo,a.hi*b.hi]
+        return V(min(p)//SCALE,ceildiv(max(p),SCALE))
+    __rmul__=__mul__
+    def inverse(a):
+        assert a.lo>0;return V(SCALE*SCALE//a.hi,ceildiv(SCALE*SCALE,a.lo))
+    def __truediv__(a,b):return a*V.exact(b).inverse()
+    def __rtruediv__(a,b):return V.exact(b)*a.inverse()
+    def __pow__(a,e):
+        assert isinstance(e,int) and e>=0
+        out=V.exact(1)
+        for _ in range(e):out=out*a
+        return out
+    def json(a):return [str(a.lo),str(a.hi)]
+def sqrtv(x):
+    x=V.exact(x);assert x.lo>=0
+    # Integer bisection, distinct from the primary integer-sqrt wrapper.
+    def lower_sqrt(n):
+        lo=0;hi=1<<((n.bit_length()+1)//2)
+        while hi-lo>1:
+            m=(lo+hi)//2
+            if m*m<=n:lo=m
+            else:hi=m
+        return hi if hi*hi==n else lo
+    a=lower_sqrt(x.lo*SCALE);b=lower_sqrt(x.hi*SCALE)
+    return V(a,b if b*b==x.hi*SCALE else b+1)
+def series_log(q):
+    # For 1<=q<=2, u=1-1/q is in [0,1/2].
+    q=F(q);assert 1<=q<=2
+    u=V.exact(1-1/q);term=V.exact(1);ans=V.exact(0)
+    N=120
+    for k in range(1,N+1):
+        term=term*u;ans=ans+term/k
+    tail=(u**(N+1))/((N+1)*(1-u))
+    return V(ans.lo,ans.hi+tail.hi)
+LOG2=series_log(F(2))
+def logpoint(q):
+    q=F(q);assert q>0;k=0
+    while q>=2:q/=2;k+=1
+    while q<1:q*=2;k-=1
+    return series_log(q)+k*LOG2
+def logv(x):
+    x=V.exact(x);assert x.lo>0
+    return V(logpoint(F(x.lo,SCALE)).lo,logpoint(F(x.hi,SCALE)).hi)
+TABLE={(9,8):(11742,25),(8,7):(11951,28),(7,6):(12219,53),(6,5):(12581,35),(5,4):(13098,50),(9,7):(13317,15),(7,5):(14135,74),(4,3):(14170,153),(3,2):(15395,138),(8,5):(15407,53),(5,3):(15454,86),(3,1):(15498,260),(25,17):(15540,582),(7,4):(16219,60),(8,3):(16560,149),(9,5):(16636,79),(5,2):(17017,231),(7,3):(17282,161),(9,4):(17666,87),(2,1):(19377,150)}
+NEW={(2,2,1):(F(19,20),4784),(8,8,7):(F(19,4),1875),(11,11,4):(F(4),1106),(5,14,4):(F(9,5),613),(12,20,7):(F(13,5),2473)}
+
+NEW.update({(4,2,1):(F(7,10),1361),(17,7,7):(F(96,25),40404)})
+
+def check(row,H,Dmax):
+ p,q,k,l,a,b,e,d,f=[row[k] for k in ['p','q','k0','l0','a','b','e','d','f']]
+ assert p!=q and min(e,d,f,k,l,a,b)>0
+ for prime in [p,q]:assert prime>=2 and all(prime%t for t in range(2,math.isqrt(prime)+1))
+ P=p**k;Q=q**l;D=a*P-b*Q;assert D==row['D0'] and 0<D<a*P
+ z=F(D,a*P);h=1-z;N=e+d+f;c=d+f
+ bq=f*(1+h)+d+e*h;be=e*(1+z)+d+f*z
+ # Subtraction roots, unlike the primary reciprocal-root evaluation.
+ tq=(bq-sqrtv(bq*bq-4*h*N*f))/(2*h*N)
+ te=(be-sqrtv(be*be-4*z*N*e))/(2*z*N)
+ assert 0<tq.lo<=tq.hi<SCALE and 0<te.lo<=te.hi<SCALE
+ alpha=F(N**N,e**e*d**d*f**f)
+ Qrate=alpha*(tq**f)*((1-tq)**d)*((1-h*tq)**e)
+ Erate=alpha*(te**e)*((1-te)**d)*((1-z*te)**f)
+ if row['content_source']=='BFT_5_1':
+  assert e==d;L,m0=TABLE[c,d];assert F(row['L'])==F(L,10000) and row['m0']==m0;g=d*logpoint(F(L,10000))
+ else:
+  assert row['content_source']=='new_general_content';gv,m0=NEW[e,d,f];assert F(row['g'])==gv and row['m0']==m0;g=V.exact(gv)
+ O=f*logpoint(P)-max(e,d)*logpoint(a)-c*logpoint(b)-logv(Qrate)+g
+ T=e*logpoint(P)+c*logpoint(Q)-(c-min(e,d))*logpoint(a)-(e+d)*logpoint(D)-logv(Erate)+g
+ ap=(e+f)*logpoint(P);aq=c*logpoint(Q);assert ap.lo>SCALE and aq.lo>SCALE
+ assert 0<row['wp']<10000 and 0<row['wq']<10000
+ bp=F(10000-row['wp'],10000)/ap;bq=F(10000-row['wq'],10000)/aq;beta=V(min(bp.lo,bq.lo),min(bp.hi,bq.hi))
+ x=F(H,2);K=(1<<N)*max(f,e*d);d1=beta*T-1;d2=beta*O
+ margins=[beta*x-1-m0,d1*x-logpoint(x)-T-logpoint(8*K),d2*x-logpoint(x)-O-logpoint(4*Dmax*K),d1*x-1,d2*x-1]
+ assert all(v.lo>0 for v in margins)
+ return dict(p=p,q=q,degrees=[e,d,f],weights=[row['wp'],row['wq']],margins=[v.json() for v in margins],O=O.json(),T=T.json())
+
+def main():
+ inp=json.loads((R/'input/new_cut_inputs.json').read_text());assert inp['denominator']==10000
+ out=dict(status='PASS_ALL_CUTS_INDEPENDENT_INTEGER_GRID',scale=str(SCALE),H=inp['height_Y_bits'],rows=[check(r,inp['height_Y_bits'],inp['D']) for r in inp['cuts']])
+ (R/'outputs/new_cuts_grid_check.json').write_text(json.dumps(out,indent=2)+'\n');print('PASS',len(out['rows']),'cuts, independent fixed-grid arithmetic')
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

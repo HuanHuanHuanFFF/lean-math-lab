@@ -1,0 +1,53 @@
+{
+  "checked_utc": "2026-09-15T16:04:26.2286857Z",
+  "scope": {
+    "sources": "SOURCES.json",
+    "receipt": "BYTE_RECEIPT.json",
+    "archives": "archives/*.json",
+    "documents": [
+      "README.md",
+      "SUMMARY.md",
+      "notes/A.md",
+      "notes/B.md",
+      "notes/D.md"
+    ],
+    "checks": [
+      "root package registration and root manifest identity",
+      "recursive archive manifest reachability",
+      "ordinary member stored_path existence",
+      "relative Markdown file links"
+    ]
+  },
+  "root_packages_registered": 18,
+  "root_manifest_refs_unique": 18,
+  "root_manifest_refs_missing": [],
+  "root_identity_mismatches": [],
+  "archive_manifests_present": 49,
+  "reachable_archive_manifests": 49,
+  "unreachable_archive_manifests": [],
+  "nested_archive_references": 60,
+  "missing_nested_manifest_refs": [],
+  "ordinary_members": 3686,
+  "ordinary_members_with_existing_stored_path": 3686,
+  "missing_stored_paths": [],
+  "non_file_manifest_members": [],
+  "markdown_links_checked": 107,
+  "markdown_file_links_checked": 106,
+  "markdown_directory_links_existing": [
+    {
+      "document": "README.md",
+      "target": "archives/",
+      "repository_path": "research/tasks/B699-Binomial/runs/20260912-leader-r7-joint-58-c8c256bc/intake/20260915-daily-results/archives/"
+    }
+  ],
+  "missing_relative_file_links": [],
+  "missing_link_manifest_stored_path_mappings": [],
+  "urls_and_anchor_only_links_excluded": true,
+  "math_or_lean_verification": "not performed",
+  "notes": [
+    "All 18 root records in SOURCES.json resolve to present archive manifests with matching bytes and SHA-256 metadata.",
+    "All 49 archive manifests are recursively reachable from the 18 roots; all 60 nested archive references resolve.",
+    "Every ordinary member has a non-empty stored_path resolving to an existing repository file; no full rehash was performed here.",
+    "The only non-file relative link is the existing README archives/ directory link; no missing relative file link requires manifest lookup."
+  ]
+}

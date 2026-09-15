@@ -1,0 +1,48 @@
+"""Extended rational-ratio design, asymptotic only."""
+from pathlib import Path
+import sys,json,time,math,itertools
+import numpy as np
+from scipy.special import digamma
+ROOT=Path(__file__).resolve().parents[1];FROZEN=__import__('frozen_paths').i18_path()
+sys.path.insert(0,str(ROOT/'code/vendor'))
+from probe_weighted_asymmetric import nondominated,solve
+
+def main():
+ import argparse
+ ap=argparse.ArgumentParser();ap.add_argument('--cmax',type=int,default=300);args=ap.parse_args();st=time.monotonic()
+ grids=[]
+ for c in range(2,args.cmax+1):
+  for d in range((c+3)//4,c):
+   if math.gcd(c,d)>1:continue
+   N=c+d;inv=pow(d,-1,N);j=np.arange(N//2+1,N,dtype=np.int64);r=j*inv%N;g=np.where(j>=c,d,c-d)
+   val=np.sum(digamma((1+g*r//N)/g)-digamma(r/N))/d
+   grids.append((c,d,float(val)))
+ S=np.array([c/d for c,d,v in grids]);LL=np.array([v for c,d,v in grids]);AL=(S+1)*np.log(S+1)-(S-1)*np.log(S-1)
+ old=json.loads((FROZEN/'outputs/custom_ratio_probe.json').read_text())['all_rows'];seeds={tuple(r[k] for k in ['p','q','k0','l0','a','b']) for r in old}
+ bestrows=[]
+ for p,q,k,l,a,b in sorted(seeds):
+  P=p**k;Q=q**l;D=a*P-b*Q;z=D/(a*P)
+  if not 0<z<.5:continue
+  rt=np.sqrt(S*S*z*z+4-4*z);u=2*(S-1)/(S*(2-z)+rt);v=2/(2+S*z+rt)
+  lq=AL+(S-1)*np.log(u)+np.log1p(-u)+np.log1p(-(1-z)*u)
+  le=AL+np.log(v)+np.log1p(-v)+(S-1)*np.log1p(-z*v)
+  o3=(S-1)*math.log(P)+LL-math.log(a)-S*math.log(b)-lq
+  o4=S*math.log(min(P,Q))+LL-(S-1)*math.log(a*P)-2*math.log(D)-le
+  # T/c controls both monotone rectangle bounds, so only one ratio per seed is needed.
+  good=(o3>0)&(o4>0)&(S*z<1)
+  idx=np.where(good)[0]
+  if len(idx)==0:continue
+  ix=int(idx[np.argmax(o4[idx]/S[idx])]);c,d,lL=grids[ix];T=c*math.log(max(P,Q))+d*o4[ix]
+  wp=math.floor(10000*(1-c*math.log(P)/T))-2;wq=math.floor(10000*(1-c*math.log(Q)/T))-2
+  if min(wp,wq)<1:continue
+  bestrows.append(dict(p=p,q=q,k0=k,l0=l,a=a,b=b,D0=D,c=c,d=d,L1=math.exp(lL),m0=0,T=float(T),ell3=d*float(o3[ix]),lnP=math.log(P),lnQ=math.log(Q),wp=wp,wq=wq))
+ es=nondominated(bestrows);profiles=[]
+ for i in [12,14,15,18,20]:
+  ps=[p for p in [2,3,5,7,11,13,17,19] if p<i];sel=[e for e in es if max(e[:2])<i];opts=[]
+  for s in range((i+1)//2,i):
+   w=[2*s-a for a in range(i)];base=10000*(sum(w)-s*(s+1)-sum(w[:len(ps)]));res=solve(ps,sel,lambda z:sum(a*b for a,b in zip(w[:len(ps)],sorted(z))))
+   opts.append(dict(s=s,base=base,net=base+res['min'],**res))
+  best=max(opts,key=lambda r:r['net']);profiles.append(dict(i=i,primes=ps,best=best));print('PROFILE',i,best,flush=True)
+ out=dict(status='ASYMPTOTIC_FLOAT_DESIGN_ONLY',denominator=10000,cmax=args.cmax,ratios=len(grids),seeds=len(seeds),edges=[e[4] for e in es],profiles=profiles,seconds=time.monotonic()-st)
+ (ROOT/f'outputs/extended_rates_{args.cmax}.json').write_text(json.dumps(out,indent=2)+'\n');print('seconds',out['seconds'],flush=True)
+if __name__=='__main__':main()

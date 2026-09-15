@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+"""Integration test for the public consumers; not a third proof implementation."""
+from __future__ import annotations
+import argparse
+import json
+from pathlib import Path
+from consumers import dyadic, log_band, bounded_defect_plan
+
+
+def run(root: Path) -> dict:
+    cert=json.loads((root/'evidence/certificate.json').read_text())
+    for p in cert['points']:
+        n,j=int(p['n_hex'],16),int(p['j_hex'],16)
+        assert dyadic(n,j)
+    for p in cert['failure_points']:
+        n,j=int(p['n_hex'],16),int(p['j_hex'],16)
+        assert not dyadic(n,j) and not log_band(n,j)
+    count=0
+    for L in (1,2,3,10,81,1000):
+        data=bounded_defect_plan(L)
+        assert int(data['E_hex'],16)==(1<<1210)*L**132
+        assert not data['n_bound_constructed'] and not data['finite_search_performed']
+        count+=1
+    rejected=0
+    for fn in (lambda:dyadic(-1,4),lambda:dyadic(32,True),lambda:bounded_defect_plan(0),lambda:bounded_defect_plan(1.5)):
+        try:fn()
+        except ValueError:rejected+=1
+        else:raise ValueError('invalid API input not rejected')
+    assert not dyadic(32,3) and not log_band(32,4)
+    return {'status':'PASS_CONSUMER_API','accepted_certificate_points':len(cert['points']),
+            'unaccepted_points':len(cert['failure_points']),'symbolic_height_plans':count,
+            'invalid_inputs_rejected':rejected,'third_independent_implementation':False}
+
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True);a=ap.parse_args()
+    obj=run(Path(__file__).resolve().parents[1]);a.out.parent.mkdir(parents=True,exist_ok=True)
+    a.out.write_text(json.dumps(obj,ensure_ascii=False,sort_keys=True,indent=2)+'\n')
+    print(json.dumps(obj,sort_keys=True))

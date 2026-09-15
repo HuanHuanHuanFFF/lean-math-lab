@@ -1,0 +1,48 @@
+"""Replay NEW arithmetic and diagnostics, plus source-byte checks. No network/history search.
+python3 code/reproduce.py --out /path/to/empty/output
+"""
+import sys
+sys.dont_write_bytecode=True
+from pathlib import Path
+import json,argparse,platform,subprocess
+from datetime import datetime,timezone
+from time import perf_counter
+from verify import validate
+from negative_tests import run as negatives
+from diagnostics import run as diagnostics
+from check_sources import run as sources
+
+ROOT=Path(__file__).resolve().parents[1]
+
+def main():
+    if not __debug__:
+        raise SystemExit('Do not use Python -O: diagnostic/source assertions must execute.')
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--out',type=Path,default=Path('verification-output'))
+    a=parser.parse_args()
+    out=a.out.resolve()
+    out.mkdir(parents=True,exist_ok=True)
+    if any(out.iterdir()):
+        raise SystemExit('Refusing to mix with a nonempty output directory: '+str(out))
+    started=perf_counter()
+    cert=json.loads((ROOT/'evidence/certificate.json').read_text())
+    results={}
+    for name,fn in [('sources',sources),('exact',lambda:validate(cert)),
+                    ('negative',lambda:negatives(cert)),('diagnostics',diagnostics)]:
+        t=perf_counter();result=fn();result['stage_seconds']=round(perf_counter()-t,6)
+        results[name]=result
+        (out/(name+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    acceptance={'status':'PASS_NEW_WINDOW_CARRY_RECEIVING_NO_HISTORY_REPLAY',
+                'utc_time':datetime.now(timezone.utc).isoformat(),
+                'seconds':round(perf_counter()-started,6),
+                'python':sys.version,'platform':platform.platform(),
+                'command':sys.argv,'stages':{k:v['status'] for k,v in results.items()},
+                'exact_obligations':results['exact']['exact_obligations'],
+                'mutations_rejected':results['negative']['count'],
+                'historical_large_math_replays':0,'lean':False,'external_independent_review':False,
+                'whole_family_closed':False,'explicit_absolute_outer_exponent_bound':None,
+                'R7':[3,4,5,6,7,8,9],'i9_families':58}
+    (out/'acceptance.json').write_text(json.dumps(acceptance,ensure_ascii=False,indent=2)+'\n')
+    print(json.dumps(acceptance,ensure_ascii=False,indent=2))
+
+if __name__=='__main__':main()

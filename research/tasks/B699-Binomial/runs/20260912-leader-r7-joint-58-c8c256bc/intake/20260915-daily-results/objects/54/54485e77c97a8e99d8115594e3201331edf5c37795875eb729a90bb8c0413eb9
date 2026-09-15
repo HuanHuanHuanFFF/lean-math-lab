@@ -1,0 +1,14 @@
+# B699 R7 · Pro B · 数字复杂度与循环窗口证据
+
+入口：REPORT.md → notes/PROOFS.md → HANDOFF.md。
+
+作者纸面推导＋可重跑整数证书，未Lean、未独立研究者或人审。主结论全量词见证明§0；R7不变。
+
+运行（Python 3.10或更新版本，仅标准库）：
+
+    python3 -S -B verify_manifest.py
+    python3 -S -B code/reproduce.py --record replay/local
+
+重放在空目录生成7份输出并比对冻结结果；包含完整指数行/CRT恢复、素性试除、循环族有限底部、结构/无界族证书、坏输入与源字节检查。发现搜索不属于默认接受路径。
+
+原B和D-as-B ZIP按原字节保存在sources/originals。没有嵌套不采用的51MB A原包；A/D-quartic仅作范围参考。唯一外层输入v3的SHA与恢复映射见SOURCE_ADOPTION.md。最终实际封包解包复验收据在ZIP外附回，replay/acceptance内含源码冻结重放收据。

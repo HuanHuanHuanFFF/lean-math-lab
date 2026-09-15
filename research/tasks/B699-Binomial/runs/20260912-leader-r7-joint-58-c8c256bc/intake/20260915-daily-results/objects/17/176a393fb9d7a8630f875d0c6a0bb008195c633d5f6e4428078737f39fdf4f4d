@@ -1,0 +1,17 @@
+"""Exact refutations of proposed *uniform pair clauses*, not of B699.
+The checked strict inequalities scale to n=(pq)^k for every positive k.
+"""
+from pathlib import Path
+import json,hashlib
+R=Path(__file__).resolve().parents[1]
+def main():
+ data=json.loads((R/'outputs/next_conditional_interfaces.json').read_text());out=[]
+ for r in data['rows']:
+  if r['i']!=14:continue
+  p,q=r['pair'];w=r['first_grid_weight'];Q=r['denominator'];N=p*q
+  left=p**Q;right=N**w;other=q**Q;assert left<right and other<right
+  out.append(dict(i=14,pair=[p,q],weight=[w,Q],base_N=N,base_A=q,base_B=p,shift=0,both_strict_inequalities=True,family='N=(p*q)^k, r=s=k, A=q^k, B=p^k, every k>=1',scope='Refutes the uniform pair clause with zero shift; not an original B699 counterexample',integer_comparison_bit_lengths=[left.bit_length(),other.bit_length(),right.bit_length()]))
+ (R/'outputs/zero_shift_obstruction.json').write_text(json.dumps(dict(status='PASS_EXACT_INFINITE_FAMILIES_REFUTING_THREE_UNIFORM_CLAUSES',rows=out),indent=2)+'\n');print('REFUTED_UNIFORM_CLAUSES',len(out))
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

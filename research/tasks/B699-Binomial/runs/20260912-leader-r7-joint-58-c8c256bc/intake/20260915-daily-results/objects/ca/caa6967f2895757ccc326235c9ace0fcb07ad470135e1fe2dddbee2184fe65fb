@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""Verify every immutable delivery file and its expected membership.
+Generated replay_*/cache/build/__pycache__/originals/restored work is ignored.
+Mathematical validity is checked separately by reproduce.py and REPORT.md.
+"""
+from pathlib import Path
+import hashlib,json,zipfile
+R=Path(__file__).resolve().parents[1]
+
+def digest(p):
+    h=hashlib.sha256()
+    with p.open('rb') as f:
+        for b in iter(lambda:f.read(1<<20),b''):h.update(b)
+    return h.hexdigest()
+
+def immutable(p):
+    x=p.relative_to(R)
+    return (x.as_posix()!='MANIFEST.json' and '__pycache__' not in x.parts
+            and x.parts[0] not in ['cache','build']
+            and not x.parts[0].startswith('replay_')
+            and x.parts[:2]!=('originals','restored'))
+
+def main():
+    m=json.loads((R/'MANIFEST.json').read_text());rows=m['files']
+    names=[r['path'] for r in rows]
+    if len(names)!=len(set(names)):raise ValueError('Duplicate manifest member')
+    actual={p.relative_to(R).as_posix() for p in R.rglob('*') if p.is_file() and immutable(p)}
+    if actual!=set(names):raise ValueError(f'Member set differs: missing={set(names)-actual}, extra={actual-set(names)}')
+    total=0
+    for r in rows:
+        p=R/r['path']
+        if p.stat().st_size!=r['bytes'] or digest(p)!=r['sha256']:
+            raise ValueError('Hash or size mismatch: '+r['path'])
+        total+=r['bytes']
+    raw=json.loads((R/'SOURCE_MAP.json').read_text())['raw_archive']
+    if digest(R/raw['path'])!='ff40cf6a2e5487819afa55ddc2616ac3fc106455a75ea8ae147244faa1d73262':
+        raise ValueError('Original source ZIP does not match task input')
+    with zipfile.ZipFile(R/raw['path']) as z:
+        bad=z.testzip()
+        if bad is not None:raise ValueError('Original source ZIP CRC failed: '+bad)
+    print(json.dumps({'status':'PASS_DELIVERY_MEMBERS_HASHES_AND_ORIGINAL_BYTES','members':len(rows),'bytes':total}))
+if __name__=='__main__':main()

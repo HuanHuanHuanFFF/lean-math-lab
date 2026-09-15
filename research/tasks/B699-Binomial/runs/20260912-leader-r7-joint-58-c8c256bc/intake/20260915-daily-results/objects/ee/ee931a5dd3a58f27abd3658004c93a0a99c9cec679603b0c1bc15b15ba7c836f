@@ -1,0 +1,367 @@
+"""Standalone exact receiver for SUPPORT31. Python standard library only.
+
+No LLL, no discrete-log discovery, no floating-point mathematical decisions,
+no historical certificate replay, and no Lean or publication proof is run.
+The finite cert certifies the indicated integer lattice boxes. The paper
+proof connects those boxes to the A9 scalar and the stated source inputs.
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import itertools
+import json
+import math
+import platform
+import sys
+import time
+from collections import Counter
+from fractions import Fraction as F
+from pathlib import Path
+
+SMALL = (2, 3, 5, 7)
+SUPPORT = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31)
+ROUGH = SUPPORT[4:]
+LOW_BITS = 4096
+SINGLE_BITS = 2048
+DOUBLE_BITS = 1280
+
+
+class Rejected(ValueError):
+    pass
+
+
+def need(condition: bool, label: str) -> None:
+    if not condition:
+        raise Rejected(label)
+
+
+def integer(x) -> bool:
+    return isinstance(x, int) and not isinstance(x, bool)
+
+
+def dot(a, b):
+    return sum(x * y for x, y in zip(a, b))
+
+
+def eye(d):
+    return [[int(i == j) for j in range(d)] for i in range(d)]
+
+
+def egcd(a, b):
+    # This column-based kernel builder is separate from discovery's matrix-U code.
+    r0, r1, u0, u1, v0, v1 = a, b, 1, 0, 0, 1
+    while r1:
+        q, r = divmod(r0, r1)
+        r0, r1, u0, u1, v0, v1 = r1, r, u1, u0 - q * u1, v1, v0 - q * v1
+    if r0 < 0:
+        r0, u0, v0 = -r0, -u0, -v0
+    need(u0 * a + v0 * b == r0, "BEZOUT")
+    return r0, u0, v0
+
+
+def kernel_stages(rows, moduli):
+    d = len(rows[0]); b = eye(d); index = 1; stages = []
+    for a, modulus in zip(rows, moduli):
+        c = [sum(a[i] * b[i][j] for i in range(d)) for j in range(d)]
+        for j in range(1, d):
+            old0, oldj = c[0], c[j]
+            g, u, v = egcd(old0, oldj)
+            if not g:
+                continue
+            for i in range(d):
+                x, y = b[i][0], b[i][j]
+                b[i][0], b[i][j] = u * x + v * y, -(oldj // g) * x + (old0 // g) * y
+            c[0], c[j] = g, 0
+        h0 = c[0]; h = math.gcd(h0, modulus); period = modulus // h
+        stages.append((a[:], modulus, h0, h, period, [b[i][0] for i in range(d)]))
+        for i in range(d):
+            b[i][0] *= period
+        index *= period
+    return stages, index
+
+
+def affine_origin(stages, rhs):
+    d = len(stages[0][0]); x = [0] * d
+    for (a, modulus, h0, h, period, col), target in zip(stages, rhs):
+        residual = (target - dot(a, x)) % modulus
+        if residual % h:
+            return None
+        t = 0 if period == 1 else (residual // h) * pow(h0 // h, -1, period) % period
+        x = [x[i] + col[i] * t for i in range(d)]
+    return x
+
+
+def determinant(a):
+    """Bareiss exact determinant, with zero pivots handled by row swaps."""
+    b = [row[:] for row in a]; d = len(b); sign = 1; old = 1
+    if d == 1:
+        return b[0][0]
+    for k in range(d - 1):
+        pivot_row = next((i for i in range(k, d) if b[i][k]), None)
+        if pivot_row is None:
+            return 0
+        if pivot_row != k:
+            b[k], b[pivot_row] = b[pivot_row], b[k]; sign = -sign
+        pivot = b[k][k]
+        for i in range(k + 1, d):
+            for j in range(k + 1, d):
+                value = b[i][j] * pivot - b[i][k] * b[k][j]
+                need(value % old == 0, "BAREISS_EXACT_DIVISION")
+                b[i][j] = value // old
+            b[i][k] = 0
+        old = pivot
+    return sign * b[-1][-1]
+
+
+def inverse(a):
+    d = len(a)
+    z = [[F(x) for x in row] + [F(int(i == j)) for j in range(d)] for i, row in enumerate(a)]
+    for k in range(d):
+        t = next((i for i in range(k, d) if z[i][k]), None)
+        need(t is not None, "INVERSE_NONZERO_PIVOT")
+        z[k], z[t] = z[t], z[k]
+        pivot = z[k][k]; z[k] = [v / pivot for v in z[k]]
+        for i in range(d):
+            if i != k:
+                factor = z[i][k]
+                if factor:
+                    z[i] = [x - factor * y for x, y in zip(z[i], z[k])]
+    ans = [row[d:] for row in z]
+    need(all(sum(ans[i][k] * a[k][j] for k in range(d)) == int(i == j)
+             for i in range(d) for j in range(d)), "EXACT_INVERSE_IDENTITY")
+    return ans
+
+
+def prime_factors(n):
+    ans = []; p = 2
+    while p * p <= n:
+        if n % p == 0:
+            ans.append(p)
+            while n % p == 0:
+                n //= p
+        p += 1
+    if n > 1:
+        ans.append(n)
+    return ans
+
+
+def valuation(n, p):
+    need(n > 0, "VALUATION_POSITIVE")
+    e = 0
+    while n % p == 0:
+        n //= p; e += 1
+    return e
+
+
+def check_cycles(raw, bits, counts):
+    need(set(raw) == set(map(str, SMALL)), "CYCLE_PRIME_COVERAGE")
+    result = {}
+    for q in SMALL:
+        c = raw[str(q)]; k = c["K"]; m = c["modulus"]; g = c["generator"]
+        need(c["q"] == q, "CYCLE_PRIME_IDENTITY")
+        need(integer(k) and k >= 3 and integer(m) and integer(g), "CYCLE_TYPES")
+        need(m == q ** k and q ** (k - 1) < 1 << bits <= m, "EXACT_MODULUS_GATE")
+        orders = [2, 1 << (k - 2)] if q == 2 else [(q - 1) * q ** (k - 1)]
+        need(c["orders"] == orders, "EXACT_GROUP_ORDER")
+        if q == 2:
+            need(g == 5 and g % 4 == 1, "TWO_ADIC_SIGN_SEPARATION")
+            order = orders[1]
+        else:
+            need(math.gcd(g, q) == 1, "GENERATOR_UNIT")
+            order = orders[0]
+        need(pow(g, order, m) == 1, "GENERATOR_ORDER_DIVIDES")
+        for ell in prime_factors(order):
+            need(pow(g, order // ell, m) != 1, "GENERATOR_ORDER_EXACT")
+        need(set(c["logs"]) == {str(p) for p in SUPPORT if p != q}, "LOG_BASE_COVERAGE")
+        for p in SUPPORT:
+            if p == q:
+                continue
+            v = c["logs"][str(p)]
+            need(len(v) == len(orders) and all(integer(x) and 0 <= x < o for x, o in zip(v, orders)), "LOG_RANGES")
+            actual = ((-1) ** v[0] * pow(g, v[1], m)) % m if q == 2 else pow(g, v[0], m)
+            need(actual == p % m, "EXACT_MODULAR_LOG_IDENTITY")
+            counts["modular_log_identities"] += 1
+        result[q] = c
+    return result
+
+
+def rhs_log(cycle, num, den):
+    q = cycle["q"]
+    need(math.gcd(num * den, q) == 1, "RATIONAL_UNIT_NORMALIZATION")
+    def factors(n):
+        out = {}
+        for p in SMALL:
+            e = 0
+            while n % p == 0:
+                n //= p; e += 1
+            out[p] = e
+        need(n == 1, "SMALL_COEFFICIENT_FACTORIZATION")
+        return out
+    a, b = factors(num), factors(den)
+    return [sum((a[p] - b[p]) * cycle["logs"][str(p)][i] for p in SMALL if p != q) % order
+            for i, order in enumerate(cycle["orders"])]
+
+
+def small_coefficients(high):
+    values = [1]
+    for p in SMALL:
+        if p in high:
+            continue
+        powers = []; u = 1
+        while u <= 8:
+            powers.append(u); u *= p
+        values = [a * b for a in values for b in powers]
+    return sorted(values)
+
+
+def decide_box(basis, inv, origin, bound, coefficient, primes):
+    if origin is None:
+        return {"kind": "inconsistent"}
+    intervals = []
+    for i, row in enumerate(inv):
+        centre = -dot(row, origin)
+        lo = centre + bound * sum(x for x in row if x < 0)
+        hi = centre + bound * sum(x for x in row if x > 0)
+        left = -((-lo.numerator) // lo.denominator)
+        right = hi.numerator // hi.denominator
+        if left > right:
+            return {"kind": "empty", "coordinate": i}
+        intervals.append((left, right))
+    need(all(a == b for a, b in intervals), "UNRESOLVED_LATTICE_BOX")
+    z = [a for a, b in intervals]
+    x = [origin[i] + dot(basis[i], z) for i in range(len(z))]
+    if any(t < 0 or t > bound for t in x):
+        return {"kind": "unique_outside"}
+    # Reject before constructing a large integer; accepted exceptions are tiny.
+    need(sum(x) <= 3, "UNRESOLVED_NONSMALL_EXPONENT_VECTOR")
+    n = coefficient * math.prod(p ** e for p, e in zip(primes, x))
+    need(1 <= n <= 8, "EXCEPTION_MUST_BE_ILLEGAL_SMALL_N")
+    return {"kind": "small", "exponents": x, "n": n}
+
+
+def verify_certificate(cert, audit=None):
+    counts = Counter()
+    need(cert["schema"] == "B699-A-SUPPORT31-v1", "SCHEMA")
+    need(cert["support"] == list(SUPPORT), "FIXED_SUPPORT31_SCOPE")
+    need([n for n in range(2, 32) if all(n % d for d in range(2, math.isqrt(n) + 1))] == list(SUPPORT), "PRIME_LIST")
+    height = cert["height"]
+    k, l = len(SUPPORT), (max(SUPPORT) - 1).bit_length()
+    u = 504 * 44 ** (3 * k + 2) * l ** (k - 1)
+    c = u.bit_length(); h = (1 << (c + 4)) * (c + 4)
+    box_bits = c + 4 + (c + 3).bit_length(); emax = 1 << box_bits
+    need((k, l, c, box_bits) == (11, 5, 224, 236), "HEIGHT_INTEGER_SPECIALIZATION")
+    for key, value in {"k": k, "L": l, "U": u, "C": c, "H": h, "box_bits": box_bits, "box_upper": emax}.items():
+        need(height[key] == value, "HEIGHT_" + key)
+    need(height["low_n_log2"] == LOW_BITS, "FROZEN_FINITE_GATE")
+    # Exact rational witnesses for the elementary transcendental bounds in the proof.
+    need(sum(F(1, math.factorial(t)) for t in range(5)) + F(1, 100) < F(11, 4), "E_LT_11_OVER_4")
+    need(12 * 44 ** (3 * k + 2) * 14 * 3 * l ** (k - 1) == u < 1 << c, "PROP310_CONSTANT_DOMINATION")
+    need(168 < 96 * (1 << c) * 2, "LOG_HEIGHT_ABSORPTION")
+    need(h <= emax and c + 4 > (c + 4).bit_length(), "INVERSION_INTEGER_GATE")
+    factprod = math.prod(math.factorial(t) ** 3 for t in range(1, 7))
+    k9 = (1 << 42) * factprod; c0 = 2 * math.factorial(8)
+    r = 2 ** 2 * 3 ** 5 * 5 ** 4 * 7 ** 10
+    need(c0 ** 10 == r * k9 and r < 1 << 48, "EXACT_A9_SCALAR_CONSTANT")
+    need(cert["scalar"] == {"R": r, "power": 10, "n_degree": 27}, "SCALAR_SCHEMA")
+    for a in range(9):
+        for b in range(a + 1):
+            need(max(a - 2, 0) + max(6 - b, 0) + max(6 - (a - b), 0) >= 10, "FULL_POWER_SLOT")
+            counts["full_power_slots"] += 1
+    need(7 * LOW_BITS > 48, "THREE_HIGH_EXCLUSION")
+    need(17 * LOW_BITS > 48 + 30 * (SINGLE_BITS + 6), "SINGLE_SCALAR_CONTRADICTION")
+    need(7 * LOW_BITS - 48 > 10 * (DOUBLE_BITS + 6), "DOUBLE_MODULUS_FORCING")
+    cycles = {
+        "single": check_cycles(cert["cycles"]["single"], SINGLE_BITS, counts),
+        "double": check_cycles(cert["cycles"]["double"], DOUBLE_BITS, counts),
+    }
+    expected_keys = [("single", (p,), (q,)) for p in SMALL for q in SMALL if p != q]
+    expected_keys += [("double", pair, tuple(q for q in SMALL if q not in pair)) for pair in itertools.combinations(SMALL, 2)]
+    latmap = {}
+    for obj in cert["lattices"]:
+        key = (obj["kind"], tuple(obj["high"]), tuple(obj["q_list"]))
+        need(key not in latmap, "NO_DUPLICATE_LATTICE")
+        latmap[key] = obj
+    need(set(latmap) == set(expected_keys), "COMPLETE_18_LATTICE_COVERAGE")
+    for kind, high, qs in expected_keys:
+        lat = latmap[kind, high, qs]
+        primes = list(high) + list(ROUGH); d = len(primes)
+        need(lat["variables"] == primes, "VARIABLE_SUPPORT_COVERAGE")
+        rows = []; moduli = []
+        for q in qs:
+            cyc = cycles[kind][q]
+            rows += [[cyc["logs"][str(p)][i] for p in primes] for i in range(len(cyc["orders"]))]
+            moduli += cyc["orders"]
+        stages, index = kernel_stages(rows, moduli)
+        basis = lat["basis"]
+        need(len(basis) == d and all(len(row) == d and all(integer(x) for x in row) for row in basis), "BASIS_DIMENSION_INTEGER")
+        for row, modulus in zip(rows, moduli):
+            for col in zip(*basis):
+                need(dot(row, col) % modulus == 0, "BASIS_KERNEL_MEMBERSHIP")
+                counts["kernel_column_congruences"] += 1
+        need(abs(determinant(basis)) == index, "BASIS_FULL_KERNEL_INDEX")
+        inv = inverse(basis); counts["exact_kernel_lattices"] += 1
+        for m in small_coefficients(high):
+            for offsets in itertools.product(range(1, 9), repeat=len(qs)):
+                counts[kind + "_raw_cases"] += 1
+                rhs = []; compatible = True
+                for q, offset in zip(qs, offsets):
+                    t, z = valuation(m, q), valuation(offset, q)
+                    if t != z:
+                        compatible = False; break
+                    rhs += rhs_log(cycles[kind][q], offset // q ** t, m // q ** t)
+                if not compatible:
+                    counts[kind + "_valuation_mismatches"] += 1
+                    continue
+                origin = affine_origin(stages, rhs)
+                if origin is not None:
+                    need(all(dot(row, origin) % modulus == target for row, modulus, target in zip(rows, moduli, rhs)), "AFFINE_ORIGIN_IDENTITY")
+                result = decide_box(basis, inv, origin, emax, m, primes)
+                counts[kind + "_normalized_boxes"] += 1
+                counts["box_" + result["kind"]] += 1
+                if audit is not None:
+                    audit.append({"kind": kind, "high": list(high), "q_list": list(qs), "m": m, "offsets": list(offsets), **result})
+    need(counts["single_normalized_boxes"] == 576 and counts["double_normalized_boxes"] == 384, "ALL_NORMALIZED_BOXES")
+    need(counts["single_raw_cases"] == 1344 and counts["double_raw_cases"] == 2304, "ALL_RAW_COVERAGE")
+    need(counts["box_empty"] == 816 and counts["box_small"] == 144, "ACCEPTED_EXACT_OUTCOME_COUNTS")
+    return dict(sorted(counts.items()))
+
+
+def verify_inputs(root):
+    descriptor = json.loads((root / "SOURCE_INPUT.json").read_text())
+    checked = []
+    for entry in descriptor["frozen_files"]:
+        path = root / entry["path"]
+        need(path.is_file(), "MISSING_FROZEN_INPUT:" + entry["path"])
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        need(digest == entry["sha256"], "FROZEN_SHA256:" + entry["path"])
+        checked.append(entry["path"])
+    return checked
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument("--log-dir", type=Path, default=None)
+    args = parser.parse_args(); root = args.root.resolve(); log = args.log_dir or root / "logs" / "receiving"
+    log.mkdir(parents=True, exist_ok=True)
+    started = time.perf_counter(); audit = []
+    path = root / "evidence" / "support31_certificate.json"
+    cert = json.loads(path.read_text()); frozen = verify_inputs(root)
+    counts = verify_certificate(cert, audit)
+    receipt = {"status": "PASS_SUPPORT31_FULL_NEW_RECEIVING", "seconds": time.perf_counter() - started,
+               "counts": counts, "frozen_files_hash_checked": frozen,
+               "certificate_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+               "python": sys.version, "platform": platform.platform(),
+               "historical_certificates_replayed": False, "publication_formalized": False,
+               "lean": False, "external_independent_review": False}
+    (log / "acceptance.json").write_text(json.dumps(receipt, indent=2))
+    (log / "box_audit.json").write_text(json.dumps(audit, separators=(",", ":")))
+    print(json.dumps({"status": receipt["status"], "seconds": receipt["seconds"], "counts": counts}, indent=2))
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (Rejected, KeyError, TypeError, ValueError, OSError) as exc:
+        print("REJECTED: " + str(exc), file=sys.stderr)
+        raise SystemExit(1)

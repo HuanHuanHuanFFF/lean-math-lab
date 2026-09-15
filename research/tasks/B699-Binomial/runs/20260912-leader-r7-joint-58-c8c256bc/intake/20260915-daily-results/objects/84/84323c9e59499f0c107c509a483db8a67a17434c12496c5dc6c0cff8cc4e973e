@@ -1,0 +1,55 @@
+"""Float design only; all selected rows must be rechecked by exact_cuts.py."""
+import sys,json,math,itertools
+from pathlib import Path
+R=Path(__file__).resolve().parents[1];FZ=__import__('frozen_paths').i18_path()
+sys.path.insert(0,str(R/'code/vendor'))
+from probe_weighted_asymmetric import solve,nondominated
+from general_content import SPECS
+TABLE={(9,8):(11742,25),(8,7):(11951,28),(7,6):(12219,53),(6,5):(12581,35),(5,4):(13098,50),(9,7):(13317,15),(7,5):(14135,74),(4,3):(14170,153),(3,2):(15395,138),(8,5):(15407,53),(5,3):(15454,86),(3,1):(15498,260),(25,17):(15540,582),(7,4):(16219,60),(8,3):(16560,149),(9,5):(16636,79),(5,2):(17017,231),(7,3):(17282,161),(9,4):(17666,87),(2,1):(19377,150)}
+from fractions import Fraction as F
+
+def rates(seed,e,d,f,g):
+ p,q,k,l,a,b=seed;P=p**k;Q=q**l;D=a*P-b*Q
+ if not 0<D<a*P:return None
+ z=D/(a*P);h=1-z;N=e+d+f;c=d+f
+ A=N*math.log(N)-e*math.log(e)-d*math.log(d)-f*math.log(f)
+ bq=f*(1+h)+d+e*h;tq=2*f/(bq+math.sqrt(bq*bq-4*h*N*f))
+ be=e*(1+z)+d+f*z;te=2*e/(be+math.sqrt(be*be-4*z*N*e))
+ lq=A+f*math.log(tq)+d*math.log1p(-tq)+e*math.log1p(-h*tq)
+ le=A+e*math.log(te)+d*math.log1p(-te)+f*math.log1p(-z*te)
+ O=f*math.log(P)-max(e,d)*math.log(a)-c*math.log(b)-lq+g
+ T=e*math.log(P)+c*math.log(Q)-(c-min(e,d))*math.log(a)-(e+d)*math.log(D)-le+g
+ if O<=0 or T<=max((e+f)*math.log(P),c*math.log(Q)):return None
+ wp=math.floor(10000*(1-(e+f)*math.log(P)/T))-3
+ wq=math.floor(10000*(1-c*math.log(Q)/T))-3
+ if min(wp,wq)<=0:return None
+ return dict(p=p,q=q,k0=k,l0=l,a=a,b=b,D0=D,e=e,d=d,f=f,wp=wp,wq=wq,display_T=T,display_O=O)
+
+def main():
+ old=json.loads((FZ/'outputs/full_seed_pool_probe.json').read_text())['all_feasible']
+ seeds={tuple(r[k] for k in ['p','q','k0','l0','a','b']) for r in old}
+ custom=json.loads((FZ/'outputs/custom_ratio_probe.json').read_text())['all_rows']
+ seeds.update(tuple(r[k] for k in ['p','q','k0','l0','a','b']) for r in custom)
+ seeds.add((3,11,5,2,1,2));rows=[]
+ for seed in sorted(seeds):
+  for (c,d),(L,m0) in TABLE.items():
+   r=rates(seed,d,d,c-d,d*math.log(L/10000))
+   if r:rows.append(dict(r,content_source='BFT_5_1',L=str(F(L,10000)),m0=m0))
+  for sp in SPECS:
+   e,d,f=sp['e'],sp['d'],sp['f'];g=F(sp['g']);r=rates(seed,e,d,f,float(g))
+   if r:
+    m0=json.loads((R/f'outputs/general_content_finite_{e}_{d}_{f}.json').read_text())['m0']
+    rows.append(dict(r,content_source='new_general_content',g=str(g),m0=m0))
+ es=nondominated(rows);profiles=[]
+ for i in [20,15,12,14]:
+  ps=[p for p in [2,3,5,7,11,13,17,19] if p<i];ee=[x for x in es if x[0]<i and x[1]<i];opts=[]
+  for s in range((i+1)//2,i):
+   w=[2*s-a for a in range(i)];base=10000*(sum(w)-s*(s+1)-sum(w[:len(ps)]));r=solve(ps,ee,lambda z:sum(a*b for a,b in zip(w,sorted(z))))
+   opts.append(dict(s=s,base=base,net=base+r['min'],**r))
+  best=max(opts,key=lambda r:r['net']);print('PROFILE',i,'edges',len(ee),best,flush=True)
+  col=[]
+  for a,b in itertools.combinations(range(len(ps)),2):
+   r=solve(ps,ee,lambda z,a=a,b=b:sum(z)+max(0,10000-z[a]-z[b]));col.append(dict(pair=[ps[a],ps[b]],**r))
+  profiles.append(dict(i=i,primes=ps,best=best,collisions=col,edges=[x[4] for x in ee]));print('COLLISION',i,min(r['min'] for r in col),flush=True)
+ (R/'outputs/certified_content_design.json').write_text(json.dumps(dict(status='FLOAT_DESIGN_WITH_ACTUAL_CONTENT_INPUTS',denominator=10000,profiles=profiles,all_edges=[x[4] for x in es]),indent=2)+'\n')
+if __name__=='__main__':main()

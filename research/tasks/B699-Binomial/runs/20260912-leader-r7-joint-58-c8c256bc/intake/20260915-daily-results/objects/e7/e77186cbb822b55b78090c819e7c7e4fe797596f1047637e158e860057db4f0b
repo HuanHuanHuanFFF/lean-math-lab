@@ -1,0 +1,129 @@
+"""Bounded independent arithmetic diagnostics; none is an infinite-proof replacement."""
+from arithmetic import *
+from time import perf_counter
+
+
+def binomial_row(n: int) -> list[int]:
+    vals = [1]
+    for j in range(1,n//2+1):
+        vals.append(vals[-1]*(n-j+1)//j)
+    return vals
+
+
+def run() -> dict:
+    started=perf_counter()
+    stats={'n_bound_rough_pair':900, 'n_bound_upper_layers':320,
+           'n_bound_row_consumer':600, 'n_bound_small_prime_additive':256,
+           'small_prime_additive_identities':0, 'rough_pair_legal_pairs':0,
+           'H_avoiding_pairs':0, 'simultaneous_cubic_divisibilities':0,
+           'shifted_cubic_inequalities':0, 'upper_layer_identities':0,
+           'binomial_layer_comparisons':0, 'row_certificates':0,
+           'certified_i_n_applications':0, 'all_j_consumer_checks':0,
+           'prime_power_layers_with_exponent_ge_two':0}
+    unique_i_n=set()
+    for n in range(20,901):
+        if smooth_part(n-2) != 2:
+            continue
+        H=(n-2)//2
+        ps=list(factor(H))
+        vals=binomial_row(n)
+        for j in range(10,n//2+1):
+            stats['rough_pair_legal_pairs']+=1
+            if any(vals[j]%p==0 for p in ps):
+                continue
+            stats['H_avoiding_pairs']+=1
+            for r in ODD_ROWS:
+                for b in range(r+1):
+                    d,c,h=shifted(n,j,r,b)
+                    assert 0<c<d and gcd(c,d)==1
+                    value=linear_product(d,c,r,b,2)
+                    assert value != 0 and value % H == 0
+                    assert n <= 2+CUBIC_K[r]*d**3
+                    stats['simultaneous_cubic_divisibilities']+=1
+                    stats['shifted_cubic_inequalities']+=1
+    # Direct binomial values versus factorial sums and all carry layers.
+    # Includes local prefixes that do NOT pass the upper layers.
+    for n in range(20,321):
+        vals=binomial_row(n)
+        for r in range(9):
+            for p,e in factor(n-r).items():
+                if p<11:
+                    continue
+                q=p**e
+                A=(n-r)//q
+                for j in range(10,n//2+1):
+                    b=j%q
+                    if b>r:
+                        continue
+                    k=j//q
+                    direct=valuation(vals[j],p)
+                    quotient=valuation(comb(A,k),p)
+                    assert direct==quotient
+                    assert direct==binomial_v(n,j,p)==sum(carry_layers(n,j,p))
+                    stats['upper_layer_identities']+=1
+                    stats['binomial_layer_comparisons']+=1
+                    if e>=2:
+                        stats['prime_power_layers_with_exponent_ge_two']+=1
+    # Small-prime blocks may have a nonzero residual-binomial term.
+    for n in range(20,257):
+        vals=binomial_row(n)
+        for r in range(9):
+            for p in SMALL:
+                e=valuation(n-r,p)
+                q=p**e
+                if e==0 or q<=r:
+                    continue
+                A=(n-r)//q
+                for j in range(10,n//2+1):
+                    b=j%q
+                    if b>r:
+                        continue
+                    k=j//q
+                    assert valuation(vals[j],p)==valuation(comb(A,k),p)+valuation(comb(r,b),p)
+                    stats['small_prime_additive_identities']+=1
+    assert binomial_v(39,10,3)==1 and binomial_v(4,1,3)==0 and binomial_v(3,1,3)==1
+    # The positive theorem actually consumed at original-source indices 3..9,
+    # rather than extrapolating NC3 to NC9.
+    for n in range(20,601):
+        if smooth_part(n-2)!=2:
+            continue
+        H=(n-2)//2
+        hp=list(factor(H))
+        vals=binomial_row(n)
+        for r in ODD_ROWS:
+            for p,e in factor(n-r).items():
+                if p<11:
+                    continue
+                L=(n-r)//p**e
+                if n<=2+CUBIC_K[r]*L**3:
+                    continue
+                stats['row_certificates']+=1
+                for i in range(max(3,r+1),10):
+                    row_consumer(n,r,p,e,i)
+                    stats['certified_i_n_applications']+=1
+                    unique_i_n.add((i,n))
+                    source=comb(n,i)
+                    for j in range(i+1,n//2+1):
+                        assert any(source%z==0 and vals[j]%z==0 for z in set(hp+[p]))
+                        stats['all_j_consumer_checks']+=1
+    # Hypothesis failure: H alone cannot remove even central slopes.
+    n,j=244,122
+    assert smooth_part(n-2)==2 and comb(n,j)%11!=0
+    d,c,h=shifted(n,j,0,0)
+    assert d==2 and n>2+2*d**3
+    assert smooth_part(n-7)!=1
+    # Literal row2 product has a zero factor, so it cannot give a size bound.
+    d,c,h=shifted(244,121,2,0)
+    assert linear_product(d,c,2,0,2)==0
+    stats['distinct_certified_i_n_pairs']=len(unique_i_n)
+    stats['counting_note']='Consumer applications and j checks count each chosen (n,r,p,e,i) use; distinct (i,n) is listed separately.'
+    stats['status']='PASS_BOUNDED_DIAGNOSTICS_NOT_INFINITE_PROOFS'
+    stats['seconds']=round(perf_counter()-started,6)
+    stats['no_counterexample_claim']=True
+    stats['nonvacuous_H_pairs_required']=stats['H_avoiding_pairs']>0
+    assert stats['nonvacuous_H_pairs_required']
+    return stats
+
+if __name__=='__main__':
+    import json
+    print(json.dumps(run(),indent=2))

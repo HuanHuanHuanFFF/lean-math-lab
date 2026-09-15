@@ -1,0 +1,23 @@
+from math import comb,gcd
+import json
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+def small(n):
+ s=1
+ for p in (2,3):
+  while n%p==0:s*=p;n//=p
+ return s
+def test(n):
+ T=1
+ for r in range(4):T*=small(n-r)
+ return T**6*(3*n*n-12*n+8)<2**20*(n-1)**6*(n-3)**3,T
+fails=[]
+for a in range(101):
+ for b in range(101):
+  n=2**a*3**b
+  if n<10:continue
+  ok,T=test(n)
+  if not ok:fails.append((a,b,n,T))
+print('smooth fail smallbox',fails)
+# finite computations are discovery, not an infinite coverage claim.
+(ROOT/'evidence'/'smooth_discovery.json').write_text(json.dumps({'type':'bounded discovery only','exponents_max':100,'failures':fails},indent=2)+'\n')

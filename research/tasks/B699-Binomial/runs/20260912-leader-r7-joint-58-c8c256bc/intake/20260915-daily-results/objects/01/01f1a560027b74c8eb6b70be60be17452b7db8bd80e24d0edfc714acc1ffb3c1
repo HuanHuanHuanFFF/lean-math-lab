@@ -1,0 +1,59 @@
+"""Generate/check every shared D=19 prime-pair block, serially and atomically."""
+from pathlib import Path
+from itertools import combinations
+import json,subprocess,sys,time,resource,argparse
+R=Path(__file__).resolve().parents[1];PS=[2,3,5,7,11,13,17,19];H=1048577;D=19
+
+def cpp_check(d):
+ head=[d[k] for k in ['p','q','source_height_bits','D','first_exponent','max_exponent','small_exponent_height_bits']]+[len(d['blocks'])]
+ text=' '.join(map(str,head))+'\n'+''.join(f"{b['K']} {b['L']} {b['B']} {b['inverse_hex']}\n" for b in d['blocks'])
+ s=subprocess.run([str(R/'build/check_blocks')],input=text,text=True,capture_output=True,check=True)
+ return json.loads(s.stdout)
+
+def python_check(d):
+ p,q,H0,D0=[d[k] for k in ['p','q','source_height_bits','D']];first,last,h=[d[k] for k in ['first_exponent','max_exponent','small_exponent_height_bits']]
+ assert (H0,D0)==(H,D) and p in PS and q in PS and p<q
+ assert 1<=first<=last and d['blocks'] and p**last<1<<H<=p**(last+1)
+ assert (1<<h)>D and ((1<<h)-D)**2>p**(3*(first-1))
+ nxt=first
+ for b in d['blocks']:
+  K,L,B=b['K'],b['L'],b['B'];assert K==nxt and L>=0 and B>=1 and K+L<=last
+  P,Q=p**K,q**B;v=int(b['inverse_hex'],16)
+  assert P>D and Q**3<=(P-D)**2 and 0<v<Q and P*v%Q==1
+  rhs=p**(K+3*L)
+  least=Q
+  for shift in range(-D,D+1):
+   res=(shift*v)%Q or Q
+   if res<least:least=res
+  # Every residue is positive; this one square proves all signed cases.
+  assert least*least>rhs
+  nxt=K+L+1
+ assert nxt==last+1
+ return dict(status='PASS_PYTHON_INTEGERS',p=p,q=q,blocks=len(d['blocks']),residue_checks=len(d['blocks'])*(2*D+1),small_height=h)
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--generate',action='store_true');ap.add_argument('--python',action='store_true');ap.add_argument('--pair',nargs=2,type=int);a=ap.parse_args()
+ for i in [15,20]:
+  t=json.loads((R/f'input/i{i}_target.json').read_text());assert t['height_bits']==H and i-1<=D
+ pairs=[tuple(a.pair)] if a.pair else list(combinations(PS,2));records=[];dest=R/'outputs/shared_blocks';dest.mkdir(exist_ok=True);st=time.monotonic()
+ for p,q in pairs:
+  path=dest/f'block_D19_{p}_{q}.json'
+  if a.generate and not path.exists():
+   tmp=path.with_suffix('.tmp')
+   with tmp.open('w') as h:subprocess.run([str(R/'build/generate_blocks'),str(p),str(q),str(H),str(D)],stdout=h,check=True)
+   tmp.replace(path)
+  d=json.loads(path.read_text());assert (d['p'],d['q'],d['D'],d['source_height_bits'])==(p,q,D,H)
+  ts=time.monotonic();r=python_check(d) if a.python else cpp_check(d);r['check_seconds']=time.monotonic()-ts;r['bytes']=path.stat().st_size;r['first_exponent']=d['first_exponent'];r['generate_seconds']=d['elapsed_seconds'];r['generation_peak_rss_kib']=d['peak_rss_kib'];records.append(r)
+  print(json.dumps(r),flush=True)
+  (R/'outputs'/('shared_blocks_python_progress.json' if a.python else 'shared_blocks_cpp_progress.json')).write_text(json.dumps(dict(status='PARTIAL_UNTIL_ALL_28_PAIRS',records=records),indent=2)+'\n')
+ if a.pair:return
+ assert {p.name for p in dest.glob('*.json')}=={f'block_D19_{p}_{q}.json' for p,q in pairs}
+ profiles=[]
+ for i in [15,20]:
+  t=json.loads((R/f'input/i{i}_target.json').read_text());rs=[r for r in records if r['q']<i];h=max(t['cube_bits'],*(r['small_height'] for r in rs));assert len(rs)==len(t['primes'])*(len(t['primes'])-1)//2
+  profiles.append(dict(i=i,source_height_bits=H,destination_height_bits=h,cube_bits=t['cube_bits'],pairs=len(rs),blocks=sum(r['blocks'] for r in rs)))
+ out=dict(status='PASS_ALL_PAIRS_PYTHON' if a.python else 'PASS_ALL_PAIRS_CPP_GMP',source_height_bits=H,D=D,pairs=len(records),blocks=sum(r['blocks'] for r in records),residue_checks=sum(r['residue_checks'] for r in records),certificate_bytes=sum(r['bytes'] for r in records),profiles=profiles,records=records,seconds=time.monotonic()-st,peak_rss_kib=resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
+ (R/'outputs'/('shared_blocks_python_check.json' if a.python else 'shared_blocks_summary.json')).write_text(json.dumps(out,indent=2)+'\n');print('SUMMARY',json.dumps({k:v for k,v in out.items() if k!='records'}),flush=True)
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

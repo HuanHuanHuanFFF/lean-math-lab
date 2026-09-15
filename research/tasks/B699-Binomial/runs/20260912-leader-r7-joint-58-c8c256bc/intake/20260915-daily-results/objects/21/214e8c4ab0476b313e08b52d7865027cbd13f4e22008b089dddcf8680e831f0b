@@ -1,0 +1,86 @@
+"""Exact graph branch covers, position cases, height and cubic bridge constants."""
+from pathlib import Path
+from itertools import combinations
+import math,json,sys
+R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'code/vendor'))
+from probe_weighted_asymmetric import solve,nondominated
+Q=10000
+
+def objective(kind,params,z):
+ if kind=='weighted':return sum(w*v for w,v in zip(params,sorted(z)))
+ a,b=params;return sum(z)+max(0,Q-z[a]-z[b])
+
+def cover(ps,edges,kind,params,target):
+ index={p:k for k,p in enumerate(ps)};es=[(index[p],index[q],a,b) for p,q,a,b,*_ in edges]
+ nodes=[];seen={}
+ def visit(z):
+  if z in seen:return seen[z]
+  idx=len(nodes);seen[z]=idx;nodes.append(None)
+  v=objective(kind,params,z)
+  if v>=target:row=dict(z=list(z),leaf=True,value=v)
+  else:
+   bad=next((k for k,(p,q,a,b) in enumerate(es) if z[p]<a and z[q]<b),None)
+   assert bad is not None,'a feasible point refutes proposed target'
+   p,q,a,b=es[bad];zz=list(z);zz[p]=a;left=visit(tuple(zz));zz=list(z);zz[q]=b;right=visit(tuple(zz))
+   row=dict(z=list(z),edge=bad,children=[left,right])
+  nodes[idx]=row;return idx
+ root=visit((0,)*len(ps));assert root==0
+ return dict(kind=kind,params=params,target=target,edges=[list(x) for x in es],nodes=nodes)
+
+def check_cover(cert):
+ ns=cert['nodes'];es=cert['edges'];seen=set()
+ def rec(k,z):
+  assert 0<=k<len(ns);r=ns[k];assert r['z']==z
+  if k in seen:return
+  seen.add(k)
+  v=objective(cert['kind'],cert['params'],z)
+  if r.get('leaf'):
+   assert r['value']==v and v>=cert['target'];return
+  p,q,a,b=es[r['edge']];assert z[p]<a and z[q]<b
+  assert len(r['children'])==2
+  for pos,val,ch in zip([p,q],[a,b],r['children']):
+   zz=z[:];zz[pos]=val;assert sum(zz)>sum(z);rec(ch,zz)
+ rec(0,[0]*len(ns[0]['z']));assert len(seen)==len(ns)
+
+def K_of(i,r,s):
+ ell=i-1-r;lam=2*s-r;E=s*(s+1)+ell*(ell+1)//2
+ K=(1<<(s*(s+1)))*math.prod(math.factorial(k)**2 for k in range(1,s+1))*math.prod(math.factorial(k) for k in range(1,ell+1))
+ return lam,E,K
+
+def main():
+ inp=json.loads((R/'input/new_cut_inputs.json').read_text());assert inp['denominator']==Q
+ rows=inp['cuts'];H=inp['height_Y_bits']+1;profiles=[];outdir=R/'outputs/graph_covers';outdir.mkdir(exist_ok=True)
+ for i,pos_s in [(20,13),(15,10)]:
+  ps=[p for p in range(2,i) if all(p%j for j in range(2,math.isqrt(p)+1))];t=len(ps)
+  es=nondominated([r for r in rows if max(r['p'],r['q'])<i]);ws=[2*pos_s-a for a in range(i)]
+  ans=solve(ps,es,lambda z:objective('weighted',ws[:t],z));tau=ans['min']
+  c=cover(ps,es,'weighted',ws[:t],tau);check_cover(c);(outdir/f'i{i}_weighted.json').write_text(json.dumps(c,separators=(',',':'))+'\n')
+  cases=[];node_count=len(c['nodes'])
+  for a,b in combinations(range(t),2):
+   res=solve(ps,es,lambda z:objective('collision',[a,b],z));c=cover(ps,es,'collision',[a,b],res['min']);check_cover(c);node_count+=len(c['nodes'])
+   file=f'i{i}_collision_{ps[a]}_{ps[b]}.json';(outdir/file).write_text(json.dumps(c,separators=(',',':'))+'\n');cases.append(dict(pair=[ps[a],ps[b]],minimum=res['min'],witness=res['witness'],file=file,nodes=len(c['nodes'])))
+  chi=min(c['minimum'] for c in cases)
+  S=sum(ws);T=sum(ws[:t]);EP=pos_s*(pos_s+1);gamma=Q*(S-EP-T)+tau;fb=math.factorial(i).bit_length();drhs=2*pos_s*Q*fb+Q*S+tau
+  assert gamma>0 and H*gamma>drhs
+  scalar=[]
+  for r in range(i):
+   for s in range(i):
+    lam,E,K=K_of(i,r,s)
+    if lam>0:scalar.append((Q*(lam*(i-t)-E)+lam*chi,r,s,lam,E,K))
+  delta,r,s,lam,E,K=max(scalar);assert delta>0
+  crhs=lam*Q*fb+lam*(Q+chi);assert H*delta>crhs
+  # Derive the 7/10 bridge anew; no copied magic threshold.
+  J=10*lam*i-lam*(7*t+3)-10*E;assert J>0
+  cube=10
+  while (1<<cube)<i*(i-1) or K**10*(1<<(cube*J))<=(2*math.factorial(i))**(10*lam):cube+=1
+  for a in range(i):
+   for b in range(a+1):
+    cc=a-b;assert max(a-r,0)+max(s-b,0)+max(s-cc,0)>=lam
+    assert max(pos_s-b,0)+max(pos_s-cc,0)>=2*pos_s-a
+  p=dict(i=i,primes=ps,height_bits=H,cut_height_bits=H-1,denominator=Q,cut_count=len(es),cut_inputs=[x[4] for x in es],position_s=pos_s,weighted_min=tau,weighted_witness=ans['witness'],position_sum=S,top_weight_sum=T,distinct_gamma=gamma,distinct_rhs_log2_upper=drhs,collision_min=chi,collision_cases=cases,collision_delta=delta,collision_rhs_log2_upper=crhs,r=r,s=s,lambda_=lam,E=E,K=str(K),cube_bits=cube,cube_J=J,graph_nodes=node_count)
+  (R/f'input/i{i}_target.json').write_text(json.dumps(p,indent=2)+'\n');profiles.append(p)
+  print('HEIGHT',i,'n<2^',H,'gamma',gamma,'collision',delta,'cube',cube,'r,s',r,s,'nodes',node_count,flush=True)
+ (R/'outputs/new_height_certificates.json').write_text(json.dumps(dict(status='PASS_EXACT_BRANCH_COVERS_AND_HEIGHT_CONSTANTS',profiles=profiles),indent=2)+'\n')
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

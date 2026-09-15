@@ -1,0 +1,60 @@
+from pathlib import Path
+from itertools import permutations
+import sys,math,json,time
+import numpy as np
+from scipy.optimize import linprog
+from scipy.sparse import lil_matrix
+R=Path(__file__).resolve().parents[1];sys.path.insert(0,str(R/'code'));import probe_gamma as z
+pts=[(x,y) for x in range(15) for y in range(15-x)]
+v=set()
+for l,ss in z.B:v.update(z.vertices(l,ss))
+vv=[]
+for a in sorted(v,key=lambda a:(sum(a),a)):
+ if not any(all(b[k]<=a[k] for k in range(6)) for b in vv):vv.append(a)
+lines=set()
+from itertools import combinations
+for (x,y),(u,v) in combinations(pts,2):
+ a=y-v;b=u-x;c=x*v-y*u;g=math.gcd(math.gcd(a,b),c);a//=g;b//=g;c//=g
+ if a<0 or a==0 and b<0:a=-a;b=-b;c=-c
+ lines.add((a,b,c))
+lines=sorted(lines)
+
+def sub(coeff,u,v):
+ A,B,C,D,E,F=coeff;a,b,c=u;d,e,f=v
+ q=(A*a*a+B*a*d+C*d*d,2*A*a*b+B*(a*e+b*d)+2*C*d*e,A*b*b+B*b*e+C*e*e,
+  2*A*a*c+B*(a*f+d*c)+2*C*d*f+D*a+E*d,
+  2*A*b*c+B*(b*f+e*c)+2*C*e*f+D*b+E*e,
+  A*c*c+B*c*f+C*f*f+D*c+E*f+F)
+ g=math.gcd(*q);q=tuple(x//g for x in q)
+ return q if q[0]>=0 else tuple(-x for x in q)
+conics=set()
+for q in json.loads((R/'evidence/conic_discovery.json').read_text())['improving']:
+ co=q['coefficients'];a,b,c,*_=co
+ if 4*a*c-b*b<=0:continue
+ for u,v in permutations([(1,0,0),(0,1,0),(-1,-1,14)],2):conics.add(sub(co,u,v))
+conics=sorted(conics);print('nondegenerate positive definite conics',len(conics),flush=True)
+N=15+len(lines)+len(conics)+1;cons=lil_matrix((120+len(vv)+14,N));rhs=np.zeros(cons.shape[0]);idx=0
+for x,y in pts:
+ cons[idx,x+y]=1
+ for k,(a,b,c) in enumerate(lines):
+  if a*x+b*y+c==0:cons[idx,15+k]=-1
+ for k,(a,b,c,d,e,f) in enumerate(conics):
+  if a*x*x+b*x*y+c*y*y+d*x+e*y+f==0:cons[idx,15+len(lines)+k]=-1
+ idx+=1
+for vv0 in vv:
+ cc=[float(x/1000) for x in sorted(vv0)]+[1]*9
+ for a in range(15):cons[idx,a]=-cc[a]
+ for k in range(len(lines)):cons[idx,15+k]=1
+ for k in range(len(conics)):cons[idx,15+len(lines)+k]=2
+ cons[idx,-1]=1;idx+=1
+for a in range(14):cons[idx,a]=-1;cons[idx,a+1]=1;idx+=1
+E=lil_matrix((1,N));E[0,:15]=1;c=np.zeros(N);c[-1]=-1
+start=time.monotonic();res=linprog(c,A_ub=cons.tocsr(),b_ub=rhs,A_eq=E.tocsr(),b_eq=[1],bounds=[(0,None)]*(N-1)+[(None,None)],method='highs',options={'time_limit':60})
+out={'status':int(res.status),'message':res.message,'gain':-res.fun,'seconds':time.monotonic()-start,'line_count':len(lines),'conic_count':len(conics),'m':res.x[:15].tolist(),
+ 'nonzero_lines':[[l,float(res.x[15+k])] for k,l in enumerate(lines) if res.x[15+k]>1e-8],
+ 'nonzero_conics':[[l,float(res.x[15+len(lines)+k])] for k,l in enumerate(conics) if res.x[15+len(lines)+k]>1e-8],
+ 'dual_points':(-res.ineqlin.marginals[:120]).tolist(), 'active_models':[[[str(a/1000) for a in vv[k]],float(-w)] for k,w in enumerate(res.ineqlin.marginals[120:120+len(vv)]) if w < -1e-9]}
+(R/'evidence/conic_graph_probe.json').write_text(json.dumps(out,indent=2)+'\n')
+(R/'evidence/conic_pool.json').write_text(json.dumps(conics))
+print({k:v for k,v in out.items() if k not in ['nonzero_lines','nonzero_conics','dual_points']},flush=True)
+print('used conics',len(out['nonzero_conics']),'active_models',out['active_models'],flush=True)

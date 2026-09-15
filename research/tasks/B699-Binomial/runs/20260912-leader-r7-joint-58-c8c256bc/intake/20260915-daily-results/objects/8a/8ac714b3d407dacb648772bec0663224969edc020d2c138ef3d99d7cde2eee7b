@@ -1,0 +1,74 @@
+"""Deterministic rejection tests using the actual accepting checkers.
+No corrupted artifact is written over an accepted certificate.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+import json,copy,tempfile,subprocess,shutil,time,sys
+import check_general_content as gc
+import check_i12_content as ic
+import check_height_independent as hc
+from exact_cuts import obligations
+from check_new_cuts_grid import check as grid_check
+from check_new_terminal import check as terminal_check,check_special
+from run_shared_blocks import cpp_check
+from parameters import parameters
+from reverse_crt import check_symbolic_stage
+from check_certificate import check_large_row
+R=Path(__file__).resolve().parents[1]
+def main():
+ records=[];start=time.monotonic()
+ def reject(name,fn):
+  ts=time.monotonic()
+  try:fn()
+  except (AssertionError,ValueError,subprocess.CalledProcessError) as e:
+   records.append(dict(name=name,status='REJECTED',exception=type(e).__name__,message=str(e)[:220],seconds=time.monotonic()-ts));print('REJECT_OK',name,flush=True)
+  else:raise RuntimeError('CORRUPT CERTIFICATE ACCEPTED: '+name)
+ inp=json.loads((R/'input/new_cut_inputs.json').read_text());row=inp['cuts'][0];H=inp['height_Y_bits']
+ for name,key,val in [('published L corrupted','L','2'),('published threshold corrupted','m0',0),('seed difference corrupted','D0',2),('unsupported weights','wp',9999)]:
+  bad=copy.deepcopy(row);bad[key]=val
+  reject(name,lambda b=bad: (lambda o: (_ for _ in ()).throw(AssertionError('threshold failure')) if not o['passed'] else None)(obligations(b,H)))
+  reject(name+' grid',lambda b=bad:grid_check(b,H,24))
+ reject('uniform threshold too small',lambda:grid_check(row,2,24))
+ # Content checks run against temporary copies and independently rebuilt prime cache.
+ ps,w,meta=gc.load_cache();oldgc=gc.R;oldic=ic.R
+ with tempfile.TemporaryDirectory(prefix='b699_bad_content_') as tmp:
+  t=Path(tmp);(t/'outputs').mkdir();tail=json.loads((R/'outputs/general_content_tail.json').read_text());finite=json.loads((R/'outputs/general_content_finite_4_2_1.json').read_text())
+  gc.R=t;ic.R=t
+  def test_content(bf,bt):
+   (t/'outputs/general_content_finite_4_2_1.json').write_text(json.dumps(bf));(t/'outputs/general_content_tail.json').write_text(json.dumps(bt));gc.check_one((4,2,1),ps,w,meta)
+  for name,mut in [('content missing first block',lambda x:x['blocks'].pop(0)),('content missing last block',lambda x:x['blocks'].pop()),('content wrong prime weight',lambda x:x['blocks'][0].__setitem__('weight',x['blocks'][0]['weight']+1)),('content false rate',lambda x:x.__setitem__('g','100'))]:
+   b=copy.deepcopy(finite);mut(b);reject(name,lambda b=b:test_content(b,tail))
+  b=copy.deepcopy(tail);r=next(x for x in b['rows'] if (x['e'],x['d'],x['f'])==(4,2,1));r['rows'][0]['error_source']='relative_from_1e8';r['rows'][0]['error']='0'
+  (t/'outputs/general_content_tail.json').write_text(json.dumps(b));reject('invalid theta range/error',lambda:ic.check_tail((4,2,1)))
+  b=copy.deepcopy(tail);r=next(x for x in b['rows'] if (x['e'],x['d'],x['f'])==(17,7,7));r['rows'][0]['rate']='100'
+  (t/'outputs/general_content_tail.json').write_text(json.dumps(b));reject('inflated infinite contribution',lambda:ic.check_tail((17,7,7)))
+ gc.R=oldgc;ic.R=oldic;del ps,w
+ # Continuous branch-cover validation uses the actual published-cut allowance list.
+ t=json.loads((R/'input/i12_target.json').read_text());c=json.loads((R/'outputs/graph_covers/i12_weighted.json').read_text());allowed=[]
+ for r in json.loads((R/'input/i12_cut_inputs.json').read_text())['cuts']:
+  p,q,a,b=[r[k] for k in ['p','q','wp','wq']];allowed.append((p,q,a,b) if p<q else(q,p,b,a))
+ def graph(b):return hc.check_dag(b,t['primes'],allowed,'weighted',[2*t['position_s']-a for a in range(5)],t['weighted_min'])
+ b=copy.deepcopy(c);b['nodes'][0]['children'].pop();reject('missing graph orientation',lambda:graph(b))
+ b=copy.deepcopy(c);b['edges'][0][2]+=1;reject('uncertified graph edge',lambda:graph(b))
+ b=copy.deepcopy(c);b['nodes'][0]=dict(z=[0]*5,leaf=True,value=t['weighted_min']);reject('false branch lower bound',lambda:graph(b))
+ with tempfile.TemporaryDirectory(prefix='b699_bad_height_') as tmp:
+  dst=Path(tmp);shutil.copytree(R/'input',dst/'input');shutil.copytree(R/'outputs/graph_covers',dst/'outputs/graph_covers');old=hc.R;hc.R=dst
+  b=copy.deepcopy(t);b['cube_bits']-=1;(dst/'input/i12_target.json').write_text(json.dumps(b));reject('cube threshold one bit too small',hc.main)
+  b=copy.deepcopy(t);b['collision_cases'].pop();(dst/'input/i12_target.json').write_text(json.dumps(b));reject('missing collision pair',hc.main);hc.R=old
+ d=json.loads((R/'outputs/shared_blocks/block_D19_2_3.json').read_text())
+ for name,mut in [('missing exponent suffix',lambda x:x['blocks'].pop()),('wrong modulus inverse',lambda x:x['blocks'][0].__setitem__('inverse_hex','0x1')),('lost source upper exponent',lambda x:x.__setitem__('max_exponent',x['max_exponent']-1)),('missing low exponent prefix',lambda x:x.__setitem__('small_exponent_height_bits',1)),('wrong displacement domain',lambda x:x.__setitem__('D',18))]:
+  b=copy.deepcopy(d);mut(b);reject(name,lambda b=b:cpp_check(b))
+ row=json.loads((R/'outputs/terminal_certificate_15.json').read_text());src=json.loads((R/'input/i15_target.json').read_text());par=parameters(15,src['r'],src['s']);st=copy.deepcopy(row['bound_stages'][0]);st['M']=str(int(st['M'])-1);reject('CRT insufficient cofactor cap',lambda:check_symbolic_stage(par,st))
+ st=copy.deepcopy(row['bound_stages'][0]);st['start']=str(int(st['start'])-1);reject('CRT zero-exponent exception removed',lambda:check_symbolic_stage(par,st))
+ b=copy.deepcopy(row);b['candidate_intervals'].pop();reject('missing original n candidate',lambda:terminal_check(b))
+ b=copy.deepcopy(row);b['prime_witnesses'][0]=4;b['prime_witnesses']=sorted(set(b['prime_witnesses']));reject('composite top-prime witness',lambda:terminal_check(b))
+ n,D=row['large_divisor_rows'][0];reject('nondividing terminal integer',lambda:check_large_row(par,n,int(D)*int(D)+1));reject('terminal divisor too small',lambda:check_large_row(par,n,1))
+ special=json.loads((R/'outputs/terminal_certificate_12.json').read_text())['special_rows'][0]
+ assert check_special(12,special)==51
+ b=copy.deepcopy(special);b['j_intervals'][-1][1]-=1;reject('special row missing j=63',lambda:check_special(12,b))
+ b=copy.deepcopy(special);b['j_intervals'][-1][2]=61;reject('special wrong simultaneous prime',lambda:check_special(12,b))
+ out=dict(status='PASS_ALL_CORRUPT_CERTIFICATES_REJECTED',count=len(records),records=records,seconds=time.monotonic()-start)
+ (R/'outputs/bad_certificate_regression.json').write_text(json.dumps(out,indent=2)+'\n');print('BAD_CERT_TOTAL',len(records),flush=True)
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

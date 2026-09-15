@@ -1,0 +1,44 @@
+"""Check the two additional content bounds, including every large-cache prime.
+Large binary files are bounded, reproducible caches, not trusted certificates.
+"""
+from pathlib import Path
+from fractions import Fraction as F
+from itertools import product
+import json,subprocess,time,sys,gc,argparse
+from check_general_content import catalog,check_one,load_cache,rebuild_cache
+R=Path(__file__).resolve().parents[1]
+def check_tail(triple):
+ e,d,f=triple;N=e+d+f;cells=catalog(e,d,f);r=next(x for x in json.loads((R/'outputs/general_content_tail.json').read_text())['rows'] if tuple(x[k] for k in ['e','d','f'])==triple)
+ M=r['M'];total=F(0);seen=set();eta=F(213,10000000)
+ for t in r['rows']:
+  w=t['w'];l,u=F(t['l']),F(t['u']);J=t['J'];assert (l,u,J) in cells and w>=0 and (w,l,u,J) not in seen;seen.add((w,l,u,J))
+  A=1/(w+l);B=F(2,N)/(w+l);C=1/(w+u);err=F(t['error']);assert (A,B,C)==tuple(F(t[k]) for k in ['A','B','C']) and A*M-B>=1 and err>=eta*A
+  if t.get('error_source','uniform_max')=='relative_from_1e8':assert A*M-B>=10**8
+  else:assert t.get('error_source','uniform_max')=='uniform_max' and err*err>=F(259,125)**2*A/M
+  v=A-(1+eta)*C-err-B/M;assert v==F(t['rate']) and v>0;total+=v
+ assert total==F(r['lower']) and total>F(r['g']) and total-F(r['g'])==F(r['margin'])
+ return dict(e=e,d=d,f=f,g=r['g'],M=M,terms=len(seen),margin=str(total-F(r['g'])))
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--reuse-verified-cache',action='store_true');a=ap.parse_args();start=time.monotonic()
+ cache=R/'cache/i12_content_large';cache.mkdir(parents=True,exist_ok=True)
+ if not (cache/'metadata.json').exists():subprocess.run([str(R/'build/segmented_weight_cache'),'3100000000',str(cache)],check=True)
+ # Re-run the complete independent prime and weight comparison on every invocation.
+ z=subprocess.run([str(R/'build/check_segmented_weight_cache'),'3100000000',str(cache)],text=True,capture_output=True,check=True);print(z.stderr,end='');meta=json.loads(z.stdout.strip());assert meta['status']=='PASS_INDEPENDENT_ALL_PRIMES_AND_WEIGHTS' and meta['count']==149028641
+ (R/'outputs/i12_prime_cache_independent.json').write_text(json.dumps(meta,indent=2)+'\n')
+ r=json.loads((R/'outputs/general_content_finite_17_7_7.json').read_text());assert (r['e'],r['d'],r['f'],r['g'],r['m0'],r['first_m'],r['M'],r['W'])==(17,7,7,'96/25',40404,40405,300000000,128)
+ lo2=F(r['log2_lower']);assert lo2==F(69314718055,10**11) and lo2<2*sum((F(1,(2*k+1)*3**(2*k+1)) for k in range(40)),F(0))
+ tmp=R/'cache/i12_finite_check.tsv'
+ with tmp.open('w') as h:
+  h.write(f"{r['first_m']} {r['M']} {len(r['blocks'])}\n")
+  for b in r['blocks']:h.write(f"{b['a']} {b['b']} {b['weight']}\n")
+ z=subprocess.run([str(R/'build/check_i12_finite'),str(cache/'primes.u32'),str(cache/'weights.u64'),str(tmp)],text=True,capture_output=True,check=True);finite=json.loads(z.stdout);assert finite['blocks']==len(r['blocks']);print(z.stdout,end='')
+ del r;gc.collect()
+ try:ps,w,m=load_cache()
+ except FileNotFoundError:ps,w,m=rebuild_cache()
+ one=check_one((4,2,1),ps,w,m);del ps,w;gc.collect()
+ tails=[check_tail(t) for t in [(4,2,1),(17,7,7)]]
+ out=dict(status='PASS_BOTH_I12_CONTENT_BOUNDS',small=one,large_finite=finite,tails=tails,prime_check=meta,seconds=time.monotonic()-start)
+ (R/'outputs/i12_content_independent.json').write_text(json.dumps(out,indent=2)+'\n');print('PASS I12 content',finite['blocks'],one['finite_blocks'],flush=True)
+if __name__=='__main__':
+ if not __debug__:raise RuntimeError('Do not use -O')
+ main()

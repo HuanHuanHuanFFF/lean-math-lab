@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+"""Fixed exact CRT examples and a true witness on a scalar failure row."""
+from pathlib import Path
+import json,argparse,math
+from profile_candidate import recover
+from diagnostics import scalar6,scalar8,old4,vbin
+ROOT=Path(__file__).resolve().parents[1]
+def run(out):
+    expected=json.loads((ROOT/'evidence/profile_examples.json').read_text())
+    records=[]
+    for group in expected:
+        for row in group['records']:
+            r=recover(group['target'],row['exponents'],row['positions'])
+            if r!=row['recovery'] or r['least_CRT_n']!=row['n']:
+                raise ValueError('CRT example mismatch')
+            records.append(r)
+    # This input is OUTSIDE both scalar row consumers, not a counterexample.
+    n=30625;j=15312;p=11
+    if scalar8(n) or old4(n,8):raise ValueError('failure-control predicates')
+    if not (8<j<=n//2 and all(p%d for d in range(2,math.isqrt(p)+1))):raise ValueError('witness legality')
+    if not (vbin(n,8,p)==1 and vbin(n,j,p)==2):raise ValueError('true witness valuations')
+    out.mkdir(parents=True,exist_ok=True)
+    data={'status':'PASS_EXACT_PROFILE_AND_FAILURE_CONTROLS','profiles':records,
+          'failure_row_actual_witness':{'n':n,'i':8,'j':j,'p':p,'source_v':1,'target_v':2},
+          'bounded_diagnostic_only':True}
+    (out/'profiles.json').write_text(json.dumps(data,sort_keys=True,indent=2)+'\n')
+    print(json.dumps({'status':data['status'],'profile_examples':len(records)}))
+if __name__=='__main__':
+    a=argparse.ArgumentParser();a.add_argument('--out',type=Path,required=True);run(a.parse_args().out)

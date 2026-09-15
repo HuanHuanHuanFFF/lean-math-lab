@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""Exact structural regressions; the infinite arguments are in notes/PROOFS.md."""
+from __future__ import annotations
+import argparse,json,math,random
+from fractions import Fraction
+from pathlib import Path
+
+def digit_sum(x:int,b:int)->int:
+    s=0
+    while x:x,r=divmod(x,b);s+=r
+    return s
+
+def cyclic(b:int,v:int,x:int)->dict:
+    if b<2 or v<1 or x<=0 or x%(b**v-1):raise ValueError('cyclic domain')
+    ds=[0]*v;y=x;i=0
+    while y:y,d=divmod(y,b);ds[i%v]+=d;i+=1
+    before=sum(ds);steps=0
+    while max(ds)>=b:
+        i=next(i for i,d in enumerate(ds)if d>=b)
+        ds[i]-=b;ds[(i+1)%v]+=1;steps+=1
+    if ds!=[b-1]*v or before-steps*(b-1)!=v*(b-1):raise ValueError('cyclic result')
+    return {'base':b,'length':v,'initial_sum':before,'steps':steps,'final_sum':sum(ds)}
+
+def vp(x:int,p:int)->int:
+    if x<=0:raise ValueError('vp')
+    e=0
+    while x%p==0:x//=p;e+=1
+    return e
+
+def choose_v(n:int,j:int,p:int)->int:
+    q=p;s=0
+    while q<=n:s+=n//q-j//q-(n-j)//q;q*=p
+    return s
+
+def main()->None:
+    a=argparse.ArgumentParser();a.add_argument('--output',type=Path,required=True);args=a.parse_args()
+    rng=random.Random(699);cs=[]
+    for b in range(2,11):
+        for v in range(1,17):
+            for k in (1,b,b**v+1,rng.randrange(1,10**12)):
+                cs.append(cyclic(b,v,k*(b**v-1)))
+    nchecks=0
+    for t in range(0,100):
+        for la in (1,3):
+            dt=digit_sum(la*(2**t-1),2)
+            expected=0 if t==0 else (2 if la==3 and t==1 else t)
+            assert dt==expected
+            for _ in range(15):
+                u=rng.randrange(1,2**40)|1;j=2**t*u;w=u.bit_count()
+                left=la*j*(j-1)
+                assert left==la*2**(2*t)*u*(u-1)+la*2**t*u*(2**t-1)
+                assert left.bit_count()<=la.bit_count()*w*(w-1)+w*dt
+                nchecks+=1
+    cases=[]
+    for n,j in [(76672,26775),(18610024,7865522),(2218328,468787),(78090488,16502461)]:
+        M=(n-2)//2;la=3 if vp(n-1,3)==1 else 1;mu=3 if vp(M,3)==1 else 1
+        N=(n-1)//la;K=M//mu;C=math.gcd(K,j-1);F=K//C;g=math.gcd(n,j);k=n-j
+        assert j*(j-1)%N==0 and j*(j-1)*(j-2)%K==0
+        H=Fraction(j*k,N*F);U=Fraction((j-1)*(k-1),N*C*C);V=la**3*mu**2
+        assert H.denominator==U.denominator==1 and H.numerator%(g*g)==0
+        assert H*H*U==Fraction(4*V*j*j*k*k*(j-1)*(k-1),(n-1)**3*(n-2)**2)
+        assert 16*(n-1)**3*H*H*U<V*n**4 and g**4<3*n
+        cases.append({'n':n,'j':j,'g':g,'H':int(H),'U':int(U),'V':V,'alpha':n//g,
+                      'v3_first':choose_v(n,3,3),'v3_second':choose_v(n,j,3)})
+    # Symbolic integer endpoints of the two tail arguments.
+    assert 7**4>12*7**2+1 and 8**3>12*6**2+1 and 18**2>12*5**2+1
+    assert 128**4-2>126*128**3
+    # Actual 4-bit family satisfying the first projection and alpha=power of 2.
+    obstruction=[]
+    for t in [2,3,4,8,16,32]:
+        x=1<<t;n=x**4;j=x*(1+x+x*x+x**3)//4;g=x//4
+        assert 4<=j<n//2 and j.bit_count()==4 and math.gcd(n,j)==g
+        assert j*(j-1)%(n-1)==0 and (n//g)&(n//g-1)==0 and g**4<3*n
+        obstruction.append({'t':t,'n_bits':n.bit_length(),'j_weight':4,'first_zero':True,
+                            'second_zero':6*j*(j-1)*(j-2)%(n-2)==0})
+    result={'cyclic_regressions':len(cs),'cyclic_boundary_examples':cs[:8]+cs[-4:],
+            'digit_product_regressions':nchecks,'dyadic_minus_one_identities':200,
+            'three_window_fixtures':cases,'four_bit_first_projection':obstruction,
+            'infinite_proof_status':'paper proof, not inferred from these regressions'}
+    args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(result,indent=2,sort_keys=True)+'\n')
+    print('STRUCTURE_CHECKED',len(cs),nchecks,len(cases))
+if __name__=='__main__':main()

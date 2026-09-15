@@ -1,0 +1,45 @@
+"""Tiny exact two-variable polynomial ring over Q; no CAS dependency."""
+from fractions import Fraction
+from math import prod, factorial
+
+class P:
+    def __init__(self,data=0):
+        if isinstance(data,P):self.c=dict(data.c)
+        elif isinstance(data,dict):self.c={k:Fraction(v) for k,v in data.items() if v}
+        else:self.c={} if not data else {(0,0):Fraction(data)}
+    @staticmethod
+    def var(t):return P({(1,0) if t==0 else (0,1):1})
+    def __add__(self,o):
+        o=P(o);c=dict(self.c)
+        for k,v in o.c.items():c[k]=c.get(k,0)+v
+        return P(c)
+    __radd__=__add__
+    def __neg__(self):return P({k:-v for k,v in self.c.items()})
+    def __sub__(self,o):return self+-P(o)
+    def __rsub__(self,o):return P(o)+-self
+    def __mul__(self,o):
+        o=P(o);c={}
+        for (a,b),v in self.c.items():
+            for (d,e),w in o.c.items():
+                k=(a+d,b+e);c[k]=c.get(k,0)+v*w
+        return P(c)
+    __rmul__=__mul__
+    def __pow__(self,e):
+        if not isinstance(e,int) or e<0:raise ValueError('nonnegative integer power required')
+        r=P(1);a=self
+        while e:
+            if e&1:r=r*a
+            a=a*a;e//=2
+        return r
+    def __truediv__(self,q):
+        if not isinstance(q,(int,Fraction)) or q==0:raise ValueError('scalar nonzero divisor required')
+        return P({k:v/q for k,v in self.c.items()})
+    def __eq__(self,o):return self.c==P(o).c
+    def eval(self,x,y):return sum(v*x**a*y**b for (a,b),v in self.c.items())
+    def subst(self,x,y):return sum((v*x**a*y**b for (a,b),v in self.c.items()),P(0))
+
+def choose(x,r):
+    return prod((x-t for t in range(r)),start=P(1))/factorial(r)
+
+def form(terms,a):
+    return sum((c*prod((a[i] for i in ids),start=P(1)) for c,ids in terms),P(0))

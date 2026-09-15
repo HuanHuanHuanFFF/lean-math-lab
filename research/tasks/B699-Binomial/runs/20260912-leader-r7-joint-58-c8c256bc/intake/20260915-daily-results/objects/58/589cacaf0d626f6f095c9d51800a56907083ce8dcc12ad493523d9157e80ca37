@@ -1,0 +1,7 @@
+# Recorded development corrections
+
+1. An exploratory SymPy snippet had an indentation error and was rerun after correction. It produced no accepted output on the failed run.
+2. The initially proposed coarse factor-2 rational bound does not hold down to n=10. Exact polynomial expansion exposed negative coefficients/values. The adopted proof uses factor4 for all n>=10, with eight positive coefficients; no factor2 claim is used.
+3. A regression fixture initially expected v7(C(100,10))=1, but direct factorial valuation gives2. The required source-vs-gcd control uses (n,j,p)=(100,8,7), whose valuations are (2,1,1). This was a test-fixture correction, not a modification of the infinite theorem or finite coverage certificate.
+
+4. Draft prose briefly guessed p607 for the boundary row (1218,609,i5). The already-computed exact regression uses p7; the draft was corrected to7 before release. No certificate or theorem relies on p607, and it is not a valid witness there.

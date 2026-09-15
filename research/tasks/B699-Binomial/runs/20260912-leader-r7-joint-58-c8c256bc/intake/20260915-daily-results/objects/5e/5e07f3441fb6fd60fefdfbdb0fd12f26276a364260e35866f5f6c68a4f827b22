@@ -1,0 +1,185 @@
+"""Receive the small exact obligations. Does not prove all paper logic or run history."""
+import json
+from pathlib import Path
+from fractions import Fraction
+from math import prod, gcd, comb
+from arithmetic import *
+
+ROOT = Path(__file__).resolve().parents[1]
+
+class CheckFailure(ValueError):
+    pass
+
+
+def validate(c: dict) -> dict:
+    checks = 0
+    def need(condition: bool, message: str):
+        nonlocal checks
+        checks += 1
+        if not condition:
+            raise CheckFailure(message)
+
+    need(c['schema'] == 'B699-window-carry-v1', 'schema')
+    loc = c['local']
+    modulus, residue = loc['modulus'], loc['residue']
+    need(modulus == 16*9*25*49, 'complete local modulus')
+    need(0 < residue < modulus, 'canonical positive representative')
+    for m, a in [(16,0),(25,0),(9,3),(49,1)]:
+        need(residue % m == a, 'local residue')
+    fixed_count = 0
+    for row, part in loc['fixed_small_parts'].items():
+        r = int(row)
+        s = 1
+        for p in SMALL:
+            e = valuation(residue-r,p)
+            need(e < valuation(modulus,p), 'valuation is fixed on entire progression')
+            s *= p**e
+            fixed_count += 1
+        need(part == s, 'fixed full small part')
+    need(set(map(int,loc['fixed_small_parts'])) == {2,4,5,6,7,8}, 'all fixed rows')
+    for rr, pp in loc['variable_rows'].items():
+        r, p = int(rr), pp
+        need((r,p) in [(1,7),(3,3)], 'variable row identity')
+        need((residue-r) % p**2 == 0, 'full power at least square')
+        for other in SMALL:
+            if other != p:
+                need((residue-r) % other != 0, 'variable row has no other small primes')
+
+    rows = c['rows']
+    need([x['r'] for x in rows] == list(range(9)), 'all nine rows exactly once')
+    cells = 0
+    resonance_count = 0
+    for x in rows:
+        r = x['r']
+        need(x['b_values'] == list(range(r+1)), 'complete shift range')
+        cells += r+1
+        if r == 2:
+            need(x['degree'] == 5 and x['offset'] == 4, 'row2 uses row4 quintic')
+            need(x['coefficient'] >= 4*2*3*4, 'quintic product bound')
+            for b in x['b_values']:
+                need(-2 <= b-2 and b <= 2, 'row2 z endpoints')
+        else:
+            need(x['degree'] == 3 and x['offset'] == 2, 'cubic source row2')
+            M = 1 if r <= 1 else r-1
+            for b in x['b_values']:
+                ends = (b-1, b+1-r)
+                need(max(abs(v) for v in ends) <= M, 'all z endpoints')
+            bound = max(1, M*(M*M-1))
+            need(x['coefficient'] >= 2*bound, 'cubic uniform bound')
+        # Exact finite zero-slope classification; positive rational c/d reduced.
+        diff = (4-r) if r == 2 else (2-r)
+        for d in range(2,abs(diff)+1):
+            if diff % d == 0:
+                possible = d in (1,2)  # d|n-2 and S7(n-2)=2; all d<=6
+                if possible:
+                    need(d == 2 and r % 2 == 0, 'only central resonance survives')
+                    resonance_count += 1
+        if r % 2:
+            need(all(d != 2 for d in range(2,abs(diff)+1) if diff % d == 0), 'odd rows no resonance')
+    need(cells == 45, 'complete 45-shift coverage')
+    need(sum(r['r']+1 for r in rows if r['degree']==3) == 42, '42 cubic cells')
+    need(sum(r['r']+1 for r in rows if r['degree']==5) == 3, '3 quintic cells')
+
+    need([x['t'] for x in c['central']] == list(range(5)), 'all central distances')
+    for x in c['central']:
+        t = x['t']
+        factors = [7-2*t-2*u for u in range(8)]
+        need(all(z != 0 and z % 2 for z in factors), 'no zero central factor')
+        v = prod(factors)
+        need(v == x['product'], 'central product exact')
+        need(rough_part(v) == x['rough_product'], 'full rough central product')
+        need(7+x['rough_product'] < residue, 'central branch contradiction')
+
+    sc = c['source_consumer']
+    need(sc['rows'] == list(ODD_ROWS), 'odd consumer rows')
+    need(sc['prime_minimum'] == 11 and sc['index_maximum'] == 9, 'source witness threshold')
+    for r in ODD_ROWS:
+        need(sc['minimum_i'][str(r)] == max(3,r+1), 'source includes both rows')
+        for i in range(sc['minimum_i'][str(r)], sc['index_maximum']+1):
+            need(2 < i and r < i < 11, 'both rough row primes divide source binomial')
+
+    cc = c['carry']
+    need(cc['R'] == R, 'frozen scalar R')
+    need(7**10*R < 2**140, 'max7 high enough to imply the 49 congruence')
+    need(1960001>=20, 'alpha lower exponent suffices for n>=2^20')
+    need(R < 2**cc['R_power_two_exponent'], 'R strict power bound')
+    for r in (1,3):
+        need(cc['threshold'] > 2*CUBIC_K[r], 'large-layer cubic contradiction')
+    need(cc['threshold'] == 64, 'threshold used in exponent combination')
+    need(cc['valuation_multiplier'] == 30, 'cube times frozen tenth power')
+    need(cc['threshold']**10 * R**3 < 2**cc['final_power_two_exponent'], 'strict final constant')
+
+    for x in c['prime_power_examples']:
+        n,j,r,p,e = (x[k] for k in ['n','j','r','p','full_exponent'])
+        need(is_prime_trial(p) and p>=11, 'example prime')
+        need(valuation(n-r,p) == e, 'example full exponent')
+        need((j%p<=r) == x['radical_prefix_passes'], 'radical versus complete power')
+        need((j%(p**e)<=r) == x['full_prefix_passes'], 'complete prefix')
+        need(binomial_v(n,j,p) == x['target_valuation'], 'exact target valuation')
+        need(sum(carry_layers(n,j,p)) == valuation(comb(n,j),p), 'factorial/direct/layer agreement')
+
+    ex = c['infinite_row_example']
+    P,Q,W = ex['P'],ex['Q'],ex['W']
+    need(P<10**8 and Q<10**8 and is_prime_trial(P) and is_prime_trial(Q), 'fixed primes deterministic')
+    need(P != Q and min(P,Q)>=11, 'distinct rough primes')
+    need(W==P**3*Q and W>1, 'infinite row base')
+    need(ex['E_period']>0 and ex['E_offset']==1 and ex['n_offset']==7, 'exponent family')
+    need(pow(W,ex['E_period'],modulus)==1, 'all-exponent congruence period')
+    need((W+7)%modulus==residue, 'all-exponent local residue')
+    need(P**3 > CUBIC_K[7]*Q**2, 'all-exponent cubic consumer base inequality')
+    need(P**3 < Q**4, 'example not automatically in fifth-power cofactor regime')
+    need(ex['indices']==[8,9], 'correct two source indices')
+    for i in ex['indices']:
+        rec=row_consumer(W+7,7,P,3,i)
+        need(rec['full_power'], 'example complete exponent')
+
+    ff=c['failure_family']
+    need((ff['X_base'],ff['X_slope'],ff['X_offset'])==(20,70,11), 'failure X parameterization')
+    need((ff['n_coefficient'],ff['j_coefficient'],ff['j_offset'])==(120,2,1), 'failure n/j definition')
+    need(ff['v_min']>=100000, 'outer thresholds valid')
+    # Exponents follow by factoring 120*(20^(70v+11))^2.
+    need((ff['a_slope'],ff['a_offset'])==(280,47), 'actual full 2 exponent')
+    need((ff['b_slope'],ff['b_offset'])==(140,23), 'actual full 5 exponent')
+    need(ff['a_slope']==2*ff['b_slope'] and ff['a_offset']==2*ff['b_offset']+1, 'gcd(a,b)=1')
+    need(ff['a_slope']*ff['v_min']+ff['a_offset']>=1960001, 'a threshold')
+    need(ff['b_slope']*ff['v_min']+ff['b_offset']>=422064, 'b threshold')
+    need(pow(20,70,3)==1 and pow(20,11,3)==2, 'gcd(j,3)=1 for all v')
+    need(pow(20,70,49)==1 and 120*pow(20,22,49)%49==1, 'real max7 position')
+    need(120%9==3 and all((3*x*x)%9==3 for x in [1,2,4,5,7,8]), 'v3(n)=1')
+    need(pow(20,70,11)==1, 'fixed 11 period')
+    xr=pow(20,11,11)
+    need(ff['common_prime']==11 and is_prime_trial(ff['common_prime']), 'genuine prime witness, not NC')
+    need(120*xr*xr%11==ff['n_residue']==7 and (2*xr+1)%11==ff['j_residue']==8,
+         'source row7 and target units carry for every v')
+    need(11>9>7 and 8>7, 'actual common prime 11')
+    # Source/resultant identities for ALL 45 shifts, not sampled v.
+    need([(x['r'],x['b']) for x in ff['resultants']]==[(r,b) for r in range(9) for b in range(r+1)], 'all 45 resultants')
+    for x in ff['resultants']:
+        r,b=x['r'],x['b']
+        need(x['value']==30*(b-1)**2-r and x['value']!=0, 'exact nonzero resultant')
+        need(abs(x['value'])<2048, 'uniform gcd constant')
+    need(2*(2**20)**2>=4096**3, 'all cubic inequalities for n>=2^20 and d>n/4096')
+    need(96*(2**20)**4>=4096**5, 'all quintic inequalities')
+    # Safe elementary coefficient comparisons of the old exponent bounds.
+    # n=3*2^(2b+1)*5^b <2^(5b+3), and also n<5^(3b+2).
+    need(7*5 < 50*2 and 7*3 < 50, 'n^7<2^(50a) for a=2b+1')
+    need(7*3 < 100 and 7*2 < 100-7*3, 'n^7<5^(100b) for b>=1')
+    need(120 < 2**203*4, 'beta bound n<2^203 beta^2')
+    need(3<4 and 54167<60000 and 4963<6000, 'old joint heights when alpha=n')
+
+    qa=c['qualitative_appendix']
+    roots=qa['roots']
+    disc=prod((roots[j]-roots[i])**2 for i in range(len(roots)) for j in range(i+1,len(roots)))
+    need(roots==[0,1,3] and qa['S']==list(SMALL), 'qualitative bridge fixed f,S')
+    need(disc==qa['discriminant']!=0, 'squarefree polynomial')
+    eps=Fraction(*qa['epsilon'])
+    exp=3*(Fraction(1,3)+eps)
+    need(eps>0 and 27-10*exp==qa['remaining_n_exponent']==12, 'qualitative-only exponent arithmetic')
+    need(qa['constant_effective'] is False, 'do not upgrade ineffective publication constant')
+    return {'status':'PASS_NEW_EXACT_WINDOW_CARRY_OBLIGATIONS', 'exact_obligations':checks,
+            'shifted_cells':cells, 'cubic_cells':42, 'quintic_cells':3,
+            'fixed_valuation_checks':fixed_count, 'central_distances':5,
+            'theorem_is_paper_not_kernel_checked':True}
+
+if __name__=='__main__':
+    print(json.dumps(validate(json.loads((ROOT/'evidence/certificate.json').read_text())), indent=2))

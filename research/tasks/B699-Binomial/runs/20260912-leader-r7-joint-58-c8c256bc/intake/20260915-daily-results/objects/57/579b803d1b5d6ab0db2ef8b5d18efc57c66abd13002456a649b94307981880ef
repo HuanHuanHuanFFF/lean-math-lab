@@ -1,0 +1,60 @@
+"""Discovery for genuinely unequal Padé polynomial degrees. No certified claims."""
+from pathlib import Path
+import math,json,time,itertools,sys
+import numpy as np
+from scipy.special import digamma
+ROOT=Path(__file__).resolve().parents[1];FROZEN=__import__('frozen_paths').i18_path()
+sys.path.insert(0,str(ROOT/'code/vendor'))
+from probe_weighted_asymmetric import solve,nondominated
+
+def content(tr):
+ e,d,f=tr;N=sum(tr)
+ endpoints=np.unique(np.concatenate([np.arange(k+1)/k for k in (*tr,N)]))
+ lo=endpoints[:-1];hi=endpoints[1:];mid=(lo+hi)/2
+ count=np.floor(N*mid+1e-10)-sum(np.floor(a*mid+1e-10) for a in tr)
+ good=count>1.5
+ return float(np.sum(digamma(hi[good])-digamma(lo[good])))
+
+def main():
+ import argparse
+ ap=argparse.ArgumentParser();ap.add_argument('--max',type=int,default=24);args=ap.parse_args();st=time.monotonic()
+ cache={};gr=[]
+ for e in range(1,args.max+1):
+  for d in range(1,args.max+1):
+   for f in range(1,args.max+1):
+    if math.gcd(math.gcd(e,d),f)>1:continue
+    key=tuple(sorted([e,d,f]));G=cache.setdefault(key,content(key)) if key not in cache else cache[key]
+    gr.append((e,d,f,G))
+ print('triples',len(gr),'unique contents',len(cache),flush=True)
+ E=np.array([x[0] for x in gr]);D=np.array([x[1] for x in gr]);F=np.array([x[2] for x in gr]);C=D+F;N=E+C;G=np.array([x[3] for x in gr]);M=np.maximum(E,D);mi=np.minimum(E,D)
+ alpha=N*np.log(N)-E*np.log(E)-D*np.log(D)-F*np.log(F)
+ old=json.loads((FROZEN/'outputs/custom_ratio_probe.json').read_text())['all_rows'];seeds={tuple(r[k] for k in ['p','q','k0','l0','a','b']) for r in old}
+ seeds.update([(17,11,1,1,2,3),(13,19,1,1,3,2),(7,11,2,2,5,2),(17,13,1,2,10,1),(19,2,1,4,1,1)])
+ rows=[];missing=[]
+ for p,q,k,l,a,b in sorted(seeds):
+  P=p**k;Q=q**l;dd=a*P-b*Q;z=dd/(a*P);h=1-z
+  qb=F*(1+h)+D+E*h;qt=2*F/(qb+np.sqrt(qb*qb-4*h*N*F))
+  eb=E*(1+z)+D+F*z;et=2*E/(eb+np.sqrt(eb*eb-4*z*N*E))
+  lq=alpha+F*np.log(qt)+D*np.log1p(-qt)+E*np.log1p(-h*qt)
+  le=alpha+E*np.log(et)+D*np.log1p(-et)+F*np.log1p(-z*et)
+  O=C*math.log(P)-C*math.log(b)-M*math.log(a*P)-lq+G
+  T=C*math.log(P*Q)-(C-mi)*math.log(a*P)-(E+D)*math.log(dd)-le+G
+  good=(O>0)&(T>np.maximum(C*math.log(P),C*math.log(Q)))
+  idx=np.where(good)[0]
+  if not len(idx):
+   j=int(np.argmax(np.minimum(O/C,T/C-max(math.log(P),math.log(Q)))));missing.append(dict(seed=[p,q,k,l,a,b],degrees=[int(E[j]),int(D[j]),int(F[j])],margin=float(min(O[j]/C[j],T[j]/C[j]-max(math.log(P),math.log(Q))))));continue
+  ix=int(idx[np.argmax(T[idx]/C[idx])]);e,d,f,g=gr[ix];c=d+f
+  wp=math.floor(10000*(1-c*math.log(P)/T[ix]))-2;wq=math.floor(10000*(1-c*math.log(Q)/T[ix]))-2
+  if min(wp,wq)<1:continue
+  rows.append(dict(p=p,q=q,k0=k,l0=l,a=a,b=b,D0=dd,c=c,d=d,e=e,f=f,log_G=g,T=float(T[ix]),O=float(O[ix]),wp=wp,wq=wq))
+ es=nondominated(rows);profiles=[]
+ for i in [12,14,15,18,20]:
+  ps=[p for p in [2,3,5,7,11,13,17,19] if p<i];sel=[e for e in es if max(e[:2])<i];opts=[]
+  for s in range((i+1)//2,i):
+   w=[2*s-a for a in range(i)];base=10000*(sum(w)-s*(s+1)-sum(w[:len(ps)]));res=solve(ps,sel,lambda zz:sum(a*b for a,b in zip(w[:len(ps)],sorted(zz))))
+   opts.append(dict(s=s,base=base,net=base+res['min'],**res))
+  best=max(opts,key=lambda r:r['net']);profiles.append(dict(i=i,primes=ps,best=best));print('PROFILE',i,best,flush=True)
+ print('missing nearest',missing[-10:],flush=True)
+ out=dict(status='UNEQUAL_DEGREE_ASYMPTOTIC_FLOAT_ONLY',max=args.max,profiles=profiles,edges=[r[4] for r in es],missing=missing,seconds=time.monotonic()-st)
+ (ROOT/f'outputs/three_degree_{args.max}.json').write_text(json.dumps(out,indent=2)+'\n');print('seconds',out['seconds'])
+if __name__=='__main__':main()

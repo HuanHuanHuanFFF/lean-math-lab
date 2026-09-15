@@ -1,0 +1,262 @@
+#!/usr/bin/env python3
+"""Author's new exact obligation receiver and bounded diagnostics.
+NOT Lean, NOT an external independent review, NOT a replay of frozen blocks.
+Run: python3 code/verify.py --out <new-output-directory>
+"""
+from pathlib import Path
+from fractions import Fraction as F
+from math import comb,factorial,gcd,prod,isqrt
+from itertools import product
+import argparse,copy,hashlib,json,platform,sys,time
+from algebra import deserialize,explicit_h
+from arithmetic import coeff,binomial_vp,col3,max_positions,smooth,factor,sufficient
+ROOT=Path(__file__).resolve().parents[1]
+
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+def dump(p,obj): p.write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
+
+class Rejected(ValueError): pass
+
+def receive(c):
+    obligations=[]
+    def check(name,ok,detail=None):
+        if not ok: raise Rejected(name)
+        obligations.append({'name':name,'detail':detail})
+    check('schema',c['schema']=='B699-A-NONIC-BANDS-v1')
+    h=c['degree']; h0=c['adjacent_degree']
+    check('degrees_and_prime_threshold',h==9 and h0==h-1 and c['prime_threshold']==11)
+    check('all_consecutive_polynomials_present',len(c['H'])==h+1)
+    poly_terms=0
+    for m,rows in enumerate(c['H']):
+        got=deserialize(rows); wanted=explicit_h(m)
+        check(f'explicit_falling_product_identity_H{m}',got==wanted)
+        poly_terms+=len(got)
+    check('factorial_content_constant',c['factorial_bound']==factorial(8))
+    C=c['source_constant']; check('source_lower_constant',C>=2*factorial(8))
+    check('source_constant_power17',C<2**17)
+    check('general_source_degree',c['general_source_degree']==h-4)
+    check('collision_source_degree',c['collision_source_degree']==h-3)
+    residue_slots=0
+    for hh in (h0,h):
+        for r in range(hh):
+            for s in range(r+1):
+                for t in range(hh+1):
+                    check(f'full_power_slot_{hh}_{r}_{s}_{t}',t>s or hh-t>r-s)
+                    residue_slots+=1
+    L=c['large_zone']; M=c['small_majorant']
+    lower=F(*c['ratio_lower'])
+    check('ratio_positive',0<lower<1)
+    check('large_recurrence_lower',1-F(2,L)-F(2,L*L)/lower>lower)
+    check('large_recurrence_upper',1+F(2,L)<2)
+    check('small_recurrence_majorant',F(L+2,M)+F(2,M*M)<1)
+    e8=c['small_K8_power'];e9=c['small_K9_power']
+    check('small_K8_factorial_bound',F(M**8,factorial(8))<2**e8)
+    check('small_K9_factorial_bound',F(M**9,factorial(9))<2**e9)
+    band=c['band_multiplier']; center=c['central_rhs_multiplier']
+    check('rational_large_zone_gap',2**9*C<band*factorial(9))
+    check('central_large_zone_gap',center*C<factorial(9))
+    check('central_alternating_ratio',F(144,256)<1)
+    check('central_delta_at_least16',256*20>=16**2)
+    # Universal power comparisons; exponents below are derived from the hypotheses.
+    T=c['general_gate_power'];q=c['general_gate_degree']
+    check('general_gate_degree',q==18)
+    check('general_zero_K9_constant',T>=2*e9+34)
+    S=c['collision_gate_power'];q0=c['collision_gate_degree']
+    check('collision_gate_degree',q0==8)
+    check('collision_zero_K8_constant',S>=e8+17)
+    check('collision_zero_K9_power',8*e9-9*S+8*17<0)
+    check('collision_zero_K9_n_degree',36+9<48)
+    f=c['finite_bit_height']; local=c['local_bit_height']
+    check('fixed_finite_interface',f==4096 and local==14000001)
+    check('central_denominator2_general_gate',f>=T+q)
+    check('central_denominator2_collision_gate',f>=S+q0)
+    logc=17+e8
+    # A_(2)^3 <= product A < 2^logc n^(8/q), therefore each local cubic predicate.
+    check('local_cubic_height_comparison',F(f)*(1-F(8,q))>logc)
+    check('offset_lowerbound',216*(72-8)>72)
+    cuts=json.loads((ROOT/'sources/selected_cuts.json').read_text())
+    ids=c['cut_indices'];check('fixed_cut_identifiers',ids==[5,7])
+    check('cut_denominator',c['cut_denominator']==cuts['denominator'])
+    selected=[cuts['cuts'][i] for i in ids]
+    check('cut_weights_match_raw',c['cut_weights']==[[x['wp'],x['wq']] for x in selected])
+    check('cuts_use_disjoint_prime_pairs',len({x[k] for x in selected for k in ('p','q')})==4)
+    lam=F(sum(min(w) for w in c['cut_weights']),c['cut_denominator'])
+    diff=lam-F(8,q)
+    check('global_cut_exponent_gain',diff>0,{'lambda':str(lam),'gain':str(diff)})
+    check('global_cut_height_contradiction',f*diff>logc+lam)
+    check('log2_lower_series',F(56,81)==2*(F(1,3)+F(1,81)))
+    check('frozen_log_gate',c['cut_log_threshold']==9500000 and (local-1)*F(56,81)>c['cut_log_threshold'])
+    # Large genuine integer families: exponents and modular arithmetic are symbolic.
+    z=c['integer_family'];check('family_fixed_base',z['x_base']==20 and z['x_slope']==70 and z['x_offset']==11 and z['n_coefficient']==120)
+    check('family_prime_exponents',z['a_slope']==4*z['x_slope'] and z['a_offset']==4*z['x_offset']+3 and z['b_slope']==2*z['x_slope'] and z['b_offset']==2*z['x_offset']+1)
+    check('primitive_exponents',z['a_slope']==2*z['b_slope'] and z['a_offset']==2*z['b_offset']+1)
+    E=z['near_center_power'];check('coprime_center_offsets',E%4==0 and E%2==0)
+    check('new_central_family_slope',9*E<6*z['a_slope']+F(9,4)*6*z['b_slope'])
+    check('new_central_family_constant',18<6*z['a_offset']+F(9,4)*6*z['b_offset'])
+    v=z['comparison_start']
+    check('outside_weaker_general_band',9*E>5*z['a_slope']+15*z['b_slope'] and (9*E-5*z['a_slope']-15*z['b_slope'])*v+9>5*z['a_offset']+15*z['b_offset']+10)
+    check('outer_threshold_a',z['a_slope']*z['outer_threshold_start']+z['a_offset']>=1960001)
+    check('outer_threshold_b',z['b_slope']*z['outer_threshold_start']+z['b_offset']>=422064)
+    mod=z['residue_modulus'];r=z['residue']
+    check('position_CRT_modulus',mod==16*9*25*49)
+    check('position_CRT_residues',r%16==0 and r%25==0 and r%9==3 and r%49==1 and 0<=r<mod)
+    check('family_mod9',120%9==3 and pow(20,2*z['x_slope'],3)==1 and pow(20,2*z['x_offset'],3)==1)
+    check('family_mod49',pow(20,2*z['x_slope'],49)==1 and 120*pow(20,2*z['x_offset'],49)%49==1)
+    check('small_prime11_projection',pow(20,z['x_slope'],11)==1 and pow(20,z['x_offset'],11)==9 and 120*9**2%11==7 and (2*9+1)%11==8)
+    check('failure_projection_size',120>3**2 and F(1,8)+F(1,2)<1)
+    check('unbounded_denominator_gate',37+40+8<=80+8 and 40<80)
+    check('unbounded_denominator_band',7+9*(5+1)<6*(80+8) and 45<480)
+    check('unbounded_denominator_off_center',F(31,33)**9>F(1,2) and 2**(3*88)>8)
+    return {'obligation_count':len(obligations),'polynomial_identities':10,'polynomial_terms':poly_terms,
+            'full_power_slots':residue_slots,'obligations':obligations}
+
+def mutations(cert):
+    cases=[]
+    def put(name,key,value):
+        x=copy.deepcopy(cert);x[key]=value;cases.append((name,x))
+    put('wrong_source_degree','general_source_degree',6)
+    put('lost_adjacency','adjacent_degree',7)
+    put('small_prime_in_denominator','prime_threshold',7)
+    put('understated_content_constant','source_constant',40000)
+    put('wrong_factorial','factorial_bound',5040)
+    put('unsafe_large_zone','large_zone',1)
+    put('unsafe_majorant','small_majorant',10)
+    put('unsafe_K8_bound','small_K8_power',18)
+    put('unsafe_K9_bound','small_K9_power',19)
+    put('too_weak_general_gate','general_gate_power',50)
+    put('too_weak_collision_gate','collision_gate_power',20)
+    put('too_wide_rational_band','band_multiplier',64)
+    put('too_wide_central_band','central_rhs_multiplier',5)
+    put('false_col3_source_degree','collision_source_degree',7)
+    x=copy.deepcopy(cert);x['H'][9].pop();cases.append(('missing_nonic_coefficient',x))
+    x=copy.deepcopy(cert);x['H'][8][0][-1]*=-1;cases.append(('wrong_octic_sign',x))
+    x=copy.deepcopy(cert);x['H'].pop(8);cases.append(('deleted_zero_safeguard',x))
+    x=copy.deepcopy(cert);x['cut_weights'][0][0]+=1;cases.append(('unfrozen_cut_strengthening',x))
+    put('reused_same_cut','cut_indices',[5,5])
+    x=copy.deepcopy(cert);x['integer_family']['near_center_power']=500;cases.append(('family_outside_band',x))
+    x=copy.deepcopy(cert);x['integer_family']['residue']=1;cases.append(('wrong_CRT_residue',x))
+    rows=[]
+    for name,data in cases:
+        try:receive(data)
+        except (Rejected,ValueError,IndexError,KeyError) as e:rows.append({'mutation':name,'status':'REJECTED','reason':str(e)})
+        else:raise AssertionError('mutation accepted: '+name)
+    return {'count':len(rows),'results':rows}
+
+def sources():
+    m=json.loads((ROOT/'sources/MAP.json').read_text())
+    assert sha(ROOT/'inputs/A-window-carry-original.zip')==m['original_sha256']
+    for r in m['records']:
+        assert sha(ROOT/r['file'])==r['sha256']
+    return {'source_members':len(m['records']),'original_sha256':m['original_sha256'],
+            'check':'HASHES_ONLY_NO_HISTORICAL_MATHEMATICS_REPLAY'}
+
+def finite_diagnostics():
+    st={'n_min':20,'n_max':384,'legal_pairs':0,'max_deletion_checks':0,
+        'coefficient_content_checks':0,'weighted_divisibility_checks':0,
+        'center_implication_tests':0,'col3_center_implication_tests':0,'zero_adjacency_checks':0}
+    weights=[(1,1),(2,1),(1,2),(3,2)]
+    for n in range(20,385):
+        pos,Q=max_positions(n);allQ=prod(Q.values())
+        S=prod(smooth(n-r) for r in range(9))
+        assert factorial(8)*allQ%S==0
+        st['max_deletion_checks']+=1
+        if col3(n): assert allQ<=n**3
+        fs=[factor(n-r) for r in range(9)]
+        source_primes=sorted({p for f in fs for p in f if p>=11})
+        for j in range(10,n//2+1):
+            st['legal_pairs']+=1
+            avoided={p for p in source_primes if binomial_vp(n,j,p)==0}
+            for h in (8,9):
+                D=prod(p**e for r in range(h) for p,e in fs[r].items() if p in avoided)
+                for t in range(h+1):
+                    assert comb(j,t)*comb(n-j,h-t)%D==0
+                    st['coefficient_content_checks']+=1
+                for u,v in weights:
+                    assert coeff(n,j,h,u,v)%D==0
+                    st['weighted_divisibility_checks']+=1
+            for u,v in weights:
+                assert coeff(n,j,8,u,v)!=0 or coeff(n,j,9,u,v)!=0
+                st['zero_adjacency_checks']+=1
+            witnesses=[p for p in source_primes if binomial_vp(n,j,p)>0]
+            if sufficient(n,j,'general-central'):
+                assert witnesses;st['center_implication_tests']+=1
+            if sufficient(n,j,'collision-central'):
+                assert witnesses;st['col3_center_implication_tests']+=1
+    # Full high prime powers: no huge middle binomial integers are constructed.
+    st['high_prime_power_cases']=0;st['high_prime_power_coefficient_checks']=0
+    for p,e,A,r in product((11,13,17),range(1,9),(3,5),range(9)):
+        q=p**e;n=A*q+r
+        for s in range(r+1):
+            j=q+s
+            assert binomial_vp(n,j,p)==0
+            st['high_prime_power_cases']+=1
+            for h in (8,9):
+                if r>=h:continue
+                for t in range(h+1):
+                    assert comb(j,t)*comb(n-j,h-t)%q==0
+                    st['high_prime_power_coefficient_checks']+=1
+    st['invalid_numeric_inputs_rejected']=0
+    for args in [(20,10,'general-rational',0,2),(20,10,'general-rational',2,2),
+                 (19,10,'general-central',1,2),(20,9,'collision-central',1,2)]:
+        try:sufficient(*args)
+        except ValueError:st['invalid_numeric_inputs_rejected']+=1
+        else:raise AssertionError('out-of-domain input accepted')
+    return st
+
+def integer_examples():
+    out=[]
+    for v in (1,2,3,8,21,23,30):
+        X=20**(70*v+11);n=120*X*X;off=2**(392*v)+1;j=n//2-off
+        a=280*v+47;b=140*v+23
+        assert n==3*2**a*5**b and gcd(n,j)==1 and n%176400==174000
+        pos,Q=max_positions(n)
+        assert pos[2]==[0] and pos[5]==[0] and pos[3]==[3] and pos[7]==[1]
+        assert sufficient(n,j,'collision-central')
+        if v>=21: assert not sufficient(n,j,'general-central')
+        if v%5==3:
+            assert binomial_vp(n,9,11)>0 and binomial_vp(n,j,11)>0
+        j0=2*X+1
+        assert gcd(n,j0)==1 and n%11==7 and j0%11==8
+        assert binomial_vp(n,9,11)>0 and binomial_vp(n,j0,11)>0
+        assert not sufficient(n,j0,'collision-central')
+        out.append({'v':v,'n_bits':n.bit_length(),'a':a,'b':b,
+          'gcd_n_j':1,'positions_3_7':[3,1],'strong_central':True,
+          'weaker_general_central':sufficient(n,j,'general-central'),
+          'common11_checked':v%5==3,'old_failure_projection_common11':True,
+          'n_sha256_hex':hashlib.sha256(format(n,'x').encode()).hexdigest()})
+    # Exact endpoint/zero case: K9(n,n/2)=0, K8(n,n/2)=C(n/2,4)>0.
+    for n in (20,40,400,800):
+        assert coeff(n,n//2,9)==0 and coeff(n,n//2,8)==comb(n//2,4)
+    rational=[]
+    primes=[p for p in range(11,2000) if all(p%q for q in range(2,isqrt(p)+1))]
+    for t in (1,2,4,8,16):
+        n=400*2**(80*t);d=2**(5*t)+1;j=n//d
+        assert sufficient(n,j,'collision-rational',1,d)
+        assert not sufficient(n,j,'collision-central')
+        p=next(p for p in primes if binomial_vp(n,9,p)>0 and binomial_vp(n,j,p)>0)
+        rational.append({'t':t,'n_bits':n.bit_length(),'d_bits':d.bit_length(),
+                         'common_prime':p,'central_condition':False,'rational_condition':True})
+    return {'samples':out,'unbounded_denominator_samples':rational,'central_zero_examples':4,
+            'warning':'Finite samples are diagnostics; the arbitrary-v proof is in notes/PROOFS.md.'}
+
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True)
+    ap.add_argument('--no-diagnostics',action='store_true',help='Explicitly skip bounded numerical diagnostics')
+    args=ap.parse_args();args.out.mkdir(parents=True,exist_ok=True)
+    t=time.perf_counter();c=json.loads((ROOT/'evidence/certificate.json').read_text())
+    raw=receive(c);dump(args.out/'obligations.json',raw)
+    neg=mutations(c);dump(args.out/'negative_tests.json',neg)
+    src=sources();dump(args.out/'source_hash_check.json',src)
+    examples=integer_examples();dump(args.out/'integer_examples.json',examples)
+    diag={'status':'EXPLICITLY_SKIPPED'} if args.no_diagnostics else finite_diagnostics()
+    dump(args.out/'diagnostics.json',diag)
+    result={'status':'PASS_NEW_NONIC_BANDS_RECEIVING','seconds':time.perf_counter()-t,
+       'obligations':raw['obligation_count'],'identities':raw['polynomial_identities'],
+       'full_power_slots':raw['full_power_slots'],'mutations_rejected':neg['count'],
+       'source_members':src['source_members'],'bounded_diagnostics':not args.no_diagnostics,
+       'python':sys.version,'platform':platform.platform(),'argv':sys.argv,
+       'historical_math_replayed':False,'lean_run':False,'external_reviewer':None,
+       'R7':[3,4,5,6,7,8,9],'family_count':58}
+    dump(args.out/'RESULT.json',result)
+    print(json.dumps(result,ensure_ascii=False))
+if __name__=='__main__':main()

@@ -1,0 +1,192 @@
+#!/usr/bin/env python3
+"""Standard-library-only receiver. Does not import the generator or sympy.
+The infinite proof remains in notes/PROOFS.md; this checks its finite obligations.
+"""
+import argparse,hashlib,itertools,json,math,platform,time
+from fractions import Fraction as Q
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+
+class Reject(ValueError):pass
+
+def require(p,msg):
+ if not p:raise Reject(msg)
+
+def rough(x,m):
+ for p in (2,3,5,7):
+  if p>=m:continue
+  while x%p==0:x//=p
+ if m in (5,7) and x%m==0 and x%(m*m)!=0:x//=m
+ return x
+
+def row_bound(n,m):
+ V=math.prod(rough(n-r,m) for r in range(4))
+ upper_num=n**6*(n-2)**6*(n-3)**3*(3*n*n-12*n+8)
+ return upper_num<2**20*V**6
+
+def valuation_choose(n,j,p):
+ # Independent of the generator's floor differences: full-layer remainder carries.
+ v=0;power=p
+ while power<=n:
+  v+=int(j%power>n%power);power*=p
+ return v
+
+def validate_primes(nodes):
+ accepted=set();active=set()
+ def prove(p):
+  require(type(p) is int and p>=2,'bad prime name')
+  if p in accepted:return
+  require(p not in active,'cyclic prime proof')
+  node=nodes.get(str(p));require(isinstance(node,dict),'missing prime certificate')
+  require(node.get('p')==p,'prime node name mismatch')
+  if p==2:
+   require(node=={'p':2},'invalid base prime');accepted.add(p);return
+  active.add(p);fs=node.get('factors',[])
+  require(len(fs)>0 and len({q for q,e in fs})==len(fs),'bad p-1 factor list')
+  prod=1
+  for q,e in fs:
+   require(type(e) is int and e>=1 and 2<=q<p,'bad p-1 factor')
+   prove(q);prod*=q**e
+  require(prod==p-1,'p-1 factor product mismatch')
+  a=node.get('base');require(type(a) is int and 1<a<p,'bad order base')
+  require(pow(a,p-1,p)==1,'Fermat/order failure')
+  for q,e in fs:require(pow(a,(p-1)//q,p)!=1,'order is not p-1')
+  active.remove(p);accepted.add(p)
+ for p in list(nodes):prove(int(p))
+ return accepted
+
+def crt_candidates(seeds,lo,hi):
+ # Global CRT formula over all tuples, not the generator's incremental update/pruning.
+ qs=[s['p']**s['e'] for s in seeds]
+ M=math.prod(qs)
+ require(all(math.gcd(x,y)==1 for x,y in itertools.combinations(qs,2)),'CRT not coprime')
+ weights=[(M//q)*pow(M//q,-1,q) for q in qs]
+ residues=set()
+ for choices in itertools.product(*(range(s['r']+1) for s in seeds)):
+  residues.add(sum(w*b for w,b in zip(weights,choices))%M)
+ candidates=set()
+ for r in residues:
+  first=r+((lo-r+M-1)//M)*M
+  if first<lo:first+=M
+  candidates.update(range(first,hi+1,M))
+ return M,sorted(candidates)
+
+def validate_certificate(cert):
+ require(cert.get('schema')=='b699-quartic-integer-gap-v2','schema mismatch')
+ require(cert.get('cutoff')==64,'cutoff must be 64')
+ primes=validate_primes(cert.get('prime_certificates',{}))
+ expected={};stats=[]
+ for m in (4,5):
+  for h in range(4):
+   total=passes=0
+   for a in range(64):
+    for b in range(64):
+     n=(1<<a)*3**b+h
+     if n<2*(m+1):continue
+     total+=1
+     if row_bound(n,m):passes+=1
+     else:expected[(m,a,b,h)]=n
+   stats.append({'m':m,'h':h,'domain':total,'criterion_pass':passes,'exception_rows':total-passes})
+ rows=cert.get('rows',[])
+ keys=[(r.get('m'),r.get('a'),r.get('b'),r.get('h')) for r in rows]
+ require(len(set(keys))==len(keys),'duplicate row')
+ require(set(keys)==set(expected),'finite exception domain mismatch')
+ require(cert.get('stats')==stats,'summary/domain mismatch')
+ all_candidates=0;witness_details=[];seed_residue_classes=0
+ for r in rows:
+  key=(r['m'],r['a'],r['b'],r['h']);m,a,b,h=key;n=expected[key]
+  require(r.get('n')==n,'wrong row n')
+  T=math.prod((n-t)//rough(n-t,m) for t in range(4))
+  require(r.get('T')==T,'wrong complete small part')
+  fs=r.get('factorizations',[]);require(len(fs)==m,'wrong window length')
+  index={}
+  for pos,powers in enumerate(fs):
+   require(len(powers)==len({p for p,e in powers}),'duplicate factor')
+   product=1
+   for p,e in powers:
+    require(p in primes and type(e) is int and e>=1,'uncertified factor')
+    product*=p**e;index[(pos,p)]=e
+   require(product==n-pos,'full factorization mismatch')
+  seeds=r.get('seeds',[])
+  require(len(seeds)>0,'no seed')
+  require(len({s['p'] for s in seeds})==len(seeds),'repeated seed prime')
+  for s in seeds:
+   p,e,pos=s['p'],s['e'],s['r']
+   require(type(pos) is int and 0<=pos<m,'illegal window position')
+   require(index.get((pos,p))==e,'seed is not the full prime power')
+   require(p>=m and valuation_choose(n,m,p)>0,'not a target source prime')
+   require(p**e>pos and n%(p**e)==pos,'bad complete-block residue')
+  M,js=crt_candidates(seeds,m+1,n//2)
+  require(r.get('modulus')==M,'wrong CRT modulus')
+  require(r.get('seed_candidate_count')==len(js),'wrong survivor count')
+  ws=r.get('witnesses',[])
+  require([w[0] for w in ws]==js,'survivor witness domain mismatch')
+  for j,p,vi,vj in ws:
+   require(m<j and 2*j<=n and p>=m and p in primes,'bad witness domain')
+   av=valuation_choose(n,m,p);bv=valuation_choose(n,j,p)
+   require(av==vi and bv==vj and vi>0 and vj>0,'false witness')
+   witness_details.append({'m':m,'n':n,'j':j,'p':p,'v_source':vi,'v_target':vj})
+  all_candidates+=len(js)
+  seed_residue_classes+=math.prod(s['r']+1 for s in seeds)
+ require(2**16*(2**64-1)>120**6*65**6,'infinite-tail base failed')
+ require(65**6<2*64**6,'infinite-tail ratio failed')
+ return {'status':'PASS_COMPLETE_SHIFTED_SMOOTH_ROWS_I4_I5','stats':stats,'prime_certificate_nodes':len(primes),'exception_templates':len(rows),'distinct_target_rows':len({(r['m'],r['n']) for r in rows}),'CRT_raw_tuple_count':seed_residue_classes,'surviving_j_count':all_candidates,'witnesses':witness_details,'max_exception_n':max(expected.values()),'tail_base_margin':2**16*(2**64-1)-120**6*65**6,'tail_ratio_margin':2*64**6-65**6}
+
+# Sparse rational polynomials in (j,k), with no computer algebra dependency.
+def clean(a):return {k:Q(v) for k,v in a.items() if v}
+def const(c):return {(0,0):Q(c)} if c else {}
+def add(*xs):
+ out={}
+ for x in xs:
+  for k,v in x.items():out[k]=out.get(k,Q(0))+v
+ return clean(out)
+def scale(x,c):return clean({k:v*c for k,v in x.items()})
+def sub(x,y):return add(x,scale(y,-1))
+def mul(x,y):
+ z={}
+ for (a,b),v in x.items():
+  for (c,d),w in y.items():
+   t=(a+c,b+d);z[t]=z.get(t,Q(0))+v*w
+ return clean(z)
+def power(x,e):
+ z=const(1)
+ for _ in range(e):z=mul(z,x)
+ return z
+def prod(*xs):
+ z=const(1)
+ for x in xs:z=mul(z,x)
+ return z
+def choose_poly(x,d):return scale(prod(*(sub(x,const(r)) for r in range(d))),Q(1,math.factorial(d)))
+
+def symbolic_obligations():
+ j={(1,0):Q(1)};k={(0,1):Q(1)};n=add(j,k);X=mul(j,k)
+ coefficients=[mul(choose_poly(j,t),choose_poly(k,4-t)) for t in range(5)]
+ e,d,c,b,a=coefficients
+ I=add(scale(mul(a,e),12),scale(mul(b,d),-3),power(c,2))
+ J=add(scale(prod(a,c,e),72),scale(prod(b,c,d),9),scale(prod(a,d,d),-27),scale(prod(b,b,e),-27),scale(power(c,3),-2))
+ I_expected=scale(prod(X,sub(X,sub(n,const(1))),sub(n,const(3)),sub(n,const(2))),Q(1,8))
+ J_expected=scale(prod(power(X,2),sub(X,sub(n,const(1))),power(sub(n,const(3)),2),sub(n,const(2))),Q(-1,16))
+ E=sub(power(J,2),scale(power(I,3),2))
+ E_expected=scale(prod(power(X,3),power(sub(X,sub(n,const(1))),2),power(sub(n,const(3)),3),power(sub(n,const(2)),2),sub(prod(sub(n,const(1)),sub(n,const(2))),X)),Q(1,256))
+ require(I==I_expected,'I polynomial identity failed')
+ require(J==J_expected,'J polynomial identity failed')
+ require(E==E_expected,'integer-gap polynomial identity failed')
+ # Positive degree-seven bound, use n=x+10; k coefficient stays zero.
+ y=add(j,const(10))
+ P=sub(scale(prod(power(sub(y,const(1)),4),power(sub(y,const(3)),3)),4),prod(power(y,6),sub(y,const(2))))
+ coeff=[P.get((i,0),Q(0)) for i in range(8)]
+ require(all(v.denominator==1 and v>0 for v in coeff),'positive height polynomial failed')
+ require(all(q[1]==0 for q in P),'unexpected variable in positivity proof')
+ # The maximum in X uses 3(n-1)(n-2)-n^2 > 0 for n>=10.
+ mono=sub(scale(prod(sub(y,const(1)),sub(y,const(2))),3),power(y,2))
+ require(all(v>0 for v in mono.values()),'monotonicity numerator positivity failed')
+ serialized=[[r,s,str(v)] for (r,s),v in sorted(E.items())]
+ return {'status':'PASS_SYMBOLIC_OBLIGATIONS','identities':3,'integer_gap_total_degree':max(sum(i) for i in E),'integer_gap_terms':len(E),'gap_coefficients_sha256':hashlib.sha256(json.dumps(serialized).encode()).hexdigest(),'positive_shift_10_coefficients_ascending':[int(x) for x in coeff],'monotonicity_shift_10_coefficients_ascending':[int(mono.get((i,0),0)) for i in range(3)]}
+
+def main():
+ ap=argparse.ArgumentParser();ap.add_argument('--certificate',type=Path,default=ROOT/'evidence/certificate.json');ap.add_argument('--out',type=Path,default=None);args=ap.parse_args()
+ start=time.monotonic();cert=json.loads(args.certificate.read_text())
+ result={'acceptance':validate_certificate(cert),'symbolic':symbolic_obligations(),'python':platform.python_version(),'seconds':time.monotonic()-start,'certificate_sha256':hashlib.sha256(args.certificate.read_bytes()).hexdigest(),'scope':'author standard-library receiver; not Lean or external independent review'}
+ if args.out:args.out.parent.mkdir(parents=True,exist_ok=True);args.out.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+ print(json.dumps(result,ensure_ascii=False,indent=2))
+if __name__=='__main__':main()

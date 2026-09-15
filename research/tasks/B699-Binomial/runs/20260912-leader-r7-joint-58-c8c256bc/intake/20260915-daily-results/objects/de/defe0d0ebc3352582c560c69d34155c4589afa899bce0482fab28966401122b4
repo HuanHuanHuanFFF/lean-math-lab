@@ -1,0 +1,63 @@
+"""Independent reverse-basis and interpolation check of the gap certificate.
+Does not import generator or its sparse polynomial arithmetic.
+"""
+import sys,json
+from pathlib import Path
+from fractions import Fraction as F
+from math import comb
+
+# Direct coefficient table in variables y=x/n, t=n/x^2.
+BASE={(8,5):24,(12,4):4,(7,4):208,(6,4):108,(10,3):-16,(6,3):276,(5,3):-64,(4,3):-174,(8,2):25,(5,2):176,(4,2):-96,(3,2):-52,(2,2):81,(6,1):-19,(4,1):62,(3,1):-40,(2,1):-13,(1,1):16,(0,1):-12,(4,0):7,(3,0):12,(2,0):-5,(0,0):4}
+def vpoly(p,y,t): return sum((F(c)*y**a*t**b for (a,b),c in p.items()),F(0))
+def dnorm():
+    # (1-w)^3(1-2w)^2, w=t*y^2.
+    a=[1,-3,3,-1];b=[1,-4,4];c=[0]*6
+    for i,x in enumerate(a):
+        for j,y in enumerate(b):c[i+j]+=x*y
+    return {(2*i,i):F(v) for i,v in enumerate(c)}
+def scaled_expected(delta,side):
+    R={(a,b):F(c)*(-1 if delta==-2 and a%2 else 1) for (a,b),c in BASE.items()}
+    D=dnorm();out={}
+    for key in set(R)|set(D):
+        z=R.get(key,0)-2*D.get(key,0) if side=='lower' else 6*D.get(key,0)-R.get(key,0)
+        if z:out[key]=z/F(3**key[0]*64**key[1])
+    return out
+
+def verify(data):
+    assert data['schema']=='B699.shifted-dyadic-gap.v1'
+    assert data['domain']=={'y_max':[1,3],'t_max':[1,64]} and data['degrees']==[12,5]
+    certs=data['certificates'];assert len(certs)==4
+    assert {(c['delta'],c['side']) for c in certs}=={(d,s) for d in (-2,2) for s in ('lower','upper')}
+    minima=[]
+    for c in certs:
+        rows=c['coefficients'];assert len(rows)==78
+        assert {(r[0],r[1]) for r in rows}=={(i,j) for i in range(13) for j in range(6)}
+        vals=[];poly={}
+        for i,j,num,den in rows:
+            assert den>0
+            val=F(num,den);assert val>0;vals.append(val)
+            for a in range(i,13):
+                for b in range(j,6):
+                    term=val*comb(12,i)*comb(12-i,a-i)*comb(5,j)*comb(5-j,b-j)*(-1)**(a-i+b-j)
+                    key=(a,b);poly[key]=poly.get(key,F(0))+term
+        poly={k:v for k,v in poly.items() if v}
+        assert poly==scaled_expected(c['delta'],c['side'])
+        mn=min(vals);assert c['minimum']==[mn.numerator,mn.denominator];minima.append(c['minimum'])
+    # Clear the Laurent substitutions and check a complete rational grid.
+    # Both sides have bidegree <=(12,5), established by term degree bounds.
+    points=0
+    for delta in (-2,2):
+        R={(a,b):F(c)*(-1 if delta==-2 and a%2 else 1) for (a,b),c in BASE.items()}
+        for i in range(1,14):
+            for j in range(1,7):
+                y=F(i,42);t=F(j,448);n=1/(t*y*y);x=1/(t*y);d=x+delta
+                E=d*d-3*n+2
+                P=d**4-2*n*d*d+4*n**3-19*n*n+28*n-12
+                D=(n-1)**3*(n-2)**2
+                original=(E*P*n**5-x**6*D)*t**10*y**18
+                assert original==vpoly(R,y,t);points+=1
+    return {'status':'PASS','reverse_basis_identities':4,'positive_coefficients':312,'complete_grid_points':points,'grid_degrees':[12,5],'minimums':minima}
+if __name__=='__main__':
+    result=verify(json.loads(Path(sys.argv[1]).read_text()))
+    Path(sys.argv[2]).write_text(json.dumps(result,sort_keys=True,indent=2)+'\n')
+    print(json.dumps(result))

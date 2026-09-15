@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+"""Fresh-output replay, actual subprocess logs and byte comparisons, no historical scans."""
+from __future__ import annotations
+import argparse,datetime,hashlib,importlib.util,json,platform,subprocess,sys,tempfile,time
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+spec=importlib.util.spec_from_file_location('frozen_manifest',ROOT/'verify_manifest.py')
+manifest=importlib.util.module_from_spec(spec);spec.loader.exec_module(manifest)
+
+def main(record:Path):
+    if not record.is_absolute():record=ROOT/record
+    if record.exists() and any(record.iterdir()):raise ValueError('record directory must be empty: '+str(record))
+    record.mkdir(parents=True,exist_ok=True)
+    before=manifest.verify(ROOT);started=datetime.datetime.now(datetime.timezone.utc).isoformat();runs=[];matches=[]
+    result={'status':'RUNNING','started_utc':started,'python':sys.version,'platform':platform.platform(),
+            'kind':'new finite checks only, not Lean or an infinite-proof checker','runs':runs,'byte_matches':matches}
+    total=time.perf_counter()
+    try:
+        with tempfile.TemporaryDirectory(prefix='b699-new-check-') as td:
+            fresh=Path(td)/'outputs';fresh.mkdir()
+            steps=[
+              ('generate',['generate.py','--out',str(fresh)],['forms.json','constants.json','families.json','resonance.json']),
+              ('independent',['check.py','--input',str(fresh),'--out',str(fresh/'independent.json')],['independent.json']),
+              ('algebra',['algebra.py','--out',str(fresh/'algebra.json')],['algebra.json']),
+              ('reject',['bad_inputs.py','--input',str(fresh),'--out',str(fresh/'bad_inputs.json')],['bad_inputs.json']),
+              ('sources',['source_audit.py','--out',str(fresh/'source_audit.json')],['source_audit.json'])]
+            for k,(name,args,outs) in enumerate(steps,1):
+                cmd=[sys.executable,'-S','-B',str(ROOT/'code'/args[0])]+args[1:]
+                wall=time.perf_counter();p=subprocess.run(cmd,cwd=ROOT,capture_output=True,text=True)
+                row={'name':name,'command':cmd,'returncode':p.returncode,'elapsed_seconds':time.perf_counter()-wall,
+                     'stdout':f'{k:02d}-{name}.stdout.txt','stderr':f'{k:02d}-{name}.stderr.txt'}
+                (record/row['stdout']).write_text(p.stdout);(record/row['stderr']).write_text(p.stderr);runs.append(row)
+                if p.returncode:raise RuntimeError('command failed: '+name)
+                for fn in outs:
+                    actual=(fresh/fn).read_bytes();old=(ROOT/'outputs'/fn).read_bytes()
+                    if actual!=old:raise ValueError('mathematical output byte mismatch: '+fn)
+                    matches.append({'path':'outputs/'+fn,'bytes':len(actual),'sha256':hashlib.sha256(actual).hexdigest(),'equal':True})
+                    (record/fn).write_bytes(actual)
+            after=manifest.verify(ROOT)
+            if before!=after:raise ValueError('static files changed during replay')
+        result.update(status='PASS',static_files=len(before),static_hashes_before_after_equal=True,
+                      elapsed_seconds=time.perf_counter()-total,finished_utc=datetime.datetime.now(datetime.timezone.utc).isoformat())
+    except Exception as e:
+        result.update(status='FAIL',error=repr(e),elapsed_seconds=time.perf_counter()-total)
+        (record/'reproduction.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');raise
+    (record/'reproduction.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+    print(json.dumps({'status':result['status'],'commands':len(runs),'byte_equal_outputs':len(matches),
+                      'elapsed_seconds':round(result['elapsed_seconds'],3),'static_files':len(before)}))
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--record',required=True,type=Path);a=ap.parse_args();main(a.record)

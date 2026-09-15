@@ -1,0 +1,25 @@
+logs built 0.7365621010001178
+Traceback (most recent call last):
+  File "/mnt/data/B699-ProA-gcd-height-20260914/discovery/lattice_probe.py", line 166, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/B699-ProA-gcd-height-20260914/discovery/lattice_probe.py", line 119, in main
+    L,T=sp.Matrix(B).T.lll_transform(delta=sp.QQ(3,4));Br=L.T;Bi=Br.inv()
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/sympy/matrices/repmatrix.py", line 549, in lll_transform
+    basis, transform = dM.lll_transform(delta=delta)
+                       ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/sympy/polys/matrices/domainmatrix.py", line 3965, in lll_transform
+    reduced, transform = A.rep.lll_transform(delta=delta)
+                         ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/sympy/polys/matrices/sdm.py", line 1397, in lll_transform
+    reduced, transform = A.to_dfm_or_ddm().lll_transform(delta=delta)
+                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/pyvenv/lib/python3.13/site-packages/sympy/polys/matrices/ddm.py", line 1172, in lll_transform
+    return ddm_lll_transform(A, delta=delta)
+  File "/opt/pyvenv/lib/python3.13/site-packages/sympy/polys/matrices/lll.py", line 94, in ddm_lll_transform
+    return _ddm_lll(x, delta=delta, return_transform=True)
+  File "/opt/pyvenv/lib/python3.13/site-packages/sympy/polys/matrices/lll.py", line 85, in _ddm_lll
+    assert all(mu_small(i, j) for i in range(m) for j in range(i))
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+"""Verify adopted raw archives and exact member copies; no historical proof replay."""
+import argparse,hashlib,json,zipfile
+from pathlib import Path
+
+def digest(b):return hashlib.sha256(b).hexdigest()
+def main(root,out):
+    m=json.loads((root/'sources/SOURCE_MAP.json').read_text());ars={}
+    for a in m['archives']:
+        p=root/a['path'];b=p.read_bytes()
+        if len(b)!=a['bytes'] or digest(b)!=a['sha256']:raise ValueError('archive hash: '+a['path'])
+        z=zipfile.ZipFile(p)
+        if z.testzip() is not None:raise ValueError('archive CRC: '+a['path'])
+        ars[a['path']]=z
+    try:
+        for e in m['members']:
+            b=ars[e['archive']].read(e['member']);target=(root/e['local']).read_bytes()
+            if b!=target or len(b)!=e['bytes'] or digest(b)!=e['sha256']:raise ValueError('source member: '+e['local'])
+    finally:
+        for z in ars.values():z.close()
+    result={'status':'PASS','original_archives':len(m['archives']),'original_member_copies':len(m['members']),
+            'packet_sha256':m['packet']['sha256'],'d_tail_adoption':'first read in this round; never retroactive',
+            'scope':'integrity only; no historical mathematical generator or Lean was executed'}
+    out.write_text(json.dumps(result,ensure_ascii=False,sort_keys=True,indent=2)+'\n');print(json.dumps(result))
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--out',required=True,type=Path);ap.add_argument('--root',default=Path(__file__).resolve().parents[1],type=Path);a=ap.parse_args();main(a.root,a.out)

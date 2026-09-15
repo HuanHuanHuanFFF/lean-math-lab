@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Restore the original uploaded packet for optional historical probes.
+Core proof acceptance does not need these restored historical files.
+"""
+from pathlib import Path, PurePosixPath
+import hashlib,zipfile,json
+R=Path(__file__).resolve().parents[1]
+EXPECTED='ff40cf6a2e5487819afa55ddc2616ac3fc106455a75ea8ae147244faa1d73262'
+def main():
+    src=R/'originals/B699-R12-dispatch-context.zip';dst=R/'originals/restored'
+    if dst.exists():raise FileExistsError('Use a new working copy; restored directory already exists')
+    h=hashlib.sha256()
+    with src.open('rb') as f:
+        for b in iter(lambda:f.read(1<<20),b''):h.update(b)
+    if h.hexdigest()!=EXPECTED:raise ValueError('Frozen ZIP SHA256 mismatch')
+    with zipfile.ZipFile(src) as z:
+        for x in z.infolist():
+            p=PurePosixPath(x.filename)
+            if p.is_absolute() or '..' in p.parts or (x.external_attr>>16)&0o170000==0o120000:
+                raise ValueError('Unsafe archive path')
+        dst.mkdir()
+        z.extractall(dst)
+        count=len(z.infolist())
+    print(json.dumps({'status':'RESTORED_ORIGINAL_OUTER_PACKET','members':count,'sha256':EXPECTED,'directory':str(dst)}))
+if __name__=='__main__':main()

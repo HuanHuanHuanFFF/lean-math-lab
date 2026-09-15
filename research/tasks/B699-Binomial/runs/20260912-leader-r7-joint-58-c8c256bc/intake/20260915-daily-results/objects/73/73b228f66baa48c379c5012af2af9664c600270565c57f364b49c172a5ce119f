@@ -1,0 +1,35 @@
+"""Finite LP design only: nonincreasing window weights and j,k,n line products."""
+from pathlib import Path
+import numpy as np
+from scipy.optimize import linprog
+import json,sys,math
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'code/vendor'))
+from probe_weighted_asymmetric import nondominated,solve
+
+def main():
+ i=20;t=8
+ data=json.loads((ROOT/'outputs/free_boxes_asym_20.json').read_text());es=nondominated(data['edges']);ps=data['ps']
+ m=3*i+1;obj=np.zeros(m);obj[-1]=-1
+ ub=[];bb=[]
+ for a in range(i):
+  for b in range(a+1):
+   r=np.zeros(m);r[2*i+a]=1;r[b]-=1;r[a-b]-=1;r[i+a]-=1
+   ub.append(r);bb.append(0)
+ for a in range(i-1):
+  r=np.zeros(m);r[2*i+a+1]=1;r[2*i+a]=-1;ub.append(r);bb.append(0)
+ eq=np.zeros((1,m));eq[0,:i]=2;eq[0,i:2*i]=1
+ rows=[];z=sorted(data['trace'][-1]['witness'])
+ for iteration in range(50):
+  r=np.zeros(m);r[-1]=1;r[2*i:2*i+t]=-np.array(z)/1000;r[2*i+t:3*i]=-1
+  # net=sum m - small losses - E, so epsilon - those sums <= -1.
+  ub.append(r);bb.append(-1)
+  ans=linprog(obj,A_ub=np.array(ub),b_ub=np.array(bb),A_eq=eq,b_eq=[1],bounds=[(0,None)]*(m-1)+[(None,None)],method='highs')
+  if not ans.success:print(ans.message);break
+  w=ans.x[2*i:3*i];worst=solve(ps,es,lambda zz:sum(a*b/1000 for a,b in zip(w[:t],sorted(zz))))
+  net=sum(w[t:])+worst['min']-1
+  rows.append(dict(w=w.tolist(),u=ans.x[:i].tolist(),v=ans.x[i:2*i].tolist(),epsilon=float(ans.x[-1]),actual_net=net,witness=worst['witness']))
+  print('iteration',iteration,'relaxed epsilon',ans.x[-1],'actual net',net,'w',np.round(w*182,6).tolist(),flush=True)
+  if net>=ans.x[-1]-1e-10 or net>0:break
+  z=sorted(worst['witness'])
+ (ROOT/'outputs/weight_probe.json').write_text(json.dumps({'status':'LP_FLOAT_ONLY','rows':rows},indent=2)+'\n')
+if __name__=='__main__':main()
