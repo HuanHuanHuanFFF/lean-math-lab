@@ -2,6 +2,8 @@
 
 接续入口：[OVERVIEW.md](OVERVIEW.md)。本轮结论、证明与交接分别见 [REPORT.md](REPORT.md)、[PROOFS.md](PROOFS.md)、[HANDOFF.md](HANDOFF.md)。本文件保留开工授权、基线和所有权，不替代最终数学前沿。
 
+五小时轮结束后的 [2026-09-16 Pro A/B/D 接收](intake/20260916-pro-results/README.md)已加入总览；这是作者材料归档，数学接受等级单独登记，原轮证明和验收保持原样。
+
 ## 本轮授权和预算
 
 - 开工：2026-09-15 18:28:45 UTC = 2026-09-16 02:28:45 Asia/Shanghai。
