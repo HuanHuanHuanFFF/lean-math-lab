@@ -1,0 +1,104 @@
+{
+  "run": "A-I9-H012-ORIGIN13-D6-20260916",
+  "status": "PASS_ARCHIVE_HASHES_AND_CLEAN_NEW_REPLAY",
+  "archive_name": "B699-ProA-i9-H012-d6-evidence-20260916.zip",
+  "archive_size_bytes": 151114,
+  "archive_sha256": "3a2a0af956f4037d7ed586cd8e9fa7e5bc159cd652e66e45b74c506a774a4625",
+  "zip_integrity": true,
+  "zip_members": 49,
+  "data_members_sha256_checked": 48,
+  "before_after_clean_member_hashes_equal": true,
+  "primary_replay": {
+    "status": "PASS_COMPLETE_NEW_H013_H012_D6_REPLAY",
+    "seconds": 10.452367067337036,
+    "stages": [
+      {
+        "command": [
+          "/opt/pyvenv/bin/python",
+          "-B",
+          "/mnt/data/B699-ProA-next-20260916/code/verify_new.py",
+          "--out",
+          "/mnt/data/B699-ProA-next-20260916/logs/final-replay"
+        ],
+        "exit_code": 0,
+        "seconds": 2.2656331062316895
+      },
+      {
+        "command": [
+          "/opt/pyvenv/bin/python",
+          "-B",
+          "/mnt/data/B699-ProA-next-20260916/code/diagnostics.py",
+          "--out",
+          "/mnt/data/B699-ProA-next-20260916/logs/final-replay"
+        ],
+        "exit_code": 0,
+        "seconds": 0.8018550872802734
+      },
+      {
+        "command": [
+          "/opt/pyvenv/bin/python",
+          "-B",
+          "/mnt/data/B699-ProA-next-20260916/code/mutation_tests.py",
+          "--out",
+          "/mnt/data/B699-ProA-next-20260916/logs/final-replay"
+        ],
+        "exit_code": 0,
+        "seconds": 7.3845202922821045
+      }
+    ],
+    "source_files_checked": 7,
+    "old_mathematics_replayed": false,
+    "lean": false
+  },
+  "clean_replay": {
+    "status": "PASS_COMPLETE_NEW_H013_H012_D6_REPLAY",
+    "seconds": 10.804211854934692,
+    "stages": [
+      {
+        "command": [
+          "/opt/pyvenv/bin/python",
+          "-B",
+          "/mnt/data/B699-ProA-H012-clean-check-20260916/B699-ProA-i9-H012-d6-20260916/code/verify_new.py",
+          "--out",
+          "/mnt/data/B699-ProA-H012-clean-logs-20260916"
+        ],
+        "exit_code": 0,
+        "seconds": 2.3642427921295166
+      },
+      {
+        "command": [
+          "/opt/pyvenv/bin/python",
+          "-B",
+          "/mnt/data/B699-ProA-H012-clean-check-20260916/B699-ProA-i9-H012-d6-20260916/code/diagnostics.py",
+          "--out",
+          "/mnt/data/B699-ProA-H012-clean-logs-20260916"
+        ],
+        "exit_code": 0,
+        "seconds": 0.898855447769165
+      },
+      {
+        "command": [
+          "/opt/pyvenv/bin/python",
+          "-B",
+          "/mnt/data/B699-ProA-H012-clean-check-20260916/B699-ProA-i9-H012-d6-20260916/code/mutation_tests.py",
+          "--out",
+          "/mnt/data/B699-ProA-H012-clean-logs-20260916"
+        ],
+        "exit_code": 0,
+        "seconds": 7.540719747543335
+      }
+    ],
+    "source_files_checked": 7,
+    "old_mathematics_replayed": false,
+    "lean": false
+  },
+  "clean_log_directory": "/mnt/data/B699-ProA-H012-clean-logs-20260916",
+  "fixed_source_commit": "da4d9bab862e8d3a3cc5e1676be52e4fa82722f3",
+  "H013_grade": "targeted reconstruction accepted on frozen F/SC/CB; source raw bytes not obtained",
+  "new_results_grade": "paper derivation and exact new integer/finite-field certificates, plus explicit frozen contracts",
+  "old_mathematics_replayed": false,
+  "lean": false,
+  "external_human_review": false,
+  "remote_writes": false,
+  "historical_big_blocks_included": false
+}

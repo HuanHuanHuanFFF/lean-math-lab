@@ -1,0 +1,33 @@
+{
+  "status": "PASS_NEW_SQUARE_CLASS_AND_QUADRATIC_REDUCTION_AUTHOR_CHECKS",
+  "scope": "Author proof + exact t<=100000 necessary-system elimination. Not Lean or independent mathematical review.",
+  "infinite_square_class_endpoints": [
+    [
+      16,
+      6,
+      7
+    ],
+    [
+      96,
+      20,
+      47
+    ],
+    [
+      768,
+      118,
+      383
+    ]
+  ],
+  "quotient_limit": 100000,
+  "matched_candidates": 139,
+  "survivors": 0,
+  "new_math_not_globally_complete": true,
+  "commands_executed": [
+    "python scripts/certify_quotient.py --limit 100000 --output verification/quotient_100000.json",
+    "python scripts/verify_quotient_independent.py --certificate verification/quotient_100000.json --output verification/quotient_independent_100000.json",
+    "python scripts/verify_theorems.py --limit 2000 --output verification/theorems.json",
+    "python scripts/quadratic_probe.py --limit 1000 --output verification/quadratic_probe_1000.json (run in isolated working directory before copying unchanged source/output)",
+    "python scripts/window_crt_probe.py 1000000 verification/window_crt_1000000.json"
+  ],
+  "frozen_at_utc": "2026-09-16T06:33:27.924724+00:00"
+}

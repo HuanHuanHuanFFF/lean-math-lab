@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "archive": "B699-R7-ProB-many-block-first-window-closure-evidence-20260916.zip",
+  "bytes": 2799637,
+  "sha256": "dcee06d806275d728e0f795981d9390b678a2655810a68cd84e58187f05a9850",
+  "members": 39,
+  "crc": "PASS",
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "verify_manifest.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"static_files\": 30, \"status\": \"PASS\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "code/reproduce.py",
+        "--record",
+        "replay/package"
+      ],
+      "returncode": 0,
+      "stdout": "{\"commands\": 3, \"outputs\": 7, \"seconds\": 1.9631086670001423, \"static_files\": 30, \"status\": \"PASS\"}\n",
+      "stderr": ""
+    }
+  ],
+  "checked_at_utc": "2026-09-16T06:41:54.302708+00:00"
+}
