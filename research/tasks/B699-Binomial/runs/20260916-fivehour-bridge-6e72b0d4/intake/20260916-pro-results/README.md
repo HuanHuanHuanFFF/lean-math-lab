@@ -1,6 +1,6 @@
 # 2026-09-16 Pro A / B / D 接收
 
-[成果摘要与下一核验入口](SUMMARY.md) · [当前单文件总览](../../OVERVIEW.md) · [完整成员映射](MEMBERS.json) · [完整性检查](INTEGRITY.json)
+[成果摘要与下一核验入口](SUMMARY.md) · [题目级单文件总览](../../../../OVERVIEW.md) · [完整成员映射](MEMBERS.json) · [完整性检查](INTEGRITY.json)
 
 ## 范围与状态
 
