@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<!-- Computational Algebra Group -->
+<!-- Original web engine by Alexander M Kasprzyk -->
+<head>
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+  <meta name="Author" content="Computational Algebra Group" />
+  <meta name="copyright" content="Copyright (c) 2010-2026 Computational Algebra Group" />
+  <meta name="description" content="A software package designed to solve computationally hard problems in algebra, number theory, geometry and combinatorics." />
+  <meta name="keywords" content="Magma computational algebra software" />
+  <link rel="alternate" type="application/rss+xml" title="A software package designed to solve computationally hard problems in algebra, number theory, geometry and combinatorics." href="/rss/magma.xml" />
+  <link rel="stylesheet" type="text/css" href="/style.css" />
+  <link rel="stylesheet" type="text/css" href="/style_special.css" />
+  <link rel="stylesheet" type="text/css" href="/magma/tools/calculator/calculator.css" />
+  <script src="/javascript/common.js" type="text/javascript"></script>
+  <script src="/javascript/xml.js" type="text/javascript"></script>
+  <script src="/javascript/calculator.js" type="text/javascript"></script>
+  <script src="/javascript/magma.js" type="text/javascript"></script>
+  <title>Magma Calculator</title>
+</head>
+
+<!-- Begin Body -->
+<body>
+
+<!-- Begin Header -->
+<div id="pageheader">
+  <div class="navBar"><ul>
+    <li><a href="/magma/">About</a></li>
+    <li class="selected"><a href="/calc/">Calculator</a></li>
+    <li><a href="/magma/ordering/">Ordering</a></li>
+    <li><a href="/magma/faq/">FAQ</a></li>
+    <li id="navbarexp"><a href="/magma/download/all/">Download</a></li>
+    <li id="navbardoc"><a href="/magma/documentation/">Documentation</a></li>
+    <li><a href="/magma/citations/">Citations</a></li>
+    <li><a href="/magma/conferences/">Conferences</a></li>
+    <li><a href="/magma/links/">Links</a></li>
+    <li><a href="/magma/contact/">Contact</a></li>
+    <li class="split"><a href="/group/">CAG</a></li>
+    <li class="split" id="navbaraccount"><a href="/account/login" title="Log in to your account">Login</a></li>
+  </ul></div>
+  <div class="logo magma"><table>
+    <tr><td class="title"><a href="/magma/">Magma</a></td></tr>
+    <tr><td class="desc"><a href="/magma/">Computer &bull; algebra</a></td></tr>
+  </table></div>
+  <div class="pagetitle">
+    Magma Calculator
+  </div>
+</div>
+<!-- End Header -->
+
+<!-- Begin Content -->
+<div id="pagecontent">
+<div>
+  <p class="description">
+    Enter your code in the box below. Click on &quot;Submit&quot; to have it evaluated by Magma.
+  </p>
+  <form method="post" onsubmit="return checkSubmit();">
+    <table class="calculator">
+      <tr>
+        <td>
+          <textarea name="input" rows="15" cols="80" id="input" maxlength="50000">// Exact models for the five remaining normalized b=3 curve pairs.
+SetSeed(699071);
+for k in [7,11,16,20,25] do
+  c := 2*k;
+  aa := -36*(2*c^2+243);
+  bb := 2*c^4+7776*c^2-314928;
+  E := EllipticCurve([0,0,0,aa,bb]);
+  print &quot;RESULT MODEL&quot;, k, aInvariants(E), Discriminant(E);
+  started := Cputime();
+  lo, hi := RankBounds(E);
+  print &quot;RESULT RANK&quot;, k, lo, hi;
+  G, mp, rankProven, groupProven := MordellWeilGroup(E);
+  print &quot;RESULT FLAGS&quot;, k, rankProven, groupProven;
+  print &quot;RESULT GROUP&quot;, k, G;
+  print &quot;RESULT GENERATORS&quot;, k, Generators(E);
+  print &quot;RESULT SECONDS&quot;, k, Cputime(started);
+end for;
+</textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="dbuttons">
+            <input type="button" value="Cancel" onclick="cancelCalculation();" id="reset" disabled="disabled" />
+            <input type="submit" value="Submit" onclick="submitData();" id="submit" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="output">
+            <div id="warnings"></div>
+            <textarea name="output" rows="20" cols="80" readonly="1" id="result">RESULT MODEL 7 [ 0, 0, 0, -22860, 1286000 ]
+50114985984000
+RESULT RANK 7 2 2
+RESULT FLAGS 7 true true
+RESULT GROUP 7 
+Abelian Group isomorphic to Z/2 + Z + Z
+Defined on 3 generators
+Relations:
+    2*G.1 = 0
+RESULT GENERATORS 7 [ (100 : 0 : 1), (40 : 660 : 1), (110 : -320 : 1) ]
+true true
+RESULT SECONDS 7 0.340
+RESULT MODEL 11 [ 0, 0, 0, -43596, 3917168 ]
+-1325717639921664
+RESULT RANK 11 2 2
+RESULT FLAGS 11 true true
+RESULT GROUP 11 
+Abelian Group isomorphic to Z + Z
+Defined on 2 generators (free)
+RESULT GENERATORS 11 [ (-2/9 : 53504/27 : 1), (142 : -768 : 1) ]
+true true
+RESULT SECONDS 11 0.220
+RESULT MODEL 16 [ 0, 0, 0, -82476, 9744848 ]
+-5117965095665664
+RESULT RANK 16 2 2
+RESULT FLAGS 16 true true
+RESULT GROUP 16 
+Abelian Group isomorphic to Z + Z
+Defined on 2 generators (free)
+RESULT GENERATORS 16 [ (538/9 : -60544/27 : 1), (202 : 1152 : 1) ]
+true true
+RESULT SECONDS 16 0.200
+RESULT MODEL 20 [ 0, 0, 0, -123948, 17246672 ]
+-6626917888819200
+RESULT RANK 20 4 4
+RESULT FLAGS 20 true true
+RESULT GROUP 20 
+Abelian Group isomorphic to Z + Z + Z + Z
+Defined on 4 generators (free)
+RESULT GENERATORS 20 [ (458 : 7520 : 1), (1354 : -48288 : 1), (-304 : 5180 : 1),
+(2762 : -144032 : 1) ]
+true true
+RESULT SECONDS 20 0.770
+RESULT MODEL 25 [ 0, 0, 0, -188748, 31625072 ]
+-1707522785280000
+RESULT RANK 25 3 3
+RESULT FLAGS 25 true true
+RESULT GROUP 25 
+Abelian Group isomorphic to Z + Z + Z
+Defined on 3 generators (free)
+RESULT GENERATORS 25 [ (2014/9 : -20800/27 : 1), (302 : -1472 : 1), (6334/25 : 
+32448/125 : 1) ]
+true true
+RESULT SECONDS 25 0.420</textarea>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="summary">
+            <ul>
+              <li>Calculations are restricted to 60 seconds.</li>
+              <li>Input is limited to 50000 bytes.</li>
+              <li>Running Magma V2.29-10.</li>
+              <li>Seed: 3928570698; Total time: 1.970 seconds; Total memory usage: 85.16MB.</li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+</div>
+<!-- End Content -->
+
+<!-- Begin Footer -->
+<div id="pagefooter">
+  <div class="producedby">
+    Magma is maintained and distributed by the <a href="/group/">Computational Algebra Group</a>, <a href="http://www.maths.usyd.edu.au/">School of Mathematics and Statistics</a>, <a href="http://sydney.edu.au/">University of Sydney</a>.
+  </div>
+  <div class="copyright">Copyright &copy; 2010-2026 Computational Algebra Group.</div>
+</div>
+<!-- End Footer -->
+
+</body>
+<!-- End Body -->
+
+</html>

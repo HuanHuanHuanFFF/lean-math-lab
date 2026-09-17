@@ -1,0 +1,33 @@
+from math import gcd
+import json
+from pathlib import Path
+hits=[]; count=0
+for T in range(3,34,2):
+ for A in range(1,T):
+  for B in range(1,T):
+   for u in range(A):
+    r=u*(A-u)
+    qs=[q for q in range(1,3*A) if (q-3*r)%T==0]
+    if not qs:continue
+    for v in range(B+1):
+     de=A*v-B*u
+     if de<=0:continue
+     y=T*de+u; Z=3*y*(y-A)
+     for q in qs:
+      count+=1
+      if Z%q:continue
+      n=Z//q+1
+      if n%T:continue
+      nn=n//T-B
+      if nn%A:continue
+      X=nn//A
+      if X<T**3:continue
+      zeta=T*(u*X+v);j=min(zeta,n-zeta)
+      if j<4:continue
+      n2=n-2
+      E=6*r*(2*A-u-3*y)+2*q*(y+3*u-2*A)
+      assert E and E%T==0 and abs(E)<T*n2
+      assert 6*zeta*(zeta-1)*(zeta-2)%n2
+      hits.append(dict(T=T,A=A,B=B,u=u,v=v,X=X,n=n,j=j,q=q,delta=de,reduced=E,second_remainder=(6*j*(j-1)*(j-2))%n2))
+print(json.dumps({'tested_q':count,'hits':len(hits),'first':hits[:8]},indent=2))
+open(Path(__file__).resolve().parent/'cleared-probe-replay.json','w').write(json.dumps({'tested_q':count,'hits':hits},indent=2)+'\n')

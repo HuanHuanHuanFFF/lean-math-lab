@@ -1,0 +1,20 @@
+procedure Main()
+  E := EllipticCurve([0,-60,0,-8700,0]);
+  A := E![-290/9,11600/27,1];B := E![-60,-300,1];
+  per := Periods(E : Precision := 80);
+  omega := Real(per[1]);
+  QQ<q> := PolynomialRing(Rationals());
+  K<th> := NumberField(q^3-27*q+4);
+  EK := BaseChange(E,K);
+  Qinf := EK![-9*th^2+4*th+209,81*th^2-36*th-2171,1];
+  idx := 0;
+  conj := Conjugates(th);
+  for i in [1..3] do if Real(conj[i]) lt -5 then idx := i;end if;end for;
+  assert idx ne 0;
+  print "RESULT MAGMA_OMEGA",omega;
+  print "RESULT MAGMA_PHI_A2",Real(EllipticLogarithm(2*A : Precision:=80))/omega;
+  print "RESULT MAGMA_PHI_B2",Real(EllipticLogarithm(2*B : Precision:=80))/omega;
+  print "RESULT MAGMA_PHI_Q2",Real(EllipticLogarithm(2*Qinf,idx : Precision:=80))/omega;
+  print "RESULT REGRESSION_ONLY_NOT_INTERVAL_PROOF",true;
+end procedure;
+Main();

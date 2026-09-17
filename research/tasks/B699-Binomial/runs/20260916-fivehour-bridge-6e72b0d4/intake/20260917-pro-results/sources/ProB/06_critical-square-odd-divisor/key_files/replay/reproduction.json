@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "python": "3.13.5",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "static_files_before": 25,
+  "static_files_after": 25,
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-critical-square-20260916/code/generate.py",
+        "--out",
+        "/tmp/b699-critical-square-3pvk4qym"
+      ],
+      "exit_code": 0,
+      "seconds": 0.09689273699996193,
+      "log": "01-generate.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-critical-square-20260916/code/identities.py",
+        "--out",
+        "/tmp/b699-critical-square-3pvk4qym/identities.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.043235781000021234,
+      "log": "02-identities.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-critical-square-20260916/code/check.py",
+        "--out",
+        "/tmp/b699-critical-square-3pvk4qym"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11129406000009112,
+      "log": "03-check.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-critical-square-20260916/code/bad_inputs.py",
+        "--inputs",
+        "/tmp/b699-critical-square-3pvk4qym",
+        "--out",
+        "/tmp/b699-critical-square-3pvk4qym/bad_inputs.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.04161668599999757,
+      "log": "04-bad_inputs.py.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-critical-square-20260916/code/probe_square_projection.py",
+        "--out",
+        "/tmp/b699-critical-square-3pvk4qym/square_projection_probe.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.8706706099999337,
+      "log": "05-probe_square_projection.py.log"
+    }
+  ],
+  "comparisons": [
+    {
+      "file": "bottom.json",
+      "bytes": 1943,
+      "sha256": "6b729b4f6452c2f73f0838f9382682d466cb0f7975ad61a1a79a09b1dac1307e",
+      "byte_equal": true
+    },
+    {
+      "file": "regression.json",
+      "bytes": 199292,
+      "sha256": "60d9625092195c3ee02fbb871fd9d4f4e07af8131667469f88180a36bde364c1",
+      "byte_equal": true
+    },
+    {
+      "file": "identities.json",
+      "bytes": 371,
+      "sha256": "b09f76a0fccd81f4e71f6a1580ac32a10baf26b3d67fc660f997064e3826ddf7",
+      "byte_equal": true
+    },
+    {
+      "file": "bad_inputs.json",
+      "bytes": 1076,
+      "sha256": "730f356a0b3d735808dde1afdf6c5fc5a2ea20d2535e7a59b0ad659a495abd49",
+      "byte_equal": true
+    },
+    {
+      "file": "square_projection_probe.json",
+      "bytes": 406,
+      "sha256": "ae5b578aad0d66e71b4b0ca47f50cbbc051b3e7e3721b8cd5b509b9c566da5a7",
+      "byte_equal": true
+    }
+  ],
+  "seconds": 1.1977644820001387,
+  "boundary": "new exact checks only; no Lean, old replay, or independent human review"
+}

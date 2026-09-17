@@ -1,0 +1,10 @@
+SetSeed(699);
+E := EllipticCurve([0,-60,0,-8700,0]);
+print "MODEL", aInvariants(E);
+print "DISCR", Discriminant(E);
+lo, hi := RankBounds(E);
+print "RANK_BOUNDS", lo, hi;
+G, mp, rank_proven, group_proven := MordellWeilGroup(E);
+print "GROUP", G;
+print "PROOF_FLAGS", rank_proven, group_proven;
+print "GENERATORS", Generators(E);

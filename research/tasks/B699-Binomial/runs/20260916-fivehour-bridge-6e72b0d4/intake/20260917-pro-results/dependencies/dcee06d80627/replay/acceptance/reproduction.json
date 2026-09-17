@@ -1,0 +1,110 @@
+{
+  "children_maxrss_kib_linux": 15572,
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-joint-radix-20260916/code/build_evidence.py",
+        "--out",
+        "/tmp/b699-block-proof-ub2l_f4n/output"
+      ],
+      "returncode": 0,
+      "seconds": 0.5051882329998989,
+      "stderr": "01.stderr.log",
+      "stdout": "01.stdout.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-joint-radix-20260916/code/check_boundaries.py",
+        "--inputs",
+        "/tmp/b699-block-proof-ub2l_f4n/output",
+        "--out",
+        "/tmp/b699-block-proof-ub2l_f4n/output"
+      ],
+      "returncode": 0,
+      "seconds": 0.04733184299993809,
+      "stderr": "02.stderr.log",
+      "stdout": "02.stdout.log"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/b699-next-joint-radix-20260916/code/check_independent.py",
+        "--inputs",
+        "/tmp/b699-block-proof-ub2l_f4n/output",
+        "--out",
+        "/tmp/b699-block-proof-ub2l_f4n/output"
+      ],
+      "returncode": 0,
+      "seconds": 1.340471147000244,
+      "stderr": "03.stderr.log",
+      "stdout": "03.stdout.log"
+    }
+  ],
+  "comparisons": [
+    {
+      "equal": true,
+      "file": "bezout-certificates.json",
+      "regenerated_sha256": "6d31c5797da60c0064293edd27b9c2d1d2431a28c2e7962dbcd17a7cc645a406",
+      "sha256": "6d31c5797da60c0064293edd27b9c2d1d2431a28c2e7962dbcd17a7cc645a406"
+    },
+    {
+      "equal": true,
+      "file": "boundaries.json",
+      "regenerated_sha256": "36bb15f80b98d9ee31189c129613e1624a5b34906f85af2e06cbc556cc7fa333",
+      "sha256": "36bb15f80b98d9ee31189c129613e1624a5b34906f85af2e06cbc556cc7fa333"
+    },
+    {
+      "equal": true,
+      "file": "independent.json",
+      "regenerated_sha256": "020583343c17cb25c60d9e5ceaf598d4f09bcc5766fbe771245180c8056d441c",
+      "sha256": "020583343c17cb25c60d9e5ceaf598d4f09bcc5766fbe771245180c8056d441c"
+    },
+    {
+      "equal": true,
+      "file": "original-regression.json",
+      "regenerated_sha256": "5414fcea6f43380cb5f52176485c061cace2e68739044cd52ee6719125f49c66",
+      "sha256": "5414fcea6f43380cb5f52176485c061cace2e68739044cd52ee6719125f49c66"
+    },
+    {
+      "equal": true,
+      "file": "row-examples.json",
+      "regenerated_sha256": "20562ab7154898a21f4129364ab44114b09825392d2001794097dfde09a21f66",
+      "sha256": "20562ab7154898a21f4129364ab44114b09825392d2001794097dfde09a21f66"
+    },
+    {
+      "equal": true,
+      "file": "template-regression.json",
+      "regenerated_sha256": "661fd1d41984b0e001f1ea2eec55c66673d54c8c3c524be7a105e062694be896",
+      "sha256": "661fd1d41984b0e001f1ea2eec55c66673d54c8c3c524be7a105e062694be896"
+    },
+    {
+      "equal": true,
+      "file": "weighted-products.json",
+      "regenerated_sha256": "c9a48d7bd8794ff6013c96a365490680e5d5e30a21b2bd7f5919df581d62871e",
+      "sha256": "c9a48d7bd8794ff6013c96a365490680e5d5e30a21b2bd7f5919df581d62871e"
+    }
+  ],
+  "completed_utc": "2026-09-16T06:41:51.550322+00:00",
+  "manifest_after": {
+    "static_files": 30,
+    "status": "PASS"
+  },
+  "manifest_before": {
+    "static_files": 30,
+    "status": "PASS"
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5",
+  "scope": "New exact arithmetic and implementation checks only; not Lean, independent researcher, or universal proof verification.",
+  "started_utc": "2026-09-16T06:41:49.650841+00:00",
+  "status": "PASS",
+  "wall_seconds": 1.9013976720002574
+}

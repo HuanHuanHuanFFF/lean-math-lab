@@ -1,0 +1,58 @@
+Magma Calculator
+About
+Calculator
+Ordering
+FAQ
+Download
+Documentation
+Citations
+Conferences
+Links
+Contact
+CAG
+Login
+Magma
+Computer • algebra
+Magma Calculator
+Enter your code in the box below. Click on "Submit" to have it evaluated by Magma.
+procedure Main()
+  E := EllipticCurve([0,-60,0,-8700,0]);
+  A := E![-290/9,11600/27,1];B := E![-60,-300,1];
+  per := Periods(E : Precision := 80);
+  omega := Real(per[1]);
+  QQ<q> := PolynomialRing(Rationals());
+  K<th> := NumberField(q^3-27*q+4);
+  EK := BaseChange(E,K);
+  Qinf := EK![-9*th^2+4*th+209,81*th^2-36*th-2171,1];
+  idx := 0;
+  conj := Conjugates(th);
+  for i in [1..3] do if Real(conj[i]) lt -5 then idx := i;end if;end for;
+  assert idx ne 0;
+  print "RESULT MAGMA_OMEGA",omega;
+  print "RESULT MAGMA_PHI_A2",Real(EllipticLogarithm(2*A : Precision:=80))/omega;
+  print "RESULT MAGMA_PHI_B2",Real(EllipticLogarithm(2*B : Precision:=80))/omega;
+  print "RESULT MAGMA_PHI_Q2",Real(EllipticLogarithm(2*Qinf,idx : Precision:=80))/omega;
+  print "RESULT REGRESSION_ONLY_NOT_INTERVAL_PROOF",true;
+end procedure;
+Main();
+RESULT MAGMA_OMEGA 0.2489390730962632064814669170612493396014850504885634563283\
+2312069518226785630413
+RESULT MAGMA_PHI_A2 0.482722601036436347893639919394969590003783993970795760199\
+61381790683932491679638
+RESULT MAGMA_PHI_B2 -0.20210880820908640525429905103222856015299748939882792389\
+452873478828251091325190
+RESULT MAGMA_PHI_Q2 0.175111772460404612197146282515152448430760844406180517424\
+99403062976246057618792
+RESULT REGRESSION_ONLY_NOT_INTERVAL_PROOF true
+Calculations are restricted to 60 seconds.
+Input is limited to 50000 bytes.
+Running Magma V2.29-10.
+Seed: 4097256753; Total time: 0.030 seconds; Total memory usage: 32.09MB.
+Magma is maintained and distributed by the
+Computational Algebra Group
+,
+School of Mathematics and Statistics
+,
+University of Sydney
+.
+Copyright © 2010-2026 Computational Algebra Group.
