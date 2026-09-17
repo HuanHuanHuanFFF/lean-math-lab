@@ -1,0 +1,87 @@
+{
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/B699-ProE-i3-rational-vieta-20260917/scripts/build_certificate.py",
+        "--output",
+        "/mnt/data/b699-proe-split-replay/CERTIFICATE.json"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"certificate_sha256\": \"3d7ba232b671b7b084ec2c879139f5105b900a65310b5bcf8c89d04f7751c347\", \"family_rows\": 43, \"norm_rows\": 16, \"raw_hits\": 27, \"status\": \"BUILT\"}\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/B699-ProE-i3-rational-vieta-20260917/scripts/verify_certificate.py",
+        "--certificate",
+        "/mnt/data/b699-proe-split-replay/CERTIFICATE.json",
+        "--output",
+        "/mnt/data/b699-proe-split-replay/ACCEPTANCE.json",
+        "--negative-tests"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"abstract_norm_rows\": 16, \"infinite_family_samples\": 43, \"raw_scan_hits\": 27, \"raw_scan_pairs\": 6245001, \"source_certificate_sha256\": \"3d7ba232b671b7b084ec2c879139f5105b900a65310b5bcf8c89d04f7751c347\", \"status\": \"PASS\"}\ndamaged certificates rejected: 16\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-S",
+        "-B",
+        "/mnt/data/B699-ProE-i3-rational-vieta-20260917/scripts/check_examples.py",
+        "--output-dir",
+        "/mnt/data/b699-proe-split-replay"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"consumer_tests\": 11, \"explicit_witnesses\": 5, \"status\": \"PASS\"}\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "-B",
+        "/mnt/data/B699-ProE-i3-rational-vieta-20260917/scripts/check_identities.py",
+        "--output",
+        "/mnt/data/b699-proe-split-replay/SYMBOLIC.json"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"identities\": 16, \"status\": \"PASS\"}\n"
+    }
+  ],
+  "comparisons": [
+    {
+      "byte_equal": true,
+      "name": "CERTIFICATE.json",
+      "sha256": "3d7ba232b671b7b084ec2c879139f5105b900a65310b5bcf8c89d04f7751c347"
+    },
+    {
+      "byte_equal": true,
+      "name": "ACCEPTANCE.json",
+      "sha256": "22c5a2708e23d0abed6cf8638e28ebc7f3ef8fd7f3caec3e674dba80c5416f92"
+    },
+    {
+      "byte_equal": true,
+      "name": "WEAK_WITNESSES.json",
+      "sha256": "79462a450740b1f55994cf50730da775cde3906258efad87a6c59a2c88b5534b"
+    },
+    {
+      "byte_equal": true,
+      "name": "CONSUMER_TESTS.json",
+      "sha256": "2951a7bca5ad6bc4b2c35a2d511a85f7d04b5f1977099a73c31a99785f3b8ce0"
+    },
+    {
+      "byte_equal": true,
+      "name": "SYMBOLIC.json",
+      "sha256": "abe45959a2e077f437786603f7c1b90b0fad205de2119e2bcda2b80b34fe91a7"
+    }
+  ],
+  "scope": "finite arithmetic replay only; infinite claims are proved in PROOFS.md",
+  "status": "PASS"
+}

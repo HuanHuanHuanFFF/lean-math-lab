@@ -1,0 +1,59 @@
+{
+  "endpoint_pairs": 2601,
+  "cube_regression_pairs": 2497,
+  "central_cube_pairs": 2497,
+  "verification_method": "trial primality and factorial valuations",
+  "negative_tests": [
+    {
+      "mutation": "missing_endpoint",
+      "rejected": true,
+      "reason": "endpoint coverage incomplete"
+    },
+    {
+      "mutation": "duplicate_endpoint",
+      "rejected": true,
+      "reason": "extra or duplicate endpoint"
+    },
+    {
+      "mutation": "prime_two",
+      "rejected": true,
+      "reason": "witness is not an odd prime"
+    },
+    {
+      "mutation": "composite_witness",
+      "rejected": true,
+      "reason": "witness is not an odd prime"
+    },
+    {
+      "mutation": "nondividing_prime",
+      "rejected": true,
+      "reason": "prime does not divide choose(n,3)"
+    },
+    {
+      "mutation": "illegal_j",
+      "rejected": true,
+      "reason": "illegal original interval"
+    },
+    {
+      "mutation": "altered_bound",
+      "rejected": true,
+      "reason": "wrong endpoint range"
+    },
+    {
+      "mutation": "bad_cube_root",
+      "rejected": true,
+      "reason": "cube identity false"
+    },
+    {
+      "mutation": "missing_cube_row",
+      "rejected": true,
+      "reason": "regression rows differ from the frozen 8..5000 search"
+    }
+  ],
+  "status": "PASS_FINITE_ENDPOINT_AND_RECORDED_REGRESSIONS",
+  "not_verified": [
+    "unrestricted NC implication",
+    "external independent review",
+    "new nonempty difference from all prior consumers"
+  ]
+}
