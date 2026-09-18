@@ -1,0 +1,88 @@
+{
+  "artifact": "B699-ProD-residual-amplification-20260918.zip",
+  "sha256": "50dbc92e52a5bc47bdd1776c3fbf7bc900119c3dd980df6574bc0da74bdf473a",
+  "bytes": 58082,
+  "archive_members": 20,
+  "content_hash_members": 19,
+  "zip_integrity": "PASS",
+  "replayed_from_actual_final_zip": true,
+  "command": "python code/verify.py --json",
+  "verification": {
+    "status": "PASS_CENTRE_BALANCE_RESIDUAL_AMPLIFICATION",
+    "hash_members": 19,
+    "algebra": {
+      "algebra_tables": 7,
+      "complete_contact_types": 4,
+      "new_identities": "all exact"
+    },
+    "integer_normalization": {
+      "residue_cells": 48,
+      "factorization_variables": 13,
+      "finite_bottom": "not needed"
+    },
+    "witnesses": {
+      "original_input_certificates": 3,
+      "all_five_q4_slots": true,
+      "uniform_symbolic_family": "E=7+4200t, all t>=0",
+      "scalar_diagnostic": "not an original NC input"
+    },
+    "evidence_grade": "author paper + same-session deterministic replay; no Lean",
+    "general_RES10_closed": false,
+    "absolute_global_bound": false
+  },
+  "optional_rebuild_exact_files": [
+    "algebra.json",
+    "claims.json",
+    "witnesses.json"
+  ],
+  "mutation_tests": [
+    {
+      "name": "P_coefficient",
+      "rejected": true,
+      "manifest_recomputed": true,
+      "returncode": 1,
+      "diagnostic": "AssertionError: P"
+    },
+    {
+      "name": "centre_square_coefficient",
+      "rejected": true,
+      "manifest_recomputed": true,
+      "returncode": 1,
+      "diagnostic": "AssertionError"
+    },
+    {
+      "name": "normalized_contact",
+      "rejected": true,
+      "manifest_recomputed": true,
+      "returncode": 1,
+      "diagnostic": "AssertionError: E3"
+    },
+    {
+      "name": "even_multiplier",
+      "rejected": true,
+      "manifest_recomputed": true,
+      "returncode": 1,
+      "diagnostic": "AssertionError"
+    },
+    {
+      "name": "true_gcd",
+      "rejected": true,
+      "manifest_recomputed": true,
+      "returncode": 1,
+      "diagnostic": "AssertionError: g"
+    },
+    {
+      "name": "square_witness",
+      "rejected": true,
+      "manifest_recomputed": true,
+      "returncode": 1,
+      "diagnostic": "AssertionError"
+    }
+  ],
+  "mutation_restoration_replay": "PASS",
+  "evidence_grade": "author paper proof + same-session deterministic replay; no Lean or external independent review",
+  "mathematical_bottom": "none required; CENTER and AMP are uniform integer contradictions",
+  "new_external_infinite_theorems": [],
+  "repository_modified": false,
+  "completed_utc": "2026-09-18T12:18:37.269297+00:00"
+}

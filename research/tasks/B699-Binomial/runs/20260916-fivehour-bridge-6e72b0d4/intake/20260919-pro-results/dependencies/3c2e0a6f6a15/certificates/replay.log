@@ -1,0 +1,100 @@
+$ /opt/pyvenv/bin/python code/verify.py
+PASS_NEW_SQUARECLASS_FORCE
+endpoint records: 62
+certificate sha256: ed167cf63a3b0ca2c5f930c4390f9c9ac71c0f980c0e34b03ba15cbd1f4e2c17
+No n/exponent scan. No historical replay. No Lean or external review.
+EXIT=0
+
+$ /opt/pyvenv/bin/python code/consumer.py 666 210 --i 5 --witness 37
+{
+  "predicate": {
+    "applies": true,
+    "conclusion": "Common5(n,j)",
+    "D": 1,
+    "square_root": 7980,
+    "alpha": 111,
+    "witness_lower_bound": 5,
+    "evidence": "new paper proof + frozen author contracts; not Lean"
+  },
+  "witness": {
+    "n": 666,
+    "j": 210,
+    "i": 5,
+    "p": 37,
+    "source_valuation": 1,
+    "target_valuation": 1,
+    "target_carry_layers": [
+      {
+        "H": 1,
+        "p_power": 37,
+        "n_residue": 0,
+        "j_residue": 25
+      }
+    ]
+  }
+}
+EXIT=0
+
+$ /opt/pyvenv/bin/python code/consumer.py 1556730 518322 --i 6 --witness 353
+{
+  "predicate": {
+    "applies": true,
+    "conclusion": "Common6(n,j)",
+    "D": 1,
+    "square_root": 915356652,
+    "alpha": 5295,
+    "witness_lower_bound": 7,
+    "evidence": "new paper proof + frozen author contracts; not Lean"
+  },
+  "witness": {
+    "n": 1556730,
+    "j": 518322,
+    "i": 6,
+    "p": 353,
+    "source_valuation": 1,
+    "target_valuation": 1,
+    "target_carry_layers": [
+      {
+        "H": 1,
+        "p_power": 353,
+        "n_residue": 0,
+        "j_residue": 118
+      }
+    ]
+  }
+}
+EXIT=0
+
+$ /opt/pyvenv/bin/python code/consumer.py 4914 1820 --i 5 --witness 17
+{
+  "predicate": {
+    "applies": false,
+    "reason": "the unclosed D=10, alpha=3^a branch",
+    "D": 10,
+    "alpha": 27,
+    "a": 3
+  },
+  "witness": {
+    "n": 4914,
+    "j": 1820,
+    "i": 5,
+    "p": 17,
+    "source_valuation": 3,
+    "target_valuation": 2,
+    "target_carry_layers": [
+      {
+        "H": 2,
+        "p_power": 289,
+        "n_residue": 1,
+        "j_residue": 86
+      },
+      {
+        "H": 3,
+        "p_power": 4913,
+        "n_residue": 1,
+        "j_residue": 1820
+      }
+    ]
+  }
+}
+EXIT=0

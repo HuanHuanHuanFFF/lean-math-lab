@@ -1,0 +1,40 @@
+PASS_COMPLETE_ROOT_GATE {'sum_gate': 377405, 'z14_gate': 352916, 'e2_gate': 5663}
+EXACT_INTEGER_JETS 250 {'inconsistent': 250} seconds 3.68
+EXACT_INTEGER_JETS 500 {'inconsistent': 500} seconds 5.23
+EXACT_INTEGER_JETS 750 {'inconsistent': 744, 'unique_product': 6} seconds 6.78
+EXACT_INTEGER_JETS 1000 {'inconsistent': 990, 'unique_product': 10} seconds 8.57
+EXACT_INTEGER_JETS 1250 {'inconsistent': 1238, 'unique_product': 12} seconds 10.27
+EXACT_INTEGER_JETS 1500 {'inconsistent': 1480, 'unique_product': 20} seconds 12.01
+EXACT_INTEGER_JETS 1750 {'inconsistent': 1725, 'unique_product': 25} seconds 14.01
+EXACT_INTEGER_JETS 2000 {'inconsistent': 1971, 'unique_product': 29} seconds 15.76
+EXACT_INTEGER_JETS 2250 {'inconsistent': 2211, 'unique_product': 39} seconds 17.54
+EXACT_INTEGER_JETS 2500 {'inconsistent': 2453, 'unique_product': 47} seconds 19.37
+EXACT_INTEGER_JETS 2750 {'inconsistent': 2693, 'unique_product': 57} seconds 21.16
+EXACT_INTEGER_JETS 3000 {'inconsistent': 2933, 'unique_product': 67} seconds 23.07
+EXACT_INTEGER_JETS 3250 {'inconsistent': 3177, 'unique_product': 73} seconds 25.0
+EXACT_INTEGER_JETS 3500 {'inconsistent': 3417, 'unique_product': 83} seconds 26.97
+EXACT_INTEGER_JETS 3750 {'inconsistent': 3660, 'unique_product': 90} seconds 28.87
+EXACT_INTEGER_JETS 4000 {'inconsistent': 3908, 'unique_product': 92} seconds 30.84
+EXACT_INTEGER_JETS 4250 {'inconsistent': 4149, 'unique_product': 101} seconds 32.77
+EXACT_INTEGER_JETS 4500 {'inconsistent': 4393, 'unique_product': 107} seconds 34.57
+EXACT_INTEGER_JETS 4750 {'inconsistent': 4643, 'unique_product': 107} seconds 36.59
+EXACT_INTEGER_JETS 5000 {'inconsistent': 4887, 'unique_product': 113} seconds 38.54
+EXACT_INTEGER_JETS 5250 {'inconsistent': 5131, 'unique_product': 119} seconds 40.32
+EXACT_INTEGER_JETS 5500 {'inconsistent': 5381, 'unique_product': 119} seconds 42.05
+Traceback (most recent call last):
+  File "/mnt/data/B699-ProA-i9-sat48-20260918-c4e81f2a/code/reproduce.py", line 303, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/B699-ProA-i9-sat48-20260918-c4e81f2a/code/reproduce.py", line 298, in main
+    neg=negative_tests(roots,certs,expected);budget=budgets(args.out)
+                                                    ~~~~~~~^^^^^^^^^^
+  File "/mnt/data/B699-ProA-i9-sat48-20260918-c4e81f2a/code/reproduce.py", line 236, in budgets
+    conditional=[solve(21,20),solve(20,20)]
+                              ~~~~~^^^^^^^
+  File "/mnt/data/B699-ProA-i9-sat48-20260918-c4e81f2a/code/reproduce.py", line 226, in solve
+    h=(305-V-a)//2;require(V<=vmax and hmin<=h<=152,'DP range does not cover a possible configuration');queries+=1
+                   ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-ProA-i9-sat48-20260918-c4e81f2a/code/reproduce.py", line 20, in require
+    if not ok:raise AssertionError(msg)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: DP range does not cover a possible configuration
