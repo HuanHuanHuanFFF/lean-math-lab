@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "fixed_and_regenerated_bytes_equal": true,
+  "certificate_sha256": "5c4ff67a351f0b86c6710b4b4ce2de9d6638c59f17ba25965824acfbd876e592",
+  "identities_checked": 14,
+  "positive_certificates": 5,
+  "corrupted_certificates_rejected": 18,
+  "finite_integer_inputs_scanned": 0,
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/src/check.py",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/outputs/frozen/certificate.json",
+        "--out",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/verification/20260918T072052.764197Z-bc7fb6/frozen_check.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/src/generate.py",
+        "--out",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/verification/20260918T072052.764197Z-bc7fb6/regenerated"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/src/check.py",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/verification/20260918T072052.764197Z-bc7fb6/regenerated/certificate.json",
+        "--out",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/verification/20260918T072052.764197Z-bc7fb6/regenerated_check.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/src/corruption_tests.py",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/verification/20260918T072052.764197Z-bc7fb6/regenerated/certificate.json",
+        "--out",
+        "/mnt/data/B699-ProE-i3-four-template-closure-20260918-464142f3/verification/20260918T072052.764197Z-bc7fb6/corruption_result.json"
+      ],
+      "returncode": 0
+    }
+  ]
+}

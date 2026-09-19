@@ -1,0 +1,53 @@
+{
+  "owner": "B699 Pro D",
+  "date": "2026-09-18",
+  "target": "native i6; n mod1800 in {1280,1530}",
+  "claims": [
+    {
+      "id": "SUP-MIX",
+      "type": "complete infinite row family",
+      "condition": "Supp(q5) subset {13,17,23,61}",
+      "all_legal_j": true,
+      "unbounded_exponents": "E plus four q5 prime-power exponents",
+      "finite_tail_complete": true,
+      "tail_rows": 6,
+      "publication_input": "Yu 1994 section 0.1"
+    },
+    {
+      "id": "ABS-MIX",
+      "type": "complete sufficient pair consumer",
+      "condition": "exists m>=1: q5 divides (Kcal*Hcal)^m",
+      "equivalent_in_RES10": "exists m>=1: q5 divides (L4*L7)^m",
+      "fixed_m_required": false,
+      "depends_on": "SUP-MIX"
+    },
+    {
+      "id": "GCD48",
+      "type": "necessary exact reparameterization; no additional coverage",
+      "scope": "RES10 with Q51=q5",
+      "conclusion": "gcd(L6,L7)=48; primitive two-positive-term sum is 5^E"
+    },
+    {
+      "id": "GCD-PRODUCT",
+      "type": "necessary full-prime-power condition",
+      "conclusion": "gcd(q5,Kcal*Hcal)=gcd(Q50,23)*gcd(Q51,13)*gcd(Q52,17*61) divides 310063"
+    }
+  ],
+  "general_RES10_closed": false,
+  "full_nearside_small_mass_closed": false,
+  "general_main_parameter_absolute_bound": false,
+  "R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "lean": false,
+  "external_independent_review": false,
+  "repository_modified": false,
+  "evidence_grade": "author paper + same-session deterministic replay + explicit published analytic input",
+  "all_historical_coverage_difference_audited": false
+}

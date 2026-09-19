@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "evidence_scope": "same-author deterministic finite replay; paper proof separately stated",
+  "python_version": "3.13.5",
+  "commands": [
+    {
+      "step": "build",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/B699-ProE-i3-next-round-20260917/scripts/build_certificate.py",
+        "--output",
+        "/mnt/data/B699-ProE-iq3-replay/CERTIFICATE.json"
+      ],
+      "returncode": 0,
+      "log": "/mnt/data/B699-ProE-iq3-replay/build.log"
+    },
+    {
+      "step": "verify",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/B699-ProE-i3-next-round-20260917/scripts/verify_certificate.py",
+        "--certificate",
+        "/mnt/data/B699-ProE-iq3-replay/CERTIFICATE.json",
+        "--output",
+        "/mnt/data/B699-ProE-iq3-replay/ACCEPTANCE.json",
+        "--negative-tests"
+      ],
+      "returncode": 0,
+      "log": "/mnt/data/B699-ProE-iq3-replay/verify.log"
+    },
+    {
+      "step": "symbolic",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/B699-ProE-i3-next-round-20260917/scripts/check_symbolic.py",
+        "--output",
+        "/mnt/data/B699-ProE-iq3-replay/SYMBOLIC.json"
+      ],
+      "returncode": 0,
+      "log": "/mnt/data/B699-ProE-iq3-replay/symbolic.log"
+    }
+  ],
+  "comparisons": [
+    {
+      "file": "CERTIFICATE.json",
+      "sha256": "26554eb7d943503a0f8ece6de779a1d930ddf4afeb56a05ea914a07ce0630cba",
+      "byte_identical_to_frozen": true
+    },
+    {
+      "file": "ACCEPTANCE.json",
+      "sha256": "e8bb0fb69d63a7833d46254000c968e9e51f546550f6723abbd10b1459a10780",
+      "byte_identical_to_frozen": true
+    },
+    {
+      "file": "SYMBOLIC.json",
+      "sha256": "5c618b53127e93b98043e60c197e1157bcc6743749e18ff931bf48fa1104d47b",
+      "byte_identical_to_frozen": true
+    }
+  ]
+}

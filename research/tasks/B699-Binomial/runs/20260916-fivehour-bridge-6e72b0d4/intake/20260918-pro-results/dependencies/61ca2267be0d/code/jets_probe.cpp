@@ -1,0 +1,8 @@
+#include <bits/stdc++.h>
+using namespace std;using L=long long;const L P=1000003;
+L pw(L x,int e){L y=1;for(;e;e>>=1,x=x*x%P)if(e&1)y=y*x%P;return y;}
+L bi(int n,int k){if(k<0||k>n)return 0;L y=1;for(int i=1;i<=k;i++)y=y*(n+1-i)/i;return y;}
+int rankm(vector<vector<L>>a,int c){int r=0;for(int j=0;j<c&&r<(int)a.size();j++){int k=r;while(k<(int)a.size()&&!a[k][j])k++;if(k==(int)a.size())continue;swap(a[k],a[r]);auto inv=pw(a[r][j],P-2);for(int t=j;t<c;t++)a[r][t]=a[r][t]*inv%P;for(k=r+1;k<(int)a.size();k++)if(a[k][j]){auto m=a[k][j];for(int t=j;t<c;t++)a[k][t]=(a[k][t]-m*a[r][t]%P+P)%P;}r++;}return r;}
+map<array<int,4>,vector<vector<L>>> cache;
+int main(){int mask,d,ms[6],cnt=0,low=0;while(cin>>mask>>d>>ms[0]>>ms[1]>>ms[2]>>ms[3]>>ms[4]>>ms[5]){vector<pair<int,int>>mon;for(int b=0;2*b<=d;b++)for(int a=0;a+2*b<=d;a++)mon.push_back({a,b});vector<vector<L>>A;int idx=0;for(int r=3;r<=8;r++)for(int s=0;s<=r/2;s++,idx++)if(mask>>idx&1){int v=s*(r-s),m=ms[r-3];auto key=array<int,4>{d,r,s,m};if(!cache.count(key)){vector<vector<L>>R;for(int i=0;i<m;i++)for(int h=0;i+((r==2*s)?2:1)*h<m;h++){vector<L>row;for(auto[a,b]:mon){L x=0;if(r!=2*s){if(a>=i&&b>=h)x=bi(a,i)%P*bi(b,h)%P*pw(r,a-i)%P*pw(v,b-h)%P;}else if(b>=h){for(int l=0;l<=b-h;l++){int k=i-l;if(k<0||k>a)continue;x=(x+bi(b,h)%P*bi(b-h,l)%P*pw(s,l)%P*pw(s*s,b-h-l)%P*bi(a,k)%P*pw(r,a-k))%P;}}row.push_back(x);}R.push_back(row);}cache[key]=R;}auto&R=cache[key];A.insert(A.end(),R.begin(),R.end());}int rk=rankm(A,mon.size());if(rk<(int)mon.size())low++;cnt++;cout<<mask<<" "<<d;for(int m:ms)cout<<" "<<m;cout<<" "<<A.size()<<" "<<rk<<" "<<mon.size()<<"\n";}
+cerr<<"total "<<cnt<<" low "<<low<<"\n";}

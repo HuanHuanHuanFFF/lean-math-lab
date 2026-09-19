@@ -1,0 +1,38 @@
+{
+  "status": "PREPACKAGE_CHECKS_PASS",
+  "python": "3.13.5",
+  "sympy": "1.14.0",
+  "executed_commands": [
+    "python3 code/build_certificate.py --output outputs/certificate.json",
+    "python3 -S -B code/verify_certificate.py --certificate outputs/certificate.json --output outputs/acceptance.json --negative-tests",
+    "python3 -S -B code/check_regressions.py --output outputs/regressions.json",
+    "python3 -S -B code/reproduce.py --output-dir /mnt/data/b699-strip-rat-replay-prepackage --with-sympy"
+  ],
+  "evidence": {
+    "paper_proof": "author",
+    "finite_exact_evidence": "executed",
+    "second_implementation": "same author, stdlib verifier does not import builder",
+    "lean": false,
+    "independent_researcher_review": false,
+    "human_review": false,
+    "global_historical_difference_audit": false
+  },
+  "remaining_unbounded": [
+    "rho",
+    "delta",
+    "general n,j,g,t3,C,u,z",
+    "coarse primes and complete exponents"
+  ],
+  "complete_indices_added": [],
+  "R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "new_external_theorems": [],
+  "zip_replay_receipt": "Generated outside ZIP after a clean unpack; final chat links the actual receipt."
+}

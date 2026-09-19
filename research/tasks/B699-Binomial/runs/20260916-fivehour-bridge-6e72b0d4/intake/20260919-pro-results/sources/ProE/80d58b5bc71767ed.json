@@ -1,0 +1,40 @@
+{
+  "recorded_at_utc": "2026-09-17T18:53:06.709027+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "checks": [
+    {
+      "command": [
+        "python",
+        "src/generate.py"
+      ],
+      "exit_code": 0,
+      "stdout": "outputs/primary.stdout.txt",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "src/verify.py"
+      ],
+      "exit_code": 0,
+      "stdout": "outputs/secondary.stdout.txt",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "python",
+        "src/test_corruption.py"
+      ],
+      "exit_code": 0,
+      "stdout": "outputs/corruption.stdout.txt",
+      "stderr": ""
+    }
+  ],
+  "status": "PASS",
+  "scope": "Finite endpoints and certificate rejection only; the infinite reduction is in PROOFS.md.",
+  "source_sha256": {
+    "verify.py": "ae6eada8704bc1c7fa50078959755db4b2d1b044a254d9783bcf5270c1b5c894",
+    "generate.py": "c157b0c81ccc18c564c90f3c394c803ac7bcd03b7604e656fa9c600416cdc72c",
+    "test_corruption.py": "c885252b6d4b6f4a0b5903ba8dddc65221bd5ae11de1824b9307ee2201eb5cce"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "source_scope": "same original NC6 / RES10 n=5130 mod9000, alpha=3^a, W=10Y^2",
+  "proved": [
+    {
+      "name": "R3",
+      "type": "necessary exact identity",
+      "statement": "Delta3=E3/gcd(E3,B-13)",
+      "new_coverage": false
+    },
+    {
+      "name": "R4",
+      "type": "necessary exact identity",
+      "statement": "J4=E4^2/gcd(E4^2,5n-2-B); Delta4=J4*(7 if 7|J4 else 1)",
+      "new_coverage": false
+    },
+    {
+      "name": "units",
+      "type": "necessary condition",
+      "statement": "gcd(L3,E3E4)=gcd(L4,E4)=1"
+    },
+    {
+      "name": "q5_gcd",
+      "type": "absolute divisor bound for an auxiliary gcd only",
+      "statement": "gcd(q5,L4)=gcd(Q50,23)*gcd(Q52,17) divides 391",
+      "bounds_general_q5": false
+    },
+    {
+      "name": "conditional_q5",
+      "type": "conditional necessary reduction",
+      "statement": "q5|L4 implies q5=17, E=1 mod6, actual source17 in slots2/3",
+      "closed": false
+    }
+  ],
+  "not_proved": [
+    "new empty subfamily of the simultaneous-large-defect region",
+    "full RES10",
+    "absolute bound for E,a,q5,h,v,g or the general support",
+    "NC6-preserving descent",
+    "unbounded model satisfying all remaining necessary conditions"
+  ],
+  "evidence_grade": "author paper proof + same-session deterministic replay",
+  "lean": false,
+  "repository_modified": false
+}

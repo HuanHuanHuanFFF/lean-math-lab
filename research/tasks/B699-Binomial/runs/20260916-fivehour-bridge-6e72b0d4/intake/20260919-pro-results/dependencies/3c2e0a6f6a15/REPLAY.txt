@@ -1,0 +1,12 @@
+# Run from the extracted package root; Python >= 3.10, standard library only.
+python code/verify.py
+python code/consumer.py 666 210 --i 5 --witness 37
+python code/consumer.py 1556730 518322 --i 6 --witness 353
+python code/consumer.py 4914 1820 --i 5 --witness 17
+
+# The last predicate must say applies=false (RES10 not closed), while the
+# independent exact witness check correctly verifies Common5 via p=17.
+# This is a diagnostic of the remaining necessary shell, NOT a counterexample.
+
+# Optional archive integrity, on a system with sha256sum:
+sha256sum -c SHA256SUMS

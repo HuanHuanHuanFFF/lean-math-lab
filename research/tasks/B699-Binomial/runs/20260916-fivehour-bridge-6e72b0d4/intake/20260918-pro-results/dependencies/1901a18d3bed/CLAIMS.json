@@ -1,0 +1,73 @@
+{
+  "scope": "B699 i=3 only",
+  "evidence": "author paper proof; exact finite same-author checks; no Lean or external independent review",
+  "claims": [
+    {
+      "id": "IQ3",
+      "kind": "necessary under NC3",
+      "statement": "NC3 and (n-1)(n-2)/(j(n-j)) integral imply omega(t3)>=3",
+      "proof": "PROOFS.md sections 1-6",
+      "new_external_theorems": []
+    },
+    {
+      "id": "TWO-SUPPORT-G1U1",
+      "kind": "complete conditional slice exclusion",
+      "statement": "NC3 and omega(t3)=2 imply (g,u)!=(1,1)",
+      "proof": "PROOFS.md section 7",
+      "dependency": "IQ3 and canonical same-input residual definitions"
+    },
+    {
+      "id": "TWO-SUPPORT-DENOMINATOR",
+      "kind": "necessary under NC3 and omega(t3)=2",
+      "statement": "den((n-1)(n-2)/(2j(n-j)))=u*g^2>1",
+      "proof": "PROOFS.md section 7",
+      "extra_adopted_dependency": "old L>1,R>1; not reverified in this round"
+    },
+    {
+      "id": "WEAK-G1U1-INFINITE",
+      "kind": "infinite weak-window model, not NC",
+      "statement": "D=5, first conic orbit, r=20w+1 gives both true windows with g=u=1; w=1+27h has common prime107",
+      "proof": "PROOFS.md section 8"
+    }
+  ],
+  "global_remaining_indices": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "unbounded_remaining": [
+    "n",
+    "j",
+    "g",
+    "u",
+    "z",
+    "H",
+    "C",
+    "t3",
+    "prime bases",
+    "complete prime-power exponents"
+  ],
+  "remaining_two_support_slices": [
+    "g=1,u>1",
+    "g>1,u=1",
+    "g>1,u>1"
+  ],
+  "not_claimed": [
+    "full i3 closure",
+    "full omega(t3)=2 closure",
+    "absolute height",
+    "NC-preserving descent",
+    "nonempty difference from all historical consumers",
+    "global originality"
+  ],
+  "checks": {
+    "triple_records": 1550,
+    "endpoint_records": 265,
+    "exact_polynomial_identities": 16,
+    "corruption_rejections": 12
+  }
+}

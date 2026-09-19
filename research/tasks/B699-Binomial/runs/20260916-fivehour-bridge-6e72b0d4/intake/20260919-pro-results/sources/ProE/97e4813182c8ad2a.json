@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "commands": [
+    {
+      "stage": "primary",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProE-i3-cross-content-20260918-73a9c4e2/src/generate.py",
+        "--out",
+        "/mnt/data/B699-ProE-i3-cross-content-20260918-73a9c4e2/verification/20260918T043833073290Z"
+      ],
+      "returncode": 0
+    },
+    {
+      "stage": "secondary",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProE-i3-cross-content-20260918-73a9c4e2/src/verify.py",
+        "/mnt/data/B699-ProE-i3-cross-content-20260918-73a9c4e2/verification/20260918T043833073290Z/certificate.json"
+      ],
+      "returncode": 0
+    },
+    {
+      "stage": "corruption",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/B699-ProE-i3-cross-content-20260918-73a9c4e2/src/test_corruption.py",
+        "/mnt/data/B699-ProE-i3-cross-content-20260918-73a9c4e2/verification/20260918T043833073290Z/certificate.json",
+        "--out",
+        "/mnt/data/B699-ProE-i3-cross-content-20260918-73a9c4e2/verification/20260918T043833073290Z"
+      ],
+      "returncode": 0
+    }
+  ],
+  "python": "3.13.5",
+  "certificate_sha256": "1f9c3580ec84db39916cc4e982c1259b6b7247c8eb8a6b5d5f40f33c2bf50d3f",
+  "note": "Symbolic/evidence replay, not a full independent mathematical acceptance."
+}

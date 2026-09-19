@@ -1,0 +1,75 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/B699-ProE-i3-power-support-20260918/scripts/build_certificate.py",
+        "--output",
+        "/mnt/data/B699-power-replay-release-20260918/CERTIFICATE.json"
+      ],
+      "name": "build",
+      "returncode": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "36879c74c5bcbc99def35a220c189c3c3646a11b9f892c1551d730fb305994c4"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/B699-ProE-i3-power-support-20260918/scripts/verify_certificate.py",
+        "--certificate",
+        "/mnt/data/B699-power-replay-release-20260918/CERTIFICATE.json",
+        "--output",
+        "/mnt/data/B699-power-replay-release-20260918/ACCEPTANCE.json",
+        "--negative-tests"
+      ],
+      "name": "verify",
+      "returncode": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "39a2624fcdb152e197c642c74bcc3b518dae08c5d12e2c5750facb90fc36b182"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-S",
+        "-B",
+        "/mnt/data/B699-ProE-i3-power-support-20260918/scripts/check_algebra.py",
+        "--output",
+        "/mnt/data/B699-power-replay-release-20260918/ALGEBRA.json"
+      ],
+      "name": "algebra",
+      "returncode": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "c0722e4ab285de351acc5c56b340e05b6152a1a0b195c24f0b2218b4d752248f"
+    }
+  ],
+  "comparisons": [
+    {
+      "byte_identical": true,
+      "bytes": 417288,
+      "file": "CERTIFICATE.json",
+      "sha256": "f168f222f771d1e1b89d9af46e11dfc43337da02bc718e00c9a39eb089b4166e"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 3648,
+      "file": "ACCEPTANCE.json",
+      "sha256": "1eb83752145e72fd063ec70fc0d7d848975a99c8b4b8e39493fc1a8468cbdbb8"
+    },
+    {
+      "byte_identical": true,
+      "bytes": 2277,
+      "file": "ALGEBRA.json",
+      "sha256": "5ededd0b79bd3368c39d7f0a519584060b308977091a0a77ccb3c1a1db5e0ef6"
+    }
+  ],
+  "frozen_package_unchanged": true,
+  "observed_container_utc": "2026-09-17T16:58:40.936036+00:00",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "rebuild": true,
+  "status": "PASS",
+  "task_date_label": "2026-09-18",
+  "time_note": "UTC observations and the local task-date label are recorded separately; no elapsed research duration inferred."
+}
