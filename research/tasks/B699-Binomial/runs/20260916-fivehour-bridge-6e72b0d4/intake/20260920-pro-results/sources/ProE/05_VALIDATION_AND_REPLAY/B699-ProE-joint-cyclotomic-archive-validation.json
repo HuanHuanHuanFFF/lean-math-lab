@@ -1,0 +1,116 @@
+{
+  "recorded_at_utc": "2026-09-20T08:05:20.709564+00:00",
+  "archive": "/mnt/data/B699-ProE-i3-joint-cyclotomic-evidence-20260920.zip",
+  "bytes": 542650,
+  "sha256": "9d854b19455f1f66648964ae3c4d80bae0f17132d9f98c0c24d9fe19928df417",
+  "zip_crc": "PASS",
+  "members": 31,
+  "uncompressed_bytes": 603956,
+  "actual_extract_and_replay": true,
+  "exit_code": 0,
+  "replay": {
+    "status": "PASS_READ_ONLY_JOINT_CYC_REPLAY",
+    "members_hashed": 30,
+    "checks": [
+      {
+        "command": [
+          "/opt/pyvenv/bin/python3",
+          "check_exact.py"
+        ],
+        "result": {
+          "consumer_cases": 11,
+          "endpoint_count": 2,
+          "polynomial_records": 27,
+          "status": "PASS_EXACT_JOINT_CYC_CHECKS"
+        }
+      },
+      {
+        "command": [
+          "/opt/pyvenv/bin/python3",
+          "check_independent.py"
+        ],
+        "result": {
+          "consumer_cases": 11,
+          "polynomial_records": 27,
+          "status": "PASS_INDEPENDENT_NEWTON_AND_RECURSIVE_CYC"
+        }
+      },
+      {
+        "command": [
+          "/opt/pyvenv/bin/python3",
+          "check_bad_certificates.py"
+        ],
+        "result": {
+          "status": "PASS_BAD_JOINT_CERTIFICATE_REJECTION",
+          "mutations": [
+            {
+              "mutation": "wrong_integer_split",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "false_positive_polynomial",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "missing_small_endpoint",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "truncated_full_5_power",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "missing_cyclotomic_factor",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "unproved_joint_threshold",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "wrong_joint_residual",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "false_exclusion_s17",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            },
+            {
+              "mutation": "weak_model_mislabeled",
+              "rejected_by": {
+                "check_exact.py": 1,
+                "check_independent.py": 1
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "old_dependency_scope": "byte provenance only, not revalidated"
+  },
+  "mathematical_scope": "New finite arithmetic only; infinite proofs are author-paper; old dependencies byte-hashed only."
+}

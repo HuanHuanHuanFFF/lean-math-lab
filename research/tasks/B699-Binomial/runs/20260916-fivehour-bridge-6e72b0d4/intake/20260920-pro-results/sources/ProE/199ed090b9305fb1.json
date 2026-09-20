@@ -1,0 +1,87 @@
+[
+  {
+    "command": [
+      "python3",
+      "check_coeff.py"
+    ],
+    "exit_code": 0,
+    "stdout": "PASS_EXACT_COEFFICIENT_CHECKS\nDIAGNOSTIC_SHA256=4f4bbf427b4c3cf0ab2e444c7aa5cd16d8fc5e897928f060f23dfa456806f7c6\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "check_grid.py"
+    ],
+    "exit_code": 0,
+    "stdout": "PASS_INDEPENDENT_GRID_AND_INTEGER_CHECKS\nGRID_POINT_COUNT=1039\nDIAGNOSTIC_SHA256=4f4bbf427b4c3cf0ab2e444c7aa5cd16d8fc5e897928f060f23dfa456806f7c6\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "bad_certificates.py",
+      "--report",
+      "/mnt/data/B699-ProE-i3-square-source-20260920/verification/bad_certificates.json"
+    ],
+    "exit_code": 0,
+    "stdout": "PASS_BAD_CERTIFICATE_REJECTION\nMUTATION_CASES=10\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "consumer.py",
+      "minimal",
+      "--c",
+      "1",
+      "--s",
+      "15"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"scope\": \"same original input; omega(t3)=2, g=lambda=w=1, xi=2*mu, b=2*r\",\n  \"membership_verified\": false,\n  \"c\": 1,\n  \"s\": 15,\n  \"whole_row_claim\": false,\n  \"status\": \"EXCLUDED_BY_NEW_ODD\",\n  \"dependency\": \"new HS2 + adopted minimum-branch P>4Q\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "consumer.py",
+      "minimal",
+      "--c",
+      "1",
+      "--s",
+      "23"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"scope\": \"same original input; omega(t3)=2, g=lambda=w=1, xi=2*mu, b=2*r\",\n  \"membership_verified\": false,\n  \"c\": 1,\n  \"s\": 23,\n  \"whole_row_claim\": false,\n  \"status\": \"EXCLUDED_BY_NEW_ODD\",\n  \"dependency\": \"new HS2 + adopted minimum-branch P>4Q\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "consumer.py",
+      "minimal",
+      "--c",
+      "1",
+      "--s",
+      "12"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"scope\": \"same original input; omega(t3)=2, g=lambda=w=1, xi=2*mu, b=2*r\",\n  \"membership_verified\": false,\n  \"c\": 1,\n  \"s\": 12,\n  \"whole_row_claim\": false,\n  \"status\": \"NO_NEW_EXCLUSION\",\n  \"necessary_mu\": 1,\n  \"necessary_xi\": 2,\n  \"warning\": \"This does not assert existence of an NC3 point.\"\n}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "consumer.py",
+      "minimal",
+      "--c",
+      "3",
+      "--s",
+      "15"
+    ],
+    "exit_code": 0,
+    "stdout": "{\n  \"scope\": \"same original input; omega(t3)=2, g=lambda=w=1, xi=2*mu, b=2*r\",\n  \"membership_verified\": false,\n  \"c\": 3,\n  \"s\": 15,\n  \"whole_row_claim\": false,\n  \"status\": \"NO_NEW_EXCLUSION\",\n  \"necessary_mu\": 1,\n  \"necessary_xi\": 2,\n  \"warning\": \"This does not assert existence of an NC3 point.\"\n}\n",
+    "stderr": ""
+  }
+]

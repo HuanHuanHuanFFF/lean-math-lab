@@ -1,0 +1,68 @@
+{
+  "timestamp_utc": "2026-09-20T13:48:46.496157+00:00",
+  "checks": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/identities.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.606,
+      "stdout": "PASS_EXACT_POLYNOMIAL_IDENTITIES count=26\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/value_grids.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.624,
+      "stdout": "PASS_INDEPENDENT_DEGREE_COMPLETE_VALUE_IDENTITIES\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/primary.py",
+        "certificates/certificate.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.646,
+      "stdout": "PASS_PRIMARY_DIVISOR_ENDPOINT_AND_ACTUAL_BINOMIALS\n{\"-1\": {\"candidate_rows\": 118, \"square_discriminants\": 0, \"templates\": 58}, \"1\": {\"candidate_rows\": 113, \"square_discriminants\": 0, \"templates\": 60}}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/independent.py",
+        "certificates/certificate.json"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.797,
+      "stdout": "PASS_INDEPENDENT_PROVED_RANGE_AND_COMPLETE_CARRIES\n{\"-1\": {\"candidate_rows\": 118, \"square_discriminants\": 0, \"templates\": 58}, \"1\": {\"candidate_rows\": 113, \"square_discriminants\": 0, \"templates\": 60}}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "consumer.py",
+        "--self-test"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 0.653,
+      "stdout": "PASS_CONSUMER_BOUNDARIES cases=15\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/mutations.py"
+      ],
+      "returncode": 0,
+      "elapsed_seconds": 20.34,
+      "stdout": "PASS_BAD_CERTIFICATE_REJECTION cases=14 checkers=2\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -8,7 +8,9 @@
 
 随后接收 [2026-09-18 Pro A/B/D/E 共24阶段成果](intake/20260918-pro-results/README.md)，[实际增量与剩余空间](intake/20260918-pro-results/SUMMARY.md)已合入题目总览。四路作者声明与行政完整性分别记录；本次只做整理与用户授权的推送/PR，未重启数学研究或执行交付代码。
 
-今日接收 [2026-09-19 Pro A/B/D/E 共26阶段成果](intake/20260919-pro-results/README.md)，[新增无限子族、固定覆盖13与仍未解空间](intake/20260919-pro-results/SUMMARY.md)已更新题目级总览。原件普通文件、成员映射和检查回执齐备；作者等级保留，本次没有数学/Lean验证或新研究。
+随后接收 [2026-09-19 Pro A/B/D/E 共26阶段成果](intake/20260919-pro-results/README.md)，[新增无限子族、固定覆盖13与仍未解空间](intake/20260919-pro-results/SUMMARY.md)已更新题目级总览。原件普通文件、成员映射和检查回执齐备；作者等级保留，本次没有数学/Lean验证或新研究。
+
+今日接收 [2026-09-20 A/D/E 共25阶段及COVER12早期补证](intake/20260920-pro-results/README.md)，[固定覆盖10、单格唯一恢复与二倍平方行进展](intake/20260920-pro-results/SUMMARY.md)已更新题目总览。B无新包；来源原字节保留，本次只有整理与push，没有独立数学/Lean验证。
 
 ## 本轮授权和预算
 
