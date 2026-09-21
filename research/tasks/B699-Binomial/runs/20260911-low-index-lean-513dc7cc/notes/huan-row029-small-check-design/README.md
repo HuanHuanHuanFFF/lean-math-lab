@@ -74,7 +74,7 @@ Pairs、Checked 分开。这个设计可以原样搬到候选模块；不能通�
 
 generate_row.py 会固定写入 run/lean/Row029Data.lean、run/lean/rows/Row029/*、
 run/lean/Layer000.lean 和 run/lean/Layer113.lean，并在已有 plan 时拒绝运行。因此实际
-生成必须在 D:/CodingProject/Math/.tools/row029-small-scratch 中只复制冻结 Row029、两个 generator、LayerParts、PairChunks、WitnessBridge 以及生成所需的
+生成必须在 `.tools/row029-small-scratch` 中只复制冻结 Row029、两个 generator、LayerParts、PairChunks、WitnessBridge 以及生成所需的
 Row029Data/Witness000/056/227 输入。Layer000/Layer113 只作为旧路径的 hash 审计输入，候选
 不得继续导入它们；不需要完整 clone 或全量 Mathlib。生成结果再作为新的
 Row029Jsmall source plan，逐项记录源 SHA、import 闭包和对象/日志 SHA。

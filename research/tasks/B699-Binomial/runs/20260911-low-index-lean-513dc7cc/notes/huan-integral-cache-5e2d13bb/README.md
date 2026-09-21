@@ -4,8 +4,9 @@
 
 ## 固定基线
 
-实际工作树为 D:/CodingProject/Math/.tools/worktrees/b699-huan-5e2d13bb；原包根为
-D:/CodingProject/Math/.lake/packages/mathlib，本调查没有对其写入。
+实际工作树为 `.tools/worktrees/b699-huan-5e2d13bb`；原包根为
+`.lake/packages/mathlib`，本调查没有对其写入。
+上述相对路径均相对当时记录所用的主仓根；它们不表示当前隔离 worktree 中存在同名缓存或对象。
 
 - 当前项目和 mathlib 包的 toolchain 都是 leanprover/lean4:v4.33.1。
 - 当前项目 manifest 的 mathlib rev 是 0df444a360eaa60ab8c11dca51a86af692955474。
@@ -19,8 +20,8 @@ D:/CodingProject/Math/.lake/packages/mathlib，本调查没有对其写入。
 
 当前两个只读 build 根是：
 
-- D:/CodingProject/Math/.lake/packages/mathlib/.lake/build/lib/lean
-- D:/CodingProject/Math/.lake/build/lib/lean
+- `.lake/packages/mathlib/.lake/build/lib/lean`
+- `.lake/build/lib/lean`
 
 ## 当前缺口和成本
 
@@ -46,12 +47,12 @@ FundThmCalculus 相对 Basic 新增 29 个模块，其中 8 个实际缺失：
 这些新增缺失源码合计 213,856 bytes。官方模块名对应的 Deriv.Pow 是
 Mathlib.Analysis.Calculus.Deriv.Pow；它相对 Basic+FundThmCalculus 新增 36 个模块，全部已有，实际缺失数不增加。它是可选增量，不需要恢复 Gamma/Beta 或完整 Mathlib.Tactic。
 
-当前本地 cache 目录 D:/CodingProject/Math/.tools/cache/mathlib 只有 curl.cfg
+当前本地 cache 目录 `.tools/cache/mathlib` 只有 curl.cfg
 （457,914 bytes），没有任何 .ltar。因此已有 2,095 个 olean 是 build 目录中的展开对象，不等于 official cache 已有 2,095 个可复用 .ltar。官方 filterExists 按 MATHLIB_CACHE_DIR/<hash>.ltar 判断本地 cache 成员。
 
 D 盘当前可用空间为 2,461,011,968 bytes。若硬性保留 1 GiB（1,073,741,824 bytes），本次恢复最多可新增约 1,387,270,144 bytes。已有官方 cache executable：
 
-- D:/CodingProject/Math/.lake/packages/mathlib/.lake/build/bin/cache.exe
+- `.lake/packages/mathlib/.lake/build/bin/cache.exe`
 - size：109,969,408 bytes
 - SHA-256：aad11f30a7b4f70cd692b2a1efd3db6b8c443c2ab4b50afb8e4f4922f2c27571
 
@@ -74,7 +75,7 @@ D 盘当前可用空间为 2,461,011,968 bytes。若硬性保留 1 GiB（1,073,7
 
 建立独立 D 盘 overlay，例如：
 
-D:/CodingProject/Math/.tools/cache-recovery/mathlib-basic-0df444a3/
+`.tools/cache-recovery/mathlib-basic-0df444a3/`
 
 只复制 pinned mathlib 的源码和 package metadata，排除 .git、原 .lake 和全部历史 build；当前源码副本约 104 MiB。overlay 自己建立：
 
@@ -120,23 +121,23 @@ D:/CodingProject/Math/.tools/cache-recovery/mathlib-basic-0df444a3/
 
 所有后续写入必须落在新的 packageRoot，例如：
 
-D:/CodingProject/Math/.tools/pi5e2d/build-root/
+`.tools/pi5e2d/build-root/`
 
 九个 source checkout 保持只读：
 
-D:/CodingProject/Math/.tools/pi5e2d/mathlib
-D:/CodingProject/Math/.tools/pi5e2d/batteries
-D:/CodingProject/Math/.tools/pi5e2d/aesop
-D:/CodingProject/Math/.tools/pi5e2d/Cli
-D:/CodingProject/Math/.tools/pi5e2d/importGraph
-D:/CodingProject/Math/.tools/pi5e2d/LeanSearchClient
-D:/CodingProject/Math/.tools/pi5e2d/plausible
-D:/CodingProject/Math/.tools/pi5e2d/proofwidgets
-D:/CodingProject/Math/.tools/pi5e2d/Qq
+- `.tools/pi5e2d/mathlib`
+- `.tools/pi5e2d/batteries`
+- `.tools/pi5e2d/aesop`
+- `.tools/pi5e2d/Cli`
+- `.tools/pi5e2d/importGraph`
+- `.tools/pi5e2d/LeanSearchClient`
+- `.tools/pi5e2d/plausible`
+- `.tools/pi5e2d/proofwidgets`
+- `.tools/pi5e2d/Qq`
 
 root toolchain 固定为 leanprover/lean4:v4.33.1，依赖 source checkout 的 package-local lean-toolchain 文本为 v4.33.0 时，不把它们当作根 toolchain；所有编译命令必须从 build-root 继承 root v4.33.1，并记录实际 Lean --version。build-root 的 lake-manifest、toolchain、九个 source SHA 和 package revision 必须在开工前保存，编译后复核未改变。
 
-build-root 需要独立的 .lake/packages search path，使用只读 source junction 或明确 LEAN_SRC_PATH 指向上述 checkout；不把原 D:/CodingProject/Math/.lake/packages 或并发 verifier 的 build 目录作为写入目标。已有原包对象只能通过显式只读 LEAN_PATH 读取，或在 build-root 内建立有 SHA 记录的普通复制；本方案不使用 hardlink。任何新 .olean、日志、诊断和临时文件都必须位于 build-root 或该 run 的专属新输出目录。
+build-root 需要独立的 `.lake/packages` search path，使用只读 source junction 或明确 LEAN_SRC_PATH 指向上述 checkout；不把原 `.lake/packages` 或并发 verifier 的 build 目录作为写入目标。已有原包对象只能通过显式只读 LEAN_PATH 读取，或在 build-root 内建立有 SHA 记录的普通复制；本方案不使用 hardlink。任何新 .olean、日志、诊断和临时文件都必须位于 build-root 或该 run 的专属新输出目录。
 
 ## DAG 和缺失模块顺序
 
@@ -200,8 +201,8 @@ pinned official Cache 的 Cache.IO.mkBuildPaths 将 trace、olean、olean.hash�
 
 主线程使用固定 Lean.Elab.ParseImportsFast 生成了依赖在前的 2,618-node DAG：
 
-- DAG：D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/integral-import-dag.jsonl；
-- build plan：D:/CodingProject/Math/.tools/b699-intake-20260911-5e2d13bb/integral-build-plan.json；
+- DAG：`.tools/b699-intake-20260911-5e2d13bb/integral-import-dag.jsonl`；
+- build plan：`.tools/b699-intake-20260911-5e2d13bb/integral-build-plan.json`；
 - 9 个 package root 合计 primary .olean 可用 2,428 个，缺失 190 个；
 - 缺失源字节 4,224,008；已有 primary 578,631,032 bytes；
 - 已有 private/server/IR 等 companion 为 1,200,809,904 bytes。

@@ -23,7 +23,7 @@
 
 ## 来源和作用域
 
-- 工作树 `D:/CodingProject/Math/.tools/wt699-a1c74e93`，开工与交接 HEAD 为 `1fccc6454c67d2122bc5bcdc7a31561d8f04c164`。
+- 工作树 `<repo>/.tools/wt699-a1c74e93`，开工与交接 HEAD 为 `1fccc6454c67d2122bc5bcdc7a31561d8f04c164`。
 - 来源：daily D-fatpoint-position-closure 的 REPORT/PROOFS及所恢复的旧低次池；本轮只消费最终固定证书中实际重算的系数。
 - 普通历史文件按成员映射恢复在 `.tools/replay/a1c74e93-h023`，未重建ZIP；复用作者链仍保持原等级。
 - 新主结论不使用 QIG/SIXG、α单高幂分类、LCM有限端点或外部高度定理；因此其成立不以本轮未重跑的旧有限证书为条件。

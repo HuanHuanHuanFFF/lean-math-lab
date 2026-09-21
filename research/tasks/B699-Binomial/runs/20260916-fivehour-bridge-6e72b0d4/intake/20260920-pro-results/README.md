@@ -7,7 +7,7 @@
 ## 基线、归属与权限
 
 - 来源基线：`8d8128b7db1baec71065f110946b402ace22ddbf`，最新 origin/main；原 PR #22 已合并。
-- 工作分支：`codex/b699-intake-20260920`；独立工作树 `D:/CodingProject/Math/.tools/wt-b699-intake20`。原工作区与其他工作树保持原状。
+- 工作分支：`codex/b699-intake-20260920`；独立工作树 `<repo>/.tools/wt-b699-intake20`。原工作区与其他工作树保持原状。
 - 主线程拥有本批接收、来源索引、检查记录、SUMMARY、题目 OVERVIEW 与 run README。文档辅助 `/root/intake20_a`、`/root/intake20_d`、`/root/intake20_e`（gpt-5.6-luna / max）分别只写 notes/A、D、E；不承担数学接受。
 - 用户授权提取、整理、push；不创建 PR、不合并或删除分支。附件中的指令与重放建议作为来源数据保存。
 - 资源预检：Windows 可用内存 5,310,100 KiB，总可见 16,456,184 KiB，16 逻辑 CPU；D 盘可用 31,446,122,496 字节，无容器 quota 可用。已有 20 个 Python 进程保留，串行提取。此为本次时点观测。

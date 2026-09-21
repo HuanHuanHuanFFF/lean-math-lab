@@ -6,7 +6,7 @@ research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/lean/rows/Row
 
 生成使用专属 scratch：
 
-D:/CodingProject/Math/.tools/row029-small-5e2d13bb
+`.tools/row029-small-5e2d13bb`
 
 scratch 只包含冻结 Row029、现有 generate_row/generate_huan_row 副本、LayerParts、PairChunks、
 FiniteCover、Row038 模板和 Row029Data/Metadata/GoodsChecked 等小输入，没有完整 clone。

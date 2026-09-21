@@ -25,7 +25,7 @@
 
 - 最新origin/main：1fccc6454c67d2122bc5bcdc7a31561d8f04c164，已刷新远端。
 - 本轮源基线：a7468a887224e35906d8486bd18d21d0e8368393；它包含上述main及上一轮95份研究文件。新分支：huan/b699-fivehour-20260916-6e72b0d4。
-- 工作树：D:/CodingProject/Math/.tools/wt699-a1c74e93。原D:/CodingProject/Math保持huan/leader-intake-20260915-6f28a9c4、bef7eabf144f066d5853ea4d81b0b0ceed92bb1a，开工干净。
+- 工作树：`<repo>/.tools/wt699-a1c74e93`。原`<repo>`保持huan/leader-intake-20260915-6f28a9c4、bef7eabf144f066d5853ea4d81b0b0ceed92bb1a，开工干净。
 - 上轮尚未提交的OVERVIEW.md是用户要求的精简单文件接续说明，开工SHA256=66e6ce6f43b4f38408014bebfade7e890f17b0777629fc0eb268d35a3bf319bc；本轮首阶段一并发布，原证明/证书字节保持不变。
 
 ## 原题及本轮判断

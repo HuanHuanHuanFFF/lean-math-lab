@@ -73,6 +73,8 @@ Store research deliveries as ordinary files with member-level provenance; keep a
 
 Use two-space indentation, `UpperCamelCase` modules/types, `lowerCamelCase` definitions, and `snake_case` theorems. Prefer focused imports and explicit assumptions; follow nearby mathlib conventions.
 
+Editable-document paths use portable user-directory variables (for example `$env:USERPROFILE`) and relative repository paths. By default, redaction edits only current editable explanations and does not rewrite Git history; preserve original evidence and manifest bytes. Complete historical redaction requires separate explicit user authorization.
+
 ## Verification and Environment
 
 Run `pwsh -File scripts/verify.ps1` to build and check every Lean file in `Math/`, `Tests/`, and `Examples/`; `-List` shows the scope. For focused checks use `scripts/lake.ps1 env lean <path>` with the local installation, or standard Lake elsewhere.

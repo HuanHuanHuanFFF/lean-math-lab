@@ -81,7 +81,7 @@ r\le bD|Q_i|+|r aP_i-s bQ_i|\,|v|.
 
 ## 本次实际采用和仍缺的依赖
 
-采用的库源码固定为 mathlib `0df444a360eaa60ab8c11dca51a86af692955474`，工具链 pin 为 Lean `4.33.1`。本工作树没有本地包目录；只读检查了主仓 `D:/CodingProject/Math/.lake/packages/mathlib` 的同一固定源码。候选仅导入标准 mathlib；每条交付定理均附 `#print axioms`，尚未产生执行输出。
+采用的库源码固定为 mathlib `0df444a360eaa60ab8c11dca51a86af692955474`，工具链 pin 为 Lean `4.33.1`。本工作树没有本地包目录；只读检查了固定依赖根 `$mathlibPackageRoot/mathlib` 指向的同一固定源码。候选仅导入标准 mathlib；每条交付定理均附 `#print axioms`，尚未产生执行输出。
 
 2026-09-11 的有范围先例检索查看了 mathlib 的 `NumberTheory/DiophantineApproximation/Basic.lean`、`NumberTheory/Real/Irrational.lean`、`NumberTheory/Transcendental/Liouville/Basic.lean` 的相关声明，并复用了 `Int.one_le_abs`、`Int.cast_abs`、`Int.cast_le`、`abs_add_le`、`abs_mul`、`div_lt_iff₀` 和 `div_mul_cancel₀`。未找到本次两行整数接口的可直接同形调用；这不是全库不存在或数学原创性的声明。
 
@@ -101,9 +101,13 @@ r\le bD|Q_i|+|r aP_i-s bQ_i|\,|v|.
 由主线程在资源空档串行执行。已有 huan 验证器会检查固定依赖、编译实际源码并执行公理审计，且不会把辅助定理算作完整目标。工作目录为当前 worktree，PATH 使用主线程已配置的固定 Lean；此命令只是交接，**本子任务未执行**：
 
 ```powershell
-& 'C:\Users\幻\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+$python = Join-Path $env:USERPROFILE '.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
+$repo = (Get-Location).Path
+$mathlibPackageRoot = $env:MATHLIB_PACKAGE_ROOT
+if (-not $mathlibPackageRoot) { throw 'Set MATHLIB_PACKAGE_ROOT to the fixed read-only parent containing mathlib and other pinned packages.' }
+& $python `
   research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_huan.py `
-  --repo . --package-root D:/CodingProject/Math/.lake/packages `
+  --repo $repo --package-root $mathlibPackageRoot `
   --memory-mb 3072 --timeout 900 `
   --root research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-bft-sequence-5e2d13bb/IntegerApproximationBridge.lean
 ```
