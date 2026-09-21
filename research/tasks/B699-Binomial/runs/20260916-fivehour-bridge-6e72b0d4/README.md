@@ -8,7 +8,9 @@
 
 随后接收 [2026-09-18 Pro A/B/D/E 共24阶段成果](intake/20260918-pro-results/README.md)，[实际增量与剩余空间](intake/20260918-pro-results/SUMMARY.md)已合入题目总览。四路作者声明与行政完整性分别记录；本次只做整理与用户授权的推送/PR，未重启数学研究或执行交付代码。
 
-今日接收 [2026-09-19 Pro A/B/D/E 共26阶段成果](intake/20260919-pro-results/README.md)，[新增无限子族、固定覆盖13与仍未解空间](intake/20260919-pro-results/SUMMARY.md)已更新题目级总览。原件普通文件、成员映射和检查回执齐备；作者等级保留，本次没有数学/Lean验证或新研究。
+随后接收 [2026-09-19 Pro A/B/D/E 共26阶段成果](intake/20260919-pro-results/README.md)，[新增无限子族、固定覆盖13与仍未解空间](intake/20260919-pro-results/SUMMARY.md)已更新题目级总览。原件普通文件、成员映射和检查回执齐备；作者等级保留，本次没有数学/Lean验证或新研究。
+
+今日接收 [2026-09-20 A/D/E 共25阶段及COVER12早期补证](intake/20260920-pro-results/README.md)，[固定覆盖10、单格唯一恢复与二倍平方行进展](intake/20260920-pro-results/SUMMARY.md)已更新题目总览。B无新包；来源原字节保留，本次只有整理与push，没有独立数学/Lean验证。
 
 ## 本轮授权和预算
 
@@ -23,7 +25,7 @@
 
 - 最新origin/main：1fccc6454c67d2122bc5bcdc7a31561d8f04c164，已刷新远端。
 - 本轮源基线：a7468a887224e35906d8486bd18d21d0e8368393；它包含上述main及上一轮95份研究文件。新分支：huan/b699-fivehour-20260916-6e72b0d4。
-- 工作树：D:/CodingProject/Math/.tools/wt699-a1c74e93。原D:/CodingProject/Math保持huan/leader-intake-20260915-6f28a9c4、bef7eabf144f066d5853ea4d81b0b0ceed92bb1a，开工干净。
+- 工作树：`<repo>/.tools/wt699-a1c74e93`。原`<repo>`保持huan/leader-intake-20260915-6f28a9c4、bef7eabf144f066d5853ea4d81b0b0ceed92bb1a，开工干净。
 - 上轮尚未提交的OVERVIEW.md是用户要求的精简单文件接续说明，开工SHA256=66e6ce6f43b4f38408014bebfade7e890f17b0777629fc0eb268d35a3bf319bc；本轮首阶段一并发布，原证明/证书字节保持不变。
 
 ## 原题及本轮判断

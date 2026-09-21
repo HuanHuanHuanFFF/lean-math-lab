@@ -3,8 +3,8 @@
 - 主执行者：/root；直接参与推演，非行政 Leader。
 - 开工：2026-09-16 00:41:01 Asia/Shanghai（2026-09-15 16:41:01 UTC）。
 - 原截止：2026-09-16 01:41:01 Asia/Shanghai；阅读、协调、实验、核对和交接共用 60 分钟。仅有重要突破且明确剩余收尾时，记录理由后最多延长至 01:56:01。
-- 基线：最新 origin/main，完整 SHA 见 BASELINE.json。分支 huan/b699-paper-20260916-a1c74e93；工作树 D:/CodingProject/Math/.tools/wt699-a1c74e93。
-- 原工作区：D:/CodingProject/Math，原分支 huan/leader-intake-20260915-6f28a9c4，HEAD bef7eabf144f066d5853ea4d81b0b0ceed92bb1a，开工检查干净；不修改其研究文件。
+- 基线：最新 origin/main，完整 SHA 见 BASELINE.json。分支 huan/b699-paper-20260916-a1c74e93；工作树 `<repo>/.tools/wt699-a1c74e93`。
+- 原工作区：`<repo>`，原分支 huan/leader-intake-20260915-6f28a9c4，HEAD bef7eabf144f066d5853ea4d81b0b0ceed92bb1a，开工检查干净；不修改其研究文件。
 - 本轮禁止 Lean 写入、编译、安装；只使用纸面数学、Python 精确实验。无自动 push、PR 或 merge。
 
 ## 原题与证据

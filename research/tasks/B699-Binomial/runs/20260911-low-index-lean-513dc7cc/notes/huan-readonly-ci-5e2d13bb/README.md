@@ -5,7 +5,7 @@
 - `.github/workflows/b699-huan-bundled.yml`
 - `verification/runner/ci_bundled_rows.py`
 
-当前代理接收路径为 `D:/CodingProject/Math/.tools/worktrees/b699-huan-5e2d13bb`；派工路径中曾出现名称差异，本次以实际存在的路径为准。
+当前代理接收路径为 `.tools/worktrees/b699-huan-5e2d13bb`；派工路径中曾出现名称差异，本次以实际存在的路径为准。
 
 ## 固定范围
 

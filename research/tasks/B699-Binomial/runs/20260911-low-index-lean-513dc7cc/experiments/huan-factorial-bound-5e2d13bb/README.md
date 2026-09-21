@@ -111,11 +111,16 @@ F_{m,\delta}\le K_\delta\beta^m\frac m{m+1}<K_\delta\beta^m.
 共 28 条定理各附 `#print axioms`，尚无实际公理输出。所有库依赖均为固定 mathlib；未使用占位证明、新项目公理、`native_decide` 或 `Lean.ofReduceBool`。先验证共用模块和 `(3,2)`，再串行检查其余两组。Windows 若需要短路径 staging，由主线程按既有流程复制并改写导入，另存新哈希及验收；不要覆盖本冻结候选或旧记录。
 
 下一条推荐命令只交接、不在本子任务执行。工作目录为当前隔离 worktree，PATH 使用主线程的固定 Lean 配置：
+`MATHLIB_PACKAGE_ROOT` 应指向包含 `mathlib` 等固定包目录的只读父目录，不是 `mathlib` 子目录。
 
 ```powershell
-& 'C:\Users\幻\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' `
+$python = Join-Path $env:USERPROFILE '.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe'
+$repo = (Get-Location).Path
+$mathlibPackageRoot = $env:MATHLIB_PACKAGE_ROOT
+if (-not $mathlibPackageRoot) { throw 'Set MATHLIB_PACKAGE_ROOT to the fixed read-only parent containing mathlib and other pinned packages.' }
+& $python `
   research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/verification/runner/verify_huan.py `
-  --repo . --package-root D:/CodingProject/Math/.lake/packages `
+  --repo $repo --package-root $mathlibPackageRoot `
   --memory-mb 3072 --timeout 900 `
   --root research/tasks/B699-Binomial/runs/20260911-low-index-lean-513dc7cc/experiments/huan-factorial-bound-5e2d13bb/Factorial3D2.lean
 ```

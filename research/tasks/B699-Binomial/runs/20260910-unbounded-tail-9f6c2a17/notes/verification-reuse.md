@@ -36,8 +36,8 @@ Lean 或下载依赖。两批都固定 `leanprover/lean4:v4.33.1`，实际编译
 
 截至本次盘点（2026-09-10 07:55 UTC 前），`b699-tail-20260910-9f6c2a17` 工作树没有 `.tools` 原始对象目录。主任务随后新编出的 075554Z 根不受此历史盘点结论影响。只读盘点到旧交付 worktree 中仍有：
 
-- `D:\CodingProject\Math\.tools\worktrees\b699-large-lean-20260910-7c4e2a91\.tools\large\verification\20260909T185800Z\olean`：391 个对象；`190240Z\olean`：391 个对象。
-- `D:\CodingProject\Math\.tools\worktrees\b699-middle-lean-20260909-1a78f8cd\.tools\mid\verification\20260909T145049Z\olean`：404 个对象。
+- `.tools/worktrees/b699-large-lean-20260910-7c4e2a91/.tools/large/verification/20260909T185800Z/olean`：391 个对象；`190240Z/olean`：391 个对象。
+- `.tools/worktrees/b699-middle-lean-20260909-1a78f8cd/.tools/mid/verification/20260909T145049Z/olean`：404 个对象。
 
 这些对象的 evidence、源码和日志是各自旧 worktree 的路径绑定；本工作树不能仅凭 JSON 或缓存路径声称复用。若不先把对象和日志以当前工作树路径重新绑定，下面的 `--base-evidence` 会逐项核对失败并触发新编译，这仍是可接受的全新根，但应如实记录为新编而不是复用。
 
@@ -46,15 +46,19 @@ Lean 或下载依赖。两批都固定 `leanprover/lean4:v4.33.1`，实际编译
 先由主任务在当前批次自己的 `verification/runner/` 放置同一套 `extend.py`、匹配的 `verify.py` 和 `monitor.py`；直接调用旧批次脚本会把 `run_dir` 解析为旧批次，输出会落到旧 run。随后在当前工作树根执行（`<tail-root>.lean` 与 `<tail-theorem>` 替换为本轮实际入口和声明）：
 
 ```powershell
-$repo = 'D:\CodingProject\Math\.tools\worktrees\b699-tail-20260910-9f6c2a17'
+$repo = (Get-Location).Path
 Set-Location $repo
 $run = 'research/tasks/B699-Binomial/runs/20260910-unbounded-tail-9f6c2a17'
 $large = 'research/tasks/B699-Binomial/runs/20260910-large-index-lean-7c4e2a91'
 $middle = 'research/tasks/B699-Binomial/runs/20260909-middle-index-cert-1a78f8cd'
+$lean = $env:LEAN_EXE
+if (-not $lean) { throw 'Set LEAN_EXE to the fixed Lean 4.33.1 executable.' }
+$packageRoot = $env:MATHLIB_PACKAGE_ROOT
+if (-not $packageRoot) { throw 'Set MATHLIB_PACKAGE_ROOT to the fixed read-only parent containing mathlib and other pinned packages.' }
 & 'C:\Python314\python.exe' -u -B "$run/verification/runner/extend.py" `
   --project-root . `
-  --lean 'D:\CodingProject\Math\.tools\elan\toolchains\leanprover--lean4---v4.33.1\bin\lean.exe' `
-  --package-root 'D:\CodingProject\Math\.lake\packages' `
+  --lean $lean `
+  --package-root $packageRoot `
   --root "$run/lean/<tail-root>.lean" `
   --base-evidence "$large/verification/20260909T185800Z/evidence.json" `
   --base-evidence "$middle/verification/20260909T145049Z/evidence.json" `

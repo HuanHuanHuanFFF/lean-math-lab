@@ -38,7 +38,7 @@ R7、i5的6族、i7的24族、i9的58族均未减少。α指数仍无统一上�
 ## 固定版本与复现
 
 - 基线：`1fccc6454c67d2122bc5bcdc7a31561d8f04c164`，本轮开始时最新origin/main。
-- 分支：`huan/b699-paper-20260916-a1c74e93`；工作树`D:/CodingProject/Math/.tools/wt699-a1c74e93`。
+- 分支：`huan/b699-paper-20260916-a1c74e93`；工作树`<repo>/.tools/wt699-a1c74e93`。
 - 原工作区开工HEAD：`bef7eabf144f066d5853ea4d81b0b0ceed92bb1a`，分支`huan/leader-intake-20260915-6f28a9c4`；未承接其行政Leader职责。
 - 证据：[verification/20260915T172729Z/evidence.json](verification/20260915T172729Z/evidence.json)。新复验命令：`python research/tasks/B699-Binomial/runs/20260916-paper-frontier-a1c74e93/experiments/main/verify_round.py`。它在新时间戳目录保存输出，不覆盖旧证据。
 - 13份实际来源字节绑定在[SOURCE_ADOPTION.json](SOURCE_ADOPTION.json)。更细的NC3来源与H023普通文件恢复信息在各分支HANDOFF。

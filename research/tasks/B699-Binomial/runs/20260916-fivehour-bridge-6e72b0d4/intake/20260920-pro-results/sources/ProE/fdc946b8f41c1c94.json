@@ -1,0 +1,582 @@
+{
+  "schema": "SQ-HIGH-v1",
+  "contract": {
+    "scope": "NC3, omega(t3)=2, n=2*X^2, X positive even",
+    "high_side": "b>=2*r; interchange sides for a>=2*ell",
+    "source_D": "p^ell, complete source power",
+    "source_Q": "q^r, complete source power, p!=q",
+    "minimum_source_power": 11,
+    "eta_min": 3,
+    "g": "unbounded positive integer",
+    "w": "unbounded p^(a-ell)",
+    "chi": "integer q^(b-2*r)>=1",
+    "mu": "actual value, including isolated-3 saturation",
+    "orientations": [
+      -1,
+      1
+    ],
+    "logical_status": "necessary NC3 system -> contradiction; not an NC3 characterization",
+    "machine_scope": "finite polynomial identities and exact diagnostic checks only"
+  },
+  "identities": [
+    {
+      "name": "norm_budget",
+      "variables": [
+        "A",
+        "B",
+        "D",
+        "Q",
+        "T",
+        "g",
+        "w",
+        "chi",
+        "eta"
+      ],
+      "degrees": [
+        2,
+        2,
+        2,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "terms": [
+        [
+          [
+            0,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0,
+            0,
+            2
+          ],
+          -1
+        ],
+        [
+          [
+            0,
+            2,
+            2,
+            0,
+            0,
+            0,
+            2,
+            0,
+            0
+          ],
+          1
+        ],
+        [
+          [
+            1,
+            1,
+            1,
+            2,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          2
+        ],
+        [
+          [
+            2,
+            0,
+            0,
+            4,
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "name": "source_recovery",
+      "variables": [
+        "A",
+        "B",
+        "D",
+        "Q",
+        "T",
+        "g",
+        "w",
+        "chi",
+        "eta"
+      ],
+      "degrees": [
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1
+      ],
+      "terms": [
+        [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          -1
+        ],
+        [
+          [
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          -1
+        ],
+        [
+          [
+            0,
+            0,
+            1,
+            2,
+            0,
+            2,
+            1,
+            1,
+            0
+          ],
+          1
+        ],
+        [
+          [
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          1
+        ],
+        [
+          [
+            1,
+            0,
+            0,
+            2,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "name": "window_F",
+      "variables": [
+        "D",
+        "Q",
+        "T",
+        "E",
+        "F",
+        "g",
+        "chi",
+        "x",
+        "y"
+      ],
+      "degrees": [
+        1,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "terms": [
+        [
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          1
+        ],
+        [
+          [
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          -1
+        ],
+        [
+          [
+            0,
+            2,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0
+          ],
+          -1
+        ]
+      ]
+    },
+    {
+      "name": "window_E",
+      "variables": [
+        "D",
+        "Q",
+        "T",
+        "E",
+        "F",
+        "g",
+        "w",
+        "x",
+        "y"
+      ],
+      "degrees": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "terms": [
+        [
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          1
+        ],
+        [
+          [
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            0
+          ],
+          -1
+        ],
+        [
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0
+          ],
+          -1
+        ]
+      ]
+    },
+    {
+      "name": "source_block_reduction",
+      "variables": [
+        "D",
+        "U",
+        "eps"
+      ],
+      "degrees": [
+        2,
+        2,
+        2
+      ],
+      "terms": [
+        [
+          [
+            0,
+            0,
+            0
+          ],
+          -4
+        ],
+        [
+          [
+            0,
+            0,
+            2
+          ],
+          4
+        ],
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          -4
+        ],
+        [
+          [
+            2,
+            2,
+            0
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "name": "kappa_gap",
+      "variables": [
+        "D",
+        "Q",
+        "U",
+        "V",
+        "Ahat",
+        "kappa",
+        "eps"
+      ],
+      "degrees": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "terms": [
+        [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          -8
+        ],
+        [
+          [
+            0,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          -3
+        ],
+        [
+          [
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          -4
+        ],
+        [
+          [
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          4
+        ],
+        [
+          [
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          1
+        ]
+      ]
+    },
+    {
+      "name": "positive_source_gap",
+      "variables": [
+        "Y"
+      ],
+      "degrees": [
+        2
+      ],
+      "terms": [
+        [
+          [
+            0
+          ],
+          3
+        ],
+        [
+          [
+            1
+          ],
+          8
+        ],
+        [
+          [
+            2
+          ],
+          5
+        ]
+      ]
+    },
+    {
+      "name": "terminal_sos",
+      "variables": [
+        "U",
+        "Q"
+      ],
+      "degrees": [
+        2,
+        2
+      ],
+      "terms": [
+        [
+          [
+            0,
+            2
+          ],
+          4
+        ],
+        [
+          [
+            1,
+            1
+          ],
+          -12
+        ],
+        [
+          [
+            2,
+            0
+          ],
+          12
+        ]
+      ]
+    }
+  ],
+  "positive_gap_coefficients": [
+    3,
+    8,
+    5
+  ],
+  "terminal_sos_weights": [
+    3,
+    1
+  ],
+  "diagnostics": {
+    "rational_high_coefficient": {
+      "X": 12,
+      "D": 13,
+      "Q": 11,
+      "T": 1,
+      "Ahat": "6/11",
+      "eta": 3,
+      "source_quotient": "5",
+      "kappa": "1/11"
+    },
+    "non_source_aggregate": {
+      "X": 78,
+      "D": 553,
+      "Q": 11,
+      "T": 1,
+      "Ahat": 32,
+      "eta": 3,
+      "factor_D": [
+        7,
+        79
+      ],
+      "source_quotient": 7
+    },
+    "incorrect_capacity_3eta": {
+      "g": 2,
+      "A": 1,
+      "B": 3,
+      "D": 6,
+      "Q": 1,
+      "w": "13/144",
+      "chi": "13/8",
+      "T": "11/12",
+      "eta": 3,
+      "DQ": "6",
+      "two_eta_T": "11/2",
+      "three_eta_T": "33/4"
+    }
+  }
+}

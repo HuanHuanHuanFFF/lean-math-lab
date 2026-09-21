@@ -1,6 +1,6 @@
 # cubic阶段起点与预期收益
 
-负责人 `/root/nc3`（新run角色cubic，Astra/max），只写notes/cubic、experiments/cubic、reviews/cubic。工作树D:/CodingProject/Math/.tools/wt699-a1c74e93，分支huan/b699-fivehour-20260916-6e72b0d4，源a7468a887224e35906d8486bd18d21d0e8368393。
+负责人 `/root/nc3`（新run角色cubic，Astra/max），只写notes/cubic、experiments/cubic、reviews/cubic。工作树`<repo>/.tools/wt699-a1c74e93`，分支huan/b699-fivehour-20260916-6e72b0d4，源a7468a887224e35906d8486bd18d21d0e8368393。
 
 统一开始2026-09-15 18:28:45 UTC；原截止23:28:45；只有主线程可宣布累计≤40分钟延长。18:58前首判断，23:00预留交接。阶段冻结文件不修改；后继另存。不写/编译/安装Lean，不派代理，不做Git写操作。
 

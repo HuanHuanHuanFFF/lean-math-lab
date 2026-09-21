@@ -3,7 +3,7 @@
 ## 环境与归属
 
 - 本轮统一开工2026-09-15 18:28:45 UTC，原截止23:28:45 UTC；本交接不改变总轮截止或申请延期。
-- 工作树D:/CodingProject/Math/.tools/wt699-a1c74e93；分支huan/b699-fivehour-20260916-6e72b0d4。
+- 工作树`<repo>/.tools/wt699-a1c74e93`；分支huan/b699-fivehour-20260916-6e72b0d4。
 - 源基线a7468a887224e35906d8486bd18d21d0e8368393；本交接前只读观察HEAD为adcfd40cf6f1a2a8d42606b4913e3a6670cc39ff。主线程继续提交发布，实际最新远端状态以run LOG为准。
 - 本执行者只写notes/cubic、experiments/cubic、reviews/cubic及自己的replay；没有写Git、共享根文档、其他任务目录，没有Lean或安装。
 
