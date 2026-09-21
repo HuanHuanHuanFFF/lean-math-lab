@@ -1,0 +1,101 @@
+"""Exact affine ordinary-jet enumeration for weighted quartics.
+Discovery program; no genus assumption and no coefficient-height cutoff.
+"""
+from fractions import Fraction as F
+from math import comb,gcd
+from functools import reduce
+from pathlib import Path
+import json,time,sys
+OUT=Path(sys.argv[1]) if len(sys.argv)>1 else Path(__file__).parent/'discovery'
+OUT.mkdir(parents=True,exist_ok=True)
+MON=[(a,b) for b in range(3,-1,-1) for a in range(8-2*b,-1,-1)]
+FULL=MON+[(0,4)]
+VR={r:tuple(s*(r-s) for s in range(r//2+1)) for r in range(3,9)}
+T0=time.monotonic(); stats={k:0 for k in ('nodes','options','line_reject','zero_reject','forced_line_reject','leaves')}
+bydepth=[0]*7; leaves=[]
+def compositions(n,l):
+ if l==1: yield (n,);return
+ for a in range(n+1):
+  for t in compositions(n-a,l-1):yield (a,)+t
+def jet(r,v,i,j):
+ return tuple(comb(a,i)*r**(a-i)*comb(b,j)*v**(b-j) if a>=i and b>=j else 0 for a,b in FULL)
+def reduce_row(basis,raw):
+ row=list(raw)
+ for p,b in basis:
+  c=row[p]
+  if c:
+   bp=b[p]; g=gcd(c,bp); c//=g; bp//=g
+   for k in range(25):row[k]=bp*row[k]-c*b[k]
+   g=reduce(gcd,row,0)
+   if g>1:
+    for k in range(25):row[k]//=g
+ return row
+
+def extend(basis, equations):
+ basis=list(basis)
+ for raw in equations:
+  row=reduce_row(basis,raw)
+  p=next((k for k,c in enumerate(row) if c),None)
+  if p is None:continue
+  if p==24:return None
+  g=reduce(gcd,row[p:],0)
+  if row[p]<0:g=-g
+  row=tuple(c//g for c in row)
+  basis.append((p,row));basis.sort(key=lambda z:z[0])
+ return tuple(basis)
+def implied_zero(basis,raw):
+ return not any(reduce_row(basis,raw))
+RESTR={t:tuple(tuple((comb(b,k-a)*t**(k-a)*(-t*t)**(b-k+a) if 0<=k-a<=b else 0) for a,b in FULL) for k in range(9)) for t in range(9)}
+def forced_line(basis):
+ for t,eq in RESTR.items():
+  if all(implied_zero(basis,row) for row in reversed(eq)):return t
+ return None
+OPTS={}
+for r in VR:
+ opts=[]
+ for deficit in range(3):
+  for m in compositions(4-deficit,len(VR[r])):
+   line=[0]*9;eq=[]
+   for s,(v,mv) in enumerate(zip(VR[r],m)):
+    line[s]+=mv
+    if r-s!=s:line[r-s]+=mv
+    for d in range(mv):
+     for j in range(d+1):eq.append(jet(r,v,d-j,j))
+   opts.append((deficit,m,tuple(line),sum(x>0 for x in m),tuple(eq)))
+ OPTS[r]=opts
+def affine(basis):
+ piv={p for p,row in basis};free=[p for p in range(24) if p not in piv]
+ def solve(direction):
+  x=[F(0)]*25;x[24]=F(direction is None)
+  if direction is not None:x[direction]=1
+  for p,row in reversed(basis):x[p]=-sum(row[k]*x[k] for k in range(p+1,25))/row[p]
+  return [str(t) for t in x[:24]]
+ return dict(base=solve(None),directions=[solve(d) for d in free],free=free,rank=len(basis))
+def visit(depth,deficit,basis,lines,z,ms):
+ stats['nodes']+=1;bydepth[depth]+=1
+ if stats['nodes']%2000==0:print('PROGRESS',stats,'depth',bydepth,'sec',round(time.monotonic()-T0,1),flush=True)
+ if depth==6:
+  if deficit!=2 or z<14:return
+  stats['leaves']+=1;leaves.append(dict(m=ms,**affine(basis)))
+  (OUT/'leaves.json').write_text(json.dumps(dict(monomials=MON,leaves=leaves),indent=2))
+  print('LEAF',len(leaves),'dim',24-len(basis),'m',ms,flush=True);return
+ r=3+depth
+ for d,m,l,zz,eq in OPTS[r]:
+  if deficit+d>2:continue
+  if depth==5 and deficit+d!=2:continue
+  if z+zz+sum(len(VR[k]) for k in range(r+1,9))<14:continue
+  stats['options']+=1;nl=tuple(a+b for a,b in zip(lines,l))
+  if max(nl)>8:stats['line_reject']+=1;continue
+  nb=extend(basis,eq)
+  if nb is None:stats['zero_reject']+=1;continue
+  if depth>=2 and forced_line(nb) is not None:stats['forced_line_reject']+=1;continue
+  visit(depth+1,deficit+d,nb,nl,z+zz,ms+[list(m)])
+ if depth<2:
+  print('CHECKPOINT',depth,ms,stats,'bydepth',bydepth,'sec',round(time.monotonic()-T0,2),flush=True)
+  (OUT/'checkpoint.json').write_text(json.dumps(dict(stats=stats,bydepth=bydepth,seconds=time.monotonic()-T0)))
+if __name__=='__main__':
+ print('MON',MON,'options',{r:len(v) for r,v in OPTS.items()},flush=True)
+ visit(0,0,(),(0,)*9,0,[])
+ result=dict(stats=stats,bydepth=bydepth,seconds=time.monotonic()-T0,monomials=MON,leaves=leaves)
+ (OUT/'result.json').write_text(json.dumps(result,indent=2))
+ print('FINAL',stats,bydepth,'sec',result['seconds'],flush=True)

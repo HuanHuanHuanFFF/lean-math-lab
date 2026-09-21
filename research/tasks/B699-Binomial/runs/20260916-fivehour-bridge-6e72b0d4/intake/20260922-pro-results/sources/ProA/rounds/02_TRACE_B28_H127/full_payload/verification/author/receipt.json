@@ -1,0 +1,114 @@
+{
+  "status": "PASS_NEW_GAMMA5_TAIL567_TRACE_H127",
+  "elapsed_seconds": 162.91496992111206,
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "inputs": {
+    "code/algebra.py": "210c8089f8934b1a8fca0f86b4763d42c00919812153abbfdc23e2049cc04716",
+    "code/checks.py": "b16154a27de0e4ced224702955b8e6dbc52a7bb624abb95ebd4201d727c8d748",
+    "code/enumerate.cpp": "9b617db9ed2a05a60b75d7d8a65aa788dd65276991ad1de9c4b56578d7047cf6",
+    "code/ledger.py": "0cc587fb20baeacd4db896ca27a8b80bf120d4b7623068b11f728e76e572aa86",
+    "code/reproduce.py": "d444c1ccdea23eb734c624f22594fd1a6d267d9bc6085417211fbe865ac65ac9",
+    "certificates/b28_restricted_spaces.json": "0fc5adf67fec668e25eff537455e499f8e7f76a3e327e8faa2297c52a2cf9e2c",
+    "certificates/tail_q5_spaces.json": "8b1fd3f28035cfb49e0b699cc59017034b777f7bcbe503dab6c0a3c712c63299",
+    "sources/b22_adopted_families.json": "eb29746a680c39d440c5ab3df446d116a6bfbacb5fc0906c4b7dcc96055d8390",
+    "sources/old_trace_states.txt": "d45b63076c62938d272e419ff084c680d6716b5ad95ed52336d06bb6f45d823f",
+    "sources/previous_trace0_states.txt": "248d4df8f11b98901ba0a945b6166afb7c4974ef77ec86ca980fadbbf7c1c1f3"
+  },
+  "mathematical_outputs": {
+    "algebra.json": "a40aba4427bd0061e1cf99abfca378a5d72310331a727d6bd3b9fadb638dc68a",
+    "all_vertical_states.json": "8251dcd54b464d3e4147e33af59425754fafa690f3f7aaef7560f36e2161fc97",
+    "boundary.json": "58e89d5a772aafbf673bbdeb7885b197ae3da84dbe7a4e4e2a099c94f1049701",
+    "gamma5.json": "a6371d46b56956a396e695fc799d8669eb9280da68aef674a233ae01df4c30ca",
+    "gamma5_cross.json": "0adb28197ba65bc0957785ade805c4be9e30abe512c5c1f723b362357648d464",
+    "ledger.json": "1b25bdf758acc61660a8f953b28a0f175d6e48ced38a46c51b47dbc65c2f67aa",
+    "state_bounds.json": "14848aa2a32a523ca16548ab428a6889ecd4fedda88543681ad8a35d25184b31",
+    "tail5.json": "b06e40c3e444b4eafdd97b33ffe3bd803ba07ddcb392ced84cfa8322b222376b",
+    "tail6.json": "741ca76fdbb6c0d59361fce7c5faff6ab44d1b4c307b932b069670c920173f6f",
+    "tail7.json": "9e12ec28a76dce45a41e39650d5fa065982a55cf461f66777eb98d8ad4e0cd6c"
+  },
+  "commands": [
+    [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-DDEG=5",
+      "-DMODE=0",
+      "-DWEIGHTED_PEEL=0",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/code/enumerate.cpp",
+      "-o",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/gamma5"
+    ],
+    [
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/gamma5",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/gamma5.json"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-DDEG=5",
+      "-DMODE=1",
+      "-DWEIGHTED_PEEL=1",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/code/enumerate.cpp",
+      "-o",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/tail5"
+    ],
+    [
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/tail5",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/tail5.json"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-DDEG=6",
+      "-DMODE=1",
+      "-DWEIGHTED_PEEL=1",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/code/enumerate.cpp",
+      "-o",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/tail6"
+    ],
+    [
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/tail6",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/tail6.json"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-DDEG=7",
+      "-DMODE=1",
+      "-DWEIGHTED_PEEL=1",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/code/enumerate.cpp",
+      "-o",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/tail7"
+    ],
+    [
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/tail7",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/tail7.json"
+    ],
+    [
+      "g++",
+      "-std=c++17",
+      "-O3",
+      "-DDEG=5",
+      "-DMODE=0",
+      "-DWEIGHTED_PEEL=0",
+      "-DMODULUS=65521",
+      "-DALT_ORDER=1",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/code/enumerate.cpp",
+      "-o",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/gamma5_cross"
+    ],
+    [
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/build/gamma5_cross",
+      "/mnt/data/B699-ProA-TRACE-B28-20260921/verification/author/gamma5_cross.json"
+    ]
+  ],
+  "no_network": true,
+  "no_Lean": true,
+  "external_independent_review": false,
+  "repository_writes": false
+}

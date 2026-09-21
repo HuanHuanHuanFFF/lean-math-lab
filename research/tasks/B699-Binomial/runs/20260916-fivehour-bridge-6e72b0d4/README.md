@@ -10,7 +10,9 @@
 
 随后接收 [2026-09-19 Pro A/B/D/E 共26阶段成果](intake/20260919-pro-results/README.md)，[新增无限子族、固定覆盖13与仍未解空间](intake/20260919-pro-results/SUMMARY.md)已更新题目级总览。原件普通文件、成员映射和检查回执齐备；作者等级保留，本次没有数学/Lean验证或新研究。
 
-今日接收 [2026-09-20 A/D/E 共25阶段及COVER12早期补证](intake/20260920-pro-results/README.md)，[固定覆盖10、单格唯一恢复与二倍平方行进展](intake/20260920-pro-results/SUMMARY.md)已更新题目总览。B无新包；来源原字节保留，本次只有整理与push，没有独立数学/Lean验证。
+随后接收 [2026-09-20 A/D/E 共25阶段及COVER12早期补证](intake/20260920-pro-results/README.md)，[固定覆盖10、单格唯一恢复与二倍平方行进展](intake/20260920-pro-results/SUMMARY.md)已更新题目总览。B无新包；来源原字节保留，本次只有整理与push，没有独立数学/Lean验证。
+
+今日接收 [2026-09-22 四包24个新阶段](intake/20260922-pro-results/README.md)，[COVER9、GATE3—7、BRIDGE4096及原生i6尾类进展](intake/20260922-pro-results/SUMMARY.md)已汇入题目总览。B/i3、D/i3与原生D按真实来源分别登记；D/i3的Round11只作冻结依赖。本次仍仅整理普通文件与来源，不执行数学重放或Lean。
 
 ## 本轮授权和预算
 
