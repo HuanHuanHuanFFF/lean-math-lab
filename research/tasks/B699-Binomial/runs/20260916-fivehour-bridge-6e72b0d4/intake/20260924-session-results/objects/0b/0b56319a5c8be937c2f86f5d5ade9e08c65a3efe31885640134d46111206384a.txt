@@ -1,0 +1,55 @@
+ARCHIVE CHECK — MIX-DW-NONZERO / REG4-RATIONAL
+Date: 2026-09-24
+ZIP: B699-i3-MIX-DW-NONZERO-20260924.zip
+Bytes: 10016391
+Non-directory members: 57
+SHA-256: c5351fd041029900bc4c5950aef9c04f06eb304df2a13c2771b20bd36096283c
+ZIP CRC test: PASS
+Internal SHA-256 before cold replay: 56 PASS
+Internal SHA-256 after cold replay: 56 PASS
+
+Actual cold command after extracting the generated ZIP:
+python3 -B src/replay.py --output-dir /mnt/data/verify_MIX_DW_NONZERO_result_20260924 --regenerate
+
+MIX_DW_NONZERO_STANDARD_REPLAY=PASS
+STANDARD_RESULT_BYTE_IDENTICAL=PASS
+EXACT_SOURCE_AND_ENDPOINT_DAGS_REGENERATED=PASS
+ALL_CERTIFICATES_BYTE_IDENTICAL=PASS
+MIX_DW_NONZERO_CLEAN_REPLAY=PASS
+
+Cold replay receipt:
+{
+  "regeneration": [
+    {
+      "name": "algebra.json",
+      "sha256": "fc20ba5fe441cd7a0fc84a1916ce763ee1fbcbdd8581ec1b20f0d3078f1361e9",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "y0.json",
+      "sha256": "e9cb78e8acc39bf79ae270f7d55b519037870d5a5039facbd5541c1c8eb2f461",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "y1.json",
+      "sha256": "cd045f1442c4c177fab3317bb947f05b283fac0b83363b05a8d9ae5dcee66a45",
+      "status": "BYTE_IDENTICAL"
+    }
+  ],
+  "scope": "This round only; no Lean, no original integer-instance enumeration",
+  "standard_check": {
+    "name": "check.json",
+    "sha256": "ff8630442299ae6a7daf9904590a90d85cea15263d860aa3832fd0b8f6f70e54",
+    "status": "BYTE_IDENTICAL"
+  }
+}
+
+Mathematical evidence boundaries:
+- Rebuilt original ten mixed residuals and regular-chart transformations.
+- Verified two QQ ideal-membership DAGs: 179 nodes, 12 input nodes.
+- Verified three complete resultant identities by 6682 degree-bounded exact integer determinants.
+- Verified exact univariate factor product and 71 finite-field evaluations with nonzero leading coefficients.
+- This round proves rational y=0/y=1/D_w=0 exclusions, not the whole complex chart.
+- Remaining ordinary four-parameter/seven-residual graph is open.
+- No Lean, no repository modification, no external independent mathematical review.
+- Archive/hash checks are file integrity evidence, not proofs of B699.
