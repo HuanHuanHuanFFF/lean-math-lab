@@ -1,0 +1,97 @@
+--- earlier/B699-C15-no-central-q5-closure-20260922/FAILURES.md
++++ final/B699-C15-no-central-q5-closure-20260922/FAILURES.md
+@@ -15,7 +15,7 @@
+ 付款中；不能再独立重复收费。因此 C13 的剩余统一盒 `A<2^266,B<2^484`
+ 没有由本轮自动降低。
+ 
+-## F3. 1450对扫描不是 Lean
++## F3. 1255对扫描不是 Lean
+ 
+ 扫描是证明界定后的完整指数证书，使用精确模逆与整数比较；它不是任意 n 范围扫描，
+ 但也没有进入 Lean 内核或外部独立审读。
+--- earlier/B699-C15-no-central-q5-closure-20260922/MANIFEST.json
++++ final/B699-C15-no-central-q5-closure-20260922/MANIFEST.json
+@@ -3,7 +3,7 @@
+     {
+       "bytes": 1012,
+       "path": "FAILURES.md",
+-      "sha256": "3d10e0159efc599c2e8625a0233bf48d56512c50a22d2dd2023ab256ccc67d66"
++      "sha256": "0a495fc1786f84803105a723ba7613e5a4f56e82a87474a7d98a095c2fd73538"
+     },
+     {
+       "bytes": 987,
+@@ -18,12 +18,12 @@
+     {
+       "bytes": 779,
+       "path": "README.md",
+-      "sha256": "62c34151d5d959bdb21fe912cfccb71a77b2f1a2921bc917a9198f02ed259505"
++      "sha256": "9f51d50774048ae778eda8b5b9e8844b4e0ca6d0f5b3c531a9795469cdd9931c"
+     },
+     {
+       "bytes": 3866,
+       "path": "REPORT.md",
+-      "sha256": "0fef254cb6d63fb8bbc8560af676f2736aa3136768cd9f102b6af327972ec710"
++      "sha256": "fdb6e9d83e6addf1d70cee8cb1c25632f02220cf093fc83149f5b2a983e606f1"
+     },
+     {
+       "bytes": 496,
+@@ -33,7 +33,7 @@
+     {
+       "bytes": 734,
+       "path": "SOURCE_ADOPTION.md",
+-      "sha256": "c4cf9bbe9839bcf6de920cce59525e1e7e80c847c71f66b36209961b4a439823"
++      "sha256": "b965c1c4a19cb93626ff5e5494699bd57be079af98a162aa7dd915d0535d1420"
+     },
+     {
+       "bytes": 4683,
+--- earlier/B699-C15-no-central-q5-closure-20260922/README.md
++++ final/B699-C15-no-central-q5-closure-20260922/README.md
+@@ -13,7 +13,7 @@
+ 
+ The proof combines the positive K16 kernel, the frozen H02 `g^7` bound,
+ Bennett–Filaseta–Trifonov, the frozen source-saturation SAT consumer, and a
+-complete 1450-pair exponent certificate.
++complete 1255-pair exponent certificate.
+ 
+ Replay:
+ 
+--- earlier/B699-C15-no-central-q5-closure-20260922/REPORT.md
++++ final/B699-C15-no-central-q5-closure-20260922/REPORT.md
+@@ -197,6 +197,6 @@
+ - H025/H02/unit-coarse、SAT：冻结作者级纸面/证书合同；
+ - BFT：已发表外部输入，沿用固定40例外表；
+ - K16联立、SAT-SQUEEZE和剩余类证明：本轮纸面证明；
+-- K16 Taylor、付款整数界和1450对指数证书：确定性标准库重放。
++- K16 Taylor、付款整数界和1255对指数证书：确定性标准库重放。
+ 
+ 没有 Lean、外部独立全篇审读、仓库修改、提交、推送或发布。
+--- earlier/B699-C15-no-central-q5-closure-20260922/SHA256SUMS
++++ final/B699-C15-no-central-q5-closure-20260922/SHA256SUMS
+@@ -1,11 +1,11 @@
+-3d10e0159efc599c2e8625a0233bf48d56512c50a22d2dd2023ab256ccc67d66  FAILURES.md
++0a495fc1786f84803105a723ba7613e5a4f56e82a87474a7d98a095c2fd73538  FAILURES.md
+ 2bdb0da3ec2b85d79b03d89676c7a7a20979b57e8ae2b58936fc9e3909145e99  HANDOFF.md
+-558ff6504f19b0603926be1c7a60842ea4e704ca6bf9f47f0453602804a3ea84  MANIFEST.json
++5dd7342219f4fe7b860fa416b8e9b1e73abe059af3649d6b2c863670b41b01a1  MANIFEST.json
+ c4a2cb144bb0e857409613c644f2c985fa07b4faac9827bec506079b46627a05  PROOFS.md
+-62c34151d5d959bdb21fe912cfccb71a77b2f1a2921bc917a9198f02ed259505  README.md
+-0fef254cb6d63fb8bbc8560af676f2736aa3136768cd9f102b6af327972ec710  REPORT.md
++9f51d50774048ae778eda8b5b9e8844b4e0ca6d0f5b3c531a9795469cdd9931c  README.md
++fdb6e9d83e6addf1d70cee8cb1c25632f02220cf093fc83149f5b2a983e606f1  REPORT.md
+ 48bf2f07f6b6cad893599f57390b743aefe82bac2cbbc37a818faba9678add7d  RESEARCH_LOG.md
+-c4cf9bbe9839bcf6de920cce59525e1e7e80c847c71f66b36209961b4a439823  SOURCE_ADOPTION.md
++b965c1c4a19cb93626ff5e5494699bd57be079af98a162aa7dd915d0535d1420  SOURCE_ADOPTION.md
+ fe8eb3c1f0a4b8e8e53846ebc8f0f299fc6d22ac852c071403e8bd3d66c12cd5  code/replay.py
+ ca60d16194055bd76c0ad849e0d3e8a5a1a5c0e76d1f4a7d95d323bae1b185a4  outputs/bft_exception_pairs.json
+ ec77d8e302b63808c3d565995fd6659e541570fff9b1486939051e68ee898e18  outputs/exponent_scan.json
+--- earlier/B699-C15-no-central-q5-closure-20260922/SOURCE_ADOPTION.md
++++ final/B699-C15-no-central-q5-closure-20260922/SOURCE_ADOPTION.md
+@@ -12,7 +12,7 @@
+ 
+ - `Q52=1` 时 K16 的 `q5^2` 统一收费；
+ - SAT-SQUEEZE；
+-- A/B 共1450个完整指数对的零证书；
++- A/B 共1255个完整指数对的零证书；
+ - CENTRAL-MIXED-GATE。
+ 
+ ## 未采用
