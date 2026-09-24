@@ -1,0 +1,5 @@
+# B699 Pro A / SOURCE-LINE-DESCENT / H73
+
+先读REPORT.md、PROOFS.md、HANDOFF.md；重放见REPLAY.md。
+
+COVER8保持；八分量时h>=73,V<=159；必要E0状态347->343。无Lean、无完整B699。

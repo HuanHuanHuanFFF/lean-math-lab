@@ -1,0 +1,17 @@
+ORIGINAL_TEN_RESIDUALS_REBUILT=PASS
+FULL_NONZERO_ELL_RATIO_CHART=PASS
+CHART u1_small
+NODE 40 / 129 sec 0.02
+NODE 80 / 129 sec 0.12
+NODE 120 / 129 sec 0.51
+Traceback (most recent call last):
+  File "/mnt/data/B699-i3-MIX-EXCEPTION-GATES-20260924/src/check.py", line 164, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/B699-i3-MIX-EXCEPTION-GATES-20260924/src/check.py", line 158, in main
+    inputs,target,names=fn();d=json.loads((ROOT/'certificates'/f'{name}.json').read_text());stat=validate(d,inputs,target,names)
+                                                                                                 ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-i3-MIX-EXCEPTION-GATES-20260924/src/check.py", line 148, in validate
+    assert nodes[d['target']]==target,'wrong target'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: wrong target
