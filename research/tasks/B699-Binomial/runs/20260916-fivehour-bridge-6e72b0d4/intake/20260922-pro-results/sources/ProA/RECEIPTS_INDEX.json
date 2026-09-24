@@ -1,0 +1,460 @@
+[
+  {
+    "round": "01_B22_H117",
+    "receipt_file": "B699-ProA-B22-H117-20260921.CLEAN_REPLAY_RECEIPT.json",
+    "receipt": {
+      "status": "PASS_FINAL_ZIP_CLEAN_REPLAY",
+      "verified_utc": "2026-09-21T06:53:57.247702+00:00",
+      "zip_file": "B699-ProA-B22-H117-20260921-evidence.zip",
+      "zip_sha256": "b12cdc23695adb08787b0988e9d7c4aae98d98916583d3f17e44dafcdfd1e7f0",
+      "zip_bytes": 123007,
+      "zip_members": 43,
+      "manifest_entries_verified": 42,
+      "clean_directory_was_new": true,
+      "command": "python3 -B code/reproduce.py --out <new-empty-output-directory>",
+      "exit_status": 0,
+      "replay_status": "PASS_NEW_B22_CLASSIFICATION_AND_H117",
+      "replay_seconds": 38.573151,
+      "all_code_and_certificate_hashes_match_author_run": true,
+      "all_deterministic_mathematical_outputs_match_author_run": true,
+      "independent_enumeration_statistics_match_except_elapsed_time": true,
+      "mathematical_output_sha256": {
+        "classification.json": "77fc5fe83dd0ef37ab77fdc9a93e55b8006b77842f14b9ee9d623287b7c9fc20",
+        "ledger.json": "7661a4c59026e83af459f1646ca0ae33645180a3f8bd75ccb21f2fb740dd7ca2",
+        "all_states.json": "8251dcd54b464d3e4147e33af59425754fafa690f3f7aaef7560f36e2161fc97",
+        "E0_state_bounds.json": "5212f78c47c085b0db8848ec39f083a63d9cb5c8526e85c1de974cdddc90723b",
+        "auxiliary_counterexample.json": "2605267889727df2ebb251d771a9ec9996e268c3fde42a0c6e09af358a51ec66"
+      },
+      "negative_tests": [
+        {
+          "test": "missing_source_configuration",
+          "result": "REJECTED"
+        },
+        {
+          "test": "corrupted_coefficient",
+          "result": "REJECTED"
+        },
+        {
+          "test": "wrong_rank_field",
+          "result": "REJECTED"
+        },
+        {
+          "test": "ordinary_order_not_specialized_root_multiplicity",
+          "result": "COUNTEREXAMPLE_VERIFIED"
+        },
+        {
+          "test": "mod_p_affine_inconsistency_not_a_Q_obstruction",
+          "result": "RATIONAL_SOLUTION_VERIFIED"
+        },
+        {
+          "test": "generic_kappa6_one_at_pencil70_parameter_zero",
+          "result": "FALSE_ASSERTION_REJECTED_FIXED_CONSUMER_APPLIES"
+        }
+      ],
+      "result": {
+        "same_G_cover_bound": 10,
+        "equality_min_X_degree": 117,
+        "COVER9": false,
+        "R7": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "new_B22_planes": 6,
+        "new_B22_pencils": 5
+      },
+      "scope": "New author paper proof plus same-session cross-implementation exact computations. Historical consumers and middle13/LOC/free25/EDGE10 interfaces adopted, not replayed. No Lean or external peer review.",
+      "replay_receipt": {
+        "status": "PASS_NEW_B22_CLASSIFICATION_AND_H117",
+        "started_utc": "2026-09-21T06:51:41.712291+00:00",
+        "finished_utc": "2026-09-21T06:52:20.285366+00:00",
+        "elapsed_seconds": 38.573151,
+        "python": "3.13.5",
+        "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+        "source_hashes": {
+          "code/classify.py": "0d8fe2bd4dd99717a7b90ae7ae78416e77845cd649699a560f11bf164366c1ad",
+          "code/counterexample.py": "1b233189f616957d85c19520c7d8c3cc3f3ecc04faf9686f65fb6c26cfb236c6",
+          "code/enumerate.cpp": "328881b77762a153ea2b43c091fd01cd27c55409ea249db0516306def0baab48",
+          "code/exact.py": "3b766d4a52c152af749c3a65d4d6c985fe9b8d1e2dee2d2c9b3207aba56f8c8d",
+          "code/ledger.py": "1fa458d3eeac696e590485eae3cc09cffe6a3acc3faee11997ceed44155e0deb",
+          "code/reproduce.py": "4ee8b298592342c7b512e7e792f66b2e19d1e95754eb73ae47753e6b4589f3c6",
+          "certificates/b22_spaces.json": "4ca09b7a50d38bebbac75223bb77b7f0f990086702d33b585d6997bf9ff7eba4"
+        },
+        "new_claims": {
+          "B22_classification": true,
+          "B22_loadable_source_hits": [
+            19,
+            20
+          ],
+          "B22_kappa4_plus_kappa6_at_least_one": true,
+          "same_G_cover_upper_bound": 10,
+          "equality_min_X_degree": 117,
+          "cover9_proved": false
+        },
+        "finite_results": {
+          "enumerated_consistent_models": 180,
+          "affine_spaces": 41,
+          "B22_spaces": 38,
+          "planes": 6,
+          "pencils": 5,
+          "fixed": 25,
+          "universally_reducible_pencils": 2,
+          "vertical_states": 2035,
+          "E0_states": 1540,
+          "max10_states": 60,
+          "weak_TRACE0_max10_states": 54
+        },
+        "negative_tests": [
+          {
+            "test": "missing_source_configuration",
+            "result": "REJECTED"
+          },
+          {
+            "test": "corrupted_coefficient",
+            "result": "REJECTED"
+          },
+          {
+            "test": "wrong_rank_field",
+            "result": "REJECTED"
+          },
+          {
+            "test": "ordinary_order_not_specialized_root_multiplicity",
+            "result": "COUNTEREXAMPLE_VERIFIED"
+          },
+          {
+            "test": "mod_p_affine_inconsistency_not_a_Q_obstruction",
+            "result": "RATIONAL_SOLUTION_VERIFIED"
+          },
+          {
+            "test": "generic_kappa6_one_at_pencil70_parameter_zero",
+            "result": "FALSE_ASSERTION_REJECTED_FIXED_CONSUMER_APPLIES"
+          }
+        ],
+        "scope": "New author paper proof plus same-session cross-implementation exact computations. Historical consumers and middle13/LOC/free25/EDGE10 interfaces adopted, not replayed. No Lean or external peer review.",
+        "outputs": {
+          "E0_state_bounds.json": "5212f78c47c085b0db8848ec39f083a63d9cb5c8526e85c1de974cdddc90723b",
+          "all_states.json": "8251dcd54b464d3e4147e33af59425754fafa690f3f7aaef7560f36e2161fc97",
+          "auxiliary_counterexample.json": "2605267889727df2ebb251d771a9ec9996e268c3fde42a0c6e09af358a51ec66",
+          "classification.json": "77fc5fe83dd0ef37ab77fdc9a93e55b8006b77842f14b9ee9d623287b7c9fc20",
+          "enumeration.json": "40b1cfc89ab178ce26971dd209e446c10bbbfea7c17c5d6d2aa9b9ae5b81d592",
+          "ledger.json": "7661a4c59026e83af459f1646ca0ae33645180a3f8bd75ccb21f2fb740dd7ca2",
+          "replay.log": "fdc6d7db18756050aed80aaccfac5f964230393b0d4096594801a5b3068dcc30"
+        }
+      }
+    }
+  },
+  {
+    "round": "02_TRACE_B28_H127",
+    "receipt_file": "B699-ProA-TRACE-B28-H127-20260921.CLEAN_REPLAY_RECEIPT.json",
+    "receipt": {
+      "status": "PASS_CLEAN_EXTRACTION_AND_REPLAY_GAMMA5_TAIL567_TRACE_H127",
+      "created_utc": "2026-09-21T10:08:46.886053+00:00",
+      "zip_name": "B699-ProA-TRACE-B28-H127-20260921-evidence.zip",
+      "zip_sha256": "239b293e2de9b9b762acaa32b8c1966b1886f6be533c82f94944bb0e996825fa",
+      "zip_bytes": 233575,
+      "zip_member_count": 79,
+      "manifest_entries_verified": 78,
+      "uncompressed_bytes": 4402637,
+      "initial_extraction_directory_was_empty": true,
+      "zip_path_traversal_check_passed": true,
+      "zip_crc_check_passed": true,
+      "final_command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/clean_proa_h127_release/B699-ProA-TRACE-B28-20260921/code/reproduce.py",
+        "--out",
+        "/mnt/data/clean_proa_h127_outputs_verified",
+        "--cross"
+      ],
+      "observed_returncode": 0,
+      "final_output_directory": "/mnt/data/clean_proa_h127_outputs_verified",
+      "elapsed_seconds": 164.41447043418884,
+      "input_hashes_match_author": true,
+      "all_deterministic_math_outputs_match_author": true,
+      "deterministic_mathematical_output_count": 10,
+      "mathematical_output_hashes": {
+        "algebra.json": "a40aba4427bd0061e1cf99abfca378a5d72310331a727d6bd3b9fadb638dc68a",
+        "all_vertical_states.json": "8251dcd54b464d3e4147e33af59425754fafa690f3f7aaef7560f36e2161fc97",
+        "boundary.json": "58e89d5a772aafbf673bbdeb7885b197ae3da84dbe7a4e4e2a099c94f1049701",
+        "gamma5.json": "a6371d46b56956a396e695fc799d8669eb9280da68aef674a233ae01df4c30ca",
+        "gamma5_cross.json": "0adb28197ba65bc0957785ade805c4be9e30abe512c5c1f723b362357648d464",
+        "ledger.json": "1b25bdf758acc61660a8f953b28a0f175d6e48ced38a46c51b47dbc65c2f67aa",
+        "state_bounds.json": "14848aa2a32a523ca16548ab428a6889ecd4fedda88543681ad8a35d25184b31",
+        "tail5.json": "b06e40c3e444b4eafdd97b33ffe3bd803ba07ddcb392ced84cfa8322b222376b",
+        "tail6.json": "741ca76fdbb6c0d59361fce7c5faff6ab44d1b4c307b932b069670c920173f6f",
+        "tail7.json": "9e12ec28a76dce45a41e39650d5fa065982a55cf461f66777eb98d8ad4e0cd6c"
+      },
+      "author_receipt_sha256": "6954531a7c2998991670bdb814ec57cf36d2b678085a702cc9b959c7a2ff9faa",
+      "clean_execution_receipt_sha256": "b8df2dc6d0cf17efd052504026d5f6123923dc56167b5059f523aaddeaffc021",
+      "captured_exit_record_sha256": "e2629b5f10f43549a88ad3bae5a030a13db6d1c09ebcb27ffd0e52c1c3a880f5",
+      "clean_log_sha256": "64396eeef001d1f2d54fa051b5e96211baa62c8b90510b2f0138e3ac729be237",
+      "additional_first_replay": {
+        "status": "PASS_NEW_GAMMA5_TAIL567_TRACE_H127",
+        "mathematical_outputs_identical": true,
+        "returncode_separately_captured": false
+      },
+      "conclusion": {
+        "cover": 10,
+        "equality_h_min": 127,
+        "equality_vertical_states": 37,
+        "unique_h127_v": [
+          12,
+          10,
+          9,
+          8,
+          6,
+          6
+        ]
+      },
+      "no_Lean": true,
+      "no_repository_writes": true,
+      "external_independent_mathematical_review": false,
+      "frozen_old_full_chain_replayed": false,
+      "boundary": "3 S5 + 7 C is a necessary-relaxation obstruction, not an actual G factorization or B699 counterexample."
+    }
+  },
+  {
+    "round": "03_KAPPA_GENUS_COVER9",
+    "receipt_file": "B699-ProA-KAPPA-GENUS-COVER9-20260921.CLEAN_REPLAY_RECEIPT.json",
+    "receipt": {
+      "status": "PASS_CLEAN_EXTRACTION_AND_REPLAY_SAME_G_COVER9",
+      "zip": {
+        "zip_path": "/mnt/data/B699-ProA-KAPPA-GENUS-COVER9-20260921-evidence.zip",
+        "sha256": "8bf7b4c781c89e5b503b62352937f56c61628a766302f162a39f07edbf38adfc",
+        "bytes": 1801953,
+        "files": 314,
+        "uncompressed_bytes": 61686417,
+        "omitted_rebuildables": 130
+      },
+      "start_utc": "2026-09-21T11:01:18.005644+00:00",
+      "finished_utc": "2026-09-21T11:08:15.196796+00:00",
+      "actual_subprocess_exit_code": 0,
+      "manifest_entries_verified": 313,
+      "unlisted_payload_files": 0,
+      "extracted_to": "/mnt/data/CLEAN-KAPPA9-20260921/B699-ProA-KAPPA-GENUS-COVER9-20260921",
+      "replay_output": "/mnt/data/CLEAN-KAPPA9-20260921-OUTPUT",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/CLEAN-KAPPA9-20260921/B699-ProA-KAPPA-GENUS-COVER9-20260921/code/reproduce.py",
+        "--out",
+        "/mnt/data/CLEAN-KAPPA9-20260921-OUTPUT"
+      ],
+      "log": "/mnt/data/B699-ProA-KAPPA-GENUS-COVER9-20260921.CLEAN_REPLAY.log",
+      "elapsed_seconds": 417.19116973876953,
+      "network_used_by_replay": false,
+      "repository_writes": false,
+      "Lean": false,
+      "external_independent_math_review": false,
+      "new_fixed_G_cover_upper_bound": 9,
+      "geometry_total_minors": 20457,
+      "total_vertical_states": 2035,
+      "E0_no_ten_states": 1540,
+      "positive_E_frozen_upper_bound": 9,
+      "deterministic_outputs_compared": 103,
+      "all_deterministic_outputs_match": true,
+      "final_code_matches_author_supplement": true,
+      "payload_unchanged_by_replay": true,
+      "proof_scope": "author mathematics + exact certificates, conditional on recorded frozen inputs; not independent external proof review",
+      "matches": {
+        "all_state_receipts.json": true,
+        "determinants/q16h6.txt": true,
+        "determinants/q16h6_cross.txt": true,
+        "determinants/q16h7.txt": true,
+        "determinants/q16h7_cross.txt": true,
+        "determinants/q16h8.txt": true,
+        "determinants/q16h8_cross.txt": true,
+        "determinants/q17h6.txt": true,
+        "determinants/q17h6_cross.txt": true,
+        "determinants/q17h7.txt": true,
+        "determinants/q17h7_cross.txt": true,
+        "determinants/q17h8.txt": true,
+        "determinants/q17h8_cross.txt": true,
+        "determinants/q18h6.txt": true,
+        "determinants/q18h6_cross.txt": true,
+        "determinants/q18h7.txt": true,
+        "determinants/q18h7_cross.txt": true,
+        "determinants/q18h8.txt": true,
+        "determinants/q18h8_cross.txt": true,
+        "determinants/q19h6.txt": true,
+        "determinants/q19h6_cross.txt": true,
+        "determinants/q19h7.txt": true,
+        "determinants/q19h7_cross.txt": true,
+        "determinants/q19h8.txt": true,
+        "determinants/q19h8_cross.txt": true,
+        "determinants/q20h6.txt": true,
+        "determinants/q20h6_cross.txt": true,
+        "determinants/q20h7.txt": true,
+        "determinants/q20h7_cross.txt": true,
+        "determinants/q20h8.txt": true,
+        "determinants/q20h8_cross.txt": true,
+        "determinants/q21h6.txt": true,
+        "determinants/q21h6_cross.txt": true,
+        "determinants/q21h7.txt": true,
+        "determinants/q21h7_cross.txt": true,
+        "determinants/q21h8.txt": true,
+        "determinants/q21h8_cross.txt": true,
+        "determinants/q22h6.txt": true,
+        "determinants/q22h6_cross.txt": true,
+        "determinants/q22h7.txt": true,
+        "determinants/q22h7_cross.txt": true,
+        "determinants/q22h8.txt": true,
+        "determinants/q22h8_cross.txt": true,
+        "determinants/q23h6.txt": true,
+        "determinants/q23h6_cross.txt": true,
+        "determinants/q23h7.txt": true,
+        "determinants/q23h7_cross.txt": true,
+        "determinants/q23h8.txt": true,
+        "determinants/q23h8_cross.txt": true,
+        "determinants/q24h6.txt": true,
+        "determinants/q24h6_cross.txt": true,
+        "determinants/q24h7.txt": true,
+        "determinants/q24h7_cross.txt": true,
+        "determinants/q24h8.txt": true,
+        "determinants/q24h8_cross.txt": true,
+        "determinants/q25h0.txt": true,
+        "determinants/q25h0_cross.txt": true,
+        "determinants/q26h0.txt": true,
+        "determinants/q26h0_cross.txt": true,
+        "determinants/q27h0.txt": true,
+        "determinants/q27h0_cross.txt": true,
+        "determinants/q28h0.txt": true,
+        "determinants/q28h0_cross.txt": true,
+        "geometry.json": true,
+        "ledger.json": true,
+        "negative_tests.json": true,
+        "roots/q16h6.txt": true,
+        "roots/q16h7.txt": true,
+        "roots/q16h8.txt": true,
+        "roots/q17h6.txt": true,
+        "roots/q17h7.txt": true,
+        "roots/q17h8.txt": true,
+        "roots/q18h6.txt": true,
+        "roots/q18h7.txt": true,
+        "roots/q18h8.txt": true,
+        "roots/q19h6.txt": true,
+        "roots/q19h7.txt": true,
+        "roots/q19h8.txt": true,
+        "roots/q20h6.txt": true,
+        "roots/q20h7.txt": true,
+        "roots/q20h8.txt": true,
+        "roots/q21h6.txt": true,
+        "roots/q21h7.txt": true,
+        "roots/q21h8.txt": true,
+        "roots/q22h6.txt": true,
+        "roots/q22h7.txt": true,
+        "roots/q22h8.txt": true,
+        "roots/q23h6.txt": true,
+        "roots/q23h7.txt": true,
+        "roots/q23h8.txt": true,
+        "roots/q24h6.txt": true,
+        "roots/q24h7.txt": true,
+        "roots/q24h8.txt": true,
+        "roots/q25h0.txt": true,
+        "roots/q26h0.txt": true,
+        "roots/q27h0.txt": true,
+        "roots/q28h0.txt": true,
+        "small_acceptance.json": true,
+        "triple4.json": true,
+        "triple4_cross.json": true,
+        "triple5.json": true,
+        "triple5_cross.json": true,
+        "nine_boundary_acceptance.json": true
+      }
+    }
+  },
+  {
+    "round": "04_KSAT29_NINELEDGER",
+    "receipt_file": "B699-ProA-KSAT29-NINELEDGER-20260921.CLEAN_REPLAY_RECEIPT.json",
+    "receipt": {
+      "status": "PASS_CLEAN_KSAT29_AND_NINE_LEDGER",
+      "gate_count": 153,
+      "minor_count": 153,
+      "matrix_dimension": 730,
+      "gates_sha256": "70b5b9f5c3113ff39bf004e837a2d5cc5630fae1eb86e4e981470cd222bd59a7",
+      "minors_sha256": "0949652466270c3397c1077fa5ef8a7e2d261a5645073b7f19710880f2bd69ed",
+      "process_exit_code": 0,
+      "ledger_status": "PASS_KSAT29_NINE_FACTOR_LEDGER_DIAGNOSTIC",
+      "note": "Clean replay split after wrapper timeout; all stages executed in the same fresh replay directory."
+    }
+  },
+  {
+    "round": "05_KSAT30_EDGE9",
+    "receipt_file": "B699-ProA-KSAT30-EDGE9-20260921.CLEAN_REPLAY_RECEIPT.json",
+    "receipt": {
+      "status": "PASS_CLEAN_STAGED_KSAT30_EDGE9_REPLAY",
+      "clean_directory": "/mnt/data/B699-ProA-KSAT30-EDGE9-20260921.clean-replay",
+      "stages": {
+        "compile": "PASS",
+        "regenerate_gates30": "PASS",
+        "regenerate_jets30": "PASS",
+        "verify_mod_32749": "PASS",
+        "verify_mod_32719": "PASS",
+        "ledger": "PASS"
+      },
+      "checks": {
+        "gates_match": true,
+        "minors_match": true,
+        "dets32749_lines": 185,
+        "dets32719_lines": 185,
+        "ledger_status": "PASS_KSAT30_EDGE9_LEDGER"
+      },
+      "note": "The initial all-in-one wrapper was interrupted by the tool execution window during jets; the same newly-created clean directory was then completed stage-by-stage. No partial q31 data is included.",
+      "q30_gate_count": 185,
+      "q30_matrix_dimension": 785,
+      "gates_sha256": "4357fdb51b4ffb1b71c78841bcd94751cb00d6baf736762d9d1d035bc6af48ef",
+      "minors_sha256": "a43d72229dd8141313c2737c1270ed7b5f81148533c21f680d185df533874b38"
+    }
+  },
+  {
+    "round": "06_KSAT2_EDGE9_H133",
+    "receipt_file": "B699-ProA-KSAT2-EDGE9-H133-20260921.CLEAN_REPLAY_RECEIPT.json",
+    "receipt": {
+      "status": "PASS_CLEAN_EXTRACTION_AND_FULL_REPLAY_K2SAT_EDGE9_H133",
+      "zip": {
+        "name": "B699-ProA-KSAT2-EDGE9-H133-20260921-evidence.zip",
+        "size": 128543,
+        "sha256": "d4d7711ac958802419e36823db071efbc7382a675effd1d7a29181db0129db2c"
+      },
+      "package_root": "B699-ProA-KSAT2-EDGE9-H133-20260921",
+      "manifest_entries": 108,
+      "clean_extraction_manifest_check": "PASS_108_OF_108",
+      "full_replay_process_exit_code": 0,
+      "full_replay": {
+        "status": "PASS_CLEAN_K2SAT_EDGE9_H133_REPLAY",
+        "mode": "full",
+        "gates_regenerated": 12,
+        "full_rank_checks": 24,
+        "full_rank_system_prime_checks": 11708,
+        "ledger_status": "PASS_K2SAT25_30_KSAT31_36_SAME_G_LEDGER",
+        "nine_states": 6,
+        "minimum_h": 133
+      },
+      "math_summary": {
+        "K2SAT_q_range": [
+          25,
+          30
+        ],
+        "KSAT_q_range": [
+          31,
+          36
+        ],
+        "exact_one_kappa_systems": 4097,
+        "zero_kappa_systems": 1757,
+        "two_prime_system_checks": 11708,
+        "frozen_frontier_states_rechecked": 98,
+        "terminal_queries_reconstructed": 527,
+        "remaining_nine_factor_states": 6,
+        "minimum_h_if_nine": 133,
+        "maximum_vertical_sum_if_nine": 39,
+        "COVER8_proved": false
+      },
+      "evidence_level": "author paper proof + deterministic exact finite certificates + two-prime full replay; no Lean or external independent full-chain review",
+      "repository_modified": false
+    }
+  }
+]

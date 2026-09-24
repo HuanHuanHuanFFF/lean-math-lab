@@ -1,0 +1,36 @@
+{
+  "high_endpoint": {
+    "formula": "A=mX/2^(r-1)=2mx, B=2^(r-1)9U/m",
+    "r3": {
+      "J_mod_16": 0,
+      "d_bound": "d<2B^2",
+      "odd_m_max": 73
+    },
+    "r_ge_4": {
+      "J_mod_16": 8,
+      "d_bound": "d<4B^2",
+      "multiplier_bound": "m<27*2^(r-1)"
+    }
+  },
+  "identities": [
+    "v2(U_(4k+1))=1",
+    "v2(X_(4k))=v2(k)+3=:r",
+    "gcd(U_(4k+1),X_(4k))=2",
+    "if B_X is a power of two, write U=2u, X=2^r x, B=2^beta*9u/m, A=2^(r+1-beta)mx"
+  ],
+  "low_endpoint": {
+    "J_residues_mod_16": [
+      4,
+      12
+    ],
+    "bootstrap_bounds": [
+      "d<10B^2 => m<=83",
+      "k>=2 => B>8",
+      "d<8B^2 => odd m<=73"
+    ],
+    "distance_lower_bound": "dist(40sqrt3,{4,12} mod16) >= 40sqrt3-68 > 88/69",
+    "formula": "A=mX/2, B=18U/m"
+  },
+  "mod8_dichotomy": "square norm forces beta=2 or r+1-beta=1",
+  "schema": "B699-D-i3-round11-two-adic-v1"
+}
