@@ -1,0 +1,149 @@
+{
+  "session": "B699-C-q4-character-routing-20260926",
+  "date": "2026-09-26",
+  "timezone": "Asia/Tokyo",
+  "primary_source": "OVERVIEW-2026-09-22.md.txt",
+  "target": "native i=6 B-RES10; no cross-index assumption",
+  "global_unresolved_indices": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "result_accounting": {
+    "complete_indices_closed": [],
+    "B_RES10_closed": false,
+    "general_i6_closed": false,
+    "certified_net_historical_frontier_reduction": 0,
+    "nonempty_unbounded_consumer_domain_proved": true,
+    "consumer_domain_net_new_against_all_history_certified": false,
+    "uniform_absolute_height": false,
+    "uniform_finite_terminal": false,
+    "strict_NC_descent": false,
+    "general_d4_upgrade": false,
+    "full_RES10_q5_valuation_cap": false
+  },
+  "proved_results": [
+    {
+      "id": "U4-CHAR",
+      "kind": "sufficient original-pair consumer",
+      "quantifier": "all integers 7<=j<=floor(n/2), W=10Y^2",
+      "predicate": "Jacobi(10,q4)!=Jacobi(10,E4*C)",
+      "conclusion": "same p>=7 divides binomial(n,6) and binomial(n,j)",
+      "requires_alpha_3_power": false
+    },
+    {
+      "id": "B4-SIGN",
+      "kind": "necessary restriction",
+      "hypotheses": [
+        "n=450 mod720",
+        "NC6",
+        "W=10Y^2"
+      ],
+      "conclusions": [
+        "chi10(E3)=-1",
+        "chi10(E4*C)=-1",
+        "chi10(E4)=-chi3(C)"
+      ]
+    },
+    {
+      "id": "B4-ENDPOINT",
+      "kind": "necessary complete-prime-power allocation",
+      "prime_residues_mod120": [
+        11,
+        23,
+        47,
+        59,
+        61,
+        73,
+        97,
+        109
+      ],
+      "conclusion": "p^e||q4 goes to E4; odd e implies vp(jk)>=e+1"
+    },
+    {
+      "id": "B4-SF77",
+      "kind": "conditional target precision",
+      "extra_hypothesis": "chi3(C)=+1",
+      "conclusions": [
+        "sf(E3E4)>=77",
+        "U=10*g^2*E3*E4*sf(E3E4)*v^2"
+      ]
+    },
+    {
+      "id": "CENTRAL-LOCAL-BOUNDARY",
+      "kind": "unbounded countermodel to reduced assumptions",
+      "quantifier": "all e>=1; odd e unbounded",
+      "family": "n=3*7^e+4,j=7^e+2",
+      "not_full_RES10": true
+    },
+    {
+      "id": "Q5-NOCAP-LOCAL",
+      "kind": "unbounded exact weak-family boundary",
+      "quantifier": "all A>=2,B>=4,E>=3,m>=2; positive CRT progression, shifted when necessary",
+      "conclusions": [
+        "v31(q5)=1",
+        "v31(U-1)=m"
+      ],
+      "not_full_RES10": true,
+      "missing": [
+        "alpha=3^a",
+        "full q4 window",
+        "all q5 near",
+        "all higher noCommon"
+      ]
+    }
+  ],
+  "remaining_unbounded": [
+    "n",
+    "j",
+    "g",
+    "a",
+    "v2(n-2)",
+    "v5(n-5)",
+    "q2",
+    "q5",
+    "C",
+    "rough prime support",
+    "complete prime exponents"
+  ],
+  "specific_open_branch": "E4 square and chi3(C)=-1",
+  "executed_checks": {
+    "residue_classes": 32,
+    "primes_7_to_499": 92,
+    "central_models": 4,
+    "universal_legal_pairs": 352836,
+    "universal_W10_pairs": 195,
+    "universal_consumer_triggers": 81,
+    "B_congruence_examples": 3,
+    "CRT_examples": 6,
+    "CRT_m_values": [
+      2,
+      3,
+      8,
+      16,
+      32,
+      64
+    ],
+    "discovery_executed": true,
+    "acceptance_executed": true
+  },
+  "evidence_level": {
+    "author_paper_proof": true,
+    "deterministic_exact_certificates": true,
+    "external_independent_review": false,
+    "Lean": false
+  },
+  "replay_evidence": {
+    "packaged_receipt": "replay/PAYLOAD_CLEAN_REPLAY.json",
+    "payload_manifest": "PAYLOAD.sha256",
+    "final_package_manifest": "SHA256SUMS",
+    "note": "The actual signed-by-hash execution records, not this state file, establish replay results."
+  },
+  "source_byte_limit": "materialize failed; package contains retrieved-text snapshots only",
+  "repository_mutations": false,
+  "next_falsifiable_target": "Combine true alpha=3^a, global primitive norm, C^2 and all-q5-near in the E4-square / chi3(C)=-1 residual; do not repeat reduced local cap search."
+}

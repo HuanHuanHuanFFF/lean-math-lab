@@ -1,0 +1,43 @@
+compile_gates 0  
+compile_gates_alt 0  
+compile_jets32749 0  
+compile_jets32719 0  
+compile_six_receiver 0  
+tail18_sat_gates 0 q 18 anchors 3,4,5 gates 34 
+tail18_sat_alt 0 q 18 anchors 3,4,6 gates 34 
+ANCHORS_EQUAL tail18_sat 34
+tail18_sat_jets32749 0 q 18 gates 34 full 34 deficient 0 columns 257 
+tail18_sat_receive32749 -6  terminate called after throwing an instance of 'std::runtime_error'
+  what():  q scope
+
+tail18_near_gates 0 q 18 anchors 3,4,5 gates 656 
+tail18_near_alt 0 q 18 anchors 3,4,6 gates 656 
+ANCHORS_EQUAL tail18_near 656
+tail18_near_jets32749 0 q 18 gates 656 full 656 deficient 0 columns 257 
+tail18_near_receive32749 -6  terminate called after throwing an instance of 'std::runtime_error'
+  what():  q scope
+
+Traceback (most recent call last):
+  File "/mnt/data/research1787/discovery/geometry_probe.py", line 25, in <module>
+    with ThreadPoolExecutor(max_workers=2)as ex:list(ex.map(run,cases))
+                                                ~~~~^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.13/concurrent/futures/thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/mnt/data/research1787/discovery/geometry_probe.py", line 24, in run
+    else:call([D/'discovery/six_receiver',18,p,D/f'discovery/{name}.gates',D/f'discovery/{name}.{p}.minors','-'],name+'_receive'+str(p))
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/research1787/discovery/geometry_probe.py", line 10, in call
+    if r.returncode:raise RuntimeError(label)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: tail18_sat_receive32749

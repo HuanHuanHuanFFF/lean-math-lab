@@ -1,0 +1,132 @@
+{
+  "adopted_R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "complete_B699_proved": false,
+  "complete_first_exterior_band_proved": false,
+  "complete_i3_proved": false,
+  "date": "2026-09-26",
+  "entrypoint": "sources/PREVIOUS_HANDOFF.md",
+  "external_independent_review": false,
+  "finite_evidence": {
+    "exterior": {
+      "ALL_SOURCE_WINDOWS_PASS": 0,
+      "actual_rows": 69380,
+      "after_inherited_n_mod4": 34840,
+      "block_fail": 34543,
+      "block_pass": 297,
+      "full_lucas_fail": 8,
+      "inherited_n_mod4": 34540,
+      "m1_eps-1_carry[0]": 1,
+      "m1_eps-1_carry[1]": 61,
+      "m1_eps1_carry[1]": 109,
+      "m2_eps-1_carry[0, 1]": 94,
+      "m2_eps1_carry[0, 1]": 18,
+      "m2_eps1_carry[1, 0]": 13,
+      "m2_eps1_carry[1, 1]": 1,
+      "n_source_fail": 288,
+      "n_source_pass": 1,
+      "new_near_row_domain": 126,
+      "new_zero_carry_domain": 1,
+      "res_lcm_rejected_block_models": 288,
+      "third_source_fail": 1,
+      "two_lucas_pass": 289
+    },
+    "full_row_pairs": 880,
+    "near": {
+      "both_source_lucas_pass": 94,
+      "first_exterior_band": 839,
+      "inherited_n_mod4_overlap": 897,
+      "new_domain_after_inherited_n_mod4": 891,
+      "nontrivial_prime_power_rows": 63,
+      "old_digit_gate_overlap": 3819,
+      "outside_old_digit_gate": 1788,
+      "past_2P_edge": 52
+    },
+    "seconds": 0.589,
+    "status": "PASS"
+  },
+  "global_index_frontier_decreased": false,
+  "height_truncation_in_structural_theorems": false,
+  "infinite_actual_prime_power_row_family_proved": false,
+  "lean_performed": false,
+  "local_conditional_frontier_reduced": true,
+  "net_gain_scope": "Relative to named inherited digit and n-mod-4 gates; no all-history zero-overlap assertion.",
+  "network_required_for_replay": false,
+  "next_route": {
+    "branch": "m=1,k=d+1,z=1,epsilon=-1",
+    "necessary": "T0=1; n=2^alpha or 3*2^alpha, d odd, v=2 mod 4, v<=d-2",
+    "proof": "PROOFS §8",
+    "restoration": "P=dv-1,Q=d(d+1)v-1,j=Qv",
+    "status": "OPEN: necessary recovery only"
+  },
+  "previous_round": "TWOPP-DIGIT-GAP",
+  "proved_consumers": [
+    {
+      "domain": "n-1=P*Q, 5<=P<Q<2P, P=p^a and Q=q^b distinct odd prime bases, d=Q-P, (d-1)^2<2P",
+      "id": "NEAR-CARRY2",
+      "level": "whole_row_sufficient",
+      "proof": "PROOFS §§4–5"
+    },
+    {
+      "domain": "same two complete prime powers, P<d*H<2P, exact carry chain zero",
+      "id": "CARRY0-BAND2",
+      "level": "NC3_pair_exclusion_lifted_through_unique_CRT",
+      "proof": "PROOFS §6"
+    },
+    {
+      "domain": "same original j and complete n-2 source; all homogenized slot resultants nonzero",
+      "id": "RES-LCM",
+      "level": "necessary_condition_and_sufficient_rejection",
+      "necessary": "T2 divides LCM of absolute slot resultants",
+      "proof": "PROOFS §3"
+    }
+  ],
+  "remaining_first_band_necessary": [
+    "4 divides n",
+    "2P <= Q < 3P^2",
+    "P < dH < 2P",
+    "actual distinct complete odd prime powers",
+    "full two-base Lucas and block constraints",
+    "at least one nonzero carry",
+    "same-original-input full n and n-2 source constraints",
+    "T2 divides LCM when all resultants nonzero"
+  ],
+  "replay_receipt": "REPLAY_RECEIPT.json",
+  "repository_modified": false,
+  "resulting_R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "round_id": "CARRY2-NEAR-20260926",
+  "runtime_dependencies": [
+    "Python >=3.10 standard library"
+  ],
+  "schema_version": 1,
+  "session": "B/i3",
+  "unbounded_remaining": [
+    "P",
+    "Q",
+    "p",
+    "q",
+    "a",
+    "b",
+    "d",
+    "H",
+    "k",
+    "z",
+    "n",
+    "j"
+  ]
+}

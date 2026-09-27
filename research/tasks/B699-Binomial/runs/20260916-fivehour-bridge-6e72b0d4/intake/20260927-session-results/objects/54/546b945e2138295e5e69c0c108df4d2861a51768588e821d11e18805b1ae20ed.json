@@ -1,0 +1,121 @@
+{
+  "session": "B699-C-central-norm-lift-r2-20260926",
+  "date": "2026-09-26",
+  "timezone": "Asia/Tokyo",
+  "round": 2,
+  "primary_source": "OVERVIEW-2026-09-22.md.txt",
+  "previous_round_sha256": "3e97e3c080ba4853bb10a6a40dce81ac974b21b39b38adef28041546d1c96980",
+  "target": "native i=6; C/B-RES10, same original (n,j)",
+  "global_unresolved_indices": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "frontier_accounting": {
+    "complete_indices_closed": [],
+    "B_RES10_closed": false,
+    "general_i6_closed": false,
+    "certified_net_historical_domain_reduction": 0,
+    "uniform_absolute_height": false,
+    "uniform_finite_terminal_completed": false,
+    "strict_NC_descent": false,
+    "general_E4_nonsquare": false,
+    "general_d4_upgrade": false,
+    "full_q5_valuation_cap": false
+  },
+  "proved_results": [
+    {
+      "id": "SPARSE-B",
+      "kind": "uniform global prefix counting bound",
+      "quantifier": "for all X>=1; actual coarse-B strict normalized pairs with n<=X",
+      "bound": "floor(sqrt(X)/346)",
+      "not_global_finiteness": true
+    },
+    {
+      "id": "NORM-REDUCE",
+      "kind": "exact finite algorithm for every fixed n",
+      "domain": "n>=6,6|n; true alpha=3^a, N|jk, W10",
+      "requires_mass_8g4_lt_n": false,
+      "factorization_required": false,
+      "output": "EMPTY or one strict normalized CANDIDATE, not NC",
+      "old_row_uniqueness_claimed_new": false
+    },
+    {
+      "id": "NORM-ORDER",
+      "kind": "global arithmetic necessary condition / interpretation",
+      "order": "ord of the designated ideal over 3 in Pic(Z[sqrt(-10*(n-1))]) equals 2a",
+      "maximal_order_claim": false
+    },
+    {
+      "id": "OUTSIDE-ODD",
+      "kind": "same-input complete-power complementary-kernel routing",
+      "extra_hypotheses": [
+        "NC6",
+        "n=450 mod720",
+        "E4 square",
+        "all q5 near"
+      ],
+      "conclusions": [
+        "gcd(T,q2*q3*q4)=1",
+        "gcd(T,q5)=gcd(13,q5)",
+        "sf(H)>=119",
+        "negative-character odd prime of T avoids n*(n-2)*(n-3)*(n-4)*(n-5)"
+      ],
+      "remaining": "the prime may divide n-1 or be outside all source factors"
+    },
+    {
+      "id": "CENTRAL-DEFECT-AUDIT",
+      "kind": "proved redundancy, not a new frontier condition",
+      "identity": "gcd(C,H/C)=gcd(C,q4/C)"
+    }
+  ],
+  "remaining_unbounded": [
+    "n",
+    "j",
+    "g",
+    "a",
+    "z",
+    "C",
+    "T",
+    "q2",
+    "q5",
+    "rough prime support",
+    "complete prime exponents",
+    "order discriminant",
+    "conductor"
+  ],
+  "executed_checks": {
+    "prefix_n_upper": 400000,
+    "prefix_rows": 66666,
+    "independent_beta_tests": 715560,
+    "strict_prefix_candidates": 2,
+    "coarse_B_prefix_candidates": 0,
+    "recovery_matrix_checks": 202,
+    "order_matrix_checks": 460,
+    "central_exact_cases": 5,
+    "old_U4_only_nonredundant_examples": 3,
+    "mutation_rejections": 2,
+    "prefix_generator_X": 1000000000000,
+    "prefix_generator_unit_z": 880,
+    "explicit_budget_boundary_verified": true
+  },
+  "evidence_level": {
+    "author_paper_proof": true,
+    "deterministic_integer_certificates": true,
+    "same_author_separate_algorithms": true,
+    "external_independent_review": false,
+    "Lean": false
+  },
+  "repository_mutations": false,
+  "replay_evidence": {
+    "payload_manifest": "PAYLOAD.sha256",
+    "packaged_receipt": "replay/PAYLOAD_CLEAN_REPLAY.json",
+    "final_manifest": "SHA256SUMS",
+    "final_zip_receipt": "external FINAL_REPLAY.json; actual execution is recorded there"
+  },
+  "next_falsifiable_target": "Use the true normalized candidate and complete first-source allocation to control the OUTSIDE-ODD prime; do not equate auxiliary prime production with an original common-prime witness."
+}

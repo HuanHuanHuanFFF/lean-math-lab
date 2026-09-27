@@ -1,0 +1,105 @@
+{
+  "status": "PASS",
+  "checked_at_utc": "2026-09-26T08:38:17.737824+00:00",
+  "archive_sha256": "37946b1eca36ddae27ef5d0f51a39ffa0b11833391d031620c8a300795e8c982",
+  "archive_name": "MIXED-COST4-PAYLOAD-CHECKPOINT.zip",
+  "archive_bytes": 472540,
+  "archive_entries": 492,
+  "manifest_sha256": "44b547a2c71aa5a8ceb2a00aff66dbed6e126832afa7b095bacb61866aaff109",
+  "clean_extraction_directory": "/mnt/data/mixed_checkpoint_extracted",
+  "separate_replay_output": "/mnt/data/mixed_checkpoint_replayed",
+  "steps": [
+    {
+      "stage": "manifest",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/mixed_checkpoint_extracted/B699-ProA-MIXED-COST4-H115-FRONTIER104-20260926-evidence/code/verify_manifest.py"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS_SHA256_MANIFEST 491 files\n",
+      "stderr": ""
+    },
+    {
+      "stage": "complete_replay",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/mixed_checkpoint_extracted/B699-ProA-MIXED-COST4-H115-FRONTIER104-20260926-evidence/code/replay.py",
+        "--out",
+        "/mnt/data/mixed_checkpoint_replayed",
+        "--jobs",
+        "2"
+      ],
+      "exit_code": 0,
+      "stdout": "COMPLETE_ROOT_CONFIGURATIONS 1175\nGEOMETRY_PASS 2350 modular minors; 15 exact integer minors\n{\n  \"status\": \"PASS_MIXED_COST4_H115_FRONTIER104\",\n  \"input_states\": 106,\n  \"remaining_states\": 104,\n  \"removed_states\": [\n    1643,\n    1726\n  ],\n  \"net_removed\": 2,\n  \"COVER8\": true,\n  \"COVER7_proved\": false,\n  \"minimum_equality_h\": 115,\n  \"maximum_vertical_sum\": 75,\n  \"minimum_h_states\": [\n    1670,\n    1672,\n    1679\n  ],\n  \"old_1643_complete_multisets\": 168,\n  \"new_1643_complete_multisets\": 0,\n  \"new_1643_minimum_proxy_degree\": 114,\n  \"new_1726_minimum_proxy_degree\": 119,\n  \"safe_signatures\": 547,\n  \"original_input_absolute_bound\": false,\n  \"actual_G_or_factors_recovered\": false,\n  \"R7\": [\n    3,\n    4,\n    5,\n    6,\n    7,\n    8,\n    9\n  ],\n  \"Lean\": false,\n  \"repository_operations\": false,\n  \"geometric_profiles\": 22,\n  \"complete_root_configurations\": 1175,\n  \"modular_minor_checks\": 2350,\n  \"selected_exact_integer_minors\": 15,\n  \"integer_price_signature_checks\": 547,\n  \"independent_integer_DP_cells\": 10935,\n  \"next_h115_complete_multiset_counts\": {\n    \"1670\": 2993,\n    \"1672\": 75,\n    \"1679\": 12379\n  },\n  \"external_independent_review\": false\n}\n",
+      "stderr": ""
+    },
+    {
+      "stage": "compare",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/mnt/data/mixed_checkpoint_extracted/B699-ProA-MIXED-COST4-H115-FRONTIER104-20260926-evidence/code/compare_replay.py",
+        "/mnt/data/mixed_checkpoint_replayed"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS_BYTE_IDENTICAL_CERTIFICATES 165\n",
+      "stderr": ""
+    }
+  ],
+  "full_replay_exit_code": 0,
+  "byte_identical_deterministic_certificates": 165,
+  "replay_receipt_sha256": "96bfbfdfc770e4299c6056b55223bea625629652265705580e3c7b055827690e",
+  "input_manifest_sha256": "617a0b807d03253144c75bd194b89ee2550628435b0717a9d2c151e052af983c",
+  "summary": {
+    "status": "PASS_MIXED_COST4_H115_FRONTIER104",
+    "input_states": 106,
+    "remaining_states": 104,
+    "removed_states": [
+      1643,
+      1726
+    ],
+    "net_removed": 2,
+    "COVER8": true,
+    "COVER7_proved": false,
+    "minimum_equality_h": 115,
+    "maximum_vertical_sum": 75,
+    "minimum_h_states": [
+      1670,
+      1672,
+      1679
+    ],
+    "old_1643_complete_multisets": 168,
+    "new_1643_complete_multisets": 0,
+    "new_1643_minimum_proxy_degree": 114,
+    "new_1726_minimum_proxy_degree": 119,
+    "safe_signatures": 547,
+    "original_input_absolute_bound": false,
+    "actual_G_or_factors_recovered": false,
+    "R7": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "Lean": false,
+    "repository_operations": false,
+    "geometric_profiles": 22,
+    "complete_root_configurations": 1175,
+    "modular_minor_checks": 2350,
+    "selected_exact_integer_minors": 15,
+    "integer_price_signature_checks": 547,
+    "independent_integer_DP_cells": 10935,
+    "next_h115_complete_multiset_counts": {
+      "1670": 2993,
+      "1672": 75,
+      "1679": 12379
+    },
+    "external_independent_review": false
+  },
+  "network_during_replay": false,
+  "repository_operations": false,
+  "not_Lean_or_independent_external_math_review": true,
+  "scope": "Clean replay of the same research payload before inserting this receipt. This is NOT the final archive self-hash. The final archive is separately replayed with an external receipt."
+}

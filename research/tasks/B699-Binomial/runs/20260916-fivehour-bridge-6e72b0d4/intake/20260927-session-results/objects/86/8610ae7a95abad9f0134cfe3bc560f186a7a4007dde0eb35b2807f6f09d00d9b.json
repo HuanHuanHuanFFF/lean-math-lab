@@ -1,0 +1,78 @@
+{
+  "Lean": false,
+  "archive": "/mnt/data/B699-C-global-integral-recovery-r7-20260926.PAYLOAD.zip",
+  "archive_bytes": 58212,
+  "archive_regular_files": 36,
+  "archive_sha256": "de74538ed13e7a800b44e8964ef082a1d35aa6d99b1c5f837a889293bae615e9",
+  "archive_stderr": "",
+  "archive_stdout": "START discover.py\nDONE discover.py\nSTART separated receiver module\nDONE separated receiver module\nSTART mutation_test.py\nDONE mutation_test.py\n{\"status\": \"PASS\", \"payload_files\": 35, \"final_manifest_files\": 0, \"regenerated\": 5, \"receipt\": \"/tmp/b699-r7-clean-archive-mqc78h3y/receipt.json\"}\n",
+  "certificates_regenerated": [
+    {
+      "byte_identical": true,
+      "name": "bounded_global_search.json",
+      "sha256": "26996c09e38f4a9a8b18e29c44251f51c86c90b7a601373aecc7f7fc6c52ac81"
+    },
+    {
+      "byte_identical": true,
+      "name": "claims.json",
+      "sha256": "f4cbdea49087ae4e651c37d02785686f2952ddf381e01ab4fd3bb0a39e4785b6"
+    },
+    {
+      "byte_identical": true,
+      "name": "cross_prime_11.json",
+      "sha256": "1543e24b4ac0800f489051404cec29d5be6812872729ecc27caa6473021a9709"
+    },
+    {
+      "byte_identical": true,
+      "name": "integer_menu_family.json",
+      "sha256": "7cfccf8e25cc8a17a101d995f18e509b97de449f47907a69c51cf197ba2035e8"
+    },
+    {
+      "byte_identical": true,
+      "name": "quartic_identity.json",
+      "sha256": "b8daca6af22c081fe77df5d2ce85e1ae70145a7b26b9fa8e886f15e145b41d0f"
+    }
+  ],
+  "clean_extract": true,
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-r7-clean-archive-mqc78h3y/B699-C-global-integral-recovery-r7-20260926/scripts/discover.py",
+        "--out",
+        "/tmp/b699-r7-reproduce-14046j1e/generated"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\"status\": \"PASS\", \"certificate_files\": 5, \"full_original_pair_produced\": false}\n"
+    },
+    {
+      "mode": "load separated receiver module and call accept(generated, False)",
+      "returncode": 0,
+      "source": "/tmp/b699-r7-clean-archive-mqc78h3y/B699-C-global-integral-recovery-r7-20260926/scripts/accept.py",
+      "stderr": "",
+      "stdout": "{\"status\": \"PASS\", \"certificates\": 5, \"independent_search_recomputed\": true, \"originals_or_NC_models_claimed\": 0, \"external_independent_review\": false}"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-r7-clean-archive-mqc78h3y/B699-C-global-integral-recovery-r7-20260926/scripts/mutation_test.py",
+        "--certs",
+        "/tmp/b699-r7-reproduce-14046j1e/generated"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"mutations\": [\n    {\n      \"name\": \"false_net\",\n      \"rejected\": true\n    },\n    {\n      \"name\": \"fake_full_model\",\n      \"rejected\": true\n    },\n    {\n      \"name\": \"fake_Z_square\",\n      \"rejected\": true\n    },\n    {\n      \"name\": \"fake_j\",\n      \"rejected\": true\n    },\n    {\n      \"name\": \"changed_period\",\n      \"rejected\": true\n    },\n    {\n      \"name\": \"changed_nonresidue\",\n      \"rejected\": true\n    },\n    {\n      \"name\": \"false_search_hit\",\n      \"rejected\": true\n    },\n    {\n      \"name\": \"changed_quartic\",\n      \"rejected\": true\n    }\n  ],\n  \"status\": \"PASS\"\n}\n"
+    }
+  ],
+  "elapsed_seconds": 27.613,
+  "external_independent_review": false,
+  "extracted_root": "/tmp/b699-r7-clean-archive-mqc78h3y/B699-C-global-integral-recovery-r7-20260926",
+  "final_manifest_files_verified": 0,
+  "full_original_model_produced": false,
+  "historical_net_deleted": 0,
+  "payload_files_verified": 35,
+  "repository_operations": false,
+  "same_author_receiver": true,
+  "status": "PASS"
+}

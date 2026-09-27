@@ -1,0 +1,134 @@
+{
+  "Lean_performed": false,
+  "actual_infinitely_many_two_prime_power_rows_proved": false,
+  "date": "2026-09-26",
+  "evidence_grade": "author paper proofs + exact deterministic certificates + same-author clean replay; no external independent mathematical review",
+  "failure_boundaries_file": "FAILURE_BOUNDARIES.md",
+  "finite_evidence": {
+    "algebra": 20,
+    "direct_full_rows": 4382,
+    "pair_grid": {
+      "W_has_exactly_one_3": 1452,
+      "W_has_repeated_prime": 1942,
+      "failed_pairs": 0,
+      "overlap_v_W": 3729,
+      "pairs": 20000,
+      "v_even": 10000,
+      "witness_full_exponent_above_1": 4286,
+      "witness_is_3": 2178
+    },
+    "split_lemma_grid": {
+      "odd_overlap_cases": 2515,
+      "third_source_complete_windows_pass": 1647,
+      "triples": 16400
+    },
+    "target_rows": {
+      "actual_two_power_rows": 714,
+      "band_and_n_divisible_by_4": 91,
+      "in_first_exterior_band": 170,
+      "integer_shapes": 10000,
+      "n_divisible_by_4": 380,
+      "nontrivial_exponent_rows": 14,
+      "outside_four_old_numeric_tests": 191,
+      "two_full_lucas_pass": 329
+    },
+    "zero_rows_P2000": {
+      "CONTROLLED_FACTOR_TOO_LARGE": 85,
+      "ODD_FULL_POWER_OVERLAP": 50,
+      "block_pass": 22,
+      "nontrivial_exponent_rows": 4,
+      "normalized_epsilon_-1": 73,
+      "normalized_epsilon_1": 62,
+      "root_shapes": 106,
+      "rows": 135,
+      "two_full_lucas_pass": 21,
+      "zero_slot_0": 89,
+      "zero_slot_2": 46
+    }
+  },
+  "full_B699_closed": false,
+  "full_i3_closed": false,
+  "global_R7_after": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "global_R7_before": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "global_frontier_changed": false,
+  "input_handoff": "sources/PREVIOUS_HANDOFF.md",
+  "local_structural_frontier_changed": true,
+  "next_check": "m=2 zero constant: R(A)=e*epsilon+k*A+epsilon*d*A^2-A^3=0 => A|e, e in {1,2}; restore same-input factors before applying ZERO-SLOT-SPLIT",
+  "old_bounded_ledger_net_new_NC_rejections": 0,
+  "original_i": 3,
+  "proof_file": "PROOFS.md",
+  "remaining_first_band": {
+    "m2": "still open, including zero-resultant recovery",
+    "new_condition_if_m1": "R0*R1*R2 != 0",
+    "original_conditions": [
+      "4|n",
+      "2P<=Q<3P^2",
+      "P<dH<2P",
+      "distinct odd prime bases and complete powers",
+      "all original n,n-1,n-2 source constraints",
+      "nonzero carry chain"
+    ],
+    "unbounded": [
+      "P",
+      "Q",
+      "p",
+      "q",
+      "a",
+      "b",
+      "d",
+      "H",
+      "k",
+      "z",
+      "n",
+      "j"
+    ]
+  },
+  "repository_modified": false,
+  "round_id": "B699-ProB-ZERO-SPLIT-20260926",
+  "theorems": [
+    {
+      "conclusion": "some odd prime dividing W=d(d+1)v-d-2 divides both original binomial coefficients",
+      "domain": "odd d>=3, v>=1; P=dv-1,Q=d(d+1)v-1,n=PQ+1,j=Qv",
+      "id": "ZERO-RESTORE-PAIR",
+      "requires_PQ_prime_powers": false,
+      "type": "same-original-pair sufficient theorem"
+    },
+    {
+      "domain": "previous pair family with even v; P,Q>=5 powers of distinct odd primes and n-1 exactly PQ",
+      "id": "ZERO-RESTORE-ROW",
+      "needs_band_gate": false,
+      "needs_n_smooth": false,
+      "no_height_cutoff": true,
+      "type": "whole-row sufficient consumer"
+    },
+    {
+      "conclusion": "odd overlap contradicts complete windows; residual active B must enter nonzero slots 1/2",
+      "domain": "n-2=AB,J=AC,gcd(B,C)=1,4|n",
+      "id": "ZERO-SLOT-SPLIT",
+      "type": "necessary-condition lemma under original NC3"
+    },
+    {
+      "domain": "exact two prime powers,4|n,m=1,P<dH<2P,at least one actual residual constant zero",
+      "finite_terminal": "d=7,w=1,P=29,Q=239,j=957, common prime 3",
+      "id": "M1-ZERO-BAND2",
+      "no_height_cutoff": true,
+      "type": "whole-row sufficient consumer"
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "round_id": "B699-ProB-K6-TERMINAL-20260927",
+  "date": "2026-09-27",
+  "timezone": "Asia/Tokyo",
+  "status": "K6_COMPLETE_IN_ADOPTED_FRONTIER",
+  "parent": "K5-SLOTS-CLOSURE",
+  "original_problem": "i=3; for every 4<=j<=floor(n/2), some prime ell>=3 divides binom(n,3) and binom(n,j)",
+  "sign_convention": {
+    "R0": "negative",
+    "R1": "positive",
+    "R2": "negative",
+    "S": "R0*R1*R2 > 0"
+  },
+  "domain": {
+    "factorization": "n-1=P*Q exactly; P=p^rho,Q=q^sigma, distinct odd prime bases; 5<=P<Q",
+    "adopted_interface": "4|n,m=1,h=1,z>=3,d>2z,du=kz-1,k<2d,complete two-base Lucas,original T0|j and full T2 slots",
+    "this_round": {
+      "k": 6,
+      "u": 1,
+      "eps": [
+        -1,
+        1
+      ],
+      "d": "6z-1",
+      "a": "3z<=a<=5z-1 and a=3 mod4",
+      "z_max_negative": 461,
+      "z_max_positive": 768
+    }
+  },
+  "terminal": {
+    "-1": {
+      "counts": {
+        "total": 53244,
+        "zero_slots": 0,
+        "size_fail": 53244,
+        "divisibility_fail_after_size": 0,
+        "T2_pass": 0,
+        "T0_pass": 0,
+        "both_pass": 0
+      },
+      "maxima": {
+        "P": 6367789,
+        "Q": 38209499,
+        "n": 243310027427712,
+        "j": 40566337317318,
+        "a": 2303,
+        "z": 461,
+        "alpha": 20
+      },
+      "sha256": "ae8995344c50085c04f765e18cd462af356654dcc155f39adc3cb3a90dcb1d90",
+      "independent_bytes_equal": true
+    },
+    "1": {
+      "counts": {
+        "total": 147646,
+        "zero_slots": 0,
+        "size_fail": 147613,
+        "divisibility_fail_after_size": 33,
+        "T2_pass": 0,
+        "T0_pass": 0,
+        "both_pass": 0
+      },
+      "maxima": {
+        "P": 17686279,
+        "Q": 106122281,
+        "n": 1876908269882400,
+        "j": 312885945553194,
+        "a": 3839,
+        "z": 768,
+        "alpha": 19
+      },
+      "sha256": "6d1461551b11ce2eb2d376978fbe30813282f605e41fa97adba726c062559487",
+      "independent_bytes_equal": true
+    }
+  },
+  "prime_power_audit": {
+    "-1": {
+      "records": 53244,
+      "P_single_base": 8195,
+      "Q_single_base": 10955,
+      "real_distinct_powers": 1528,
+      "nontrivial_power": 2,
+      "both_Lucas_pass": 1527,
+      "both_Lucas_pass_nontrivial": 1
+    },
+    "1": {
+      "records": 147646,
+      "P_single_base": 21393,
+      "Q_single_base": 28475,
+      "real_distinct_powers": 3805,
+      "nontrivial_power": 2,
+      "both_Lucas_pass": 3805,
+      "both_Lucas_pass_nontrivial": 2
+    }
+  },
+  "full_original_source_witnesses": 10666,
+  "actual_power_rows": 5333,
+  "new_claim": "The previously unexecuted k6 terminal is completely exhausted; inherited high-side gives row closure in the adopted domain.",
+  "net_frontier": {
+    "before": "k>=6",
+    "after": "k>=7",
+    "R7_before": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "R7_after": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ]
+  },
+  "historical_NC_survivors_deleted": null,
+  "historical_NC_count_note": "No historical unknown ledger was edited; 200890 integer records and 5333 actual power rows are not historical NC counts.",
+  "unbounded_parameters": [
+    "k",
+    "u",
+    "z",
+    "d",
+    "a",
+    "x0",
+    "P",
+    "Q",
+    "p",
+    "q",
+    "rho",
+    "sigma",
+    "alpha",
+    "n",
+    "j",
+    "applicable source multipliers"
+  ],
+  "outside_scope": [
+    "k>=7 terminals",
+    "outside first band",
+    "m>1 beyond adopted closures",
+    "more than two prime-power sources",
+    "general i=3",
+    "B699 full theorem"
+  ],
+  "old_ledgers_replayed": false,
+  "repo_modified": false,
+  "Lean": false,
+  "external_independent_review": false,
+  "evidence_grade": "author mathematics + complete deterministic terminal + two same-author independent integer enumerations + certified source witnesses + clean replay",
+  "required_runtime": "Python 3.10+ standard library, offline",
+  "optional_discovery_dependency": "SymPy factor search, not needed by receiver",
+  "next_scope": "k7 u=1,2,3: finite routes for u1/u2 where inherited positivity applies; u3 requires new exact sign/zero-slot study; no k7 execution this round"
+}

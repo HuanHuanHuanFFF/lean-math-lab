@@ -1,0 +1,148 @@
+{
+  "acceptance": {
+    "auxiliary_only_boundaries": 2,
+    "certificate_files": 7,
+    "coefficient_classes": 4,
+    "historical_net_certified": 0,
+    "independent_x_terminal_checks": 24,
+    "ordinary_input_regressions": 3,
+    "parametric_orbit_regressions": 66,
+    "status": "PASS"
+  },
+  "actually_fresh_extraction": true,
+  "commands": [
+    {
+      "command": [
+        "python",
+        "scripts/discover.py",
+        "--out",
+        "/tmp/r10_replay_2ruwp0et/certificates"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "GENERATED auxiliary_survivors.json\nGENERATED finite_norm_orbits.json\nGENERATED ordinary_regressions.json\nGENERATED parametric_unit.json\nGENERATED parity_bridge.json\nGENERATED scope.json\nGENERATED squareclass_bridge.json\nPASS: 7 exact certificate files; no arbitrary n-bound used in the four exclusions.\n"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/accept.py",
+        "--certdir",
+        "/tmp/r10_replay_2ruwp0et/certificates"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"auxiliary_only_boundaries\": 2,\n  \"certificate_files\": 7,\n  \"coefficient_classes\": 4,\n  \"historical_net_certified\": 0,\n  \"independent_x_terminal_checks\": 24,\n  \"ordinary_input_regressions\": 3,\n  \"parametric_orbit_regressions\": 66,\n  \"status\": \"PASS\"\n}\n"
+    },
+    {
+      "command": [
+        "python",
+        "scripts/mutation_test.py"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"cases\": [\n    {\n      \"case\": \"wrong_reduced_seed\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"missing_finite_seed\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"unit_not_norm_one\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"reversed_z_parity\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"drop_M2\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"invent_net_deletion\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"norm_point_called_current_model\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"fake_true_gcd\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"rational_square_as_integer_square\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    },\n    {\n      \"case\": \"unproved_extra_pair\",\n      \"exception\": \"AssertionError\",\n      \"rejected\": true\n    }\n  ],\n  \"rejected\": 10,\n  \"status\": \"PASS\"\n}\n"
+    }
+  ],
+  "evidence_level": "author paper proof + exact certificates + same-author separated receiver",
+  "historical_net_certified": 0,
+  "lean": false,
+  "mutations": {
+    "cases": [
+      {
+        "case": "wrong_reduced_seed",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "missing_finite_seed",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "unit_not_norm_one",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "reversed_z_parity",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "drop_M2",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "invent_net_deletion",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "norm_point_called_current_model",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "fake_true_gcd",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "rational_square_as_integer_square",
+        "exception": "AssertionError",
+        "rejected": true
+      },
+      {
+        "case": "unproved_extra_pair",
+        "exception": "AssertionError",
+        "rejected": true
+      }
+    ],
+    "rejected": 10,
+    "status": "PASS"
+  },
+  "payload_files_verified": 34,
+  "payload_zip_sha256": "cef77663133228937e319d3b91bfa4dfb502fc35c64a242f328c74150722f906",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5",
+  "regenerated_certificates": [
+    {
+      "byte_identical": true,
+      "file": "auxiliary_survivors.json",
+      "sha256": "6ae0b7bb98903950fa9abb30e045f889aa47b175e8412cf3c01444840f2a1b36"
+    },
+    {
+      "byte_identical": true,
+      "file": "finite_norm_orbits.json",
+      "sha256": "302eedae2dc9743138553df48f3805ff676059884bed8b9dd781ab623cf164a3"
+    },
+    {
+      "byte_identical": true,
+      "file": "ordinary_regressions.json",
+      "sha256": "305924d313faff7f237216c7d4d6d56d1b9b3adc20be27ea8edcb8a579f9c9d9"
+    },
+    {
+      "byte_identical": true,
+      "file": "parametric_unit.json",
+      "sha256": "c0c4a42e6002cdcb23be4d3a2d7782adc503c68e4cdb8f837dda2d0d73b3713e"
+    },
+    {
+      "byte_identical": true,
+      "file": "parity_bridge.json",
+      "sha256": "8e10db61d91faee3b773fce300e311fe01682dc424ba6371c86ddaea4209d292"
+    },
+    {
+      "byte_identical": true,
+      "file": "scope.json",
+      "sha256": "6848976cdbc5352438a934499ec822d79e563bae2d1854c2f9e92980a15569ff"
+    },
+    {
+      "byte_identical": true,
+      "file": "squareclass_bridge.json",
+      "sha256": "105c15ad4c0e48aebbf849700c613c03fd7bcaece387da4362b784fe23244d37"
+    }
+  ],
+  "repository_operations": false,
+  "status": "PASS"
+}

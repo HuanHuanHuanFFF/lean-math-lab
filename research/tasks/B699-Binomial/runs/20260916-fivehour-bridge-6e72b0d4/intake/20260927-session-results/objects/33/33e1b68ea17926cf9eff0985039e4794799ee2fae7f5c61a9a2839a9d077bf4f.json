@@ -1,0 +1,111 @@
+{
+  "archive": {
+    "bytes": 55989,
+    "members_verified": 26,
+    "name": "B699-C-q4-character-routing-20260926.PAYLOAD_STAGE.zip",
+    "sha256": "d2b5ec171239868355759a687d92a5cf6c5032771e2c2be71b3bf21fcd049e2b"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/research.py",
+        "--out",
+        "/tmp/b699-c-exact-replay-prxc81o6/certificates"
+      ],
+      "expected_success": true,
+      "label": "regenerate-all-certificates",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "656d64b7b76fa4a6126aa438c0c1e326f5942b0e4f9ebe833681b8a156f0e97d central_odd_local_models.json\n18fb306306186d58c92f860b7be23517d95aad551fef3e0090b312632d770972 character_classes.json\n3306393bc44adfb278f2540a4a8ef5dacd02c1ae6218a8efdd3499ac4495fed5 consumer_examples.json\n2f5a8c6d56199311ed7c0eca21e1e3a4491bfdc0177577a136d6794852413489 discovery_summary.json\nc10988c26cf16ade1346e386b0842822f4d7917d0ec045f839f91a218a988b90 local_prime_screen.json\nc968d8759d4d90bfd6da78a20f333332d1201c3e329c4beb7c6e06c9654dfb50 q5_unbounded_precision_family.json\na998fae0ef972ae513bbffa49afef04d2f724eb55218b5771a8ccf43fe898136 universal_consumer_regression.json\nDISCOVERY_DONE: 32 character classes; 92 primes; 3 consumer examples; 6 CRT examples.\n"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/accept.py",
+        "--certificates",
+        "/tmp/b699-c-exact-replay-prxc81o6/certificates"
+      ],
+      "expected_success": true,
+      "label": "accept-regenerated-certificates",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "PASS_CHARACTER_PERIOD_AND_32_CLASSES\nPASS_EXHAUSTIVE_LOCAL_SCREEN: 92 primes\nPASS_CENTRAL_ODD_LOCAL_BOUNDARY: 4 certificates\nPASS_ORIGINAL_PAIR_CONSUMERS: 3 examples; all listed witnesses verified\nPASS_UNIVERSAL_CONSUMER: 81 examples checked with actual binomial integers\nPASS_Q5_UNBOUNDED_PRECISION_BOUNDARY: 6 exact examples, m=2,3,8,16,32,64\nPASS_BOUNDARY_LABELS: these are NOT full B-RES10 / NC6 models\nACCEPTANCE_PASS: author-run exact checks; no Lean; no independent external review\n"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/consumer.py",
+        "151",
+        "16"
+      ],
+      "expected_success": true,
+      "label": "consumer-full-49-regression",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"C\": 7,\n  \"E4\": 1,\n  \"Y\": 180,\n  \"chi10_E4C\": -1,\n  \"chi10_q4\": 1,\n  \"conclusion\": \"A same prime p>=7 divides C(n,6) and C(n,j)\",\n  \"evidence\": \"Author paper theorem U4-CHAR; no Lean\",\n  \"explicit_prime\": null,\n  \"j\": 16,\n  \"n\": 151,\n  \"q4\": 49,\n  \"result\": \"COMMON6_CERTIFIED_BY_U4_CHAR\"\n}\n"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/consumer.py",
+        "14",
+        "7"
+      ],
+      "expected_success": true,
+      "label": "consumer-undecided-regression",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"evidence\": \"Author paper theorem U4-CHAR; no Lean\",\n  \"j\": 7,\n  \"n\": 14,\n  \"reason\": \"W is not ten times an integer square\",\n  \"result\": \"UNDECIDED\"\n}\n"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/accept.py",
+        "--certificates",
+        "/tmp/b699-c-exact-replay-prxc81o6/deliberately-tampered-certificates"
+      ],
+      "expected_success": false,
+      "label": "reject-deliberately-corrupted-C",
+      "returncode": 1,
+      "stderr": "Traceback (most recent call last):\n  File \"/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/accept.py\", line 190, in <module>\n    if __name__=='__main__':main()\n                            ~~~~^^\n  File \"/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/accept.py\", line 126, in main\n    check(q==r['q4'] and gcd(q,j*k)==r['E4'] and gcd(q,j-2)==r['C'],'universal definitions')\n    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926/scripts/accept.py\", line 12, in check\n    raise AssertionError(message)\nAssertionError: universal definitions\n",
+      "stdout": "PASS_CHARACTER_PERIOD_AND_32_CLASSES\nPASS_EXHAUSTIVE_LOCAL_SCREEN: 92 primes\nPASS_CENTRAL_ODD_LOCAL_BOUNDARY: 4 certificates\nPASS_ORIGINAL_PAIR_CONSUMERS: 3 examples; all listed witnesses verified\n"
+    }
+  ],
+  "evidence_boundary": {
+    "Lean": false,
+    "complete_B699": false,
+    "external_independent_review": false,
+    "historical_net_reduction_certified": 0
+  },
+  "finished_utc": "2026-09-25T19:23:42.202806+00:00",
+  "full_package_verification": {
+    "status": "not present at payload-only stage"
+  },
+  "negative_control": {
+    "changed": "C=7 -> C=1 only in temporary copy of (151,16) certificate",
+    "status": "PASS_EXPECTED_REJECTION"
+  },
+  "network_required": false,
+  "package_root": "/tmp/b699-c-payload-clean-extract-49zuukqn/B699-C-q4-character-routing-20260926",
+  "payload_verification": {
+    "manifest": "PAYLOAD.sha256",
+    "sha256": "31b5c88e132a108f653925e3b0a9d76dab8fd63ccbe740c2a734a07edffd9b70",
+    "verified_files": 25
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5",
+  "regenerated_certificates": {
+    "central_odd_local_models.json": "656d64b7b76fa4a6126aa438c0c1e326f5942b0e4f9ebe833681b8a156f0e97d",
+    "character_classes.json": "18fb306306186d58c92f860b7be23517d95aad551fef3e0090b312632d770972",
+    "consumer_examples.json": "3306393bc44adfb278f2540a4a8ef5dacd02c1ae6218a8efdd3499ac4495fed5",
+    "discovery_summary.json": "2f5a8c6d56199311ed7c0eca21e1e3a4491bfdc0177577a136d6794852413489",
+    "local_prime_screen.json": "c10988c26cf16ade1346e386b0842822f4d7917d0ec045f839f91a218a988b90",
+    "q5_unbounded_precision_family.json": "c968d8759d4d90bfd6da78a20f333332d1201c3e329c4beb7c6e06c9654dfb50",
+    "universal_consumer_regression.json": "a998fae0ef972ae513bbffa49afef04d2f724eb55218b5771a8ccf43fe898136"
+  },
+  "schema": "b699-c-replay-v1",
+  "scope": "Hash integrity and exact finite replay; not a formal or independent mathematical review.",
+  "started_utc": "2026-09-25T19:23:39.368592+00:00",
+  "status": "PASS"
+}

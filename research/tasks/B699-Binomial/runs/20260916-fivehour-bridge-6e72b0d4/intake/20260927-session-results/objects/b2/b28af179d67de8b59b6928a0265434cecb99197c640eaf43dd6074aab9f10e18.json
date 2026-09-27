@@ -1,0 +1,120 @@
+{
+  "round_id": "B699-ProB-K3-NEG-B0-T2-20260926",
+  "date": "2026-09-26",
+  "input_handoff": "K3-T0-HENSEL",
+  "source_archive_sha256": "55ab48f4c18310dcc55ef218c3802315b6d3ff02d7083ce8f18b0d6ac6e74e87",
+  "sign_convention": {
+    "R0": "negative",
+    "R1": "positive",
+    "R2": "negative",
+    "S": "R0*R1*R2 > 0"
+  },
+  "scope": {
+    "i": 3,
+    "original_quantifier": "for every 4 <= j <= floor(n/2), the SAME prime ell >= 3 divides both binomials",
+    "whole_row_input": "n-1=P*Q exactly; P=p^rho>=5, Q=q^sigma>P, p != q odd primes; complete exponents retained"
+  },
+  "new_results": [
+    {
+      "id": "B0-CUBIC-PAIR",
+      "status": "proved_on_paper_and_exact_polynomial_certificates",
+      "domain": "epsilon=-1,b=0 and all integer z>=2; original n and j recovered",
+      "result": "Common3(n,j); can take ell>=5",
+      "finite_z_cutoff": null,
+      "key": "C|31 contradicts C>=491"
+    },
+    {
+      "id": "K3-NEG-B0-ROW",
+      "status": "proved_conditional_whole_row",
+      "additional_input": "actual different odd prime-base complete P and Q; P>=5",
+      "result": "entire original half-row Common3"
+    },
+    {
+      "id": "NEG-DEFICIT-T2",
+      "status": "proved_same_input_necessary_condition_and_contrapositive_consumer",
+      "domain": "epsilon=-1,k=3,u=1,b>=1,4|n and original first band",
+      "constants": [
+        "b(6b+7)",
+        "3b^2+2b+31",
+        "(3b+2)(5b-4)"
+      ],
+      "necessary": "T2 divides odd(lcm(constants))",
+      "new_multiplier": "mu=L_b/T2 if NC; not old lambda"
+    },
+    {
+      "id": "NEG-DEFICIT-WEDGE",
+      "status": "proved_unbounded_conditional_domain_consumer",
+      "sufficient_for_row_closure": "d^4 >= 8*L_b under actual full two-power input",
+      "remaining_necessary": "d^4 < 8*L_b < 56160*b^6"
+    },
+    {
+      "id": "CURRENT-NEGATIVE-bMIN",
+      "status": "derived_bound_conditional_on_inherited_z_min",
+      "inherited_z_min": 1000007,
+      "new_b_min": 3362,
+      "old_ledger_replayed": false
+    }
+  ],
+  "overlap_audit": {
+    "small_b_1_2": "true complete-power domain empty; no extra NC deletion credited",
+    "regression_rows": "all also in old low-2-adic closure; not counted as new NCs",
+    "historical_surviving_NC_count_reduction": "not measured",
+    "infinite_actual_two_prime_power_pairs_in_new_domain": "not proved"
+  },
+  "frontier": {
+    "R7_before": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "R7_after": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "negative_k3_remaining": "z=7 mod 8, z>=1000007; unique original Hensel recovery; b>=3362; T2|L_b; d^4<8L_b; full prime powers, full two-base Lucas, T0|original j, full T2 slots and old lambda conditions all retained",
+    "positive_k3": "unchanged by this round",
+    "general_k_ge_4": "unchanged",
+    "unbounded_parameters": [
+      "z",
+      "b",
+      "alpha",
+      "P",
+      "Q",
+      "n",
+      "j",
+      "prime bases and full exponents when rows exist",
+      "general m=1 parameters"
+    ],
+    "global_finite_reduction": false,
+    "k3_fully_closed": false,
+    "i3_fully_closed": false,
+    "B699_fully_closed": false
+  },
+  "evidence": {
+    "identity_records": 25,
+    "key_integer_bezout_identities": 6,
+    "independent_rational_euclid_rederivations": 3,
+    "actual_rows": 4,
+    "actual_nontrivial_PQ_prime_powers_in_regressions": 0,
+    "weak_models": 2,
+    "prime_proof_nodes": 75,
+    "direct_candidate_binomial_pairs": 4,
+    "finite_half_row_samples": 92,
+    "full_power31_lifts": 3,
+    "level": "author-level paper proofs; exact certificates; same-author independent arithmetic implementations and clean replay",
+    "Lean": false,
+    "external_independent_mathematical_review": false
+  },
+  "standalone_quartic_smooth_equation_solved": false,
+  "repository_modified": false,
+  "old_hensel_ledger_executed": false
+}
