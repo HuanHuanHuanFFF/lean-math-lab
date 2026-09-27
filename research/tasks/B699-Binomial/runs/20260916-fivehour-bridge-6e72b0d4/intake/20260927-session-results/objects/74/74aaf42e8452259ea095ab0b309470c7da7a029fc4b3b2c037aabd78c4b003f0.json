@@ -1,0 +1,105 @@
+{
+  "certificate_comparison": [
+    {
+      "byte_identical": true,
+      "file": "fifth_consumers.json",
+      "sha256": "938af3f771a06b14ed8a72ad5e8bb372492d29b1e6b8179dcfcbf13e6598f31f"
+    },
+    {
+      "byte_identical": true,
+      "file": "infinite_regression.json",
+      "sha256": "26638cb6644751171e92f07e9b083ea5479ed9b6d7f6517438fadca4e05f9be7"
+    },
+    {
+      "byte_identical": true,
+      "file": "joint_local_lifts.json",
+      "sha256": "20a18103d6df1ad12b728b8995c9057bb385cec591ffe4e145d66a02fbbeaf15"
+    },
+    {
+      "byte_identical": true,
+      "file": "proof_obligations.json",
+      "sha256": "929297f96c0a839bd003005be6aea58e67662603a346d6ce576d17389a53b3f4"
+    },
+    {
+      "byte_identical": true,
+      "file": "source_separation.json",
+      "sha256": "45bb873a2455435e3f4d6da09bc2d8515e6858296a894e7258f0537b5f86149d"
+    }
+  ],
+  "certificate_files_rebuilt": 5,
+  "clean_extraction": true,
+  "commands": [
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-r6-payload-build-efcqj7av/clean/B699-C-unitary-fifth-contact-r6-20260926/scripts/discover.py",
+        "--out",
+        "/tmp/b699-r6-rebuild-aecjx68i/certificates"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "BUILT source_separation.json\nBUILT fifth_consumers.json\nBUILT infinite_regression.json\nBUILT joint_local_lifts.json\nBUILT proof_obligations.json\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-r6-payload-build-efcqj7av/clean/B699-C-unitary-fifth-contact-r6-20260926/scripts/accept.py",
+        "--certificates",
+        "/tmp/b699-r6-rebuild-aecjx68i/certificates"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "PASS: 5 certificate files; 12 source slots; 3 actual inputs; 27 family instances; 18 joint local lifts; coefficientwise identity\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-r6-payload-build-efcqj7av/clean/B699-C-unitary-fifth-contact-r6-20260926/scripts/mutation_test.py"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"rejected\": 8,\n  \"tests\": [\n    {\n      \"mutation\": \"source_slot\",\n      \"rejected\": true,\n      \"returncode\": 1\n    },\n    {\n      \"mutation\": \"inflated_complete_exponent\",\n      \"rejected\": true,\n      \"returncode\": 1\n    },\n    {\n      \"mutation\": \"false_global_candidate\",\n      \"rejected\": true,\n      \"returncode\": 1\n    },\n    {\n      \"mutation\": \"lost_fifth_source_window\",\n      \"rejected\": true,\n      \"returncode\": 1\n    },\n    {\n      \"mutation\": \"invented_true_gcd\",\n      \"rejected\": true,\n      \"returncode\": 1\n    },\n    {\n      \"mutation\": \"wrong_primitive_W\",\n      \"rejected\": true,\n      \"returncode\": 1\n    },\n    {\n      \"mutation\": \"wrong_surviving_digit\",\n      \"rejected\": true,\n      \"returncode\": 1\n    },\n    {\n      \"mutation\": \"local_as_global_unitary\",\n      \"rejected\": true,\n      \"returncode\": 1\n    }\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-r6-rebuild-aecjx68i/menu_probe.py/experiments/menu_probe.py"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "2 {'R': 1, 'splits': 1, 'b': 40, 'q_integral': 0, 'square_z': 0, 'positive_delta2': 0, 'square_delta': 0} models 0 seconds 0.0\n3 {'R': 6, 'splits': 8, 'b': 320, 'q_integral': 2, 'square_z': 0, 'positive_delta2': 0, 'square_delta': 0} models 0 seconds 0.0\n4 {'R': 29, 'splits': 50, 'b': 2000, 'q_integral': 4, 'square_z': 0, 'positive_delta2': 0, 'square_delta': 0} models 0 seconds 0.0\n5 {'R': 145, 'splits': 313, 'b': 12520, 'q_integral': 7, 'square_z': 0, 'positive_delta2': 0, 'square_delta': 0} models 0 seconds 0.0\n6 {'R': 733, 'splits': 1880, 'b': 75200, 'q_integral': 10, 'square_z': 0, 'positive_delta2': 0, 'square_delta': 0} models 0 seconds 0.0\n7 {'R': 3662, 'splits': 10877, 'b': 435080, 'q_integral': 16, 'square_z': 0, 'positive_delta2': 0, 'square_delta': 0} models 0 seconds 0.1\n8 {'R': 18312, 'splits': 61835, 'b': 2473400, 'q_integral': 22, 'square_z': 0, 'positive_delta2': 0, 'square_delta': 0} models 0 seconds 0.7\n"
+    },
+    {
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "/tmp/b699-r6-rebuild-aecjx68i/fifth_source_probe.py/experiments/fifth_source_probe.py"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{'first': 2061378, 'near': 38459, 'contact': 72, 'test_hit': 28} 73 elapsed 2.3931708335876465\n[{'n': 341, 'j': 120, 'p': 7, 'e': 1, 'f': 1, 'U': 78, 'S': 48, 'q': 7, 'R': 11, 'Z': -7, 'M': 48, 'b': 17, 'hit_levels': [], 'binom_v': 0}, {'n': 2357, 'j': 837, 'p': 7, 'e': 2, 'f': 1, 'U': 540, 'S': 48, 'q': 49, 'R': 11, 'Z': -7, 'M': 48, 'b': 31, 'hit_levels': [], 'binom_v': 0}, {'n': 3589, 'j': 1404, 'p': 7, 'e': 1, 'f': 2, 'U': 855, 'S': 512, 'q': 7, 'R': 122, 'Z': -98, 'M': 512, 'b': 312, 'hit_levels': [0], 'binom_v': 2}, {'n': 3785, 'j': 473, 'p': 7, 'e': 1, 'f': 2, 'U': 414, 'S': 540, 'q': 7, 'R': 59, 'Z': 245, 'M': 540, 'b': 473, 'hit_levels': [0, 1], 'binom_v': 2}, {'n': 4421, 'j': 1496, 'p': 23, 'e': 1, 'f': 1, 'U': 990, 'S': 192, 'q': 23, 'R': 43, 'Z': -23, 'M': 192, 'b': 65, 'hit_levels': [0], 'binom_v': 1}, {'n': 4485, 'j': 1653, 'p': 7, 'e': 1, 'f': 1, 'U': 1044, 'S': 640, 'q': 7, 'R': 149, 'Z': -105, 'M': 640, 'b': 236, 'hit_levels': [0], 'binom_v': 2}, {'n': 5045, 'j': 2328, 'p': 7, 'e': 1, 'f': 1, 'U': 1254, 'S': 720, 'q': 7, 'R': 179, 'Z': -175, 'M': 720, 'b': 388, 'hit_levels': [], 'binom_v': 2}, {'n': 7173, 'j': 2608, 'p': 7, 'e': 1, 'f': 1, 'U': 1660, 'S': 1024, 'q': 7, 'R': 237, 'Z': -161, 'M': 1024, 'b': 652, 'hit_levels': [], 'binom_v': 0}, {'n': 7349, 'j': 2673, 'p': 17, 'e': 1, 'f': 1, 'U': 1701, 'S': 432, 'q': 17, 'R': 100, 'Z': -68, 'M': 432, 'b': 275, 'hit_levels': [], 'binom_v': 1}, {'n': 10505, 'j': 3536, 'p': 7, 'e': 1, 'f': 1, 'U': 2346, 'S': 1500, 'q': 7, 'R': 335, 'Z': -175, 'M': 1500, 'b': 505, 'hit_levels': [], 'binom_v': 1}]\n"
+    }
+  ],
+  "evidence_grade": "deterministic same-author separated replay, not external review or Lean",
+  "final_manifest_files_checked": null,
+  "global_net_reduction": 0,
+  "payload_files_checked": 36,
+  "payload_zip_members": 37,
+  "payload_zip_sha256": "77d63e6750e3a4f12f2d5dc8278d14018694c255dac0d8a70bb39d18647e729f",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "raw_experiments": [
+    {
+      "byte_identical": true,
+      "file": "menu_probe.json",
+      "sha256": "3250a40566e64f227c6bcc3b6d311c1db48357a55e5835c4f97b262d1d07feab"
+    },
+    {
+      "byte_identical": true,
+      "file": "fifth_source_probe.json",
+      "sha256": "58074345c7ccdac26de8030bf7d184a2d369b82f79bc110dfca3c8523dab7961"
+    }
+  ],
+  "repository_operations": false,
+  "status": "PASS",
+  "utc_completed": "2026-09-26T13:16:28.223598+00:00"
+}

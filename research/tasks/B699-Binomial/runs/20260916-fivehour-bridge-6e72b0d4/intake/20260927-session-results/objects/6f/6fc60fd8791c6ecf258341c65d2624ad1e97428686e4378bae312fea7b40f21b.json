@@ -1,0 +1,219 @@
+{
+  "status": "PASS_BOOTSTRAP_ZIP_FULL_REPLAY",
+  "archive": "/mnt/data/six_bootstrap.zip",
+  "archive_sha256": "2c2bc7e25edcf2c1583c3e6a9209aec7adef0473f3b51a9f3869b87899a0652b",
+  "archive_bytes": 5203680,
+  "mode": "bootstrap",
+  "steps": [
+    {
+      "step": "manifest",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "code/verify_manifest.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.6270987279999645,
+      "log": "/mnt/data/six_clean_bootstrap/manifest.log",
+      "log_sha256": "615e268c8804a37db648678fc32e02b5b2bc10d62e9b9f04481cfc89ef09e797"
+    },
+    {
+      "step": "full_replay",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "code/replay.py",
+        "--out",
+        "/mnt/data/six_clean_bootstrap/regenerated",
+        "--jobs",
+        "4"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 117.74445619400012,
+      "log": "/mnt/data/six_clean_bootstrap/full_replay.log",
+      "log_sha256": "b22dc87e24ea26d86e00f807f24f12689bbd42dde0032652059199ee6a66d171"
+    },
+    {
+      "step": "byte_comparison",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "code/compare_replay.py",
+        "/mnt/data/six_clean_bootstrap/regenerated"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.7152359540000361,
+      "log": "/mnt/data/six_clean_bootstrap/byte_comparison.log",
+      "log_sha256": "81f044593b7a515a506509ed5309f271a9a43565c9e6d0156179bdfa50f9ecae"
+    },
+    {
+      "step": "manifest_after_replay",
+      "command": [
+        "/opt/pyvenv/bin/python3",
+        "code/verify_manifest.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.668539939999846,
+      "log": "/mnt/data/six_clean_bootstrap/manifest_after_replay.log",
+      "log_sha256": "615e268c8804a37db648678fc32e02b5b2bc10d62e9b9f04481cfc89ef09e797"
+    }
+  ],
+  "archive_file_entries": 993,
+  "exit_code": 0,
+  "clean_extracted_root": "/mnt/data/six_clean_bootstrap/extracted/B699-ProA-SIX-COST4-COST3-FRONTIER77-20260926-evidence",
+  "replay_output": "/mnt/data/six_clean_bootstrap/regenerated",
+  "deterministic_certificate_count": 334,
+  "full_replay_receipt_sha256": "9ddf4f4acadbd6e4e7b5b38d2f63ec7e8a1841e344110075675768b297115ad5",
+  "input_manifest_sha256": "66b49ec6c27a3fc22e0b31351a61a9a73d54462848ef1bebc2e6a7ea0731ad77",
+  "code_sha256": {
+    "compare_replay.py": "b6f7a1959c1eb909a16ed27d0e07dded1a8d39b0ed1ad227335274ab6fe88dbe",
+    "enumerate_costs.cpp": "d5649cfd2d0be6ac2e22ab42a5c84f57caf3a9c4c17503b16aadd33a1220c1e8",
+    "exact_minors.py": "49e86a012374ea0fbe71dcac12fd9db28f3486dce7ca4c49c1580d4391a239c3",
+    "fees.cpp": "f67c38a6f8668527e9b1836352941c0baf2c272c515489ed219f83307ea25dca",
+    "frozen_capacity.py": "1e16305f96eb7f009cc4883240f120d372fed6225bf0f5ebaf929ed2cad6a086",
+    "full_grid_dp.cpp": "e82d7553b570b23f9127c037af2fcb0f01b8e83404b4fa1259e695a2b75840a7",
+    "receive_six.cpp": "2580c31e783cc748089fb590c62cb9a56943746110ebca3f98892b8c7174e669",
+    "replay.py": "e10920a3e89b349ae7a5cfe7f356b53e53a3fdf7e6c989f47b255aff5c274020",
+    "research.py": "a113361edcf3ce89299a96de1b905e76962c094d3d5fff4e1e0bf689b40684f4",
+    "resource_core.py": "213912d60ab2c4348201dd9e2c3ba58b93fbc9df046bcaf7bf00b3693c74a8ed",
+    "six_gates.cpp": "beb39225f730a48796beab818dc4e1d50e947690ee1b189b620eeba79864542e",
+    "six_jets.cpp": "7eea306149532dad44c34e377fdc85d0539443b3854eafab282d7727f2ffc5ed",
+    "verify_manifest.py": "9520c209380b6c34794bf52bed04cb18466df869e908accff32d36b831e2f177"
+  },
+  "mathematical_summary": {
+    "input_frontier": 104,
+    "remaining_frontier": 77,
+    "removed_states": [
+      1670,
+      1672,
+      1709,
+      1744,
+      1788,
+      1790,
+      1799,
+      1820,
+      1824,
+      1828,
+      1834,
+      1840,
+      1849,
+      1859,
+      1867,
+      1870,
+      1911,
+      1922,
+      1930,
+      1942,
+      1966,
+      1978,
+      1979,
+      1987,
+      1992,
+      2008,
+      2023
+    ],
+    "net_removed_states": 27,
+    "minimum_equality_h": 115,
+    "maximum_vertical_sum": 75,
+    "lowest_h_states": [
+      1679
+    ],
+    "raw_signature_count": 619,
+    "full_integer_DP_cells_checked": 1203003,
+    "COVER8": true,
+    "COVER7_proved": false,
+    "H116_proved": false,
+    "R7_unchanged": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "Lean": false,
+    "repository_operations": false,
+    "stageA": {
+      "profiles": 18,
+      "root_configurations": 9695,
+      "modular_minor_checks": 19390,
+      "exact_integer_minors": 10,
+      "residual_kernels": 0
+    },
+    "stageB": {
+      "profiles": 30,
+      "root_configurations": 5416,
+      "modular_minor_checks": 10832,
+      "exact_integer_minors": 2,
+      "residual_kernels": 0
+    },
+    "geometric_profiles": 48,
+    "total_root_configurations": 15111,
+    "total_modular_minor_checks": 30222,
+    "selected_exact_integer_minors": 12,
+    "all_signature_integer_price_checks": 12380,
+    "price_states": 20,
+    "next_state": {
+      "state": 1679,
+      "capacity": [
+        0,
+        1,
+        6,
+        4,
+        4,
+        9
+      ],
+      "h": 115,
+      "v": [
+        18,
+        15,
+        13,
+        11,
+        9,
+        9
+      ],
+      "complete_multisets": 7170,
+      "complete_python_cpp_sets_equal": true,
+      "minimum_proxy_degree": 99,
+      "saturated_multisets": 5567,
+      "unsaturated_multisets": 1603,
+      "common_numerical_type": [
+        4,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0
+      ],
+      "common_type_count_distribution": {
+        "3": 4052,
+        "2": 3118
+      },
+      "all_actual_factors_are_quartic_or_S5_claimed": false,
+      "survivors_when_common_floor_is_5_through10": [
+        3548,
+        1547,
+        709,
+        209,
+        39,
+        0
+      ],
+      "minimum_conditional_degree_at_floor10": 117,
+      "distinct_individual_numerical_preimages": 57,
+      "preimage_max_degree": 20,
+      "status": "OPEN; counterfactual floor10 not proved; unsaturated cost increments retained"
+    },
+    "external_independent_review": false
+  },
+  "negative_controls": "PASS_15_SPECIFIC_NEGATIVE_CONTROLS",
+  "network": false,
+  "Lean": false,
+  "repository_operations": false,
+  "external_independent_review": false,
+  "binding_note": "This internal receipt binds the bootstrap ZIP and identical mathematical payload. It is not a hash of the final ZIP containing this receipt; the external final archive receipt binds and fully replays that final ZIP.",
+  "step_log_texts": {
+    "manifest": "PASS_SHA256_MANIFEST 992 files\n",
+    "full_replay": "ROOTS A complete profiles 18 gates 9695\nGEOMETRY_RECEIVED A modular_minors 19390 exact_integer_minors 10\nROOTS B complete profiles 30 gates 5416\nGEOMETRY_RECEIVED B modular_minors 10832 exact_integer_minors 2\n{\n  \"input_frontier\": 104,\n  \"remaining_frontier\": 77,\n  \"removed_states\": [\n    1670,\n    1672,\n    1709,\n    1744,\n    1788,\n    1790,\n    1799,\n    1820,\n    1824,\n    1828,\n    1834,\n    1840,\n    1849,\n    1859,\n    1867,\n    1870,\n    1911,\n    1922,\n    1930,\n    1942,\n    1966,\n    1978,\n    1979,\n    1987,\n    1992,\n    2008,\n    2023\n  ],\n  \"net_removed_states\": 27,\n  \"minimum_equality_h\": 115,\n  \"maximum_vertical_sum\": 75,\n  \"lowest_h_states\": [\n    1679\n  ],\n  \"raw_signature_count\": 619,\n  \"full_integer_DP_cells_checked\": 1203003,\n  \"COVER8\": true,\n  \"COVER7_proved\": false,\n  \"H116_proved\": false,\n  \"R7_unchanged\": [\n    3,\n    4,\n    5,\n    6,\n    7,\n    8,\n    9\n  ],\n  \"Lean\": false,\n  \"repository_operations\": false,\n  \"stageA\": {\n    \"profiles\": 18,\n    \"root_configurations\": 9695,\n    \"modular_minor_checks\": 19390,\n    \"exact_integer_minors\": 10,\n    \"residual_kernels\": 0\n  },\n  \"stageB\": {\n    \"profiles\": 30,\n    \"root_configurations\": 5416,\n    \"modular_minor_checks\": 10832,\n    \"exact_integer_minors\": 2,\n    \"residual_kernels\": 0\n  },\n  \"geometric_profiles\": 48,\n  \"total_root_configurations\": 15111,\n  \"total_modular_minor_checks\": 30222,\n  \"selected_exact_integer_minors\": 12,\n  \"all_signature_integer_price_checks\": 12380,\n  \"price_states\": 20,\n  \"next_state\": {\n    \"state\": 1679,\n    \"capacity\": [\n      0,\n      1,\n      6,\n      4,\n      4,\n      9\n    ],\n    \"h\": 115,\n    \"v\": [\n      18,\n      15,\n      13,\n      11,\n      9,\n      9\n    ],\n    \"complete_multisets\": 7170,\n    \"complete_python_cpp_sets_equal\": true,\n    \"minimum_proxy_degree\": 99,\n    \"saturated_multisets\": 5567,\n    \"unsaturated_multisets\": 1603,\n    \"common_numerical_type\": [\n      4,\n      0,\n      0,\n      2,\n      1,\n      0,\n      0\n    ],\n    \"common_type_count_distribution\": {\n      \"3\": 4052,\n      \"2\": 3118\n    },\n    \"all_actual_factors_are_quartic_or_S5_claimed\": false,\n    \"survivors_when_common_floor_is_5_through10\": [\n      3548,\n      1547,\n      709,\n      209,\n      39,\n      0\n    ],\n    \"minimum_conditional_degree_at_floor10\": 117,\n    \"distinct_individual_numerical_preimages\": 57,\n    \"preimage_max_degree\": 20,\n    \"status\": \"OPEN; counterfactual floor10 not proved; unsaturated cost increments retained\"\n  },\n  \"external_independent_review\": false\n}\n",
+    "byte_comparison": "PASS_BYTE_IDENTICAL_CERTIFICATES 334\n",
+    "manifest_after_replay": "PASS_SHA256_MANIFEST 992 files\n"
+  }
+}

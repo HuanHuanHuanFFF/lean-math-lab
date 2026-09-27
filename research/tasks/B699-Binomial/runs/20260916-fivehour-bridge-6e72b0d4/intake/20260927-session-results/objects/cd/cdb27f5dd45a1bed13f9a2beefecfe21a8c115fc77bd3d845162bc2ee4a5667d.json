@@ -1,0 +1,36 @@
+{
+  "status": "completed",
+  "symbolic_exploration": {
+    "method": "Exact rational polynomial Euclidean algorithm (SymPy during discovery); independent standard-library derivation included.",
+    "input_source_archive_sha256": "55ab48f4c18310dcc55ef218c3802315b6d3ff02d7083ce8f18b0d6ac6e74e87"
+  },
+  "not_run": [
+    "old 125000-row Hensel ledger",
+    "m=2 shells",
+    "old zero branches",
+    "z<=2 research branches",
+    "old P<=1000 shell"
+  ],
+  "finite_discovery_not_coverage": {
+    "large_example_sampling": "z=1000007+8*i, proposed examples only; b=0 first success at i=112, b=3 at i=116, b=4 at i=540. No success in first 250 for b=1,2; exact polynomial audits subsequently exclude their true one-prime-power structures.",
+    "nontrivial_power_search": "Proposed prime powers with bases<5000 and exponents 2..8 using quadratic discriminants; no both-true-power example obtained. No theorem or replay depends on this diagnostic.",
+    "capacity_diagnostic": "Deficits 1..32 at symbolic minimum z=2b+3; only b=1..4 contiguous block adopted. General exact inequality is used instead of arbitrarily collecting individual passes."
+  },
+  "implementation_issues": [
+    {
+      "issue": "Initial Python certificate write permission error",
+      "resolution": "Permissions fixed only in new /mnt/data evidence directory; certificates explicitly written afterward."
+    },
+    {
+      "issue": "First reception demanded every example witness fail the low T2 window. b=3 witness 11 has residue 2 but fails higher Lucas digits.",
+      "resolution": "Record low-window status explicitly and check it separately; Common3 witness checked by exact Legendre valuations and full Lucas. Universal Bezout identities were unchanged."
+    }
+  ],
+  "mathematical_non_claims": [
+    "No solution of standalone quartic S-unit equation claimed",
+    "No full k=3 closure",
+    "No historical NC-count reduction measured",
+    "No Lean",
+    "No repository mutation"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "Lean": false,
+  "byte_identical_files": 6,
+  "damaged_certificate_rejections": 9,
+  "elapsed_seconds": 12.659054,
+  "evidence_level": "same-author separated arithmetic replay; not external review or proof assistant",
+  "historical_certified_net_deletion": 0,
+  "payload_hash_entries_verified": 34,
+  "regenerated_certificate_files": [
+    "central_core_certificate.json",
+    "ordinary_regressions.json",
+    "original_source_witnesses.json",
+    "scope_and_boundary.json",
+    "source_polynomial_certificate.json",
+    "unbounded_power_family_checks.json"
+  ],
+  "repository_actions": false,
+  "round": 9,
+  "separated_acceptor_does_not_import_discovery": true,
+  "status": "PASS",
+  "steps": [
+    {
+      "name": "discovery regeneration",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "Generated 6 certificates; 4 inherited ordinary regressions, 4 original-source witnesses, 10 family checks. No global deletion claimed.\n"
+    },
+    {
+      "name": "separate arithmetic acceptance",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "PASS: 6 exact certificates; residue-set signs, brute-force lifts, carry valuations and direct binomials agree. Scope flags preserved.\n"
+    },
+    {
+      "name": "nine damaged certificate rejections",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"all_rejected\": true,\n  \"results\": [\n    {\n      \"message\": \"REJECT: certificate mismatch: central_core_certificate.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"core15_label\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: central_core_certificate.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"conditional_character\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: source_polynomial_certificate.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"central_source_coefficient\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: source_polynomial_certificate.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"inflate_actual_source_power\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: original_source_witnesses.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"inflate_source_e\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: original_source_witnesses.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"change_original_input\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: scope_and_boundary.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"fabricate_net_gain\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: scope_and_boundary.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"fabricate_k4_terminal\"\n    },\n    {\n      \"message\": \"REJECT: certificate mismatch: unbounded_power_family_checks.json\",\n      \"rejected\": true,\n      \"returncode\": 1,\n      \"test\": \"family_as_current_model\"\n    }\n  ],\n  \"tests\": 9\n}\n"
+    },
+    {
+      "name": "bounded old-input diagnostic replay",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"current_frontier_scan\": false,\n  \"frozen_original_inputs\": 4,\n  \"historical_net_deletion\": 0,\n  \"prime_bound_exclusive\": 20000,\n  \"results\": [\n    {\n      \"found\": [],\n      \"frozen_a\": 4,\n      \"n_bit_length\": 8\n    },\n    {\n      \"found\": [\n        {\n          \"p\": 2963,\n          \"r\": 3\n        },\n        {\n          \"p\": 4751,\n          \"r\": 4\n        }\n      ],\n      \"frozen_a\": 8,\n      \"n_bit_length\": 19\n    },\n    {\n      \"found\": [\n        {\n          \"p\": 23,\n          \"r\": 3\n        }\n      ],\n      \"frozen_a\": 183,\n      \"n_bit_length\": 575\n    },\n    {\n      \"found\": [],\n      \"frozen_a\": 692,\n      \"n_bit_length\": 2187\n    }\n  ]\n}\n"
+    },
+    {
+      "name": "single original-input consumer",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"X\": 2,\n  \"Y\": 15,\n  \"alpha\": 29,\n  \"current_model_claim\": false,\n  \"g\": 1,\n  \"j\": 8,\n  \"n\": 29,\n  \"source\": 3,\n  \"source_prime\": 13,\n  \"status\": \"VERIFIED_ORIGINAL_COMMON6_WITNESS\",\n  \"vp_Cn6\": 1,\n  \"vp_Cnj\": 1,\n  \"whole_NC_test\": false\n}\n"
+    },
+    {
+      "name": "single input rejects false square coefficient",
+      "returncode": 1,
+      "stderr": "REJECT: square-class certificate does not equal the original factors\n",
+      "stdout": ""
+    }
+  ],
+  "timestamp_utc": "2026-09-26T16:28:10.496735+00:00"
+}

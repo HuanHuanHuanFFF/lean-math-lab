@@ -1,0 +1,128 @@
+{
+  "round_id": "B699-ProB-K3-T0-HENSEL-20260926",
+  "date": "2026-09-26",
+  "predecessor": "B699-ProB-M1-CARRY-MULT-20260926",
+  "source_of_truth": [
+    "sources/OVERVIEW-2026-09-22.md.txt",
+    "sources/M1_HANDOFF.md",
+    "sources/M1_PROOFS.md"
+  ],
+  "original_goal": "For all natural 1<=i<j<=floor(n/2), a prime ell>=i divides both binomial(n,i) and binomial(n,j). This round fixes i=3.",
+  "R7_before": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "R7_after": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "global_closure": false,
+  "full_i3_closure": false,
+  "full_first_shell_closure": false,
+  "global_absolute_bound": false,
+  "full_k3_closure": false,
+  "new_theorems": [
+    {
+      "id": "K3-LOW2-T0",
+      "kind": "conditional entire-row consumer",
+      "condition": "true two-power k=3,u=1 first shell and 2^v2(n)<=d^2",
+      "height_cutoff": null
+    },
+    {
+      "id": "K3-Z3MOD8",
+      "kind": "corollary entire-row consumer",
+      "condition": "all admissible original a and both eps when z=3 mod8",
+      "old_overlap": "EDGE3 eps=+1,a=2z-1 is NOT counted again"
+    },
+    {
+      "id": "K3-HENSEL-ONE",
+      "kind": "unbounded one-parameter necessary recovery",
+      "conclusion": "at most one original integer (a,eps) per fixed z across BOTH signs; not global finite reduction"
+    },
+    {
+      "id": "K3-DEFICIT-T0",
+      "kind": "necessary same-input divisibility",
+      "condition": "b=2z-1-a>=0",
+      "positive": "T0 divides 9(b-3)(3b+11)",
+      "negative": "T0 divides 9(b+2)(3b-4)"
+    },
+    {
+      "id": "K3-B3-Q-OBSTRUCTION",
+      "kind": "actual-input inconsistency",
+      "conclusion": "positive b=3 makes Q a product of two coprime nontrivial factors",
+      "actual_NC_net_deletion_count": 0
+    }
+  ],
+  "finite_prefix": {
+    "scope": "only k=3 normalized branch",
+    "z_max": 1000000,
+    "z_tested": 125000,
+    "z_residue": [
+      7,
+      8
+    ],
+    "integer_weak_candidates": 2,
+    "T0_survivors": 0,
+    "ledger_sha256": "97a5b3a647f586ee9f41494d143ebb1c7707acafb2dc459605e6a26dec749135",
+    "next_possible_z_in_this_subdomain": 1000007,
+    "is_global_upper_bound": false
+  },
+  "sign_correction": {
+    "incorrect_prompt_expression": "R0*(-R1)*R2>0",
+    "correct_frozen_expression": "S=R0*R1*R2>0",
+    "reason": "R0<0,R1>0,R2<0"
+  },
+  "still_unbounded": {
+    "k3": [
+      "z (one possible a/eps recovered per z, then alpha,P,Q,n,j determined)"
+    ],
+    "general_m1": [
+      "k",
+      "d",
+      "z",
+      "u",
+      "a",
+      "P",
+      "Q",
+      "p",
+      "q",
+      "rho",
+      "sigma",
+      "n",
+      "j",
+      "v2(n)"
+    ]
+  },
+  "frontier_remaining": [
+    "k=3,z=7 mod8,z>=1000007, unique root within interval, 2^alpha>d^2, true prime powers, full Lucas and original complete T0/T2 constraints",
+    "k>=4 m=1 nonzero first shell",
+    "outside first shell, other n-1 factorizations, multibase and general i=3"
+  ],
+  "not_claimed": [
+    "infinitely many actual prime-power pairs in the new conditional domain",
+    "a surviving NC3 model",
+    "a numerical reduction in the old unknown-NC ledger",
+    "independence from original T0 of derived necessary conditions"
+  ],
+  "next_test": "negative upper edge eps=-1,b=0: same-input quartic n=2^alpha*3^beta, beta in {0,1,2}, together with full P/Q and T2; or couple unique high-adic root to actual Q and T2",
+  "evidence_level": "author mathematical proof + deterministic exact arithmetic + independent implementation by same author + clean extraction replay; no Lean or external independent review",
+  "repository_modified": false,
+  "old_m2_or_zero_or_lowz_scans_replayed": false,
+  "initial_new_scope_diagnostic": {
+    "scope": "k3 only, z<=10000, excluding old EDGE3",
+    "integer_rows": 12501250,
+    "T0_pass": 0,
+    "proof_dependency": false
+  },
+  "verification_command": "python3 -B scripts/verify.py --output /tmp/k3-verify.json"
+}
