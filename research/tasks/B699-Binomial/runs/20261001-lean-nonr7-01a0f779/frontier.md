@@ -67,3 +67,12 @@
 - 实际N已由runtime_review独立接受，见 `reviews/actual-normalization.md`：最终只需要i≥1000、合法n,j和原题noCommon；实际π(i−1)、误差(i−1)/n及n+1−i端点确认。一般桥的hfactorial/hdegree均由已验body供应，不是最终额外假设。仍未由N单独排除原题区域。
 - 完整EC执行者报告exit0(19.929秒，WS1772.67MiB)，证据 `tail/verification/20261001T150657845Z`；目标为所有实数x≥128的inclusiveπ(floor x)≤log4*x/(logx−3/2)，无外部EC/RS/PNT/Dusart假设，独立复核进行中。固定128基例分层，原源修复后的实际证明重验。
 - 已验真实N与EC正在接UniformCountTail及最终同素数消费者；候选范围i≥131072,n≥4096i必须以最终Kernel/axiom/statement接受后才能登记，当前不提前计入。
+
+## 15:42:09硬停与最终交付
+
+- 研究与验证已按原始两小时截止停止，无延期。15:42:46的[停机回执](runtime/stop-receipt.json)检查129条本轮进程记录：无遗留进程、编译锁free，没有停止他人进程、没有新重任务。
+- 完整EC、显式A的UniformCountTail与两组临界距离pilot已完成独立复核，分别见 `reviews/complete-ec.md`、`reviews/uniform-count-tail.md`、`reviews/critical-pilot.md`。实际N亦已接受，范围保持上述准确声明。
+- 最终原题消费者没有通过：普通版本因物理资源预检被拒绝启动，低内存public-import版本因legacy模块接口不兼容exit1，未进入目标proof/axiom检查。候选区域不得登记为接受。
+- 实际新增完整原题指标0，新增最终原题公共素数排除区域0；基线仍为 `{1,2,11,29}∪[35,4882]`。R7未研究。期望的尾部区域减少未发生；N与EC等证明链前置确已消除相应无界形式化义务。
+- D盘可用36.359GiB（开始42.01GiB）；物理可用3.251GiB。截止后内存恢复不构成继续运行授权。后续仅登记停机、保存本地提交。
+- 下一次可执行检查：在安全资源条件下复验已准备最终原题消费者；仍需4883..131071的精确IC、小比例n区间与真正Gap供应，不重做本轮已接受前置。
