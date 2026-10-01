@@ -1,0 +1,25 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\ICConsumer.lean:70:28: error: `field_simp` made no progress on the goal
+@B699ContinuationIC.row_height : ∀ {n i j a b T q k : ℕ},
+  1000 ≤ i →
+    i < j →
+      j ≤ n / 2 →
+        a ≤ i →
+          i ≤ b →
+            b < 2 ^ k →
+              12 ≤ q →
+                b.primeCounting ≤ T →
+                  100 * (3 * (q + k) * T + 5 * q + 9 * k) ≤ (100 * q - 1) * a →
+                    ¬B699LargePrimeStructure.Common n i j → n < 2 ^ q * i
+@B699ContinuationIC.row_common : ∀ {n i j a b T q k : ℕ},
+  1000 ≤ i →
+    i < j →
+      j ≤ n / 2 →
+        a ≤ i →
+          i ≤ b →
+            b < 2 ^ k →
+              12 ≤ q →
+                b.primeCounting ≤ T →
+                  100 * (3 * (q + k) * T + 5 * q + 9 * k) ≤ (100 * q - 1) * a →
+                    2 ^ q * i ≤ n → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j
+'B699ContinuationIC.row_height' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699ContinuationIC.row_common' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

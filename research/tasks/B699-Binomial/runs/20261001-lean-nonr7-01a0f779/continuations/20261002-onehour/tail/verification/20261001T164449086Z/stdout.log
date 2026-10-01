@@ -1,0 +1,5 @@
+@B699ContinuationSieve.primeCounting_sieve_upper : ∀ {P : Finset ℕ} {b : ℕ},
+  P.Nonempty →
+    (∀ q ∈ P, Nat.Prime q) →
+      (∀ q ∈ P, q ≤ b) → b.primeCounting ≤ P.card - 1 + (B699ContinuationSieve.survivors P b).card
+'B699ContinuationSieve.primeCounting_sieve_upper' depends on axioms: [propext, Classical.choice, Quot.sound]

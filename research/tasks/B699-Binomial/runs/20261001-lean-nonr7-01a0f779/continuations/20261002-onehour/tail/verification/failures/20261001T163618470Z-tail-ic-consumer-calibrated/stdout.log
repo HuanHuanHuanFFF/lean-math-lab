@@ -1,0 +1,61 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\ICConsumer.lean:69:76: error: unsolved goals
+case e'_2
+n i j a b T q k : ℕ
+hi : 1000 ≤ i
+hij : i < j
+hjn : j ≤ n / 2
+ha : a ≤ i
+hb : i ≤ b
+hbk : b < 2 ^ k
+hq : 12 ≤ q
+hcount : b.primeCounting ≤ T
+hcert : 100 * (3 * (q + k) * T + 5 * q + 9 * k) ≤ (100 * q - 1) * a
+hno : ¬B699LargePrimeStructure.Common n i j
+h : ¬n < 2 ^ q * i
+hn : 2 ^ q * i ≤ n
+hip : 0 < ↑i
+hpq : 4096 ≤ 2 ^ q
+hn4096 : 4096 * i ≤ n
+hnr : 4096 * ↑i ≤ ↑n
+hnp : 0 < ↑n
+hX : 2 ^ q ≤ ↑n / ↑i
+hZ : ↑q * log 2 ≤ log (↑n / ↑i)
+hik : ↑i ≤ 2 ^ k
+hL : log ↑i ≤ ↑k * log 2
+hsmall : (↑i - 1) / ↑n ≤ 1 / 4096
+hE : -log (1 - (↑i - 1) / ↑n) ≤ 1 / 4095
+t : ℕ := (i - 1).primeCounting
+ht : t ≤ T
+hleft : 3 * (q + k) * t + 5 * q + 9 * k ≤ 3 * (q + k) * T + 5 * q + 9 * k
+hNat : 100 * (3 * (q + k) * t + 5 * q + 9 * k) ≤ (100 * q - 1) * i
+hsub : ↑(100 * q - 1) = 100 * ↑q - 1
+hIC : 100 * (3 * (↑q + ↑k) * ↑t + 5 * ↑q + 9 * ↑k) ≤ (100 * ↑q - 1) * ↑i
+hA : (1 / 3 - 5 / (3 * ↑i) - ↑t / ↑i) * log (↑n / ↑i) ≤ ↑t / ↑i * log ↑i + 3 * log ↑i / ↑i - log (1 - (↑i - 1) / ↑n)
+hA' :
+  (1 / 3 - 5 / (3 * ↑i) - ↑t / ↑i) * log (↑n / ↑i) * (3 * ↑i) ≤
+    (↑t / ↑i * log ↑i + 3 * log ↑i / ↑i - log (1 - (↑i - 1) / ↑n)) * (3 * ↑i)
+⊢ instLE = instPreorder.toLE
+@B699ContinuationIC.row_height : ∀ {n i j a b T q k : ℕ},
+  1000 ≤ i →
+    i < j →
+      j ≤ n / 2 →
+        a ≤ i →
+          i ≤ b →
+            b < 2 ^ k →
+              12 ≤ q →
+                b.primeCounting ≤ T →
+                  100 * (3 * (q + k) * T + 5 * q + 9 * k) ≤ (100 * q - 1) * a →
+                    ¬B699LargePrimeStructure.Common n i j → n < 2 ^ q * i
+@B699ContinuationIC.row_common : ∀ {n i j a b T q k : ℕ},
+  1000 ≤ i →
+    i < j →
+      j ≤ n / 2 →
+        a ≤ i →
+          i ≤ b →
+            b < 2 ^ k →
+              12 ≤ q →
+                b.primeCounting ≤ T →
+                  100 * (3 * (q + k) * T + 5 * q + 9 * k) ≤ (100 * q - 1) * a →
+                    2 ^ q * i ≤ n → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j
+'B699ContinuationIC.row_height' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699ContinuationIC.row_common' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

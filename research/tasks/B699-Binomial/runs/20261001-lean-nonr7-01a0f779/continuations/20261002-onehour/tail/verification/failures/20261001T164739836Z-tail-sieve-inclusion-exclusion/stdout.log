@@ -1,0 +1,37 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:17:22: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  DecidablePred fun m => R q ?m.17
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:19:7: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  DecidablePred fun m => ∀ q ∈ P, R q m
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:26:25: error: unsolved goals
+case insert
+b : ℕ
+R : ℕ → ℕ → Prop
+x : ↥(Finset.Icc 1 b)
+q : ℕ
+s : Finset ℕ
+hqs : q ∉ s
+ih : (x ∈ s.inf fun q => {m | R q ↑m}) ↔ ∀ q ∈ s, R q ↑x
+⊢ R q ↑x → ((x ∈ s.inf fun q => {m ∈ (Finset.Icc 1 b).attach | R q ↑m}) ↔ ∀ a ∈ s, R a ↑x)
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:26:53: warning: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Finset.inf_insert]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:36:8: warning: declaration uses `sorry`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:50:4: warning: Unused tactic linter: `exact restricted_inf_card P b (fun q m => ¬q ∣ m)` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+B699ContinuationSieve.survivors_card_inclusion_exclusion : ∀ (P : Finset ℕ) (b : ℕ),
+  ↑(B699ContinuationSieve.survivors P b).card =
+    ∑ t ∈ P.powerset, (-1) ^ t.card * ↑(B699ContinuationSieve.intersections t b).card
+'B699ContinuationSieve.restricted_inf_card' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699ContinuationSieve.survivors_card_inclusion_exclusion' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

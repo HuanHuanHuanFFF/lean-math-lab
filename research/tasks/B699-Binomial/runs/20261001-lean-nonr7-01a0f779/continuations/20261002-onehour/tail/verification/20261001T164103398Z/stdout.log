@@ -1,0 +1,33 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\ICConsumer.lean:73:31: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\ICConsumer.lean:73:31: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\ICConsumer.lean:77:27: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+@B699ContinuationIC.row_height : ∀ {n i j a b T q k : ℕ},
+  1000 ≤ i →
+    i < j →
+      j ≤ n / 2 →
+        a ≤ i →
+          i ≤ b →
+            b < 2 ^ k →
+              12 ≤ q →
+                b.primeCounting ≤ T →
+                  100 * (3 * (q + k) * T + 5 * q + 9 * k) ≤ (100 * q - 1) * a →
+                    ¬B699LargePrimeStructure.Common n i j → n < 2 ^ q * i
+@B699ContinuationIC.row_common : ∀ {n i j a b T q k : ℕ},
+  1000 ≤ i →
+    i < j →
+      j ≤ n / 2 →
+        a ≤ i →
+          i ≤ b →
+            b < 2 ^ k →
+              12 ≤ q →
+                b.primeCounting ≤ T →
+                  100 * (3 * (q + k) * T + 5 * q + 9 * k) ≤ (100 * q - 1) * a →
+                    2 ^ q * i ≤ n → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j
+'B699ContinuationIC.row_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699ContinuationIC.row_common' depends on axioms: [propext, Classical.choice, Quot.sound]
