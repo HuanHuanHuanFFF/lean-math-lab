@@ -1,0 +1,17 @@
+# Pruning equals full powerset floor sum
+
+Independent verifier `/root/runtime_review`, GPT-6.1 Sol/xhigh. **Accepted generic mathematical equivalence and producer bindings** from fixed packages `../tail/verification/20261001T1815-modern-generic-correctness/stage-manifest.json` and `../tail/verification/20261001T1818-modern-core-binding/stage-manifest.json`. All19/7 member hashes were independently recomputed with worker-relative paths and agree. Actual stdout, source snapshots and successful exit0 receipts are preserved. Public axioms are standard; the Core↔modern count/list identities have no axioms, Core↔first implementation uses propext.
+
+I read the complete source and actual typed output. `count_eq_floorSum` states for every list ps of natural numbers, ps.Nodup, and **every natural b**, count(ps,b)=Σ(t⊆ps.toFinset) (−1)^card(t) floor(b/product(t)), with the natural floor terms cast to Int. No positivity, primality, numerical row or bounded-b assumption is introduced. The list-no-duplicates hypothesis is essential because the right side is a finite set powerset.
+
+The insertion proof splits the complete powerset at a member not already in the finite set; every subset has p∉t. Cardinality increases by1, giving the negative sign, and Nat.div_div_eq_div_mul identifies the recursively divided quotient with the product denominator. Thus it is the entire powerset, not merely sampled or truncated terms.
+
+Boundary checks by source correspondence: for the empty list the empty subset has product1, sign1 and contributes b. At b=0 both count and every floor term are0, so the early zero-quotient prune is mathematically exact. Even p=0 is allowed in this generic integer identity: natural division by0 gives0 and any product containing0 contributes0. A separate prime-set theorem remains necessary to interpret the sum as the cardinality of sieve survivors. Signed Int subtraction is not replaced with truncated Nat subtraction.
+
+I read actual structural induction bindings for all ps,b between the pure Init Core, original Omega implementation and modern public implementation; the prime list bindings are actual equalities. The exact descending P16 list is unchanged from the earlier independent source/JSON checks. These bindings address module/namespace copying without relying solely on standard axiom lists. Mathlib imports remain fixed; only the small producer's private body is imported explicitly where unfolding count requires it.
+
+I actually replayed the new ModernPrunedCorrectness compiled module with pinned leanchecker: runtime receipt `20261001T182019349Z-independent-checker-ModernPrunedCorrectness`, exit0,28.543s, tree peak683.13 MiB. Primary/server/private object parts were hashed before/after; actual stdout identifies the module. This is normal same-Lean-kernel replay with imported environments trusted, not an external second kernel.
+
+The legacy focused attempt stopped on the900 MiB physical reserve; the first modern attempt failed on a genuinely hidden count body. These diagnostic failures were not mathematical counterexamples; the accepted modern root records the final successful equation proof.
+
+Still needed for original B699 progress: all115 exact numeric bounds, the list/set P16 correspondence to the actual survivor formula, actual π bounds, and the original consumer. No new unconditional original region is accepted from this generic identity alone.
