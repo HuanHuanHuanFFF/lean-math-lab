@@ -1,0 +1,10 @@
+fun {u v} =>
+  Math.B699.ZeroBoundaryWindowLog.log_sub_log_le_div : ∀ {u v : ℝ},
+  0 < u → 0 < v → Real.log u - Real.log v ≤ (u - v) / v
+fun {u v lower D} =>
+  Math.B699.ZeroBoundaryWindowLog.abs_log_sub_log_le_of_lower_bound : ∀ {u v lower D : ℝ},
+  0 < u → 0 < v → 0 < lower → lower ≤ u → lower ≤ v → |u - v| ≤ D → |Real.log u - Real.log v| ≤ D / lower
+'Math.B699.ZeroBoundaryWindowLog.log_sub_log_le_div' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryWindowLog.abs_log_sub_log_le_of_lower_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

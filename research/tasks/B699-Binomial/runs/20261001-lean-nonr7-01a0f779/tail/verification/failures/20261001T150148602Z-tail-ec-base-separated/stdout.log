@@ -1,0 +1,46 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\ElementaryCount.lean:107:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\ElementaryCount.lean:124:26: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\ElementaryCount.lean:137:26: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\ElementaryCount.lean:179:2: error: `fun_prop` was unable to prove `ContinuousAt
+  (fun x => 3 / 2 * log 4 * (log x * (log x - 3 / 2) - (2 * log x - 3 / 2)) / (log x ^ 2 * (log x - 3 / 2) ^ 2)) t`
+
+Issues:
+  Failed to prove necessary assumption `(3 / 2 * log 4 * (log t * (log t - 3 / 2) - (2 * log t - 3 / 2)), log t ^ 2 * (log t - 3 / 2) ^ 2).2 ≠ 0` when applying theorem `ContinuousAt.div₀`.
+  Failed to prove necessary assumption `log t ^ 2 * (log t - 3 / 2) ^ 2 ≠ 0` when applying theorem `ContinuousAt.div₀`.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\ElementaryCount.lean:220:37: error: unsolved goals
+x : ℝ
+hx : 128 ≤ x
+hxp : 0 < x
+hlp : 0 < log x
+hap : 0 < log x - 3 / 2
+hB :
+  ↑⌊128⌋₊.primeCounting =
+    B699SlimChebyshev.theta 128 / log 128 + ∫ (t : ℝ) in 2..128, B699SlimChebyshev.theta t / (t * log t ^ 2)
+hjoin :
+  (∫ (x : ℝ) in 2..128, thetaIntegrand x) + ∫ (x : ℝ) in 128..x, thetaIntegrand x = ∫ (x : ℝ) in 2..x, thetaIntegrand x
+hA : ↑⌊x⌋₊.primeCounting = B699SlimChebyshev.theta x / log x + ∫ (t : ℝ) in 2..x, thetaIntegrand t
+hB' : ↑(Nat.primeCounting 128) = B699SlimChebyshev.theta 128 / log 128 + ∫ (t : ℝ) in 2..128, thetaIntegrand t
+hθ : B699SlimChebyshev.theta x / log x ≤ log 4 * x / log x
+hi : ∫ (t : ℝ) in 128..x, thetaIntegrand t ≤ correction x - correction 128
+hb : ↑(Nat.primeCounting 128) - B699SlimChebyshev.theta 128 / log 128 ≤ correction 128
+⊢ 1 + (-3 + log x * 2)⁻¹ * 3 = log x * (-3 + log x * 2)⁻¹ * 2
+@B699TailCount.elementary_primeCounting_bound : ∀ {x : ℝ},
+  LE.le.{0} 128 x →
+    LE.le.{0} (↑(Nat.floor.{0} x).primeCounting)
+      (HDiv.hDiv.{0, 0, 0} (HMul.hMul.{0, 0, 0} (log 4) x) (HSub.hSub.{0, 0, 0} (log x) (3 / 2)))
+'B699TailCount.elementary_primeCounting_bound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699TailCount.primeCounting_128' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailCount.primorial_128_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailCount.denominator_pos' depends on axioms: [propext, Classical.choice, Quot.sound]

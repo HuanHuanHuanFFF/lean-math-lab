@@ -1,0 +1,58 @@
+fun {d} {alpha} =>
+  Math.B699.ZeroBoundaryLogSeparation.approximationCheck_sound : ∀
+  {d : Math.B699.ZeroBoundaryLogSeparation.Approximation} {alpha : ℝ},
+  Math.B699.ZeroBoundaryLogSeparation.approximationCheck d = true →
+    ↑d.alphaLower ≤ alpha ∧ alpha ≤ ↑d.alphaUpper → 0 < ↑d.v ∧ 0 ≤ ↑d.error ∧ |↑d.v * alpha - ↑d.u| ≤ ↑d.error
+fun {t gap} {k} =>
+  Math.B699.ZeroBoundaryLogSeparation.integer_strip_separation : ∀ {t gap : ℝ} {k : ℤ},
+  ↑k + gap ≤ t → t ≤ ↑k + 1 - gap → ∀ (z : ℤ), gap ≤ |t - ↑z|
+fun {M} {epsilon} {d} {alpha beta} =>
+  Math.B699.ZeroBoundaryLogSeparation.nonresonantCheck_sound : ∀ {M : ℕ} {epsilon : ℚ}
+  {d : Math.B699.ZeroBoundaryLogSeparation.NonresonantData} {alpha beta : ℝ},
+  Math.B699.ZeroBoundaryLogSeparation.nonresonantCheck M epsilon d = true →
+    ↑d.approx.alphaLower ≤ alpha ∧ alpha ≤ ↑d.approx.alphaUpper →
+      ↑d.betaLower ≤ beta ∧ beta ≤ ↑d.betaUpper →
+        ∀ (x y : ℤ), |x| ≤ ↑M → ↑epsilon ≤ ↑d.approx.v * |↑x * alpha - ↑y + beta|
+fun {u v x y} =>
+  Math.B699.ZeroBoundaryLogSeparation.determinant_ne_zero : ∀ {u v x y : ℤ},
+  0 < v → u.gcd v = 1 → |x| < v → ¬(x = 0 ∧ y = 0) → u * x - v * y ≠ 0
+fun {M} {d} {alpha} =>
+  Math.B699.ZeroBoundaryLogSeparation.resonantCheck_sound : ∀ {M : ℕ}
+  {d : Math.B699.ZeroBoundaryLogSeparation.Approximation} {alpha : ℝ},
+  Math.B699.ZeroBoundaryLogSeparation.resonantCheck M d = true →
+    ↑d.alphaLower ≤ alpha ∧ alpha ≤ ↑d.alphaUpper →
+      ∀ (x y : ℤ), |x| ≤ ↑M → ¬(x = 0 ∧ y = 0) → 1 / 2 < ↑d.v * |↑x * alpha - ↑y|
+Math.B699.ZeroBoundaryLogSeparation.zero_first_coordinate_separation : ∀ (alpha : ℝ) {y : ℤ},
+  y ≠ 0 → 1 ≤ |0 * alpha - ↑y|
+fun {alpha beta} =>
+  Math.B699.ZeroBoundaryLogSeparation.shifted_form_eq : ∀ {alpha beta : ℝ} (x y r s : ℤ),
+  beta = ↑r * alpha + ↑s → ↑x * alpha - ↑y + beta = ↑(x + r) * alpha - ↑(y - s)
+fun {M} {d} {alpha beta} =>
+  Math.B699.ZeroBoundaryLogSeparation.resonant_shift_sound : ∀ {M : ℕ}
+  {d : Math.B699.ZeroBoundaryLogSeparation.Approximation} {alpha beta : ℝ},
+  Math.B699.ZeroBoundaryLogSeparation.resonantCheck M d = true →
+    ↑d.alphaLower ≤ alpha ∧ alpha ≤ ↑d.alphaUpper →
+      ∀ (x y r s : ℤ),
+        beta = ↑r * alpha + ↑s → |x + r| ≤ ↑M → ↑x * alpha - ↑y + beta ≠ 0 → 1 / 2 < ↑d.v * |↑x * alpha - ↑y + beta|
+fun {x r} {m c} =>
+  Math.B699.ZeroBoundaryLogSeparation.signed_shift_bound : ∀ {x r : ℤ} {m c : ℕ},
+  |x| ≤ ↑m → |r| ≤ ↑c → |x + r| ≤ ↑(m + c)
+fun {x r} =>
+  Math.B699.ZeroBoundaryLogSeparation.new_height_shift_fits_old_budget : ∀ {x r : ℤ},
+  |x| ≤ 15359 → |r| ≤ 6 → |x + r| ≤ ↑(2 ^ 53)
+'Math.B699.ZeroBoundaryLogSeparation.approximationCheck_sound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.integer_strip_separation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.nonresonantCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.determinant_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.resonantCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.zero_first_coordinate_separation' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.shifted_form_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.resonant_shift_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.signed_shift_bound' depends on axioms: [propext, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.new_height_shift_fits_old_budget' depends on axioms: [propext, Quot.sound]

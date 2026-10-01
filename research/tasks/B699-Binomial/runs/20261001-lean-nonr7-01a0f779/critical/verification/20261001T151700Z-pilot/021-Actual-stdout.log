@@ -1,0 +1,32 @@
+Math.B699.ZeroBoundaryWindowLog.linearForm : ℕ → ℕ → ℕ → ℕ → ℕ → ℕ → ℝ
+fun {n a A p x} =>
+  Math.B699.ZeroBoundaryWindowLog.factorized_window_log : ∀ {n a A p x : ℕ},
+  1 ≤ A → 0 < p → n = A * p ^ x + a → Real.log ↑(n - a) = Real.log ↑A + ↑x * Real.log ↑p
+fun {n a b A C p q x y} =>
+  Math.B699.ZeroBoundaryWindowLog.actual_linear_form_eq : ∀ {n a b A C p q x y : ℕ},
+  1 ≤ A →
+    1 ≤ C →
+      0 < p →
+        0 < q →
+          n = A * p ^ x + a →
+            n = C * q ^ y + b →
+              Math.B699.ZeroBoundaryWindowLog.linearForm A C p q x y = Real.log ↑(n - a) - Real.log ↑(n - b)
+fun {n a b A C p q x y} =>
+  Math.B699.ZeroBoundaryWindowLog.actual_linear_form_bounds : ∀ {n a b A C p q x y : ℕ},
+  4096 < n →
+    a < 34 →
+      b < 34 →
+        a ≠ b →
+          1 ≤ A →
+            1 ≤ C →
+              Nat.Prime p →
+                Nat.Prime q →
+                  n = A * p ^ x + a →
+                    n = C * q ^ y + b →
+                      0 < |Real.log ↑A - Real.log ↑C + ↑x * Real.log ↑p - ↑y * Real.log ↑q| ∧
+                        |Real.log ↑A - Real.log ↑C + ↑x * Real.log ↑p - ↑y * Real.log ↑q| ≤ 33 / (↑n - 33) ∧
+                          |Real.log ↑A - Real.log ↑C + ↑x * Real.log ↑p - ↑y * Real.log ↑q| < 128 / ↑n
+'Math.B699.ZeroBoundaryWindowLog.linearForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryWindowLog.factorized_window_log' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryWindowLog.actual_linear_form_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryWindowLog.actual_linear_form_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
