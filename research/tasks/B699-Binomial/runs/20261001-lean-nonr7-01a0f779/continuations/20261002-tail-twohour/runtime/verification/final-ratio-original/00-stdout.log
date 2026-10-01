@@ -1,0 +1,11 @@
+@B699ActualUniform.common_of_ratio_4096 : ∀ {n i j : ℕ},
+  1000 ≤ i → i < j → j ≤ n / 2 → 4096 * i ≤ n → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j
+@B699ActualUniform.counterexample_height_1000 : ∀ {n i j : ℕ},
+  1000 ≤ i → i < j → j ≤ n / 2 → (¬∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) → n < 4096 * i
+@B699ActualUniform.counterexample_height_4883 : ∀ {n i j : ℕ},
+  4883 ≤ i → i < j → j ≤ n / 2 → (¬∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) → n < 4096 * i
+'B699ActualUniform.tuples_match' does not depend on any axioms
+'B699ActualUniform.row_count_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699ActualUniform.common_of_ratio_4096' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699ActualUniform.counterexample_height_1000' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699ActualUniform.counterexample_height_4883' depends on axioms: [propext, Classical.choice, Quot.sound]

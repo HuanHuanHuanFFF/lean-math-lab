@@ -3,7 +3,7 @@
 状态：三任务已执行。用户授权主要补齐剩余i≥4883、完成后运行验证器；保留i=4883边界，沿用6.1 Sol/xhigh、同分支与此前低资源限制，不推进R7。
 
 - 开始：2026-10-01 17:18:06 UTC / 上海2026-10-02 01:18:06。
-- 原始截止：19:18:06 UTC / 上海03:18:06；两小时包括协调、验证和记录，不延期。19:12收敛数学源，留最终验证与停机；截止后仅行政保存/发布。
+- 原始截止：19:18:06 UTC / 上海03:18:06；两小时包括协调、验证和记录，不延期。19:12停止新路线；已准备的实际π/统一终端仅允许API修复至19:16，余时作最终验证与停机。硬截止不变，截止后仅行政保存/发布。
 - 分支：`huan/b699-lean-20261001-01a0f779`，输入 `8685508c19d73a0dbf8e07339b72bac35e6899ce`，开始工作区干净、与remote一致。
 - 原run身份保留，旧两小时和一小时的source、成功/失败日志、manifest/controller快照及停机回执均冻结。新source/objects/receipts独立，不覆盖旧结果。
 
@@ -34,3 +34,11 @@ Leader独占本README、frontier、总结与题目OVERVIEW，只登记固定交�
 tail纯递归定义与第一原row b1023/T172 kernel probe真实通过（约4.2秒、WS444MiB），但与旧floor公式等价还待。最大row131071直接probe触发512MiB守卫（514.55MiB、exit124），不据此否定数学；改为8+8分裂/DAG、每叶至多256子集归约，字面量仅生成待证目标，必须逐项kernel接受。
 
 gap源审读定位Dusart2010 Prop6.8及其有效theta/Schoenfeld前置，当前fixed Mathlib没有对应窄供应。旧GapAdapter显式假设height/Gap/finite。真实finite入口为B699MiddleExtension.common_le_twenty_million（i≥185），其270源闭包无现成新tool对象，未擅自整包build。实际仅整数interval helper已编；条件DS→Gap与原题拼接均不能登记为无限供应。
+
+## 截止前最终接受与硬停
+
+数学源19:15:46冻结；官方leanchecker的实际π重放通过，runtime_review于19:17:22记录统一原题根fresh原源、完整型、拒绝公理及normal checker全部接受。无外置数学输入的区域为i≥1000、n≥4096i、全部合法j；完整所有n的i≥4883仍缺∞Gap/完整有限供应，完整指标新增0。见REPORT、runtime/final-RatioOriginal1000-validation.json；最终自有PID/资源与发布回执另记。19:18:06之后没有新增proof/checker，只行政封存及同分支普通push。
+
+最终停止回执runtime/stop-receipt.json：19:18:43 UTC核对127个本轮登记进程，存活0、终止0、PID复用0，全局锁空闲。末次D盘35.975GiB、可用物理3.378GiB；没有关闭其他程序。数学预算结束，最终证据复制/说明与普通push属于行政收尾。
+
+最终独立审读：[final-original-ratio](reviews/final-original-ratio.md)。fresh原源21.727秒、canonical型/公理22.069秒、正常checker35.655秒均真实exit0，全部19:17:22前完成。runtime/final-manifest.json封存48普通成员；Gap Real/DS/sparse的截止前独立审读未完成，保留pending。

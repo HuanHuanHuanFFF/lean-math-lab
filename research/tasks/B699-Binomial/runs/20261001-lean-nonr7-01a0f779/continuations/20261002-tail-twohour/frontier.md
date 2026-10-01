@@ -33,3 +33,21 @@ runtime_review独立接受 `pruned-full-floor.md`：对所有Nodup Nat列表及�
 首7批28行数字原tuple已kernel通过，范围1000..15942，含4883跨行；后续高段继续，未接成π/原题前不登记区域。chunk4因384树guard停止后改chunk2；未经编译的候选或生成器算出的值不接受。
 
 gap现代实际原题消费者亦编译与公理审计通过，独立状态见 `reviews/gap-actual-conditional.md`：height、无限NatGap4095/1e7、finite≤20M三个数学输入保留，推出全部合法i≥4883实际Common。没有把出版DS或抽象P/C接口当无条件Prime供应。有限源270对象缺失可考虑从旧给定prime链抽稀疏子链，先单prime成本probe，未执行的大方案不计进度。
+
+## 18:43数字进度
+
+已108/115原数字目标真实kernel通过，余7行。新的现代2row根WS259.64>256截停，改单row减载保900余量；不因此修改已验数学源或说Prime计数已供。轻现代Bound/IE/Floor三数学header/namespace副本准备中，必须新证明并与实际旧目标绑定。全表数字、递归正确性、actualπ与原题consumer四层分开接受。
+
+## 18:50固定115数字完成
+
+执行者确认全部115真实数字根通过，最后7single根最高254.01MiB（≤256），每叶kernel、父节点由真等式拼接；没有外部值替代。数学递归fullfloor、Modern/Core/legacy绑定已经实际+独立接受。正在全表混合聚合与轻actualπ三副本接线；此时数字完成不自动标finiteSieveCertificates或原题消费者通过。
+
+gap已完成canonical NatGap/RealGap floor/cast条件等价，仍不供应prime。旧20M两样本的构造式NormNum.Prime缺叶已限定恢复；Sparse完整链未接受，DS有效theta/Schoenfeld真供应仍未formalize。
+
+## 19:16最终连接检查点
+
+115真实π供应已独立编译/正常leanchecker接受，无计值/筛/π输入。ActualUniform终端已21.585秒真实exit0：所有i≥1000,n≥4096i、全部合法j的原题Common；strict反例n<4096i。数学源已冻结，等待独立终端type/axiom/checker，不能仅凭worker日志登记最终接受。全i≥4883完整n仍缺∞Gap和真实有限供应；完整指标新增0。所有原文数值/π/consumer未验的早期记录均为当时快照，当前状态见REPORT与reviews。
+
+## 截止前最终技术接受
+
+runtime_review记录19:17:22：fresh原源、canonical完整原题型、拒绝式标准三公理审计、正常leanchecker全部接受。正式比例覆盖为所有i≥1000、n≥4096i、全部合法j；反例严格高度n<4096i。与旧一般高度/小j域有重叠，不把扩大后的全部域称净新增。完整指标新增0，∞Gap/完整有限链缺口不变。
