@@ -26,6 +26,8 @@ Leader独占本README、frontier、汇总报告和题目OVERVIEW，只登记交�
 
 16:05:23 runtime_review新测：物理可用2.330GiB、commit可用35.536GiB、CPU忙7.04%、D36.356GiB，无Lean/Lake/Python重任务。低于重根3072MiB门槛，因此未立即启动重消费者；两执行者准备新源和可分层的小检查，等待资源恢复或经诊断后的较轻载荷，不调低安全余量。
 
-首轮push尚未成功：自动审批拒绝具体远程目的地 `https://github.com/HuanHuanHuanFFF/lean-math-lab.git` 的授权确认；已向用户请求确认。拒绝不阻碍Lean执行，不以其他通路绕过。用户已明确授权的分支、内容与普通push保留；不得merge、force-push、发布PR或改认证。
+首轮push已成功：第一次自动审批因无法确认具体远程目的地的归属而拒绝，已向用户发确认问题。随后只读 `git credential-manager github list` 显示现有唯一账号 `HuanHuanHuanFFF`，与origin仓库所有者一致；在新增归属证据下同一普通push重新审批获准。未读取/显示token或改认证，未以其他通路绕过。已通知用户无需再回答旧确认问题。
+
+实际推送与远端核对：`5b1825fa75760b2e527b31c6a4667c1802bcb4e3`（包含此前全部两小时结果及本轮预算检查点）；`git ls-remote origin refs/heads/huan/b699-lean-20261001-01a0f779` 与本地HEAD一致。公开Actions API分支查询当前未返回匹配run，不作CI通过主张；research专项验收由本轮具名技术任务提供。不得merge、force-push、发布PR或改认证。
 
 到原始截止结束本轮自有验证进程并保留最终资源/进程/锁回执；随后保存本地提交，在远程授权明确时普通push并核对remote SHA。未接受候选明确保持待验。
