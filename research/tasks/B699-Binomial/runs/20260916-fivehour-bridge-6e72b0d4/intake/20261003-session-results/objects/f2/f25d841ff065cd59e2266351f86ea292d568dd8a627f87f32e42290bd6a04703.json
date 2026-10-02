@@ -1,0 +1,338 @@
+{
+  "numerical": {
+    "method": "convex midpoint/trapezoid quadrature; 8192 panels; exact directed integer reciprocals",
+    "root_method": "integer bisection; decimal scale 10^12; exact power certificates",
+    "I": 4883,
+    "theta_c": "10769/10000",
+    "a0": "19527/24415",
+    "b0": "9763/14649",
+    "v0": "92747/73245",
+    "E0": "947557/1098675",
+    "alpha": "443648/1391205",
+    "d0": [
+      "-1.083020398597471",
+      "-1.083020398278908"
+    ],
+    "beta": [
+      "0.141206321368196",
+      "0.141206321626289"
+    ],
+    "endpoints": [
+      {
+        "T": 32,
+        "Phi": [
+          "1.214662679657232",
+          "1.214662682142898"
+        ],
+        "U": [
+          "1.200942321500852",
+          "1.200942321558381"
+        ],
+        "gap": [
+          "0.013720358098852",
+          "0.013720360642046"
+        ],
+        "gap_exact": {
+          "lo": "1093525871473339419884239078168662026784691169075704193156746211911128977267/79700971621492766195459481273205671425541055866470400000000000000000000000000",
+          "hi": "17496417221955495929437108231938675522617349119008368541595971755991223413/1275215548513981325333579078735414945640408386057011200000000000000000000000"
+        },
+        "weighted_prime_count_lower": [
+          "5.602065605410352",
+          "5.602066654938300"
+        ],
+        "six_prime_concavity_reserve": [
+          "0.000249975054639",
+          "0.000249977624606"
+        ]
+      },
+      {
+        "T": 4096,
+        "Phi": [
+          "2.793454286784892",
+          "2.793454292388875"
+        ],
+        "U": [
+          "2.186688669385092",
+          "2.186688669524013"
+        ],
+        "gap": [
+          "0.606765617260880",
+          "0.606765623003783"
+        ],
+        "gap_exact": {
+          "lo": "4679981539568416241373312876867276240843180431694221412191972764281323880071/7712997253692848341496078832890871428278166696755200000000000000000000000000",
+          "hi": "13103948461227505503788609157801029999922560035085054223109121001484153629167/21596392353865812767746097301164285369716593634836480000000000000000000000000"
+        },
+        "weighted_prime_count_lower": [
+          "176.240969648304840",
+          "176.240971668086629"
+        ],
+        "six_prime_concavity_reserve": [
+          "0.587830117180539",
+          "0.587830122961229"
+        ]
+      }
+    ],
+    "collapsed_t_bound_negative_control": [
+      "-0.972025989866780",
+      "-0.972025987242194"
+    ]
+  },
+  "local_audit": {
+    "local_integer_states": 152095,
+    "minimum_window_slack": 0,
+    "equality_states": 123947,
+    "negative_controls": [
+      {
+        "name": "mother endpoint must use h>=i-a",
+        "n": 149,
+        "i": 10,
+        "p": 13,
+        "h": 4,
+        "actual_valuation": 1,
+        "wrong_strict_endpoint": 0
+      },
+      {
+        "name": "global p>i replacement is false",
+        "n": 28,
+        "i": 5,
+        "j": 14,
+        "gcd": 1080,
+        "eligible_common_primes": [
+          5
+        ]
+      },
+      {
+        "name": "p=i exclusion needs n<i^2",
+        "p": 3,
+        "i": 3,
+        "n_at_square": 9,
+        "valuation": 1
+      },
+      {
+        "name": "dropping small-prime high powers",
+        "n": 16,
+        "i": 3,
+        "j": 4,
+        "small_part": 16,
+        "exp_theta_i_minus_1": 2
+      },
+      {
+        "name": "negative numerator requires lower denominator",
+        "numerator": "-2",
+        "v": "1",
+        "wrong_upper_v": "2",
+        "correct": "-2",
+        "false_proposed_lower": "-1"
+      }
+    ]
+  },
+  "exact_fixtures": {
+    "small_complete_factorization_fixtures": [
+      {
+        "n": 35,
+        "i": 6,
+        "j": 7,
+        "s": 4,
+        "ell": 4,
+        "lambda": 7,
+        "P": "40579",
+        "S": "40",
+        "factorization_and_window_checks": true
+      },
+      {
+        "n": 48,
+        "i": 7,
+        "j": 14,
+        "s": 5,
+        "ell": 4,
+        "lambda": 8,
+        "P": "511313",
+        "S": "144",
+        "factorization_and_window_checks": true
+      },
+      {
+        "n": 96,
+        "i": 10,
+        "j": 40,
+        "s": 8,
+        "ell": 6,
+        "lambda": 13,
+        "P": "234998467847",
+        "S": "48",
+        "factorization_and_window_checks": true
+      },
+      {
+        "n": 145,
+        "i": 13,
+        "j": 65,
+        "s": 10,
+        "ell": 8,
+        "lambda": 16,
+        "P": "917264811024577",
+        "S": "1260",
+        "factorization_and_window_checks": true
+      },
+      {
+        "n": 196,
+        "i": 15,
+        "j": 64,
+        "s": 12,
+        "ell": 10,
+        "lambda": 20,
+        "P": "87354217895173531",
+        "S": "122304",
+        "factorization_and_window_checks": true
+      }
+    ],
+    "target_domain_fixtures": [
+      {
+        "n": 156256,
+        "i": 4883,
+        "j": 4884,
+        "common_prime_count": 1887,
+        "common_primes_sha256": "5bce23688a8cdf7785c154829e96cfcffc10507a79cb009a9e549a19c904e50b",
+        "first_six": [
+          4889,
+          4903,
+          4909,
+          4919,
+          4931,
+          4933
+        ],
+        "G_squared_gt_n_power_11": true
+      },
+      {
+        "n": 156256,
+        "i": 4883,
+        "j": 78128,
+        "common_prime_count": 1087,
+        "common_primes_sha256": "8d1703f704bbdd2708fbc5df94de2215451b6e8dca1e87481a9124c93a755729",
+        "first_six": [
+          4889,
+          4903,
+          4909,
+          4919,
+          4931,
+          4933
+        ],
+        "G_squared_gt_n_power_11": true
+      },
+      {
+        "n": 20000768,
+        "i": 4883,
+        "j": 4884,
+        "common_prime_count": 3494,
+        "common_primes_sha256": "f9915cc116e16ba29762240c6dad6cd0126a532f57df0a82ab7fa0e711d5648b",
+        "first_six": [
+          4889,
+          4903,
+          4909,
+          4919,
+          4931,
+          4933
+        ],
+        "G_squared_gt_n_power_11": true
+      },
+      {
+        "n": 156896,
+        "i": 4903,
+        "j": 4904,
+        "common_prime_count": 1891,
+        "common_primes_sha256": "fb582dbba366c99d9fc00561df1c72a10d83445622ffa463ffc3f1ffa361df4c",
+        "first_six": [
+          4909,
+          4919,
+          4931,
+          4933,
+          4937,
+          4943
+        ],
+        "G_squared_gt_n_power_11": true
+      }
+    ]
+  },
+  "coverage": {
+    "baseline": "frozen Overview, not a new acceptance or live repository status",
+    "recorded_accepted_complete_indices": "{1,2,11,29} union [35,4882]",
+    "adopted_paper_tail": "[4883,infinity)",
+    "mixed_grade_union": "{1,2,11,29} union [35,infinity)",
+    "remaining_30_indices": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "R7": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "remaining_non_R7_23": [
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "below_1000": true,
+    "global_height_for_remaining_indices_proved": false,
+    "historical_all_author_paper_union_difference_certified": false
+  },
+  "universal_analysis_is_in": "PROOFS.md; finite checks do not replace it",
+  "new_claims": {
+    "R6_conditional_core": "no flaw found in checked inference chain",
+    "six_actual_common_primes": "i>=4883, 32i<=n<=4096i, all legal same (n,i,j), under R5 theta",
+    "product_bound": "G_large^2>n^11 and log G_large>i/100",
+    "Lean_executed": false,
+    "external_independent_review": false
+  }
+}

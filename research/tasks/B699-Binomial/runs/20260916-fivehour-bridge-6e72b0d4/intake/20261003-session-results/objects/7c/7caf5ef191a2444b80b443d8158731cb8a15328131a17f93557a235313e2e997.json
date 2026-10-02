@@ -1,0 +1,78 @@
+{
+  "argv": [
+    "/mnt/data/b699_r9_first_clean/B699-E-R9-G7-FULL-RECHECK/scripts/replay.py",
+    "--receipt",
+    "/mnt/data/b699_r9_clean_success_receipt.json",
+    "--logs-dir",
+    "/mnt/data/b699_r9_clean_success_logs"
+  ],
+  "canonical_output_sha256": "c5bd195bc6c72f47815eb57bb609ec7a2b1a08ac345a56cc81ca073af2c624de",
+  "canonical_result_bytes_match_first_successful_clean_run": true,
+  "commands": [
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/tmp/B699_R9_clean_314bvd4u/G7/code/generate_all_certificate.py"
+      ],
+      "elapsed_seconds": 55.01034719400013,
+      "exit_code": 0,
+      "label": "original_generator",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "98b46e3d4a9ec88162d84e288ff111a416b79c300ad056e141f6d7f811b13872"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/tmp/B699_R9_clean_314bvd4u/G7/code/check_all_certificate.py"
+      ],
+      "elapsed_seconds": 58.46238145699999,
+      "exit_code": 0,
+      "label": "original_independent_checker",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "ac9c883419abdadcb1cdf1644e6d87eb77db8f84bb852215a9e05af772781d20"
+    },
+    {
+      "argv": [
+        "/opt/pyvenv/bin/python",
+        "-B",
+        "/mnt/data/b699_r9_first_clean/B699-E-R9-G7-FULL-RECHECK/scripts/audit_payload.py",
+        "/tmp/B699_R9_clean_314bvd4u/audit.json"
+      ],
+      "elapsed_seconds": 0.7646318750000773,
+      "exit_code": 0,
+      "label": "new_R9_audit",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "elapsed_seconds": 114.24210962300003,
+  "finished_utc": "2026-10-02T14:08:58.369021+00:00",
+  "payload_manifest_sha256": "6341bf29f383d57040b73d8b9da49e1ca775794554ee33a8e001bd2e23b97a57",
+  "prior_failed_attempt": {
+    "description": "one container execution channel timed out before a complete clean receipt was produced; no success claimed for that attempt",
+    "mathematical_failure_claimed": false,
+    "remaining_matching_processes_after_timeout": 0,
+    "requested_tool_timeout_milliseconds": 200000,
+    "successful_retry": "recorded actual full run in this receipt"
+  },
+  "result": {
+    "CRT_stages": 33,
+    "Lean_executed": false,
+    "R9_audit_result_sha256": "48fe105d9def50462b9f45ebb8e5597b61d73f571a5781bdc27ecddd5add6525",
+    "checker_result_sha256": "b1899cf779c245f354292a247f620ce5a1a85f82b4e0fed849fd8ad1adf96d17",
+    "fixed_commit_mathematical_members_verified": 8,
+    "original_zip_verified": false,
+    "payload_members_verified": 43,
+    "power_pairs": 4035350,
+    "publication_proof_reproved": false,
+    "regenerated_certificate_sha256": "d8fae3dbddf1c265bf17564352446326d64a3b9c08c94b71edcda3ba372c9cb9",
+    "repository_access_during_replay": false,
+    "status": "PASS",
+    "terminal_rows": 47113
+  },
+  "scope": "actual finite-data replay plus byte binding; not Lean, external independent review, or proof of BFT internals",
+  "started_utc": "2026-10-02T14:07:04.126911+00:00",
+  "working_package": "/mnt/data/b699_r9_first_clean/B699-E-R9-G7-FULL-RECHECK"
+}

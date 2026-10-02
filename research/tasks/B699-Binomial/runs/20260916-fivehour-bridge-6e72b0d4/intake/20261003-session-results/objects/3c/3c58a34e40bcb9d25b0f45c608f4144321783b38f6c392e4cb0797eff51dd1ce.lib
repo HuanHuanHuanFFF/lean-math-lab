@@ -1,0 +1,820 @@
+////////////////////////////////////////////////////////////////////////////
+version="version resjung.lib 4.1.2.0 Feb_2019 "; // $Id: 3d3614adf8963f2c001c60b1b5ddfaa9bdd30466 $
+category="Commutative Algebra";
+info="
+LIBRARY:  resjung.lib      Resolution of surface singularities (Desingularization)
+                           Algorithm of Jung
+AUTHOR:  Philipp Renner,   philipp_renner@web.de
+
+PROCEDURES:
+ jungresolve(J[,is_noeth])  computes a resolution (!not a strong one) of the
+                            surface given by the ideal J using Jungs Method,
+ jungnormal(J[,is_noeth])   computes a representation of J such that all it's
+                            singularities are of Hirzebruch-Jung type,
+ jungfib(J[,is_noeth])      computes a representation of J such that all it's
+                            singularities are quasi-ordinary
+";
+
+LIB "resolve.lib";
+LIB "mregular.lib";
+LIB "sing.lib";
+LIB "normal.lib";
+LIB "primdec.lib";
+
+
+//-----------------------------------------------------------------------------------------
+//Main procedure
+//-----------------------------------------------------------------------------------------
+
+proc jungfib(ideal id, list #)
+"USAGE:  jungfib(J[,is_noeth]);
+@*       J = ideal
+@*       j = int
+ASSUME:  J  = two dimensional ideal
+RETURN:  a list l of rings
+         l[i] is a ring containing two Ideals: QIdeal and BMap.
+         BMap defines a birational morphism from V(QIdeal)-->V(J), such that
+         V(QIdeal) has only quasi-ordinary singularities.
+         If is_noeth=1 the algorithm assumes J is in noether position with respect to
+         the last two variables. As a default or if is_noeth = 0 the algorithm computes
+         a coordinate change such that J is in noether position.
+         NOTE: since the noether position algorithm is randomized the performance
+         can vary significantly.
+EXAMPLE: example jungfib; shows an example.
+"
+{
+  int noeth = 0;
+  if(size(#) == 0)
+  {
+     #[1]=0;
+     noeth=0;
+  }
+  if(#[1]==1){
+    noeth=1;
+  }
+  ideal I = id;
+  I = radical(id);
+  def A = basering;
+  int n = nvars(A);
+  if(deg(NF(1,groebner(slocus(id)))) == -1){
+    list result;
+    ideal QIdeal = I;
+    ideal BMap = maxideal(1);
+    export(QIdeal);
+    export(BMap);
+    result[1] = A;
+    return(result);
+  }
+  if(char(A) <> 0){ERROR("only works for characterisitc 0");}  //dummy check
+  if(dim(I)<> 2){ERROR("dimension is unequal 2");}  //dummy check
+//Noether Normalization
+  if(noeth == 0){
+    if(n==3){
+      int pos = NoetherP_test(I);
+      if(pos ==0){
+        ideal noethpos = NoetherPosition(I);
+        map phi = A,noethpos;
+        kill noethpos,pos;
+      }
+      else{
+        ideal NoetherPos = var(pos);
+        for(int i = 1;i<=3;i++){
+          if(i<>pos){
+            NoetherPos = NoetherPos + var(i);
+          }
+        }
+        map phi = A,NoetherPos;
+        kill i,pos,NoetherPos;
+      }
+    }
+    else{
+      map phi = A,NoetherPosition(I);
+    }
+    ideal NoetherN = ideal(phi(I));  //image of id under the NoetherN coordinate change
+  }
+  else{
+    ideal NoetherN = I;
+    map phi = A,maxideal(1);
+  }
+  kill I;
+//Critical Locus
+  def C2 = branchlocus(NoetherN);
+  setring C2;
+//dim of critical locus is 0 then the normalization is an resolution
+  if(dim(clocus) == 0){
+    setring A;
+    list nor = normal(NoetherN);
+    list result;
+    int sizeofnor = size(nor[1]);
+    for(int i = 1;i<=sizeofnor;i++){
+      def R = nor[1][i];
+      setring R;
+      ideal QIdeal = norid;
+      ideal BMap = BMap;
+      export(QIdeal);
+      export(BMap);
+      result[size(result)+1] = R;
+      kill R;
+      setring A;
+    }
+    kill sizeofnor;
+    print("This is a resolution.");
+    return(result);
+  }
+
+//dim of critical locus is 1, so compute embedded resolution of the discriminant curve
+  list embresolvee = embresolve(clocus);
+
+//build the fibreproduct
+  setring A;
+  list fibreP = buildFP(embresolvee,NoetherN,phi);
+  //a list of lists, where fibreP[i] contains the information concerning
+  //the i-th chart of the fibrepoduct
+  //fibreP[i] is the ring; QIdeal the quotientideal; BMap is the map from A
+  return(fibreP);
+}
+example{
+ "EXAMPLE:";echo = 2;
+//Computing a resolution of singularities of the variety z2-x3-y3
+ ring r = 0,(x,y,z),dp;
+ ideal I = z2-x3-y3;
+//The ideal is in noether position
+ list l = jungfib(I,1);
+ def R1 = l[1];
+ def R2 = l[2];
+ setring R1;
+ QIdeal;
+ BMap;
+ setring R2;
+ QIdeal;
+ BMap;
+}
+
+proc jungnormal(ideal id,list #)
+"USAGE:  jungnormal(ideal J[,is_noeth]);
+@*       J = ideal
+@*       i = int
+ASSUME:  J  = two dimensional ideal
+RETURN:  a list l of rings
+         l[i] is a ring containing two Ideals: QIdeal and BMap.
+         BMap defines a birational morphism from V(QIdeal)-->V(J), such that
+         V(QIdeal) has only singularities of Hizebuch-Jung type.
+         If is_noeth=1 the algorithm assumes J is in noether position with respect to
+         the last two variables. As a default or if is_noeth = 0 the algorithm computes
+         a coordinate change such that J is in noether position.
+         NOTE: since the noether position algorithm is randomized the performance
+         can vary significantly.
+EXAMPLE: example jungnormal; gives an example.
+"
+{
+  int noeth = 0;
+  if(size(#) == 0)
+  {
+     #[1]=0;
+     noeth=0;
+  }
+  if(#[1]==1){
+    noeth=1;
+  }
+  def A = basering;
+  list fibreP = jungfib(id,noeth);
+  list result;
+  for(int i =1;i<=size(fibreP);i++){
+    def R1 = fibreP[i];
+    setring R1;
+    map f1 = A,BMap;
+    list nor = normal(QIdeal);
+    int sizeofnor = size(nor[1]);
+    for(int j = 1;j<=sizeofnor;j++){
+      def Ri2 = nor[1][j];
+      setring Ri2;
+      map f2 = R1,normap;
+      ideal BMap = ideal(f2(f1));
+      ideal QIdeal = norid;
+      export(BMap);
+      export(QIdeal);
+      result[size(result)+1] = Ri2;
+      kill Ri2,f2;
+      setring R1;
+    }
+    kill j,sizeofnor,R1;
+  }
+  return(result);
+}
+example{
+    "EXAMPLE:";echo = 2;
+//Computing a resolution of singularities of the variety z2-x3-y3
+    ring r = 0,(x,y,z),dp;
+    ideal I = z2-x3-y3;
+//The ideal is in noether position
+    list l = jungnormal(I,1);
+    def R1 = l[1];
+    def R2 = l[2];
+    setring R1;
+    QIdeal;
+    BMap;
+    setring R2;
+    QIdeal;
+    BMap;
+}
+
+proc jungresolve(ideal id,list #)
+"USAGE:  jungresolve(ideal J[,is_noeth]);
+@*       J = ideal
+@*       i = int
+ASSUME:  J  = two dimensional ideal
+RETURN:  a list l of rings
+         l[i] is a ring containing two Ideals: QIdeal and BMap.
+         BMap defines a birational morphism from V(QIdeal)-->V(J), such that
+         V(QIdeal) is smooth. For this the algorithm computes first with
+         jungnormal a representation of V(J) with Hirzebruch-Jung singularities
+         and then it uses Villamayor's algorithm to resolve these singularities
+         If is_noeth=1 the algorithm assumes J is in noether position with respect to
+         the last two variables. As a default or if is_noeth = 0 the algorithm computes
+         a coordinate change such that J is in noether position.
+         NOTE: since the noether position algorithm is randomized the performance
+         can vary significantly.
+EXAMPLE: example jungresolve; shows an example.
+"
+{
+  int noeth = 0;
+  if(size(#) == 0)
+  {
+     #[1]=0;
+     noeth=0;
+  }
+  if(#[1]==1){
+    noeth=1;
+  }
+  def A = basering;
+  list result;
+  list nor = jungnormal(id,noeth);
+  for(int i = 1;i<=size(nor);i++){
+    if(defined(R)==voice){kill R;}
+    def R3 = nor[i];
+    setring R3;
+    def R = changeord(list(list("dp",1:nvars(basering))));
+    setring R;
+    ideal QIdeal = imap(R3,QIdeal);
+    ideal BMap = imap(R3,BMap);
+    map f = A,BMap;
+    if(QIdeal <> 0){
+      list res = resolve(QIdeal);
+      for(int j =1;j<=size(res[1]);j++){
+        def R2 = res[1][j];
+        setring R2;
+        if(defined(QIdeal)==voice){kill QIdeal;}
+        if(defined(BMap)==voice){kill BMap;}
+        if(BO[1]<>0){ideal QIdeal = BO[1]+BO[2];}
+        else{ideal QIdeal = BO[2];}
+        map g = R,BO[5];
+        ideal BMap = ideal(g(f));
+        export(QIdeal);
+        export(BMap);
+        result[size(result)+1] = R2;
+        kill R2;
+      }
+      kill j,res;
+    }
+    else{
+      result[size(result)+1] = nor[i];
+    }
+    setring A;
+    kill R,R3;
+  }
+  return(result);
+}
+example{
+    "EXAMPLE:";echo = 2;
+//Computing a resolution of singularities of the variety z2-x3-y3
+    ring r = 0,(x,y,z),dp;
+    ideal I = z2-x3-y3;
+//The ideal is in noether position
+    list l = jungresolve(I,1);
+    def R1 = l[1];
+    def R2 = l[2];
+    setring R1;
+    QIdeal;
+    BMap;
+    setring R2;
+    QIdeal;
+    BMap;
+}
+
+//---------------------------------------------------------------------------------------
+//Critical locus for the Weierstrass map induced by the noether normalization
+//---------------------------------------------------------------------------------------
+static proc branchlocus(ideal id)
+{
+//"USAGE:  branchlocus(ideal J);
+//       J = ideal
+//ASSUME:  J  = two dimensional ideal in noether position with respect of
+//         the last two variables
+//RETURN:  A ring containing the ideal clocus representing the criticallocus
+// of the projection V(J)-->C^2 on the last two coordinates
+//EXAMPLE: none"
+  def A = basering;
+  int n = nvars(A);
+  list l = equidim(id);
+  int k = size(l);
+  ideal LastTwo = var(n-1),var(n);
+  ideal lowdim = 1;           //the components of id with dimension smaller 2
+  if(k>1){
+    for(int j=1;j<k;j++){
+      lowdim = intersect(lowdim,radical(l[j]));
+    }
+  }
+  kill k;
+  lowdim = radical(lowdim);
+  ideal I = radical(l[size(l)]);
+  poly product=1;
+  kill l;
+  for(int i=1; i < n-1; i++){ //elimination of all variables except var(i),var(n-1),var(n)
+    intvec v;
+    for(int j=1; j < n-1; j++){
+      if(j<>i){
+        v[j]=1;
+      }
+      else{
+        v[j]=0;
+      }
+    }
+    v[size(v)+1]=0;
+    v[size(v)+1]=0;
+    list ringl = ringlist(A);
+    list l;
+    l[1] = "a";
+    l[2] = v;
+    list ll = insert(ringl[3],l);
+    ringl[3]=ll;
+    kill l,ll;
+    def R = ring(ringl); //now x_j > x_i > x_n-1 > x_n forall j <> i,n-1,n
+    setring R;
+    ideal J = groebner(fetch(A,I));//this eliminates the variables
+    setring A;
+    ideal J = fetch(R,J);
+    attrib(J,"isPrincipal",0);
+    if(size(J)==1){
+      attrib(J,"isPrincipal",1);
+    }
+    int index = 1;
+    if(attrib(J,"isPrincipal")==0){
+      setring R;
+      for(int j = 1;j<=size(J);j++){//determines the monic polynomial in var(i) with coefficients in C2
+        intvec w = leadexp(J[j]);
+        attrib(w,"isMonic",1);
+        for(int k = 1;k<=size(w);k++){
+          if(w[k] <> 0 && k <> i){
+            attrib(w,"isMonic",0);
+            break;
+          }
+        }
+        //kill k;
+        if(attrib(w,"isMonic")==1){
+          index = j;
+          break;
+        }
+        kill w;
+      }
+      kill j;
+      setring A;
+    }
+    product = product*resultant(J[index],diff(J[index],var(i)),var(i));
+    //Product of the discriminants, which lies in C2
+    kill index,J,v;
+  }
+  ring C2 = 0,(var(n-1),var(n)),dp;
+  setring C2;
+  ideal clocus= imap(A,product);      //the critical locus is contained in this
+  ideal I = preimage(A,LastTwo,lowdim);
+  clocus= radical(intersect(clocus,I));
+  //radical is necessary since the resultant is in general not reduced
+  export(clocus);
+  return(C2);
+}
+
+//-----------------------------------------------------------------------------------------
+//Build the fibre product of the embedded resolution and the coordinate ring of the variety
+//-----------------------------------------------------------------------------------------
+
+static proc buildFP(list embresolve,ideal NoetherN, map phi){
+  def A = basering;
+  list fibreP;
+  int n = nvars(A);
+  for(int i=1;i<=size(embresolve);i++){
+    def R = embresolve[i];
+    setring R;
+    list temp = ringlist(A);
+    //data for the new ring which is, if A=K[x_1,..,x_n] and
+    //R=K[y_1,..,y_m], K[x_1,..,x_n-2,y_1,..,y_m]
+    for(int j = 1; j<= nvars(R);j++){
+       string st = string(var(j));
+       temp[2][n-2+j] = st;
+       kill st;
+    }
+    temp[4] = BO[1];
+    ideal J = BO[5];             //ideal of the resolution map
+    export(J);
+    int m = size(J);
+    def R2 = ring(temp);
+    kill temp;
+    setring R2;
+    ideal Temp=0;              //defines map from R to R2 which is the inclusion
+    for(int k=n-1;k<n-1+nvars(R);k++){
+      Temp = Temp + ideal(var(k));
+    }
+    map f = R,Temp;
+    kill Temp,k;
+    ideal FibPMI = ideal(0);    //defines the map from A to R2
+    for(int k=1;k<=nvars(A)-m;k++){
+      FibPMI=FibPMI+var(k);
+    }
+    FibPMI= FibPMI+ideal(f(J));
+    map FibMap = A,FibPMI;
+    kill f,FibPMI;
+    ideal TotalT = groebner(FibMap(NoetherN));
+    ideal QIdeal = TotalT;
+    export(QIdeal);
+    ideal FibPMap = ideal(FibMap(phi));
+    ideal BMap = FibPMap;
+    export(BMap);
+    fibreP[i] = R2;
+    setring R;
+    kill J,R,R2,k,j,m;
+  }
+  return(fibreP);
+}
+
+//-------------------------------------------------------------------------------
+//embedded resolution for curves
+//-------------------------------------------------------------------------------
+
+static proc embresolve(ideal C)
+"USAGE:  embresolve(ideal C);
+@*       C = ideal
+ASSUME:  C  = ideal of plane curve
+RETURN:  a list l of rings
+         l[i] is a ring containing a basic object BO, the result of the
+         resolution. Whereas the algorithm does not resolve normal
+         crossings of V(C)
+EXAMPLE: example embresolve shows an example
+"
+{
+  ideal J = 1;
+  attrib(J,"iswholeRing",1);
+  list primdec = equidim(C);
+  if(size(primdec)==2){
+  //zero dimensional components of the discrimiant curve are smooth
+  //an cross normally so they can be ignored in the resolution process
+    ideal Lowdim = radical(primdec[1]);
+  }
+  else{
+    J=radical(C);
+  }
+  kill primdec;
+  list l;
+  list BO = createBO(J,l);
+  kill J,l;
+  list result = resolve2(BO);
+  if(defined(Lowdim)==voice)
+  {
+    for(int i = 1;i<=size(result);i++)
+    {
+    //had zero dimensional components which I add now to the end result
+      def RingforEmbeddedResolution = result[i];
+      setring RingforEmbeddedResolution;
+      map f = R2,BO[5];
+      BO[2]=BO[2]*f(Lowdim);
+      kill RingforEmbeddedResolution,f;
+    }
+  }
+  return(result);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  //The following curve is the critical locus of the projection z2-x3-y3
+  //onto y,z-coordinates.
+  ring R = 0,(y,z),dp;
+  ideal C = z2-y3;
+  list l = embresolve(C);
+  def R1 = l[1];
+  def R2 = l[2];
+  setring R1;
+  showBO(BO);
+  setring R2;
+  showBO(BO);
+}
+
+static proc resolve2(list BO){
+//computes an embedded resolution for the basic object BO and returns
+//a list of rings with BO
+  def H = basering;
+  setring H;
+  attrib(BO[2],"smoothC",0);
+  export(BO);
+  list result;
+  result[1]=H;
+  attrib(result[1],"isResolved",0);    //has only simple normal crossings
+  attrib(result[1],"smoothC",0);       //has smooth components
+  int safety=0;                        //number of runs restricted to 30
+  while(1){
+    int count2 = 0;         //counts the number of smooth charts
+    int p = size(result);
+    for(int j = 1;j<=p;j++){
+      if(attrib(result[j],"isResolved")==0){
+        if(defined(R)){kill R;}
+        def R = result[j];
+        setring R;
+        if(attrib(result[j],"smoothC")==0){
+        //has possibly singular components so choose a singular point and blow up
+          list primdecPC = primdecGTZ(BO[2]);
+          attrib(result[j],"smoothC",1);
+          for(int i = 1;i<=size(primdecPC);i++){
+            ideal Sl = groebner(slocus(primdecPC[i][2]));
+            if(deg(NF(1,Sl))<>-1){
+              list primdecSL = primdecGTZ(Sl);
+              for(int h =1;h<=size(primdecSL);h++){
+                attrib(primdecSL[h],"isRational",1);
+              }
+              kill h;
+              if(!defined(index)){int index = 1;}
+              if(defined(blowup)){kill blowup;}
+              list blowup = blowUpBO(BO,primdecSL[index][2],3);
+              //if it has a rational singularity blow it up else choose
+              //some arbitrary singular point
+              if(attrib(primdecSL[1],"isRational")==0){
+              //if we blow up a non rational singularity the exceptional divisors
+              //are reduzible so we need to separate them
+                for(int k=1;k<=size(blowup);k++){
+                  def R2=blowup[k];
+                  setring R2;
+                  list L;
+                  for(int l = 1;l<=size(BO[4]);l++){
+                    list primdecED=primdecGTZ(BO[4][l]);
+                    L = L + primdecED;
+                    kill primdecED;
+                  }
+                  kill l;
+                  BO[4] = L;
+                  blowup[k]=R2;
+                  kill L,R2;
+                }
+                kill k;
+              }
+              kill primdecSL;
+              list hlp;
+              for(int k = 1;k<j;k++){
+                hlp[k]=result[k];
+                attrib(hlp[k],"isResolved",attrib(result[k],"isResolved"));
+                attrib(hlp[k],"smoothC",attrib(result[k],"smoothC"));
+              }
+              kill k;
+              for(int k =1;k<=size(blowup);k++){
+                hlp[size(hlp)+1]=blowup[k];
+                attrib(hlp[size(hlp)],"isResolved",0);
+                attrib(hlp[size(hlp)],"smoothC",0);
+              }
+              kill k;
+              for(int k = j+1;k<=size(result);k++){
+                hlp[size(hlp)+1]=result[k];
+                attrib(hlp[size(hlp)],"isResolved",attrib(result[k],"isResolved"));
+                attrib(hlp[size(hlp)],"smoothC",attrib(result[k],"smoothC"));
+              }
+              result = hlp;
+              kill hlp,k;
+              i=size(primdecPC);
+            }
+            else{
+              attrib(result[j],"smoothC",1);
+            }
+            kill Sl;
+          }
+          kill i,primdecPC;
+          j=p;
+          break;
+        }
+        else{ //if it has smooth components determine all the intersection
+              //points and check whether they are snc or not
+          int count = 0;
+          ideal Collect = BO[2];
+          for(int i = 1;i<=size(BO[4]);i++){
+            Collect = Collect*BO[4][i];
+          }
+          list primdecSL = primdecGTZ(slocus(Collect));
+          for(int k = 1;k<=size(primdecSL);k++){
+             attrib(primdecSL[k],"isRational",1);
+
+          }
+          kill k;
+          if(defined(blowup)){kill blowup;}
+          list blowup = blowUpBO(BO,primdecSL[1][2],3);
+          if(attrib(primdecSL[1],"isRational")==0){
+            for(int k=1;k<=size(blowup);k++){
+              def R2=blowup[k];
+              setring R2;
+              list L;
+              for(int l = 1;l<=size(BO[4]);l++){
+                list primdecED=primdecGTZ(BO[4][l]);
+                L = L + primdecED;
+                kill primdecED;
+              }
+              kill l;
+              BO[4] = L;
+              blowup[k]=R2;
+              kill L,R2;
+            }
+            kill k;
+          }
+          kill Collect,i;
+          for(int i=1;i<=size(primdecSL);i++){
+            list L = BO[4];
+            L[size(L)+1]=BO[2];
+            for(int l = 1;l<=size(L);l++){
+              if(L[l][1]==1){L=delete(L,l);}
+            }
+            kill l;
+            if(normalCrossing(ideal(0),L,primdecSL[i][2])==0){
+              if(defined(blowup)){kill blowup;}
+              list blowup = blowUpBO(BO,primdecSL[i][2],3);
+              list hlp;
+              for(int k = 1;k<j;k++){
+                hlp[k]=result[k];
+                attrib(hlp[k],"isResolved",attrib(result[k],"isResolved"));
+                attrib(hlp[k],"smoothC",attrib(result[k],"smoothC"));
+              }
+              kill k;
+              for(int k =1;k<=size(blowup);k++){
+                hlp[size(hlp)+1]=blowup[k];
+                attrib(hlp[size(hlp)],"isResolved",0);
+                attrib(hlp[size(hlp)],"smoothC",1);
+              }
+              kill k;
+              for(int k = j+1;k<=size(result);k++){
+                hlp[size(hlp)+1]=result[k];
+                attrib(hlp[size(hlp)],"isResolved",attrib(result[k],"isResolved"));
+                attrib(hlp[size(hlp)],"smoothC",attrib(result[k],"smoothC"));
+              }
+              result = hlp;
+              kill hlp,k;
+              j = p;
+              break;
+            }
+            else{
+              count++;
+            }
+            kill L;
+          }
+          kill i;
+          if(count == size(primdecSL)){
+            attrib(result[j],"isResolved",1);
+          }
+          kill count,primdecSL;
+        }
+        kill R;
+      }
+      else{
+        count2++;
+      }
+    }
+    if(count2==size(result)){
+      break;
+    }
+    kill count2,j,p;
+    safety++;
+  }
+  return(result);
+}
+
+static proc NoetherP_test(ideal id)
+{
+  def A = basering;
+  list ringA=ringlist(A);
+  int index = 0;
+  if(size(id)==1 && nvars(A))
+  {  //test if V(id) = C[x,y,z]/<f>
+    list L;
+    intvec v = 1,1,1;
+    L[1] = "lp";
+    L[2] = v;
+    kill v;
+    poly f = id[1];
+    int j = 0;
+    for(int i = 1;i<=3;i++)
+    {
+      setring A;
+      list l = ringA;  //change ordering to lp and var(i)>var(j) j<>i
+      list vari = ringA[2];
+      string h = vari[1];
+      vari[1] = vari[i];
+      vari[i] = h;
+      l[2] = vari;
+      kill h,vari;
+      l[3][1] = L;
+      def R = ring(l);
+      kill l;
+      setring R;
+      ideal I = imap(A,id);
+      if(defined(v)){kill v;}
+      intvec v = leadexp(I[1]);
+      attrib(v,"isMonic",1);
+      //if(defined(k)==voice){kill k;}
+      for(int k = 2;k<=3;k++)
+      {  //checks whether f is monic in var(i)
+        if(v[k] <> 0 || v[1] == 0)
+        {
+          attrib(v,"isMonic",0);
+          j++;
+          break;
+        }
+      }
+      kill k;
+      if(attrib(v,"isMonic")==1)
+      {
+        index = i;
+        return(index);
+      }
+      kill R;
+    }
+    if(j == 3){ return(0); }
+  }
+  else{     //not yet a test for more variables
+    return(index);
+  }
+}
+
+////copied from resolve.lib/////////////////
+static proc normalCrossing(ideal J,list E,ideal V)
+"Internal procedure - no help and no example available
+"
+{
+   int i,d,j;
+   int n=nvars(basering);
+   list E1,E2;
+   ideal K,M,Estd;
+   intvec v,w;
+
+   for(i=1;i<=size(E);i++)
+   {
+      Estd=std(E[i]+J);
+      if(deg(Estd[1])>0)
+      {
+         E1[size(E1)+1]=Estd;
+      }
+   }
+   E=E1;
+   for(i=1;i<=size(E);i++)
+   {
+      v=i;
+      E1[i]=list(E[i],v);
+   }
+   list ll;
+   int re=1;
+
+   while((size(E1)>0)&&(re==1))
+   {
+      K=E1[1][1];
+      v=E1[1][2];
+      attrib(K,"isSB",1);
+      E1=delete(E1,1);
+      d=n-dim(K);
+      M=minor(jacob(K),d)+K;
+      if(deg(std(M+V)[1])>0)
+      {
+         re=0;
+         break;
+      }
+      for(i=1;i<=size(E);i++)
+      {
+         for(j=1;j<=size(v);j++){if(v[j]==i){break;}}
+         if(j<=size(v)){if(v[j]==i){i++;continue;}}
+         Estd=std(K+E[i]);
+         w=v;
+         if(deg(Estd[1])==0){i++;continue;}
+         if(d==n-dim(Estd))
+         {
+            if(deg(std(Estd+V)[1])>0)
+            {
+               re=0;
+               break;
+            }
+         }
+         w[size(w)+1]=i;
+         E2[size(E2)+1]=list(Estd,w);
+      }
+      if(size(E2)>0)
+      {
+         if(size(E1)>0)
+         {
+            E1[size(E1)+1..size(E1)+size(E2)]=E2[1..size(E2)];
+         }
+         else
+         {
+            E1=E2;
+         }
+      }
+      kill E2;
+      list E2;
+   }
+   return(re);
+}

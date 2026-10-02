@@ -1,0 +1,254 @@
+####################################################################
+###
+### Makefile for Singular documentation
+#####################################################################
+SHELL=/bin/sh
+
+####################################################################
+##
+## Configuration
+##
+SINGUNAME       = spielwiese
+
+top_builddir    = @top_builddir@
+top_srcdir      = @top_srcdir@
+bindir	        = ${top_builddir}/Singular
+EXEEXT          = @EXEEXT@
+
+##
+## needed programs
+##
+MKINSTALLDIRS   = mkdir -p
+
+PERL            = perl
+TEX             = tex
+MAKEINFO        = @MAKEINFO@ --force
+TEXI2PDF        = @TEXI2PDF@
+TEXINDEX        = @TEXINDEX@
+# use our local texi2html
+TEXI2HTML       = ./texi2html
+DVIPS           = @DVIPS@
+
+VERBOSE         = 1 # override this with make VERBOSE=2
+
+# d2t stuff
+SINGULAR        = ${top_builddir}/Singular/Singular
+SINGULAR_LIB_DIR= ${top_srcdir}/Singular/LIB
+# from Singular/Makefile.am, extended by dynmodules stuff:
+TESTS_ENVIRONMENT = unset DISPLAY SINGULAR_EXECUTABLE && SINGULARPATH="$$(for d in ${top_builddir}/Singular/dyn_modules/*/.libs; do printf $$d:; done)" PATH="${top_builddir}/IntegerProgramming:$$PATH"
+LIBPARSE        = ${top_builddir}/Singular/libparse${EXEEXT}
+DOC_SUBDIR      = ./d2t_singular
+EX_SUBDIR       = ./examples
+CHKSUM_DB       = ${DOC_SUBDIR}/chksum
+# which tags to avoid:
+DOC2TEX_EXAMPLE_EXCLUSIONS = @DOC2TEX_EXAMPLE_EXCLUSIONS@ -exclude crash
+# which tags to avoid:
+DOC2TEX         = ${TESTS_ENVIRONMENT} ${PERL} ./doc2tex.pl -docdir ${DOC_SUBDIR} \
+                  -Singular ${SINGULAR} -verbose ${VERBOSE} -make "${MAKE} -f Makefile-docbuild" \
+		  -exdir ${EX_SUBDIR} ${DOC2TEX_EXAMPLE_EXCLUSIONS}
+
+DOC2TEX_M        = ${TESTS_ENVIRONMENT} ${PERL} ./doc2tex.pl -docdir ${DOC_SUBDIR} \
+                  -Singular ${SINGULAR} -verbose ${VERBOSE} -make "${MAKE} -f Makefile-docbuild" \
+		  -exdir ${EX_SUBDIR}
+
+PL2DOC		= ${PERL} ./pl2doc.pl ${TAG} -db ${CHKSUM_DB}
+PL2DOC_M	= ${PERL} ./pl2doc.pl ${TAG} -db ${CHKSUM_DB}
+
+# t2h stuff
+TMP_DIR		= tmp
+HTML_SUBDIR     = html
+TEXI2HTML_INIT  = t2h_singular.init
+ifeq ($(VERBOSE),0)
+T2H_VERBOSE	=
+else
+T2H_VERBOSE     = -Verbose
+endif
+TEXI2HTML_OPTS  = -init_file ${TEXI2HTML_INIT} -l2h \
+	          -short_ext -l2h_tmp ${TMP_DIR} -subdir ${HTML_SUBDIR} \
+                  ${T2H_VERBOSE}
+HTML_MANUAL_PREFIX = sing
+HTML_TUTOR_PREFIX  = tut
+HTML_MANUAL_TOP    = index.htm
+HTML_TUTOR_TOP     = tutor.htm
+##
+## End configuration dependent stuff
+#################################################################
+
+###########################################################
+# File sets
+#
+STANDALONE_TEXI_FILES	= COPYING.texi NEWS.texi  lib2doc.texi
+
+DOC2TEX_FILES	= cones.tex countedref.tex decodegb.tex \
+		examples.tex general.tex ti_ip.tex math.tex reference.tex \
+		start.tex types.tex pdata.tex tricks.tex platform.tex \
+		plural.tex letterplace.tex plulibs.tex sca.tex pyobject.tex
+
+MANUAL_FILES	= ${TEX_FILES} ${DOC2TEX_FILES}
+
+TUTOR_FILES	= \
+		tutor.tex examples.tex start.tex COPYING.texi
+
+IMAGES     := $(wildcard images/*)
+IMAGES_SRC := $(IMAGES)
+IMAGES_HTML := $(IMAGES:%=${HTML_SUBDIR}/%)
+
+# prepend bindir to path so that programs from there are taken first.
+# prepending the .libs directories is needed on Cygwin for finding the .dll files
+export PATH := ${bindir}:${top_builddir}/libpolys/polys/.libs:${top_builddir}/Singular/.libs:${top_builddir}/omalloc/.libs:${top_builddir}/factory/.libs:${top_builddir}/resources/.libs:${PATH}
+
+###########################################################
+# top targets
+#
+
+.PHONY: info dvi ps html
+
+# default target
+all: info dvi html singular.idx
+
+# info stuff
+info: singular.info
+
+singular.info: ${MANUAL_FILES} singular.tex s-plural.tex s-plulibs.tex s-letterplace.tex
+	- ${MAKEINFO} --no-split singular.tex
+
+# dvi stuff
+dvi: manual.dvi usercard.dvi
+
+singular.dvi: ${MANUAL_FILES} singular.tex s-plural.tex s-plulibs.tex s-letterplace.tex
+	$(TEX) singular.tex
+	$(TEXINDEX) singular.cp
+	$(TEX) singular.tex
+	$(TEXINDEX) singular.cp
+	$(TEX) singular.tex
+
+singular.pdf: ${MANUAL_FILES} singular.tex s-plural.tex s-plulibs.tex s-letterplace.tex
+	${TEXI2PDF} singular.tex
+
+manual.dvi: ${MANUAL_FILES} manual.tex s-plural.tex s-plulibs.tex  s-letterplace.tex
+	$(TEX) manual.tex
+	$(TEXINDEX) manual.cp
+	$(TEX) manual.tex
+	$(TEXINDEX) manual.cp
+	$(TEX) manual.tex
+
+tutor.dvi: ${TUTOR_FILES}
+	$(TEX) tutor.tex
+	$(TEX) tutor.tex
+	$(TEX) tutor.tex
+
+tutor.pdf: ${TUTOR_FILES}
+	${TEXI2PDF} tutor.tex
+
+usercard.dvi: usercard.tex singcard.tex
+	${TEX} $<
+
+s-plural.tex: plural.tex
+	sed -e "s/BR_PLURAL_BR/(plural)/g" <plural.tex >s-plural.tex
+
+s-plulibs.tex: plulibs.tex
+	sed -e "s/BR_PLURAL_BR/(plural)/g" <plulibs.tex >s-plulibs.tex
+
+s-letterplace.tex: letterplace.tex
+	sed -e "s/BR_LETTERPLACE_BR/(letterplace)/g" <letterplace.tex >s-letterplace.tex
+
+# postscript stuff
+ps: dvi manual.ps usercard.ps
+
+usercard.ps: usercard.dvi
+	${DVIPS} -t landscape -t a4 $< -o $@
+
+%.ps: %.dvi
+	${DVIPS} $< -o $@
+
+###########################################################
+# texinfo targets
+#
+manual.tex:  ${MANUAL_FILES} doc2tex.pl ${SINGULAR} singular.doc $(STANDALONE_TEXI_FILES)
+	+${DOC2TEX_M} -no_fun -o manual.tex singular.doc
+
+singular.tex: ${MANUAL_FILES} doc2tex.pl ${LIB_TEX_FILES} ${SINGULAR} ${LIBPARSE} singular.doc $(STANDALONE_TEXI_FILES)
+	+${DOC2TEX} -o singular.tex singular.doc
+
+#pattern rule for tex files
+%_noEx.tex : %.doc doc2tex.pl ${SINGULAR}
+	+${DOC2TEX_M} -o $@ -no_ex $<
+
+%.tex: %.doc doc2tex.pl ${SINGULAR}
+	+${DOC2TEX} -o $@ $<
+
+# pattern rules for lib docus
+${DOC_SUBDIR}/%_lib.pl : ${SINGULAR_LIB_DIR}/%.lib ${LIBPARSE}
+	test -d ${DOC_SUBDIR} || mkdir ${DOC_SUBDIR}
+	${LIBPARSE} -i $< > $@
+
+%_noFun.doc : %.pl pl2doc.pl
+	export PERLLIB=. PERL5LIB=.; ${PL2DOC_M}  -no_fun -o $@  $<
+
+%.doc : %.pl pl2doc.pl
+	export PERLLIB=. PERL5LIB=.; ${PL2DOC} -o $@ $<
+
+# do not delete intermediate .pl and .doc files
+.PRECIOUS: %.doc %_noFun.doc ${DOC_SUBDIR}/%_lib.pl
+
+# index file for help
+singular.idx: singular.info ${HTML_SUBDIR}/${HTML_MANUAL_PREFIX}_cp.idx doc2idx.pl
+	export PERLLIB=. PERL5LIB=.;${PERL} doc2idx.pl singular.info ${HTML_SUBDIR}/${HTML_MANUAL_PREFIX}_cp.idx ${CHKSUM_DB} > singular.idx
+
+###########################################################
+
+ifeq ($(SINGUNAME),@SINGUNAME@)
+UNAME_OPT = -D UNAME
+endif
+
+# targets which produce stand-alone documents
+%.${SINGUNAME}.txt : %.texi
+	${MAKEINFO} $(UNAME_OPT) --no-header --paragraph-indent none  -o $@ $<
+
+%.txt :  %.texi
+	${MAKEINFO} --no-header --paragraph-indent none -o $@ $<
+
+%.${SINGUNAME}.html : %.texi
+	export PERLLIB=. PERL5LIB=.;${PERL} ${TEXI2HTML} $(UNAME_OPT) -init_file t2h_standalone.init -split none -out_file $@ $<
+
+%.html : %.texi
+	export PERLLIB=. PERL5LIB=.;${PERL} ${TEXI2HTML} -init_file t2h_standalone.init -split none -out_file $@ $<
+
+% : %.txt
+	cp $< $@
+
+###########################################################
+# html targets
+#
+html: ${TMP_DIR} ${HTML_SUBDIR}/${HTML_MANUAL_TOP} ${IMAGES_HTML} $(STANDALONE_TEXI_FILES)
+${HTML_SUBDIR}/${HTML_MANUAL_TOP}: ${TEXI2HTML_INIT} ${TEXI2HTML} singular.tex s-plural.tex s-letterplace.tex
+	export PERLLIB=. PERL5LIB=.;${PERL} ${TEXI2HTML} ${TEXI2HTML_OPTS} -prefix ${HTML_MANUAL_PREFIX} \
+        -top_file ${HTML_MANUAL_TOP} singular.tex
+
+# html stuff
+html_tutor: ${TMP_DIR} ${HTML_SUBDIR}/${HTML_TUTOR_TOP} ${IMAGES_HTML}
+${HTML_SUBDIR}/${HTML_TUTOR_TOP}: ${TEXI2HTML_INIT} ${TEXI2HTML} tutor.tex
+	${PERL} ${TEXI2HTML} ${TEXI2HTML_OPTS} -prefix ${HTML_TUTOR_PREFIX} \
+        -top_file ${HTML_TUTOR_TOP} tutor.tex
+
+${HTML_SUBDIR}/${HTML_MANUAL_PREFIX}_cp.idx: ${HTML_SUBDIR}/${HTML_MANUAL_TOP}
+
+${TMP_DIR}:
+	${MKINSTALLDIRS} ${TMP_DIR}
+
+${IMAGES_HTML} : ${IMAGES_SRC}
+	test -d ${HTML_SUBDIR} || mkdir ${HTML_SUBDIR}
+	cp ${IMAGES_SRC} ${HTML_SUBDIR}
+
+###########################################################
+# misc targets
+#
+texi2html = $(TEXI2HTML:%.pl=%)
+
+depend:
+	@echo "No make depend available!"
+
+${SINGULAR}:
+#	cd ..; ${MAKE} ${SINGULAR}
+
+html-done: ${MANUAL_FILES}

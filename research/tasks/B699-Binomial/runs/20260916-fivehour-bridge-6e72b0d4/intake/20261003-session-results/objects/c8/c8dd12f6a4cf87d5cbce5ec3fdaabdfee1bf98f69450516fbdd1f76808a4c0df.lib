@@ -1,0 +1,877 @@
+////////////////////////////////////////////////////////
+version="version swalk.lib 4.2.1.0 Jul_2021 "; // $Id: 7c8eafe5aeeb8873629d04d36f05854b39ec179a $
+category="Commutative Algebra";
+info="
+LIBRARY: swalk.lib               Sagbi Walk Conversion Algorithm
+AUTHOR:  Junaid Alam Khan        junaidalamkhan@gmail.com
+
+OVERVIEW:
+ A library for computing the Sagbi basis of subalgebra through Sagbi walk
+ algorithm.
+
+THEORY: The concept of SAGBI ( Subalgebra Analog to Groebner Basis for Ideals)
+ is defined in [L. Robbiano, M. Sweedler: Subalgebra Bases, volume 42, volume
+ 1430 of Lectures Note in Mathematics series, Springer-Verlag (1988),61-87].
+ The Sagbi Walk algorithm is the subalgebra analogue to the Groebner Walk
+ algorithm which has been proposed in [S. Collart, M. Kalkbrener and D.Mall:
+ Converting bases with the Grobner Walk. J. Symbolic Computation 24 (1997),
+ 465-469].
+
+PROCEDURES:
+ swalk(ideal[,intvec]);   Sagbi basis of subalgebra via Sagbi walk algorithm
+ rswalk(ideal,int,int[,intvec]); Sagbi basis of subalgebra via Random Sagbi Walk Algorithm
+
+KEYWORDS: walk, groebner;Groebnerwalk
+SEE ALSO: grwalk_lib; rwalk_lib
+";
+
+LIB "sagbi.lib";
+LIB "crypto.lib";
+//////////////////////////////////////////////////////////////////////////////
+proc swalk(ideal Gox, list #)
+"USAGE:  swalk(i[,v,w]); i ideal, v,w int vectors
+RETURN: The sagbi basis of the subalgebra defined by the generators of i,
+        calculated via the Sagbi walk algorithm from the ordering dp to lp
+        if v,w are not given (resp. from the ordering (a(v),lp) to the
+        ordering (a(w),lp) if v and w are given).
+EXAMPLE: example swalk; shows an example
+"
+{
+  /* we use ring with ordering (a(...),lp,C) */
+  list OSCTW    = OrderStringalp_NP("al", #);//"dp"
+  string ord_str =   OSCTW[2];
+  intvec icurr_weight   =   OSCTW[3]; /* original weight vector */
+  intvec itarget_weight =   OSCTW[4]; /* terget weight vector */
+  kill OSCTW;
+  option(redSB);
+  def xR = basering;
+  list rl=ringlist(xR);
+  rl[3][1][1]="dp";
+  def ostR=ring(rl);
+  setring ostR;
+  def new_ring = basering;
+  ideal Gnew = fetch(xR, Gox);
+  Gnew=sagbi(Gnew,1);
+  Gnew=interreduceSd(Gnew);
+  vector curr_weight=changeTypeInt(icurr_weight);
+  vector target_weight=changeTypeInt(itarget_weight);
+  ideal Gold;
+  list l;
+  intvec v;
+  int n=0;
+  while(n==0)
+    {
+       Gold=Gnew;
+       def old_ring=new_ring;
+       setring old_ring;
+       number ulast;
+       kill new_ring;
+       if(curr_weight==target_weight){n=1;}
+       else {
+              l=collectDiffExpo(Gold);
+              ulast=last(curr_weight, target_weight, l);
+              vector new_weight=(1-ulast)*curr_weight+ulast*target_weight;
+              vector w=cleardenom(new_weight);
+              v=changeType(w);
+              list p= ringlist(old_ring);
+              p[3][1][2]= v;
+              def new_ring=ring(p);
+              setring new_ring;
+              ideal Gold=fetch(old_ring,Gold);
+              vector curr_weight=fetch(old_ring,new_weight);
+              vector target_weight=fetch(old_ring,target_weight);
+              kill old_ring;
+              ideal Gnew=Convert(Gold);
+              Gnew=interreduceSd(Gnew);
+           }
+    }
+   setring xR;
+   ideal result = fetch(old_ring, Gnew);
+   attrib(result,"isSB",1);
+   return (result);
+}
+example
+{
+  "EXAMPLE:";echo = 2;
+  ring r = 0,(x,y), lp;
+  ideal I =x2,y2,xy+y,2xy2+y3;
+  swalk(I);
+}
+//////////////////////////////////////////////////////////////////////////////
+proc rswalk(ideal Gox, int weight_rad, int pdeg, list #)
+"USAGE:  rswalk(i,weight_rad,p_deg[,v,w]); i ideal, v,w int vectors
+RETURN: The sagbi basis of the subalgebra defined by the generators of i,
+        calculated via the Sagbi walk algorithm from the ordering dp to lp
+        if v,w are not given (resp. from the ordering (a(v),lp) to the
+        ordering (a(w),lp) if v and w are given).
+EXAMPLE: example swalk; shows an example
+"
+{
+  /* we use ring with ordering (a(...),lp,C) */
+  list OSCTW    = OrderStringalp_NP("al", #);//"dp"
+  string ord_str =   OSCTW[2];
+  intvec icurr_weight   =   OSCTW[3]; /* original weight vector */
+  intvec itarget_weight =   OSCTW[4]; /* terget weight vector */
+  kill OSCTW;
+  option(redSB);
+  def xR = basering;
+  list rl=ringlist(xR);
+  rl[3][1][1]="dp";
+  def ostR=ring(rl);
+  setring ostR;
+  def new_ring = basering;
+  ideal Gnew = fetch(xR, Gox);
+  Gnew=sagbi(Gnew,1);
+  Gnew=interreduceSd(Gnew);
+  vector curr_weight=changeTypeInt(icurr_weight);
+  vector target_weight=changeTypeInt(itarget_weight);
+  ideal Gold;
+  list l;
+  intvec v;
+  int n=0;
+  while(n==0)
+    {
+       Gold=Gnew;
+       def old_ring=new_ring;
+       setring old_ring;
+
+       kill new_ring;
+       if(curr_weight==target_weight){n=1;}
+       else {
+              l=collectDiffExpo(Gold);
+              vector new_weight=RandomNextWeight(Gold, l, curr_weight, target_weight, weight_rad, pdeg);
+              vector w=cleardenom(new_weight);
+              v=changeType(w);
+              list p= ringlist(old_ring);
+              p[3][1][2]= v;
+              def new_ring=ring(p);
+              setring new_ring;
+              ideal Gold=fetch(old_ring,Gold);
+              vector curr_weight=fetch(old_ring,new_weight);
+              vector target_weight=fetch(old_ring,target_weight);
+              kill old_ring;
+              ideal Gnew=Convert(Gold);
+              Gnew=interreduceSd(Gnew);
+           }
+    }
+   setring xR;
+   ideal result = fetch(old_ring, Gnew);
+   attrib(result,"isSB",1);
+   return (result);
+}
+example
+{
+  "EXAMPLE:";echo = 2;
+  ring r = 0,(x,y), lp;
+  ideal I =x2,y2,xy+y,2xy2+y3;
+  rswalk(I,2,2);
+}
+//////////////////////////////////////////////////////////////////////////////
+static proc inprod(vector v,vector w)
+"USAGE:  inprod(v,w); v,w vectors
+RETURN:  inner product of vector v and w
+EXAMPLE: example inprod; shows an example
+"
+{
+  poly a;
+  int i;
+  for(i=1;i<=nvars(basering);i++)
+    {
+      a=a+v[i]*w[i] ;
+    }
+  return(a);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),lp;
+   vector v =[1,-1,2];
+   vector w = [1,0,3];
+   inprod(v,w);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc diffExpo(poly f)
+"USAGE:  diffExpo(f); f polynomial
+RETURN:  a list of integers vectors which are the difference of exponent
+         vector of leading monomial of f with the exponent vector of of other
+         monmials in f.
+EXAMPLE: example diffExpo; shows an example
+"
+{
+  list l;
+  int i;
+  intvec v;
+  for(i=size(f);i>=2;i--)
+   {
+     v=leadexp(f[1])-leadexp(f[i]);
+     l[i-1]=v;
+   }
+ return(l);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),lp;
+   poly f = xy+z2 ;
+   diffExpo(f);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc collectDiffExpo( ideal i)
+"USAGE:  collectDiffExpo(i); i ideal
+RETURN:  a list which contains diffExpo(f), for all generators f of ideal i
+EXAMPLE: example collectDiffExpo; shows an example
+"
+{
+ list l;
+ int j;
+ for(j=ncols(i); j>=1;j--)
+  {
+   l[j]=diffExpo(i[j]);
+  }
+  return(l);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),lp;
+   ideal I = xy+z2,y3+x2y2;
+   collectDiffExpo(I);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc changeType(vector v)
+"USAGE:  changeType(v); v  vector
+RETURN:  change the type of  vector
+         v into integer vector.
+
+EXAMPLE: example changeType; shows an example
+"
+{
+  intvec w ;
+  int j ;
+  for(j=1;j<=nvars(basering);j++)
+   {
+     w[j]=int(leadcoef(v[j]));
+   }
+  return(w);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),lp;
+   vector v = [2,1,3];
+   changeType(v);
+}
+//////////////////////////////////////////////////////////////////////////////
+static proc changeTypeInt( intvec v)
+"USAGE:  changeTypeInt(v); v integer vector
+RETURN:  change the type of integer vector v into vector.
+EXAMPLE: example changeTypeInt; shows an example
+"
+{
+   vector w;
+   int j ;
+   for(j=1;j<=size(v);j++)
+   {
+     w=w+v[j]*gen(j);
+   }
+   return(w);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),lp;
+   intvec v = 4,2,3;
+   changeTypeInt(v);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc last( vector c, vector t,list l)
+"USAGE: last(c,t,l); c,t vectors, l list
+RETURN: a  parametric value which corresponds to vector lies along the path
+        between c and t using list l of integer vectors. This vector is the
+        last vector on old Sagbi cone
+EXAMPLE: example last; shows an example
+"
+{
+ number ul=1;
+ int i,j,k;
+ number u;
+ vector v;
+ for(i=1;i<=size(l);i++)
+ {
+    for(j=1;j<=size(l[i]);j++)
+    {
+        v=0;
+        for(k=1;k<=size(l[i][j]);k++)
+        {
+            v=v+l[i][j][k]*gen(k);
+        }
+        poly n= inprod(c,v);
+        poly q= inprod(t,v);
+        number a=leadcoef(n);
+        number b=leadcoef(q);
+        number z=a-b;
+        if(b<0)
+        {
+            u=a/z;
+            if(u<ul) {ul=u;}
+        }
+        kill a,b,z,n,q ;
+    }
+ }
+ return(ul);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),(a(0,0,1),lp);
+   vector v= [0,0,1];
+   vector w=[1,0,0];
+   ideal i=z2+xy,x2y2+y3;
+    list l=collectDiffExpo(i);
+    last(v,w,l)
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc initialForm(poly P)
+"USAGE:  initialForm(P); P polynomial
+RETURN:  sum of monomials of P with maximum w-degree
+         where w is first row of matrix of a given monomial ordering
+EXAMPLE: example initialForm; shows an example
+"
+{
+ poly q;
+ int i=1;
+ while(deg(P[i])==deg(P[1]))
+ {
+     q=q+P[i];
+     i++;
+     if(i>size(P)) {break;}
+ }
+ return(q);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),dp;
+   poly f = x2+yz+z;
+   initialForm(f);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc Initial(ideal I)
+"USAGE:  Initial(I); I ideal
+RETURN:  an ideal which is generate by the InitialForm
+         of the generators of I.
+EXAMPLE: example Initial; shows an example
+"
+{
+ ideal J;
+ int i;
+ for(i=1;i<=ncols(I);i++)
+ {
+     J[i]=initialForm(I[i]);
+ }
+ return(J);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),dp;
+   ideal I = x+1,x+y+1;
+   Initial(I);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc Lift(ideal In,ideal InG,ideal Gold)
+"USAGE:  Lift(In, InG, Gold); In, InG, Gold ideals;
+         Gold given by Sagbi basis {g_1,...,g_t},
+         In given by the initial forms In(g_1),...,In(g_t),
+         InG = {h_1,...,h_s} a Sagbi basis of In
+RETURN:  P_j, a polynomial in K[y_1,..,y_t] such that h_j =
+         P_j(In(g_1),...,In_(g_t))
+         and return f_j = P_j(g_1,...,g_t)
+EXAMPLE: example Lift; shows an example
+"
+{
+  int i;
+  ideal J;
+  for(i=1;i<=ncols(InG);i++)
+  {
+    poly f=InG[i];
+    list l=algebra_containment(f,In,1);
+    def s=l[2];
+    map F=s,maxideal(1),Gold ;
+    poly g=F(check);
+    ideal k=g;
+    J=J+k;
+    kill g,l,s,F,f,k;
+  }
+  return(J);
+ }
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),(a(2,0,3),lp);
+   ideal In = xy+z2,x2y2;
+   ideal InG=xy+z2,x2y2,xyz2+1/2z4;
+   ideal Gold=xy+z2,y3+x2y2;
+   Lift(In,InG,Gold);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc Convert( ideal Gold )
+"USAGE: Convert(I); I ideal
+RETURN: Convert old Sagbi basis into new Sagbi basis
+EXAMPLE: example Convert; shows an example
+"
+{
+ ideal In=Initial(Gold);
+ ideal InG=sagbi(In,1)+In;
+ ideal Gnew=Lift(In,InG,Gold);
+ return(Gnew);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),lp;
+   ideal I=xy+z2, y3+x2y2;
+   Convert(I);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc interreduceSd(ideal I)
+"USAGE:  interreduceSd(I); I ideal
+RETURN:  interreduceSd the set of generators if I with
+         respect to a given term ordering
+EXAMPLE: example interreduceSd; shows an example
+"
+{
+  list l,M;
+  ideal J,B;
+  int i,j,k;
+  poly f;
+  for(k=1;k<=ncols(I);k++)
+  {l[k]=I[k];}
+  for(j=1;j<=size(l);j++)
+  {
+     f=l[j];
+     M=delete(l,j);
+     for(i=1;i<=size(M);i++)
+     { B[i]=M[i];}
+     f=sagbiNF(f,B,1);
+     J=J+f;
+  }
+  return(J);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),lp;
+   ideal I = xy+z2,x2y2+y3;
+   interreduceSd(I);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc OrderStringalp(string Wpal,list #)
+{
+  int n= nvars(basering);
+  string order_str;
+  intvec curr_weight, target_weight;
+  curr_weight = system("Mivdp",n);
+  target_weight = system("Mivlp",n);
+
+  // check if the target ring has a weighted lp ordering
+  list rl = ringlist(basering);
+  if (rl[3][1][1] == "a" and rl[3][2][1] == "lp") {
+    target_weight = rl[3][1][2];
+  }
+
+   if(size(#) != 0)
+   {
+     if(size(#) == 1)
+     {
+       if(typeof(#[1]) == "intvec")
+       {
+         if(Wpal == "al"){
+           order_str = "(a("+string(#[1])+"),lp("+string(n) + "),C)";
+         }
+         else {
+           order_str = "(Wp("+string(#[1])+"),C)";
+         }
+         curr_weight = #[1];
+       }
+       else
+       {
+        if(typeof(#[1]) == "string")
+        {
+          if(#[1] == "Dp") {
+            order_str = "Dp";
+          }
+          else {
+            order_str = "dp";
+          }
+        }
+        else {
+          order_str = "dp";
+        }
+     }
+    }
+    else
+    {
+     if(size(#) == 2)
+     {
+       if(typeof(#[2]) == "intvec")
+       {
+         target_weight = #[2];
+       }
+       if(typeof(#[1]) == "intvec")
+       {
+         if(Wpal == "al"){
+           order_str = "(a("+string(#[1])+"),lp("+string(n) + "),C)";
+         }
+         else {
+           order_str = "(Wp("+string(#[1])+"),C)";
+         }
+         curr_weight = #[1];
+       }
+       else
+       {
+        if(typeof(#[1]) == "string")
+        {
+          if(#[1] == "Dp") {
+            order_str = "Dp";
+           }
+           else {
+              order_str = "dp";
+           }
+        }
+        else {
+           order_str = "dp";
+        }
+      }
+     }
+    }
+   }
+   else {
+     order_str = "dp";
+   }
+   list result;
+   result[1] = order_str;
+   result[2] = curr_weight;
+   result[3] = target_weight;
+   return(result);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+static proc OrderStringalp_NP(string Wpal,list #)
+{
+  int n= nvars(basering);
+  string order_str = "dp";
+  int nP = 1;// call LatsGB to compute the wanted GB  by pwalk
+  intvec curr_weight = system("Mivdp",n); //define (1,1,...,1)
+  intvec target_weight = system("Mivlp",n); //define (1,0,...,0)
+
+  // check if the target ring has a weighted lp ordering
+  list rl = ringlist(basering);
+  if (rl[3][1][1] == "a" and rl[3][2][1] == "lp") {
+    target_weight = rl[3][1][2];
+  }
+
+  if(size(#) != 0)
+  {
+    if(size(#) == 1)
+    {
+      if(typeof(#[1]) == "intvec")
+      {
+        curr_weight = #[1];
+
+        if(Wpal == "al")
+        {
+          order_str = "(a("+string(#[1])+"),lp("+string(n) + "),C)";
+        }
+        else
+        {
+          order_str = "(Wp("+string(#[1])+"),C)";
+        }
+      }
+      else {
+        if(typeof(#[1]) == "int")
+        {
+          nP = #[1];
+        }
+        else
+        {
+          print("// ** the input must be \"(ideal, int)\" or ");
+          print("// **                   \"(ideal, intvec)\"");
+          print("// ** a lex. GB will be computed from \"dp\" to \"lp\"");
+        }
+      }
+    }
+    else
+    {
+     if(size(#) == 2)
+     {
+       if(typeof(#[1]) == "intvec" and typeof(#[2]) == "int")
+       {
+         curr_weight = #[1];
+
+         if(Wpal == "al")
+         {
+           order_str = "(a("+string(#[1])+"),lp("+string(n) + "),C)";
+         }
+         else
+         {
+           order_str = "(Wp("+string(#[1])+"),C)";
+         }
+       }
+       else
+       {
+         if(typeof(#[1]) == "intvec" and typeof(#[2]) == "intvec")
+         {
+           curr_weight = #[1];
+           target_weight = #[2];
+
+           if(Wpal == "al")
+           {
+             order_str = "(a("+string(#[1])+"),lp("+string(n) + "),C)";
+           }
+           else
+           {
+             order_str = "(Wp("+string(#[1])+"),C)";
+           }
+         }
+         else
+         {
+           print("// ** the input  must be \"(ideal,intvec,int)\" or ");
+           print("// **                    \"(ideal,intvec,intvec)\"");
+           print("// ** and a lex. GB will be computed from \"dp\" to \"lp\"");
+         }
+       }
+     }
+     else {
+       if(size(#) == 3)
+       {
+         if(typeof(#[1]) == "intvec" and typeof(#[2]) == "intvec" and
+            typeof(#[3]) == "int")
+         {
+           curr_weight = #[1];
+           target_weight = #[2];
+           nP = #[3];
+           if(Wpal == "al")
+           {
+             order_str = "(a("+string(#[1])+"),lp("+string(n) + "),C)";
+           }
+           else
+           {
+             order_str = "(Wp("+string(#[1])+"),C)";
+           }
+         }
+         else
+         {
+           print("// ** the input must be \"(ideal,intvec,intvec,int)\"");
+           print("// ** and a lex. GB will be computed from \"dp\" to \"lp\"");
+
+         }
+       }
+       else
+       {
+         print("// ** The given input is wrong");
+         print("// ** and a lex. GB will be computed from \"dp\" to \"lp\"");
+       }
+     }
+    }
+  }
+  list result;
+  result[1] = nP;
+  result[2] = order_str;
+  result[3] = curr_weight;
+  result[4] = target_weight;
+  return(result);
+}
+//////////////////////////////////////////////////////////////////////////////
+static proc test_in_cone(vector w, list l)
+{
+ int i,j,k;
+ vector v;
+ poly n;
+ number a;
+ for(i=1;i<=size(l);i++)
+ {
+    for(j=1;j<=size(l[i]);j++)
+    {
+        v=0;
+        for(k=1;k<=size(l[i][j]);k++)
+        {
+            v=v+l[i][j][k]*gen(k);
+        }
+        n = inprod(w,v);
+        a = leadcoef(n);
+        if(a<0)
+        {
+           return(0);
+        }
+    }
+ }
+ return(1);
+}
+//////////////////////////////////////////////////////////////////////////////
+static proc PertVectors(ideal Gold, vector target_weight, int pdeg)
+{
+int nV = nvars(basering);
+int nG = size(Gold);
+int i;
+number ntemp, maxAi, maxA;
+if(pdeg > nV || pdeg <= 0)
+  {
+    intvec v_null=0;
+    return v_null;
+  }
+if(pdeg == 1)
+  {
+    return target_weight;
+  }
+maxAi=0;
+for(i=1; i<=nV; i++)
+  {
+    ntemp = leadcoef(inprod(target_weight,gen(i)));
+    if(ntemp < 0)
+      {
+        ntemp = -ntemp;
+      }
+    if(maxAi < ntemp)
+      {
+        maxAi = ntemp;
+      }
+  }
+maxA = maxAi+pdeg-1;
+number epsilon = maxA*deg(Gold)+1;
+vector pert_weight = epsilon^(pdeg-1)*target_weight;
+for(i=2; i<=pdeg; i++)
+  {
+    pert_weight = pert_weight + epsilon^(pdeg-i)*gen(i);
+  }
+return(pert_weight);
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+static proc RandomNextWeight(ideal Gold, list L, vector curr_weight,
+                      vector target_weight,int weight_rad, int pdeg)
+"USAGE: RandomNextWeight(Gold, L, curr_weight, target_weight);
+RETURN: Intermediate next weight vector
+EXAMPLE: example RandomNextWeight; shows an example
+"
+{
+  int i,n1,n2,n3;
+  number norm, weight_norm;
+  def Rold = basering;
+  int nV = nvars(basering);
+  number ulast=last(curr_weight, target_weight, L);
+  vector new_weight=(1-ulast)*curr_weight+ulast*target_weight;
+  vector w1=cleardenom(new_weight);
+  intvec v1=changeType(w1);
+  list p= ringlist(Rold);
+  p[3][1][2]= v1;
+  def new_ring=ring(p);
+  setring new_ring;
+  ideal Gold = fetch(Rold, Gold);
+  n1=size(Initial(Gold));
+  setring Rold;
+  intvec next_weight;
+  kill new_ring;
+  while(1)
+  {
+    weight_norm = 0;
+    while(weight_norm == 0)
+    {
+      for(i=1; i<=nV; i++)
+      {
+        next_weight[i] = random(1,10000)-5000;
+        weight_norm = weight_norm + next_weight[i]^2;
+      }
+      norm = 0;
+      while(norm^2 < weight_norm)
+      {
+         norm=norm+1;
+      }
+      weight_norm = 1+norm;
+    }
+    new_weight = 0;
+    for(i=1; i<=nV;i++)
+    {
+      if(next_weight[i] < 0)
+      {
+        new_weight = new_weight + (1 + round(weight_rad*leadcoef(next_weight[i])/weight_norm))*gen(i);
+      }
+      else
+      {
+        new_weight = new_weight + ( round(weight_rad*leadcoef(next_weight[i])/weight_norm))*gen(i);
+      }
+    }
+    new_weight = new_weight + curr_weight;
+    if(test_in_cone(new_weight, L)==1)
+    {
+      break;
+    }
+  }
+  kill next_weight;
+  kill norm;
+  vector w2=cleardenom(new_weight);
+  intvec v2=changeType(w2);
+  p[3][1][2]= v2;
+  def new_ring=ring(p);
+  setring new_ring;
+  ideal Gold = fetch(Rold, Gold);
+  n2=size(Initial(Gold));
+  setring Rold;
+  kill new_ring;
+
+  vector w3=cleardenom(PertVectors(Gold,target_weight,pdeg));
+  intvec v3=changeType(w3);
+  p[3][1][2]= v1;
+  def new_ring=ring(p);
+  setring new_ring;
+  ideal Gold = fetch(Rold, Gold);
+  n3=size(Initial(Gold));
+  setring Rold;
+  kill new_ring;
+  kill p;
+
+  if(n2<n1)
+  {
+    if(n3<n2)
+    {
+      // n3<n2<n1
+      return(w3);
+    }
+    else
+    {
+      // n2<n1 und n2<=n3
+      return(w2);
+    }
+  }
+  else
+  {
+    if(n3<n1)
+    {
+      //n3<n1<=n2
+      return(w3);
+    }
+    else
+    {
+      // n1<=n3 und n1<=n2
+      return(w1);
+    }
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/*
+Further examples
+ring r=0,(x,y,z),lp;
+
+ideal I=x2y4, y4z2, xy4z+y2z, xy6z2+y10z5;
+
+ideal Q=x2y4, y4z2, xy4z+y2z, xy6z2+y14z7;
+
+ideal J=x2y4, y4z2, xy4z+y2z, xy6z2+y18z9;
+
+ideal K=x2,y2,xy+y,2xy2+y5,z3+x;
+
+ideal L=x2+y,y2+z,x+z2;
+*/
+
+

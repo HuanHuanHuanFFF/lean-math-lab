@@ -1,0 +1,132 @@
+/* emacs edit mode for this file is -*- C++ -*- */
+
+#ifndef INCL_FACTORY_H
+#define INCL_FACTORY_H
+
+/* factory.template is a template to generate `factory.h' */
+
+/**
+ *
+ * @file factory.h
+ *
+ * `factory.h' is the user interface to Factory.  Created
+ * automatically by `makeheader', it collects all important
+ * declarations from all important Factory header files into one
+ * overall header file leaving out all boring Factory internal
+ * stuff.  See `./bin/makeheader' for an explanation of the syntax
+ * of this file.
+ *
+ * Note: In this file the order of "includes" matters (since this
+ * are not real includes)!  In general, files at the end depend
+ * on files at the beginning.
+ *
+**/
+
+#include "factory/factoryconf.h"
+#include "factory/globaldefs.h"
+#include <stdint.h>
+#include "factory/si_log2.h"
+#ifdef HAVE_OMALLOC
+#include "omalloc/omalloc.h"
+#ifndef XMEMORY_H
+#include "omalloc/omallocClass.h"
+#endif
+#endif
+
+#ifndef NOSTREAMIO
+#  ifdef HAVE_IOSTREAM
+#    include <iostream>
+#    define OSTREAM std::ostream
+#    define ISTREAM std::istream
+#  elif defined(HAVE_IOSTREAM_H)
+#    include <iostream.h>
+#    define OSTREAM ostream
+#    define ISTREAM istream
+#  endif
+#endif /* ! NOSTREAMIO */
+
+#include "factory/cf_gmp.h"
+
+#include "factory/templates/ftmpl_array.h"
+#include "factory/templates/ftmpl_afactor.h"
+#include "factory/templates/ftmpl_factor.h"
+#include "factory/templates/ftmpl_list.h"
+#include "factory/templates/ftmpl_matrix.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_globals.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_primes.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_defs.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "variable.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "canonicalform.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_algorithm.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_eval.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_generator.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_iter.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_random.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "fac_util.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_map.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_reval.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "fac_sqrfree.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "gfops.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_hnf.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "singext.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cf_util.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "facIrredTest.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "facAbsFact.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cfModResultant.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "facAlgFunc.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cfCharSetsUtil.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cfCharSets.h"
+
+/*MAKEHEADER PUBLIC ONLY*/
+#include "cfUnivarGcd.h"
+
+
+#endif /* ! INCL_FACTORY_H */

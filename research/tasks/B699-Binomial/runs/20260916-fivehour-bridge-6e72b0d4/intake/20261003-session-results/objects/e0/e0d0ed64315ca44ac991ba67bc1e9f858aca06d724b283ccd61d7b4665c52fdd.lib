@@ -1,0 +1,269 @@
+////////////////////////////////////////////////////////////////////////////////
+version="version modquotient.lib 4.4.0.7 Nov_2024 "; // $Id: fd330083080c4a0dac874ef1f0c5b9a32739438d $
+category="Commutative Algebra";
+info="
+LIBRARY: modquotient.lib   Ideal Quotients and Saturation via Modular Methods
+AUTHOR: Andreas Steenpass
+
+OVERVIEW:
+A library for computing ideal quotients and saturation using modular methods.
+The procedures are implemented to be used over the rationals.
+
+PROCEDURES:
+modQuotient(I,J);  quotient I:J by modular methods
+modSat(I,J);       saturation(I,J) by modular methods
+
+SEE ALSO: modular_lib, parallel_lib
+KEYWORDS: Ideal quotients; saturation
+";
+
+LIB "general.lib";
+LIB "elim.lib";
+LIB "polylib.lib";
+LIB "random.lib";
+LIB "inout.lib";
+LIB "matrix.lib";
+LIB "triang.lib";
+LIB "absfact.lib";
+LIB "ring.lib";
+LIB "modfinduni.lib";
+LIB "modstd.lib";
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//                      modQuotient
+//
+///////////////////////////////////////////////////////////////////////////////
+
+proc modQuotient(ideal I, ideal J, list #)
+"USAGE:   modQuotient(I, J, #); I, J ideals, # an optional list which is either empty (not entered) or consists of precisely one integer which is 0 or 1.
+ASSUME: The common basering of I and J is defined over the rationals.
+RETURN: The ideal quotient I:J.
+NOTE: - The resulting ideal is given by a standard basis in the basering.@*
+      - The final result will be checked for correctness if # is either empty (not entered) or if #[1] = 1.
+      Without the check, the functions returns a result which is correct with high probability.
+
+EXAMPLE: example modQuotient; shows an example
+"
+{
+   /* read optional parameter */
+   int exactness = 1;
+   if (size(#) > 0) {
+       if (size(#) > 1 || typeof(#[1]) != "int") {
+           ERROR("wrong optional parameter");
+       }
+       exactness = #[1];
+   }
+
+   /* save options */
+   intvec opt = option(get);
+   option(redSB);
+   option(returnSB);
+
+   /* compute standard basis of I */
+   if (!attrib(I, "isSB")) {
+       I = modStd(I);
+   }
+
+   /* set maximal prime number */
+   int pmax = 2147483647;
+   if (npars(basering) > 0) {
+       pmax = 536870909;   // prime(2^29)
+   }
+
+   /* choose the right command */
+   string command = "quotient";
+   if (npars(basering) > 0) {
+       command = "Modquotient::quotient_norm";
+   }
+
+   /* call modular() */
+   ideal Q;
+   if (exactness) {
+       Q = modular(command, list(I, J), primeTest_quotient,
+           Modstd::deleteUnluckyPrimes_std, pTest_quotient,
+           finalTest_quotient, pmax);
+   }
+   else {
+       Q = modular(command, list(I, J), primeTest_quotient,
+           Modstd::deleteUnluckyPrimes_std, pTest_quotient, pmax);
+   }
+
+   /* return the result */
+   attrib(Q, "isSB", 1);
+   option(set, opt);
+   return(Q);
+}
+example
+{ "EXAMPLE:";  echo = 2;
+  ring R = 0, (x,y,z), dp;
+  ideal I = x2+xyz, y2-z3y, z3+y5xz;
+  ideal J = maxideal(3);
+  ideal K = modQuotient(I, J);
+  K;
+}
+
+static proc quotient_norm(ideal I, ideal J)
+{
+   ideal Q = simplify(quotient(I, J), 1);
+   attrib(Q, "isSB", 1);
+   return(Q);
+}
+
+static proc primeTest_quotient(int p, alias list args)
+{
+   if (!Modstd::primeTest_std(p, list(args[1]))) {
+       return(0);
+   }
+   return(Modstd::primeTest_std(p, list(args[2])));
+}
+
+static proc pTest_quotient(string command, list args, ideal result, int p)
+{
+   def br = basering;
+   list lbr = ringlist(br);
+   if (typeof(lbr[1]) == "int") {
+       lbr[1] = p;
+   }
+   else {
+       lbr[1][1] = p;
+   }
+   def rp = ring(lbr);
+   setring(rp);
+   ideal Ip = fetch(br, args)[1];
+   ideal Jp = fetch(br, args)[2];
+   ideal result = fetch(br, result);
+   attrib(result, "isSB", 1);
+   int i;
+   execute("ideal Qp = "+command+"(Ip, Jp);");
+   for (i = ncols(Qp); i > 0; i--) {
+       if (reduce(Qp[i], result, 1) != 0) {
+           setring(br);
+           return(0);
+       }
+   }
+   attrib(Qp, "isSB", 1);
+   for (i = ncols(result); i > 0; i--) {
+       if (reduce(result[i], Qp, 1) != 0) {
+           setring(br);
+           return(0);
+       }
+   }
+   setring(br);
+   return(1);
+}
+
+static proc finalTest_quotient(string command, list args, ideal result)
+{
+   ideal P = result*args[2];
+   int i;
+   for (i = ncols(P); i > 0; i--) {
+       if (reduce(P[i], args[1], 1) != 0) {
+           return(0);
+       }
+   }
+   attrib(result, "isSB", 1);
+   int res = quotient_test(args[1], args[2], result);
+   return(res);
+}
+
+/* Tests if Q = (I:J). Assumes Q \subset (I:J) and that Q is a standard basis.
+*/
+static proc quotient_test(ideal I, ideal J, ideal Q)
+{
+   int i;
+   int ncols_J = ncols(J);
+
+   def br = basering;
+   list rl = ringlist(br);
+   for (i = size(rl[3]); i > 0; i--) {
+       if (rl[3][i][1] == "c" || rl[3][i][1] == "C") {
+           rl[3] = delete(rl[3], i);
+       }
+   }
+   rl[3] = insert(rl[3], list("c", 0));
+   def newR = ring(rl);
+   setring(newR);
+   option(noredThrough);   // this option is ring-dependent
+   ideal I = fetch(br, I);
+   ideal J = fetch(br, J);
+   ideal Q = fetch(br, Q);
+   attrib(Q, "isSB", 1);
+
+   module M = module(transpose(J));
+   M[1] = M[1] + gen(ncols_J+1);
+   for (i = 1; i <= ncols_J; i++) {
+       M = module(I*gen(i)) + M;
+   }
+   M = module(Q*gen(ncols_J+1)) + M;
+
+   M = std(M);
+
+   ideal QQ;
+   for (i = ncols(M); i > 0; i--) {
+       if (M[i][1..ncols_J] == 0) {
+           QQ = M[i][ncols_J+1], QQ;
+       }
+   }
+   QQ = simplify(QQ, 2);
+   for (i = ncols(QQ); i > 0; i--) {
+       if (reduce(QQ[i], Q, 1) != 0) {
+           setring(br);
+           return(0);
+       }
+;    }
+   setring(br);
+   return(1);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//
+//                      modSat
+//
+///////////////////////////////////////////////////////////////////////////////
+
+proc modSat(ideal I, ideal J, list #)
+"USAGE:   modSat(I, J, #); I, J ideals, # an optional list which is either empty (not entered) or consists of precisely one integer which is 0 or 1.
+ASSUME: The common basering of I and J is defined over the rationals.
+RETURN: A list consisting of an ideal [1] and an integer [2]:@*
+        [1] = saturation of of I by J
+        [2] = saturation exponent (= min( k | I:J^k = I:J^(k+1)))
+NOTE: [1] is given by a standard basis in the basering.@*
+      - The function proceeds by successively computing ideal quotients.
+      The intermediate results will be checked for correctness if # is either empty (not entered)s
+      or if #[1] = 1.
+      Without the checks, the function returns a final result which is correct
+      with high probability.
+EXAMPLE: example modSat; shows an example
+"
+{
+  /* read optional parameter */
+   int exactness = 1;
+   if (size(#) > 0) {
+       if (size(#) > 1 || typeof(#[1]) != "int") {
+           ERROR("wrong optional parameter");
+       }
+       exactness = #[1];
+   }
+   int ii, kk;
+   ideal i = I;
+   I = modStd(I, exactness);
+   while (ii <= size(i)) {
+       i = modQuotient(I, J, exactness);
+       for (ii = 1; ii <= size(i); ii++) {
+           if (reduce(i[ii], I, 1) != 0) break;
+       }
+       I = modStd(i, exactness);
+       kk++;
+   }
+   list L = I, kk-1;
+   return(L);
+}
+example
+{ "EXAMPLE:";  echo = 2;
+  ring R = 0, (x,y,z), dp;
+  ideal I = x2+xyz, y2-z3y, z3+y5xz;
+  ideal J = maxideal(3);
+  list L = modSat(I, J);
+  L;
+}

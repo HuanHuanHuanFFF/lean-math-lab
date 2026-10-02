@@ -1,0 +1,44 @@
+[
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "/mnt/data/d_r09_work/parent/B699-D-R08-FIXED-PRIME-TWO-BLOCKS-20261002/replay.py",
+      "--output",
+      "/mnt/data/d_r09_work/PARENT_R08_REPLAY.json"
+    ],
+    "execution": "actual earlier invocation in this turn; ancestors not run",
+    "exit_code": 0,
+    "receipt": "logs/PARENT_R08_REPLAY.json"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "/mnt/data/B699-D-R09-Q-SOURCE-NEAR-SQUARE-20261002/scripts/build_certificate.py",
+      "--output",
+      "/mnt/data/B699-D-R09-Q-SOURCE-NEAR-SQUARE-20261002/certificates/certificate.json"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "{\"status\": \"PASS\", \"certificate_sha256\": \"19290ebac6f49537d01238701b8ec4450ab7090beaab83216311ae74b0306e4c\", \"integer_digit_cases\": 12651, \"root_intervals\": 19}\n"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "/mnt/data/B699-D-R09-Q-SOURCE-NEAR-SQUARE-20261002/scripts/verify_certificate.py",
+      "--certificate",
+      "/mnt/data/B699-D-R09-Q-SOURCE-NEAR-SQUARE-20261002/certificates/certificate.json",
+      "--output",
+      "/mnt/data/B699-D-R09-Q-SOURCE-NEAR-SQUARE-20261002/logs/VERIFY.json",
+      "--negative-tests"
+    ],
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "{\"status\": \"PASS\", \"negative_tests_rejected\": 16, \"integer_digit_cases\": 12651, \"q6_executed\": false}\n"
+  }
+]

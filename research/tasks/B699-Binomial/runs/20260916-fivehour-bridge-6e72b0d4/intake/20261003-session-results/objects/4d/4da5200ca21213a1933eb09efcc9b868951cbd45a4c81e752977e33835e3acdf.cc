@@ -1,0 +1,26 @@
+/* emacs edit mode for this file is -*- C++ -*- */
+
+/**
+ *
+ * @file cf_globals.cc
+ *
+ * definitions of global variables.
+ *
+ * Used by: canonicalform.cc, int_int.cc, ffops.h, imm.h
+ *
+**/
+
+
+#include "config.h"
+
+/** extern const char factoryConfiguration[];
+ *
+ * factoryConfiguration - factory configuration.
+ *
+ * factoryConfiguration is initialized from #define
+ * FACTORYCONFIGURATION which is defined in config.h.  It is set
+ * to the option configure was called with plus the directory it
+ * was called in.  It is not used in factory itself.
+ *
+**/
+extern const char factoryConfiguration[] = "@(#) factoryConfiguration = " FACTORYCONFIGURATION;

@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/mnt/data/B699-E-R4-LAYERED-TERMINAL/scripts/verify.py", line 208, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/B699-E-R4-LAYERED-TERMINAL/scripts/verify.py", line 201, in main
+    'normalization_audit_and_gates':gates_and_audit(),
+                                    ~~~~~~~~~~~~~~~^^
+  File "/mnt/data/B699-E-R4-LAYERED-TERMINAL/scripts/verify.py", line 183, in gates_and_audit
+    old=[gate(k,T,F(111,100),3,True) for k,T in [(32,128),(64,64),(1024,32),(16384,31)]]
+         ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-E-R4-LAYERED-TERMINAL/scripts/verify.py", line 178, in gate
+    'old_64_log_error':old,'margin':scaled(m,m),'margin_fraction':str(m)}
+                                                                  ~~~^^^
+  File "/usr/lib/python3.13/fractions.py", line 432, in __str__
+    return '%s/%s' % (self._numerator, self._denominator)
+                      ^^^^^^^^^^^^^^^
+ValueError: Exceeds the limit (4300 digits) for integer string conversion; use sys.set_int_max_str_digits() to increase the limit
+Command exited with non-zero status 1
+elapsed=2.54 maxrss_kib=119500

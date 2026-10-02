@@ -1,0 +1,326 @@
+{
+  "status": "PASS",
+  "started_utc": "2026-10-02T08:06:12.094321+00:00",
+  "finished_utc": "2026-10-02T08:08:35.971907+00:00",
+  "scope": "this-round proof computations and frozen input-byte bindings; NOT replay/acceptance of the full historical mathematical chain",
+  "environment": {
+    "python": "3.13.5",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "g++": "g++ (Debian 14.2.0-19) 14.2.0"
+  },
+  "payload_manifest_sha256": "cb75d2187e4b1fc39c0b87af688b34ebe0cc4b9275a60b83fc2918915d34c11f",
+  "payload_files_verified": 252,
+  "commands": [
+    {
+      "name": "compile_module_kernel",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/module_kernel.cpp",
+        "-o",
+        "code/module_kernel"
+      ],
+      "returncode": 0,
+      "seconds": 0.86,
+      "log": "replay_logs/compile_module_kernel.log"
+    },
+    {
+      "name": "compile_check_trace",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/check_trace.cpp",
+        "-o",
+        "code/check_trace"
+      ],
+      "returncode": 0,
+      "seconds": 0.606,
+      "log": "replay_logs/compile_check_trace.log"
+    },
+    {
+      "name": "compile_six_gates",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/six_gates_adopted.cpp",
+        "-o",
+        "code/six_gates"
+      ],
+      "returncode": 0,
+      "seconds": 1.704,
+      "log": "replay_logs/compile_six_gates.log"
+    },
+    {
+      "name": "compile_six_gates_alt",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-DALT",
+        "code/six_gates_adopted.cpp",
+        "-o",
+        "code/six_gates_alt"
+      ],
+      "returncode": 0,
+      "seconds": 1.678,
+      "log": "replay_logs/compile_six_gates_alt.log"
+    },
+    {
+      "name": "compile_six_jets",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/six_jets_adopted.cpp",
+        "-o",
+        "code/six_jets"
+      ],
+      "returncode": 0,
+      "seconds": 0.945,
+      "log": "replay_logs/compile_six_jets.log"
+    },
+    {
+      "name": "compile_six_jets_32719",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-DMODULUS=32719",
+        "code/six_jets_adopted.cpp",
+        "-o",
+        "code/six_jets_32719"
+      ],
+      "returncode": 0,
+      "seconds": 0.932,
+      "log": "replay_logs/compile_six_jets_32719.log"
+    },
+    {
+      "name": "compile_receive_geometry",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/receive_geometry.cpp",
+        "-o",
+        "code/receive_geometry"
+      ],
+      "returncode": 0,
+      "seconds": 1.785,
+      "log": "replay_logs/compile_receive_geometry.log"
+    },
+    {
+      "name": "compile_ledger_receiver",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/ledger_receiver.cpp",
+        "-o",
+        "code/ledger_receiver"
+      ],
+      "returncode": 0,
+      "seconds": 0.418,
+      "log": "replay_logs/compile_ledger_receiver.log"
+    },
+    {
+      "name": "source_bounds",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/source_bounds.py"
+      ],
+      "returncode": 0,
+      "seconds": 1.216,
+      "log": "replay_logs/source_bounds.log"
+    },
+    {
+      "name": "make_inputs",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/make_inputs.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.561,
+      "log": "replay_logs/make_inputs.log"
+    },
+    {
+      "name": "proxy_diagnostic",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/proxy_diagnostic.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.553,
+      "log": "replay_logs/proxy_diagnostic.log"
+    },
+    {
+      "name": "geometry_profiles",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/geometry_profiles.py"
+      ],
+      "returncode": 0,
+      "seconds": 12.009,
+      "log": "replay_logs/geometry_profiles.log"
+    },
+    {
+      "name": "run_geometry_minors",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/run_geometry_minors.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.966,
+      "log": "replay_logs/run_geometry_minors.log"
+    },
+    {
+      "name": "verify_geometry",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/verify_geometry.py"
+      ],
+      "returncode": 0,
+      "seconds": 13.539,
+      "log": "replay_logs/verify_geometry.log"
+    },
+    {
+      "name": "finish_exception",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/finish_exception.py"
+      ],
+      "returncode": 0,
+      "seconds": 2.479,
+      "log": "replay_logs/finish_exception.log"
+    },
+    {
+      "name": "verify_ledger",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/verify_ledger.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.633,
+      "log": "replay_logs/verify_ledger.log"
+    },
+    {
+      "name": "s1825_S5quot_p257_m0_generator",
+      "returncode": 0,
+      "seconds": 3.901,
+      "log": "replay_logs/s1825_S5quot_p257_m0_generator.log"
+    },
+    {
+      "name": "s1825_S5quot_p257_m0_receiver",
+      "command": [
+        "code/check_trace",
+        "certificates/s1825_S5quot_p257_m0.input",
+        "certificates/s1825_S5quot_p257_m0.trace.tsv"
+      ],
+      "returncode": 0,
+      "seconds": 12.696,
+      "log": "replay_logs/s1825_S5quot_p257_m0_receiver.log"
+    },
+    {
+      "name": "s1825_S5quot_p257_m1_generator",
+      "returncode": 0,
+      "seconds": 8.014,
+      "log": "replay_logs/s1825_S5quot_p257_m1_generator.log"
+    },
+    {
+      "name": "s1825_S5quot_p257_m1_receiver",
+      "command": [
+        "code/check_trace",
+        "certificates/s1825_S5quot_p257_m1.input",
+        "certificates/s1825_S5quot_p257_m1.trace.tsv"
+      ],
+      "returncode": 0,
+      "seconds": 17.103,
+      "log": "replay_logs/s1825_S5quot_p257_m1_receiver.log"
+    },
+    {
+      "name": "s1825_S5quot_p263_m0_generator",
+      "returncode": 0,
+      "seconds": 3.971,
+      "log": "replay_logs/s1825_S5quot_p263_m0_generator.log"
+    },
+    {
+      "name": "s1825_S5quot_p263_m0_receiver",
+      "command": [
+        "code/check_trace",
+        "certificates/s1825_S5quot_p263_m0.input",
+        "certificates/s1825_S5quot_p263_m0.trace.tsv"
+      ],
+      "returncode": 0,
+      "seconds": 12.392,
+      "log": "replay_logs/s1825_S5quot_p263_m0_receiver.log"
+    },
+    {
+      "name": "s1825_S5quot_p263_m1_generator",
+      "returncode": 0,
+      "seconds": 8.267,
+      "log": "replay_logs/s1825_S5quot_p263_m1_generator.log"
+    },
+    {
+      "name": "s1825_S5quot_p263_m1_receiver",
+      "command": [
+        "code/check_trace",
+        "certificates/s1825_S5quot_p263_m1.input",
+        "certificates/s1825_S5quot_p263_m1.trace.tsv"
+      ],
+      "returncode": 0,
+      "seconds": 16.687,
+      "log": "replay_logs/s1825_S5quot_p263_m1_receiver.log"
+    },
+    {
+      "name": "s1825_full_p257_m0_generator",
+      "returncode": 0,
+      "seconds": 4.557,
+      "log": "replay_logs/s1825_full_p257_m0_generator.log"
+    },
+    {
+      "name": "s1825_full_p257_m0_receiver",
+      "command": [
+        "code/check_trace",
+        "certificates/s1825_full_p257_m0.input",
+        "certificates/s1825_full_p257_m0.trace.tsv"
+      ],
+      "returncode": 0,
+      "seconds": 14.739,
+      "log": "replay_logs/s1825_full_p257_m0_receiver.log"
+    },
+    {
+      "name": "negative_controls",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/negative_controls.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.657,
+      "log": "replay_logs/negative_controls.log"
+    }
+  ],
+  "assertions": {
+    "new_state_removed": 1825,
+    "low_preimages": 47,
+    "geometry_profiles": 29,
+    "geometry_configurations": 3115,
+    "full_column_minors_each_prime": 3114,
+    "rational_exception": "full pencil uniformly reducible",
+    "S5_quotient_cases": 4,
+    "module_traces_exact_match": true,
+    "ledger_compared_integer_cells": 70560,
+    "activated_M8": 128,
+    "frontier_count_on_adopted_history": 26,
+    "h_min_on_adopted_history": 133,
+    "V_max_on_adopted_history": 39,
+    "negative_controls_rejected": 3
+  },
+  "evidence_level": {
+    "Lean": false,
+    "external_independent_review": false,
+    "same_author_different_implementations": true,
+    "repository_modified": false
+  }
+}

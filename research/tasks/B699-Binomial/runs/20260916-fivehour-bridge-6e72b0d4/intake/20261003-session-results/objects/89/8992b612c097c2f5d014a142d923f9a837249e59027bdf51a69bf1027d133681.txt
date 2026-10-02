@@ -1,0 +1,127 @@
+For binary distributions remember to set the environment vraiable
+PYTHONPATH to the directories containing the Singular python modules
+(interpreter.py, utils.py, usually the Singular LIB directory)
+and to your python directory (usually .)
+
+Example for bash etc.:
+export PYTHONPATH=".:/usr/local/Singular/3-0-2/LIB"
+
+Requirements for building:
+--------------------------
+install scons (the build tool)
+install boost::python
+install boost
+dynamic modules working
+have a working Singular build directory
+NOSTREAMIO disabled in factory (rebuild also claptmpl.o in Singular)
+install python-numeric (for matrix report)
+
+Suggested additional modules:
+probstat: fast (C-Impl.) combinatorics (permutations, cartesian products)
+lxml for openmath
+
+
+supported interpreter values:
+
+INPUT:
+int
+poly
+vector
+number
+matrix
+ideal
+list
+string
+ring
+intvec
+
+Output:
+int
+poly
+vector
+number
+matrix
+ideal
+list
+string
+ring
+intvec
+
+typemappings:
+interpreter, python internal, python official name
+int -> int
+poly -> Poly ->Polynomial
+vector -> Vector -> Vector
+number -> Number ->Number
+matrix -> Numeric.array
+ideal -> Ideal ->Ideal
+list -> list
+string -> str
+ring -> ring(in a Ring, but this does nothing) ->ring
+BUILD:
+--------
+just type:
+scons
+
+adjust PYTHONPATH:
+-----------------
+python must be able to find interpreter.py
+so either
+export PYTHONPATH="<singroot>/modules/python"
+but
+for me simply
+export PYTHONPATH=
+ also works
+
+Test:
+-----
+../../Singular/Singular <testfile>
+where testfile is in
+powertester
+polytester interpretertester
+if an exceptions occurs, review the code it may be wanted for examples the last line in interpretertester
+
+TASKS:
+------
+- push and pop rings, automatically change rings, if Singular functions are executed
+-Map more types
+-throw Python exception if something fails
+-testing
+-write some module presenting the power of python
+  compared to the Singular interpreter language
+- make modgen work properly
+- make the functionality available build in the kernel for the windows platform
+- documentation
+- provide feedback for missing functionality
+-smart pointer for ring in Poly
+
+RULES:
+-----
+
+If you want to help, which would make me happy, follow some simple rules:
+
+- divide the work in layers, so what is a problem of a better C++-Interface should be done in the Singular kernel (compare Number.h, Poly.h PowerSeries.h), the Pythonwrapper itself should be ultrathin
+-raw operations (+,-,* creation of res...) should map directly to the Singular kernel (prefereable nice C++ wrapper classes in the kernel)
+- Wrapper classes in C++ should behave like canonical C++-Classes, no additional res.-management (with the exception of new, delete) should be required
+- never use currRing implicitly, always write out the currRing argument, if this isn't done consequently in my code, it would be nice of you to fix it
+- regularly check in, check out from CVS
+
+
+NEWS:
+*global_functions has be renamed to singular_globals_proxy
+the old name exists for short time for compat.
+
+*it is now possible to use the singular_globals_proxy for
+    -reading global variables
+    -writing global variables, if the var exists with the correct type in the interpreter
+    -calling global interpreter and builtin functions (not builtins, for example groebner but not std
+
+successfully tested systems:
+linux: x86, x86_64
+Mac OS X:G4,
+windows (ask Oliver)
+
+
+
+
+

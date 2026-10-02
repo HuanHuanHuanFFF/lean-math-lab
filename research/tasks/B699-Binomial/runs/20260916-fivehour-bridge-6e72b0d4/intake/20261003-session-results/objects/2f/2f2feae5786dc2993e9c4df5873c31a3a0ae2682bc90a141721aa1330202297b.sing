@@ -1,0 +1,22 @@
+LIB "satproof2.so";
+ring R=32003,(r,u,y),dp;option(redSB);
+execute(read("/mnt/data/r7_work/new_polys.inc"));
+poly HH=u2-u*y2+3*u*y-2*u+(y-1)^2;
+poly JJ=u2+u*y2-3*u*y+y;
+poly rn=3*(u-1)*(y-1)^2*JJ;
+poly rd=4*u*y2*HH;
+ideal safe=u,y,u-1,y-1,HH,JJ,r,r-1;
+proc transN(poly f){
+ matrix cf=coef(f,r); int d=0;int i; int e;poly z;poly q;
+ for(i=1;i<=ncols(cf);i++){e=deg(cf[1,i]);if(e>d){d=e;}}
+ for(i=1;i<=ncols(cf);i++){e=deg(cf[1,i]);z=z+cf[2,i]*rn^e*rd^(d-e)*r^e;}
+ for(i=1;i<=size(safe);i++){
+  while(z!=0){q=z/safe[i];if(q*safe[i]!=z){break;}z=q;}
+ }
+ return(z);
+}
+ideal newI;int i;for(i=1;i<=size(I);i++){newI[i]=transN(I[i]);print("TRANS "+string(i)+" "+string(size(newI[i]))+" "+string(deg(newI[i])));}
+poly kd=transN(K);poly dd=u*JJ*r-(u-1)*HH;
+write("/mnt/data/r7_work/Ncoord_ff_input.txt",string(newI));
+ideal gates=r,u,u-1,y,y-1,r-1,HH,JJ,dd,kd;
+print("START SAT");ideal GB=satproof(newI,gates,"/mnt/data/r7_work/Ncoord_ff_trace.jsonl",0);write("/mnt/data/r7_work/Ncoord_ff_basis.txt",string(GB)); print("END "+string(size(GB)));quit;

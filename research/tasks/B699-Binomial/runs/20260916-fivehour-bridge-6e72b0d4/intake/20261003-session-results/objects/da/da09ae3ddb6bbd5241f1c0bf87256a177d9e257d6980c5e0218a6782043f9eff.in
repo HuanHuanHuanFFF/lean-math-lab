@@ -1,0 +1,17 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: libSingular
+Description: The Singular high level functionality
+Version: @PACKAGE_VERSION@
+URL: https://github.com/Singular/Sources/
+
+Requires: @PKG_REQUIRE@ libpolys
+Conflicts:
+
+Cflags: -I${includedir} -I${includedir}/singular @SINGULAR_CFLAGS@
+Libs: -L${libdir} -lSingular @USEPPROCSDYNAMICLD@
+Libs.private:
+

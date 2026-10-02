@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 348, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 347, in main
+    a=p.parse_args();make(a.root.resolve(),a.output.resolve(),a.check.resolve() if a.check else None)
+                     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 332, in make
+    need(json.loads((check/name).read_text())==obj,'frozen certificate JSON differs '+name)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/exact.py", line 6, in need
+    if not x: raise AssertionError(message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: frozen certificate JSON differs ANCHORED_CUBICS.json

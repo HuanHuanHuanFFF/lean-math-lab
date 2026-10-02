@@ -1,0 +1,57 @@
+digraph singular {
+	gmp [ color=lightgrey, fontcolor=blue, style=filled, shape=box ];
+	gmp -> ntl;
+	gmp -> factory_libfac;
+	gmp -> coeffs;
+	ntl [ color=lightgrey, fontcolor=blue, style=filled, shape=box ];
+	ntl -> factory_libfac;
+	omalloc_xalloc [ color=lightgrey, fontcolor=green, style=filled ];
+	omalloc_xalloc -> factory_libfac [label="x"];
+	omalloc_xalloc -> reporter;
+	omalloc_xalloc -> coeffs;
+	omalloc_xalloc -> polys;
+
+        resources_resources [ color=lightgrey, fontcolor=blue, style=filled ];
+	resources_resources -> factory_libfac [label="for testing"];
+	resources_resources -> libpolys;
+	resources_resources -> kernel;
+	resources_resources -> SingularInterpreter;
+
+        factory_libfac [ color=lightgrey, fontcolor=blue, style=filled ];
+	factory_libfac -> libpolys;
+	factory_libfac -> kernel;
+	factory_libfac -> SingularInterpreter;
+
+	misc -> reporter;
+	misc -> coeffs;
+	misc -> polys;
+	reporter -> coeffs;
+	reporter -> polys;
+	reporter -> misc;
+	polys -> ext_fields;
+	coeffs -> ext_fields;
+        coeffs [ fontcolor=blue ];
+	coeffs -> polys;
+	edge [style=dashed];
+	ntl -> coeffs;
+	polys [ fontcolor=blue ];
+	ext_fields -> coeffs;
+
+        kernel [ fontcolor=blue ];
+
+        libpolys -> kernel;
+        numeric [ fontcolor=blue ];
+	kernel -> numeric;
+	kernel -> SingularInterpreter;
+        SingularInterpreter [ fontcolor=red ];
+        numeric -> SingularInterpreter;
+        libpolys -> SingularInterpreter;
+
+        IntegerProgramming [ fontcolor=blue ];
+}
+
+// dot -Tpng -o singular.png singular.dot
+
+// boxed = third party
+// filled = external
+// blue = math
