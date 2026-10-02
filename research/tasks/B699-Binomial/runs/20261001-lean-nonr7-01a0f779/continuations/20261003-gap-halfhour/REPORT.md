@@ -1,6 +1,6 @@
 # Gap 前置半小时进展
 
-状态：三源13根已正式独立接受，继续推进真实有效估计的前置供应。原预算 UTC 2026-10-02 18:08:36–18:38:36（上海 Oct3 02:08:36–02:38:36），18:33:36 收尾。
+状态：三源13根正式独立接受，本轮停止新数学执行并最终交接，无延期。原预算 UTC 2026-10-02 18:08:36–18:38:36（上海 Oct3 02:08:36–02:38:36），18:33:36 收尾。
 
 采用输入 HEAD `74db8dba69842a766c1268c5717985cca37e5c91`。累计完整原题集合 `{1,2,11,29}∪[35,4884]`，4883/4884 无额外数学输入的正式独立验收见[上一轮签件](../20261003-terminal-fortymin/reviews/TERMINAL-ORIGINAL-INDEPENDENT-ACCEPTED.json)。全 i≥4883 消费者的真 Gap4095/10M 输入尚未供应。本轮不重验已接受终端闭包，R7 不做。
 
@@ -22,4 +22,10 @@ C 实际续派负责 runtime、必要数学/API修订及远端串行执行；S �
 
 13根实际跑通后，已有Astra max研究任务A成功恢复，仅owns supply/，基于准确已编译接口寻找真实有效误差所需的无条件前置。live清单确认实际A/C/S三路，不把先前被拒spawn/F计派发。新源若就绪，C唯一远端受控验证，S独立接受；本轮截止不变，不因前置通过提前结束，不重复已定位sorry或新增条件包装。
 
-执行、准确 scope、失败边界、核验与最终资源收尾回执待后续在本报告登记。原件及分模块收据保存在本轮 runtime，独立签件由 S 保存在 reviews。
+## 有限初段下一入口与停止
+
+A交[64点探针报告](supply/REPORT.md)与[下一检查](supply/HANDOFF.md)：18:32:20实际64点精确试除/间距检查耗0.662584秒，生成66根未编候选，拟覆盖全部Nat y满足10M≤y<10146761，含146761个y。这个计算耗时不能外推全段Lean成本；完整10M至122568684初段仍未供。S最终[源审](reviews/PILOT64-SOURCE-REVIEW.json)核对字面节点、边及严格端点；早先首边算术误读的拒绝记录已明确废止，保留纠错来源。66根没有实际编译/AX/checker，不能继承旧PrimeChain或本轮13根接受。
+
+下一预算最小执行：只旧ChainCore、NormNum.Prime与Pilot64，运行全部66根实际type/AX/normalchecker并独立绑定；先测这一真正前向Gap的小闭环成本，再评估扩大真实prime初段。无限有效θ/ψ输入依旧缺失，pinned限定PNT供应搜索不能作全库不存在的断言；外部WeakPNT跨工具链/依赖/传递AX也尚未移植，不当作真Gap10M。
+
+C实际停止资源收据UTC18:33:22.7955764，提前14秒的观察，不回填为deadline：owned/live/terminated0，globalLockFree true，RAM2.561GiB、D28.046GiB、CPUbusy17.17%；平台activeCI0，首run成功，未关其他程序。workflow已manual-only且18:19门禁过期，新64点probe未启动。13根闭环已push c1241b549/remote同，本轮最后仅封存普通记录与待验candidate；ZIP和25对象parts留Git外。
