@@ -1,6 +1,6 @@
 # B699：完整有限链一小时接续
 
-状态：用户新授权再推进一小时，执行中；沿用同一分支与既有run身份，不恢复旧轮预算。使用lean-research流程，只推进已有纸面方法的Lean实现和验证，i≥4883优先，不碰R7。
+状态：已按原13:04:45 UTC截止停止，仅行政封存与普通push。完整有限链实际执行成功，但独立source/objectparts绑定未在预算内闭合，最终待验收；不能从GREEN或临时文件名登记接受。详见[最终报告](REPORT.md)和[独立结论](reviews/HANDOFF.md)。沿用同一分支与既有run身份，使用lean-research流程，只推进已有纸面方法的Lean实现和验证，i≥4883优先，不碰R7。
 
 - 开始2026-10-02 12:04:45 UTC / 上海20:04:45，原硬截止13:04:45 UTC / 上海21:04:45，不延期。13:00冻结新增数学源；截止后仅行政封存与普通push。
 - 分支huan/b699-lean-next-20261002-01a0f779，固定输入29e4bf59b527515af8b1d761df03a6f61121d3ff，已核本地工作区干净。全部子任务共用同一小时。
@@ -29,5 +29,9 @@
 Pinned Lean4.33.1和九依赖不变。启动前按实际所在环境记录物理/cgroup父链内存余量、CPU额度/负载、D或runner磁盘与相关自有任务；本机低RAM时直接受控CI，不整轮等待。单锁、Idle/nice19、最多2逻辑CPU、-j1/M3132/async=false，运行保留物理900MiB，D保20GiB；重缓存与proof各按已测专用预算，不杀他人程序、不整库下载。
 
 初始CI最大48分钟，latest-start12:15:45 UTC（原hard减49分钟）；所有生成/compiler/checker仍绝对13:04:45，按实际剩余时间门控，不将排队或缩短job当预算延期。每阶段真实source/objectparts/argv/exit/raw完整绑定，传递公理仅允许标准三公理子集，无sorry/unjustifiedaxiom，声明须对应完整原题。每个已接受闭环由Leader普通commit/push并核远端SHA，随后继续依赖链；未验候选可封存但不提升接受等级。
+
+最终实际结果：v3/sourcefd7f7ec、run37007287888完成4171选定节点/33分块、合并链、finite-only及独立typed，4418原始根公理输出仅Std3子集、三个normalchecker exit0；128成本compile15.99009秒/checker9.88481秒。独立核验已核原题型及这些输出，但全source/objectparts/raw绑定校验脚本未在截止前闭合，完整finite不签接受。完整4883/4884和onlyGap终端未启动；完整指标增0，真∞Gap仍未证。
+
+下一明确预算先核固定ZIP65a3…的完整绑定，复用已完成kernel结果；通过后代表性导入现有v3源/对象，再接94已知高度源码及终端四根，不重建4k、不重跑32/128。临时只读运输URL已清除，无账号认证/权限变化，terminal候选无有效运输能力。13:06:14.242行政停止观测确认owned/live/terminated0、检查锁空闲、远端active0，D余30.497GiB/Native物理余0.388GiB；这是截止后观测，不倒填精确截止时点。
 
 普通生成Lean源、失败日志、回执和成员哈希随本轮保存；编译缓存与ZIP在Git外，按ARTIFACTS精确映射恢复，旧证据原字节保留。授权不包含PR、merge、forcepush、main、认证/权限变更或对外发消息。结束前关闭本轮push触发、记录自有进程/锁/CI实际停止状态，并更新累计OVERVIEW。

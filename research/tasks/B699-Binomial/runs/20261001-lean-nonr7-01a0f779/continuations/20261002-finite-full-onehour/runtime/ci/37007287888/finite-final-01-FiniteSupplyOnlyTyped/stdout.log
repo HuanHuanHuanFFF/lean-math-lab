@@ -1,0 +1,14 @@
+theorem B699FiniteFullSemantic.full_chain_exact : B699Finite20261002.PrimeChain 4883 2 20000093 :=
+B699FiniteFull20261002.complete_chain
+theorem B699FiniteFullSemantic.full_finite_prime_supply_exact : ∀ (n : ℕ),
+  2 ≤ n → n ≤ 20000000 → ∃ p, Nat.Prime p ∧ p ≤ n ∧ n < p + 4883 :=
+B699FiniteFull20261002.finite_supply
+theorem B699FiniteFullSemantic.full_finite_original_exact : ∀ (n i j : ℕ),
+  4883 ≤ i → i < j → j ≤ n / 2 → n ≤ 20000000 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun n i j hi hij hjn hn => B699FiniteFull20261002.finite_common hi hij hjn hn
+'B699FiniteFull20261002.complete_chain' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFull20261002.finite_supply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFull20261002.finite_common' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFullSemantic.full_chain_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFullSemantic.full_finite_prime_supply_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFullSemantic.full_finite_original_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
