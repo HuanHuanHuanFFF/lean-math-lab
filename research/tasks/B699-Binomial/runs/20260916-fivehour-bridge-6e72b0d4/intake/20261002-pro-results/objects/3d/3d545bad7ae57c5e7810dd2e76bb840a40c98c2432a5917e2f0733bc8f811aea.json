@@ -1,0 +1,70 @@
+{
+  "tests": [
+    {
+      "name": "incorrect_exceptional_depth",
+      "certificate": "01_prime_power_source.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: 103 record identity",
+      "elapsed_seconds": 1.3173
+    },
+    {
+      "name": "missing_second_source_sign",
+      "certificate": "01_prime_power_source.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: both source signs, no missing roots",
+      "elapsed_seconds": 1.3907
+    },
+    {
+      "name": "switch_original_q",
+      "certificate": "02_shared_source_phase.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: claimed closure classes",
+      "elapsed_seconds": 1.5274
+    },
+    {
+      "name": "illegal_nonunit_recovery",
+      "certificate": "02_shared_source_phase.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: full E/n recovery including d=0",
+      "elapsed_seconds": 1.4042
+    },
+    {
+      "name": "inflated_net_gain",
+      "certificate": "03_projection_delta.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: new-only exact net difference",
+      "elapsed_seconds": 1.801
+    },
+    {
+      "name": "old_result_counted_as_new",
+      "certificate": "03_projection_delta.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: old adoption separated from new gains",
+      "elapsed_seconds": 1.8273
+    },
+    {
+      "name": "freely_chosen_quotient",
+      "certificate": "04_failure_boundaries.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: entire exact quotient family",
+      "elapsed_seconds": 1.6882
+    },
+    {
+      "name": "wrong_next_source_phase",
+      "certificate": "05_next_entry.json",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "ValueError: next coarse labels",
+      "elapsed_seconds": 1.4452
+    }
+  ],
+  "all_rejected": true,
+  "external_review": false
+}
