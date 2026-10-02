@@ -1,0 +1,450 @@
+{
+  "signatureUtc": "2026-10-02T18:56:36.536806+00:00",
+  "verifier": "/root/semantic_verify_sol",
+  "taskClass": "complex semantic/dependency independent verification",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "xhigh",
+  "status": "accepted-fixed-finite-prime-gap-slice",
+  "fixedSourceCommit": "e0eadc9395457d7da81aee7b8a3e49e264c5024e",
+  "actualRunId": "37049873609",
+  "actualJobId": "110980298281",
+  "originalArchive": "D:\\ResearchArtifacts\\b699-gap-finite-fortymin\\b699-gap-pilot64-37049873609.zip",
+  "originalArchiveBytes": 5169253,
+  "originalArchiveSha256": "a6078693cf9757ea6effa469d653cc72362abc8b782044e39e5d54ece5b75374",
+  "bindingReport": "PILOT64-INDEPENDENT-BINDING.json",
+  "bindingReportSha256": "0e1de5dba6499c436a2ccdefe66d31970a4d8571147f9daeba51e449c04261c0",
+  "reviewProcedureSha256": "b76cda22e0773064b2f936adc0668feb33d3f6fe8f868173296ebadde7eac84e",
+  "adoptedFrozenUtilitiesSha256": "1b6d9a3eaea155b9a62a7b66ac58bf47c6bf479979c1ba91f71984ee4867efb1",
+  "adoptedPriorSourceReviewSha256": "04ff0dfaa305ae1ab797403960855a55cdf89a55f5b313de018a27bf4cf7473f",
+  "formalStatement": "forall y : Nat, 10000000 <= y -> y < 10146761 -> exists p : Nat, Nat.Prime p and y < p and 4095 * (p - y) <= y",
+  "externalMathematicalInputs": [],
+  "sourceOriginalTheorem": "B699GapSlice20261003.initial_slice",
+  "independentLiteralTheorem": "B699GapFiniteVerify20261003.pilot64_initial_slice_exact",
+  "chainTheorem": "B699GapFiniteVerify20261003.pilot64_chain_exact : B699Finite20261002.PrimeChain 2442 9999889 10149203",
+  "actualLiteralPrintedStdout": "theorem B699GapFiniteVerify20261003.pilot64_chain_exact : B699Finite20261002.PrimeChain 2442 9999889 10149203 :=\nB699GapSlice20261003.chain\ntheorem B699GapFiniteVerify20261003.pilot64_initial_slice_exact : ∀ (y : ℕ),\n  10000000 ≤ y → y < 10146761 → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y :=\nfun y hy hyhi => B699GapSlice20261003.initial_slice hy hyhi\n'B699GapFiniteVerify20261003.pilot64_chain_exact' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapFiniteVerify20261003.pilot64_initial_slice_exact' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+  "sources": [
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.lean",
+      "sha256": "2a604dbaa835880ddadbc128960315903a5c837c8cb53c6eef056349845ed692",
+      "objectSha256": "cadec0d63491abf865bbad84947fdc75f763119fc57d59498726ec6c7f13717f",
+      "objectPartCount": 5,
+      "compilerExit": 0,
+      "actualAxioms": {
+        "B699Finite20261002.PrimeChain.trans": [
+          "propext"
+        ],
+        "B699Finite20261002.PrimeChain.near_top": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.lean",
+      "sha256": "d8df5d3bc6063fe4f7b847917b503fe038dda904ab9cd44706ec47bf8794e048",
+      "objectSha256": "46471422f6e972f367a4007ec63f2052eed5082006aaede35feca1081beb0e4b",
+      "objectPartCount": 5,
+      "compilerExit": 0,
+      "actualAxioms": {
+        "B699GapSlice20261003.prime0": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime1": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime2": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime3": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime4": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime5": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime6": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime7": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime8": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime9": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime10": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime11": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime12": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime13": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime14": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime15": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime16": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime17": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime18": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime19": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime20": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime21": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime22": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime23": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime24": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime25": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime26": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime27": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime28": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime29": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime30": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime31": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime32": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime33": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime34": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime35": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime36": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime37": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime38": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime39": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime40": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime41": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime42": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime43": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime44": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime45": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime46": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime47": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime48": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime49": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime50": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime51": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime52": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime53": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime54": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime55": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime56": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime57": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime58": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime59": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime60": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime61": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime62": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime63": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.chain": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.initial_slice": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean",
+      "sha256": "49129904be72e644f4efcbde9451f9d46b9cd0a9c05271474572267c53ac1ae8",
+      "objectSha256": "521cbd39e3e5e32fae150e789014fee28eed833a8d6d8cd4ae4c180eb5ffdcd2",
+      "objectPartCount": 5,
+      "compilerExit": 0,
+      "actualAxioms": {
+        "B699GapFiniteVerify20261003.pilot64_chain_exact": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapFiniteVerify20261003.pilot64_initial_slice_exact": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    }
+  ],
+  "completeOriginalMemberCount": 89,
+  "allMemberActualSizeShaBindings": true,
+  "all70CompleteRootsStd3Subset": true,
+  "normalCheckerExits": [
+    0,
+    0
+  ],
+  "checkers": [
+    {
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "-v",
+        "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261003-gap-halfhour».supply.Pilot64"
+      ],
+      "exitCode": 0,
+      "endUtc": "2026-10-02T18:51:31.981043+00:00",
+      "stdoutSha256": "bece298795b80ad86a4d233cde07b5a139774493cede2ae4c86e46e2b28aa4e3",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "-v",
+        "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261003-gap-finite-fortymin».reviews.Pilot64Exact"
+      ],
+      "exitCode": 0,
+      "endUtc": "2026-10-02T18:51:36.232905+00:00",
+      "stdoutSha256": "73ccf3778e96ddad9c70335c9333f19937dd4ad09826bc20f8ade84b04b06dce",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "kernelRerunByVerifier": false,
+  "signatureMode": "independent source/statement/byte-and-receipt audit, normalchecker uses same pinned Lean kernel, not a second kernel implementation",
+  "knownSourceCorrection": "Old reviewer mental first-edge subtraction rejection explicitly invalid/superseded; actual first difference2398 and current compiler/kernel confirms source.",
+  "lineEndingMapping": "Pilot64Exact-source-byte-map.json: pre-execution940B/3eba CRLF -> fixed915B/4912 LF, no mathematical text change, old3eba not executed.",
+  "acceptedFiniteYRange": {
+    "lowerInclusive": 10000000,
+    "upperExclusive": 10146761
+  },
+  "remainingInitialYObligation": {
+    "lowerInclusive": 10146761,
+    "upperExclusive": 122568684
+  },
+  "genuineInfiniteGap4095At10MProvided": false,
+  "uniformThetaPsiEstimatesProvided": false,
+  "newCompleteOriginalIndexIncrement": 0,
+  "completeOriginalSet": "{1,2,11,29} union [35,4884]",
+  "interpretation": "finite-y prerequisite acceptance only; not an unrestricted Gap nor full B699 solution"
+}
