@@ -16,8 +16,18 @@
 
 GREEN原ZIP在Git外，普通成员与对象字节全验；55个compiled object/part共12526880B已same-D移入ignored.tools，ci/37000189936-object-relocation-map.json精确old-path→stored-path/size/SHA，原artifact manifest/receipt/独立签文原字节保留，不把cache binary入Git。
 
-## 正在继续
+## 最终冻结：后续完整链尚未执行
 
-基于32实际成本准备在受控CI内生成128同方法cost gate，再分块全给定oldpool稀疏chain至20000093，完整共享端点/Prime/严格gap≤4883/所有2≤n≤20M覆盖和真正有限供应/原题consumer。候选完整i4883/4884可由全chain+actual比例height+topPrime条件连接，无新∞Gap假设；需实际kernel/type/Std3/checker才登记。所有新资料source/generator/node-byte/argv/exit/binaryparts/artifact须真实映射。
+基于32实际成本，已准备并独立源审：128同方法cost gate、共享端点分块全链至20000093、最小finite-only原题消费者及独立完整型。候选完整i4883/4884可由全chain+已接受比例height+topPrime连接，不需新∞Gap输入；但本轮没有实际编译这些候选，不能登记完整指标接受。
 
-新job若按所需闭包成本20min，起跑不得晚于11:38:22（原hard减21min），每child仍绝对11:59:22，不延总预算。先stagewise finite闭环检查，再有余时onlyGap/4883,4，后步骤失败不能丢前已验证证据。
+完整阶段准备、发布和排队超过剩余窗口。实际run37002725468、37003251196、37003409155均在checkout前被晚启动门禁拒绝，checkout/安装/生成/proof全部skipped；没有128成本或全链生成结果，不是数学证明失败。原始作业日志与status见runtime/ci/late-jobs-status.json及三个decoded日志，执行说明见runtime/REPORT.md。
+
+11:55数学源冻结，原11:59:22硬截止不延长；工作流已manual-only并保留过期门禁，最终push不再启动证明。完整finite、onlyGap终端与4883/4884完整指标均待验；本轮新完整指标0，累计仍{1,2,11,29}∪[35,4882]，∞Gap与未接受低比例i/n/j/y无界参数不变，R7未推进。截止后仅行政保存已有回执和普通push。
+
+下一明确预算直接复用已接受32，先实际验高端128同方法的compile/AX/checker成本，再生成并独立接受完整链和finite-only。随后才恢复已接受高度闭包、分别连接onlyGap及4883/4884完整消费者，不重做32初始化。源与验收冻结入口见finite/HANDOFF.md、reviews/HANDOFF.md和reviews/FINAL-SCOPE.json。
+
+## 停止与发布检查点
+
+执行者单次实际停止观测于12:00:08.469 UTC，见runtime/stop-receipt.json；这是截止后的行政观测，不倒填为精确截止瞬间。自有数学进程0、存活0、终止他人进程0，全局检查锁空闲；fresh API三个晚到CI均completed/failure、active0。Native物理余0.413GiB、D余30.841GiB。本轮proof/checker均已在预算内结束，截止后不生成或验证新数学。
+
+最终发布前检查点：分支huan/b699-lean-next-20261002-01a0f779，已远端对齐ce7ef862cbbdcb13ccfb4c3efd66caf5b801543f；完成32原题独立接受、候选源/失败原件/哈希映射/停止回执封存，待普通commit/push本轮行政记录并核远端SHA。本轮research包无compiled object或ZIP，缓存与原ZIP继续在Git外；无PR、merge或历史改写。

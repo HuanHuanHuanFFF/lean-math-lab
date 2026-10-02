@@ -25,3 +25,9 @@ run37000189936首次实际进入数学并通过：10源全部compiler，50公开
 先FiniteSupplyOnly.lean独立接真实全2≤n≤20M与原题finite_common(i≥4883)，其已知closure7源+deferredComplete，没有height/∞Gap输入。后FiniteConsumer.lean连接已接受actualratio，仅∞Gap的全i≥4883 root与不需∞Gap的两个完整指标4883/4884 root分别验证。端点拼接由S独立确认：4096*4884=20004864 < terminal20000093+4883=20004976；低n侧fullchain、高n低ratio侧terminalPrime、highratio侧已接受ActualUniform。新源仍候选直到实际package完成；原2512B完整未编模板cda8保留、拆分映射finite-layout-source-map.json。
 
 实际全finite若供给会解除明确前置；只有两unconditional完整指标根真正kernel/AX/checker通过后才增加2，不能从fullfinite或onlyGap条件根代算。∞Gap对全y≥10^7未证，R7和低非R7剩余指标不动。11:53收敛/11:55冻结/11:59:22硬停保持。
+
+## 最终边界
+
+S的实际原题接受为本轮 `../reviews/PILOT-ORIGINAL-ACCEPTED.json` 与 `pilot-original-accepted.md`，固定run37000189936的10源/50根/normalchecker。后fulljob因发布/排队超过latest-start而在checkout前拒绝；128与full生成器都未执行，无128/fullsource/fullfinite接受。派发预算失败不等于数学失败。完整finite、onlyGap全尾部、4883/4884全n消费者均candidate，完整指标新增0，全球无界参数和∞Gap保持。
+
+已冻结代码/源/hash/source布局与HANDOFF保存。下一轮直接沿已接受32的actualcost启动FullFiniteOnly的last128高端probe，不重新初始化32；128 kernel/AX/checker接受后再full与消费者。所有过期SOURCE_FREEZE/latest-start/hardDeadline需在下一新owned版本按新预算重绑定，旧记录不覆盖。本轮不新job、不改数学源，11:59:22硬停不延。

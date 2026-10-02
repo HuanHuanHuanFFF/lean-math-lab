@@ -1,6 +1,6 @@
 # B699：固定小块验证与有限供应接续
 
-状态：执行中，用户新授权一小时并沿用阶段push/低电脑负载要求；不是恢复上轮已结束预算。主要继续既有纸面证明的Lean验证，优先i≥4883，不碰R7。
+状态：数学源和验收已冻结，按原11:59:22 UTC截止停止；仅行政封存与普通push。用户本轮新授权一小时，不恢复上轮预算。主要继续既有纸面证明的Lean验证，优先i≥4883，不碰R7。实际接受与未执行范围以[最终报告](REPORT.md)及[独立验收](reviews/HANDOFF.md)为准。
 
 - 开始2026-10-02 10:59:22 UTC / 上海18:59:22，原硬截止11:59:22 UTC / 上海19:59:22，不延期；11:53停止新路线，11:55数学源冻结，余时最终核验/停止。全部子线程共用一小时，截止后仅行政封存/普通push。
 - 分支huan/b699-lean-next-20261002-01a0f779，固定输入88f17f5c8f600923b740d79ed387d98d9feedccb；main数学b17ee9f来自已合并PR27。旧run/续轮的数学、源审、成功/失败、rawhash清单原字节冻结。
@@ -31,4 +31,4 @@ Leader独占本README/frontier/REPORT/problem OVERVIEW；只行政来源/字节/
 
 本机重检查单锁Idle≤2logicalCPU、-j1/M3132/asyncfalse、运行物理余900MiB/D≥20GiB；重起跑3072/tree1792，轻载荷只按已有source峰值校准。缓存/临时文件全在D，定向复用，勿整库下载/构建或关闭他人程序。
 
-远端先记录self-cgroup父链/有效内存/CPU/实际disk；同串行/2CPU/nice19/900余。已测cache专用startup5120/tree3072/threads1；proof不因cache校准降标准。CI job12min、起跑最晚11:46:22（hard减13min），checkout前拒晚，每child原absolute11:59:22。workflow只current精确branch及源/runner/manifest明确paths触发、contentsread，无auth/权限/PR/merge变更。完成阶段普通commit/push本分支，核SHA继续，最终停用push触发后封存。
+远端先记录self-cgroup父链/有效内存/CPU/实际disk；同串行/2CPU/nice19/900余。已测cache专用startup5120/tree3072/threads1；proof不因cache校准降标准。32窄probe成功后完整阶段按原硬截止收缩job窗口，但三个实际作业均晚到门禁、未checkout或生成。最终工作流manual-only且起跑门禁已过期；contentsread，无auth/权限/PR/merge变更。已完成阶段普通commit/push并核远端SHA，完整过程与停止回执见runtime/REPORT.md。
