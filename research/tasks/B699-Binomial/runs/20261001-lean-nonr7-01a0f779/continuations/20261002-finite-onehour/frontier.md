@@ -25,3 +25,9 @@
 旧228块历史编译约42.9分钟，剩余预算不能预承诺全旧270冷恢复。推进固定32旧prime小链→真实原题pilot消费者，并排除更强不必要的FiniteTopSupply。源语义与literal来源已独立审；词面/来源不是primality或kernel接受。
 
 因本机余量不足，Root授权runtime接管新增窄CI文件，先给可审配置由Rootpush触发，只覆盖pilot最小闭包和独立typed。job timeout12分钟，checkout前起跑不得晚于10:12:29UTC，所有编译还受绝对10:25:29 timeout；contents:read，不启用更高权限、不变更认证。远端须实测cgroup/内存/CPU/disk，≤2CPU/串行，定向固定cache；不执行整仓/旧270/Mathlib大build。运行及kernel结果在实际receipt前仍pending。
+
+## CI首探针与重试预算
+
+固定68dcfb038已push并核source语义/字节；run36993633549在cache阶段由本控制器tree1792MiB守卫停止（峰2040.33MiB），本轮数学源未编，不计接受。实际runner有效余量约14GiB、disk85.75GB，无cgroup限额；原artifact11220084104（13085B）已按摘要和15成员映射接收，原ZIP在D:\ResearchArtifacts\b699-finite-onehour，Git外。
+
+cache单阶段根据实测校准startup5120/tree3072MiB，LEAN_NUM_THREADS1、CPU<=2/nice19/reserve900保留；proof仍原3072/1792/-j1/M3132/asyncfalse。具体峰值子环节unknown，不编造并发或数学失败。因旧10:12:29起跑窗口已过，本次协调收紧job上限至8分钟，新起跑最晚10:16:29（原hard deadline10:25:29减9分钟），checkout前晚起跑即拒绝。原用户预算完全不延长，每build仍绝对deadline。数学manifest10源/50根不变，源码和kernel结果仍pending；新profile/门禁仅资源和时限适配。

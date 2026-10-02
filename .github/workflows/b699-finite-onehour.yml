@@ -19,14 +19,14 @@ permissions:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 8
     env:
       B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/runtime
     steps:
       - name: Reject late start before checkout or installation
         shell: bash
         run: |
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 10:12:29 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 10:16:29 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Record actual runner resources and fixed source bytes
         run: python3 "$B699_RUNTIME/linux-runner.py" preflight

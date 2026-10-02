@@ -87,11 +87,11 @@ def child_tree(root_pid):
         selected = expanded
     return sum(rows.get(pid, (0, 0))[1] for pid in selected)
 
-def launch(argv, label, env=None, max_seconds=300, startup_mib=3072, tree_mib=1792):
+def launch(argv, label, env=None, max_seconds=300):
     if time.time() >= DEADLINE:
         raise RuntimeError('Original hard deadline reached; no child launched')
     before = resources()
-    if before['effectiveAvailableBytes'] < startup_mib * MIB or before['diskFreeBytes'] < 2 * 1024 ** 3:
+    if before['effectiveAvailableBytes'] < 3072 * MIB or before['diskFreeBytes'] < 2 * 1024 ** 3:
         write(label + '/receipt.json', {'status': 'preflight_rejected', 'childStarted': False,
                                         'arguments': argv, 'resources': before, 'utc': utc()})
         raise RuntimeError('Resource gate rejected; no child launched')
@@ -110,8 +110,6 @@ def launch(argv, label, env=None, max_seconds=300, startup_mib=3072, tree_mib=17
                    'cwd': str(REPO), 'cpus': cpus, 'nice': 19, 'resourceBefore': before,
                    'hardDeadlineUtc': SPEC['hardDeadline'], 'childStarted': True,
                    'peakTreeWorkingSetBytes': 0, 'minimumAvailableBytes': before['effectiveAvailableBytes']}
-        receipt['startupMemoryMiB'] = startup_mib
-        receipt['treeMemoryMiB'] = tree_mib
         receipt['effectiveLeanPath'] = (env or os.environ).get('LEAN_PATH')
         actual_exe = shutil.which(argv[0], path=(env or os.environ).get('PATH'))
         if actual_exe and Path(actual_exe).is_file():
@@ -126,7 +124,7 @@ def launch(argv, label, env=None, max_seconds=300, startup_mib=3072, tree_mib=17
             receipt['minimumAvailableBytes'] = min(receipt['minimumAvailableBytes'], r['effectiveAvailableBytes'])
             if time.time() >= limit:
                 stop = 'timeout_or_original_deadline'
-            elif rss > tree_mib * MIB:
+            elif rss > 1792 * MIB:
                 stop = 'tree_working_set_limit'
             elif r['effectiveAvailableBytes'] < 900 * MIB:
                 stop = 'available_memory_reserve'
@@ -253,10 +251,7 @@ def main():
             raise RuntimeError('Actual pinned toolchain or normal leanchecker is unavailable')
         write('toolchain.json', {'utc': utc(), 'lean': str(lean), 'leanchecker': str(checker),
                                 'version': version, 'leanSha256': sha(lean), 'leancheckerSha256': sha(checker)})
-        cache_env = os.environ.copy()
-        cache_env['LEAN_NUM_THREADS'] = '1'
-        launch(['lake', 'exe', 'cache', 'get'] + SPEC['mathlibImports'], 'focused-cache',
-               cache_env, max_seconds=300, startup_mib=5120, tree_mib=3072)
+        launch(['lake', 'exe', 'cache', 'get'] + SPEC['mathlibImports'], 'focused-cache', max_seconds=300)
         manifest = json.loads((REPO / 'lake-manifest.json').read_text())
         for package in manifest['packages']:
             package_dir = REPO / '.lake/packages' / package['name']
