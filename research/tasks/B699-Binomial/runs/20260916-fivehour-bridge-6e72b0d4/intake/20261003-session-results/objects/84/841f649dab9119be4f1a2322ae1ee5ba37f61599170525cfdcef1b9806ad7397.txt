@@ -1,0 +1,40 @@
+#!/bin/sh
+#
+# assume texi2dvi, perl in path
+# cwd=doc
+#
+cp examples.doc examples.tex
+cp general.doc general.tex
+cp math.doc math.tex
+cp pdata.doc pdata.tex
+cp platform.doc platform.tex
+cp pluconventions.doc pluconventions.tex
+cp plumath.doc plumath.tex
+cp pluplatform.doc pluplatform.tex
+cp plural.doc plural.tex
+cp pluralmain.doc pluralmain.tex
+cp plureference.doc plureference.tex
+cp plutypes.doc plutypes.tex
+cp reference.doc reference.tex
+cp start.doc start.tex
+cp ti_ip.doc ti_ip.tex
+cp tricks.doc tricks.tex
+cp types.doc types.tex
+cp decodegb.doc decodegb.tex
+for i in pluplatform.tex plural.tex plumath.tex plureference.tex plutypes.tex pluconventions.tex
+do
+  sed 's/@value{PSUFFIX}/(plural)/g' <$i >s-$i
+done
+sed -e 's/@include plu/@include s-plu/' -e 's/@value{PSUFFIX}/(plural)/g' < plural.tex >s-plural.tex
+# DVI: --------------------------------------------
+texi2dvi singular.doc
+# INFO: -------------------------------------------
+makeinfo --force --no-split singular.doc
+# HTML: -------------------------------------------
+/bin/rm -rf tmp
+mkdir tmp
+perl ./texi2html -init_file t2h_singular.init \
+  -l2h -short_ext -l2h_tmp tmp -subdir html -prefix simple \
+  -top_file index.htm  singular.doc
+#
+echo "created: singular.info (info), singular.dvi, html/index.htm"

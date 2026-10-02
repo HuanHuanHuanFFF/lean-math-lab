@@ -1,0 +1,17 @@
+#!/bin/sh
+TMP_DIR=/tmp/factory-dist
+rm -rf $TMP_DIR
+mkdir $TMP_DIR
+cp -r * $TMP_DIR
+cp -r ../m4 $TMP_DIR/m4
+sed -e 's:AC_CONFIG_AUX_DIR.*:AC_CONFIG_AUX_DIR([.]):' <configure.ac >c.ac
+sed -e 's:AC_CONFIG_MACRO_DIR.*:AC_CONFIG_MACRO_DIR([m4]):' <c.ac >c2.ac
+sed -e 's:with_Singular=yes:with_Singular=no:' <c2.ac >c.ac
+mv c.ac $TMP_DIR/configure.ac
+rm c2.ac
+sed -e 's:ACLOCAL_AMFLAGS.*:ACLOCAL_AMFLAGS = -I m4:' <Makefile.am >$TMP_DIR/Makefile.am
+cd $TMP_DIR
+autoreconf  -v -f -i
+./configure
+make dist
+

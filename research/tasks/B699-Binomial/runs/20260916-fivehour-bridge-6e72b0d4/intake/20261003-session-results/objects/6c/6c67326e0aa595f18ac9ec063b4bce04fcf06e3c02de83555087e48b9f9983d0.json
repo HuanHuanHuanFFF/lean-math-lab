@@ -1,0 +1,62 @@
+{
+  "all_rejected": true,
+  "controls": [
+    {
+      "control": "altered_full_augmented_minor",
+      "rejected": true,
+      "exit_code": 1,
+      "stderr": "REJECT: integer-scaled determinant",
+      "stdout": "",
+      "command_template": [
+        "./code/receive_geometry_r2",
+        "4",
+        "32749",
+        "./certificates/geometry/g05.txt",
+        "<tamper-temp>/bad.minors",
+        "./certificates/geometry/g05.p32749.exceptions"
+      ]
+    },
+    {
+      "control": "altered_exception_rank",
+      "rejected": true,
+      "exit_code": 1,
+      "stderr": "REJECT: exception rank mismatch",
+      "stdout": "",
+      "command_template": [
+        "./code/receive_geometry_r2",
+        "4",
+        "32749",
+        "./certificates/geometry/g05.txt",
+        "./certificates/geometry/g05.p32749.minors",
+        "<tamper-temp>/bad.exceptions"
+      ]
+    },
+    {
+      "control": "altered_module_pivot",
+      "rejected": true,
+      "exit_code": 1,
+      "stderr": "REJECT: pivot value/weight mismatch at 0",
+      "stdout": "",
+      "command_template": [
+        "./code/check_trace",
+        "./certificates/s1874_S5quot_p257_m0.input",
+        "<tamper-temp>/bad.trace.tsv"
+      ]
+    },
+    {
+      "control": "altered_capacity_grid_cell",
+      "rejected": true,
+      "exit_code": 1,
+      "stderr": "REJECT DP cell mismatch at layer=0 cell=0",
+      "stdout": "",
+      "command_template": [
+        "./code/ledger_exact_receiver",
+        "./certificates/ledger/s1874_T12.input",
+        "./sources/global649.txt",
+        "<tamper-temp>/bad.bin",
+        "<tamper-temp>/unused.low.tsv",
+        "<tamper-temp>/unused.receipt.json"
+      ]
+    }
+  ]
+}

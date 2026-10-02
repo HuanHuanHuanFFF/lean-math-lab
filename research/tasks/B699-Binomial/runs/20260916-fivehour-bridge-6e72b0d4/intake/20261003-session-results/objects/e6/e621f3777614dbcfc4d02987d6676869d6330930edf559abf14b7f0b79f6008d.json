@@ -1,0 +1,400 @@
+{
+  "started_utc": "2026-10-02T13:29:43.590825+00:00",
+  "execution_location": "freshly extracted current conversation sandbox, not user machine",
+  "full_new_mathematics_replayed": true,
+  "historical_mathematics_replayed": false,
+  "independent_external_review": false,
+  "Lean_run": false,
+  "repository_access": false,
+  "steps": [
+    {
+      "number": 1,
+      "name": "input_zip_and_reused_bytes",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/verify_inputs.py"
+      ],
+      "started_utc": "2026-10-02T13:29:43.623905+00:00",
+      "exit_code": 0,
+      "seconds": 0.991998,
+      "log": "logs/replay/01_input_zip_and_reused_bytes.log",
+      "log_sha256": "d849ec4907d2a6ee78927e1c90f034336c73ed1d13552737c987e1424584d328"
+    },
+    {
+      "number": 2,
+      "name": "compile_module_kernel",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/module_kernel.cpp",
+        "-o",
+        "work/module_kernel"
+      ],
+      "started_utc": "2026-10-02T13:29:44.616241+00:00",
+      "exit_code": 0,
+      "seconds": 1.025721,
+      "log": "logs/replay/02_compile_module_kernel.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 3,
+      "name": "compile_check_trace",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/check_trace.cpp",
+        "-o",
+        "work/check_trace"
+      ],
+      "started_utc": "2026-10-02T13:29:45.642374+00:00",
+      "exit_code": 0,
+      "seconds": 1.011127,
+      "log": "logs/replay/03_compile_check_trace.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 4,
+      "name": "compile_ledger_receiver",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/ledger_receiver.cpp",
+        "-o",
+        "work/ledger_receiver"
+      ],
+      "started_utc": "2026-10-02T13:29:46.653957+00:00",
+      "exit_code": 0,
+      "seconds": 1.536933,
+      "log": "logs/replay/04_compile_ledger_receiver.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 5,
+      "name": "compile_enumeration_receiver",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/enumeration_receiver.cpp",
+        "-o",
+        "work/enumeration_receiver"
+      ],
+      "started_utc": "2026-10-02T13:29:48.191235+00:00",
+      "exit_code": 0,
+      "seconds": 2.223216,
+      "log": "logs/replay/05_compile_enumeration_receiver.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 6,
+      "name": "compile_preimage_receiver",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/preimage_receiver.cpp",
+        "-o",
+        "work/preimage_receiver"
+      ],
+      "started_utc": "2026-10-02T13:29:50.414805+00:00",
+      "exit_code": 0,
+      "seconds": 1.858157,
+      "log": "logs/replay/06_compile_preimage_receiver.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 7,
+      "name": "compile_root_gates",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "code/root_gates_fast2.cpp",
+        "-o",
+        "work/root_gates"
+      ],
+      "started_utc": "2026-10-02T13:29:52.273642+00:00",
+      "exit_code": 0,
+      "seconds": 1.799091,
+      "log": "logs/replay/07_compile_root_gates.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 8,
+      "name": "compile_root_gates_alt",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-DALT",
+        "code/root_gates_fast2.cpp",
+        "-o",
+        "work/root_gates_alt"
+      ],
+      "started_utc": "2026-10-02T13:29:54.073077+00:00",
+      "exit_code": 0,
+      "seconds": 1.750627,
+      "log": "logs/replay/08_compile_root_gates_alt.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 9,
+      "name": "compile_six_jets_p32749",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-DMODULUS=32749",
+        "code/six_jets_adopted.cpp",
+        "-o",
+        "work/six_jets_p32749"
+      ],
+      "started_utc": "2026-10-02T13:29:55.824082+00:00",
+      "exit_code": 0,
+      "seconds": 1.011252,
+      "log": "logs/replay/09_compile_six_jets_p32749.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 10,
+      "name": "compile_receive_geometry_p32749",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-DMODULUS=32749",
+        "code/receive_geometry_r3.cpp",
+        "-o",
+        "work/receive_geometry_p32749"
+      ],
+      "started_utc": "2026-10-02T13:29:56.835711+00:00",
+      "exit_code": 0,
+      "seconds": 1.91181,
+      "log": "logs/replay/10_compile_receive_geometry_p32749.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 11,
+      "name": "compile_six_jets_p32719",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-DMODULUS=32719",
+        "code/six_jets_adopted.cpp",
+        "-o",
+        "work/six_jets_p32719"
+      ],
+      "started_utc": "2026-10-02T13:29:58.747889+00:00",
+      "exit_code": 0,
+      "seconds": 0.935384,
+      "log": "logs/replay/11_compile_six_jets_p32719.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 12,
+      "name": "compile_receive_geometry_p32719",
+      "command": [
+        "g++",
+        "-O3",
+        "-std=c++17",
+        "-DMODULUS=32719",
+        "code/receive_geometry_r3.cpp",
+        "-o",
+        "work/receive_geometry_p32719"
+      ],
+      "started_utc": "2026-10-02T13:29:59.683687+00:00",
+      "exit_code": 0,
+      "seconds": 1.920663,
+      "log": "logs/replay/12_compile_receive_geometry_p32719.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "number": 13,
+      "name": "all_parameter_source_audit",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/audit_s5.py"
+      ],
+      "started_utc": "2026-10-02T13:30:01.604826+00:00",
+      "exit_code": 0,
+      "seconds": 0.573211,
+      "log": "logs/replay/13_all_parameter_source_audit.log",
+      "log_sha256": "b7a37abcafcd540269b144fd8c6f60a7a3d46c1cca846995a695e3e4b3fcec81"
+    },
+    {
+      "number": 14,
+      "name": "complete_dense_algorithm_controls",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/dense_tests.py"
+      ],
+      "started_utc": "2026-10-02T13:30:02.178799+00:00",
+      "exit_code": 0,
+      "seconds": 0.773591,
+      "log": "logs/replay/14_complete_dense_algorithm_controls.log",
+      "log_sha256": "6a12d89977cfd3e59ffdf15e5f5a1cd4a42257ebc42862b94da4f742489bd4cf"
+    },
+    {
+      "number": 15,
+      "name": "2029_four_complete_modules",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/kernel_work.py",
+        "2029"
+      ],
+      "started_utc": "2026-10-02T13:30:02.952812+00:00",
+      "exit_code": 0,
+      "seconds": 205.581212,
+      "log": "logs/replay/15_2029_four_complete_modules.log",
+      "log_sha256": "73b4ddc3676926f9ba21246e3c4acb1d8d4c66f3f28af73f60ea5bb5fd8905f6"
+    },
+    {
+      "number": 16,
+      "name": "2029_licence_ledger_binding",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/build_ledger.py"
+      ],
+      "started_utc": "2026-10-02T13:33:28.534499+00:00",
+      "exit_code": 0,
+      "seconds": 1.056462,
+      "log": "logs/replay/16_2029_licence_ledger_binding.log",
+      "log_sha256": "e02f1fdc5b38665355ad29000d7654ad94ad4698ffaae625f72b3c4eaf53d39b"
+    },
+    {
+      "number": 17,
+      "name": "full_residual_diagnostics",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/residual_diagnostics.py"
+      ],
+      "started_utc": "2026-10-02T13:33:29.591630+00:00",
+      "exit_code": 0,
+      "seconds": 1.478615,
+      "log": "logs/replay/17_full_residual_diagnostics.log",
+      "log_sha256": "3ce3a419de84a8b21ca0276d8d1f70de9499cd8a847550183b40ff715f07f34c"
+    },
+    {
+      "number": 18,
+      "name": "new_quintic_all_splits_and_dual_minors",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/geometry_work.py"
+      ],
+      "started_utc": "2026-10-02T13:33:31.070822+00:00",
+      "exit_code": 0,
+      "seconds": 0.679141,
+      "log": "logs/replay/18_new_quintic_all_splits_and_dual_minors.log",
+      "log_sha256": "1a768aec2f2d3487e9b3a910d873313343731697389396d58edeb809c28cbe34"
+    },
+    {
+      "number": 19,
+      "name": "four_exact_rational_minors",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/exact_quintic_minors.py"
+      ],
+      "started_utc": "2026-10-02T13:33:31.750485+00:00",
+      "exit_code": 0,
+      "seconds": 1.179171,
+      "log": "logs/replay/19_four_exact_rational_minors.log",
+      "log_sha256": "f689f941fcd91237f6926ada9a8d5247d752fbafde0e8d8ef3080dd4bae29590"
+    },
+    {
+      "number": 20,
+      "name": "2000_four_complete_modules",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/kernel_work.py",
+        "2000"
+      ],
+      "started_utc": "2026-10-02T13:33:32.930111+00:00",
+      "exit_code": 0,
+      "seconds": 172.624015,
+      "log": "logs/replay/20_2000_four_complete_modules.log",
+      "log_sha256": "f3b3b464e6efb9eeeb907a87cf23f72fb8ebf196ccefee319a29540e0c5733e2"
+    },
+    {
+      "number": 21,
+      "name": "two_state_final_ledger_and_ablation",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/build_final_ledger.py"
+      ],
+      "started_utc": "2026-10-02T13:36:25.554558+00:00",
+      "exit_code": 0,
+      "seconds": 1.363514,
+      "log": "logs/replay/21_two_state_final_ledger_and_ablation.log",
+      "log_sha256": "f23445cc9ad25edeec11e2f070151ec1ee45c69c5a321463a35115d85a9a6dc3"
+    },
+    {
+      "number": 22,
+      "name": "complete_actual_types_and_growth_preimages",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/final_exact_cases.py"
+      ],
+      "started_utc": "2026-10-02T13:36:26.918530+00:00",
+      "exit_code": 0,
+      "seconds": 0.881158,
+      "log": "logs/replay/22_complete_actual_types_and_growth_preimages.log",
+      "log_sha256": "b126ca679059c07687d24da66ca6f69cd52a0a7429bd9415b14a338f9fdf2ba8"
+    },
+    {
+      "number": 23,
+      "name": "nine_tamper_controls",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/negative_controls.py"
+      ],
+      "started_utc": "2026-10-02T13:36:27.800124+00:00",
+      "exit_code": 0,
+      "seconds": 2.567913,
+      "log": "logs/replay/23_nine_tamper_controls.log",
+      "log_sha256": "3de1d9174b86056c98c12b146a157ba7b01ae3171803c667dcf5f38021d95424"
+    },
+    {
+      "number": 24,
+      "name": "strict_current_difference",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "code/difference_audit.py"
+      ],
+      "started_utc": "2026-10-02T13:36:30.368499+00:00",
+      "exit_code": 0,
+      "seconds": 0.606976,
+      "log": "logs/replay/24_strict_current_difference.log",
+      "log_sha256": "ddd2e185a5e201ad69fb8e18d689b88a246ad5cb719464e7dcfaf5f3c486b3cc"
+    }
+  ],
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+    "memory_max": "4294967296",
+    "memory_current": "2143920128",
+    "cpu_max": "400000 100000",
+    "disk_free_bytes": 31661400064
+  },
+  "before": {
+    "MATH_SHA256SUMS": 184,
+    "STRUCTURE_SHA256SUMS": 16
+  },
+  "after": {
+    "MATH_SHA256SUMS": 184,
+    "STRUCTURE_SHA256SUMS": 16
+  },
+  "all_steps_passed": true,
+  "mathematical_payload_unchanged": true,
+  "steps_completed": 24,
+  "manifest_hashes": {
+    "MATH_SHA256SUMS": "c8a05bd8f181b15211bc715b7baeefd85ebe2add00c39c6558aa50e4d9444623",
+    "STRUCTURE_SHA256SUMS": "082f60b2965435b33291cec1ee1a74b40ef6a92aa34672e81273974ddeaa4229"
+  },
+  "finished_utc": "2026-10-02T13:36:31.006577+00:00",
+  "elapsed_seconds": 407.413183
+}

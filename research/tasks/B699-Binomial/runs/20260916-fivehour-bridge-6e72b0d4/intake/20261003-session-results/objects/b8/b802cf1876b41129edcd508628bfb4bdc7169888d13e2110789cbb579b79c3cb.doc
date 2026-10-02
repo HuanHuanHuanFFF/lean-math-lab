@@ -1,0 +1,4461 @@
+@comment -*-texinfo-*-
+@comment this file contains the general information about Singular
+
+@c The following directives are necessary for proper compilation
+@c with emacs (C-c C-e C-r).  Please keep it as it is.  Since it
+@c is wrapped in `@ignore' and `@end ignore' it does not harm `tex' or
+@c `makeinfo' but is a great help in editing this file (emacs
+@c ignores the `@ignore').
+@ignore
+%**start
+\input texinfo.tex
+@setfilename general.info
+@node Top, General concepts
+@menu
+* General concepts::
+@end menu
+@node General concepts, Data types, Introduction, Top
+@chapter General concepts
+%**end
+@end ignore
+
+@menu
+* Interactive use::
+* Emacs user interface::
+* Rings and orderings::
+* Implemented algorithms::
+* The SINGULAR language::
+* Input and output::
+* Procedures::
+* Libraries::
+* Debugging tools::
+* Dynamic loading::
+@end menu
+
+
+@c ---------------------------------------------------------------------------
+@node Interactive use, Emacs user interface, General concepts, General concepts
+@section Interactive use
+@cindex Interactive use
+
+In this section, aspects of interactive use are discussed.  This
+includes how to enter and exit @sc{Singular}, how to interpret its
+prompt, how to get online help, and so on.
+
+There are a few important notes which one should not forget:
+@itemize @bullet
+@item
+every command has to be terminated by a @code{;} (semicolon) followed
+by a @key{RETURN}
+@item
+the online help is accessible by means of the @code{help} function
+@end itemize
+
+@menu
+* How to enter and exit::
+* The SINGULAR prompt::
+* The online help system::
+* Interrupting SINGULAR::
+* Editing input::
+* Command line options::
+* Startup sequence::
+@end menu
+
+@c --------------------------------------------------------------------------
+@node How to enter and exit, The SINGULAR prompt, Interactive use, Interactive use
+@subsection How to enter and exit
+@cindex How to enter and exit
+
+@sc{Singular} can either be run in an ASCII-terminal or within Emacs.
+
+To start @sc{Singular} in its ASCII-terminal user interface,  enter
+@code{Singular} at the system prompt. The @sc{Singular} banner appears which,
+among other data, reports the version and the compilation date.
+
+To start @sc{Singular} in its Emacs user interface, either enter
+@code{ESingular} at the system prompt, or type @code{M-x singular}
+within a running Emacs (provided you have loaded the file
+@code{singular.el} in your running Emacs, see @ref{Running SINGULAR
+under Emacs} for details).
+
+Generally, we recommend to use @sc{Singular} in its Emacs interface,
+since this offers many more features and is more convenient to
+use than the ASCII-terminal interface (@pxref{Emacs user interface}).
+
+To exit @sc{Singular} type @code{quit;}, @code{exit;} or @code{$} (or,
+when running within Emacs preferably type @code{C-c $}).
+
+@sc{Singular} and @code{ESingular} may also be started with command line
+options and with
+filenames as arguments. More generally, the startup syntax is
+@smallexample
+Singular  [options] [file1 [file2 @dots{}]]
+ESingular  [options] [file1 [file2 @dots{}]]
+@end smallexample
+
+@xref{Command line options}, @ref{Startup sequence}, @ref{Running SINGULAR
+under Emacs}.
+
+
+@c --------------------------------------------------------------------------
+@node The SINGULAR prompt,The online help system,How to enter and exit, Interactive use
+@subsection The SINGULAR prompt
+@cindex prompt
+@cindex error recovery
+The @sc{Singular} prompt @code{>} (larger than) asks the user for input
+of commands.  The ``continuation'' prompt @code{.} (period) asks the
+user for input of missing parts of a command (e.g. the semicolon at
+the end of every command).
+
+@sc{Singular} does not interpret the semicolon as the end of a command
+if it occurs inside a string.  Also, @sc{Singular} waits for blocks
+(sequences of commands enclosed in curly brackets) to be closed before
+prompting with @code{>} for more commands.  Thus, if @sc{Singular} does
+not respond with its regular prompt after typing a semicolon it may wait
+for a @code{"} or a @code{@}} first.
+
+Additional semicolons will not harm @sc{Singular} since they are
+interpreted as empty statements.
+
+@c --------------------------------------------------------------------------
+@node The online help system,Interrupting SINGULAR, The SINGULAR prompt,Interactive use
+@subsection The online help system
+@cindex The online help system
+@cindex online help
+@cindex help, online help system
+
+The online help system is invoked by the @code{help} command.
+@code{?} may be used as a synonym for @code{help}.  Simply typing
+@code{help;} displays the ``top'' of the help system (i.e., the title
+page of the @sc{Singular} manual) which offers a
+short table of contents.  Typing @code{help} topic@code{;} shows the
+available documentation on the respective topic.  Here, topic may be either a function
+name or, more generally, any index entry of the @sc{Singular}
+manual. Furthermore, topic may contain wildcard characters.
+@xref{help}, for more information.
+
+@cindex browsers
+@cindex help browsers
+Online help information can be displayed in various help browsers. The
+following table lists a summary of the browsers which are always present.
+Usually, external browsers are much more convenient:
+A complete, customizable list can be found in the file @code{LIB/help.cnf}.
+
+@multitable @columnfractions .2 .2 .6
+@item @strong{Browser} @tab @strong{Platform}
+@tab @strong{Description}
+
+@item html
+@cindex help browsers, html
+@cindex html, default help
+@tab Windows
+@tab displays a html version of the manual in your default html browser
+
+@item builtin
+@cindex help browsers, dummy
+@tab all
+@tab simply outputs the help information in plain ASCII format
+
+@item emacs
+@cindex help browsers, emacs
+@tab Unix, Windows
+@tab when running @sc{Singular} within (X)emacs, displays help inside the
+(X)emacs info buffer.
+
+@item dummy
+@tab all
+@cindex help browsers, dummy
+@tab displays an error message due to the non-availability of a help browser
+@end multitable
+
+External browsers depend on your system and the contents of @code{LIB/help.cnf},
+the default includes:
+@code{htmlview} (displays HTML help pages via @code{htlmview}),@*
+@code{mac} (displays HTML help pages via @code{open}),@*
+@code{mac-net} (displays HTML help pages via @code{open}),@*
+@code{mozilla} (displays HTML help pages via @code{mozilla}),@*
+@code{firefox} (displays HTML help pages via @code{firefox}),@*
+@code{konqueror} (displays HTML help pages via @code{konqueror}),@*
+@code{galeon} (displays HTML help pages via @code{galeon}),@*
+@code{netscape} (displays HTML help pages via @code{netscape}),@*
+@code{safari} (displays HTML help pages on MacOsX via @code{safari}),@*
+@code{tkinfo} (displays INFO help pages via @code{tkinfo}),@*
+@code{xinfo} (displays INFO help pages via @code{info}),@*
+@code{info} (displays INFO help pages via @code{info}),@*
+@code{lynx} (displays HTML help pages via @code{lynx}).
+
+The browser which is used to display the help information, can be either
+set at startup time with the command line option  (@pxref{Command line
+options})
+@smallexample
+--browser=<browser>
+@end smallexample
+or with the @sc{Singular} command (@pxref{system})
+@smallexample
+system("--browser", "<browser>");
+@end smallexample
+The  @sc{Singular} command
+@smallexample
+system("browsers");
+@end smallexample
+lists all available browsers and the command
+@smallexample
+system("--browser");
+@end smallexample
+returns the currently used browser.
+
+If no browser is explicitly set by the user, then the first available browser
+(w.r.t. the order of the browsers in the file @code{LIB/help.cnf}) is chosen.
+
+The @code{.singularrc} (@pxref{Startup sequence}) file is a good place
+to set your default browser. Recall that if a file
+@code{$HOME/.singularrc} exists on your system, then the content of this
+file is executed before the first user input. Hence, putting
+@smallexample
+if (! system("--emacs"))
+@{
+  // only set help browser if not running within emacs
+  system("--browser", "info");
+@}
+// if help browser is later on set to a web browser,
+// allow it to fetch HTML pages from the net
+system("--allow-net", 1);
+@end smallexample
+in your file @code{$HOME/.singularrc} sets your default browser to
+@code{info}, unless @sc{Singular} is run within emacs (in which case the
+default browser is automatically set to @code{emacs}).
+
+Obviously, certain external files and programs are required for the
+@sc{Singular} help system to work correctly. If something is not available
+or goes wrong, here are some tips for troubleshooting the help system:
+
+@itemize @bullet
+@item
+@cindex DISPLAY environment variable
+@cindex environment variable, DISPLAY
+Under Unix, the environment variable @code{DISPLAY} has to be set for all X11
+browsers to work.
+
+@item
+@cindex help browsers, setting command to use
+The help browsers are only available if the respective programs are installed
+on your system (for @code{xinfo}, the programs @code{xterm} and
+@code{info} are necessary). You can explicitly specify which program to
+use, by changing the entry in @code{LIB/help.cnf}
+
+@item
+If the help browser cannot find the local html
+pages of the @sc{Singular} manual (which it will look for at
+@code{$RootDir/html} -- see @ref{Loading a library} for more info on
+@code{$RootDir}) @emph{and} the (command-line) option @code{--allow-net}
+has @emph{explicitly} been set (see @ref{Command line options} and
+@ref{system} for more info on
+setting values of command-line options), then it dispatches the html
+pages from
+@url{https://www.singular.uni-kl.de/Manual}. (Note that
+the non-local net-access of HTML pages is disabled, by default.)
+@*An
+alternative location of a local directory where the html pages reside
+can be specified by setting the environment variable
+@code{SINGULAR_HTML_DIR}.
+@c TBC (@xref{Setting environment variables}).
+
+@item
+The @code{info} based help browsers @code{tkinfo}, @code{xinfo}, @code{info}, and
+@code{builtin} need the (info) file @code{singular.info} which will be looked
+for at @code{$RootDir/info/singular.info} (see @ref{Loading a library}
+for more info on @code{$RootDir}).  An alternative
+location of the info file of the manual can be specified by setting the
+environment variable @code{SINGULAR_INFO_FILE}.
+@c TBC (@xref{Setting environment variables}).
+@end itemize
+
+@c ref
+@ref{Command line options}
+@ref{Loading a library}
+@ref{system}
+@ref{Startup sequence}
+@c ref
+
+@subsubheading Info help browsers
+@cindex info
+
+The help browsers @code{tkinfo}, @code{xinfo} and @code{info} (so-called
+info help browsers) are based on the
+@code{info} program from the GNU @code{texinfo} package.  @xref{Top, An
+Introduction to Info, Getting started, info, The Info Manual}, for more
+information.
+
+For info help browsers, the online manual is decomposed into ``nodes''
+of information, closely
+related to the division of the printed manual into sections and
+subsections.  A node contains text describing a specific topic at a
+specific level of detail.  The top line of a node is its ``header''.
+The node's header tells the name of the current node (@code{Node:}), the
+name of the next node (@code{Next:}), the name of the previous node
+(@code{Prev:}), and the name of the upper node (@code{Up:}).
+
+To move within info, type commands consisting of single characters.  Do
+not type @code{RETURN}.  Do not use cursor keys, either.  Using some of
+the cursor keys by accident might pop to some totally different node.
+Type @code{l} to return to the original node.  Some of the @code{info}
+commands read input from the command line at the bottom.  The
+@code{TAB} key may be used to complete partially entered input.
+
+The most important commands are:
+@table @asis
+@item @code{q}
+leaves the online help system
+@item @code{n}
+goes to the next node
+@item @code{p}
+goes to the previous node
+@item @code{u}
+goes to the upper node
+@item @code{m}
+picks a menu item specified by name
+@item @code{f}
+follows a cross reference
+@item @code{l}
+goes to the previously visited node
+@item @code{b}
+goes to the beginning of the current node
+@item @code{e}
+goes to the end of the current node
+@item @code{SPACE}
+scrolls forward a page
+@item @code{DEL}
+scrolls backward a page
+@item @code{h}
+invokes info tutorial (use @code{l} to return to the manual or
+@code{CTRL-X 0} to remove extra window)
+@item @code{CTRL-H}
+shows a short overview over the online help system (use @code{l} to return
+to the manual or @code{CTRL-X 0} to remove extra window)
+@item @code{s}
+searches through the manual for a specific string, and selects the node in
+which the next occurrence is found
+@item @code{1}, @dots{}, @code{9}
+picks i-th subtopic from a menu
+@end table
+
+@c --------------------------------------------------------------------------
+@node Interrupting SINGULAR,Editing input,The online help system,Interactive use
+@subsection Interrupting SINGULAR
+@cindex Interrupting SINGULAR
+
+On Unix-like operating systems and on Windows NT, typing @code{CTRL-C}
+(or, alternatively @code{C-c C-c}, when running within Emacs),
+interrupts @sc{Singular}.  @sc{Singular} prints the current command and
+the current line and prompts for further action.  The following choices
+are available:
+@table @code
+@item a
+returns to the top level after finishing the current (kernel) command. Notice
+that commands of the @sc{Singular} kernel (like @code{std}) cannot be
+aborted, i.e. (@code{a})bort only happens whenever the interpreter is active.
+@item c
+continues
+@item q
+quits  @sc{Singular}
+@end table
+
+@c --------------------------------------------------------------------------
+@node Editing input,Command line options,Interrupting SINGULAR,Interactive use
+@subsection Editing input
+@cindex Editing input
+@cindex SINGULARHIST
+@cindex .singular
+@cindex history
+
+@c This section describes only a subset of the key bindings of
+@c @sc{Singular} binaries built with the GNU Readline library.
+@c @xref{Command Line Editing, GNU Readline Library, Command Line Editing,
+@c readline, The GNU Readline Library Manual}, for more information.
+
+The following keys can be used for editing the input and retrieving
+previous input lines:
+@table @code
+@item TAB
+provides command line completion for function names and file names
+@item CTRL-B
+moves cursor to the left
+@item CTRL-F
+moves cursor to the right
+@item CTRL-A
+moves cursor to the beginning of the line
+@item CTRL-E
+moves cursor to the end of the line
+@item CTRL-D
+deletes the character under the cursor
+@* Warning: on an empty line, @code{CTRL-D} is interpreted as the
+@code{EOF} character which immediately terminates @sc{Singular}.
+@item BACKSPACE
+@itemx DELETE
+@itemx CTRL-H
+deletes the character before the cursor
+@item CTRL-K
+kills from cursor to the end of the line
+@item CTRL-U
+kills from cursor to the beginning of the line
+@item CTRL-N
+saves the current line to history and gives the next line
+@item CTRL-P
+saves the current line to history and gives the previous line
+@item RETURN
+saves the current line to the history and
+sends it to the @sc{Singular} parser for interpretation
+@end table
+
+When run under a Unix-like operating system and in its ASCII-terminal
+user interface,   @sc{Singular} tries to dynamically link at runtime
+with the GNU Readline library. @xref{Command Line Editing, GNU Readline
+Library, Command Line Editing, readline, The GNU Readline Library
+Manual}, for more information. If a shared version of this library can
+be found on your machine, then additional command-line editing
+features like  history completion are available.
+In particular, if @sc{Singular} is able to load that library
+the input history is stored across sessions using the file given in
+the environment variable @code{SINGULARHIST}.
+If @code{SINGULARHIST} is not set @code{.singularhistory} is used.
+Otherwise, i.e., if the environment variable @code{SINGULARHIST} is set
+to the empty string, the history of the last inputs is only available for
+previous commands of the current session.
+
+@c --------------------------------------------------------------------------
+@node Command line options, Startup sequence, Editing input, Interactive use
+@subsection Command line options
+@cindex Command line options
+
+The startup syntax is
+@smallexample
+Singular  [options] [file1 [file2 @dots{}]]
+ESingular  [options] [file1 [file2 @dots{}]]
+@end smallexample
+Options can be given in both their long and short format. The following
+options control the general behaviour of @sc{Singular}:
+@table @asis
+
+@item @code{-d}, @code{--sdb}
+@cindex -d
+@cindex --sdb
+@cindex Source code debugger, invocation
+Enable the use of the source code debugger.
+@xref{Source code debugger}.
+
+@item @code{-e}, @code{--echo[=VAL]}
+@cindex -e
+@cindex --echo
+Set value of variable @code{echo} to @code{VAL} (integer in the range
+0, @dots{}, 9). Without an argument, @code{echo} is set to 1, which echoes
+all input coming from a file. By default, the value of @code{echo} is
+0. @xref{echo}.
+
+@item @code{-h}, @code{--help}
+@cindex -h
+@cindex --help
+@cindex command-line options, short help
+Print a one-line description of each command line option and exit.
+
+@item @code{--allow-net}
+@cindex --allow-net
+@cindex net access
+@cindex allowing net access
+@cindex help, accessing over the net
+Allow the help browsers based on a web browser to fetch HTML manual pages over
+the net from the WWW home-site of @sc{Singular}. @xref{The online help
+system}, for more info.
+
+@item @code{--browser="VAL"}
+@cindex --browser
+@cindex browser, command line option
+Use @code{VAL} as browser for the @sc{Singular} online manual.
+@*@code{VAL} may be one of the browsers mentioned in @code{LIB/help.cnf},
+for example @code{html} (Windows only), @code{mozilla}, @code{firefox},
+@code{konqueror}, @code{galeon}, @code{netscape}, @code{safari} (OsX only),
+@code{xinfo}, @code{tkinfo}, @code{info}, @code{builtin}, or @code{emacs}.
+Depending on your platform and local
+installation, only some browsers might be available. The default browser
+is @code{html} for Windows and one based on a web browser for Unix
+platforms. @xref{The online help system}, for more info.
+
+@item @code{--no-rc}
+@cindex --no-rc
+@cindex .singularrc file, no loading
+Do not execute the @code{.singularrc} file on start-up.  By default,
+this file is executed on start-up.  @xref{Startup sequence}.
+
+@item @code{--no-stdlib}
+@cindex --no-stdlib
+Do not load the library @code{standard.lib} on start-up. By default,
+this library is loaded on start-up.  @xref{Startup sequence}.
+
+@item @code{--no-warn}
+@cindex --no-warn
+Do not display warning messages.
+
+@item @code{--no-out}
+@cindex --no-out
+Suppress display of all output.
+
+@item @code{--no-shell}
+@cindex --no-shell
+Runs Singular in restricted mode to disallow shell escape commands.
+Objects of type link will also be unable to use.
+
+@item @code{-t}, @code{--no-tty}
+@cindex --no-tty
+Do not redefine the characteristics of the terminal.  This option should be
+used for batch processes.
+
+@item @code{-q}, @code{--quiet}
+@cindex -q
+@cindex --quiet
+Do not print the start-up banner and messages when loading
+libraries. Furthermore, redirect @code{stderr}
+(all error messages) to @code{stdout} (normal output channel).  This
+option should be used if @sc{Singular}'s output is redirected to a file.
+
+@item @code{-v}
+@cindex -v
+Print extended information about the version and configuration of
+@sc{Singular}  (used optional parts, compilation date, start of random
+generator etc.). This information should be included if a user reports
+an error to the authors.
+@*It also list all the used directories/files
+(see @ref{Used environment variables}).
+@end table
+
+The following command line options allow manipulations of the timer and
+the pseudo random generator and enable the passing of commands and strings
+to @sc{Singular}:
+
+@table @asis
+@item @code{-c}, @code{--execute=STRING}
+@cindex -c
+@cindex --execute
+Execute @code{STRING} as (a sequence of) @sc{Singular} commands on
+start-up after the @code{.singularrc} file is executed, but prior to
+executing the files given on the command line.  E.g., @code{Singular -c
+"help all.lib; quit;"} shows the help for the library @code{all.lib} and
+exits.
+
+@item @code{-u}, @code{--user-option=STRING}
+@cindex -u
+@cindex --user-option
+Returns @code{STRING} on @code{system("--user-option")}. This is useful
+for passing arbitrary arguments from the command line to the
+@sc{Singular} interpreter.  E.g.,
+@*@code{Singular -u "xxx.dump" -c 'getdump(system("--user-option"))'}
+reads the file @code{xxx.dump} at
+start-up and allows the user to start working with all the objects
+defined in a previous session.
+
+@item @code{-r}, @code{--random=SEED}
+@cindex -r
+@cindex --random
+Seed (i.e., set the initial value of) the pseudo random generator with
+integer @code{SEED}.  If this option is not given, then the random
+generator is seeded with a time-based @code{SEED} (the number of
+seconds since January, 1, 1970, on Unix-like operating systems, to be
+precise).
+
+@item @code{--min-time=SECS}
+@cindex --min-time
+If the @code{timer} (@pxref{timer}), resp.@:  @code{rtimer}
+(@pxref{rtimer}) , variable is
+set, report only
+times larger than @code{SECS} seconds (@code{SECS} needs to be a
+floating point number greater than 0).  By default, this value is set to
+0.5 (i.e., half a second).  E.g., the option @code{--min-time=0.01}
+forces @sc{Singular} to report all times larger than 1/100 of a
+second.
+
+@item @code{--ticks-per-sec=TICKS}
+@cindex --ticks-per-sec
+Set unit of timer to @code{TICKS} ticks per second (i.e., the value
+reported by the @code{timer} and @code{rtimer} variable divided by
+@code{TICKS} gives the time in seconds).  By default, this value is 1.
+
+@item @code{--cpus=CPUs}
+set the maximal number of CPUs to use.
+
+@item @code{--cntrlc=C}
+set the default answer for interrupt signals to C which should be
+a for abort, c for continue or q for quit.
+@end table
+
+The next three options are of interest for the use with ssi links:
+@table @asis
+@item @code{-b}, @code{--batch}
+@cindex -b
+@cindex --batch
+Run in batch mode. Opens a TCP/IP connection with host specified by
+@code{--MPhost} at the port specified by @code{--MPport}. Input is read
+from and output is written to this connection in the format given by @code{--link}.
+@xref{Ssi links}.
+
+@item @code{--MPport=PORT}
+@cindex --MPport
+Use @code{PORT} as default port number for connections (whenever not
+further specified). This option is mandatory when the @code{--batch}
+option is given.  @xref{Ssi links}.
+
+@item @code{--MPhost=HOST}
+@cindex --MPhost
+Use @code{HOST} as default host for connections (whenever not
+further specified).  This option is mandatory when the @code{--batch}
+option is given.  @xref{Ssi links}.
+@end table
+
+Finally, the following options are only available when running
+@code{ESingular} (see @ref{Running SINGULAR under Emacs} for details).
+
+@table @code
+
+@item --emacs=EMACS
+@cindex --emacs
+Use @code{EMACS} as Emacs program to run the @sc{Singular} Emacs
+interface, where @code{EMACS} may e.g. be emacs or xemacs.
+
+@item --emacs-dir=DIR
+@cindex --emacs-dir
+Set the singular-emacs-home-directory, which is the directory where
+singular.el can be found, to @code{DIR}.
+
+@item --emacs-load=FILE
+@cindex --emacs-load
+Load @code{FILE} on Emacs start-up, instead of the default load file.
+
+@item --singular=PROG
+@cindex --singular
+Start @code{PROG} as @sc{Singular} program within Emacs
+@end table
+
+The value of options given to @sc{Singular} (resp.@: their default values,
+if an option was not given), can be checked with the command
+@code{system("--}long_option_name@code{")}.  @xref{system}.
+@smallexample
+@c example
+  system("--quiet");    // if ``quiet'' 1, otherwise 0
+  system("--min-time"); // minimal reported time
+  system("--random");   // seed of the random generator
+@c example
+@end smallexample
+
+Furthermore, the value of options (e.g., @code{--browser}) can be
+re-defined while @sc{Singular} is running using the command
+@code{system("--}long_option_name_string @code{",}expression@code{)}. @xref{system}.
+@smallexample
+  system("--browser", "builtin");  // sets browser to 'builtin'
+  system("--ticks-per-sec", 100);  // sets timer resolution to 100
+@end smallexample
+
+
+@c --------------------------------------------------------------------------
+
+@node Startup sequence, , Command line options, Interactive use
+@subsection Startup sequence
+@cindex Startup sequence
+
+On start-up, @sc{Singular}
+@enumerate
+@item
+loads the library @code{standard.lib} (provided the @code{--no-stdlib}
+option was not given),
+
+@item
+@cindex file, .singularrc
+@cindex .singularrc file
+@cindex singularrc
+searches the current directory and then the
+home directory of the user, and then all directories contained in the
+library @code{SearchPath} (see @ref{Loading a library} for more info
+on @code{SearchPath}) for a file named @code{.singularrc} and
+executes it, if found (provided the @code{--no-rc} option was not
+given),
+
+@item
+executes the string specified with the @code{--execute} command line
+option,
+
+@item
+executes the files @code{file1}, @code{file2} @dots{}  (given on the command
+line) in that order.
+@end enumerate
+
+@strong{Note:} @code{.singularrc} file(s) are an appropriate place for
+setting some default values of (command-line) options.
+
+For example, a system administrator might remove the locally installed
+HTML version of the manual and put a @code{.singularrc} file
+with the following content
+@smallexample
+if (system("version") >= 1306) // assure backwards-compatibility
+@{
+  system("--allow-net", 1);
+@}; // the last semicolon is important: otherwise no ">", but "." prompt
+@end smallexample
+in the directory containing the @sc{Singular} libraries, thereby
+allowing to fetch the HTML on-line help from the WWW home-site of
+@sc{Singular}.
+
+On the other hand, a single user might put a @code{.singularrc} with the
+following content
+@smallexample
+if (system("version") >= 1306) // assure backwards-compatibility
+@{
+  if (! system("--emacs"))
+  @{
+    // set default browser to info, unless we run within emacs
+    system("--browser", "info");
+  @}
+@}; // the last semicolon is important: otherwise no ">", but "." prompt
+@end smallexample
+in his home directory, which sets the default help browser to
+@code{info} (unless @sc{Singular} is run within emacs) and thereby
+prevents the execution of the"global"
+@code{.singularrc} file installed by the system administrator (since the
+@code{.singularrc} file of the user is found before the "global"
+@code{.singularrc} file installed by the system administrator).
+
+@c ---------------------------------------------------------------------------
+@node Emacs user interface, Rings and orderings, Interactive use, General concepts
+@section Emacs user interface
+@cindex Emacs, user interface
+@cindex Emacs
+@cindex interface, Emacs
+@cindex user interface, Emacs
+
+Besides running @sc{Singular} in an ASCII-terminal, @sc{Singular} might
+also be run within Emacs. Emacs (or, XEmacs which is very similar) is a
+powerful and freely available text editor, which, among others,
+provides a framework for the implementation of interactive user
+interfaces. Starting from version 1.3.6, @sc{Singular} provides such an
+implementation, the so-called @sc{Singular} Emacs mode, or Emacs user
+interface.
+
+Generally, we recommend to use the Emacs interface,
+instead of the ASCII-terminal interface: The Emacs interface does not
+only provide everything the ASCII-terminal interface provides, but
+offers much more. Among others, it offers
+@itemize @bullet
+@item
+color highlighting
+@item
+truncation of long lines
+@item
+folding of input and output
+@item
+TAB-completion for help topics
+@item
+highlighting of matching parentheses
+@item
+key-bindings and interactive menus for most user interface commands and
+for basic @sc{Singular} commands (such as loading of libraries and files)
+@item
+a mode for running interactive @sc{Singular} demonstrations
+@item
+convenient ways to edit @sc{Singular} input files
+@item
+interactive customization of nearly all aspects of the user-interface.
+@end itemize
+
+In order to use the @sc{Singular}-Emacs interface you need to have Emacs version
+20 or higher, or XEmacs
+version 20.3 or higher installed on your system. These
+editors can be downloaded for most hard- and software platforms,
+sources from either
+@uref{http://www.gnu.org/software/emacs/emacs.html} (Emacs), or from
+@uref{http://www.xemacs.org} (XEmacs).
+(Download of binaries depend on your OS). The
+differences between Emacs and XEmacs w.r.t. the  @sc{Singular}-Emacs
+interface are marginal -- which editor to use is mainly a matter of personal
+preferences.
+
+The simplest way to start-up @sc{Singular} in its Emacs interface is by
+running the program @code{ESingular} which is contained in the Singular
+distribution. Alternatively, @sc{Singular} can be started within an
+already running Emacs -- see @ref{Running SINGULAR under Emacs} for
+details.
+
+The next section gives  a tutorial-like introduction to Emacs. This
+introductory section is
+followed by sections which explain the functionality of various aspects
+of the Emacs user interface in more detail: how to start/restart/kill
+@sc{Singular} within Emacs, how to run an interactive demonstration, how
+to customize the Emacs user interface, etc. Finally, the 20 most
+important commands of the Emacs interface together with their key
+bindings are listed.
+
+@menu
+* A quick guide to Emacs::
+* Running SINGULAR under Emacs::
+* Demo mode::
+* Customization of the Emacs interface::
+* Editing SINGULAR input files with Emacs::
+* Top 20 Emacs commands::
+@end menu
+
+@c --------------------------------------------------------------------------
+@node A quick guide to Emacs, Running SINGULAR under Emacs, Emacs user interface, Emacs user interface
+@subsection A quick guide to Emacs
+@cindex Emacs, overview
+@cindex Emacs, a quick guide
+
+This section gives a tutorial-like introduction to Emacs. Especially to
+users who are not familiar with Emacs, we recommend that they go through
+this section and try out the described features.
+
+Emacs commands generally involve the @code{CONTROL} key (sometimes
+labeled @code{CTRL} or @code{CTL}) or the @code{META} key.  On some
+keyboards, the @code{META} key is labeled @code{ALT} or @code{EDIT} or
+something else (for example, on Sun keyboards, the diamond key to the
+left of the space-bar is @code{META}).  If there is no @code{META} key,
+the @code{ESC} key can be used, instead.  Rather than writing out
+@code{META} or
+@code{CONTROL} each time we want to prefix a character, we will use the
+following abbreviations:
+
+@multitable @columnfractions .2 .8
+@item @code{C-<chr>}
+@tab means hold the @key{CONTROL} key while typing the character
+@code{<chr>}. Thus, @code{C-f} would be: hold the @key{CONTROL} key and
+type @code{f}.
+@item @code{M-<chr>}
+@tab means hold the @key{META} key down while typing @code{<chr>}.  If there
+is no @key{META} key, type @key{ESC}, release it, then type the
+character @code{<chr>}.
+@end multitable
+
+For users new to Emacs, we highly recommend that they go through the
+interactive Emacs tutorial: type @code{C-h t} to start it.
+
+For others, it is important to understand the following Emacs concepts:
+@table @asis
+@item window
+In Emacs terminology, a window refers to separate panes within the same
+window of the window system, and not to overlapping, separate
+windows. When using @sc{Singular} within Emacs, extra windows may appear
+which display help or output from certain commands. The most important
+window commands are:
+@multitable @columnfractions .1 .2 .6
+@item @code{C-x 1}
+@tab @code{File->Un-Split}
+@tab Un-Split window (i.e., kill other windows)
+@item @code{C-x o}
+@tab
+@tab Goto other window, i.e. move cursor into other window.
+@end multitable
+
+@item cursor and point
+The location of the cursor in the text is also called "point".  To
+paraphrase, the cursor shows on the screen where point is located in
+the text. Here is a summary of simple cursor-moving operations:
+@multitable @columnfractions .2 .8
+@item @code{C-f} @tab   Move forward a character
+@item @code{C-b} @tab   Move backward a character
+@item @code{M-f} @tab   Move forward a word
+@item @code{M-b} @tab   Move backward a word
+@item @code{C-a} @tab   Move to the beginning of line
+@item @code{C-e} @tab   Move to the end of line
+@end multitable
+
+@item buffer
+Any text you see in an Emacs window is always part of some buffer. For
+example, each file you are editing with Emacs is stored inside a buffer,
+but also @sc{Singular} is running inside an Emacs buffer. Each buffer
+has a name: for example, the buffer of a file you edit usually has the
+same name as the file, @sc{Singular} is running in a buffer which has
+the name @code{*singular*} (or, @code{*singular<2>*},
+@code{*singular<3>*}, etc., if you have multiple @sc{Singular}
+sessions within the same Emacs).
+
+When you are asked for input to an Emacs command, the cursor
+moves to the bottom line of Emacs, i.e., to a special buffer, called the
+"minibuffer". Typing @key{RETURN} within the minibuffer, ends the
+input, typing @key{SPACE} within the minibuffer, lists all possible
+input values to the interactive Emacs command.
+
+The most important buffer commands are
+@multitable @columnfractions .2 .8
+@item @code{C-x b} @tab Switch buffer
+@item @code{C-x k} @tab Kill current buffer
+@end multitable
+Alternatively, you can switch to or kill buffers using the @code{Buffer}
+menu.
+
+@item Executing commands
+Emacs commands are executed by typing @code{M-x <command-name>}
+(remember that @key{SPACE} completes partial
+command names). Important and frequently used commands have short-cuts
+for their execution: Key bindings or even menu entries. For example, a
+file can be loaded with @code{M-x load-file}, or @code{C-x C-f}, or with
+the @code{File->Open} menu.
+
+@item How to exit
+To end the Emacs (and, @sc{Singular}) session,
+type @code{C-x C-c} (two characters), or use the @code{File -> Exit}
+menu.
+
+@item When Emacs hangs
+If Emacs stops responding to your commands, you can stop it safely by
+typing @code{C-g}, or, if this fails, by typing @code{C-]}.
+
+@item More help
+Nearly all aspects of Emacs are very well documented: type
+@code{C-h}  and then a character saying what kind of help you want.
+For example, typing @code{C-h i} enters the @code{Info} documentation
+browser.
+
+@item Using the mouse
+Emacs is fully integrated with the mouse. In particular, clicking the
+right mouse button brings up a pop-up menu which usually contains a few
+commonly used commands.
+@end table
+
+@c --------------------------------------------------------------------------
+@node Running SINGULAR under Emacs, Demo mode, A quick guide to Emacs, Emacs user interface
+@subsection Running SINGULAR under Emacs
+@cindex Emacs, running Singular under
+@cindex Singular, running within Emacs
+@cindex Running SINGULAR under Emacs
+
+There are two ways to start the @sc{Singular} Emacs interface: Typing
+@code{ESingular} instead of @code{Singular} on the command shell
+launches a new Emacs process, initializes the interface and runs
+@sc{Singular} within Emacs. The other way is to start the interface in
+an already running Emacs, by typing @code{M-x singular} inside
+Emacs. This initializes the interface and runs @sc{Singular} within
+Emacs. Both ways are described in more detail below.
+
+Note: To properly run the Emacs interface, several files are needed
+which usually reside in the @code{emacs} subdirectory of your
+@sc{Singular} distribution. This directory is called
+singular-emacs-home-directory in the following.
+
+@subheading Starting the interface using ESingular
+
+As mentioned above, @code{ESingular} is an "out-of-the-box" solution:
+You don't have to add special things to your @code{.emacs} startup file
+to initialize the interface; everything is done for you in a special
+file called @code{.emacs-singular} (which comes along with the
+@sc{Singular} distribution and resides in the
+singular-emacs-home-directory) which is automatically loaded on Emacs
+startup (and the loading of the @code{.emacs} file is automatically
+suppressed).
+
+The customizable variables of the @sc{Singular} Emacs interface are set
+to defaults which give the novice user a very shell like
+feeling of the interface. Nevertheless, these default settings can be
+changed, see @ref{Customization of the Emacs interface}. Besides other
+Emacs initializations, such as fontification or blinking parentheses, a
+new menu item called @code{Singular} is added to the main menu,
+providing menu items for starting @sc{Singular}. On XEmacs, a button
+starting @sc{Singular} is added to the main toolbar.
+
+The @sc{Singular} interface is started automatically; once you see a
+buffer called @code{*singular*} and the @sc{Singular} prompt, you are
+ready to start your @sc{Singular} session.
+
+@code{ESingular} inherits all @code{Singular} options. For a description
+of all these options, see @ref{Command line options}. Additionally
+there are the following options which are special to @code{ESingular}:
+
+@multitable @columnfractions .3 .7
+
+@item command-line option /
+@*environment variable
+@tab functionality
+
+@item @code{--emacs=EMACS}
+@*@code{ESINGULAR_EMACS}
+@tab Use @code{EMACS} as Emacs program to run the @sc{Singular} Emacs
+interface, where @code{EMACS} may e.g. be emacs or xemacs.
+
+@item @code{--emacs-dir=DIR}
+@*@code{ESINGULAR_EMACS_DIR}
+@tab Set the singular-emacs-home-directory, which is the directory where
+singular.el can be found,  to @code{DIR}.
+
+@item @code{--emacs-load=FILE}
+@*@code{ESINGULAR_EMACS_LOAD}
+@tab Load @code{FILE} on Emacs start-up, instead of the default load file.
+
+@item @code{--singular=PROG}
+@*@code{ESINGULAR_SINGULAR}
+@tab Start @code{PROG} as @sc{Singular} program within Emacs
+
+@end multitable
+
+Notice that values of these options can also be given by setting the
+above mentioned environment variables (where values  given as
+command-line arguments take priority over values given by environment
+variables).
+
+@subheading Starting the interface within a running Emacs
+
+If you are a more experienced Emacs user and you already have your own
+local @code{.emacs} startup file, you might want to start the interface
+out of your running Emacs without using @code{ESingular}. For this, you
+should add the following lisp code to your @code{.emacs} file:
+
+@smallexample
+(setq load-path (cons "<singular-emacs-home-directory>" load-path))
+(autoload 'singular "singular"
+  "Start Singular using default values." t)
+(autoload 'singular-other "singular"
+  "Ask for arguments and start Singular." t)
+@end smallexample
+
+Then typing @code{M-x singular} in a running Emacs session initializes
+the interface in a new buffer and launches a @sc{Singular} process. The
+@sc{Singular} prompt comes up and you are ready to start your
+@sc{Singular} session.
+
+It is a good idea to take a look at the (well documented) file
+@code{.emacs-singular} in the singular-emacs-home-directory, which comes
+along with the distribution. In it you find some useful initializations
+of the @sc{Singular} interface as well as some lisp code, which, for
+example, adds a button to the XEmacs toolbar. Some of this code might be
+useful for your @code{.emacs} file, too. And if you are an Emacs wizard,
+it is of course a good idea to take a look at @code{singular.el} in the
+singular-emacs-home-directory.
+
+@subheading CYGWIN and ESingular
+@cindex CYGWIN and ESingular
+@cindex ESingular, CYGWIN
+@itemize
+@item @strong{X11 server}
+install @code{xlaunch}, @code{emacs-X11}, @code{xterm} and all dependencies.
+Create with @code{xlaunch} a startup file for the X-server which also starts
+the client @code{xterm}. From that one can start ESingular.
+@item @strong{fork problems}
+The simplest way to overcome fork problem is to run @code{/usr/bin/rebase-trigger full},
+then stop all Cygwin processes and services, and then run @code{setup-x86.exe}.
+The _autorebase postinstall script will then take care of the rebase.
+Occasionally it is necessary to reboot the computer before doing this.
+@end itemize
+@subheading Starting, interrupting and stopping SINGULAR
+
+There are the following commands to start and stop @sc{Singular}:
+
+@itemize @bullet
+@item @code{singular-other} (or menu @code{Singular}, item
+@code{Start...})
+
+Starts a @sc{Singular} process and asks for the following four
+parameters in the minibuffer area:
+
+@enumerate
+@item
+The @sc{Singular} executable. This can either be a file name with complete
+path, e.g., @code{/local/bin/Singular}. Then exactly this executable is
+started. The path may contain the character @code{~} denoting your home
+directory. Or it can be the name of a command without path, e.g.,
+@code{Singular}. Then the executable is searched for in your
+@code{$PATH} environment variable.
+
+@item
+The default working directory. This is the path to an existing
+directory, e.g., @code{~/work}. The current directory is set to this
+directory before @sc{Singular} is started.
+
+@item
+Command line options. You can set any @sc{Singular} command line
+option (see @ref{Command line options}).
+
+@item
+The buffer name. You can specify the name of the buffer the interface is
+running in.
+
+@end enumerate
+
+@item @code{singular} (or menu @code{Singular}, item @code{Start
+default})
+
+Starts @sc{Singular} with default settings for the executable, the
+working directory, command line switches, and the buffer name. You can
+customize this default settings, see
+@ref{Customization of the Emacs interface}.
+
+@item @code{singular-exit-singular} (bound to @code{C-c $} or menu
+@code{Singular}, item @code{Exit})
+
+Kills the running @sc{Singular} process of the current
+buffer (but does not kill the buffer). Once you have killed a
+@sc{Singular} process you can start a new one in the same buffer with
+the command @code{singular} (or select the item @code{Start default} of
+the @code{Singular} menu).
+
+@item @code{singular-restart} (bound to @code{C-c C-r} or menu
+@code{Singular}, item @code{Restart})
+
+Kills the running @sc{Singular} process of the current buffer and starts
+a new process in the same buffer with exactly the same command line
+arguments as before.
+
+@item @code{singular-control-c} (bound to @code{C-c C-c} or menu @code{Singular}, item @code{Interrupt})
+
+Interrupt the @sc{Singular} process running in the current buffer. Asks
+whether to (@code{a})bort the current @sc{Singular} command,
+(@code{q})uit or (@code{r})estart the current @sc{Singular} process, or
+(@code{c})ontinue without doing anything (default).
+@end itemize
+
+Whenever a @sc{Singular} process is started within the Emacs interface,
+the contents of a special startup file (by default
+@code{~/.emacs-singularrc}) is pasted as input to @sc{Singular} at the
+very end of the usual startup sequence (see @ref{Startup sequence}). The
+name of the startup file can be changed, see
+@ref{Customization of the Emacs interface}.
+
+
+@c --------------------------------------------------------------------------
+@node Demo mode, Customization of the Emacs interface, Running SINGULAR under Emacs, Emacs user interface
+@subsection Demo mode
+@cindex Emacs, Singular demo mode
+@cindex Singular, demo mode
+@cindex Demo mode
+
+The Emacs interface can be used to run interactive @sc{Singular}
+demonstrations. A demonstration is started by loading a so-called
+@sc{Singular} demo file with the Emacs command
+@code{singular-demo-load}, bound to
+@code{C-c C-d}, or with the menu @code{Commands->Load Demo}.
+
+A @sc{Singular} demo file should consist of @sc{Singular} commands
+separated by blank lines. When running a demo, the input up to the next
+blank line is echoed to the screen. Hitting @key{RETURN} executes the
+echoed commands and shows their output. Hitting @key{RETURN} again,
+echos the next commands to the screen, and so on, until all commands of
+the demo file are executed. While running a demo, you can
+execute other commands on the @sc{Singular} prompt: the next input
+from the demo file is then echoed again, if you hit @key{RETURN} on
+an empty input line.
+
+A @sc{Singular} demo can prematurely be exited by either starting
+another demo, or by executing the Emacs command
+@code{singular-demo-exit} (menu: @code{Commands->Exit Demo}).
+
+Some aspects of running @sc{Singular} demos can be customized.
+@xref{Customization of the Emacs interface}, for more info.
+
+
+@c --------------------------------------------------------------------------
+@node Customization of the Emacs interface, Editing SINGULAR input files with Emacs, Demo mode, Emacs user interface
+@subsection Customization of the Emacs interface
+@cindex Emacs, customization of Singular mode
+@cindex Singular, customization of Emacs user interface
+@cindex Customization of the Emacs interface
+
+Emacs provides a convenient interface to customize the behavior of
+Emacs and the SINGULAR Emacs interface for your own needs. You enter the
+customize environment by either calling @code{M-x customize} (on XEmacs
+you afterwards have to enter @code{emacs} in the minibuffer area) or by
+selecting the menu item @code{Options->Customize->Emacs...} for XEmacs,
+and the menu item @code{Help->Customize->Toplevel Customization Group}
+for Emacs, resp. A brief introduction to the customization mode comes up
+with the customization buffer. All customizable parameters are
+hierarchically grouped and you can browse through all these groups and
+change the values of the parameters using the mouse. At the end you can
+safe your settings to a file making your changes permanent.
+
+To change the settings of the @sc{Singular} Emacs interface you can
+either select the item @code{Preferences} of the @code{Singular} menu,
+call @code{M-x customize-group} and give the argument
+@code{singular-interactive} in the minibuffer area, or browse from the
+top-level customization group through the path
+@code{External->Singular->Singular interactive}.
+
+The @sc{Singular} interface customization buffer is divided into four
+groups:
+
+@itemize @bullet
+@item Singular Faces
+
+Here you can specify various faces used if font-lock-mode is enabled
+(which, by default, is).
+
+@item Singular Sections And Foldings
+
+Here you can specify special faces for @sc{Singular} input and output
+and change the text used as replacement for folded sections.
+
+For doing this, you also might
+find handy the function @code{customize-face-at-point},
+which lets you customize the face at the current position of
+point. This function is automatically defined if you run
+@code{ESingular}). Otherwise, you should add its definition (see below)
+to your personal @code{.emacs} file.
+
+@item Singular Interactive Miscellaneous
+
+Here you can specify various things such as the behavior of
+the cursor keys, the name of the special @sc{Singular} startup file, the
+appearance of the help window, or the default values for the
+@code{singular} command.
+@c Time: I find this sentence rather confusing
+@c For a first look at customization of the
+@c interface, this is probably the best group.
+
+
+@item Singular Demo Mode
+
+Here you can specify how chunks of the demo file are divided, or specify
+a default directory for demo files.
+@end itemize
+
+When you run @code{ESingular}, the settings of customized variables are
+saved in the file @code{$HOME/.emacs-singular-cust}. Otherwise, the
+settings are appended to your @code{.emacs} file. Among others, this
+means that the customized settings of @code{ESingular} are not
+automatically  taken over by a "normal" Emacs, and vice versa.
+
+
+@c --------------------------------------------------------------------------
+@node Editing SINGULAR input files with Emacs, Top 20 Emacs commands, Customization of the Emacs interface, Emacs user interface
+@subsection Editing SINGULAR input files with Emacs
+@cindex Emacs, editing Singular input files
+@cindex Singular, editing input files with Emacs
+@cindex Editing SINGULAR input files with Emacs
+
+Since @sc{Singular}'s programming language is similar to C, you
+should use the Emacs C/C++-mode to edit @sc{Singular} input files and
+@sc{Singular} libraries. Among others, this Emacs mode provides
+automatic indentation, line-breaking and keyword highlighting.
+
+When running @code{ESingular}, the C/C++-mode is automatically turned on
+whenever a file with the suffix @code{.sing}, or @code{.lib} is loaded.
+
+For Emacs sessions which were not started by @code{ESingular},  you
+should add the following to your @code{.emacs} file:
+@smallexample
+;; turn on c++-mode for files ending in ".sing" and ".lib"
+(setq auto-mode-alist (cons '("\\.sing\\'" . c++-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.lib\\'" .  c++-mode) auto-mode-alist))
+;; turn-on fontification for c++-mode
+(add-hook 'c++-mode-hook
+         (function (lambda () (font-lock-mode 1))))
+;; turn on aut-new line and hungry-delete
+(add-hook 'c++-mode-hook
+          (function (lambda () (c-toggle-auto-hungry-state 1))))
+;; a handy function for customization
+(defun customize-face-at-point ()
+  "Customize face which point is at."
+  (interactive)
+  (let ((face (get-text-property (point) 'face)))
+    (if face
+        (customize-face face)
+      (message "No face defined at point"))))
+
+@end smallexample
+
+Notice that you can change the default settings for source-code
+highlighting (colors, fonts, etc.) by customizing the respective faces
+using the @code{Customize} feature of Emacs. For doing this, you might
+find handy the above given function @code{customize-face-at-point},
+which lets you customize the face of the current position of point (this
+function is automatically defined if you run @code{ESingular}).
+
+@c --------------------------------------------------------------------------
+@node Top 20 Emacs commands,,Editing SINGULAR input files with Emacs, Emacs user interface
+@subsection Top 20 Emacs commands
+@cindex Emacs, important commands
+@cindex Singular, important commands of Emacs interface
+@cindex Top 20 Emacs commands
+
+Here is a list of the 20 probably most useful commands when using the
+@sc{Singular} Emacs interface.
+
+Starting and stopping of @sc{Singular}:
+
+@itemize @bullet
+
+@item @code{singular} (menu @code{Singular->Start Default...}): starts
+@sc{Singular} using default arguments.
+
+@item @code{singular-other} (menu @code{Singular->Start}): starts
+@sc{Singular} asking for several arguments in the minibuffer area.
+
+@item @code{singular-exit} (key @code{C-c $} or menu
+@code{Singular->Exit}): kills the @sc{Singular} process running in the
+current buffer (but does not kill the buffer).
+
+@item @code{singular-restart} (key @code{C-c C-r} or menu
+@code{Singular->Restart}): kills the @sc{Singular} process running in
+the current buffer and starts a new @sc{Singular} process with exactly
+the same arguments as before.
+
+@end itemize
+
+Editing input and output:
+
+@itemize @bullet
+
+@item @code{singular-beginning-of-line} (key @code{C-a}): moves point to
+beginning of line, then skips past the @sc{Singular} prompt, if any.
+
+@item @code{singular-toggle-truncate-lines} (key @code{C-c C-t} or menu
+@code{Commands->Truncate lines}): toggles whether long lines should be
+truncated or not. If lines are not truncated, the commands
+@code{singular-scroll-left} and @code{singular-scroll-right} are useful
+to scroll left and right, resp.
+
+@item @code{singular-dynamic-complete} (key @code{TAB}): performs
+context specific completion. If point is inside a string, file name
+completion is done. If point is at the end of a help command (i.e.,
+@code{help} or @code{?}), completion on @sc{Singular} help topics is
+done. If point is at the end of an example command (i.e.,
+@code{example}), completion is done on @sc{Singular} examples. In all
+other cases, completion on @sc{Singular} commands is done.
+
+@c note: add space between Fold/ Unfold to avoid overfull line
+@item @code{singular-folding-toggle-fold-latest-output} (key @code{C-c
+C-o} or menu @code{Commands->Fold/ Unfold Latest Output}): toggles
+folding of the latest output section. If your last @sc{Singular} command
+produced a huge output, simply type @code{C-c C-o} and it will be
+replaced by a single line.
+
+@item @code{singular-folding-toggle-fold-at-point} (key @code{C-c C-f}
+or menu @code{Commands->Fold/Unfold At Point}): toggles folding of the
+section the point currently is in.
+
+@item @code{singular-folding-fold-all-output} (menu @code{Commands->Fold
+All Output}): folds all @sc{Singular} output, replacing each output
+section by a single line.
+
+@item @code{singular-folding-unfold-all-output} (menu
+@code{Commands->Unfold All Output}): unfolds all @sc{Singular} output
+sections showing their true contents.
+
+@end itemize
+
+Loading of files and @sc{Singular} demo mode:
+
+@itemize @bullet
+
+@item @code{singular-load-library} (key @code{C-c C-l} or menu
+@code{Commands->Libraries->other...}): asks for a standard library name
+or a library file in the minibuffer (hit @code{TAB} for completion) and
+loads the library into @sc{Singular}. The submenu @code{Libraries} of
+the @code{Commands} menu also provides a separate menu item for each
+standard library.
+
+@item @code{singular-load-file} (key @code{C-c <} or menu
+@code{Commands->Load File...}): asks for a file name in the minibuffer
+(which is expanded using @code{expand-file-name} if given a prefix
+argument) and loads the file into @sc{Singular}.
+
+@item @code{singular-demo-load} (key @code{C-c C-d} or menu
+@code{Commands->Load Demo...}): asks for a file name of a @sc{Singular}
+demo file in the minibuffer area (hit @code{SPACE} for completion) and
+enters the @sc{Singular} demo mode showing the first chunk of the demo.
+
+@item @code{singular-demo-exit} (menu @code{Commands->Exit Demo}):
+exits from @sc{Singular} demo mode and cleans up everything that is
+left from the demo.
+
+@end itemize
+
+Help and Customization:
+
+@itemize @bullet
+
+@item @code{singular-help} (key @code{C-h C-s} or menu
+@code{Singular->Singular Help}): asks for a @sc{Singular} help topic in
+the minibuffer (hit @code{TAB} for completion) and shows the help text
+in a separate buffer.
+
+@item @code{singular-example} (key @code{C-c C-e} or menu
+@code{Singular->Singular Example}): asks for a @sc{Singular} command in
+the minibuffer (hit @code{TAB} for completion) and executes the example
+of this command in the current @sc{Singular} buffer.
+
+@item @code{customize-group} (menu @code{Singular->Preferences}): enters
+the customization group of the @sc{Singular} Emacs interface. (If called
+via @code{M-x customize-group} give argument @code{singular-interactive}
+in the minibuffer area.)
+
+@end itemize
+
+
+@c ---------------------------------------------------------------------------
+@c ---------------------------------------------------------------------------
+@node Rings and orderings, Implemented algorithms, Emacs user interface, General concepts
+@section Rings and orderings
+@cindex Rings and orderings
+@cindex QQ
+@cindex ZZ
+@cindex ZZ/p
+@cindex ZZ/m
+
+All non-trivial algorithms in @sc{Singular} require the prior definition of
+a ring. Such a ring can be
+
+@enumerate
+@item
+a polynomial ring over a field,
+@item
+a polynomial ring over a ring
+@item
+a localization of 1.
+@item
+a quotient ring by an ideal of 1.@: or 2.,
+@item
+a tensor product of 1.@: or 2.
+@end enumerate
+
+Except for quotient rings, all of these rings are realized by choosing a
+coefficient field, ring variables, and an appropriate global or local
+monomial ordering on the ring variables.  @xref{Term orderings},
+@ref{Mathematical background}.
+
+The coefficient field of the rings may be
+
+@cindex real
+@cindex complex
+@enumerate
+@item
+the field of rational numbers @math{Q} (@code{QQ}),
+@item
+@tex
+finite fields $Z/p$, $p$ a prime $\le 2147483647$,
+@end tex
+@ifinfo
+finite fields Z/p, p a prime <= 2147483647 (@code{(ZZ/p)}),
+@end ifinfo
+@item
+@tex
+finite fields $\hbox{GF}(p^n)$ with $p^n$ elements, $p$ a prime, $p^n \le 2^{16}$,
+@end tex
+@ifinfo
+finite fields GF(p^n) with p^n elements, p a prime, p^n <= 2^16,
+@end ifinfo
+@item
+transcendental extension of @math{Q} or @math{Z/p},
+@item
+simple algebraic extension of @math{Q} or @math{Z/p},
+@item
+the field of real numbers represented by floating point
+numbers of a user defined precision,
+@item
+the field of complex numbers represented by (pairs of) floating point
+numbers of a user defined precision,
+@item
+the ring of integers (@code{ZZ}),
+@item
+finite rings @math{Z/m} with @math{m\in Z}.
+@end enumerate
+
+In case of coefficient rings, which are not fields (i.e. @math{Z} and @math{Z/ma}), only the following functions
+are guaranteed to work:
+
+@itemize
+@item
+- basic polynomial arithmetic, i.e. addition, multiplication, exponentiation
+@item
+- std, i.e. computing standard bases (and related: syz, etc.)
+@item
+- interred
+@item
+- reduce
+@end itemize
+
+@cindex basering
+Throughout this manual, the current active ring in @sc{Singular} is
+called basering.  The reserved name @code{basering} in @sc{Singular} is
+an alias for the current active ring.  The basering can be set by
+declaring a new ring as described in the following subsections or by using
+the commands @code{setring} and @code{keepring}. @xref{keepring}, @ref{setring}.
+
+Objects of ring dependent types are local to a ring. To access them
+after a change of the basering they have to be mapped using @code{map} or by
+the functions @code{imap} or @code{fetch}.  @xref{Objects}, @ref{fetch},
+@ref{imap}, @ref{map}.
+
+All changes of the basering in a procedure are local to this procedure
+unless a @code{keepring} command is used as the last statement of the
+procedure.  @xref{Procedures}, @ref{keepring}.
+
+@menu
+* Examples of ring declarations::
+* General syntax of a ring declaration::
+* Term orderings::
+* Coefficient rings::
+@end menu
+
+@c --------------------------------------
+@node Examples of ring declarations, General syntax of a ring declaration, Rings and orderings, Rings and orderings
+@subsection Examples of ring declarations
+@cindex Examples of ring declarations
+
+The exact syntax of a ring declaration is given in the next two
+subsections; this subsection lists some examples first. Note that the chosen
+ordering implies that a unit-elements of the ring will be among the elements
+with leading monomial 1. For more information, see @ref{Monomial orderings}.
+
+Every floating point number in a ring consists of two parts, which may be
+chosen by the user. The leading part represents the number and the rest
+is for numerical stability. Two numbers with a difference only in the
+rest will be regarded equal.
+
+@itemize @bullet
+@item
+the ring @math{Z/32003[x,y,z]} with degree reverse lexicographical
+ordering.  The exact ring declaration may be omitted in the first
+example since this is the default ring:
+
+@smallexample
+ring r1;
+ring r2 = 32003,(x,y,z),dp;
+ring r3=(ZZ/32003)[x,y,z];
+ring r4 = (ZZ/32003),(x,y,z),dp;
+@end smallexample
+
+@item
+similar examples with indexed variables. The ring variables of
+r1 are going to be x(1)..x(10); in r2 they will be x(1)(1),
+x(1)(2), ..., x(1)(8), x(2)(1), ..., x(5)(8):
+
+@smallexample
+ring r1 = 32003,(x(1..10)),dp;
+ring r2 = 32003,(x(1..5)(1..8)),dp;
+ring r3 = (ZZ/32003)[x(1..5)(1..8)];
+ring r4 = (ZZ/32003),(x(1..5)(1..8)),dp;
+@end smallexample
+
+@item
+the ring @math{Q[a,b,c,d]} with lexicographical ordering:
+
+@smallexample
+ring r1 = 0,(a,b,c,d),lp;
+ring r2 = QQ,(a,b,c,d),lp;
+@end smallexample
+
+@item
+the ring @math{Z/7[x,y,z]} with local degree reverse lexicographical
+ordering.  The non-prime 10 is converted to the next lower prime in the
+second example:
+
+@smallexample
+ring r1 = 7,(x,y,z),ds;
+ring r2 = 10,(x,y,z),ds;
+ring r3 = (ZZ/7),(x,y,z),ds;
+@end smallexample
+
+@item
+the ring
+@tex
+$Z/7[x_1,\ldots,x_6]$
+@end tex
+@ifinfo
+Z/7[x1,@dots{},x6]
+@end ifinfo
+with lexicographical ordering for
+@tex
+$x_1,x_2,x_3$
+@end tex
+@ifinfo
+x1,x2,x3
+@end ifinfo
+and degree reverse lexicographical ordering for
+@tex
+$x_4,x_5,x_6$:
+@end tex
+@ifinfo
+x4,x5,x6:
+@end ifinfo
+
+@smallexample
+ring r1 = 7,(x(1..6)),(lp(3),dp);
+ring r2 = (ZZ/7),(x(1..6)),(lp(3),dp);
+@end smallexample
+
+@item
+the localization of @math{(Q[a,b,c])[x,y,z]} at the maximal ideal
+@math{(x,y,z)}:
+
+@smallexample
+ring r1 = 0,(x,y,z,a,b,c),(ds(3), dp(3));
+ring r2 = QQ,(x,y,z,a,b,c),(ds(3), dp(3));
+@end smallexample
+
+@item
+the ring @math{Q[x,y,z]} with weighted reverse lexicographical ordering.
+The variables @math{x}, @math{y}, and @math{z} have the weights 2, 1,
+and 3, respectively, and  vectors are first ordered by components (in
+descending order) and then by monomials:
+@smallexample
+ring r1 = 0,(x,y,z),(c,wp(2,1,3));
+ring r2 = QQ,(x,y,z),(c,wp(2,1,3));
+@end smallexample
+For ascending component order, the component ordering @code{C} has to be
+used.
+
+@item
+the ring @math{K[x,y,z]}, where @math{K=Z/7(a,b,c)} denotes the transcendental
+extension of @math{Z/7} by @math{a}, @math{b} and @math{c} with degree
+lexicographical ordering:
+
+@smallexample
+ring r = (7,a,b,c),(x,y,z),Dp;
+@end smallexample
+
+@item
+the ring @math{K[x,y,z]}, where @math{K=Z/7[a]} denotes the algebraic extension of
+degree 2 of @math{Z/7} by @math{a.} In other words, @math{K} is the finite field with
+49 elements.  In the first case, @math{a} denotes an algebraic
+element over @math{Z/7} with minimal polynomial
+@tex
+$\mu_a=a^2+a+3$,
+@end tex
+@ifinfo
+mu_a=a^2+a+3,
+@end ifinfo
+in the second case, @math{a}
+refers to some generator of the cyclic group of units of @math{K}:
+
+@smallexample
+ring r = (7,a),(x,y,z),dp; minpoly = a^2+a+3;
+ring r = (7^2,a),(x,y,z),dp;
+@end smallexample
+
+@item
+the ring @math{R[x,y,z]}, where @math{R} denotes the field of real
+numbers represented by simple precision floating point numbers. This is
+a special case:
+
+@smallexample
+ring r = real,(x,y,z),dp;
+@end smallexample
+
+@item
+the ring @math{R[x,y,z]}, where @math{R} denotes the field of real
+numbers represented by floating point numbers of 50 valid decimal digits
+and the same number of digits for the rest:
+
+@smallexample
+ring r = (real,50),(x,y,z),dp;
+@end smallexample
+
+@item
+the ring @math{R[x,y,z]}, where @math{R} denotes the field of real
+numbers represented by floating point numbers of 10 valid decimal digits
+and with 50 digits for the rest:
+
+@smallexample
+ring r = (real,10,50),(x,y,z),dp;
+@end smallexample
+
+@item
+the ring @math{R(j)[x,y,z]}, where @math{R} denotes the field of real
+numbers represented by floating point numbers of 30 valid decimal digits
+and the same number for the rest. @math{j} denotes the imaginary unit.
+
+@smallexample
+ring r = (complex,30,j),(x,y,z),dp;
+@end smallexample
+
+@item
+the ring @math{R(i)[x,y,z]}, where @math{R} denotes the field of real
+numbers represented by floating point numbers of 6 valid decimal digits
+and the same number for the rest. @math{i} is the default for the imaginary unit.
+
+@smallexample
+ring r = complex,(x,y,z),dp;
+@end smallexample
+
+@item
+the quotient ring @math{Z/7[x,y,z]} modulo the square of the maximal
+ideal @math{(x,y,z)}:
+
+@smallexample
+ring R = 7,(x,y,z), dp;
+qring r = std(maxideal(2));
+@end smallexample
+
+@item
+the ring @math{Z[x,y,z]}:
+
+@smallexample
+ring R = integer,(x,y,z), dp;
+@end smallexample
+
+@item
+the ring @math{Z/6^3[x,y,z]}:
+
+@smallexample
+ring R = (integer, 6, 3),(x,y,z), dp;
+@end smallexample
+
+@item
+the ring @math{Z/100[x,y,z]}:
+
+@smallexample
+ring R = (integer, 100),(x,y,z), dp;
+@end smallexample
+
+@end itemize
+
+@c ---------------------------------------------------------------------------
+@node General syntax of a ring declaration, Term orderings, Examples of ring declarations, Rings and orderings
+@subsection General syntax of a ring declaration
+@cindex General syntax of a ring declaration
+
+@subsubheading Rings
+@c ------------------------------------------------------------
+@c   This piece of text (partially) exists also in the
+@c   file types.doc, chapter "ring declarations".
+@c   If you change something here, change it there, too!
+@c ------------------------------------------------------------
+@table @strong
+@item Syntax:
+@code{ring} name @code{=} @code{(}coefficients@code{),}
+  @code{(} names_of_ring_variables @code{),}
+  @code{(} ordering @code{);}
+or@*
+@code{ring} name @code{=} cring
+  @code{[} names_of_ring_variables @code{]}
+@item Default:
+@code{(ZZ/32003)[x,y,z];}
+@item Purpose:
+declares a ring and sets it as the current basering.
+The second form sets the ordering to @code{(dp,C)}.
+@code{cring} stands currently for @code{QQ} (the rationals), @code{ZZ} (the integers)
+or @code{(ZZ/m)} (the field (m prime and <2147483648) resp. ring of the integers modulo m).
+@end table
+
+The coefficients (for the first form) are given by one of the following:
+@enumerate
+@item
+a @code{cring} as given above
+@item
+a non-negative int_expression less than 2147483648 (2^31).
+@* The int_expression should either be 0, specifying the field of
+rational numbers Q, or a prime number p, specifying the finite field
+with p elements.  If it is not a prime number, int_expression is
+converted to the next lower prime number.
+
+@item
+an expression_list of an int_expression and one or more names.
+@* The int_expression specifies the characteristic of the coefficient
+field as described above. The names are used as parameters in
+transcendental or algebraic extensions of the coefficient
+field. Algebraic extensions are implemented for one parameter only. In
+this case, a minimal polynomial has to be defined by an assignment to
+@code{minpoly}. @xref{minpoly}.
+
+@item
+an expression_list of an int_expression and a name.
+@* The int_expression has to be a prime number p to the power of a
+positive integer n. This defines the Galois field
+@tex
+$\hbox{GF}(p^n)$ with $p^n$ elements, where $p^n$ has to be less than or equal to $2^{15}$.
+@end tex
+@ifinfo
+GF(p^n) with p^n elements, where p^n has to be smaller or equal 2^15.
+@end ifinfo
+The given name refers to a primitive element of
+@tex
+$\hbox{GF}(p^n)$
+@end tex
+@ifinfo
+GF(p^n)
+@end ifinfo
+generating the multiplicative group.  Due to a different internal
+representation, the arithmetic operations in these coefficient fields
+are faster than arithmetic operations in algebraic extensions as
+described above.
+
+@item
+an expression_list of the name @code{real} and two optional int_expressions
+determining the precision in decimal digits and
+the size for the stabilizing rest. The default for the rest is the same size
+as for the representation.
+An exception is the name @code{real} without any integers.
+These numbers are implemented as machine floating point numbers
+of single precision.
+Note that computations over all these fields are not exact.
+
+@item
+an expression_list of the name @code{complex},
+two optional int_expression and a name.
+This specifies the field of complex numbers represented by floating point
+numbers with a precision similar to @code{real}. An expression_list
+without int_expression defines a precision and rest with length 6.
+The name of the imaginary unit is given by the last parameter.
+Note that computations over these fields are not exact.
+
+@item
+an expression_list with the name @code{integer}. This specifies the ring of integers.
+
+@item
+an expression_list with the name @code{integer} and one subsequent int_expression.
+This specifies the ring of integers modulo the given int_expression.
+
+@item
+an expression_list with the name @code{integer} and two int_expressions @code{b} and @code{e}.
+This specifies the ring of integers modulo b^e. If @code{b = 2} and @code{e < int_bit_size}
+an optimized implementation is used.
+
+@end enumerate
+
+'names_of_ring_variables' is a list of names or indexed names.
+
+'ordering' is a list of block orderings where each block ordering is either
+
+@enumerate
+@item
+@code{lp}, @code{dp}, @code{Dp}, @code{ls}, @code{ds}, or @code{Ds}
+optionally followed by a size parameter in parentheses.
+
+@item
+@code{wp}, @code{Wp}, @code{ws}, @code{Ws}, or @code{a} followed by a
+weight vector given as an intvec_expression in parentheses.
+
+@item
+@code{M} followed by an intmat_expression in parentheses.
+
+@item
+@code{c} or @code{C}.
+@end enumerate
+
+For the definition of the orderings, see @ref{Monomial orderings}.
+
+If one of coefficients, names_of_ring_variables, and ordering
+consists of only one entry, the parentheses around this entry may be
+omitted.
+@c ------------------------------------------------------------
+@c   End of duplicate piece of text.
+@c ------------------------------------------------------------
+
+@subsubheading Quotient rings
+@c ------------------------------------------------------------
+@c   This piece of text (partially) exists also in the
+@c   file types.doc, chapter "qring declarations", and in
+@c   singular.doc, chapter "Miscellaneous oddities".
+@c   If you change something here, change it there, too!
+@c ------------------------------------------------------------
+@table @strong
+@item Syntax:
+@code{qring} name @code{=} ideal_expression @code{;}
+@item Default:
+none
+@item Purpose:
+declares a quotient ring as the basering modulo ideal_expression, and sets
+it as current basering.
+@end table
+
+ideal_expression has to be represented by a standard basis.
+
+The most convenient way to map objects from a ring to its quotient ring
+and vice versa is to use the @code{fetch} function (@pxref{fetch}).
+
+@sc{Singular} computes in a quotient ring as long as possible with the
+given representative of a polynomial, say, @code{f}.  I.e., it usually
+does not reduce @code{f} w.r.t. the quotient ideal.  This is only done
+when necessary
+during standard bases computations or by an explicit reduction using
+the command @code{reduce(f, std(0))} (@pxref{reduce}).
+
+Operations based on standard bases (e.g. @code{std},@code{groebner}, etc., @code{reduce}) and functions which require a standard basis (e.g. @code{dim},@code{hilb}, etc.) operated with the residue classes; all others on the polynomial objects.
+
+@strong{Example:}
+@smallexample
+@c example
+  // definition and usage:
+  ring r=(ZZ/32003)[x,y];
+  poly f=x3+yx2+3y+4;
+  qring q=std(maxideal(2));
+  basering;
+  poly g=fetch(r, f);
+  g;
+  reduce(g,std(0));
+  // polynomial and residue class:
+  ring R=QQ[x,y];
+  qring Q=std(y);
+  poly p1=x;
+  poly p2=x+y;
+  // comparing polynomial objects:
+  p1==p2;
+  // comparing residue classes:
+  reduce(p1,std(0))==reduce(p2,std(0));
+@c example
+@end smallexample
+
+@c ------------------------------------------------------------
+@c   End of duplicate piece of text.
+@c ------------------------------------------------------------
+
+@c ---------------------------------------------------------------------------
+@node Term orderings,  Coefficient rings, General syntax of a ring declaration, Rings and orderings
+@subsection Term orderings
+@cindex Monomial orderings, Term orderings
+
+Any polynomial (resp.@: vector) in @sc{Singular} is ordered w.r.t. a
+term ordering (or, monomial ordering), which has to be specified
+together with the declaration of a ring. @sc{Singular} stores and
+displays a polynomial (resp.@: vector) w.r.t. this ordering, i.e., the
+greatest monomial (also called the leading monomial) is the first one
+appearing in the output polynomial, and the smallest monomial is the last one.
+
+@strong{Remark:} The novice user should generally use the ordering
+@code{dp} for computations in the polynomial ring
+@tex
+$K[x_1,\ldots,x_n]$,
+@end tex
+@ifinfo
+K[x1,...,xn],
+@end ifinfo
+resp.@:  @code{ds} for computations in the localization
+@tex
+$\hbox{Loc}_{(x)}K[x_1,\ldots,x_n])$.
+@end tex
+@ifinfo
+Loc_(x)K[x1,...,xn]).
+@end ifinfo
+For more details, see @ref{Polynomial data}.
+
+In a ring declaration, @sc{Singular} offers the following orderings
+(but see also @ref{Monomial orderings}):
+@enumerate
+@item Global orderings
+@table @asis
+@item @code{lp}
+lexicographical ordering
+
+@item @code{ip}
+inverse lexicographical ordering, i.e. a lexicographical ordering from the right
+with 1 < x_1 < ... <x_n
+@*(Should not be used (unless for non-commutaive rings)
+as it reverses the "natural" x_1 > ... > x_n,
+reorder the variables instead)
+
+@item @code{dp}
+degree reverse lexicographical ordering
+
+@item @code{Dp}
+degree lexicographical ordering
+
+@item @code{wp(} intvec_expression @code{)}
+weighted reverse lexicographical ordering; the weight vector is expected to
+consist of positive integers only.
+
+@item @code{Wp(} intvec_expression @code{)}
+weighted lexicographical ordering; the weight vector is expected to consist of
+positive integers only.
+
+@item @code{Ip}
+degree inverse lexicographical ordering, i.e.sorting by degree, followed by a
+lexicographical ordering from the right with 1 < x_1 < ... <x_n
+@*(Should not be used (unless for non-commuative rings) as it reverses the "natural" x_1 > ... > x_n,
+reorder the variables instead)
+@end table
+
+Global orderings are well-orderings, i.e., @math{1 < x} for each ring
+variable @math{x}. They are denoted by a @code{p} as the second
+character in their name.
+
+@item Local orderings
+@table @asis
+@item @code{ls}
+negative lexicographical ordering
+
+@item @code{is}
+negative inverse lexicographical ordering, i.e. a lexicographical ordering from the right
+@*(should not be used as it reverses the "natural" x_1 < ... < x_n,
+reorder the variables instead)
+
+@item @code{ds}
+negative degree reverse lexicographical ordering
+
+@item @code{Ds}
+negative degree lexicographical ordering
+
+@item @code{ws(} intvec_expression @code{)}
+(general) weighted reverse lexicographical ordering; the first element
+of the weight vector has to be non-zero.
+
+@item @code{Ws(} intvec_expression @code{)}
+(general) weighted lexicographical ordering; the first element
+of the weight vector has to be non-zero.
+@end table
+
+Local orderings are not well-orderings. They are denoted by an @code{s}
+as the second character in their name.
+
+@item Matrix orderings
+@table @asis
+@item @code{M(} intmat_expression @code{)}
+intmat_expression has to be an invertible square matrix
+@end table
+
+Using matrix orderings, @sc{Singular} can compute standard bases
+w.r.t.@: any monomial ordering which is compatible with the natural
+semi-group structure on the monomials. In practice, the predefined global
+and local orderings together with the block orderings should be
+sufficient in most cases. These orderings are faster than their
+corresponding matrix orderings since evaluation of a matrix ordering is more
+time consuming.
+
+@item Extra weight vector
+@table @asis
+@item @code{a(} intvec_expression @code{)}
+@item @code{aa(} intvec_expression @code{)}
+@item @code{am(} intvec_expression @code{)}
+@end table
+an extra weight vector @code{a(} intvec_expression @code{)}, may precede
+any monomial ordering.@*
+@code{aa} allows larger degrees.@*
+@code{am} allows degrees for module generators (see example)
+
+Example for ordering @code{am}
+@smallexample
+@c example
+ring r=QQ,(x,y,z),(am(1,1,1,4,1,6),dp);
+r;
+[x,y,z];
+deg([x]);
+deg([0,y]);
+deg([0,0,z]);
+deg([0,0,0,x]);
+@c example
+@end smallexample
+
+@item Product ordering
+@table @asis
+@item @code{(} ordering [ @code{(} int_expression @code{)} ]@code{,} @dots{} @code{)}
+any of the above orderings and the extra weight vector may be combined
+to yield product or block orderings
+@end table
+
+The orderings @code{lp}, @code{dp}, @code{Dp}, @code{ls}, @code{ds},
+@code{Ds} and @code{rp} may be followed by an int_expression in
+parentheses giving the
+size of the block. For the last block the size is calculated
+automatically. For weighted orderings, the size of the block is given
+by the size of the weight vector. The same holds analogously for matrix
+orderings.
+
+@item Module orderings
+@table @asis
+@item @code{(} ordering@code{,} @dots{}@code{, C )}
+@itemx @code{(} ordering@code{,} @dots{}@code{, c )}
+sort polynomial vectors by the monomial ordering first, then by
+components
+
+@item @code{( C,} ordering@code{,} @dots{} @code{)}
+@itemx @code{( c,} ordering@code{,} @dots{} @code{)}
+sort polynomial vectors by components first, then by the monomial
+ordering
+@end table
+
+Here a capital @code{C} sorts generators in ascending order, i.e.,
+@code{gen(1)} < @code{gen(2)} < @enddots{} A small @code{c} sorts in
+descending order, i.e., @code{gen(1)} > @code{gen(2)} > @enddots{} It is
+not necessary to specify the module ordering explicitly since @code{(}
+ordering@code{,} @dots{}@code{, C )} is the default.
+
+In fact, @code{c} or @code{C} may be specified anywhere in a product
+ordering specification, not only at its beginning or end.  All monomial
+block orderings preceding the component ordering have higher precedence,
+all monomial block orderings following after it have lower precedence.
+@end enumerate
+
+For a mathematical description of these orderings, see
+@ref{Polynomial data}.
+
+@c ---------------------------------------------------------------------------
+@node Coefficient rings,  , Term orderings, Rings and orderings
+@subsection Coefficient rings
+@cindex coefficient rings, ring of integers, zero divisors, p-adic numbers
+
+@sc{Singular} supports coefficient ranges which are not fields, i.e. the
+integers @math{Z} and the finite rings @math{Z/n} for a number @code{n}. These
+coefficient rings were implemented in @sc{Singular} 3.0.5 and at the moment
+only limited functionality is available.
+
+@subheading p-adic numbers
+@cindex p-adic numbers
+@cindex l-adic numbers
+@cindex projective limes
+
+The p-adic integers @math{Z_p} are the projective limit of the finite
+rings @math{Z/p^n} for @code{n} to infinity. Therefore, computations in this ring
+can be approximated by computations in @math{Z/p^n} for large @code{n}.
+
+@c ---------------------------------------------------------------------------
+@node Implemented algorithms, The SINGULAR language, Rings and orderings, General concepts
+@section Implemented algorithms
+@cindex Implemented algorithms
+
+The basic algorithm in @sc{Singular} is a general standard basis algorithm for
+any monomial ordering which is compatible with the natural semi-group
+structure of the exponents. This includes well-orderings
+(Buchberger algorithm to compute a Groebner basis)
+and tangent cone orderings (Mora algorithm) as special cases.
+
+Nonetheless, there are a lot of other important algorithms:
+@itemize @bullet
+
+@item
+Algorithms to compute the standard operations on ideals and modules:
+intersection, ideal quotient, elimination, etc.
+
+@item
+Different Syzygy algorithms and algorithms to compute free resolutions
+of modules.
+
+@item
+Combinatorial algorithms to compute dimensions, Hilbert series,
+multiplicities, etc.
+
+@item
+Algorithms for univariate and multivariate polynomial factorization,
+resultant and gcd computations.
+@end itemize
+
+@c ----------------------------------------------------------------------
+@subheading Commands to compute standard bases
+@table @code
+@item facstd
+@ref{facstd}
+@*computes a list of Groebner bases via the Factorizing Groebner Basis
+Algorithm, i.e., their intersection has the same radical as the original ideal. It need not
+be a Groebner basis of the given ideal.
+
+The intersection of the zero-sets is the zero-set of the given ideal.
+@item fglm
+@ref{fglm}
+@*computes a Groebner basis provided that a reduced Groebner basis
+w.r.t.@: another ordering is given.
+
+Implements the so-called FGLM (Faugere, Gianni, Lazard, Mora) algorithm.
+The given ideal must be zero-dimensional.
+@item groebner
+@ref{groebner}@*
+computes a standard resp.@: Groebner basis using a heuristically chosen
+method.
+
+This is the preferred method to compute a standard resp.@: Groebner
+bases.
+@item mstd
+@ref{mstd}
+@*computes a standard basis and a minimal set of generators.
+@item std
+@ref{std}
+@*computes a standard resp.@: Groebner basis.
+@item stdfglm
+@ref{stdfglm}
+@*computes a Groebner basis in a ring with a ``difficult'' ordering
+(e.g., lexicographical) via @code{std} w.r.t.@: a ``simple'' ordering and
+@code{fglm}.
+
+The given ideal must be zero-dimensional.
+@item stdhilb
+@ref{stdhilb}@*
+computes a Groebner basis in a ring with a ``difficult'' ordering
+(e.g., lexicographical) via @code{std} w.r.t.@: a ``simple'' ordering
+and a @code{std} computation guided by the Hilbert series.
+@end table
+
+@c ----------------------------------------------------------------------
+@subheading Further processing of standard bases
+The next commands require the input to be a standard basis.
+
+@table @code
+@item degree
+@ref{degree}
+@*computes the (Krull) dimension, codimension and the multiplicity.
+
+The result is only displayed on the screen.
+@item dim
+@ref{dim}@*
+computes the dimension of the ideal resp.@: module.
+@item highcorner
+@ref{highcorner}@*
+computes the smallest monomial not contained in the ideal resp.@: module.
+The ideal resp.@: module has to be finite dimensional as a vector space
+over the ground field.
+@item hilb
+@ref{hilb}@*
+computes the first, and resp.@: or, second Hilbert series of an ideal
+resp.@: module.
+@item kbase
+@ref{kbase}@* computes a vector space basis (consisting of monomials) of
+the quotient of a ring by an ideal resp.@: of a free module by a
+submodule.
+
+The ideal resp.@: module has to be finite dimensional as a vector space
+over the ground field and has to be represented by a standard basis w.r.t.@:
+the ring ordering.
+@item mult
+@ref{mult}@*
+computes the degree of the monomial ideal resp.@: module generated by
+the leading monomials of the input.
+@item reduce
+@ref{reduce}@*
+reduces a polynomial, vector, ideal or module to its normal form with
+respect to an ideal or module represented by a standard basis.
+@item vdim
+@ref{vdim}@*
+computes the vector space dimension of a ring (resp.@: free module)
+modulo an ideal (resp.@: module).
+@end table
+
+@c ----------------------------------------------------------------------
+@subheading Commands to compute resolutions
+@table @code
+@item res
+@ref{res}@*
+computes a free resolution of an ideal or module using a heuristically
+chosen method.
+This is the preferred method to compute free resolutions of ideals or
+modules.
+@item fres
+@ref{fres}@*
+improved version of @ref{sres}, computes a free resolution of an ideal or
+module using Schreyer's method. The input has to be a standard basis.
+@item lres
+@ref{lres}@*
+computes a free resolution of an ideal or module with LaScala's
+method. The input needs to be homogeneous.
+@item mres
+@ref{mres}@*
+computes a minimal free resolution of an ideal or module with the Syzygy
+method.
+@item sres
+@ref{sres}@*
+computes a free resolution of an ideal or module with Schreyer's
+method. The input has to be a standard basis.
+@item nres
+@ref{nres}@*
+computes a free resolution of an ideal or module with the standard basis
+method.
+@item syz
+@ref{syz}@*
+computes the first Syzygy (i.e., the module of relations of the
+given generators).
+@end table
+
+@c ----------------------------------------------------------------------
+@subheading Further processing of resolutions
+@table @code
+@item betti
+@ref{betti}@*
+computes the graded Betti numbers of a module from a free resolution.
+@item minres
+@ref{minres}@*
+minimizes a free resolution of an ideal or module.
+@item regularity
+@ref{regularity}@*
+computes the regularity of a homogeneous ideal resp.@: module from a given
+minimal free resolution.
+@end table
+
+@c ----------------------------------------------------------------------
+@subheading Processing of polynomials
+@table @code
+@item char_series
+@ref{char_series}@*
+computes characteristic sets of polynomial ideals.
+@item extgcd
+@ref{extgcd}@*
+computes the extended gcd of two polynomials.
+
+This is implemented as extended Euclidean Algorithm, and applicable for univariate
+polynomials only.
+@item factorize
+@ref{factorize}@*
+computes factorization of univariate and multivariate polynomials into
+irreducible factors.
+
+The most basic algorithm is univariate factorization in prime
+characteristic.  The Cantor-Zassenhaus Algorithm is used in this case.
+For characteristic 0, a univariate Hensel-lifting is done to lift from
+prime characteristic to characteristic 0.  For multivariate
+factorization in any characteristic, the problem is reduced to the
+univariate case first, then a multivariate Hensel-lifting is used to
+lift the univariate factorization.
+
+Factorization of polynomials over algebraic extensions is provided by
+factoring the norm for univariate polynomials f (the gcd of f and the
+factors of the norm is a factorization of f) resp. by the extended Zassenhaus
+algorithm for multivariate polynomials.
+
+@item gcd
+@ref{gcd}@*
+computes greatest common divisors of univariate and multivariate polynomials.
+
+In the univariate case NTL is used.
+For prime characteristic, a subresultant gcd is used.  In characteristic 0,
+the EZGCD is used, except for a special case where a modular algorithm is used.
+
+@item resultant
+@ref{resultant}@*
+computes the resultant of two univariate polynomials using the subresultant
+algorithm.
+
+Multivariate polynomials are considered as univariate polynomials in the
+main variable (which has to be specified by the user).
+@item vandermonde
+@ref{vandermonde}@*
+interpolates a polynomial from its values at several points
+@end table
+
+@c ----------------------------------------------------------------------
+@subheading Matrix computations
+@table @code
+@item bareiss
+@ref{bareiss}@*
+implements sparse Gauss-Bareiss method for elimination (matrix
+triangularization) in arbitrary integral domains.
+@item det
+@ref{det}@*
+computes the determinant of a square matrix.
+
+For matrices with integer entries a modular algorithm is used.  For
+other domains the Gauss-Bareiss method is used.
+@item minor
+@ref{minor}@*
+computes all minors (=subdeterminants) of a given size for a matrix.
+@end table
+
+@c ----------------------------------------------------------------------
+@subheading Numeric computations
+@table @code
+@item laguerre
+@ref{laguerre}@*
+computes all (complex) roots of a univariate polynomial
+@item uressolve
+@ref{uressolve}@*
+finds all roots of a 0-dimensional ideal with multivariate resultants
+@end table
+
+@c ----------------------------------------------------------------------
+@subheading Controlling computations
+@table @code
+@item option
+@ref{option}@*
+allows setting of options for manipulating the behaviour of computations
+(such as reduction strategies) and for showing protocol information indicating
+the progress of a computation.
+@end table
+
+@c ---------------------------------------------------------------------------
+@node The SINGULAR language, Input and output, Implemented algorithms, General concepts
+@section The SINGULAR language
+@cindex The SINGULAR language
+
+@sc{Singular} interprets commands given interactively on the command
+line as well as given in the context of user-defined procedures.  In
+fact, @sc{Singular} makes no distinction between these two cases.
+Thus, @sc{Singular} offers a powerful programming language as well as
+an easy-to-use command line interface without differences in syntax or
+semantics.
+
+In the following, the basic language concepts such as commands,
+expressions, names, objects, etc., are discussed.  @xref{Procedures},
+and @ref{Libraries},
+for the concepts of procedures
+and libraries.
+
+In many aspects, the @sc{Singular} language is similar to the C
+programming language.  For a description of some of the subtle
+differences, see @ref{Major differences to the C programming language}.
+
+@subsubheading Elements of the language
+
+The major building blocks of the @sc{Singular} language  are
+expressions, commands, and control structures.  The notion of expressions
+in the @sc{Singular} and the C programming language are identical,
+whereas the notion of commands and control structures only roughly
+corresponds to C statements.
+
+@itemize @bullet
+
+@item
+An ``expression'' is a sequence of operators, functions, and operands
+that specifies a computation.  An expression always results in a
+value of a specific type.  @xref{Data types}, and its subsections (e.g.,
+@ref{poly expressions}), for information on how to build expressions.
+
+@item
+A ``command'' is either a declaration, an assignment, a call to a
+function without return value, or a print command.  For detailed
+information, see @ref{General command syntax}.
+
+@item
+``Control structures'' determine the execution sequence of commands.
+@sc{Singular} provides control structures for conditional execution
+(@code{if} @dots{} @code{else}) and iteration (@code{for} and
+@code{while}).  Commands may be grouped in pairs of @code{@{} @code{@}}
+(curly brackets) to form blocks.  @xref{Control structures}, for
+more information.
+@end itemize
+
+@subsubheading Other notational conventions
+For user-defined functions, the notions of ``procedure'' and
+``function'' are synonymous.
+
+As already mentioned above, functions without return values are called
+commands.  Furthermore, whenever convenient, the term ``command'' is
+used for a function, even if it does return a value.
+
+@menu
+* General command syntax::
+* Special characters::
+* Names::
+* Objects::
+* Type conversion and casting::
+* Flow control::
+@end menu
+
+@c ---------------------------------------------------------------------------
+@node General command syntax, Special characters, The SINGULAR language, The SINGULAR language
+@subsection General command syntax
+@cindex General command syntax
+@cindex alias
+
+In @sc{Singular} a command is either a declaration, an assignment, a
+call to a function without return value, or a print command. The general
+form of a command is described in the following subsections.
+
+@subsubheading Declaration
+@enumerate
+@item type name @code{=} expression @code{;}
+@* declares a variable with the given name of the given type and assigns
+the expression as initial value to it.  Expression is an expression of
+the specified type or one that can be converted to that type.
+@xref{Type conversion and casting}.
+
+@item @code{alias} type name
+@*Introduces name as an alternative, read-only name for another variable_name.
+Can only be used in procedure headings to avoid copying large data.
+
+@item type name_list @code{=} expression_list @code{;}
+@* declares variables with the given names and assigns successively each
+expression of expression_list to the corresponding name of
+name_list.  Both lists must be of the same length.  Each expression in
+expression_list is an expression of the specified type or one that can
+be converted to that type.  @xref{Type conversion and casting}.
+
+@item type name @code{;}
+@* declares a variable with the given name of the given type and assigns
+the default value of the specific type to it.
+@end enumerate
+
+@xref{Names}, for more information on declarations.  @xref{Data types},
+for a description of all data types known to @sc{Singular}.
+
+@smallexample
+ring r;                   // the default ring
+poly f,g = x^2+y^3,xy+z2; // the polynomials f=x^2+y^3 and g=x*y+z^2
+ideal I = f,g;            // the ideal generated by f and g
+matrix m[3][3];           // a 3 x 3 zero matrix
+int i=2;                  // the integer i=2
+@end smallexample
+
+@subsubheading Assignment
+@enumerate 4
+@item
+name @code{=} expression @code{;}
+@* assigns expression to name.
+
+@item
+name_list @code{=} expression_list @code{;}
+@* assigns successively each expression of expression_list to the
+corresponding name of name_list. Both lists must be of the same
+length.  This is not a simultaneous assignment.  Thus, @code{f, g = g, f;} does
+not swap the values of @code{f} and @code{g}, but rather assigns
+@code{g} to both @code{f} and @code{g}.
+@end enumerate
+
+A type conversion of the type of expression to the type of
+name must be possible. @xref{Type conversion and casting}.
+
+An assignment itself does not yield a value. Hence, compound assignments
+like @code{i = j = k;} are not allowed and result in an error.
+
+@smallexample
+f = x^2 + y^2 ;      // overrides the old value of f
+I = jacob(f);
+f,g = I[1],x^2+y^2 ; // overrides the old values of f and g
+@end smallexample
+
+@subsubheading Function without return value
+@enumerate 6
+@item
+function_name [ @code{(} argument_list @code{)} ] @code{;}
+@* calls function function_name with arguments argument_list.
+@end enumerate
+
+The function may have output (not to be confused with a return value of
+type string). @xref{Functions}. Functions without a return value are
+specified there to have a return type 'none'.
+
+Some of these functions have to be called without parentheses, e.g.,
+@code{help}, @code{LIB}.
+
+@smallexample
+@c example
+  ring r;
+  ideal i=x2+y2,x;
+  i=std(i);
+  degree(i);        // degree has no return value but prints output
+@c example
+@end smallexample
+
+@subsubheading Print command
+@enumerate 7
+@item
+expression @code{;}
+@* prints the value of an expression, for example, of a variable.
+@end enumerate
+
+Use the function @code{print} (or the procedure @code{show} from inout.lib)
+to get a pretty output of various data
+types, e.g., matrix or intmat. @xref{print}.
+
+@smallexample
+@c example
+  int i=2;
+  i;
+  intmat m[2][2]=1,7,10,0;
+  print(m);
+@c example
+@end smallexample
+
+@c ------------------------------------------------------------
+@node Special characters, Names, General command syntax, The SINGULAR language
+@subsection Special characters
+@cindex Special characters
+The following characters and operators have special meanings:
+@table @asis
+@item @code{=}
+@cindex =
+assignment
+@item @code{@{}, @code{@}}
+@cindex @{
+@cindex @}
+parentheses for block programming
+@item @code{(}, @code{)}
+@cindex (
+@cindex )
+@cindex indexed names
+in expressions, for indexed names and for argument lists
+@item @code{[}, @code{]}
+@cindex [
+@cindex ]
+access operator for strings, integer vectors, ideals, matrices,
+polynomials, resolutions, and lists.  Used to build vectors of
+polynomials.  Example: @code{s[3]}, @code{m[1,3]}, @code{i[1..3]},
+@code{[f,g+x,0,0,1]}.
+@item @code{+}
+@cindex +
+addition operator
+@item @code{++}
+@cindex ++
+increment operator
+@item @code{-}
+@cindex -
+subtraction operator
+@item @code{--}
+@cindex --
+decrement operator
+@item @code{*}
+@cindex *
+multiplication operator
+@item @code{/}
+@cindex /
+division  operator.  @xref{Miscellaneous oddities}, for the difference
+between the division operators @code{/} and @code{div}.
+@item @code{%}
+@cindex %
+modulo operator (@code{mod} is an alias to @code{%}): result is always non-negative
+@item @code{^} or @code{**}
+@cindex ^
+@cindex **
+exponentiation operator
+@item @code{==}
+@cindex ==
+comparison operator equal
+@item @code{!=} or @code{<>}
+@cindex !=
+@cindex <>
+comparison operator not equal
+@item @code{>=}
+@cindex >=
+comparison operator larger than or equal to
+@item @code{>}
+@cindex >
+comparison operator larger
+@item @code{<=}
+@cindex <=
+comparison operator smaller than or equal to
+@item @code{<}
+@cindex <
+comparison operator smaller. Also used for file input. @xref{filecmd}.
+@item @code{!}
+@cindex !
+boolean operator not
+@item @code{&&}
+@cindex &&
+boolean operator and
+@item @code{||}
+@cindex ||
+boolean operator or
+@item @code{"}
+@cindex "
+delimiter for string constants
+@item @code{`}
+@cindex `
+delimiter for name substitution
+@item @code{?}
+@cindex ?
+synonym for @code{help}
+@item @code{//}
+@cindex //
+@cindex comment
+comment delimiter.  Comment extends to the end of the line.
+@item @code{/*}
+@cindex //
+comment delimiter.  Starts a comment which ends with @code{*/}.
+@item @code{*/}
+@cindex //
+comment delimiter.  Ends a comment which starts with @code{/*}.
+@item @code{;}
+@cindex ;
+statement separator
+@item @code{,}
+separator for expression lists and function arguments
+@item @code{\}
+@cindex \
+escape character for @code{"} and @code{\} within strings
+@item @code{..}
+@cindex ..
+interval specifier returning intvec.
+E.g., @code{1..3} which is equivalent to the intvec @code{1, 2, 3}.
+@item @code{:}
+@cindex :
+repeated entry.
+E.g., @code{3:5} generates an intvec of length 5 with constant entries 3, i.e., (3, 3, 3, 3, 3).
+@item @code{::}
+@cindex ::
+accessor for package members.
+E.g., @code{MyPackage::i} accesses variable @code{i} in package @code{MyPackage}.
+@item @code{_}
+@cindex _
+value of expression displayed last
+@item @code{~}
+@cindex ~
+breakpoint in procedures
+@item @code{#}
+@cindex #
+list of parameters in procedures without explicit parameter list
+@item @code{$}
+@cindex $
+terminates @sc{Singular}
+@end table
+
+@c ------------------------------------------------------------
+@node Names, Objects, Special characters, The SINGULAR language
+@subsection Names
+@cindex Names
+@cindex Names, indexed
+@cindex indexed names
+@cindex Variables, indexed
+@cindex multi indices
+@cindex indices, multi
+@cindex Identifiers, syntax of
+
+@sc{Singular} is a strongly typed language.  This means that all names
+(= identifiers) have to be declared prior to their use.  For the general
+syntax of a declaration, see the description of declaration commands
+(@pxref{General command syntax}).
+
+@xref{Data types}, for a description of @sc{Singular}'s data types.
+@xref{typeof}, for a short overview of possible types.  To get information
+on a name and the object named by it, the @code{type} command may be
+used (@pxref{type}).
+
+It is possible to redefine an already existing name if doing so does not
+change its type. A redefinition first sets the variable to the default
+value and then computes the expression. The difference between
+redefining and overriding a variable is shown in the following example:
+
+@smallexample
+@c example
+  int i=3;
+  i=i+1;        // overriding
+  i;
+  int i=i+1;    // redefinition
+  i;
+@c example
+@end smallexample
+
+User defined names should start with a letter and consist of letters and
+digits only.  As an exception to this rule, the characters @code{@@},
+and @code{_} may
+be used as part of a name, too (@code{@@} as the first letter is reserved
+for purposes of library routines). Capital and small letters are
+distinguished.  Indexed names are built as a name followed by an
+int_expression in parentheses.  A list of indexed names can be built as
+a name followed by an intvec_expression in parentheses.
+For multi-indices, append an int_expression in parentheses to an
+indexed name.
+An alternative multi-index construction is
+@code{name_prefix(} index_1, index_2,... @code{)} where the @code{name_prefix}
+must be an undefined name.
+
+@smallexample
+@c example
+  ring R;
+  int n=3;
+  ideal j(3);
+  ideal j(n);     // is equivalent to the above
+  ideal j(2)=x;
+  j(2..3);
+  ring r=0,(x(1..2)(1..3)(1..2)),dp;
+  r;
+  int i(1,2),i(2,3);
+  i(2,3);
+@c example
+@end smallexample
+
+Names must not coincide with reserved names (keywords).  Type
+@code{reservedName();} to get a list of the reserved names.
+@xref{reservedName}.  Names should not interfere with names of ring
+variables or, more generally, with monomials.  @xref{Identifier
+resolution}.
+@* The command @code{listvar} provides a list of the names in use
+(@pxref{listvar}).
+
+The most recently printed expression is available
+under the special name @code{_}, e.g.,
+@smallexample
+@c example
+  ring r;
+  ideal i=x2+y3,y3+z4;
+  std(i);
+  ideal k=_;
+  k*k+x;
+  size(_[3]);
+@c example
+@end smallexample
+
+A string_expression enclosed in @code{`}@dots{}@code{`} (back ticks)
+evaluates to the value of the variable given by the string_expression.
+This feature is referred to as name substitution.
+
+@smallexample
+@c example
+  int foo(1)=42;
+  string bar="foo";
+  `bar+"(1)"`;
+@c example
+@end smallexample
+
+@c ------------------------------------------------------------
+@node Objects, Type conversion and casting, Names, The SINGULAR language
+@subsection Objects
+@cindex Objects
+
+Every object in @sc{Singular} has a type and a value.  In most cases it
+has also a name and in some cases an attribute list.  The value of an
+object may be examined simply by printing it with a print command:
+object@code{;}.  The type of an object may be determined by means of the
+@code{typeof} function, the attributes by means of the @code{attrib}
+function (@ref{typeof}, @ref{attrib}):
+
+@smallexample
+@c example
+  ring r=0,x,dp;
+  typeof(10);
+  typeof(10000000000000000);
+  typeof(r);
+  attrib(x);
+  attrib(std(ideal(x)));
+@c example
+@end smallexample
+
+Each object of type
+@code{poly},
+@code{ideal},
+@code{vector},
+@code{module},
+@code{map},
+@code{matrix},
+@code{number}, or
+@code{resolution}
+belongs to a specific ring.  This is also true for @code{list}, if at least one of the
+objects contained in the list belongs to a ring.  These objects are local
+to the ring.  Their names can be duplicated for other objects in other rings.
+Objects from one ring can be mapped to another ring using maps or the
+commands @code{fetch} or @code{imap}.  @xref{map}, @ref{fetch}, @ref{imap}.
+
+All other types do not belong to a ring and can be accessed within every
+ring and across rings.  They can be declared even if there is no active
+basering.
+
+@c ------------------------------------------------------------
+@node Type conversion and casting, Flow control, Objects, The SINGULAR language
+@subsection Type conversion and casting
+
+@subsubheading Type conversion
+@cindex Type conversion
+Assignments convert the type of the right-hand side to the type of the
+left-hand side of the assignment, if possible.  Operators and functions
+which require certain types of operands can also implicitly convert the
+type of an expression.  It is, for example, possible to multiply a
+polynomial by an integer because the integer is automatically converted to
+a polynomial.  Type conversions do not act transitively.  Possible
+conversions are:
+
+
+@c ------------------------------------------------
+@c Do not delete the leading `@ ' for indentation of the whole table.  The
+@c table is indented since regular @tables are indented by a small amount,
+@c too.
+@c ------------------------------------------------
+@multitable @columnfractions .05 .18 .81
+@item
+@   1. @tab @code{intvec}  @tab @expansion{} @code{intmat}
+@item
+@   2. @tab @code{poly}  @tab @expansion{} @code{ideal}
+@item
+@   3. @tab @code{bigint}  @tab @expansion{} @code{ideal}
+@item
+@   4. @tab @code{int}  @tab @expansion{} @code{ideal}
+@item
+@   5. @tab @code{intmat}  @tab @expansion{} @code{matrix}
+@item
+@   6. @tab @code{ideal}  @tab @expansion{} @code{matrix}
+@item
+@   7. @tab @code{module}  @tab @expansion{} @code{matrix}
+@item
+@   8. @tab @code{number}  @tab @expansion{} @code{matrix}
+@item
+@   9. @tab @code{poly}  @tab @expansion{} @code{matrix}
+@item
+@   10. @tab @code{vector}  @tab @expansion{} @code{matrix}
+@item
+@   11. @tab @code{bigint}  @tab @expansion{} @code{matrix}
+@item
+@   12. @tab @code{int}  @tab @expansion{} @code{matrix}
+@item
+@   13. @tab @code{intvec}  @tab @expansion{} @code{matrix}
+@item
+@   14. @tab @code{ideal}  @tab @expansion{} @code{module}
+@item
+@   15. @tab @code{matrix}  @tab @expansion{} @code{module}
+@item
+@   16. @tab @code{vector}  @tab @expansion{} @code{module}
+@item
+@   17. @tab @code{bigint}  @tab @expansion{} @code{number}
+@item
+@   18. @tab @code{int}  @tab @expansion{} @code{number}
+@item
+@   19. @tab @code{number}  @tab @expansion{} @code{poly}
+@item
+@   20. @tab @code{bigint}  @tab @expansion{} @code{poly}
+@item
+@   21. @tab @code{int}  @tab @expansion{} @code{poly}
+@item
+@   22. @tab @code{list}  @tab @expansion{} @code{resolution}
+@item
+@   23. @tab @code{poly}  @tab @expansion{} @code{vector}
+(p @expansion{} p*@code{gen(1)})
+@item
+@   24. @tab @code{bigint}  @tab @expansion{} @code{vector}
+@item
+@   25. @tab @code{int}  @tab @expansion{} @code{vector}
+(i @expansion{} i*@code{gen(1)})
+@item
+@   26. @tab @code{int}  @tab @expansion{} @code{bigint}
+@item
+@   27. @tab @code{int}  @tab @expansion{} @code{intvec}
+@item
+@   28. @tab @code{string}  @tab @expansion{} @code{link}
+@item
+@   29. @tab @code{resolution}  @tab @expansion{} @code{list}
+@item
+@   30. @tab @code{intvec}  @tab @expansion{} @code{bigintvec}
+@end multitable
+
+@subsubheading Type casting
+@cindex Type casting
+An expression can be casted to another type by using a type cast
+expression:
+@* type @code{(} expression @code{)}.
+
+Possible type casts are:
+
+@c ------------------------------------------------
+@c Do not delete the leading `@ ' for indentation of the whole table.  The
+@c table is indented since regular @tables are indented by a small amount,
+@c too.
+@c ------------------------------------------------
+@multitable @columnfractions .05 .15 .83
+@item
+@    @tab to @tab from
+@item
+@    @tab  @code{bigint} @tab  expression @code{int}, @code{number}, @code{poly}
+@item
+@    @tab  @code{bigintvec} @tab  expression @code{int}, @code{bigint}
+@item
+@    @tab  @code{ideal} @tab  expression lists of @code{int}, @code{number}, @code{poly}
+@item
+@    @tab  @code{ideal} @tab  @code{int}, @code{matrix}, @code{module}, @code{number}, @code{poly}, @code{vector}
+@item
+@    @tab  @code{int} @tab    @code{number}, @code{poly}
+@item
+@    @tab  @code{intvec} @tab expression lists of @code{int}, @code{intmat}, @code{bigintvec}
+@item
+@    @tab  @code{intmat} @tab @code{intvec} (@pxref{intmat type cast})
+@item
+@    @tab  @code{list} @tab   expression lists of any type
+@item
+@    @tab  @code{matrix} @tab @code{module}, @code{ideal},
+@code{vector}, @code{matrix}.
+@* There are two forms to convert something to a matrix: if @code{matrix(}
+expression @code{)} is used then the size of the matrix is determined
+by the size of expression.
+@* But @code{matrix(} expression @code{,} m @code{,} n @code{)} may also be
+used - the result is a
+@tex
+$ m \times n $
+@end tex
+@ifinfo
+m x n
+@end ifinfo
+matrix (@pxref{matrix type cast})
+@item
+@    @tab  @code{module} @tab expression lists of @code{int}, @code{number},
+@code{poly}, @code{vector}
+@item
+@    @tab  @code{module} @tab @code{ideal}, @code{matrix}, @code{vector}
+@item
+@    @tab  @code{number} @tab @code{poly}
+@item
+@   @tab  @code{poly} @tab   @code{int}, @code{number}
+@item
+@    @tab  @code{ring} @tab   @code{list} (the inverse of @code{ringlist})
+@item
+@   @tab  @code{string} @tab   any type (@pxref{string type cast})
+@end multitable
+
+@strong{Example:}
+@smallexample
+@c example
+  ring r=0,x,(c,dp);
+  number(3x);
+  number(poly(3));
+  ideal i=1,2,3,4,5,6;
+  print(matrix(i));
+  print(matrix(i,3,2));
+  vector v=[1,2];
+  print(matrix(v));
+  module(matrix(i,3,2));
+  // generators are columns of a matrix
+@c example
+@end smallexample
+
+
+@c ------------------------------------------------------------
+@node Flow control, ,Type conversion and casting, The SINGULAR language
+@subsection Flow control
+@cindex Flow control
+@cindex block
+
+A block is a sequence of commands surrounded by @{ and @}.
+@smallexample
+@{
+   command;
+   @dots{}
+@}
+@end smallexample
+Blocks are used whenever @sc{Singular} is used as a structured programming
+language. The @code{if} and @code{else} structures allow conditional
+execution of blocks (see @ref{if}, @ref{else}). @code{for} and @code{while}
+loops are available for a repeated execution of blocks (see @ref{for},
+@ref{while}). In procedure definitions, the main part and the example section
+are blocks as well(see @ref{proc}).
+@menu
+* break::
+* quit::
+* keepring::
+* export::
+* exportto::
+* if::
+* importfrom::
+* else::
+* for::
+* while::
+* proc::
+* return::
+* continue::
+@end menu
+
+
+@c ----------------------------------------------------------------------
+@c ----------------------------------------------------------------------
+@node Input and output, Procedures, The SINGULAR language, General concepts
+@section Input and output
+@cindex input
+@cindex output
+
+@sc{Singular}'s input and output (short, I/O) are realized using links.
+Links are the communication channels of @sc{Singular}, i.e., something
+@sc{Singular} can write to and read from.  In this section, a short
+overview of the usage of links and of the different link types is given.
+
+For loading of libraries, see @ref{LIB}. For executing program scripts,
+see @ref{filecmd}.
+
+@subheading Monitoring
+A special form of I/O is monitoring.  When monitoring is enabled,
+@sc{Singular} makes a typescript of everything printed on your terminal
+to a file.  This is
+useful to create a protocol of a @sc{Singular} session.  The
+@code{monitor} command enables and disables this feature
+(@pxref{monitor}).
+
+
+@subheading How to use links
+Recall that links are the communication channels of @sc{Singular}, i.e.,
+something @sc{Singular} can write to and read from using the functions
+@code{write} and @code{read}. There are furthermore
+the functions @code{dump} and @code{getdump} which store resp.@:
+retrieve the content of an entire @sc{Singular} session to, resp.@: from,
+a link.  The @code{dump} and @code{getdump} commands are not available
+for DBM links.
+
+For more information, see @ref{write}, @ref{read}, @ref{dump},
+@ref{getdump}.
+
+@strong{Example:}
+@smallexample
+@c example unix_only
+  ring r; poly p = x+y;
+  dump(":w test.sv");   // dump the session to the file test.sv
+  kill r;               // kill the basering
+  listvar();            // no output after killing the ring
+  getdump(":r test.sv");// read the dump from the file
+  listvar();
+@c example
+@end smallexample
+
+Specifying a link can be as easy as specifying a filename as a string.
+Links do not even need to be explicitly opened
+or closed before, resp.@: after, they are used.  To explicitly open or
+close a link, the @code{open}, resp.@: @code{close}, commands may be
+used (see @ref{open}, @ref{close}).
+
+Links have various properties which can be queried using the
+@code{status} function (@pxref{status}).
+
+@strong{Example:}
+@smallexample
+@c example unix_only
+  link l = "ssi:fork";
+  l;
+  open(l);
+  status(l, "open");
+  close(l);
+  status(l, "open");
+@c example
+@end smallexample
+
+@subheading ASCII links
+Data that can be converted to a string can be written into files for
+storage or communication with other programs. The data are written in
+plain ASCII format. Reading from an ASCII link returns a string ---
+conversion into other data is up to the user. This can be done, for
+example, using the command @code{execute} (@pxref{execute}).
+
+ASCII links should primarily be used for storing small amounts of data,
+especially if it might become necessary to manually inspect or
+manipulate the data.
+
+@xref{ASCII links}, for more information.
+
+@strong{Example:}
+@smallexample
+@c example
+  // (over)write file test.ascii, link is specified as string
+  write(":w test.ascii", "int i =", 3, ";");
+  // reading simply returns the string
+  read("test.ascii");
+  // but now test.ascii is "executed"
+  execute(read("test.ascii"));
+  i;
+@c example
+@end smallexample
+
+@subheading Ssi links
+Data is communicated with other processes (e.g., @sc{Singular}
+processes) which may run on the same computer or on different ones.  Data
+exchange is accomplished using TCP/IP links in the ssi format.
+Reading from an ssi link returns the written expressions (i.e., not a
+string, in general).
+
+Ssi links should primarily be used for communicating with other
+programs or for parallel computations (see, for example,
+@ref{Parallelization with ssi links}).
+
+@xref{Ssi links}, for more information.
+
+@strong{Example:}
+@c the following example is may interfere with local firewalls:
+@c it start another Singular directly (on localhost) or via ssh
+@c and uses system, socket, bind, listen, accept, open, close
+@smallexample
+  ring r;
+  link l = "ssi:tcp localhost:"+system("Singular"); // declare a link explicitly
+  open(l);  // needs an open, launches another SINGULAR as a server
+  write(l, x+y);
+  kill r;
+  def p = read(l);
+  typeof(p); p;
+  @expansion{} poly
+  @expansion{} x+y
+  close(l); // shuts down SINGULAR server
+@end smallexample
+
+@subheading DBM links
+Data is stored in and accessed from a data base.  Writing is
+accomplished by a key and a value and associates the value with the key
+in the specified data base.  Reading is accomplished w.r.t.@: a key,
+the value associated to it is returned.  Both the key and the value have to
+be specified as strings.  Hence, DBM links may be used only for data
+which may be converted to or from strings.
+
+DBM links should primarily be used when data needs to be accessed not in a
+sequential way (like with files) but in an associative way (like with
+data bases).
+
+@xref{DBM links}, for more information.
+
+@strong{Example:}
+@smallexample
+@c example unix_only
+  ring r;
+  // associate "x+y" with "mykey"
+  write("DBM:w test.dbm", "mykey", string(x+y));
+  // get from data base what is stored under "mykey"
+  execute(read("DBM: test.dbm", "mykey"));
+@c example
+@end smallexample
+
+
+@c ---------------------------------------------------------------------------
+@node Procedures, Libraries, Input and output, General concepts
+@section Procedures
+@cindex Procedures
+
+Procedures contain sequences of commands in the @sc{Singular} language.
+They are used to extend the set of commands by user defined commands.
+In a @sc{Singular} session, procedures are defined by either typing them
+on the command line or by loading them from a library file with the
+@code{LIB} or @code{load}  command (@pxref{Libraries}).  A procedure
+is invoked like normal built-in commands, i.e., by typing its name
+followed by the list of arguments in parentheses. The invocation then
+executes the sequence of commands constituting the procedure. All
+procedures defined in a @sc{Singular} session can be displayed by
+entering @code{listvar(proc);} .
+
+@menu
+* Procedure definition::
+* Parameter list::
+* Help string::
+* Names in procedures::
+* Procedure-specific commands::
+@end menu
+
+See also @xref{Procedures in a library}.
+@c -------------------------------------------------
+@node Procedure definition, Parameter list,, Procedures
+@subsection Procedure definition
+@cindex Procedure definition
+@cindex procedures, static
+@cindex static procedures
+@c ------------------------------------------------------------
+@c   This piece of text exists also in the file types.doc,
+@c   chapter "proc declaration".
+@c   If you change something here, change it there, too!
+@c ------------------------------------------------------------
+@table @strong
+@item Syntax:
+[@code{static}] @code{proc} proc_name [(<parameter_list>)]
+@*[<help_string>]
+@*@code{@{}
+@*
+@tex
+\quad
+@end tex
+   <procedure_body>
+@*@code{@}}
+@*[@code{example}
+@*@code{@{}
+@*
+@tex
+\quad
+@end tex
+   <sequence_of_commands>
+@*@code{@}}]
+@item Purpose:
+@itemize @bullet
+@item
+Defines a new function, the @code{proc} proc_name.
+@item
+The help string, the parameter list, and the example section are optional.
+They are, however, mandatory for the procedures listed in the header of a library.
+The help string is ignored and no example section is allowed if the procedure is defined
+interactively, i.e., if it is not loaded from a file by the @code{LIB} or @code{load}
+command (@pxref{LIB} and @pxref{load} ).
+@item
+Once loaded from a file into a  @sc{Singular} session, the information provided in the help
+string will be displayed upon entering @code{help proc_name;}, while the @code{example}
+section will be executed  upon entering @code{example proc_name;}.
+@xref{Parameter list}, @ref{Help string}, and the example in
+@ref{Procedures in a library}.
+@item
+In the body of a library, each procedure not meant to be accessible by
+users should be declared static. @xref{Procedures in a library}.
+@end itemize
+@end table
+
+@subsubheading Example of an interactive procedure definition and its execution:
+@smallexample
+@c example
+  proc milnor_number (poly p)
+  {
+    ideal i= std(jacob(p));
+    int m_nr=vdim(i);
+    if (m_nr<0)
+    {
+      "// not an isolated singularity";
+    }
+    return(m_nr);         // the value of m_nr is returned
+  }
+  ring r1=0,(x,y,z),ds;
+  poly p=x^2+y^2+z^5;
+  milnor_number(p);
+@c example
+@end smallexample
+
+@subsubheading Example of a procedure definition in a library:
+First, we define the library (and store it as @code{ sample.lib}):
+@smallexample
+@c include sample.lib
+@end smallexample
+
+Now, we load the library and execute its procedures:
+@smallexample
+@c example error
+  LIB "sample.lib";        // load the library sample.lib
+  example tab;             // show an example
+  "*"+tab(3)+"*";          // use the procedure tab
+  // the static procedure internal_tab is not accessible
+  "*"+internal_tab(3)+"*";
+  // show the help section for tab
+  help tab;
+@c example
+@end smallexample
+
+@c ---------------------------------------
+@node Parameter list, Help string, Procedure definition, Procedures
+@subsection Parameter list
+@cindex Parameter list
+@cindex argument, optional
+@cindex argument, default
+@cindex default argument
+@cindex parameter, optional
+@cindex parameter, default
+@table @code
+@item @strong{Syntax:}
+@code{( )}
+@*@code{(} parameter_definition @code{)}
+@item @strong{Purpose:}
+@itemize @bullet
+@item
+Defines the number, type and names of the arguments of a procedure.
+@item
+The parameter_list is optional.
+@item
+Adding @code{list #} as argument to a parameter list means to allow
+optional parameters. Furthermore, @code{(list #)} is the default for a
+parameter list (in case no list is explicitly given). Inside the procedure
+body, the arguments of @code{list #}  are referenced by @code{#[1], #[2]},
+etc.
+@item
+If a procedure has optional parameters, the attribute @code{default_arg}
+gives the default values for the optional arguments. This provides in
+particular the possibility to also change the behaviour of all procedures
+nested inside the given procedure.
+@end itemize
+
+@item @strong{Example:}
+@smallexample
+proc x0
+@{
+    // can be called with
+... // any number of arguments of any type: #[1], #[2],...
+    // number of arguments: size(#)
+@}
+
+proc x1 ()
+@{
+... // can only be called without arguments
+@}
+
+proc x2 (ideal i, int j)
+@{
+... // can only be called with 2 arguments,
+    // which can be converted to ideal resp. int
+@}
+
+proc x3 (i,j)
+@{
+... // can only be called with 2 arguments
+    // of any type
+    // (i,j) is the same as (def i,def j)
+@}
+
+proc x5 (i,list #)
+@{
+... // can only be called with at least 1 argument
+    // number of arguments: size(#)+1
+@}
+
+attrib(x5,"default_arg",3);
+x5(2); // is equivalent to
+x5(2,3);
+@end smallexample
+@item @strong{Note:}
+@* The parameter_list may stretch across multiple lines.
+@* A parameter may have any type (including the types @code{proc}
+   and @code{ring}).
+@*If a parameter is of type ring, then it
+   can only be specified by name, but not with a type. For instance:
+@smallexample
+proc x6 (r)
+@{
+... // this is correct, r may be of any type, even of type ring
+@}
+
+proc x7 (ring r)
+@{
+... // this is NOT CORRECT
+@}
+@end smallexample
+@end table
+
+@c --------------------------------------- ----------
+@node Help string,Names in procedures,Parameter list,Procedures
+@subsection Help string
+@cindex Help string
+@cindex procedures, help string
+
+@table @asis
+@item @strong{Syntax:}
+  string_constant;
+@item @strong{Purpose:}
+  Constitutes the help text of a procedure.
+@item @strong{Format:}
+@smallexample
+USAGE:    <proc_name>(<parameter list>);   <explanation of parameters>
+ASSUME:  <description of assumptions made>
+RETURN:   <description of what is returned>
+SIDE EFFECTS:  <description of global objects generated or manipulated,
+but not returned>
+REMARKS: <information on theory and implemented  algorithms,references>
+NOTE:    <particularities, limitations, additional details>
+KEYWORDS: <semicolon-separated phrases of index keys>
+SEE ALSO: <comma-separated names of related procedures/cross references>
+EXAMPLE:  example <proc_name>; shows an example
+@end smallexample
+@item @strong{NOTE:}
+@itemize @bullet
+@item
+ASSUME, SIDE EFFECTS, KEYWORDS, and SEE ALSO are optional.
+No help string is required for static procedures.
+@item
+EXAMPLE: refers to the example section of the procedure.
+In a @sc{Singular} session, the example will be carried out upon
+entering @code{example <proc_name>;} if the procedure is loaded
+from a file by the @code{LIB} or @code{load}  command (@pxref{LIB}
+and @pxref{load} ). No example section is allowed if the procedure
+is defined interactively.
+@item
+See @ref{Typesetting of help and info strings} for help strings
+in the @sc{Singular}  documentation.
+@item
+See the example in @ref{Procedures in a library} for an
+illustration.
+@end itemize
+@end table
+
+@c ---------------------------------------
+@node Names in procedures, Procedure-specific commands, Help string, Procedures
+@subsection Names in procedures
+@cindex Names in procedures
+@cindex local names
+
+@itemize @bullet
+@item
+All variables defined inside a procedure are local to the procedure and their
+names cannot interfere with names in other procedures. Without further action,
+they are automatically deleted after leaving the procedure.
+@item
+To keep local variables and their value after leaving the procedure, they have
+to be exported (i.e. made global) by a command like @code{export} or
+@code{exportto} (@pxref{export},@pxref{exportto}, @pxref{importfrom};
+@pxref{package}). To return the value of a local variable, use the
+@code{return} command (@pxref{return}).
+@end itemize
+
+@strong{Example:}
+@smallexample
+@c example
+proc xxx
+{
+  int k=4;        //defines a local variable k
+  int result=k+2;
+  export(result);  //defines the global variable "result".
+}
+xxx();
+listvar(all);
+@c example
+@end smallexample
+Note that the variable @code{result} became a global variable after the
+execution of @code{xxx}.
+
+
+@c --------------------------------------- ----------
+@node Procedure-specific commands,, Names in procedures, Procedures
+@subsection Procedure-specific commands
+@cindex Procedure-specific commands
+
+A few  commands should only be used inside a procedure. They either make
+local objects global ones or return results to the level from where the
+procedure was called.
+
+@c ref
+See
+@ref{export};
+@ref{exportto};
+@ref{return}.
+@c ref
+
+
+
+@c ----------------------------------------------------------------------
+@node Libraries, Debugging tools, Procedures, General concepts
+@section Libraries
+@cindex Libraries
+
+@itemize @bullet
+@item
+A library is a collection of @sc{Singular}
+procedures in a file.
+@item
+To load a library into a @sc{Singular} session, use the @code{LIB} or
+@code{load} command.
+Having loaded a library, its procedures can be used like any built-in
+@sc{Singular} function, and information on the library is obtained
+by entering @code{help libname.lib;}
+@item
+@xref{SINGULAR libraries}, for all libraries currently distributed
+with  @sc{Singular}.
+@item
+When writing your own library, it is important to comply with the
+guidelines described in this section. Otherwise, due to potential
+parser errors, it may not be possible to load the library.
+@item
+Each library consists of a header and a body. The first line
+of a library must start with a double slash @code{//}.
+@item
+The library header consists of a version string, a category string,
+an info string, and LIB commands. The strings are mandatory. LIB
+commands are meant to load the additional libraries used by the
+library under consideration.
+@item
+The library body collects the procedures (declared static or not).
+@item
+No line of a library should consist of more than 60 characters.
+@end itemize
+
+@menu
+* Libraries in the SINGULAR Documentation::
+* Version string::
+* Category string::
+* Info string::
+* LIB commands::
+* Procedures in a library::
+* template_lib::
+* Formal Checker::
+* Documentation Tool::
+* Typesetting of help and info strings::
+* Loading a library::
+@end menu
+
+@c -------------------------------------------------------------------
+@node Libraries in the SINGULAR Documentation,Version string,Libraries,Libraries
+@subsection Libraries in the SINGULAR Documentation
+@cindex Libraries in the SINGULAR Documentation
+
+@itemize @bullet
+@item
+The typesetting language in which the @sc{Singular} documentation
+is written is @code{texinfo}. The info string of a library included in the
+@sc{Singular} distribution will be parsed and automatically
+translated to the @code{texinfo} format. The same applies to the
+help string of each procedure listed in the PROCEDURE: section of
+the info string.
+@item
+Based on various tools, @code{info}, @code{dvi}, @code{p}, and
+@code{html} versions of the @code{texinfo} documentation are generated.
+@item
+For texinfo markup elements and other information facilitating optimal
+typesetting, see @ref{Typesetting of help and info strings}.
+@item
+For the convenience of users checking directly the source code, the
+@code{texinfo}  tools should be used economically. That is, the info
+and  help texts should be well readable verbatim.
+@item
+The example of each procedure listed in the PROCEDURE: section of the
+info string is computed and its output is included in the documentation.
+@end itemize
+
+
+@c -------------------------------------------------------------------
+@node Version string,Category string,Libraries in the SINGULAR Documentation,Libraries
+@subsection Version string
+@cindex Version string
+
+A version string is part of the header of a library.
+
+@table @asis
+@item @strong{Syntax:}
+  version = string_constant;
+@item @strong{Purpose:}
+  Defines the version number of a library. It is displayed when the library is loaded.
+@item @strong{Example:}
+@code{version="version sample.lib 4.0.0.0 Dec_2013 ";}
+@item @strong{Note:}
+Syntax: @code{version<space><filename><space><version><space><date><space>}
+@end table
+
+@c -------------------------------------------------------------------
+@node Category string,Info string,Version string,Libraries
+@subsection Category string
+@cindex Category string
+
+A category string is part of the header of a library.
+
+@table @asis
+@item @strong{Syntax:}
+  category = string_constant;
+@item @strong{Purpose:}
+  Defines the category of a library.
+@item @strong{Example:}
+  category="Algebraic geometry";
+@item @strong{Note:}
+  Reserved for sorting the libraries into categories.
+@end table
+
+@c -------------------------------------------------------------------
+@node Info string,LIB commands,Category string,Libraries
+@subsection Info string
+@cindex Info string
+
+
+@table @asis
+@item @strong{Syntax:}
+  info = string_constant;
+@item @strong{Purpose:}
+  Constitutes the help text of a library. Will be displayed in a
+  @sc{Singular}  session upon entering @code{help libname.lib;} .
+  Will be part of the @sc{Singular} documentation if the library
+  is distributed with @sc{Singular}.
+  @xref{Libraries in the SINGULAR  Documentation}.
+@item @strong{Format:}
+@smallexample
+info="
+LIBRARY: <library_name> <one line description of the purpose>
+AUTHOR:  <name, and email address of author>
+OVERVIEW: <concise, additional information on what is implemented>
+REFERENCES: <references for further information>
+KEYWORDS: <semicolon-separated phrases of index keys>
+SEE ALSO: <comma-separated words of cross references>
+PROCEDURES:
+  <proc_name_1>();     <one line description of the purpose>
+     .
+     .
+  <proc_name_N>();     <one line description of the purpose>
+";
+@end smallexample
+
+@item @strong{NOTE:}
+@itemize @bullet
+@item
+In the documentation, the one line description of the purpose following
+LIBRARY: will be printed in its own line, starting with the prefix PURPOSE: .
+@item
+REFERENCES, KEYWORDS, and SEE ALSO are optional.
+@item
+Only non-static procedures should be listed in the PROCEDURES: section.
+A procedure parameter should be included between the brackets
+@code{()} only if the corresponding one line description of the purpose
+refers to it. @xref{Procedures in a library}.
+@item
+In the documentation,  separate nodes (subsections in printed documents)
+are created precisely for those  procedures of the library appearing
+n the PROCEDURES: section (that is, for some if not all non-static
+procedures of the library).
+@end itemize
+
+@item @strong{Example:}
+@smallexample
+info="
+LIBRARY: absfact.lib   Absolute factorization for characteristic 0
+AUTHORS: Wolfram Decker,       decker at math.uni-sb.de
+         Gregoire Lecerf,      lecerf at math.uvsq.fr
+         Gerhard Pfister,      pfister at mathematik.uni-kl.de
+
+OVERVIEW:
+A library for computing the absolute factorization of multivariate
+polynomials f with coefficients in a field K of characteristic zero.
+Using Trager's idea, the implemented algorithm computes an absolutely
+irreducible factor by factorizing over some finite extension field L
+(which is chosen such that V(f) has a smooth point with coordinates in L).
+Then a minimal extension field is determined making use of the
+Rothstein-Trager partial fraction decomposition algorithm.
+
+REFERENCES:
+G. Cheze, G. Lecerf: Lifting and recombination techniques for absolute
+                  factorization. Journal of Complexity, 23(3):380-420, 2007.
+
+KEYWORDS: factorization; absolute factorization.
+SEE ALSO: factorize
+
+PROCEDURES:
+  absFactorize();        absolute factorization of poly
+";
+@end smallexample
+
+To see how this infostring appears in the documentation after
+typesetting, check @ref{absfact_lib}:
+@end table
+
+@c -------------------------------------------------------------------
+@node LIB commands,Procedures in a library,Info string,Libraries
+@subsection  LIB commands
+@cindex  LIB commands
+
+
+LIB commands are part of the header of a library.
+
+@table @asis
+@item @strong{Syntax:}
+   LIB "lib_1.lib";@*
+   ...                  @*
+   LIB "lib_r.lib";
+@item @strong{Purpose:}
+  Loads libraries used by the library under consideration.
+@item @strong{Example:}
+@smallexample
+    LIB "primdec.lib";
+    LIB "normal.lib";
+@end smallexample
+@item @strong{Note:}
+  The keyword LIB must be followed by at least one space.
+@end table
+
+@c -------------------------------------------------------------------
+@node Procedures in a library,template_lib,LIB commands,Libraries
+@subsection  Procedures in a library
+@cindex  Procedures in a library
+
+Here asre hints and requirements on how procedures contained in a
+library should be implemented. For more on procedures,
+see @ref{Procedures}.
+@enumerate
+@item
+Each procedure not meant to be accessible by users should be declared static.
+@item
+The header of each procedure not declared static must comply with the guidelines
+described in @ref{Procedure definition} and @ref{Help string}.
+In particular, it must have a help and example section, and assumptions made
+should be carefully explained. If the assumptions are checked by the procedure
+on run-time, errors may be reported using the @ref{ERROR} function.
+@item
+Names of procedures should not be shorter than 4 characters and should not
+contain any special characters. In particular, the use of @code{_} in names of
+procedures is discouraged. If the name of the procedure is composed of
+more than one word, each new word should start with a capital letter, all
+other letters should be lower case (e.g. linearMapKernel).
+@item
+No procedures should be defined within the body of another procedure.
+@item
+A procedure may print out comments, for instance to explain results or to
+display intermediate computations. This is often helpful when calling the
+procedure directly, but it may also cause confusions in cases where the
+procedure is called by another procedure. The @sc{Singular}  solution to
+this problem makes use of the function @code{dbprint} (@pxref{dbprint})
+and the reserved variables @code{printlevel} and @code{voice}
+(@pxref{printlevel} and @pxref{voice}). Note that @code{printlevel} is a
+predefined, global variable whose value can be changed by the user, while
+@code{voice} is an internal variable, representing the nesting level of
+procedures. Accordingly, the value of @ref{voice} is 1 on the top level,
+2 inside the first procedure, and so on. The default value of
+@code{printlevel}  is 0, but @code{printlevel}  can be set to
+any integer value by the user.
+@end enumerate
+
+@table @asis
+@item @strong{Example:}
+If the procedure @code{Test} below is called directly from
+the top level, then `comment1' is displayed, but not `comment2'.
+By default, nothing is displayed if @code{Test} is called from within any
+other procedure. However, if @code{printlevel} is set to a value k
+with k>0, then `comment1' (resp. `comment2') is displayed -- provided
+@code{Test} is called from another procedure with nesting level at
+most k (resp. k-1).
+
+The example part of a procedure behaves in this respect like the
+procedure on top level (the nesting level is 1, that is, the value of
+@code{voice} is 2). Therefore, due to the command @code{printlevel=1;},
+`comment1' will be displayed when entering @code{example Test;}.
+However, since printlevel is a global variable, it should be reset to
+its old value at the end of the example part.
+
+The predefined variable @code{echo}  controls whether input lines are
+echoed or not. Its default is 0, but it can be reset by the user. Input
+is echoed if @code{echo>=voice}. At the beginning of the example
+part, @code{echo} is set to the value 2. In this way, the input lines
+of the example will be displayed when entering @code{example Test;}.
+
+@smallexample
+      proc Test
+      "USAGE:   ...
+               ...
+      EXAMPLE: example Test; shows an example
+      "
+      @{   ...
+         int p = printlevel - voice + 3;
+          ...
+         dbprint(p,"comment1");
+         dbprint(p-1,"comment2");
+         // dbprint prints only if p > 0
+          ...
+      @}
+      example
+      @{ "EXAMPLE:"; echo = 2;
+         int p = printlevel;   //store old value of printlevel
+         printlevel = 1;       //assign new value to printlevel
+          ...
+         Test();
+         printlevel = p;       //reset printlevel to old value
+      @}
+@end smallexample
+
+@item @strong{Note:}
+@sc{Singular}  functions such as @code{pause} or @code{read}  allow
+and require interactive user-input. They are, thus, in particular useful
+for debugging purposes. If such a command is used inside the procedure
+of a library to be distributed with @sc{Singular}, the example section of
+the procedure has to be written with some care -- the procedure should
+only be called from within the example if the value of @code{printlevel}
+is 0. Otherwise,  the automatic build process of @sc{Singular} will not
+run through since the examples are carried out during the build process.
+They are, thus, tested against changes in the code.
+@end table
+
+
+@c -------------------------------------------------------------------
+@node template_lib,Formal Checker,Procedures in a library,Libraries
+@subsection  template_lib
+@cindex  template_lib
+@cindex Template for writing a library
+@cindex library, template
+
+First, we show the source-code of a template library:
+
+@smallexample
+@c include template.lib
+@end smallexample
+
+Second, we show how the library appears in the documentation
+after typesetting (with one subsection for each procedure):
+
+@c lib template.lib  lib_fun lib_ex
+
+
+@c -------------------------------------------------------------------
+@node Formal Checker,Documentation Tool,template_lib,Libraries
+@subsection  Formal Checker
+@cindex  Formal Checker
+
+There is a formal library checker for SINGULAR which can be used online:
+see @url{https://www.singular.uni-kl.de/index.php/new-libraries/formal-library-checker.html}.
+
+After uploading your library file, you will receive an output of hints, warnings,
+and errors which may help you to improve your library.
+
+@c -------------------------------------------------------------------
+@node Documentation Tool,Typesetting of help and info strings,Formal Checker,Libraries
+@subsection  Documentation Tool
+@cindex  Documentation Tool
+@cindex lib2doc
+
+@include lib2doc.texi
+
+@c -------------------------------------------------------------------
+@node Typesetting of help and info strings,Loading a library,Documentation Tool,Libraries
+@subsection  Typesetting of help and info strings
+@cindex  Typesetting of help and info strings
+
+The info strings of the libraries which are included in the distribution
+of @sc{Singular} and the help strings of the corresponding procedures
+are parsed and automatically converted into the @code{texinfo} format
+(the typesetting language in which the documentation  of @sc{Singular}
+is written).
+
+The illustrative example given in @ref{template_lib} should provide
+sufficient information on how this works. For more details, check the
+following items:
+
+@itemize @bullet
+@item
+Users familiar with @code{texinfo} may write help and info strings
+directly in the @code{texinfo} format. The string should, then,
+start with the @code{@@} sign. In this case, no parsing will be done.
+@item
+Help and info strings are typeset within a @code{@@table @@asis} environment
+(which is similar to the @code{latex} @code{description} environment).
+@item
+If a line starts with uppercase words up to a colon, then the text up to
+the colon is taken to be the description-string of an item, and the
+text following the colon is taken to be the content of the item.
+@item
+If the description-string of an item matches
+@table @asis
+@item @code{SEE ALSO}
+then the
+content of the item is assumed to consist of comma-separated words
+which are valid references to other @code{texinfo}  nodes of the manual
+(e.g., all procedure and command names are also @code{texinfo}  nodes).
+@item  @code{KEYWORDS}
+then the content of the item is assumed to be a
+semicolon-separated list of phrases which are taken as keys for the
+index of the manual (the name of a procedure/library is
+automatically added to the index keys).
+@end table
+@item
+If the description-string of an item in the @strong{info string of a
+library} matches
+@table @asis
+@item @code{LIBRARY}
+then the content of the item is assumed to be a one-line description of
+the library. If this one-line description consists of uppercase characters
+only, then it is typeset in lowercase characters (otherwise it is left as is).
+@item @code{PROCEDURES}
+then the content of the item is assumed to consist of lines of type
+@smallexample
+<proc_name>();     <one line description of the purpose>
+@end smallexample
+Separate @code{texinfo} nodes (subsections in printed documents)
+are created precisely for those  procedures of the library appearing
+here (that is, for some if not all non-static procedures of the library).
+@end table
+@end itemize
+
+With respect to the content of an item, the following @code{texinfo}
+markup elements are recognized:
+
+@itemize
+@item @code{@@*}
+Enforces a line-break.
+@table @asis
+@item Example:
+@code{old line @@* new line}
+@* @expansion{}
+@* old line @* new line
+@end table
+
+@item @code{@@ref@{...@}}
+For references to other parts of the @sc{Singular} manual, use one of
+the following @code{@@ref@{node@}} constructs. Here, @code{node}
+must be the name of a section of the @sc{Singular} manual. In
+particular,  it may be the name of a function, library or procedure
+in a library.
+
+@table @asis
+@item @code{@@xref@{node@}}
+for a reference to the node @code{node} at the beginning of a sentence.
+@item @code{@@ref@{node@}}
+for a reference to the node @code{node} at the end of a sentence.
+@item @code{@@pxref@{node@}}
+for a reference to the node @code{node} within parentheses.
+
+@item Example:
+@code{@@xref@{Hurricanes@}, for more info.}
+@*@expansion{}*Note Hurricanes::, for more info.
+@*@expansion{}See Section 3.1 [Hurricanes], page 24, for more info.
+
+@code{For more information, see @@ref@{Hurricanes@}.}
+@*@expansion{}For more information, see *Note Hurricanes::.
+@*@expansion{}For more information, see Section 3.1 [Hurricanes], page 24.
+
+
+@code{... storms cause flooding (@@pxref@{Hurricanes@}) ...}
+@*@expansion{}... storms cause flooding (*Note Hurricanes::) ...
+@*@expansion{}... storms cause flooding (see Section 3.1 [Hurricanes],
+page 24)
+@end table
+
+@item @code{@@math@{..@}}
+Typeset short mathematical expressions  in LaTeX math-mode
+syntax (short: does not cause expansion over multiple lines).
+@table @asis
+@item Example:
+@code{@@math@{\alpha@}}
+@*@expansion{}
+@*@math{\alpha}
+@item Note:
+The mathematical expressions inside @code{@@math@{..@}} must
+not contain the characters @code{@{},@code{@}}, and @code{@@}.
+@end table
+
+@item @code{@@code@{..@}}
+Typeset short strings in typewriter font (short: does not cause
+expansion over multiple lines).
+@table @asis
+@item Example:
+@code{@@code@{typewriter font@}}
+@*@expansion{}
+@*@code{typewriter font}
+@item Note:
+The string inside @code{@@code@{..@}} must not contain the
+characters @code{@{},@code{@}}, and @code{@@}.
+@end table
+
+@item
+Typeset pre-formatted text in typewriter font.
+@example
+@@example
+ ...
+@@end example
+@end example
+@table @asis
+@item Example:
+@example
+before example
+@@example
+in example
+notice escape of special characters like @@@{,@@@},@@@@
+@@end example
+after example
+@end example
+@expansion{}
+@*before example
+@example
+in example
+notice escape of special characters like @{,@},@@
+@end example
+after example
+@item Note:
+Inside an @@example environment, the characters @{,@},@@ have
+to be escaped by an @@ sign.
+@end table
+
+@item
+Typeset pre-formatted text in normal font.
+@example
+@@format
+ ...
+@@end format
+@end example
+@table @asis
+@item Example:
+@example
+before format
+@@format
+in format
+notice escape of special characters like @@@{,@@@},@@@@
+@@end format
+after format
+@end example
+@expansion{}
+@*before format
+@format
+in format
+escape of special characters like @{,@},@@
+@end format
+after format
+@item Note:
+Inside an @@format environment, the characters @{,@},@@ have
+to be escaped by an @@ sign.
+@end table
+
+@item
+Write text in pure @code{texinfo}.
+@example
+@@texinfo
+ ...
+@@end texinfo
+@end example
+@table @asis
+@item Example:
+@example
+@@texinfo
+Among others, within a texinfo environment,
+one can use the tex environment to typeset
+more complex mathematical items like
+@@tex
+$i_@{1,1@} $
+@@tex
+@@end texinfo
+@end example
+@*@expansion{}
+@*Among others, within a texinfo environment, one can use the tex environment
+to typeset more complex mathematical items like
+@tex
+$ i_{1,1} $
+@end tex
+@end table
+
+Furthermore, a line-break is inserted before each line
+whose previous line is shorter than 60
+characters and does not contain any of the above described recognized
+texinfo markup elements.
+@end itemize
+
+
+@c -------------------------------------------------------------------
+@node Loading a library,,Typesetting of help and info strings,Libraries
+@subsection   Loading a library
+@cindex   Loading a library
+
+Libraries can be loaded with the @code{LIB}  or the @code{load}  command
+(@pxref{LIB} and @pxref{load}).
+
+@c ------------------------------------------------------------
+@c   This piece of text exists also in the file reference.doc,
+@c   chapter "LIB".
+@c   chapter "load".
+@c   If you change something here, change it there, too!
+@c ------------------------------------------------------------
+@table @code
+@item @strong{Syntax:}
+@code{LIB} string_expression @code{;}
+@*@code{load} string_expression @code{;}
+@item @strong{Type:}
+none
+@item @strong{Purpose:}
+Reads a library from a file. If the given filename does not start with
+@kbd{.} or @kbd{/}  and if the file cannot be located in the current
+directory,  the @code{SearchPath} is checked for a  directory containing
+a file with this name.
+@item @strong{Note on SearchPath:}
+The @code{SearchPath} for a library is constructed at @sc{Singular}
+start-up time as follows:
+@enumerate
+@item
+the directories contained in the environment variable
+@code{SINGULARPATH} are appended.
+
+@item
+the directories @code{$BinDir/LIB}, @code{$RootDir/LIB},
+@code{$RootDir/../LIB}, @code{$DefaultDir/LIB}, @code{$DefaultDir/../LIB}
+are appended, where
+@itemize @bullet
+@item @code{$BinDir}
+is the value of the environment variable
+@code{SINGULAR_BIN_DIR}, if set, or, if not set, the directory in which the
+@sc{Singular} program
+resides
+@item @code{$RootDir}
+is the value of the environment variable
+@code{SINGULAR_ROOT_DIR}, if set, or, if not set, @code{$BinDir/../}.
+@item @code{$DefaultDir}
+is the value of the environment variable
+@code{SINGULAR_DEFAULT_DIR}, if set, or @code{/usr/local}.
+@end itemize
+
+@item
+all directories which do not exist are removed from the @code{SearchPath}.
+@end enumerate
+
+For setting environment variables, see @ref{system}, or consult the manual of
+your shell.
+
+The library @code{SearchPath} can be examined  by starting up
+@sc{Singular} with the option @code{-v}, or by issuing the command
+@code{system("--version");}.
+
+@item @strong{Note on standard.lib:}
+Unless  @sc{Singular} is started with the @code{--no-stdlib} option, the
+library @code{standard.lib} is automatically loaded at start-up time.
+
+@end table
+
+Following a @code{LIB}  or @code{load}  command, only the names
+of the procedures in the library are loaded. The body of a particular
+procedure is only read upon the first call of the procedure. This
+minimizes memory consumption by unused procedures. Starting
+a @sc{Singular}  session with the @code{-q} or @code{--quiet}
+@code{option} unsets the @code{option} @code{loadLib} and
+inhibits, thus, the monitoring of library loading (see @code{option}).
+
+All libraries loaded in a @sc{Singular}  session are displayed upon
+entering @code{listvar(package);} :
+
+@smallexample
+@c example
+ option(loadLib);   // show loading of libraries;
+                    // standard.lib is loaded
+ listvar(package);
+                    // the names of the procedures of inout.lib
+ LIB "inout.lib";   // are now known to Singular
+ listvar(package);
+@c example
+@end smallexample
+
+@c ref
+See
+@ref{Command line options};
+@ref{Procedures and libraries};
+@ref{SINGULAR libraries};
+@ref{proc};
+@ref{LIB};
+@ref{standard_lib};
+@ref{string};
+@ref{system}.
+@c ref
+
+
+@c -------------------------------------------------------------------
+@c ---------------------------------------
+@c ---------------------------------------
+@c ---------------------------------------
+@c ---------------------------------------
+@c ----------------------------------------------------------------------
+@node Debugging tools, Dynamic loading, Libraries, General concepts
+@section Debugging tools
+@cindex Debugging tools
+
+If @sc{Singular} does not come back to the prompt while calling a user
+defined procedure, probably a bracket or a @code{"} is missing.  The
+easiest way to leave the procedure is to type some brackets or @code{"}
+and then @key{RETURN} .
+
+@menu
+* ASSUME::
+* Tracing of procedures::
+* Source code debugger::
+* Break points::
+* Printing of data::
+* libparse::
+* option(warn)::
+@end menu
+
+@c ---------------------------------------
+@node ASSUME,Tracing of procedures,Debugging tools,Debugging tools
+@subsection ASSUME
+@cindex ASSUME
+
+@table @code
+@item @strong{Syntax:}
+@code{ASSUME (} int_constant @code{,} expression @code{)}
+@item @strong{Purpose:}
+Tests the expression for correctness if the int_constant is smaller
+as a variable @code{assumeLevel}. If no such variable exist the int expression
+is compared against 0. It is possible to define an individual @code{assumeLevel} for each library and/or procedure
+If the expression is evaluated and not true (i.e. does not evaluate to @code{int(0)} an error is raised.
+@item @strong{Note:} @code{ASSUME} shall be used for documentation and debugging,
+production code of a library must never define @code{assumeLevel}.
+@item @strong{Example:}
+@smallexample
+@c example error
+  ASSUME(0,2==2); // always tested
+  ASSUME(1,1==2); // not evaluated
+  int assumeLevel=2;
+  ASSUME(1,1==2);
+  // setting a different assumeLevel for poly.lib:
+  int Poly::assumeLevel=2;
+@c example
+@end smallexample
+@end table
+
+@c ---------------------------------------
+@node Tracing of procedures,Source code debugger,ASSUME,Debugging tools
+@subsection Tracing of procedures
+@cindex TRACE
+Setting the @code{TRACE} variable to 1 (resp.@: 3) results in reporting of
+all procedure entries and exits (resp.@: together with line numbers).
+If @code{TRACE} is set to 4, @code{Singular}
+displays each line before its interpretation and waits for the @key{RETURN}
+key being pressed.
+@menu
+* TRACE var::
+@end menu
+@iftex
+See @ref{TRACE var}.
+@end iftex
+
+@strong{Example:}
+@smallexample
+@c example
+  proc t1
+  {
+    int i=2;
+    while (i>0)
+    { i=i-1; }
+  }
+  TRACE=3;
+  t1();
+@c example
+@end smallexample
+
+@c ---------------------------------------
+@node Source code debugger, Break points, Tracing of procedures, Debugging tools
+@subsection Source code debugger
+@cindex debugging library code
+@cindex source code debugger, sdb
+@cindex debugger
+@cindex sdb, source code debugger
+
+
+The source code debugger (sdb) is an experimental feature, its
+interface may change in future versions of @sc{Singular}.  @*To enable the
+use of the source code debugger @sc{Singular} has to be started with the
+option @code{-d} or @code{--sdb} (see @ref{Command line options}).
+
+
+@subsubheading sdb commands
+Each sdb command consists of one character which may be followed by
+a parameter.
+@table @asis
+@item @code{b}
+print backtrace of calling stack
+@item @code{c}
+continue
+@item @code{e}
+edit the current procedure and reload it (current call will be aborted)
+@* only available on UNIX systems
+@item @code{h},@code{?}
+display help screen
+@item @code{n}
+execute current line, sdb break at next line
+@item @code{p} <identifier>
+display type and value of the variable given by <identifier>
+@item @code{Q}
+quit this @sc{Singular} session
+@item @code{q} <flags>
+quit debugger, set debugger flags(0,1,2)
+@* 0: continue, disable the debugger
+@* 1: continue
+@* 2: throw an error, return to toplevel
+@end table
+
+
+@subsubheading Syntactical errors in procedures
+If @sc{Singular} was started using the command line option @code{-d} or
+@code{--sdb}, a syntactical error in a procedure will start the
+source code debugger instead of returning to the top level with an
+error message. The commands @code{q 1} and @code{q 2} are equivalent in this
+case.
+
+@subsubheading SDB breakpoints in procedures
+@cindex SDB breakpoint
+@cindex SDB debugger
+Up to seven SDB breakpoints can be set.
+To set a breakpoint at a procedure use
+@code{breakpoint}. (See @ref{breakpoint}).
+@*These breakpoints can be cleared with the command @code{d breakpoint_no}
+from within the debugger or with
+@code{breakpoint(} proc_name @code{,-1);}.
+
+
+@c ---------------------------------------
+@node Break points, Printing of data, Source code debugger, Debugging tools
+@subsection Break points
+A break point can be put into a proc by inserting the command @code{~}.
+If @code{Singular} reaches a break point it asks for lines of commands
+(line-length must be less than 80 characters)
+from the user. It returns to normal execution if given an empty line.
+See @ref{~}.
+
+
+@strong{Example:}
+@smallexample
+proc t
+@{
+  int i=2;
+  ~;
+  return(i+1);
+@}
+t();
+@expansion{} -- break point in t --
+@expansion{} -- 0: called    from STDIN --
+i;               // here local variables of the procedure can be accessed
+@expansion{} 2
+@expansion{} -- break point in t --
+
+@expansion{} 3
+@end smallexample
+@sp 2
+
+@c ---------------------------------------
+@node Printing of data,libparse,Break points,Debugging tools
+@subsection Printing of data
+The procedure @code{dbprint} is useful for optional output of data:
+it takes 2 arguments and prints the second argument, if the first
+argument is positive; otherwise, it does nothing.
+@menu
+* dbprint::
+* voice::
+@end menu
+@ifnothtml
+@iftex
+See @ref{dbprint}; @ref{voice}.
+@end iftex
+@end ifnothtml
+
+@c ---------------------------------------
+@node libparse,option(warn),Printing of data,Debugging tools
+@subsection libparse
+@cindex libparse
+
+@code{libparse} is a stand-alone program contained in the @sc{Singular}
+distribution (at the place where the @sc{Singular} executable program
+resides), which cannot be called inside @sc{Singular}. It is a
+debugging tool for libraries which performs exactly the same checks as
+@ifset namespaces
+the @code{load} command in @sc{Singular}, but generates more output during
+@end ifset
+@ifclear namespaces
+the @code{LIB} command in @sc{Singular}, but generates more output during
+@end ifclear
+parsing.  @code{libparse} is useful if an error
+occurs while loading the library, but the whole block around the line
+specified seems to be correct. In these situations the real error might
+have occurred hundreds of lines earlier in the library.
+
+@strong{Usage:}
+@*@code{libparse [options] singular-library}
+@*@strong{Options:}
+@table @asis
+@item @code{-d} Debuglevel
+increases the amount of output during parsing, where Debuglevel is an integer
+between 0 and 4. Default is 0.
+@item @code{-s}
+turns on reporting about violations of unenforced syntax rules
+@end table
+
+The following syntax checks are performed in any case:
+@itemize @bullet
+@item counting of pairs of brackets @{,@} , [,] and (,)
+    (number of @{ has to match number of @}, same for [,] and (,) ).
+@item counting of "
+    ( number of " must be even ).
+@item general library syntax
+    ( only LIB, static, proc (with parameters, help, body and example)
+and comments, i.e // and @code{/* ... */}, are allowed).
+@end itemize
+Its output lists all procedures that have been parsed successfully:
+
+@smallexample
+$ libparse sample.lib
+Checking library 'sample.lib'
+  Library         function      line,start-eod line,body-eob  line,example-eoe
+Version:0.0.0;
+g Sample               tab line    9,  149-165   13,  271-298   14,  300-402
+l Sample      internal_tab line   24,  450-475   25,  476-496    0,    0-496
+@end smallexample
+
+where the following abbreviations are used:
+@itemize @bullet
+@item g: global procedure (default)
+@item l: static procedure, i.e., local to the library.
+@end itemize
+
+each of the following is the position of the byte in the library.
+@itemize @bullet
+@item start: begin of 'proc'
+@item eod: end of parameters
+@item body: start of procedurebody '@{'
+@item eob:  end of procedurebody '@}'
+@item example: position of 'example'
+@item eoe: end of example '@}'
+@end itemize
+
+Hence in the above example, the first procedure of the library
+sample.lib is user-accessible and its name is tab. The procedure
+starts in line 9, at character 149. The head of the procedure
+ends at character 165, the body starts in line 13 at character 271
+and ends at character 298. The example section extends from line 14
+character 300 to character 402.
+
+The following example shows the result of a missing close-bracket @} in
+line 26 of the library @code{sample.lib}.
+
+@smallexample
+LIB "sample.lib";
+@expansion{}    ? Library sample.lib: ERROR occurred: in line 26, 497.
+@expansion{}    ? missing close bracket '@}' at end of library in line 26.
+@expansion{}    ? Cannot load library,... aborting.
+@expansion{}    ? error occurred in STDIN line 1: `LIB "sample.lib";`
+@end smallexample
+@c ---------------------------------------
+@node option(warn),,libparse,Debugging tools
+@subsection option(warn)
+@cindex  option(warn)
+@cindex  warn, option
+
+
+If this option is set some constructs which @strong{may} lead to bug
+will result in a warning. While there are legitimate uses for them and they
+are @strong{not errors} is is worth thinking about it.
+
+@itemize
+@item
+change of options during a procedure call: is this side effect intended?
+@item
+use of @code{def}: avoids type checking, but useful if a procedure handles
+several types at once
+@item
+@code{ASSUME} outside of procedures: while a failed @code{ASSUME} aborts
+the current procedures and return to the top level - what should it do at top level?
+@end itemize
+@c ref
+See
+@ref{option}.
+@c ref
+@c ---------------------------------------
+@node Dynamic loading, , Debugging tools, General concepts
+@section Dynamic loading
+@cindex Dynamic loading
+
+In addition to the concept of libraries, it is also possible to
+dynamically extend the functionality by loading functions written
+in C/C++ or some other higher programming language. A collection
+of such functions is called a dynamic module and can be loaded by
+the command @code{LIB} or @code{load}. It is basically handled in
+the same way as a library: upon loading, a new @code{package} is
+created which holds the contents of the dynamic module.
+General information about the loaded module can be displayed by the command
+@code{help package_name}. After loading the dynamic module, its functions
+can be used exactly like the built-in @sc{Singular} functions.
+
+To have the full functionality of a built-in function, dynamic modules
+need to comply with certain requirements on their internal structure.
+As this would be beyond the scope of the @code{Singular} manual,
+a separate, more detailed guide on how to write and use dynamic modules
+is available.
+

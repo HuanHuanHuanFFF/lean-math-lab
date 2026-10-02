@@ -1,0 +1,185 @@
+{
+  "members": {
+    "BASELINE_LEDGER.md": {
+      "boundary": "classifies inherited accepted/author/conditional/projection states, not reacceptance",
+      "dependencies": [
+        "sources/OVERVIEW.md"
+      ],
+      "kind": "this_session_baseline_classification"
+    },
+    "CLEAN_REPLAY_RECEIPT.json": {
+      "boundary": "same-session reproducibility, no external analytic theorem proof, no independent mathematics audit or Lean",
+      "kind": "actual_clean_extract_replay_stdout",
+      "producer": "scripts/replay.py on clean extraction of frozen payload; compared again on final ZIP clean extraction",
+      "scope": "payload manifest hash + expected exact verification output hash"
+    },
+    "FAILURE_BOUNDARIES.md": {
+      "boundary": "paper proof plus same-session exact computation; no originality or external independent review claim",
+      "dependencies": [
+        "sources/OVERVIEW.md for baseline status",
+        "PROOFS.md section 0 elementary factorial valuation",
+        "Dusart Proposition 6.8 only for E5 infinite portion",
+        "certificates/ for stated finite exact results"
+      ],
+      "kind": "this_session_authored_mathematical_derivation_and_analysis"
+    },
+    "HANDOFF.md": {
+      "boundary": "paper proof plus same-session exact computation; no originality or external independent review claim",
+      "dependencies": [
+        "sources/OVERVIEW.md for baseline status",
+        "PROOFS.md section 0 elementary factorial valuation",
+        "Dusart Proposition 6.8 only for E5 infinite portion",
+        "certificates/ for stated finite exact results"
+      ],
+      "kind": "this_session_authored_mathematical_derivation_and_analysis"
+    },
+    "PAYLOAD_SHA256SUMS.txt": {
+      "boundary": "integrity only; avoids receipt/manifest self-reference",
+      "kind": "sha256_digest_manifest",
+      "producer": "this-session packaging code using hashlib.sha256",
+      "scope": "all payload members excluding two manifests and replay receipt"
+    },
+    "PROOFS.md": {
+      "boundary": "paper proof plus same-session exact computation; no originality or external independent review claim",
+      "dependencies": [
+        "sources/OVERVIEW.md for baseline status",
+        "PROOFS.md section 0 elementary factorial valuation",
+        "Dusart Proposition 6.8 only for E5 infinite portion",
+        "certificates/ for stated finite exact results"
+      ],
+      "kind": "this_session_authored_mathematical_derivation_and_analysis"
+    },
+    "PROVENANCE.json": {
+      "boundary": "member provenance; member bytes independently bound by manifests",
+      "kind": "this_session_authored_member_source_map"
+    },
+    "README.md": {
+      "boundary": "status/instructions metadata, not proof acceptance",
+      "dependencies": [
+        "sources/OVERVIEW.md",
+        "REPORT.md",
+        "PROOFS.md",
+        "certificates/"
+      ],
+      "kind": "this_session_authored_administrative_document"
+    },
+    "REPORT.md": {
+      "boundary": "paper proof plus same-session exact computation; no originality or external independent review claim",
+      "dependencies": [
+        "sources/OVERVIEW.md for baseline status",
+        "PROOFS.md section 0 elementary factorial valuation",
+        "Dusart Proposition 6.8 only for E5 infinite portion",
+        "certificates/ for stated finite exact results"
+      ],
+      "kind": "this_session_authored_mathematical_derivation_and_analysis"
+    },
+    "SESSION_STATE.json": {
+      "boundary": "status/instructions metadata, not proof acceptance",
+      "dependencies": [
+        "sources/OVERVIEW.md",
+        "REPORT.md",
+        "PROOFS.md",
+        "certificates/"
+      ],
+      "kind": "this_session_authored_administrative_document"
+    },
+    "SHA256SUMS.txt": {
+      "boundary": "integrity only; outer archive SHA separately supplied",
+      "kind": "sha256_digest_manifest",
+      "producer": "this-session packaging code using hashlib.sha256",
+      "scope": "all archive files except this manifest itself"
+    },
+    "certificates/examples.json": {
+      "boundary": "finite exact certificate/regression output; no external independent review",
+      "kind": "this_session_generated_exact_certificate",
+      "producer": "scripts/generate.py",
+      "validated_by": "scripts/verify.py"
+    },
+    "certificates/expected_verification.json": {
+      "boundary": "finite exact certificate/regression output; no external independent review",
+      "kind": "this_session_generated_exact_certificate",
+      "producer": "scripts/verify.py",
+      "validated_by": "scripts/verify.py"
+    },
+    "certificates/finite_cover.json": {
+      "boundary": "finite exact certificate/regression output; no external independent review",
+      "kind": "this_session_generated_exact_certificate",
+      "producer": "scripts/generate.py",
+      "validated_by": "scripts/verify.py"
+    },
+    "certificates/parameters.json": {
+      "boundary": "finite exact certificate/regression output; no external independent review",
+      "kind": "this_session_generated_exact_certificate",
+      "producer": "scripts/generate.py",
+      "validated_by": "scripts/verify.py"
+    },
+    "logs/generation.log": {
+      "boundary": "generation output; verifier supplies exact arithmetic checks",
+      "kind": "actual_this_session_process_output",
+      "producer": "python scripts/generate.py"
+    },
+    "logs/verification.log": {
+      "boundary": "same-session computational checks only; external analytic theorem not checked",
+      "kind": "actual_this_session_process_output",
+      "producer": "python scripts/verify.py"
+    },
+    "scripts/generate.py": {
+      "author_context": "B699 E R1",
+      "boundary": "does not invoke Lean, network, or repository writes",
+      "dependencies": [
+        "Python standard library"
+      ],
+      "kind": "this_session_authored_python"
+    },
+    "scripts/replay.py": {
+      "author_context": "B699 E R1",
+      "boundary": "does not invoke Lean, network, or repository writes",
+      "dependencies": [
+        "Python standard library"
+      ],
+      "kind": "this_session_authored_python"
+    },
+    "scripts/verify.py": {
+      "author_context": "B699 E R1",
+      "boundary": "does not invoke Lean, network, or repository writes",
+      "dependencies": [
+        "Python standard library"
+      ],
+      "kind": "this_session_authored_python"
+    },
+    "sources/ACQUISITION.json": {
+      "boundary": "source acquisition record, not mathematical acceptance",
+      "dependencies": [
+        "Files tool reads/materialize",
+        "read-only GitHub fetch_file responses"
+      ],
+      "kind": "this_session_acquisition_record"
+    },
+    "sources/EXTERNAL_INPUTS.md": {
+      "boundary": "bibliographic and theorem statement registry, not a full reproduction/reproof of external theorem",
+      "dependencies": [
+        "sources/OVERVIEW.md section 9",
+        "Pierre Dusart arXiv:1002.0442v1 Proposition 6.8, printed p8 (web PDF screenshot verified)"
+      ],
+      "kind": "this_session_source_registry"
+    },
+    "sources/OVERVIEW.extracted.txt": {
+      "boundary": "raw materialize unavailable; original text representation retained",
+      "file_id": "file_00000000484081fd9fbefdf50eb4064f",
+      "file_name": "OVERVIEW(5).md",
+      "kind": "provided_project_source_text_representation",
+      "retrieval": "Files Library read + text materialize",
+      "transform": "none"
+    },
+    "sources/OVERVIEW.md": {
+      "boundary": "byte identity checked against user-specified SHA; does not verify baseline mathematical claims",
+      "derived_from": [
+        "sources/OVERVIEW.extracted.txt"
+      ],
+      "kind": "hash_matched_baseline",
+      "sha256_user_target": "96f92ba7061e8facb774bdf2d42c5d445f3f1a63564ca0e2b71ceaca08d44066",
+      "transform": "append exactly one byte LF (0x0a)"
+    }
+  },
+  "schema": "b699-e-member-provenance-v1"
+}

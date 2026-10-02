@@ -1,0 +1,20 @@
+PASS frozen source bytes; no old theorem recomputation
+PASS new quintic/short scale identities, including the a=0 safeguard
+PASS exact new full low residual R4
+PASS exact new full low residual R3
+PASS exact new full low residual R2
+PASS exact new full low residual R1
+PASS exact new full low residual R0
+Traceback (most recent call last):
+  File "/mnt/data/B699-ProB-REG3-COMPAT-20261002-R3/code/verify.py", line 53, in <module>
+    WB,WG,HB,CB,kb,nub,a0b,T4=map(vp,['Wbar','Wgate','Hbar','Cbar','kbar','nubar','a0bar','T4'])
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-ProB-REG3-COMPAT-20261002-R3/code/verify.py", line 31, in vp
+    def vp(n):return drop_last(V[n])
+                     ~~~~~~~~~^^^^^^
+  File "/mnt/data/B699-ProB-REG3-COMPAT-20261002-R3/code/ipoly.py", line 60, in drop_last
+    p=unpack(ts,4)
+  File "/mnt/data/B699-ProB-REG3-COMPAT-20261002-R3/code/ipoly.py", line 54, in unpack
+    if cc.denominator!=1:raise ValueError('nonintegral certificate coefficient')
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: nonintegral certificate coefficient

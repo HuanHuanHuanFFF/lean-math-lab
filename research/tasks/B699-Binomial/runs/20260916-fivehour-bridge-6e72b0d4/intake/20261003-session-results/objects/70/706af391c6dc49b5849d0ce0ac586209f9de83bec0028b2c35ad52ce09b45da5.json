@@ -1,0 +1,48 @@
+{
+  "receipt_type": "final archive clean extraction and full replay",
+  "status": "PASS",
+  "date": "2026-10-02",
+  "archive": "B699-ProB-REG4-SCALE-20261002-evidence.zip",
+  "archive_sha256": "ccc7ffd50366e33ef859f181a48841f967f2c6951327093b9a0d429726d41ecc",
+  "archive_bytes": 88174,
+  "archive_file_count": 32,
+  "clean_directory_initially_empty": true,
+  "zip_crc": "PASS",
+  "command": [
+    "python",
+    "-I",
+    "-B",
+    "replay.py"
+  ],
+  "exit_code": 0,
+  "stderr": "",
+  "replay": {
+    "status": "PASS",
+    "manifest_counts": {
+      "PAYLOAD_SHA256SUMS": 29,
+      "SHA256SUMS": 31
+    },
+    "payload_manifest_sha256": "8ebe4854cbc828d15c7fe9e339bbe31d5962d9ef885635fe4a7d85c5a8040b0e",
+    "steps": [
+      {
+        "script": "code/verify.py",
+        "exit_code": 0,
+        "stdout": "PASS: original P, unique monic B, all ten source residuals\nPASS: ratio coordinates, no variable division hidden\nPASS: all regular residuals, both vanishing equations, frozen diagnostic\nPASS: quadratic and discriminant; division-free linear identity including a=0\nPASS: entire real interval excluded; exact handoff source hash\n{\n  \"status\": \"PASS\",\n  \"checker\": \"stdlib Fraction sparse expansion\",\n  \"python\": \"3.13.5\",\n  \"checks\": 90,\n  \"elapsed_seconds\": 5.239,\n  \"claims_not_checked\": [\n    \"old NC3-to-GATE bridge\",\n    \"UU applicability\",\n    \"global REG4 emptiness\",\n    \"Lean\",\n    \"external independent review\"\n  ],\n  \"checked_identities\": [\n    \"V divisible by x\",\n    \"P numerator divisible by x\",\n    \"P monic degree20\",\n    \"B0 exact coefficient\",\n    \"high square coefficient 10\",\n    \"B1 exact coefficient\",\n    \"high square coefficient 11\",\n    \"B2 exact coefficient\",\n    \"high square coefficient 12\",\n    \"B3 exact coefficient\",\n    \"high square coefficient 13\",\n    \"B4 exact coefficient\",\n    \"high square coefficient 14\",\n    \"B5 exact coefficient\",\n    \"high square coefficient 15\",\n    \"B6 exact coefficient\",\n    \"high square coefficient 16\",\n    \"B7 exact coefficient\",\n    \"high square coefficient 17\",\n    \"B8 exact coefficient\",\n    \"high square coefficient 18\",\n    \"B9 exact coefficient\",\n    \"high square coefficient 19\",\n    \"B10 exact coefficient\",\n    \"high square coefficient 20\",\n    \"E0 exact source residual\",\n    \"E1 exact source residual\",\n    \"E2 exact source residual\",\n    \"E3 exact source residual\",\n    \"E4 exact source residual\",\n    \"E5 exact source residual\",\n    \"E6 exact source residual\",\n    \"E7 exact source residual\",\n    \"E8 exact source residual\",\n    \"E9 exact source residual\",\n    \"ratio E0=ell^2 F0\",\n    \"ratio E1=ell^2 F1\",\n    \"ratio E2=ell^2 F2\",\n    \"ratio E3=ell^2 F3\",\n    \"ratio E4=ell^2 F4\",\n    \"ratio E5=ell^2 F5\",\n    \"ratio E6=ell^2 F6\",\n    \"ratio E7=ell^2 F7\",\n    \"ratio E8=ell^2 F8\",\n    \"ratio E9=ell^2 F9\",\n    \"F9 identically zero\",\n    \"regular F0 safe factor identity\",\n    \"normalization powers 0\",\n    \"regular F1 safe factor identity\",\n    \"normalization powers 1\",\n    \"regular F2 safe factor identity\",\n    \"normalization powers 2\",\n    \"regular F3 safe factor identity\",\n    \"normalization powers 3\",\n    \"regular F4 safe factor identity\",\n    \"normalization powers 4\",\n    \"regular F5 safe factor identity\",\n    \"normalization powers 5\",\n    \"regular F6 safe factor identity\",\n    \"normalization powers 6\",\n    \"regular F7 safe factor identity\",\n    \"normalization powers 7\",\n    \"regular F8 safe factor identity\",\n    \"normalization powers 8\",\n    \"R8 identically zero\",\n    \"source R7 exact normalization\",\n    \"frozen R14 diagnostic\",\n    \"D definition\",\n    \"F definition\",\n    \"C definition\",\n    \"w degree R7\",\n    \"cleared R7\",\n    \"w degree R6\",\n    \"cleared R6\",\n    \"w degree R5\",\n    \"cleared R5\",\n    \"Q2 all coefficients\",\n    \"Q3 degree3\",\n    \"nonzero quadratic constant identity\",\n    \"discriminant factorization\",\n    \"Q3 leading divisible by a polynomial identity\",\n    \"eprime definition\",\n    \"Cstar definition\",\n    \"division-free linear certificate\",\n    \"all auxiliary coefficients scale independent\",\n    \"Bernstein slice specialization\",\n    \"Bernstein complete identity\",\n    \"Bernstein every coefficient strictly positive\",\n    \"slice D never zero exact formula\",\n    \"R14 source SHA256\"\n  ]\n}\n",
+        "stderr": ""
+      },
+      {
+        "script": "code/test_consumer.py",
+        "exit_code": 0,
+        "stdout": "{\"status\": \"PASS\", \"test_assertions\": 9, \"purpose\": \"diagnostics only; no finite scan is used as an exclusion proof\"}\n",
+        "stderr": ""
+      }
+    ],
+    "elapsed_seconds": 8.223,
+    "not_a_claim_of": [
+      "Lean",
+      "external independent review",
+      "full B699 closure"
+    ]
+  },
+  "boundary": "Byte integrity and same-author exact replay only; not Lean, external independent review, or B699 closure."
+}

@@ -1,0 +1,640 @@
+@comment -*-texinfo-*-
+@comment this file contains the "Tricks and pittfalls" sections
+
+@c The following directives are necessary for proper compilation
+@c with emacs (C-c C-e C-r).  Please keep it as it is.  Since it
+@c is wrapped in `@ignore' and `@end ignore' it does not harm `tex' or
+@c `makeinfo' but is a great help in editing this file (emacs
+@c ignores the `@ignore').
+@ignore
+%**start
+\input texinfo.tex
+@setfilename tricks.info
+@node Top, Tricks and pitfalls
+@menu
+* Tricks and pitfalls::
+@end menu
+@node Tricks and pitfalls, Examples, Functions and system variables, Top
+@chapter Tricks and pitfalls
+%**end
+@end ignore
+
+@menu
+* Limitations::
+* System dependent limitations::
+* Major differences to the C programming language::
+* Miscellaneous oddities::
+* Identifier resolution::
+@end menu
+
+@c -------------------------------------------------------------------------
+@node Limitations,System dependent limitations,,Tricks and pitfalls
+@section Limitations
+@cindex Limitations
+
+@sc{Singular} has the following limitations:
+@itemize @bullet
+@item
+the characteristic of a prime field must be less than or equal to 2147483647 (2^31)
+@* (the characteristic of a prime field in the factory routines must be less than 536870912 (2^29))
+(factory is used for @code{factorize}, @code{gcd}, @code{resultant},
+@code{extgcd}, @code{sqrfree}, @code{char_series}, @code{det}, @code{laguerre},
+@code{system("HNF",..)}, @code{system("LLL",..)},@code{system("rref",..)},
+@code{system("absFact",..)}, function fields, polynomial division)
+@* (the characteristic of a prime field in the NTL routines must be less than NTL_SP_BOUND (2^30) on 32bit
+machines - This is always the case since currently, only factory uses NTL.)
+(factory is used for @code{factorize}, @code{gcd}, @code{resultant},
+@code{extgcd}, @code{sqrfree}, @code{char_series}, @code{det}, @code{laguerre},
+@code{system("HNF",..)}, @code{system("LLL",..)},@code{system("rref",..)},
+@code{system("absFact",..)}, function fields, polynomial division)
+@item
+if only NTL is used, extgcd has a limit on the coefficients:
+At the current setting of NTL_MAX_FFTPRIMES (20000),
+on 64-bit machines with 50-bit
+FFT primes, this allows for polynomials with 20*50/2 = 500K-bit
+coefficients, while the table itself takes 160KB.
+@item
+the number of elements in GF(p,n) must be less than 65536 (2^16)
+@item
+the (weighted) degree of a monomial must be less than 2147483648 (2^31)
+@item
+the rank of any free module
+must be less than 2147483648 (2^31)
+@item
+the maximal allowed exponent of a ring variable
+depends on the ordering of the ring and is at least 32767 (2^15-1).
+See also @ref{Monomial orderings} for setting other limits.
+@c TBC -- number of max parameters
+@item
+the precision of long floating point numbers (for ground field @code{real})
+must be less than 32768 (2^15)
+@item
+integers (of type @code{int}) have the limited range
+from -2147483648 to 2147483647 (-2^31..2^31-1)
+@item
+floating point numbers (type @code{number} from field @code{real}) have
+a limited range which is machine dependent. A typical range is -1.0e-38
+to 1.0e+38.  The string representation of overflow and underflow is
+machine dependent, as well. For example "@code{Inf}" on Linux, or
+"@code{+.+00e+00}" on HPUX.
+@*Their input syntax is given by @code{scanf}, but must start with a digit.
+@item
+floating point numbers (type @code{number} from field @code{real} with a precision p larger then 3) use internally @code{mpf_set_default_prec(3.5*p+1)}.
+@*Their input syntax is given by @code{mpf_set_str} from GMP, but must start with a digit.
+@c @item
+@c a token (in the input) must have 16383 characters or less.
+@c @*(Tokens are strings, blocks of statements, numbers)
+@c @*This does not apply to proc in libraries but to blocks
+@c within a procedure
+@item
+the length of an identifier is unlimited but @code{listvar}
+displays only the first 20 characters
+@c @item
+@c the interpretation of text between a closing @code{@}} and the end of
+@c the line is undefined. (Therefore do not put anything but spaces between
+@c @code{@}} and the end of the line.)
+@item
+statements may not contain more than 10000 tokens
+@item
+tokens (i.e. strings, numbers, ...) may not be longer than 16382 characters
+@item
+@cindex German Umlaute
+@cindex non-english special characters
+@cindex special characters, non-english
+All input to @sc{Singular} must be 7-bit clean, i.e. special characters like the
+the German Umlaute (@"a, @"o, etc.), or the French accent characters may
+neither appear as input to @sc{Singular}, nor in libraries or procedure
+definitions.
+@cindex vspace
+@cindex verifyGB
+@cindex farey
+@item
+parallelization (like @code{modStd}) can not
+use more than SIPC_MAX_SEMAPHORES (512) cpus. This limit can be changed in the source file @code{Singular/links/simpleipc.h}.
+@item
+@code{vspace}, used in @code{system("verifyGB",I)} and @code{farey} can not
+use more than MAX_PROCESS (64) cpus. This limit can be changed in the source file @code{kernel/oswrapper/vspace.h}.
+@end itemize
+
+@c -------------------------------------------------------------------------
+@node System dependent limitations,Major differences to the C programming language,Limitations,Tricks and pitfalls
+@section System dependent limitations
+@cindex System dependent limitations
+
+Ports of @sc{Singular} to different systems do not always implement all
+possible parts of @sc{Singular}:
+@itemize @bullet
+@item
+dynamic modules are implemented for
+  @itemize @bullet
+  @item
+  unix systems with ELF format for executables (Linux, Solaris, FreeBSD)
+  @end itemize
+@end itemize
+@c -------------------------------------------------------------------------
+@node Major differences to the C programming language,Miscellaneous oddities,System dependent limitations,Tricks and pitfalls
+@section Major differences to the C programming language
+@cindex C programming language
+
+Although many constructs from @sc{Singular}'s programming language are similar
+to those from the C programming language, there are some subtle
+differences. Most notably:
+
+@menu
+* No rvalue of increments and assignments::
+* Evaluation of logical expressions::
+* No case or switch statement::
+* Usage of commas::
+* Usage of brackets::
+* Behavior of continue::
+* Return type of procedures::
+* First index is 1::
+@end menu
+@c ---------------------------------------
+@node No rvalue of increments and assignments, Evaluation of logical expressions,,Major differences to the C programming language
+@subsection No rvalue of increments and assignments
+@cindex rvalue
+
+The increment operator @code{++} (resp.@: decrement operator @code{--})
+has no rvalue, i.e., cannot be used on the right-hand sides of
+assignments.  So, instead of
+
+@smallexample
+j = i++;  // WRONG!!!
+@end smallexample
+
+@noindent (which results in an error), it must be written
+
+@smallexample
+i++; j = i;
+@end smallexample
+
+Likewise, an assignment expression does not have a result.  Therefore,
+compound assignments like @code{i = j = k;} are not allowed and result
+in an error.
+
+@c ---------------------------------------
+@node Evaluation of logical expressions, No case or switch statement, No rvalue of increments and assignments, Major differences to the C programming language
+@subsection Evaluation of logical expressions
+@cindex Evaluation of logical expressions
+@cindex and
+@cindex or
+
+@c ------------------------------------------------------------
+@c   This piece of text partially exists also in the file types.doc,
+@c   chapter "boolean expressions".
+@c   If you change something here, change it there, too!
+@c ------------------------------------------------------------
+@strong{All} arguments of a logical expression are first evaluated and
+then the value of the logical expression is determined. For example, the
+logical expressions @code{(a || b)} is evaluated by first evaluating
+@code{a} @emph{and} @code{b}, even though the value of @code{b} has no
+influence on the value of @code{(a || b)}, if @code{a} evaluates to
+true.
+
+Note, that this evaluation is different from the left-to-right,
+conditional evaluation of logical expressions (as found in most
+programming languages). For example, in these other languages, the value
+of @code{(1 || b)} is determined without ever evaluating @code{b}.  This
+causes some problems with boolean tests on variables, which might not be
+defined at evaluation time. For example, the following results in an
+error, if the variable @code{i} is undefined:
+
+@smallexample
+if (defined(i) && i > 0) @{@} // WRONG!!!
+@end smallexample
+
+This must be written instead as:
+
+@smallexample
+if (defined(i))
+@{
+  if (i > 0) @{@}
+@}
+@end smallexample
+@c ------------------------------------------------------------
+@c end of duplicate text
+@c ------------------------------------------------------------
+
+However, there are several short work-arounds for this problem:
+@enumerate
+@item
+If a variable (say, @code{i}) is only to be used as a boolean flag, then
+define (value is TRUE) and undefine (value is FALSE) @code{i} instead of
+assigning a value. Using this scheme, it is sufficient to simply write
+
+@smallexample
+if (defined(i))
+@end smallexample
+
+in order to check whether @code{i} is TRUE. Use the command @code{kill}
+to undefine a variable, i.e.@: to assign it a FALSE value (@pxref{kill}).
+@item
+If a variable  can have more than two values, then
+define it, if necessary, before it is used for the first time.
+For example, if the following is used within a procedure
+
+@smallexample
+if (! defined(DEBUG)) @{ int DEBUG = 1;@}
+@dots{}
+if (DEBUG == 3)  @{@dots{}@}
+if (DEBUG == 2)  @{@dots{}@}
+@dots{}
+@end smallexample
+
+then a user of this procedure does not need to care about the existence
+of the @code{DEBUG} variable -- this remains hidden from the
+user. However, if @code{DEBUG} exists globally, then its local default
+value is overwritten by its global one.
+@end enumerate
+
+@c ---------------------------------------
+@node No case or switch statement,  Usage of commas, Evaluation of logical expressions, Major differences to the C programming language
+@subsection No case or switch statement
+@cindex case
+@cindex switch
+
+@sc{Singular} does not offer a @code{case} (or @code{switch})
+statement. However, it can be imitated in the following way:
+
+@smallexample
+while (1)
+@{
+   if (choice == choice_1) @{ @dots{}; break;@}
+   @dots{}
+   if (choice == choice_n) @{ @dots{}; break;@}
+   // default case
+   @dots{}; break;
+@}
+@end smallexample
+
+@c ---------------------------------------
+@node Usage of commas, Usage of brackets, No case or switch statement, Major differences to the C programming language
+@subsection Usage of commas
+@cindex comma
+
+In @sc{Singular}, a comma separates list elements and the value of a comma
+expression is a list.
+Hence, commas cannot be used to combine several expressions into
+a single expression. For example, instead of writing
+
+@smallexample
+for (i=1, j=5; i<5 || j<10; i++, j++) @{@dots{}@} // WRONG!!!!!!
+@end smallexample
+
+@noindent one has to write
+
+@smallexample
+for (i,j = 1,5; i<5 || j<10; i++, j++) @{@dots{}@}
+@end smallexample
+
+@c ---------------------------------------
+@node Usage of brackets, Behavior of continue, Usage of commas, Major differences to the C programming language
+@subsection Usage of brackets
+@cindex bracket
+
+In @sc{Singular}, curly brackets (@code{@{} @code{@}}) @strong{must
+always} be used to enclose the statement body following such constructs
+like @code{if}, @code{else}, @code{for}, or @code{while}, even if this
+block consists of only a single statement. Similarly, in the return
+statement of a procedure, parentheses (@code{(} @code{)}) @strong{must
+always} be used to enclose the return value.  Even if there is no value
+to return, parentheses have to be used after a return statement
+(i.e., @code{return();}).  For example,
+
+@smallexample
+if (i == 1) return i;    // WRONG!!!!!
+@end smallexample
+
+@noindent results in an error. Instead, it must be written as
+
+@smallexample
+if (i == 1) @{ return (i); @}.
+@end smallexample
+
+@c ---------------------------------------
+@node  Behavior of continue, Return type of procedures, Usage of brackets, Major differences to the C programming language
+@subsection Behavior of continue
+@cindex continue
+@sc{Singular}'s @code{continue} construct is only valid inside the body
+of a @code{for} or @code{while} construct. It skips the rest of the
+loop-body and jumps to the beginning of the block. Unlike the
+C-construct @sc{Singular}'s @code{continue} @strong{does not execute the
+increment statement}. For example,
+
+@smallexample
+for (int i = 1 ; i<=10; i=i+1)
+@{
+   @dots{}
+   if (i==3) @{ i=8;continue; @}
+     // skip the rest if i is 3 and
+     // continue with the next i: 8
+   i;
+@}
+@expansion{} 1
+@expansion{} 2
+@expansion{} 8
+@expansion{} 9
+@expansion{} 10
+@end smallexample
+@c ---------------------------------------
+@node Return type of procedures,First index is 1,Behavior of continue, Major differences to the C programming language
+@subsection Return type of procedures
+@cindex return type of procedures
+
+Although the @sc{Singular} language is a strongly typed programming
+language, the type of the
+return value of a procedure does not need to be specified. As a
+consequence, the return type of a procedure may vary, i.e., may, for
+example, depend on the input. However, the return value
+of such a procedure may then only be assigned to a variable of type
+@code{def}.
+
+@smallexample
+@c example
+proc type_return (int i)
+{
+  if (i > 0) {return (i);}
+  else {return (list(i));}
+}
+def t1 = type_return(1);
+def t2 = type_return(-1);
+typeof(t1); typeof(t2);
+@c example
+@end smallexample
+
+Furthermore, it is mandatory to assign the return value of a procedure
+to a variable of type @code{def}, if a procedure changes the current
+ring using the @code{keepring} command (@pxref{keepring}) and returns a
+ring-dependent value (like a polynomial or module).
+
+@smallexample
+@c example
+proc def_return
+{
+  ring r=0,(x,y),dp;
+  poly p = x;
+  keepring r;
+  return (x);
+}
+def p = def_return();
+// poly p = def_return(); would be WRONG!!!
+typeof(p);
+@c example
+@end smallexample
+
+On the other hand, more than one value can be returned by a single
+@code{return} statement. For example,
+
+@smallexample
+proc tworeturn () @{ return (1,2); @}
+int i,j = tworeturn();
+@end smallexample
+
+@c ---------------------------------------
+@node First index is 1,,Return type of procedures, Major differences to the C programming language
+@subsection First index is 1
+@cindex first index is 1
+
+Although the @sc{Singular} language is C like,
+the indices of all objects which may have an index start at 1.
+
+@smallexample
+@c example
+  ring r;
+  ideal i=1,x,z;
+  i[2];
+  intvec v=1,2,3;
+  v[1];
+  poly p=x+y+z;
+  p[2];
+  vector h=[x+y,x,z];
+  h[1];
+  h[1][1];
+@c example
+@end smallexample
+
+@c -------------------------------------------------------------------------
+@node Miscellaneous oddities, Identifier resolution, Major differences to the C programming language, Tricks and pitfalls
+@section Miscellaneous oddities
+
+@enumerate
+@item integer division
+@cindex integer division
+@cindex div
+
+If two numerical constants (i.e., two sequences of digits) are divided
+using the @code{/} operator, the surrounding whitespace determines
+which division to use: if there is no space between the constants and
+the @code{/} operator (e.g., "3/2"), both numerical constants are
+treated as of type @code{number} and the current ring division is
+used. If there is at least one space surrounding the @code{/} operator
+(e.g., "3 / 2"), both numerical constants are treated as of type
+@code{int} and an integer division is performed. To avoid confusion, use
+the @code{div} operator instead of @code{/} for integer division and an
+explicit type cast to @code{number} for ring division. Note, that this
+problem does only occur for divisions of numerical constants.
+It also applies for large numerical constants which are of type @code{bigint}.
+@smallexample
+@c example error
+  ring r=32002,x,dp;
+  3/2;    // ring division
+  3 / 2;  // integer division
+  3 div 2;
+  number(3) / number(2);
+  number a=3;
+  number b=2;
+  a/b;
+  int c=3;
+  int d=2;
+  c / d;
+@c example
+@end smallexample
+
+
+@item monomials and precedence
+@cindex monomials and precedence
+
+The formation of a monomial has precedence over all operators
+(a monomial is here an optional coefficient followed by any sequence
+of ring variables (possibly followed by
+an exponent) which only conssist of letters, digits
+and (over the rationals) @code{/} without any whitespace):
+@smallexample
+@c example
+  ring r=0,(x,y),dp;
+  2xy^2 == (2*x*y)^2;
+  2xy^2 == 2x*y^2;
+  2x*y^2 == 2*x * (y^2);
+@c example
+@end smallexample
+During that formation no operator is involved: in the non-commutative
+case, we have
+@smallexample
+@c example
+  LIB "nctools.lib";
+  ring r = 0,(x,y),dp;
+  def S = superCommutative();
+  xy == yx;
+  x*y == y*x;
+  x*y, y*x;
+@c example
+@end smallexample
+
+@item meaning of @code{mult}
+@cindex mult
+@cindex degree
+
+For an arbitrary ideal or module @code{i}, @code{mult(i)} returns the
+multiplicity of the ideal generated by the leading monomials of the
+given generators of @code{i}, hence depends on the monomial ordering!
+
+A standard mistake is to interpret @code{degree(i)} or @code{mult(i)}
+for an inhomogeneous ideal @code{i} as the degree of the homogenization
+or as something like the 'degree of the affine part'. For the ordering
+@code{dp} (degree reverse lexicographical) the converse is true: if
+@code{i} is given by a standard basis, @code{mult(i)} is the degree of
+the homogeneous ideal obtained by homogenization of @code{i} and then
+putting the homogenizing variable to 0, hence it is the degree of the
+part at infinity (this can also be checked by looking at the initial
+ideal).
+
+@item size of ideals
+@cindex ideals
+@cindex size
+
+@code{size} counts the non-zero entries of an ideal or module. Use
+@code{ncols} to determine the actual number of entries in the ideal or module.
+
+@item computations in @code{qring}
+@cindex qring
+
+In order to speed up computations in quotient rings, @sc{Singular}
+usually does not reduce polynomials w.r.t.@: the quotient ideal; rather
+the given representative is used as long as possible during
+computations. If it is necessary, reduction is done during standard base
+computations. To reduce a polynomial @code{f} by hand w.r.t.@: the
+current quotient ideal use the command @code{reduce(f,std(0))}
+(@pxref{reduce}).
+
+@item degree of a polynomial
+@cindex degree of a polynomial
+
+@itemize
+@item @code{degBound}
+@*The exact meaning of "degree" depends on the ring ordering and the command:
+@code{slimgb} uses always the total degree with weights 1,
+@code{std} does so only for block orderings.
+@item @code{hilb}
+@*the degree is the total degree with weights 1 unless a weight vector is given
+@item @code{kbase}
+@*the degree is the total degree with weights 1
+(to use another weight vector see @ref{weightKB})
+@end itemize
+
+@item substring selection
+@cindex string
+
+To extract substrings from a @code{string}, square brackets are used,
+enclosing either two comma-separated @code{int}s or an
+@code{intvec}. Although two comma-separated @code{int}s represent an
+@code{intvec}, they mean different things in substring access. Square
+brackets enclosing two @code{int}s (e.g.@: @code{s[2,6]}) return a
+substring where the first integer denotes the starting position and the
+second integer denotes the length of the substring. The result is
+returned as a @code{string}. Square brackets enclosing an @code{intvec}
+(e.g.@: @code{s[intvec(2,6)]}) return the characters of the string at the
+position given by the values of the @code{intvec}. The result is
+returned as an expression list of strings.
+@c  Note, that this problem does
+@c  not occur for square brackets enclosing a single @code{int} or more than
+@c  two @code{int}s. Those always return an expression list of strings.
+
+@smallexample
+@c example
+  string s = "one-word";
+  s[2,6];     // a substring starting at the second char
+  size(_);
+  intvec v = 2,6;
+  s[v];      // the second and the sixth char
+  string st = s[v];  // stick together by an assignment
+  st;
+  size(_);
+  v = 2,6,8;
+  s[v];
+@c example
+@end smallexample
+
+@ifset namespaces
+@item packages and indexed variables
+
+See example
+@smallexample
+@c example error
+package K;
+string varok; exportto(K,varok);
+string work(1); exportto(K,work(1));
+int i(1..3); exportto(K,i(1..3));
+// Toplevel does not contain i(1..3)
+listvar();
+// i(1..3) are stored in Package 'K'
+listvar(K);
+@c example
+@end smallexample
+@end ifset
+
+@end enumerate
+
+@c ----------------------------------------------
+@node Identifier resolution,,Miscellaneous oddities,Tricks and pitfalls
+@section Identifier resolution
+@cindex identifier
+
+In @sc{Singular}, an identifier (i.e., a "word") is resolved in the
+following way and order: It is checked for
+@enumerate
+@item
+a reserved name (like @code{ring}, @code{std}, @dots{}),
+@item
+a local  variable (w.r.t. a procedure),
+@item
+a local ring variable (w.r.t. the current basering locally set in a procedure),
+@item
+a global ring variable (w.r.t. the current basering)
+@item
+a global variable,
+@item
+a monomial consisting of local ring variables written without operators,
+@item
+a monomial consisting of global ring variables written without operators.
+@end enumerate
+
+Consequently, it is allowed to have general variables with the same name
+as ring  variables. However, the above identifier resolution order must
+be kept in mind. Otherwise, surprising results may come up.
+
+@smallexample
+@c example
+ring r=0,(x,y),dp;
+int x;
+x*y; // resolved product int*poly, i.e., 0*y
+xy; // "xy" is one identifier and resolved to monomial xy
+@c example
+@end smallexample
+
+For these reasons, we strongly recommend not to use variables which
+have the same name(s) as ring variables.
+
+Moroever, we strongly recommend not to use ring variables whose name is
+fully contained in (i.e., is a substring of) another name of a ring
+variable. Otherwise, effects like the following might occur:
+
+
+@smallexample
+@c example
+ring r=0,(x, x1),dp; // name x is substring of name x1 !!!!!!!!!
+x;x1;   // resolved polynomial x
+short=0; 2x1; // resolved to monomial 2*x^1 !!!!!!
+2*x1; // resolved to product 2 times x1
+@c example
+@end smallexample

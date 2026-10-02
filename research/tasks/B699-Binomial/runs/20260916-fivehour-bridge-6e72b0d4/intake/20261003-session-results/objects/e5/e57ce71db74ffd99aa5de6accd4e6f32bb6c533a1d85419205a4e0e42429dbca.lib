@@ -1,0 +1,525 @@
+//////////////////////////////////////////////////////////////////////////////
+version="version polyclass.lib 4.4.0.3 Jun_2024 "; // $Id: 8e0c8ebdb7fc090b5cccd7dd6561b4542ec46758 $
+category="Commutative Algebra";
+info="
+LIBRARY: polyclass.lib   Data types for normal forms and normal form equations
+AUTHORS:               Janko Boehm,      email: boehm@mathematik.uni-kl.de
+                       Magdaleen Marais, email: magdaleen.marais@up.ac.za
+                       Gerhard Pfister,  email: pfister@mathematik.uni-kl.de
+
+
+OVERVIEW:
+This library implements a ring independent polynomial type used for the return value in
+classify2.lib, realclassify.lib and arnold.lib. You can use +,  * and == for addition, multiplication and comparison. The key over contains the base ring of the polynomial, the key value its value as a polynomial of type poly. The constructor can be called by assigning a polynomial of type poly to a polynomial of type Poly via =.
+
+Moreover the library implements a ring independent class NormalForm consisting out of fields of type string, type list, type Poly and type RightEquivalenceChainWithPrecision, that capture the important characteristics of the stored singularity. The type RightEquivalenceChainWithPrecision is created to store a chain of (finite) transformations, ring independently as a list, performed on a sourcegerm. The image of the sourcegerm is stored in the field targetgerm. In this way the chain of transformations used to transform a sourcegerm to a normal form equation can be documented. To store each individual transformation the library implements a ring independent transformation of type PolynomialRightEquivalence, which contains fields for the ring over which the transformation is performed, the images that defines the transformation as a list of Poly's, and the inverse images that defined the inverse transformation as a list of Poly's.
+
+The library also catains print functions for the newly created types for a user friendly display.
+
+
+REFERENCES:
+J. Boehm, M.S. Marais, G. Pfister: Classification of Complex Singularities with Non-Degenerate Newton Boundary, https://arxiv.org/abs/2010.10185
+
+J. Boehm, M.S. Marais, G. Pfister: Moduli Parameters of Complex Singularities with Non-Degenerate Newton Boundary, https://arxiv.org/abs/2402.05093
+
+Acknowledgements: This research was supported by the Rubbi fund of the Department of Mathematical Sciences of Stellenbosch University, DFG SPP 1489,@* 
+DFG TRR 195 (Project B5).
+
+KEYWORDS: polynomials
+
+SEE ALSO: realclassify_lib, classify2_lib, arnold_lib
+
+PROCEDURES:
+makePoly(f);  constructor for ring independent polynomial type Poly
+ringOf(P); return the parent ring of the Poly P
+valueOf(P); get from the Poly P the corresponding poly
+printPoly(f); print routine for polynomial type Poly
+addPoly(f,g); add polynomials of type Poly
+multPoly(f,g); multiply polynomials of type Poly
+equalPoly(f,g); check whether two polynomials of type Poly over the same ring are equal
+expPoly(f,g); exponentiate polynomials of type Poly to an integer power
+printPolynomialRightEquivalence(RE); print a transformation
+printRightEquivalenceChainWithPrecision(TT); print a chain of transformations
+printNormalFormEquation(F); print routine for normal form equation type NormalFormEquation
+printNormalForm(F); print routine for normal form type NormalForm
+
+";
+
+LIB "sing.lib";
+
+static proc mod_init()
+{
+  newstruct("Poly","ring in,poly value");
+  newstruct("NormalFormEquation","list vars, string singularityType, int milnorNumber, Poly normalFormEquation, int modality, list parameters, int corank, int inertiaIndex, int determinacy, int realCase");
+  newstruct("RightEquivalenceChainWithPrecision","Poly sourcegerm, Poly targetgerm, list transformations, int precision, int HC");
+  newstruct("NormalForm","int numbervars, ring inputRing, Poly nondegeneratePart, Poly nonNormalizedNNBGerm, Poly semiNormalizedNNBGerm, string singularityType, int milnorNumber, Poly normalForm, RightEquivalenceChainWithPrecision phi, RightEquivalenceChainWithPrecision phiBeforeMorseSplit,  Poly normalFormEquation,Poly normalFormEquationUpToRescaling, int modality, list parameters, int corank, int determinacy, int delta, int numberOfBranches, Poly extension1, Poly extension2, Poly exceptionalHypersurface, string ArnoldType");
+  newstruct("PolynomialRightEquivalence","ring in, list images, list imagesInverse");
+  system("install","Poly","print",printPoly,1);
+  system("install","Poly","string",stringPoly,4);
+  system("install","Poly","+",addPoly,2);
+  system("install","Poly","*",multPoly,2);
+  system("install","Poly","^",expPoly,2);
+  system("install","Poly","==",equalPoly,2);
+  system("install","Poly","=",makePoly,1);
+  system("install","PolynomialRightEquivalence","print",printPolynomialRightEquivalence,1);
+  system("install","RightEquivalenceChainWithPrecision","print",printRightEquivalenceChainWithPrecision,1);
+  system("install","NormalForm","print",printNormalForm,1);
+  system("install","NormalFormEquation","print",printNormalFormEquation,1);
+}
+
+proc printNormalFormEquation(NormalFormEquation F)
+"USAGE: printNormalFormEquation(F); F NormalFormEquation
+RETURN: print a normal form equation
+EXAMPLE: example printNormalFormEquation, shows an example"
+{
+def R=basering;
+Poly f=F.normalFormEquation;
+def SS=f.in;
+setring SS;
+"Corank = "+string(F.corank);
+if (F.realCase){"Inertia index = "+string(F.inertiaIndex);}
+"Normal form equation of type = "+(F.singularityType);
+"Normal form equation = "+string(f.value);
+"Milnor number = "+string(F.milnorNumber);
+"Modality = "+string(F.modality);
+if (F.modality>=1){
+  if (F.modality==1){
+      "Parameter term = "+string(F.parameters[1][1]);
+  } else {
+      string paraterms="Parameter terms = ";
+      for (int i =1;i<=size(F.parameters);i++){
+          paraterms=paraterms+string(F.parameters[i][1]);
+          if (i<size(F.parameters)){paraterms = paraterms +", ";}
+      }
+      paraterms;
+  }
+  if (minpoly!=0){"Minimal polynomial = "+string(minpoly);}
+  if (F.realCase && minpoly!=0){
+      if (F.modality>1){ERROR("Not implemented");}
+      "Interval = ["+string(F.parameters[1][2][1])+", "+string(F.parameters[1][2][2])+"]";
+  }
+}
+"Determinacy <= "+string(F.determinacy);
+setring R;
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=(0,a),(x,y,z,w),ds;
+ minpoly = a^2-2;
+ Poly f=x^4+x^2*y^2+a*y^8+z^2-w^2;
+ NormalFormEquation F;
+ F.vars = ringlist(R)[2];
+ F.realCase = 1;
+ F.normalFormEquation = f;
+ F.modality = 1;
+ F.corank = 2;
+ F.inertiaIndex = 1;
+ F.determinacy = 8;
+ F.milnorNumber = milnor(f.value);
+ F.parameters = list(list(a*y^8,list(0,2)));
+ F.singularityType = "X[13]";
+ F;
+ ring R=(0),(x,y,z,w),ds;
+ Poly f=x^4+x^2*y^2+7*y^8+z^2-w^2;
+ NormalFormEquation F;
+ F.vars = ringlist(R)[2];
+ F.realCase = 1;
+ F.normalFormEquation = f;
+ F.modality = 1;
+ F.corank = 2;
+ F.inertiaIndex = 1;
+ F.determinacy = 8;
+ F.milnorNumber = milnor(f.value);
+ F.parameters = list(list(7*y^8,list(-6,8)));
+ F.singularityType = "X[13]";
+ printNormalFormEquation(F);
+}
+
+
+proc printNormalForm(NormalForm F)
+"USAGE: printNormalForm(F); F NormalForm
+RETURN: print a normal form with its important characteristics
+EXAMPLE: example printNormalForm, shows an example"
+{
+def R=basering;
+Poly P=F.normalForm;
+def TT=P.in;
+setring TT;
+short=0;
+"Embedding dimension = "+string(F.numbervars);
+"Corank of singularity = "+string(F.corank);
+"Normal form of type = "+(F.singularityType);
+"Normal form = "
++string(P.value);
+Poly EH = F.exceptionalHypersurface;
+def REH = EH.in;
+setring REH;
+short=0;
+if(EH.value<>-1)
+{
+  "Exceptional Hypersurface = "+string(EH.value);
+}
+else
+{
+  "Exceptional Hypersurface is not determined.";
+}
+Poly G = F.normalFormEquation;
+def RR = G.in;
+setring RR;
+short=0;
+if(G.value==0){"Normal form equation is not determined.";}
+else
+{
+  "Normal form equation ="+string(G.value);
+  if (minpoly!=0){"Minimal polynomial = "+string(minpoly);}
+  }
+Poly H = F.extension1;
+def RRR = H.in;
+setring RRR;
+short=0;
+if(H.value<>0){"Minimal polynomial 2 ="+string(H.value);}
+Poly HH = F.extension2;
+def RRRR = HH.in;
+setring RRRR;
+short=0;
+if(HH.value<>0){"Minimal polynomial 3 ="+string(HH.value);}
+setring TT;
+short=0;
+"Milnor number = "+string(F.milnorNumber);
+"Modality = "+string(F.modality);
+if (F.modality>=1){
+  if (F.modality==1){
+      "Monomials corresponding to moduli terms = "+stringPoly(F.parameters[1]);
+  } else {
+      string paraterms="Monomials corresponding to moduli terms = ";
+      for (int i =1;i<=size(F.parameters);i++){
+          paraterms=paraterms+stringPoly(F.parameters[i]);
+          if (i<size(F.parameters)){paraterms = paraterms +", ";}
+      }
+      paraterms;
+  }
+  setring TT;
+  short=0;
+}
+"Delta invariant = "+string(F.delta);
+"Number of branches = "+string(F.numberOfBranches);
+"Determinacy <= "+string(F.determinacy);
+RightEquivalenceChainWithPrecision Trb=F.phiBeforeMorseSplit;
+Poly SG = F.nondegeneratePart;
+def SS = SG.in;
+setring SS;
+short=0;
+"Non-degenerate part = "+string(SG.value);
+list transB = Trb.transformations;
+int sb = size(transB);
+"Chain of transformations before Morse split of length "+string(sb);
+RightEquivalenceChainWithPrecision Tr=F.phi;
+list trans = Tr.transformations;
+int s = size(trans);
+"Chain of transformations after Morse split of length "+string(s);
+Poly semiNormalizedNNBGerm = F.semiNormalizedNNBGerm;
+def LL = semiNormalizedNNBGerm.in;
+setring LL;
+short=0;
+"";
+if(semiNormalizedNNBGerm.value==0){
+"The chain of transformations is only containing transformations up to transforming the input polynomial to a germ with a nondegenerate Newton boundary. The final transformations to normalize the germ are not yet determined.";}
+
+setring R;
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=(0,a),(x,y),ds;
+ minpoly = a^2-2;
+ poly f=x^4+x^2*y^2+7*a*y^8;
+ Poly F = makePoly(f);
+ ring S =(0,a),(x,y),ds;
+ poly g = x^4+x^2*y^2+a*y^8;
+ Poly G = makePoly(g);
+ ring T=QQ,(a),dp;
+ poly h=a;
+ Poly H=makePoly(h);
+ setring R;
+ NormalForm N;
+ N.exceptionalHypersurface = H;
+ N.numbervars =2;
+ N.corank =2;
+ N.normalForm = G;
+ N.normalFormEquation = F;
+ N.extension1=makePoly(0);
+ N.extension2=makePoly(0);
+ N.nondegeneratePart = makePoly(0);
+ N.semiNormalizedNNBGerm = F;
+ N.modality = 1;
+ N.corank = 2;
+ N.determinacy = 8;
+ N.milnorNumber = milnor(F.value);
+ N.parameters = list(makePoly(y^8));
+ N.singularityType = "X[13]";
+ printNormalForm(N);
+}
+
+
+
+proc makePoly(poly f)
+"USAGE: makePoly(f); f poly
+RETURN: make a ring independent Poly from a poly in the basering
+EXAMPLE: example makePoly, shows an example"
+{
+Poly F;
+F.in=basering;
+F.value=f;
+return(F);
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),dp;
+ poly f=3*x^2+x*y+1;
+ Poly F = makePoly(f);
+ F.in;
+ F.value;
+}
+
+proc valueOf(Poly F)
+"USAGE: valueOf(F); F Poly
+RETURN: F.value
+EXAMPLE: example valueOf, shows an example"
+{
+  return(F.value);
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),ds;
+ poly f = x+y;
+ Poly F = makePoly(f);
+ valueOf(F);
+}
+
+
+proc ringOf(Poly F)
+"USAGE: ringOf(F); F Poly
+RETURN: F.value
+EXAMPLE: example ringOf, shows an example"
+{
+  return(F.in);
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),ds;
+ poly f = x+y;
+ Poly F = makePoly(f);
+ ringOf(F);
+}
+
+
+proc printPoly(Poly P)
+"USAGE: printPoly(P); P Poly
+RETURN: print a polynomial of type Poly
+EXAMPLE: example printPoly, shows an example"
+{
+def R=basering;
+def SS=P.in;
+setring SS;
+short=0;
+P.value;
+setring R;
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),dp;
+ poly f=3*x^2+x*y+1;
+ Poly F = makePoly(f);
+ printPoly(F);
+}
+
+static proc stringPoly(Poly f)
+{
+def R=basering;
+def SS=f.in;
+setring SS;
+short=0;
+string st = string(f.value);
+setring R;
+return(st);}
+
+static proc addPoly(Poly f,Poly g)
+"USAGE: addPoly(F,G); F Poly, G Poly, F and G is defined over the same ring
+RETURN: add the Poly F and the Poly G
+EXAMPLE: example addPoly, shows an example"
+{
+def R=basering;
+def S1=f.in;
+setring S1;
+Poly fplusg=makePoly(f.value+g.value);
+setring R;
+return(fplusg);}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),dp;
+ poly f=3*x^2+x*y+1;
+ poly g = 4*x^2+2*x*y+x;
+ Poly G = makePoly(g);
+ Poly F = makePoly(f);
+ addPoly(F,G);
+}
+
+static proc multPoly(Poly f,Poly g)
+"USAGE: multPoly(F,G); F Poly, G Poly, F and G is defined over the same ring
+RETURN: multiply the Poly F and the Poly G
+EXAMPLE: example multPoly, shows an example"
+{
+def R=basering;
+def S1=f.in;
+setring S1;
+Poly ftimesg=makePoly((f.value)*(g.value));
+setring R;
+return(ftimesg);}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),dp;
+ poly f=3*x^2+x*y+1;
+ poly g = 4*x^2+2*x*y+x;
+ Poly G = makePoly(g);
+ Poly F = makePoly(f);
+ multPoly(F,G);
+}
+
+
+static proc equalPoly(Poly f,Poly g)
+"USAGE: equalPoly(F,G); F Poly, G Poly, F and G is defined over the same ring
+RETURN: check whether the Poly F and the Poly G are equal
+EXAMPLE: example equalPoly, shows an example"
+{
+def R=basering;
+def S1=f.in;
+setring S1;
+int fgequal=(f.value)==(g.value);
+setring R;
+return(fgequal);}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),dp;
+ poly f=3*x^2+x*y+1;
+ poly g = 4*x^2+2*x*y+x;
+ Poly G = makePoly(g);
+ Poly F = makePoly(f);
+ equalPoly(F,G);
+}
+
+
+static proc expPoly(Poly f,int n)
+"USAGE: expPoly(F,n); F Poly, n int,
+RETURN: the Poly F to the power n
+EXAMPLE: example expPoly, shows an example"
+{
+def R=basering;
+def S1=f.in;
+setring S1;
+poly fexpn=(f.value)^n;
+Poly Fexpn = makePoly(fexpn);
+setring R;
+return(Fexpn);}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),dp;
+ poly f=3*x^2+x*y+1;
+ Poly F = makePoly(f);
+ int n = 2;
+ expPoly(F,n);
+}
+
+
+proc printPolynomialRightEquivalence(PolynomialRightEquivalence RE)
+"USAGE: printPolynomialRightEquivalence(RE); RE PolynomialRightEquivalence
+RETURN: print the transformation RE
+EXAMPLE: example printPolynomialRightEquivalence, shows an example"
+{
+def R=basering;
+def SS=RE.in;
+setring SS;
+"
+Transformation:";
+Poly H;
+for (int i =1;i<=size(RE.images);i++){H = RE.images[i];print(string(var(i))+ "-->"+string(H.value));}
+
+setring R;
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ ring R=0,(x,y),dp;
+ PolynomialRightEquivalence RE;
+ RE.in=basering;
+ RE.images = list(makePoly(x-x*y),makePoly(y));
+ RE.imagesInverse = list(makePoly(x+x*y),makePoly(y));
+ printPolynomialRightEquivalence(RE);
+}
+
+proc printRightEquivalenceChainWithPrecision(RightEquivalenceChainWithPrecision TT)
+"USAGE: printRightEquivalenceChainWithPrecision(TT); TT RightEquivalenceChainWithPrecision
+RETURN: print the chain of transformations TT
+EXAMPLE: example printRightEquivalenceChainWithPrecision, shows an example"
+{
+def R=basering;
+Poly F = TT.sourcegerm;
+Poly G = TT.targetgerm;
+def SS=F.in;
+setring SS;
+"
+    Source germ = "  +string(F.value);
+"";
+def PP=TT.targetgerm.in;
+setring PP;
+"   Target germ = "+string(G.value);
+"";
+"   Precision = " +string(TT.precision);
+"";
+"   Transformations:";
+for (int i =1;i<=size(TT.transformations);i++){
+    print(TT.transformations[i]);
+}
+setring R;
+}
+example
+{
+ "EXAMPLE:"; echo=2;
+ RightEquivalenceChainWithPrecision TT;
+ ring R=0,(x,y),ds;
+ poly f = x+y;
+ Poly F = makePoly(f);
+ TT.sourcegerm = F;
+ map phi = R,x-x*y,y;
+ f=phi(f);
+ PolynomialRightEquivalence RE;
+ RE.in=basering;
+ RE.images = list(makePoly(x-x*y),makePoly(y));
+ RE.imagesInverse = list(makePoly(x+x*y),makePoly(y));
+ TT.transformations[size(TT.transformations)+1]=RE;
+ TT.targetgerm.in = basering;
+ TT.targetgerm.value=f;
+ ring S = (0,a),(x,y),ds;
+ minpoly=a^2+1;
+ poly f = fetch(R,f);
+ map phi = R,x-a*x*y,y;
+ f=phi(f);
+ PolynomialRightEquivalence RE;
+ RE.in=basering;
+ RE.images = list(makePoly(x-a*x*y),makePoly(y));
+ RE.imagesInverse = list(makePoly(x+a*x*y),makePoly(y));
+ TT.transformations[size(TT.transformations)+1]=RE;
+ TT.targetgerm.in = basering;
+ TT.targetgerm.value=f;
+ setring R;
+ printRightEquivalenceChainWithPrecision(TT);
+}
+

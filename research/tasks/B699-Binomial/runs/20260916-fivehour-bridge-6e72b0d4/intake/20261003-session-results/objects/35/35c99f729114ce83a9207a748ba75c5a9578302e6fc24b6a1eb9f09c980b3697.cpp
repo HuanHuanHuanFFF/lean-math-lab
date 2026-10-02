@@ -1,0 +1,10 @@
+// Independent multiset count: coefficient extraction in product (1-z t^e x^c)^(-1).
+#include <bits/stdc++.h>
+using namespace std;using F=array<int,6>;struct T{int e;F c;};
+int main(int ac,char**av){try{if(ac!=6)throw runtime_error("raw state h capacitycsv output");int state=stoi(av[2]),h=stoi(av[3]);string s=av[4];replace(s.begin(),s.end(),',',' ');stringstream ss(s);F C,st;int n=1;for(int&i:C)if(!(ss>>i))throw runtime_error("C");for(int r=5;r>=0;r--){st[r]=n;n*=C[r]+1;}vector<F>cs(n);for(int z=0;z<n;z++)for(int r=0;r<6;r++)cs[z][r]=z/st[r]%(C[r]+1);vector<T>ty;ifstream in(av[1]);int e;while(in>>e){T t;t.e=e;bool fit=true;for(int r=0;r<6;r++){in>>t.c[r];if(t.c[r]>C[r])fit=false;}if(fit && !(e==4&&t.c==F{0,0,2,1,0,0}))ty.push_back(t);}
+sort(ty.begin(),ty.end(),[](const T&a,const T&b){return tie(a.e,a.c)<tie(b.e,b.c);});
+ty.erase(unique(ty.begin(),ty.end(),[](const T&a,const T&b){return a.e==b.e&&a.c==b.c;}),ty.end());
+vector<unsigned long long>dp((size_t)9*(h+1)*n);auto at=[&](int k,int d,int z)->unsigned long long&{return dp[((size_t)k*(h+1)+d)*n+z];};at(0,0,0)=1;
+for(auto&t:ty){int off=0;vector<int>ok;for(int r=0;r<6;r++)off+=t.c[r]*st[r];for(int z=0;z<n;z++){bool yes=true;for(int r=0;r<6;r++)if(cs[z][r]<t.c[r])yes=false;if(yes)ok.push_back(z);}for(int k=1;k<=8;k++)for(int d=t.e;d<=h;d++)for(int z:ok){auto a=at(k-1,d-t.e,z-off);auto&b=at(k,d,z);if(ULLONG_MAX-b<a)throw runtime_error("count overflow");b+=a;}}
+unsigned long long total=0,unsaturated=0;map<int,unsigned long long> hist;for(int d=0;d<=h;d++)for(int z=0;z<n;z++){auto k=at(8,d,z);total+=k;if(k)hist[d]+=k;if(z!=n-1)unsaturated+=k;}
+ofstream out(av[5]);out<<"{\"state\":"<<state<<",\"types\":"<<ty.size()<<",\"count\":"<<total<<",\"unsaturated_cost_count\":"<<unsaturated<<",\"degree_histogram\":{";bool first=true;for(auto[d,c]:hist){if(!first)out<<',';first=false;out<<'"'<<d<<"\":"<<c;}out<<"}}\n";cout<<state<<" multisets "<<total<<" unsaturated "<<unsaturated<<'\n';return 0;}catch(exception&e){cerr<<"REJECT "<<e.what()<<'\n';return 1;}}

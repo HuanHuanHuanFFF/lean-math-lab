@@ -1,0 +1,59 @@
+{
+  "tests": [
+    {
+      "test": "complete_module_wrong_pivot",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "REJECT: pivot mismatch at 0\n"
+    },
+    {
+      "test": "changed_first_source_order",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "REJECT: trace condition mismatch\n"
+    },
+    {
+      "test": "wrong_DP_terminal_cell",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "REJECT DP cell mismatch\n"
+    },
+    {
+      "test": "licence_removed_but_claimed_153_kept",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "REJECT exact fee floor mismatch\n"
+    },
+    {
+      "test": "state_2029_licence_cannot_be_relabelled_2000",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "Traceback (most recent call last):\n  File \"<isolated-tamper-root>/scope/code/build_ledger.py\", line 9, in <module>\n    audit=ROOT/'certificates/S5_ALL_PARAMETER_AUDIT.json';assert lic['state']==2029 and lic['family']=='S5' and lic['license_mask']==1 and lic['full_bounded_kernel_zero'] and lic['source_audit_sha256']==sha(audit)\n                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "test": "wrong_all_parameter_source_bound",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "Traceback (most recent call last):\n  File \"<isolated-tamper-root>/scope/code/audit_s5.py\", line 57, in <module>\n    assert all(a+w*b>=bound for a,b,c0,c1 in jets)\n           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "test": "quintic_nonsingular_minor_tampering",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "REJECT: integer-scaled determinant\n"
+    },
+    {
+      "test": "quintic_alone_cannot_use_2000_S5_price",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "REJECT exact fee floor mismatch\n"
+    },
+    {
+      "test": "2029_kernel_cannot_license_2000",
+      "exit_code": 1,
+      "rejected": true,
+      "error": "Traceback (most recent call last):\n  File \"<isolated-tamper-root>/cross_state/code/build_final_ledger.py\", line 12, in <module>\n    assert lic['state']==idx and lic['family']=='S5' and lic['license_mask']==1 and lic['full_bounded_kernel_zero'] and lic['source_audit_sha256']==sha(audit)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    }
+  ],
+  "all_nine_rejected": true
+}

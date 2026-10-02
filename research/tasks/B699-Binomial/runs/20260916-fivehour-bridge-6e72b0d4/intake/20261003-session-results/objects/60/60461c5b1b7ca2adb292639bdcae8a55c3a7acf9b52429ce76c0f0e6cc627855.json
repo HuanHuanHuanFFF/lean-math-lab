@@ -1,0 +1,649 @@
+{
+  "status": "PASS",
+  "seconds": 10.6536,
+  "manifest_before": {
+    "status": "PASS",
+    "manifest": "SHA256SUMS",
+    "entries": 78,
+    "manifest_sha256": "908d9e5bf2be528c416b19c4b12fabf1d878d4de7ce338b37aa19b9fe7c7f99c"
+  },
+  "source_audit": {
+    "status": "PASS",
+    "zip_sha256": "1fb349775f703798be07ab669b569d0b33cf11a1fbdaf2bf0eb202da86223dbc",
+    "crc": "PASS",
+    "members": 60,
+    "original_manifest_entries": 59,
+    "copied_source_hashes": {
+      "inputs/generic.json": "f5ad7ce85081bde5b957ddb5a8e24a443e01842a8b589fcd6e1dc70264759d07",
+      "inputs/R1_scale.json": "183fff0fad0d0d1b7b1c48ffa333b001d3c3680d75b0e078a7570ab3f618d5db",
+      "inputs/recovery.json": "f61101023a6f6c5158e019db67e3481742a07e66cfe884d2519d344165520028",
+      "inputs/R14_HANDOFF.md": "400b3af9713f0c528be83ff1fae2935879a987b91bf3873068d93e68049f0461",
+      "inputs/R4_HANDOFF.md": "f0c601a8d2111a9e757782d958d60d34988dc1994b861fd759ac3ee5296866f6",
+      "inputs/R4_branch_factors.json": "3bb7c49ef7a12f6860fff85e411ec17a2cca3a5c1842fa31f547812c2cbeed91",
+      "code/ipoly.py": "302971f78c92788f6c07f442b7df9ae5b4885d15f3d22320833a1a3eed4d2329",
+      "code/recover.py": "38db32b737e3d6803d5a38288e753079dba7b4c9bc7dad8ec123a7306c15e200",
+      "code/affine_audit.py": "2b4843f3151b6c7359a4e4b067abf62471ebb1d53c3daf9cb9139ea5d5f0f3c9",
+      "code/original_pair_audit.py": "fcb758d79a93c014f54dc202d0fa49becefa3c913aaaf1a193aa5e7c4ab5c61c"
+    },
+    "prior_full_replay_receipt_retained": true,
+    "prior_math_reexecution_in_this_command": false,
+    "specified_overview_bytes_verified": false
+  },
+  "programs": [
+    {
+      "program": "code/verify.py",
+      "exit_code": 0,
+      "seconds": 9.6586,
+      "source_sha256": "f4ad771e2fff895a9ad4112e2e9e3680e92f150e522e0a34287f1af15f9737d3",
+      "stdout_sha256": "38899edf5f9af0669b44c631c93091311f55623895362a2eee60efc295e979a6",
+      "stderr": "J Res(P5,G4) PASS\nJ Res(P5,G0) PASS\nA5 Res(P5,G4) PASS\nA5 Res(P5,G0) PASS\nB9 Res_u(B9,H) PASS\n",
+      "result": {
+        "status": "PASS",
+        "checks": 115,
+        "determinants_checked": 2074,
+        "transport_integer_values": 1016,
+        "seconds": 9.044,
+        "checks_detail": [
+          {
+            "name": "J original curve and inverse binding"
+          },
+          {
+            "name": "J coverage polynomial identity 1"
+          },
+          {
+            "name": "J coverage polynomial identity 2"
+          },
+          {
+            "name": "J forward map nu"
+          },
+          {
+            "name": "J forward map du"
+          },
+          {
+            "name": "J forward map ny"
+          },
+          {
+            "name": "J forward map dy"
+          },
+          {
+            "name": "J all forward gate factors"
+          },
+          {
+            "name": "J exact forward curve identity"
+          },
+          {
+            "name": "A5 original curve and inverse binding"
+          },
+          {
+            "name": "A5 coverage polynomial identity 1"
+          },
+          {
+            "name": "A5 coverage polynomial identity 2"
+          },
+          {
+            "name": "A5 coverage polynomial identity 3"
+          },
+          {
+            "name": "A5 forward map nu"
+          },
+          {
+            "name": "A5 forward map du"
+          },
+          {
+            "name": "A5 forward map ny"
+          },
+          {
+            "name": "A5 forward map dy"
+          },
+          {
+            "name": "A5 all forward gate factors"
+          },
+          {
+            "name": "A5 exact forward curve identity"
+          },
+          {
+            "name": "J P5 original degrees"
+          },
+          {
+            "name": "J P5 stripping domain"
+          },
+          {
+            "name": "J P5 nonzero scalar clearing"
+          },
+          {
+            "name": "J P5 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 32,
+              "integer_values": 33,
+              "all_r_coefficients_compared": 6,
+              "gate_powers": [
+                4,
+                5,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "name": "J G4 original degrees"
+          },
+          {
+            "name": "J G4 stripping domain"
+          },
+          {
+            "name": "J G4 nonzero scalar clearing"
+          },
+          {
+            "name": "J G4 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 68,
+              "integer_values": 69,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                8,
+                5,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "name": "J G3 original degrees"
+          },
+          {
+            "name": "J G3 stripping domain"
+          },
+          {
+            "name": "J G3 nonzero scalar clearing"
+          },
+          {
+            "name": "J G3 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 72,
+              "integer_values": 73,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                9,
+                5,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "name": "J G2 original degrees"
+          },
+          {
+            "name": "J G2 stripping domain"
+          },
+          {
+            "name": "J G2 nonzero scalar clearing"
+          },
+          {
+            "name": "J G2 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 72,
+              "integer_values": 73,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                8,
+                6,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "name": "J G1 original degrees"
+          },
+          {
+            "name": "J G1 stripping domain"
+          },
+          {
+            "name": "J G1 nonzero scalar clearing"
+          },
+          {
+            "name": "J G1 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 72,
+              "integer_values": 73,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                8,
+                9,
+                1,
+                1
+              ]
+            }
+          },
+          {
+            "name": "J G0 original degrees"
+          },
+          {
+            "name": "J G0 stripping domain"
+          },
+          {
+            "name": "J G0 nonzero scalar clearing"
+          },
+          {
+            "name": "J G0 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 68,
+              "integer_values": 69,
+              "all_r_coefficients_compared": 11,
+              "gate_powers": [
+                8,
+                10,
+                0,
+                1
+              ]
+            }
+          },
+          {
+            "name": "A5 P5 original degrees"
+          },
+          {
+            "name": "A5 P5 stripping domain"
+          },
+          {
+            "name": "A5 P5 nonzero scalar clearing"
+          },
+          {
+            "name": "A5 P5 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 54,
+              "integer_values": 55,
+              "all_r_coefficients_compared": 6,
+              "gate_powers": [
+                0,
+                4,
+                4,
+                3,
+                0
+              ]
+            }
+          },
+          {
+            "name": "A5 G4 original degrees"
+          },
+          {
+            "name": "A5 G4 stripping domain"
+          },
+          {
+            "name": "A5 G4 nonzero scalar clearing"
+          },
+          {
+            "name": "A5 G4 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 108,
+              "integer_values": 109,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                0,
+                4,
+                10,
+                4,
+                0
+              ]
+            }
+          },
+          {
+            "name": "A5 G3 original degrees"
+          },
+          {
+            "name": "A5 G3 stripping domain"
+          },
+          {
+            "name": "A5 G3 nonzero scalar clearing"
+          },
+          {
+            "name": "A5 G3 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 114,
+              "integer_values": 115,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                0,
+                4,
+                11,
+                5,
+                0
+              ]
+            }
+          },
+          {
+            "name": "A5 G2 original degrees"
+          },
+          {
+            "name": "A5 G2 stripping domain"
+          },
+          {
+            "name": "A5 G2 nonzero scalar clearing"
+          },
+          {
+            "name": "A5 G2 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 114,
+              "integer_values": 115,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                0,
+                4,
+                12,
+                4,
+                0
+              ]
+            }
+          },
+          {
+            "name": "A5 G1 original degrees"
+          },
+          {
+            "name": "A5 G1 stripping domain"
+          },
+          {
+            "name": "A5 G1 nonzero scalar clearing"
+          },
+          {
+            "name": "A5 G1 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 116,
+              "integer_values": 117,
+              "all_r_coefficients_compared": 12,
+              "gate_powers": [
+                0,
+                6,
+                12,
+                5,
+                0
+              ]
+            }
+          },
+          {
+            "name": "A5 G0 original degrees"
+          },
+          {
+            "name": "A5 G0 stripping domain"
+          },
+          {
+            "name": "A5 G0 nonzero scalar clearing"
+          },
+          {
+            "name": "A5 G0 COMPLETE source transport",
+            "detail": {
+              "v_degree_bound": 114,
+              "integer_values": 115,
+              "all_r_coefficients_compared": 11,
+              "gate_powers": [
+                0,
+                8,
+                10,
+                6,
+                0
+              ]
+            }
+          },
+          {
+            "name": "J full common factor product"
+          },
+          {
+            "name": "J G4 exact cofactor identity"
+          },
+          {
+            "name": "J Res(P5,G4) degree bound",
+            "detail": {
+              "bound": 422,
+              "actual_degree": 390,
+              "fixed_matrix_order": 14
+            }
+          },
+          {
+            "name": "J Res(P5,G4) COMPLETE exact identity",
+            "detail": {
+              "integer_evaluations": 423,
+              "seconds": 0.9883
+            }
+          },
+          {
+            "name": "J G0 exact cofactor identity"
+          },
+          {
+            "name": "J Res(P5,G0) degree bound",
+            "detail": {
+              "bound": 389,
+              "actual_degree": 371,
+              "fixed_matrix_order": 13
+            }
+          },
+          {
+            "name": "J Res(P5,G0) COMPLETE exact identity",
+            "detail": {
+              "integer_evaluations": 390,
+              "seconds": 0.6769
+            }
+          },
+          {
+            "name": "J gcd modulus prime"
+          },
+          {
+            "name": "J gcd leading coefficients preserved"
+          },
+          {
+            "name": "J primitive cofactor gcd = 1"
+          },
+          {
+            "name": "J all common factors classified"
+          },
+          {
+            "name": "J quartic strictly-positive SOS identity"
+          },
+          {
+            "name": "A5 full common factor product"
+          },
+          {
+            "name": "A5 G4 exact cofactor identity"
+          },
+          {
+            "name": "A5 Res(P5,G4) degree bound",
+            "detail": {
+              "bound": 618,
+              "actual_degree": 590,
+              "fixed_matrix_order": 14
+            }
+          },
+          {
+            "name": "A5 Res(P5,G4) COMPLETE exact identity",
+            "detail": {
+              "integer_evaluations": 619,
+              "seconds": 2.9901
+            }
+          },
+          {
+            "name": "A5 G0 exact cofactor identity"
+          },
+          {
+            "name": "A5 Res(P5,G0) degree bound",
+            "detail": {
+              "bound": 602,
+              "actual_degree": 568,
+              "fixed_matrix_order": 14
+            }
+          },
+          {
+            "name": "A5 Res(P5,G0) COMPLETE exact identity",
+            "detail": {
+              "integer_evaluations": 603,
+              "seconds": 2.8589
+            }
+          },
+          {
+            "name": "A5 gcd modulus prime"
+          },
+          {
+            "name": "A5 gcd leading coefficients preserved"
+          },
+          {
+            "name": "A5 primitive cofactor gcd = 1"
+          },
+          {
+            "name": "A5 excluded parameter gate factors"
+          },
+          {
+            "name": "A5 precisely two remaining obstructions"
+          },
+          {
+            "name": "A5 degree 10 complete no-rational-root certificate"
+          },
+          {
+            "name": "A5 degree 20 complete no-rational-root certificate"
+          },
+          {
+            "name": "B9-H exact factor identity"
+          },
+          {
+            "name": "B9 Res_u(B9,H) degree bound",
+            "detail": {
+              "bound": 38,
+              "actual_degree": 28,
+              "fixed_matrix_order": 11
+            }
+          },
+          {
+            "name": "B9 Res_u(B9,H) COMPLETE exact identity",
+            "detail": {
+              "integer_evaluations": 39,
+              "seconds": 0.0037
+            }
+          },
+          {
+            "name": "B9-H all factors classified"
+          },
+          {
+            "name": "B9-H rational quadratic obstruction discriminant 5 nonsquare"
+          },
+          {
+            "name": "Boundary RUR exact quartic"
+          },
+          {
+            "name": "Boundary RUR exact coordinate functions"
+          },
+          {
+            "name": "Boundary RUR has four DISTINCT complex roots"
+          },
+          {
+            "name": "Boundary RUR source remainder P5"
+          },
+          {
+            "name": "Boundary RUR source remainder G4"
+          },
+          {
+            "name": "Boundary RUR source remainder G3"
+          },
+          {
+            "name": "Boundary RUR source remainder G2"
+          },
+          {
+            "name": "Boundary RUR source remainder G1"
+          },
+          {
+            "name": "Boundary RUR source remainder G0"
+          },
+          {
+            "name": "Boundary RUR source remainder N"
+          },
+          {
+            "name": "Boundary RUR source remainder K"
+          },
+          {
+            "name": "Boundary RUR source remainder D"
+          },
+          {
+            "name": "Boundary RUR all six original polynomials vanish"
+          },
+          {
+            "name": "Boundary RUR K=0: all four points OUTSIDE Omega"
+          },
+          {
+            "name": "Boundary RUR N is a unit in the quartic algebra"
+          },
+          {
+            "name": "Boundary RUR r has no real values"
+          },
+          {
+            "name": "Boundary RUR quartic strictly-positive SOS"
+          }
+        ],
+        "scope": "J=0 real-base terminal and A5=0 rational-base terminal only; general finite endpoint NOT completed",
+        "cas_used": false,
+        "lean_run": false,
+        "repository_touched": false,
+        "external_independent_math_review": false
+      }
+    },
+    {
+      "program": "code/test_consumers.py",
+      "exit_code": 0,
+      "seconds": 0.9564,
+      "source_sha256": "c091504e251f24b2aa37fb7d4596e7889f61e3cf5864b6715c61ab86df09afe3",
+      "stdout_sha256": "c52e13215bcccd9207c2e320d0e2b29de228c9b03f0a0f833d1104f01d2857af",
+      "stderr": "",
+      "result": {
+        "status": "PASS",
+        "checks": 26,
+        "checked": [
+          "basic domain (0, 2, 1)",
+          "basic domain (1, 2, 1)",
+          "basic domain (2, 0, 1)",
+          "basic domain (2, 1, 1)",
+          "basic domain (2, 2, 0)",
+          "entire J branch parameter 0",
+          "entire J branch parameter 2",
+          "entire J branch parameter -2",
+          "entire J branch parameter 3",
+          "entire J branch parameter 1/2",
+          "entire A5 branch parameter 0",
+          "entire A5 branch parameter 1",
+          "entire A5 branch parameter 2",
+          "entire A5 branch parameter 3",
+          "entire A5 branch parameter 5",
+          "entire A5 branch parameter -1",
+          "generic not called NC or full closure (2, 2, 1)",
+          "generic not called NC or full closure (-3, 2, 2)",
+          "generic not called NC or full closure (Fraction(3, 2), Fraction(4, 3), Fraction(5, 7))",
+          "inexact input rejected 2.0",
+          "inexact input rejected True",
+          "inexact input rejected (2+0j)",
+          "arbitrary rational r denominator retained",
+          "p=i complete 3^2 retained",
+          "truncated source power rejected",
+          "source audit not complete NC certificate"
+        ],
+        "examples_not_theorem_proofs": true
+      }
+    }
+  ],
+  "manifest_after": {
+    "status": "PASS",
+    "manifest": "SHA256SUMS",
+    "entries": 78,
+    "manifest_sha256": "908d9e5bf2be528c416b19c4b12fabf1d878d4de7ce338b37aa19b9fe7c7f99c"
+  },
+  "network_used": false,
+  "lean_run": false,
+  "repository_touched": false,
+  "external_independent_math_review": false,
+  "proof_scope": "J real-base and A5 rational-base full subdomain terminals, B9-H gate and four EXCLUDED boundary RUR points; no complete Omega endpoint",
+  "global_modular_UNIT_adopted_as_Q_proof": false,
+  "historical_original_net_gain": "0 / unverified",
+  "final_archive": {
+    "name": "B699-ProB-REG3-ISOLATED-G0-20261002-R5-evidence.zip",
+    "sha256": "6f11f03219cb7ee6d14ea9da49b7618dcc4f154d8965e4d341a434e6624f2af9",
+    "bytes": 3934653,
+    "members": 79,
+    "uncompressed_bytes": 5203231,
+    "crc": "PASS",
+    "fresh_directory": "/mnt/data/reg3_r5_clean_7svq272n",
+    "full_manifest_entries": 78,
+    "verified_at_utc": "2026-10-02T12:30:38.256692+00:00"
+  }
+}

@@ -1,0 +1,263 @@
+#include "kernel/mod2.h"
+
+#include "Singular/tok.h"
+#include "Singular/subexpr.h"
+#include "Singular/ipshell.h"
+#include "Singular/ipid.h"
+
+#include "Singular/blackbox.h"
+
+#define MAX_BB_TYPES 256
+// #define BLACKBOX_DEVEL 1
+
+GLOBAL_VAR static blackbox* blackboxTable[MAX_BB_TYPES];
+GLOBAL_VAR static char *    blackboxName[MAX_BB_TYPES];
+GLOBAL_VAR static int blackboxTableCnt=0;
+#define BLACKBOX_OFFSET (MAX_TOK+1)
+blackbox* getBlackboxStuff(const int t)
+{
+  if (t>MAX_TOK)  /*MAX_TOK+1 is BLACKBOX_OFFSET*/
+    return (blackboxTable[t-BLACKBOX_OFFSET]);
+  else
+    return NULL;
+}
+
+
+void blackbox_default_destroy(blackbox */*b*/, void */*d*/)
+{
+  WerrorS("missing blackbox_destroy");
+}
+char *blackbox_default_String(blackbox */*b*/,void */*d*/)
+{
+  WerrorS("missing blackbox_String");
+  return omStrDup("");
+}
+void *blackbox_default_Copy(blackbox */*b*/,void */*d*/)
+{
+  WerrorS("missing blackbox_Copy");
+  return NULL;
+}
+BOOLEAN blackbox_default_Assign(leftv l, leftv r)
+{
+  int lt=l->Typ();
+  blackbox* b=getBlackboxStuff(lt);
+  if ((lt==r->Typ())
+  && (l->Data()!=r->Data()))
+  {
+    b->blackbox_destroy(b,(void*)l->Data());
+    if (l->rtyp==IDHDL)
+      IDDATA((idhdl)l->data)=(char*)b->blackbox_Copy(b,r->Data());
+    else
+      l->data=b->blackbox_Copy(b,r->Data());
+  }
+  return FALSE;
+}
+void blackbox_default_Print(blackbox *b,void *d)
+{
+  char *s=b->blackbox_String(b,d);
+  PrintS(s);
+  omFree(s);
+}
+void *blackbox_default_Init(blackbox* /*b*/)
+{
+  return NULL;
+}
+
+BOOLEAN blackbox_default_serialize(blackbox* /*b*/, void* /*d*/, si_link /*f*/)
+{
+  WerrorS("blackbox_serialize is not implemented");
+  return TRUE;
+}
+
+BOOLEAN blackbox_default_deserialize(blackbox **/*b*/, void **/*d*/, si_link /*f*/)
+{
+  WerrorS("blackbox_deserialize is not implemented");
+  return TRUE;
+}
+
+BOOLEAN blackboxDefaultOp1(int op,leftv l, leftv r)
+{
+  if (op==TYPEOF_CMD)
+  {
+    l->data=omStrDup(getBlackboxName(r->Typ()));
+    l->rtyp=STRING_CMD;
+    return FALSE;
+  }
+  else if (op==NAMEOF_CMD)
+  {
+    if (r->name==NULL) l->data=omStrDup("");
+    else               l->data=omStrDup(r->name);
+    l->rtyp=STRING_CMD;
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
+BOOLEAN blackboxDefaultOp2(int /*op*/,leftv /*l*/, leftv /*r1*/, leftv /*r2*/)
+{
+  return TRUE;
+}
+
+BOOLEAN blackboxDefaultOp3(int /*op*/,leftv /*l*/, leftv /*r1*/,leftv /*r2*/, leftv /*r3*/)
+{
+  return TRUE;
+}
+
+BOOLEAN blackboxDefaultOpM(int op,leftv res, leftv args)
+{
+  if (op==LIST_CMD)
+  {
+    res->rtyp=LIST_CMD;
+    BOOLEAN bo=jjLIST_PL(res,args);
+    args->CleanUp();
+    return bo;
+  }
+  else if(op==STRING_CMD)
+  {
+    blackbox *b=getBlackboxStuff(args->Typ());
+    res->data=b->blackbox_String(b,args->Data());
+    res->rtyp=STRING_CMD;
+    args=args->next;
+    if(args!=NULL)
+    {
+      sleftv res2;
+      int ret=iiExprArithM(&res2,args,op);
+      if (ret) return TRUE;
+      size_t len=strlen((char*)res->data)+strlen((char*)res2.data)+1;
+      char *s2=(char*)omAlloc(len);
+      snprintf(s2,len,"%s%s",(char*)res->data,(char*)res2.data);
+      omFree(res2.data);
+      omFree(res->data);
+      res->data=s2;
+    }
+    return FALSE;
+  }
+  return TRUE;
+}
+
+BOOLEAN blackbox_default_Check(blackbox *,leftv,leftv)
+{
+  return FALSE;
+}
+int setBlackboxStuff(blackbox *bb, const char *n)
+{
+  int where = -1;
+  for (int i=0;i<MAX_BB_TYPES;i++)
+  {
+    if (blackboxTable[i]!=NULL && strcmp(blackboxName[i],n)==0) {
+      where = i;
+      break;
+    }
+  }
+  if (where < 0) {
+    if (MAX_BB_TYPES<=blackboxTableCnt)
+    {
+      // second try, find empty slot from removed bb:
+      for (int i=0;i<MAX_BB_TYPES;i++)
+      {
+        if (blackboxTable[i]==NULL) { where=i; break; }
+      }
+    }
+    else
+    {
+      where=blackboxTableCnt;
+      blackboxTableCnt++;
+    }
+  }
+  if (where==-1)
+  {
+    WerrorS("too many bb types defined");
+    return 0;
+  }
+  else
+  {
+    // check for alreday defined bb:
+    for (int i=0;i<MAX_BB_TYPES;i++)
+    {
+      if ((blackboxName[i]!=NULL) && (strcmp(blackboxName[i],n)==0))
+      {
+        Warn("not redefining blackbox type %s (%d)",n,i+BLACKBOX_OFFSET);
+        return 0;
+      }
+    }
+    blackboxTable[where]=bb;
+    blackboxName[where]=omStrDup(n);
+#ifdef BLACKBOX_DEVEL
+    Print("setBlackboxStuff: define bb:name=%s:rt=%d (table:cnt=%d)\n",blackboxName[where],where+BLACKBOX_OFFSET,where);
+#endif
+    if (bb->blackbox_destroy==NULL) bb->blackbox_destroy=blackbox_default_destroy;
+    if (bb->blackbox_String==NULL)  bb->blackbox_String=blackbox_default_String;
+    if (bb->blackbox_Print==NULL)   bb->blackbox_Print=blackbox_default_Print;
+    if (bb->blackbox_Init==NULL)    bb->blackbox_Init=blackbox_default_Init;
+    if (bb->blackbox_Copy==NULL)    bb->blackbox_Copy=blackbox_default_Copy;
+    if (bb->blackbox_Assign==NULL)  bb->blackbox_Assign=blackbox_default_Assign;
+    if (bb->blackbox_Op1==NULL)     bb->blackbox_Op1=blackboxDefaultOp1;
+    if (bb->blackbox_Op2==NULL)     bb->blackbox_Op2=blackboxDefaultOp2;
+    if (bb->blackbox_Op3==NULL)     bb->blackbox_Op3=blackboxDefaultOp3;
+    if (bb->blackbox_OpM==NULL)     bb->blackbox_OpM=blackboxDefaultOpM;
+    if (bb->blackbox_CheckAssign==NULL) bb->blackbox_CheckAssign=blackbox_default_Check;
+    if (bb->blackbox_serialize==NULL) bb->blackbox_serialize=blackbox_default_serialize;
+    if (bb->blackbox_deserialize==NULL) bb->blackbox_deserialize=blackbox_default_deserialize;
+    return where+BLACKBOX_OFFSET;
+  }
+}
+
+void removeBlackboxStuff(const int rt)
+{
+  omfree(blackboxTable[rt-BLACKBOX_OFFSET]);
+  omfree(blackboxName[rt-BLACKBOX_OFFSET]);
+  blackboxTable[rt-BLACKBOX_OFFSET]=NULL;
+  blackboxName[rt-BLACKBOX_OFFSET]=NULL;
+}
+const char *getBlackboxName(const int t)
+{
+ char *b=blackboxName[t-BLACKBOX_OFFSET];
+  if (b!=NULL) return b;
+  else         return "";
+}
+int blackboxIsCmd(const char *n, int & tok)
+{
+  for(int i=blackboxTableCnt-1;i>=0;i--)
+  {
+    if(strcmp(n,blackboxName[i])==0)
+    {
+#ifdef BLACKBOX_DEVEL
+      Print("blackboxIsCmd: found bb:%s:%d (table:%d)\n",n,i+BLACKBOX_OFFSET,i);
+#endif
+      tok=i+BLACKBOX_OFFSET;
+      return ROOT_DECL;
+    }
+  }
+  tok=0;
+  return 0;
+}
+
+void printBlackboxTypes()
+{
+  for(int i=blackboxTableCnt-1;i>=0;i--)
+  {
+    if (blackboxName[i]!=NULL)
+       Print("type %d: %s\n",i+BLACKBOX_OFFSET,blackboxName[i]);
+  }
+}
+
+struct blackbox_list *getBlackboxTypes()
+{
+	int i = 0;
+	void **l = (void **)omalloc0(blackboxTableCnt * sizeof(void *));
+	struct blackbox_list *list_struct = (struct blackbox_list *) omAlloc0(sizeof(struct blackbox_list));
+	list_struct->count = blackboxTableCnt;
+	list_struct->list = l;
+
+	for (i = blackboxTableCnt-1; i >= 0 ;i--)
+	{
+		if (blackboxName[i]!=NULL) {
+			l[i] = (void *)omStrDup(blackboxName[i]);
+			//Print("type %d: %s\n",i,blackboxName[i]);
+		} else {
+			l[i] = NULL;
+		}
+	}
+	return list_struct;
+}

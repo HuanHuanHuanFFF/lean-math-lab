@@ -1,0 +1,1328 @@
+/////////////////////////////////////////////////////////////////////////////
+version="version ring.lib 4.4.0.6 Sep_2024 "; // $Id: 20e2590d8f605908d47b0f6f2121d2f766a284f0 $
+category="General purpose";
+info="
+LIBRARY:  ring.lib      Manipulating Rings and Maps
+AUTHORS: Singular team
+
+PROCEDURES:
+ changechar(c[,r]); make a copy of basering [ring r] with new char c
+ changeord(o[,r]);  make a copy of basering [ring r] with new ord o
+ changevar(v[,r]);  make a copy of basering [ring r] with new vars v
+ defring(\"R\",c,n,v,o);  define a ring R in specified char c, n vars v, ord o
+ defrings(n[,p]);         define ring Sn in n vars, char 32003 [p], ord ds
+ defringp(n[,p]);         define ring Pn in n vars, char 32003 [p], ord dp
+ extendring(\"R\",n,v,o); extend given ring by n vars v, ord o and name it R
+ fetchall(R[,str]);       fetch all objects of ring R to basering
+ imapall(R[,str]);        imap all objects of ring R to basering
+ mapall(R,i[,str]);       map all objects of ring R via ideal i to basering
+ ord_test(R);             test whether ordering of R is global, local or mixed
+ ringtensor(s,t,..);      create ring, tensor product of rings s,t,...
+ ringweights(r);          intvec of weights of ring variables of ring r
+ preimageLoc(R,phi,Q)     computes preimage for non-global orderings
+ rootofUnity(n);          the minimal polynomial for the n-th primitive root of unity
+             (parameters in square brackets [] are optional)
+ optionIsSet(opt)         check if as a string given option is set or not.
+ hasFieldCoefficient      check if the coefficient ring is considered a field
+ hasGFCoefficient         check if the coefficient ring is GF(p,k)
+ hasZpCoefficient         check if the coefficient ring is ZZ/p
+ hasZp_aCoefficient       check if the coefficient ring is an elag. ext. of ZZ/p
+ hasQQCoefficient         check if the coefficient ring is QQ
+ hasNumericCoeffs(rng)    check for use of floating point numbers
+ hasCommutativeVars(rng)  non-commutative or commutative polynomial ring
+ hasGlobalOrdering(rng)   global versus mixed/local monomial ordering
+ hasMixedOrdering()       mixed versus global/local ordering
+ hasAlgExtensionCoefficient(r) coefficients are an algebraic extension
+ hasTransExtensionCoefficient(r) coefficients are rational functions
+ isQuotientRing(rng)      ring is a qotient ring
+ isSubModule(I,J)         check if I is in J as submodule
+
+ changeordTo(r,o)         change the ordering of a ring to a simple one
+ addvarsTo(r,vars,i)      add variables to a ring
+ addNvarsTo(r,N,name,i)   add N variables to a ring
+";
+
+LIB "inout.lib";
+LIB "general.lib";
+LIB "primdec.lib";
+
+///////////////////////////////////////////////////////////////////////////////
+proc optionIsSet(string optionName)
+"
+USAGE:       optionIsSet( optionName )
+PARAMETERS:  optionName: a name as string of an option of interest
+RETURN:      true, if the by optionName given option is active, false otherwise.
+EXAMPLE:     example optionIsSet;
+"
+{
+   intvec op = option(get);
+   //sanity check, if option is valid. will raise an error if not
+   option(optionName);    option("no" + optionName);
+   option(set,op);
+   // first entry is currently a comment "//options:", which is not an option.
+   int pos = find(option(), optionName, 11 );
+   return(pos>0);
+}
+example
+{  "EXAMPLE:"; echo = 2;
+    // check if the option "warn" is set.
+    optionIsSet("warn");
+    option("warn");
+    // now the option is set
+    optionIsSet("warn");
+
+    option("nowarn");
+    // now the option is unset
+    optionIsSet("warn");
+}
+
+
+static proc testOptionIsSet()
+{
+     option("warn");
+     ASSUME(0, optionIsSet("warn") );
+     option("nowarn");
+     ASSUME(0, 0 == optionIsSet("warn") );
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+proc changechar (list @L, list #)
+"USAGE:   changechar(c[,r]);  c=list, r=ring
+RETURN:  ring R, obtained from the ring r [default: r=basering], by changing
+         ring_list(r)[1] to c.
+EXAMPLE: example changechar; shows an example
+"
+{
+   def save_ring=basering;
+   if( size(#)==0 ) { def @r=basering; }
+   if(( size(#)==1 ) and (typeof(#[1])=="ring")) { def @r=#[1]; }
+   setring @r;
+   list rl=ring_list(@r);
+   if(defined(@L)!=voice) { def @L=fetch(save_ring,@L); }
+   if (size(@L)==1) { rl[1]=@L[1];} else { rl[1]=@L;}
+   def Rnew=ring(rl);
+   setring save_ring;
+   return(Rnew);
+}
+example
+{  "EXAMPLE:"; echo = 2;
+   ring rr=2,A,dp;
+   ring r=0,(x,y,u,v),(dp(2),ds);
+   def R=changechar(ringlist(rr)); R;"";
+   def R1=changechar(32003,R); setring R1; R1;
+   kill R,R1;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc changeord (list @o, list #)
+"USAGE:   changeord(neword[,r]);  newordstr=list, r=ring/qring
+RETURN:  ring R, obtained from the ring r [default: r=basering], by changing
+         order(r) to neword.
+         If, say, neword=list(list(\"wp\",intvec(2,3)),list(list(\"dp\",1:(n-2))));
+         and if the ring r exists and has n variables, the ring R will be
+         equipped with the monomial ordering wp(2,3),dp.
+EXAMPLE: example changeord; shows an example
+"
+{
+   def save_ring=basering;
+   if( size(#)==0 ) { def @r=basering; }
+   if( size(#)==1 ) { def @r=#[1]; }
+   setring @r;
+   list rl=ring_list(@r);
+   rl[3]=@o;
+   def Rnew=ring(rl);
+   setring save_ring;
+   return(Rnew);
+}
+example
+{  "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,u,v),(dp(2),ds);
+   def R=changeord(list(list("wp",intvec(2,3)),list("dp",1:2))); R; "";
+   ideal i = x^2,y^2-u^3,v;
+   qring Q = std(i);
+   def Q'=changeord(list(list("lp",nvars(Q))),Q); setring Q'; Q';
+   kill R,Q,Q';
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc changevar (string vars, list #)
+"USAGE:   changevar(vars[,r]);  vars=string, r=ring/qring
+RETURN:  ring R, obtained from the ring r [default: r=basering], by changing
+         varstr(r) according to the value of vars.
+         If, say, vars = \"t()\" and the ring r exists and has n
+         variables, the new basering will have name R and variables
+         t(1),...,t(n).
+         If vars = \"a,b,c,d\", the new ring will have the variables a,b,c,d.
+NOTE:    This procedure is useful in connection with the procedure ringtensor,
+         when a conflict between variable names must be avoided.
+         This proc uses 'execute' or calls a procedure using 'execute'.
+EXAMPLE: example changevar; shows an example
+"
+{
+   if( size(#)==0 ) { def @r=basering; }
+   if( size(#)==1 ) { def @r=#[1]; }
+   setring @r;
+   ideal i = ideal(@r); int @q = size(i);
+   if( @q!=0 )
+      { string @s = "Rnew1"; }
+   else
+      { string @s = "Rnew"; }
+   string @newring = @s+"=("+charstr(@r)+"),(";
+   if( vars[size(vars)-1]=="(" and vars[size(vars)]==")" )
+   {
+      @newring = @newring+vars[1,size(vars)-2]+"(1.."+string(nvars(@r))+")";
+   }
+   else { @newring = @newring+vars; }
+   string ords=ordstr(@r);
+   int l=size(ords);
+   int l1,l2;
+   while(l>0)
+   {
+     if (ords[l]=="(") { l1=l; break; }
+     if (ords[l]==")") { l2=l; }
+     l--;
+   }
+   string last_ord=string(ords[l1-3..l1-1]);
+   if ((last_ord[1]!="w")
+   && (last_ord[1]!="W")
+   && (last_ord[2]!="M"))
+   {
+     if (l2==size(ords)) { ords=string(ords[1..l1-1]); }
+     else { ords=string(ords[1..l1-1])+string(ords[l2+1..size(ords)]); }
+   }
+   @newring = @newring+"),("+ords+");";
+   execute("ring "+@newring);
+   if( @q!=0 )
+   {
+      map phi = @r,maxideal(1);
+      ideal i = phi(i);
+      attrib(i,"isSB",1);         //*** attrib funktioniert ?
+      qring Rnew=i;
+   }
+   return(Rnew);
+}
+example
+{  "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,u,v),(dp(2),ds);
+   ideal i = x^2,y^2-u^3,v;
+   qring Q = std(i);
+   setring(r);
+   def R=changevar("A()"); R; "";
+   def Q'=changevar("a,b,c,d",Q); setring Q'; Q';
+   kill R,Q,Q';
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc defring (string s2, int n, string s3, string s4)
+"USAGE:   defring(ch,n,va,or);  ch,va,or=strings, n=integer
+RETURN:  ring R with characteristic 'ch', ordering 'or' and n variables with
+         names derived from va.
+         If va is a single letter, say va=\"a\", and if n<=26 then a and the
+         following n-1 letters from the alphabet (cyclic order) are taken as
+         variables. If n>26 or if va is a single letter followed by a bracket,
+         say va=\"T(\", the variables are T(1),...,T(n).
+NOTE:    This proc is useful for defining a ring in a procedure.
+         This proc uses 'execute' or calls a procedure using 'execute'.
+EXAMPLE: example defring; shows an example
+"
+{
+   return(create_ring(s2,A_Z_L(s3,n),s4));
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   def r=defring("0",5,"u","ls"); r; setring r;"";
+   def R=defring("(2,A)",10,"x(","(dp(3),ws(1,2,3),ds)"); R; setring R;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc defrings (int n, list #)
+"USAGE:   defrings(n,[p]);  n,p integers
+RETURN:  ring R with characteristic p [default: p=32003], ordering ds and n
+         variables x,y,z,a,b,...if n<=26 (resp. x(1..n) if n>26)
+NOTE:    This proc uses 'execute' or calls a procedure using 'execute'.
+EXAMPLE: example defrings; shows an example
+"
+{
+   int p;
+   if (size(#)==0) { p=32003; }
+   else { p=#[1]; }
+   if (n >26)
+   {
+    list l1;
+    for (int zz = 1; zz <= n; zz++)
+    {
+     l1[zz] = "x("+string(zz)+")";
+    }
+    ring S = create_ring(p, l1, "ds");
+   }
+   else
+   {
+    ring S = create_ring(p, "("+A_Z("x",n)+")", "ds");
+   }
+   dbprint(printlevel-voice+2,"
+// 'defrings' created a ring. To see the ring, type (if the name R was
+// assigned to the return value):
+    show R;
+// To make the ring the active basering, type
+    setring R; ");
+   return(S);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   def S5=defrings(5,0); S5; "";
+   def S30=defrings(30); S30;
+   kill S5,S30;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc defringp (int n,list #)
+"USAGE:   defringp(n,[p]);  n,p=integers
+RETURN:  ring R with characteristic p [default: p=32003], ordering dp and n
+         variables x,y,z,a,b,...if n<=26 (resp. x(1..n) if n>26)
+NOTE:    This proc uses 'execute' or calls a procedure using 'execute'.
+EXAMPLE: example defringp; shows an example
+"
+{
+   int p;
+   if (size(#)==0) { p=32003; }
+   else { p=#[1]; }
+   if (n >26)
+   {
+    list l2;
+    for (int zz = 1; zz <= n; zz++)
+    {
+     l2[zz] = "x("+string(zz)+")";
+    }
+    ring P = create_ring(p, l2, "dp");
+   }
+   else
+   {
+    ring P = create_ring(p, "("+A_Z("x",n)+")", "dp");
+   }
+   dbprint(printlevel-voice+2,"
+// 'defringp' created a ring. To see the ring, type (if the name R was
+// assigned to the return value):
+    show R;
+// To make the ring the active basering, type
+    setring R; ");
+   return(P);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   def P5=defringp(5,0); P5; "";
+   def P30=defringp(30); P30;
+   kill P5,P30;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc extendring (int n, string va, string o, list #)
+"USAGE:   extendring(n,va,o[,iv,i,r]);  va,o=strings, n,i=integers, r=ring,
+          iv=intvec of positive integers or iv=0
+RETURN:  ring R, which extends the ring r by adding n new variables in front
+         of (resp. after, if i!=0) the old variables.
+         [default: (i,r)=(0,basering)].
+@*       -- The characteristic is the characteristic of r.
+@*       -- The new vars are derived from va. If va is a single letter, say
+            va=\"T\", and if n<=26 then T and the following n-1 letters from
+            T..Z..T (resp. T(1..n) if n>26) are taken as additional variables.
+            If va is a single letter followed by a bracket, say va=\"x(\",
+            the new variables are x(1),...,x(n).
+@*       -- The ordering is the product ordering of the ordering of r and of an
+            ordering derived from `o` [and iv].
+@*        -  If o contains a 'c' or a 'C' in front resp. at the end, this is
+            taken for the whole ordering in front, resp. at the end. If o does
+            not contain a 'c' or a 'C' the same rule applies to ordstr(r).
+@*        -  If no intvec iv is given, or if iv=0, o may be any allowed ordstr,
+            like \"ds\" or \"dp(2),wp(1,2,3),Ds(2)\" or \"ds(a),dp(b),ls\" if
+            a and b are globally (!) defined integers and if a+b+1<=n.
+            If, however, a and b are local to a proc calling extendring, the
+            intvec iv must be used to let extendring know the values of a and b
+@*        -  If a non-zero intvec iv is given, iv[1],iv[2],... are taken for the
+            1st, 2nd,... block of o, if o contains no substring \"w\" or \"W\"
+            i.e. no weighted ordering (in the above case o=\"ds,dp,ls\"
+            and iv=a,b).
+            If o contains a weighted ordering (only one (!) weighted block is
+            allowed) iv[1] is taken as size for the weight-vector, the next
+            iv[1] values of iv are taken as weights and the remaining values of
+            iv as block size for the remaining non-weighted blocks.
+            e.g. o=\"dp,ws,Dp,ds\", iv=3,2,3,4,2,5 creates the ordering
+            dp(2),ws(2,3,4),Dp(5),ds
+NOTE:    This proc is useful for adding deformation parameters.
+         This proc uses 'execute' or calls a procedure using 'execute'.
+         If you use it in your own proc, it may be advisable to let the local
+         names of your proc start with a @
+EXAMPLE: example extendring; shows an example
+"
+{
+//--------------- initialization and place c/C of ordering properly -----------
+   string @o1,@o2,@ro,@wstr,@v,@newring;
+   int @i,@w,@ii,@k;
+   intvec @iv,@iw;
+   if( find(o,"c")+find(o,"C") != 0)
+   {
+      @k=1;
+      if( o[1]=="c" or o[1]=="C" ) { @o1=o[1,2]; o=o[3..size(o)]; }
+      else                         { @o2=o[size(o)-1,2]; o=o[1..size(o)-2]; }
+   }
+   if( size(#)==0 ) { #[1]=0; }
+   if( typeof(#[1])!="intvec" )
+   {
+     if( size(#)==1 ) { @i=#[1]; def @r=basering; }
+     if( size(#)==2 ) { @i=#[1]; def @r=#[2]; }
+     if( o[size(o)]!=")" and find(o,",")==0 ) { o=o+"("+string(n)+")"; }
+   }
+   else
+   {
+     @iv=#[1];
+     if( size(#)==2 ) { @i=#[2]; def @r=basering; }
+     if( size(#)==3 ) { @i=#[2]; def @r=#[3]; }
+     if( @iv==0 && o[size(o)]!=")" && find(o,",")==0 ) {o=o+"("+string(n)+")";}
+   }
+   @ro=ordstr(@r);
+   if( @ro[1]=="c" or @ro[1]=="C" )
+      { @v=@ro[1,2]; @ro=@ro[3..size(@ro)]; }
+   else
+      { @wstr=@ro[size(@ro)-1,2]; @ro=@ro[1..size(@ro)-2]; }
+   if( @k==0) { @o1=@v; @o2=@wstr; }
+//----------------- prepare ordering if an intvec is given --------------------
+   if( typeof(#[1])=="intvec" and #[1]!=0 )
+   {
+      @k=n;                             //@k counts no of vars not yet ordered
+      @w=find(o,"w")+find(o,"W");o=o+" ";
+      if( @w!=0 )
+      {
+         @wstr=o[@w..@w+1];
+         o=o[1,@w-1]+"@"+o[@w+2,size(o)];
+         @iw=@iv[2..@iv[1]+1];
+         @wstr=@wstr+"("+string(@iw)+")";
+         @k=@k-@iv[1];
+         @iv=@iv[@iv[1]+2..size(@iv)];
+         @w=0;
+      }
+      for( @ii=1; @ii<=size(@iv); @ii=@ii+1 )
+      {
+         if( find(o,",",@w+1)!=0 )
+         {
+            @w=find(o,",",@w+1);
+            if( o[@w-1]!="@" )
+            {
+               o=o[1,@w-1]+"("+string(@iv[@ii])+")"+o[@w,size(o)];
+               @w=find(o,",",@w+1);
+               @k=@k-@iv[@ii];
+            }
+            else { @ii=@ii-1; }
+         }
+      }
+      @w=find(o,"@");
+      if( @w!=0 ) { o=o[1,@w-1] + @wstr + o[@w+1,size(o)]; }
+      if( @k>0 and o[size(o)]!=")" ) { o=o+"("+string(@k)+")"; }
+   }
+//------------------------ prepare string of new ring -------------------------
+   list @ringlist=ring_list(@r);
+   list @varlist=A_Z_L(va,n);
+   if (@i==0)
+   {
+     @varlist=@varlist+@ringlist[2];
+     o=@o1+o+","+@ro+@o2;
+   }
+   else
+   {
+     @varlist=@ringlist[2]+@varlist;
+     o=@o1+@ro+","+o+@o2;
+   }
+   @i=find(o," ");
+   while(@i!=0)
+   {
+     o=o[1,@i-1]+o[@i+1,size(o)-@i];
+     @i=find(o," ");
+   }
+//---------------------------- execute and export -----------------------------
+   dbprint(printlevel-voice+2,"
+// 'extendring' created a new ring.
+// To see the ring, type (if the name 'R' was assigned to the return value):
+     show(R);
+");
+
+   o="("+o+")";
+   return(create_ring(@ringlist[1],@varlist,o));
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=0,(x,y,z),ds;
+   show(r);"";
+   // blocksize is derived from no of vars:
+   int t=5;
+   def R1=extendring(t,"a","dp");         //t global: "dp" -> "dp(5)"
+   show(R1); setring R1; "";
+   def R2=extendring(4,"T(","c,dp",1,r);    //"dp" -> "c,..,dp(4)"
+   show(R2); setring R2; "";
+
+   // no intvec given, blocksize given: given blocksize is used:
+   def R3=extendring(4,"T(","dp(2)",0,r);   // "dp(2)" -> "dp(2)"
+   show(R3); setring R3; "";
+
+   // intvec given: weights and blocksize is derived from given intvec
+   // (no specification of a blocksize in the given ordstr is allowed!)
+   // if intvec does not cover all given blocks, the last block is used
+   // for the remaining variables, if intvec has too many components,
+   // the last ones are ignored
+   intvec v=3,2,3,4,1,3;
+   def R4=extendring(10,"A","ds,ws,Dp,dp",v,0,r);
+   // v covers 3 blocks: v[1] (=3) : no of components of ws
+   // next v[1] values (=v[2..4]) give weights
+   // remaining components of v are used for the remaining blocks
+   show(R4);
+   kill r,R1,R2,R3,R4;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc fetchall (def R, list #)
+"USAGE:   fetchall(R[,s]);  R=ring/qring, s=string
+CREATE:  fetch all objects of ring R (of type poly/ideal/vector/module/number/matrix)
+         into the basering.
+         If no 2nd argument is present, the names are the same as in R. If,
+         say, f is a polynomial in R and the 2nd argument is the string \"R\", then f
+         is mapped to f_R etc.
+RETURN:  no return value
+NOTE:    As fetch, this procedure maps the 1st, 2nd, ... variable of R to the
+         1st, 2nd, ... variable of the basering.
+         The 2nd argument is useful in order to avoid conflicts of names, the
+         empty string is allowed
+CAUTION: fetchall does not work for locally defined names.
+         It does not work if R contains a map.
+SEE ALSO: imapall
+EXAMPLE: example fetchall; shows an example
+"
+{
+   list @L@=names(R);
+   int @ii@; string @s@;
+   if( size(#) > 0 ) { @s@=@s@+"_"+#[1]; }
+   for( @ii@=size(@L@); @ii@>0; @ii@-- )
+   {
+      execute("def "+@L@[@ii@]+@s@+"=fetch(R,`@L@[@ii@]`);");
+      execute("export "+@L@[@ii@]+@s@+";");
+   }
+   return();
+}
+example
+{  "EXAMPLE:"; echo=2;
+// The example is not shown since fetchall does not work in a procedure;
+// (and hence not in the example procedure). Try the following commands:
+//   ring R=0,(x,y,z),dp;
+//   ideal j=x,y2,z2;
+//   matrix M[2][3]=1,2,3,x,y,z;
+//   j; print(M);
+//   ring S=0,(a,b,c),ds;
+//   fetchall(R);       //map from R to S: x->a, y->b, z->c;
+//   names(S);
+//   j; print(M);
+//   fetchall(S,"1");   //identity map of S: copy objects, change names
+//   names(S);
+//   kill R,S;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc imapall (def R, list #)
+"USAGE:   imapall(R[,s]);  R=ring/qring, s=string
+CREATE:  map all objects of ring R (of type poly/ideal/vector/module/number/matrix)
+         into the basering by applying imap to all objects of R.
+         If no 2nd argument is present, the names are the same as in R. If,
+         say, f is a polynomial in R and the 3rd argument is the string \"R\", then f
+         is mapped to f_R etc.
+RETURN:  no return value
+NOTE:    As imap, this procedure maps the variables of R to the variables with
+         the same name in the basering, the other variables are mapped to 0.
+         The 2nd argument is useful in order to avoid conflicts of names, the
+         empty string is allowed
+CAUTION: imapall does not work for locally defined names.
+         It does not work if R contains a map
+SEE ALSO: fetchall
+EXAMPLE: example imapall; shows an example
+"
+{
+   list @L@=names(R);
+   int @ii@; string @s@;
+   if( size(#) > 0 ) { @s@=@s@+"_"+#[1]; }
+   for( @ii@=size(@L@); @ii@>0; @ii@-- )
+   {
+         execute("def "+@L@[@ii@]+@s@+"=imap(R,`@L@[@ii@]`);");
+         execute("export "+@L@[@ii@]+@s@+";");
+   }
+   return();
+}
+example
+{  "EXAMPLE:"; echo = 2;
+// The example is not shown since imapall does not work in a procedure
+// (and hence not in the example procedure). Try the following commands:
+//   ring R=0,(x,y,z,u),dp;
+//   ideal j=x,y,z,u2+ux+z;
+//   matrix M[2][3]=1,2,3,x,y,uz;
+//   j; print(M);
+//   ring S=0,(a,b,c,x,z,y),ds;
+//   imapall(R);         //map from R to S: x->x, y->y, z->z, u->0
+//   names(S);
+//   j; print(M);
+//   imapall(S,"1");     //identity map of S: copy objects, change names
+//   names(S);
+//   kill R,S;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc mapall (def R, ideal i, list #)
+"USAGE:   mapall(R,i[,s]);  R=ring/qring, i=ideal of basering, s=string
+CREATE:  map all objects of ring R (of type poly/ideal/vector/module/number/
+         matrix, map) into the basering by mapping the j-th variable of R to
+         the j-th generator of the ideal i. If no 3rd argument is present, the
+         names are the same as in R. If, say, f is a polynomial in R and the 3rd
+         argument is the string \"R\", then f is mapped to f_R etc.
+RETURN:  no return value.
+NOTE:    This procedure has the same effect as defining a map, say psi, by
+         map psi=R,i; and then applying psi to all objects of R. In particular,
+         maps from R to some ring S are composed with psi, creating thus a map
+         from the basering to S.
+         mapall may be combined with copyring to change vars for all objects.
+         The 3rd argument is useful in order to avoid conflicts of names, the
+         empty string is allowed.
+CAUTION: mapall does not work for locally defined names.
+EXAMPLE: example mapall; shows an example
+"
+{
+   list @L@=names(R); map @psi@ = R,i;
+   int @ii@; string @s@;
+   if( size(#) > 0 ) { @s@=@s@+"_"+#[1]; }
+   for( @ii@=size(@L@); @ii@>0; @ii@-- )
+   {
+      execute("def "+@L@[@ii@]+@s@+"=@psi@(`@L@[@ii@]`);");
+      execute("export "+@L@[@ii@]+@s@+";");
+   }
+   return();
+}
+example
+{  "EXAMPLE:"; echo = 2;
+// The example is not shown since mapall does not work in a procedure
+// (and hence not in the example procedure). Try the following commands:
+//   ring R=0,(x,y,z),dp;
+//   ideal j=x,y,z;
+//   matrix M[2][3]=1,2,3,x,y,z;
+//   map phi=R,x2,y2,z2;
+//   ring S=0,(a,b,c),ds;
+//   ideal i=c,a,b;
+//   mapall(R,i);         //map from R to S: x->c, y->a, z->b
+//   names(S);
+//   j; print(M); phi;    //phi maps R to S: x->c2, y->a2, z->b2
+//   ideal i1=a2,a+b,1;
+//   mapall(R,i1,\"\");     //map from R to S: x->a2, y->a+b, z->1
+//   names(S);
+//   j_; print(M_); phi_;
+//   changevar(\"T\",\"x()\",R);  //change vars in R and call result T
+//   mapall(R,maxideal(1));   //identity map from R to T
+//   names(T);
+//   j; print(M); phi;
+//   kill R,S,T;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc ord_test (def r)
+"USAGE:   ord_test(r);  r ring/qring
+RETURN:  int 1 (resp. -1, resp. 0) if ordering of r is global (resp. local,
+         resp. mixed)
+SEE ALSO: attrib
+EXAMPLE: example ord_test; shows an example
+"
+{
+   if (typeof(r) != "ring")
+   {
+      ERROR("ord_test requires a ring/qring as input");
+   }
+   if (attrib(r,"global")==1) { return(1);}
+   def BAS = basering;
+   setring r;
+   poly f;
+   int n,o,u = nvars(r),1,1;
+   int ii;
+   for ( ii=1; ii<=n; ii++ )
+   {
+      f = 1+var(ii);
+      o = o*(lead(f) == var(ii));
+      u = u*(lead(f) == 1);
+   }
+   setring BAS;
+   if ( o==1 ) { return(1); }
+   if ( u==1 ) { return(-1); }
+   else { return(0); }
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring R = 0,(x,y),dp;
+   ring S = 0,(u,v),ls;
+   ord_test(R);
+   ord_test(S);
+   ord_test(R+S);
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc ringtensor (list #)
+"USAGE:   ringtensor(r1,r2,...);  r1,r2,...=rings
+RETURN:  ring R whose variables are the variables from all rings r1,r2,...
+         and whose monomial ordering is the block (product) ordering of the
+         respective monomial orderings of r1,r2,... . Hence, R
+         is the tensor product of the rings r1,r2,... with ordering matrix
+         equal to the direct sum of the ordering matrices of r1,r2,...
+NOTE:    The characteristic of the new ring will be p if one ring has
+         characteristic p. The names of variables in the rings r1,r2,...
+         must differ.
+         The procedure works also for quotient rings ri, if the characteristic
+         of ri is compatible with the characteristic of the result
+         (i.e. if imap from ri to the result is implemented)
+SEE ALSO: ring operations
+EXAMPLE: example ringtensor; shows an example
+"
+{
+   int @i;
+   int @n = size(#);
+   if (@n<=1) { ERROR("at least 2 rings required"); }
+   def @s=#[1]+#[2];
+   for (@i=3; @i<=@n;@i++)
+   {
+     def @ss=@s+#[@i];
+     kill @s;
+     def @s=@ss;
+     kill @ss;
+   }
+   dbprint(printlevel-voice+2,"
+// 'ringtensor' created a ring. To see the ring, type (if the name R was
+// assigned to the return value):
+    show(R);
+// To make the ring the active basering, type
+    setring R; ");
+   return(@s);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring r=32003,(x,y,u,v),dp;
+   ring s=0,(a,b,c),wp(1,2,3);
+   ring t=0,x(1..5),(c,ls);
+   def R=ringtensor(r,s,t);
+   type R;
+   setring s;
+   ideal i = a2+b3+c5;
+   def S=changevar("x,y,z");       //change vars of s
+   setring S;
+   qring qS =std(fetch(s,i));      //create qring of S mod i (mapped to S)
+   def T=changevar("d,e,f,g,h",t); //change vars of t
+   setring T;
+   qring qT=std(d2+e2-f3);         //create qring of T mod d2+e2-f3
+   def Q=ringtensor(s,qS,t,qT);
+   setring Q; type Q;
+   kill R,S,T,Q;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+proc ringweights (def P)
+"USAGE:   ringweights(P); P=name of an existing ring (true name, not a string)
+RETURN:  intvec consisting of the weights of the variables of P, as they
+         appear when typing P;.
+NOTE:    This is useful when enlarging P but keeping the weights of the old
+         variables.
+EXAMPLE: example ringweights; shows an example
+"
+{
+   int i;
+   intvec rw;
+//------------------------- find weights  -------------------------
+   for(i=nvars(P);i>0;i--)
+   { rw[i]=ord(var(i)); }
+   return(rw);
+}
+example
+{"EXAMPLE:";  echo = 2;
+  ring r0 = 0,(x,y,z),dp;
+  ringweights(r0);
+  ring r1 = 0,x(1..5),(ds(3),wp(2,3));
+  ringweights(r1);"";
+  // an example for enlarging the ring, keeping the first weights:
+  intvec v = ringweights(r1),6,2,3,4,5;
+  ring R = 0,x(1..10),(a(v),dp);
+  ordstr(R);
+}
+///////////////////////////////////////////////////////////////////////////////
+proc preimageLoc(string R_name,string phi_name,string Q_name )
+"USAGE: preimageLoc ( ring_name, map_name, ideal_name );
+        all input parameters of type string
+RETURN:  ideal
+PURPOSE: compute the preimage of an ideal under a given map for non-global
+         orderings.
+         The 2nd argument has to be the name of a map from the basering to
+         the given ring (or the name of an ideal defining such a map), and
+         the ideal has to be an ideal in the given ring.
+SEE ALSO: preimage
+KEYWORDS: preimage under a map between local rings, map between local rings, map between local and global rings
+EXAMPLE: example preimageLoc ; shows an example
+"{
+  def S=basering;
+  int i;
+  string newRing,minpoly_string;
+  if(attrib(S,"global")!=1)
+  {
+    if(size(ideal(S))>0) /*qring*/
+    {
+      ideal I=ideal(S);
+      list l8 = ring_list(S)[2];
+      ring S0 = create_ring(ring_list(S)[1], l8, "dp");
+      ideal I=imap(S,I);
+      list pr=primdecGTZ(I);
+      ring SL = create_ring(ring_list(S)[1], l8, "("+ordstr(S)+")");
+      list pr=imap(S0,pr);
+      ideal I0=std(pr[1][1]);
+      for(i=2;i<=size(pr);i++)
+      {
+         I0=intersect(I0,std(pr[i][1]));
+      }
+      setring S0;
+      ideal I0=imap(SL,I0);
+      qring S1=std(I0);
+    }
+    else
+    {
+      def S1=S;
+    }
+  }
+  else
+  {
+    def S1=S;
+  }
+  def @R=`R_name`;
+  setring @R;
+  def @phi=`phi_name`;
+  ideal phiId=ideal(@phi);
+  def Q=`Q_name`;
+  if(attrib(@R,"global")!=1)
+  {
+    if(size(ideal(@R))>0) /*qring*/
+    {
+      ideal J=ideal(@R);
+      list l9 = ringlist(@R)[2];
+      ring R0 = create_ring(ring_list(@R)[1], l9, "dp");
+      ideal J=imap(@R,J);
+      list pr=primdecGTZ(J);
+      setring(@R);
+      ring RL = create_ring(ring_list(@R)[1], l9, "("+ordstr(@R)+")");
+      list pr=imap(R0,pr);
+      ideal J0=std(pr[1][1]);
+      for(i=2;i<=size(pr);i++)
+      {
+         J0=intersect(J0,std(pr[i][1]));
+      }
+      setring R0;
+      ideal J0=imap(RL,J0);
+      qring R1=std(J0);
+      ideal Q=imap(@R,Q);
+      map @phi=S1,imap(@R,phiId);
+    }
+    else
+    {
+      def R1=@R;
+    }
+  }
+  else
+  {
+    def R1=@R;
+  }
+  setring S1;
+  ideal preQ=preimage(R1,@phi,Q);
+  setring S;
+  ideal prQ=imap(S1,preQ);
+  return(prQ);
+}
+example
+{ "EXAMPLE:"; echo=2;
+  ring S =0,(x,y,z),dp;
+  ring R0=0,(x,y,z),ds;
+  qring R=std(x+x2); if(voice>1) {export R;}
+  map psi=S,x,y,z;   if(voice>1) {export psi;}
+  ideal null;        if(voice>1) {export null;}
+  setring S;
+  ideal nu=preimageLoc("R","psi","null");
+  nu;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/* moved here from the nctools.lib */
+////////////////////////////////////////////////////////////////////////////
+proc rootofUnity(int n)
+"USAGE:  rootofUnity(n); n an integer
+RETURN:  number
+PURPOSE: compute the minimal polynomial for the n-th primitive root of unity
+NOTE: works only in field extensions by one element
+EXAMPLE: example rootofUnity; shows examples
+"
+{
+  if ( npars(basering) !=1 )
+  {
+    ERROR(" the procedure works only with one ring parameter variable");
+  }
+  if (n<0) {  ERROR(" cannot compute ("+string(n)+")-th primitive root of unity"); }
+  if (n==0) { return(number(0));}
+  number mp = par(1);
+  if (n==1) { return(mp-1); }
+  if (n==2) { return(mp+1); }
+  def OldRing = basering;
+  list l10=ringlist(OldRing);
+  l10[2]=l10[1][2];
+  l10[1]=l10[1][1];
+  l10[3]=list(list("dp",1:1),list("C",0));
+  l10[4]=ideal(0);
+  int j=1;
+  ring @@rR = ring(l10);
+  poly @t=var(1)^n-1; // (x^2i-1)=(x^i-1)(x^i+1)
+  list l=factorize(@t);
+  ideal @l=l[1];
+  list @d;
+  int s=size(@l);
+  int d=deg(@l[s]);
+  int cnt=1;
+  poly res;
+  for (j=s-1; j>=1; j--)
+  {
+    if ( deg(@l[j]) > d) { d=deg(@l[j]); }
+  }
+  for (j=1; j<=s; j++)
+  {
+    if ( deg(@l[j]) == d) { @d[cnt]=@l[j]; cnt++; }
+  }
+
+  j=1;
+  int i;
+  number pw;
+
+  int @sized = size(@d);
+
+  if (@sized==1)
+  {
+       setring OldRing;
+       list @rl = imap(@@rR,@d);
+       mp = number(@rl[1]);
+       kill @@rR;
+       return(mp);
+  }
+  def @rng;
+
+  setring OldRing;
+
+  list rl = ring_list( OldRing);
+  while ( j<=@sized )
+  {
+     ASSUME(0, n%2 ==0);
+     setring OldRing;
+     @rng = ring(rl);
+     setring @rng;
+     list @rl = imap(@@rR,@d);
+     number mp = leadcoef( @rl[j] );
+     minpoly = mp;
+     number mp = minpoly;
+     number pw = par(1)^(n div 2);
+     if ( (pw != 1) || n==1 )  {  break;  }
+     j = j+1;
+  }
+  setring OldRing;
+  list @rl=imap(@@rR,@d);
+  mp = leadcoef( @rl[j] );
+  kill @@rR;
+  return(mp);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r = (0,q),(x,y,z),dp;
+  rootofUnity(6);
+  rootofUnity(7);
+  minpoly = rootofUnity(8);
+  r;
+}
+
+
+proc isQuotientRing(def rng )
+"USAGE: isQuotientRing ( rng );
+RETURN:  1 if rng is a quotient ring, 0 otherwise.
+PURPOSE: check if typeof a rng "qring"
+KEYWORDS: qring ring ideal 'factor ring'
+EXAMPLE: example isQuotientRing ; shows an example
+"
+{
+    if ( defined(basering) )  {   def BAS=basering;  }
+    else { return (0); }
+
+    //access to quotient ideal will fail, if basering and rng differs.
+    setring rng;
+    int result =  ( size(ideal(rng)) != 0);
+
+    setring BAS;
+    return (result);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring rng = 0,x,dp;
+  isQuotientRing(rng); //no
+  // if a certain method does not support quotient rings,
+  // then a parameter test could be performed:
+   ASSUME( 0, 0==isQuotientRing(basering));
+
+  qring q= ideal(x);  // constructs rng/ideal(x)
+  isQuotientRing(q);  // yes
+}
+
+static proc testIsQuotientRing()
+{
+   ring rng7 = 7, x, dp;
+
+   ring rng = real,x,dp;
+   ASSUME(0, 0== isQuotientRing(rng) ) ;
+   ASSUME(0, 0== isQuotientRing(rng7) ) ;
+   ASSUME(0, char(basering)==0); // check that basering was not changed
+
+   qring qrng = 1;
+   ASSUME(0, isQuotientRing(qrng) ) ;
+
+   ring rng2 = integer,x,dp;
+   ASSUME(0, 0 == isQuotientRing(rng2) ) ;
+
+   qring qrng2=0;
+   ASSUME(0, not isQuotientRing(qrng2) ) ;
+
+   ring rng3 = 0,x,dp;
+   ASSUME(0, 0 == isQuotientRing(rng3) ) ;
+
+   qring qrng3=1;
+   ASSUME(0, isQuotientRing(qrng3) ) ;
+}
+
+proc hasFieldCoefficient(def rng )
+"USAGE: hasFieldCoefficient ( rng );
+RETURN:  1 if the coefficients form  (and are considered to be) a field, 0 otherwise.
+KEYWORDS: ring coefficients
+EXAMPLE: example hasFieldCoefficient; shows an example
+SEE ALSO: attrib
+"
+{
+  return (attrib(rng,"ring_cf")==0);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring rng = integer,x,dp;
+  hasFieldCoefficient(rng); //no
+  // if a certain method supports only rings with integer coefficients,
+  // then a parameter test could be performed:
+  ring rng2 = 0, x, dp;
+  hasFieldCoefficient(rng2);  // yes
+}
+
+proc hasAlgExtensionCoefficient(def rng )
+"USAGE: hasAlgExtensionCoefficient ( rng );
+RETURN:  1 if the coefficients are an algebraic extension, 0 otherwise.
+KEYWORDS: ring coefficients
+EXAMPLE: example hasAlgExtensionCoefficient; shows an example
+"
+{
+  return(attrib(rng,"cf_class")==7);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring rng = integer,x,dp;
+  hasAlgExtensionCoefficient(rng); //no
+  ring rng2 = (0,a), x, dp; minpoly=a2-1;
+  hasAlgExtensionCoefficient(rng2);  // yes
+  ring rng3=(49,a),x,dp;
+  hasAlgExtensionCoefficient(rng3);  // no
+}
+
+proc hasTransExtensionCoefficient(def rng )
+"USAGE: hasTransExtensionCoefficient ( rng );
+RETURN:  1 if the coefficients are rational functions, 0 otherwise.
+KEYWORDS: ring coefficients
+EXAMPLE: example hasTransExtensionCoefficient; shows an example
+"
+{
+  return(attrib(rng,"cf_class")==8);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring rng = integer,x,dp;
+  hasTransExtensionCoefficient(rng); //no
+  ring rng2 = (0,a), x, dp;
+  hasTransExtensionCoefficient(rng2);  // yes
+  ring rng3=(49,a),x,dp;
+  hasTransExtensionCoefficient(rng3);  // no
+}
+
+proc hasGFCoefficient(def rng )
+"USAGE: hasGFCoefficient ( rng );
+RETURN:  1 if the coefficients are of the form GF(p,k), 0 otherwise.
+KEYWORDS: ring coefficients
+EXAMPLE: example hasGFCoefficient; shows an example
+"
+{
+  return(attrib(rng,"cf_class")==4);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r1 = integer,x,dp;
+  hasGFCoefficient(r1);
+  ring r2 = (4,a),x,dp;
+  hasGFCoefficient(r2);
+  ring r3 = (2,a),x,dp;
+  minpoly=a2+a+1;
+  hasGFCoefficient(r3);
+}
+
+proc hasZp_aCoefficient(def rng )
+"USAGE: hasZp_aCoefficient ( rng );
+RETURN:  1 if the coefficients are of the form Zp_a(p,k), 0 otherwise.
+KEYWORDS: ring coefficients
+EXAMPLE: example hasZp_aCoefficient; shows an example
+"
+{
+  return((attrib(rng,"cf_class")==7) and (char(rng)>0));
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r1 = integer,x,dp;
+  hasZp_aCoefficient(r1);
+  ring r2 = (4,a),x,dp;
+  hasZp_aCoefficient(r2);
+  ring r3 = (2,a),x,dp;
+  minpoly=a2+a+1;
+  hasZp_aCoefficient(r3);
+}
+
+proc hasZpCoefficient(def rng )
+"USAGE: hasZpCoefficient ( rng );
+RETURN:  1 if the coefficcients are of the form ZZ/p, 0 otherwise.
+KEYWORDS: ring coefficients
+EXAMPLE: example hasZpCoefficient; shows an example
+"
+{
+  return(attrib(rng,"cf_class_Zp"));
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r1 = integer,x,dp;
+  hasZpCoefficient(r1);
+  ring r2 = 7,x,dp;
+  hasZpCoefficient(r2);
+}
+
+proc hasQQCoefficient(def rng )
+"USAGE: hasQQCoefficient ( rng );
+RETURN:  1 if the coefficcients are QQ, 0 otherwise.
+KEYWORDS: ring coefficients
+EXAMPLE: example hasQQCoefficient; shows an example
+"
+{
+  return(attrib(rng,"cf_class_QQ"));
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r1 = integer,x,dp;
+  hasQQCoefficient(r1);
+  ring r2 = QQ,x,dp;
+  hasQQCoefficient(r2);
+}
+
+proc hasGlobalOrdering (def rng)
+"USAGE: hasGlobalOrdering ( rng );
+RETURN:  1 if rng has a global monomial ordering, 0 otherwise.
+KEYWORDS: monomial ordering
+EXAMPLE: example hasGlobalOrdering; shows an example
+"
+{
+  return (attrib(rng,"global")==1);
+}
+example
+{ "EXAMPLE:"; echo=2;
+  ring rng = integer,x,dp;
+  hasGlobalOrdering(rng); //yes
+  ring rng2 = 0, x, ds;
+  hasGlobalOrdering(rng2);  // no
+}
+
+proc hasCommutativeVars (def rng)
+"USAGE: hasCommutativeVars ( rng );
+RETURN:  1 if rng is a commutative polynomial ring, 0 otherwise.
+KEYWORDS: plural
+EXAMPLE: example hasCommutativeVars; shows an example
+"
+{
+  list rl=ring_list(rng);
+  return (size(rl)==4);
+}
+example
+{ "EXAMPLE:"; echo=2;
+ ring r=0,(x,y,z),dp;
+ hasCommutativeVars(r);
+}
+
+proc hasNumericCoeffs(def rng)
+"USAGE: hasNumericCoeffs ( rng );
+RETURN:  1 if rng has inexact coefficcients, 0 otherwise.
+KEYWORDS: floating point
+EXAMPLE: example hasNumericCoeffs; shows an example
+"
+{
+  return((attrib(rng,"cf_class")==3) /*real*/
+  or     (attrib(rng,"cf_class")==5) /*gmp real*/
+  or     (attrib(rng,"cf_class")==9) /*gmp complex*/);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r1 = integer,x,dp;
+  hasNumericCoeffs(r1);
+  ring r2 = complex,x,dp;
+  hasNumericCoeffs(r2);
+}
+
+
+proc isSubModule(def I,def J)
+"USAGE: isSubModule(I,J): I, J: ideal or module
+RETURN: 1 if module(I) is in module(J), 0 otherwise
+EXAMPLE: isSubModule; shows an example
+{
+  if (attrib(J,"isSB"))
+  { return(size(reduce(I,J,5))==0); }
+  else
+  { return(size(reduce(I,groebner(J),5))==0); }
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  ring r=0,x,dp;
+  ideal I1=x2;
+  ideal I2=x3;
+  isSubModule(I1, I2);
+  isSubModule(I2, I1);
+}
+
+proc hasMixedOrdering()
+"USAGE:  hasMixedOrdering();
+RETURN:  1 if ordering of basering is mixed, 0 else
+EXAMPLE: example hasMixedOrdering(); shows an example
+"
+{
+   int i,p,m;
+   for(i = 1; i <= nvars(basering); i++)
+   {
+      if(var(i) > 1)
+      {
+         p++;
+      }
+      else
+      {
+         m++;
+      }
+   }
+   if((p > 0) && (m > 0)) { return(1); }
+   return(0);
+}
+example
+{ "EXAMPLE:"; echo = 2;
+   ring R1 = 0,(x,y,z),dp;
+   hasMixedOrdering();
+   ring R2 = 31,(x(1..4),y(1..3)),(ds(4),lp(3));
+   hasMixedOrdering();
+   ring R3 = 181,x(1..9),(dp(5),lp(4));
+   hasMixedOrdering();
+}
+
+proc changeordTo(def r,string o)
+"USAGE:  changeordTo(ring, string s);
+RETURN:  a ring with the ordering changed to the (simple) ordering s
+EXAMPLE: example changeordTo(); shows an example
+"
+{
+  list rl=ring_list(r);
+  rl[3]=list(list("C",0),list(o,1:nvars(r)));
+  def rr=ring(rl);
+  return(rr);
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  ring r=0,(x,y),lp;
+  def rr=changeordTo(r,"dp");
+  rr;
+}
+
+proc addvarsTo(def r,list vars,int blockorder)
+"USAGE:  addvarsTo(ring,list_of_strings, int);
+         int may be: 0:ordering: dp
+                     1:ordering dp,dp
+                     2:oring.ordering,dp
+RETURN:  a ring with the additional variables
+EXAMPLE: example addvarsTo(); shows an example
+"
+{
+  list rl=ring_list(r);
+  int n=nvars(r);
+  rl[2]=rl[2]+vars;
+  if (blockorder==0)
+  {
+    rl[3]=list(list("C",0),list("dp",1:(nvars(r)+size(vars))));
+  }
+  else
+  {
+    if (blockorder==2)
+    {
+      rl[3]=rl[3]+list(list("dp",1:size(vars)));
+    }
+    else
+    {
+      rl[3]=list(list("C",0),list("dp",1:nvars(r)),list("dp",1:size(vars)));
+    }
+  }
+  def rr=ring(rl);
+  return(rr);
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  ring r=0,(x,y),lp;
+  def rr=addvarsTo(r,list("a","b"),0);
+  rr; kill rr;
+  def rr=addvarsTo(r,list("a","b"),1);
+  rr; kill rr;
+  def rr=addvarsTo(r,list("a","b"),2);
+  rr;
+}
+proc addNvarsTo(def r,int N,string n,int blockorder)
+"USAGE:  addNvarsTo(ring,int N, string name, int b);
+         b may be: 0:ordering: dp
+                   1:ordering dp,dp
+                   2:oring.ordering,dp
+RETURN:  a ring with N additional variables
+EXAMPLE: example addNvarsTo(); shows an example
+"
+{
+  list v;
+  for(int i=N;i>0;i--) { v[i]=n+"("+string(i)+")"; }
+  return(addvarsTo(r,v,blockorder));
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  ring r=0,(x,y),lp;
+  def rr=addNvarsTo(r,2,"@",0);
+  rr; kill rr;
+  def rr=addNvarsTo(r,2,"@",1);
+  rr; kill rr;
+  def rr=addNvarsTo(r,2,"@",2);
+  rr;
+}

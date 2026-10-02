@@ -1,0 +1,501 @@
+
+%
+% usercard.tex - Singular user quick reference card.
+%
+
+\input singcard.tex
+
+\centerline{\hbf SINGULAR Quick Reference}
+
+\centerline{\srm {\ssc Singular} Version 3-0}
+
+\bigskip
+
+Do not forget to terminate all commands with a {\tt ;} (semicolon)!
+
+In particular if \Singular\ prints the continuation prompt {\tt .}
+(peri\-od) instead of the regular command prompt {\tt >}, then it
+waits for a command to be terminated by a {\tt ;}.  If that does
+not help, try one or more {\tt "} or {\tt \char`}} to close an
+opened string or block.
+
+Comments start with {\tt //} and extend to end of line.
+
+\smallskip
+Some of the topics concerning interactive use are system dependent.
+
+\sec Starting SINGULAR(2.5cm)
+Singular& 			start \Singular\cr
+Singular {\it file} \rep&	read {\it files\/} and prompt for further commands\cr
+Singular --help&		print help on command line options and exit\cr
+\endsec
+
+\sec Stopping SINGULAR()
+quit;&				exit \Singular; also {\tt exit;} or {\tt \$}\cr
+\ctl c&				interrupt \Singular\cr
+\endsec
+
+\sec Getting help()
+help;&				enter online help system\cr
+help {\it topic\/};&		describe {\it topic\/}; also {\tt? {\it topic\/};}\cr
+\subsec{Inside the info help system:}
+\ctl h&				get help on help system\cr
+q&				exit from help system\cr
+n\rmslash p\rmslash u&		go to next/previous/upper node\cr
+m&				pick menu item by name\cr
+l&				go to last visited node/exit from help on help\cr
+SPC\rmslash DEL&		scroll forward/backward one page\cr
+\endsec
+
+\sec Commandline editing()
+\sectext
+Commandline editing is similar to that of, e.g., {\tt bash} or {\tt tcsh}:\cr
+BS\rmslash\ctl d&		remove character on the left/right of cursor\cr
+\ctl p\rmslash\ctl n&		get previous/next line from history\cr
+\ctl b\rmslash\ctl f&		move cursor left/right\cr
+\ctl a\rmslash\ctl e&		go to beginning/end of line\cr
+\ctl u\rmslash\ctl k&		delete to beginning/end of line\cr
+\endsec
+
+\sec Names and objects()
+\sectext
+Names (= identifiers) have to be declared before they are used:\cr
+\entryskip
+\longentry {\it type\/} {\it name\/} \opt{= {\it expression\/}};&
+				declare variable {\it name}\cr
+kill({\it name\/})&		delete variable {\it name}\cr
+\entryskip
+\sectext
+\parskip=\verysmallskipamount
+Names of type {\tt number}, {\tt poly}, {\tt ideal}, {\tt vector}, {\tt
+module}, {\tt matrix}, {\tt map}, and {\tt resolution} may be declared
+only inside a ring.  They are local to that ring.  The same holds for a {\tt
+list} if it contains an object of the above types.  All other types may be
+declared at any time.  They are globally visible.
+
+Names may consist of alphanumeric characters including {\tt \_}
+(underscore) and have to start with a letter.  Capital and small letters
+are distinguished.  Names may be followed by an integer expression in
+parentheses, resulting in so-called {\it indexed names}.\cr
+\entryskip
+{\it name\/}({\it n}..{\it m\/})&
+				shortcut for {\tt {\it name\/}({\it
+				n\/}), $\ldots$, {\it name\/}({\it
+				m\/})}\hfil\break
+				(\eg {\tt ring r = 0, x(1..3), dp;})\cr
+\_ {\rm (underscore)}&		refers to the value of the last expression
+				printed\cr
+\endsec
+
+\vfill
+\centerline{\srm \copyright 1998-2005 \qquad Permissions on back}
+
+\eject
+
+\sec Ring declaration()
+\longentry ring {\it name\/} = {\it basefield}, ({\it ringvars\/}), {\it ordering\/};&
+				\hyphenpenalty=50 \tolerance=200 declare ring
+				{\it name\/} and make it the new base\-ring.
+				{\it ringvars\/} has to be a list of names, the
+				other items are described below.  Example:\par
+				{\tt ring r = 32003, (x, y, z), dp;}\cr
+\longentry qring {\it name\/} = {\it ideal\/};&
+				declare quotient ring {\it name\/} of the
+				current base\-ring with respect to {\it
+				ideal\/}.  {\it ideal\/} has to be a standard
+				basis.  Make {\it name\/} the new basering.\cr
+\subsec{Examples of available {\bit basefields\/}:}
+0&				the rational numbers\cr
+\it p&				the finite field $Z_p$ with {\it p\/}
+				elements,\par
+				$2 \le p \le 2147483647$ a prime\cr
+({\it p\/}\^{}{\it n}, {\it gen\/})&
+				the finite field with $p^n$ elements, {\it p\/}
+				a prime and\par $4 \le p^n \le 32671$. The name
+				{\it gen\/} refers to some generator of the
+				cyclic group of unities.\cr
+({\it p}, {\it alpha\/})&	algebraic extension of $Q$ or $Z_p$ ($p =
+				0$ or as above) by {\it alpha}.  The minpoly
+				$\mu_{\hbox{\tit alpha}}$ for {\it alpha\/} has
+				to be specified with an assignment to {\tt
+				minpoly} (\eg {\tt minpoly=a\^{}2+1;}, for
+				$\hbox{\it alpha}=\hbox{\tt a}$).  {\it
+				alpha\/} has to be a name.\cr
+({\it p}, $t_1$, $\ldots$)&	transcendental extension of $Q$ or $Z_p$
+				($p = 0$ or as above) by~$t_i$.  The $t_i$ have
+				to be names.\cr
+real,{\it len}&			the real numbers represented by long floating
+                                point numbers of length{\it len}\cr
+\endsec
+
+\sec Term orderings()
+\sectext
+An {\it ordering\/} as referred to in the ring declaration may either be
+a global, local, or matrix ordering or a list of these resulting in a
+pro\-duct ordering.  The list may include extra weight vectors and may be
+preceded or followed by a module ordering specification.\cr
+\subsec{Global orderings}
+lp&				lexicographical ordering\cr
+dp&				degree reverse lexicographical ordering\cr
+Dp&				degree lexicographical ordering\cr
+wp($w_1$, $\ldots$)&		weighted reverse lexicographical ordering\cr
+Wp($w_1$, $\ldots$)&		weighted lexicographical ordering\cr
+&				The $w_i$ have to be positive integers.\cr
+\subsec{Local orderings}
+ls&				negative lexicographical ordering\cr
+ds&				negative degree reverse lexicographical ordering\cr
+Ds&				negative degree lexicographical ordering\cr
+ws($w_1$, $\ldots$)&		general weighted reverse lexicographical ordering\cr
+Ws($w_1$, $\ldots$)&		general weighted lexicographical ordering\cr
+&				$w_1$ has to be a non-zero integer, every other
+				$w_i$ may be any integer\cr
+\subsec{Matrix orderings}
+\longentry M($m_{11}$, $m_{12}$, $\ldots$, $m_{nn}$)&
+				{\it m\/} has to be an invertible matrix with
+				integer coeffi\-cients.  Coefficients have to be
+				specified row-wise.\cr
+\subsec{Product orderings}
+\longentry($o_1$\opt{($k_1$)}, $o_2$\opt{($k_2$)}, $\ldots$, $o_n$\opt{($k_n$)})&
+				the $o_i$ have to be any of the above orderings.
+				{\tt lp}, {\tt dp}, {\tt Dp}, {\tt ls}, {\tt
+				ds}, {\tt Ds} may be followed by an integer
+				expression $k_i$ in parentheses specifying the
+				number of variables $o_i$ refers to (\eg {\tt
+				(lp(3), dp(2))}).\cr
+\subsec{Extra weight vector}
+a($w_1$, $\ldots$)&		any of the above degree orderings may be
+				preceded by an extra weight vector\cr
+\noalign{\eject}
+\subsec{Module orderings}
+({\it c}, $o_1$, $\ldots$)&	sort by components first\cr
+($o_1$, $\ldots$, {\it c\/})&	sort by variables first\cr
+&				$o_i$ may be any of the above orderings or an
+				extra weight vector, {\it c\/} may be one of
+				{\tt C} or {\tt c}:\cr
+C&				sort generators in ascending order (\ie {\tt
+				gen({\it i\/})} $<$ {\tt gen({\it j\/})} iff $i <
+				j$)\cr
+c&				sort generators in descending order\cr
+\endsec
+
+\sec Data types(1.5cm)
+\sectext
+Examples of ring-independent types:\cr
+\entryskip
+\longitem
+int i1 = 101; int i2 = 13 div 3;\cr
+\entryskip
+\longitem
+intvec iv = 13 div 3, -4, i1;\cr
+\entryskip
+\longentry
+intmat im[2][2] = 13 div 3, -4, i1;&
+				a $2\times 2$ matrix.  Entries are filled
+				row-wise, missing entries are set to zero, extra
+				entries are ignored.  vector/matrix elements are
+				accessed using the {\tt[$\ldots$]} operator,
+				where the first element has index one (\eg {\tt
+				iv[3]; im[1, 2];}).\cr
+\entryskip
+\longitem
+string s1 = "a quote \char"5C " and a backslash \char"5C \char"5C";\par
+string s2 = "con" + "catenation";\cr
+\entryskip
+\sectext
+Basering in the following is {\tt ring r = 0, (x, y, z, mu, nu), dp;}\cr
+\entryskip
+\longitem
+number n = 5/3;\cr
+\entryskip
+\longentry
+poly p(1) = 3/4x3yz4+2xy2;\par
+poly p(2) = (5/3)*mu\^{}2*nu\^{}3+n*yz2;&
+				{\tt p(1)} equals $3/4x^3yz^4+2xy^2$.  Short
+				format of mono\-mials is valid for one-character
+				ring variables only.\cr
+\entryskip
+\longentry
+ideal i = p(1..2), x+y;&	note the use of indexed names\cr
+\entryskip
+\longentry
+vector v = [p(1), p(2), x+y];\par
+vector w = 2*p(1)*gen(6)+n*nu*gen(1);&
+				vectors may be written in brackets ({\tt
+				[$\ldots$]}) or expressed as linear
+				combinations of the canonical generators {\tt
+				gen({\it i\/})}\cr
+\entryskip
+\longitem
+module mo = v, w, x+y*gen(1);\cr
+\entryskip
+\longitem
+resolution r = sres(std(mo), 0);\cr
+\entryskip
+\longentry
+matrix ma[2][2] = 5/3, p(1), 101;&
+				the rules for declaring, filling, and accessing
+				integer matrices apply to types {\tt matrix}
+				and {\tt vector}, too\cr
+\entryskip
+\longentry
+list l = iv, v, p(1..2), mo;&
+				lists may collect objects of any type.  They are
+				ring-dependent iff one of the entries is.\cr
+\entryskip
+\longentry
+def d = read("ssi:r example.mp");&
+				a name of type {\tt def} inherits the type of
+				the object assigned first to it.  Useful if the
+				actual type of an object is unknown.\cr
+\endsec
+
+\sec Monitoring and debugging tools()
+timer = 1;&			print time used for commands to execute\cr
+\longentry int t = timer; {\it command\/}; \rep; timer-t;&
+				print time used for {\it commands\/} to execute\cr
+memory(1);&			print number of bytes allocated from system\cr
+option(prot);&			show algorithm protocol\cr
+option(mem);&			show algorithm memory usage\cr
+\entryskip
+TRACE = 1;&			print protocol on execution of procedures\cr
+listvar(all);&			list all (user-)defined names\cr
+\longentry listvar({\it ringname\/});&
+				list all names belonging to {\it ringname}\cr
+\endsec
+
+\eject
+
+\sec Options()
+option();&			show current option settings\cr
+\longentry option($option_1$, no$option_2$, $\ldots$);&
+				switch $option_1$ on and $option_2$ off, resp.\cr
+option(none);&			reset all options to default values\cr
+\sectext
+Type {\tt help option;} for a list of all options.\cr
+\subsec{Monitoring}
+debugLib&			show loading of procedures from libraries\cr
+mem&				show algorithm memory usage\cr
+prot&				show algorithm protocol\cr
+\subsec{Standard bases}
+fastHC&				try to find highest corner as fast as possible\cr
+intStrategy&			avoid divisions\cr
+morePairs&			create additional pairs\cr
+notSugar&			disable sugar strategy\cr
+redSB&				compute reduced standard bases\cr
+redTail&			reduce tails\cr
+sugarCrit&			use sugar criteria\cr
+weightM&			automatically compute weights\cr
+\subsec{Resolutions}
+minRes&				do additional minimizing\cr
+notRegularity&			disable regularity bound\cr
+\subsec{Miscellany}
+returnSB&			let some functions return standard bases\cr
+\endsec
+
+\sec System variables()
+\sectext
+Type {\tt help System variables;} for a list of all system variables.\cr
+\subsec{Standard bases}
+degBound&			stop if (weighted) total degree exceeds {\tt
+				degBound}\cr
+multBound&			stop if multiplicity gets smaller than {\tt
+				multBound}\cr
+noether&			cut off all monomials above monomial {\tt
+				noether}\cr
+\subsec{Miscellany}
+basering&			current basering\cr
+minpoly&			minimal polynomial for algebraic extensions\cr
+short&				do not print monomials in short format if zero\cr
+timer&				on assignment of a non-zero value show time
+				used for execution of executed commands.  On
+				evaluation, return system time in seconds used
+				by \Singular\ since start\cr
+TRACE&				print information on procedures being executed
+				if larger than one\cr
+\endsec
+
+\sec Input and output()
+< "{\it filename\/}";&		load and execute {\it filename\/}\cr
+\longentry write("{\it filename\/}", {\it expression}, \rep)&
+				write {\it expressions\/} to ASCII file {\it
+				filename}\cr
+\longentry read("{\it filename\/}");&
+				read ASCII file {\it filename\/} and return
+				content as a string.  See also example below.\cr
+\longentry
+dump("ssi: {\it filename\/}");\par
+getdump("ssi: {\it filename\/}");&
+				dump current state of {\sc Singular} to {\it
+				filename} and retrieve it, resp.\cr
+\entryskip
+\sectext
+An example how to write one single expression (in this case the
+ideal {\tt i}) to a file and read it back from there:
+
+{\tt
+write("i.save", i);\par
+execute("ideal i=" + read("i.save") + ";");
+}\cr
+\endsec
+
+\eject
+
+\sec Libraries()
+LIB "{\it library\/}";&		load {\it library}\cr
+help {\it library\/};&		show help on {\it library}\cr
+help all.lib;&			show list of all libraries\cr
+\endsec
+
+\sec Mapping(1.5cm)
+\longentry map {\it name\/} = {\it ringname}, {\it ideal\/};&
+				declare a map {\it name\/} from {\it ringname\/}
+				to current basering.  The $i$-th ring variable
+				from {\it ringname\/} is mapped to the $i$-th
+				generator of {\it ideal}.\cr
+\longentry {\it mapname\/}({\it expression\/})&
+				apply map {\it mapname\/} to {\it expression}\cr
+\entryskip
+\sectext
+Coefficients between rings with different basefields are mapped in the following
+way (non-canonical maps only):\strut
+\abovedisplayskip=0pt
+\belowdisplayskip=0pt
+$$
+\eqalign{Z_p \rightarrow Q&  :[i]_p \mapsto i \in [-p/2,p/2] \subset Z\cr
+	 Z_p \rightarrow Z_q&:[i]_p \mapsto i \in [-p/2,p/2] \subset Z, i \mapsto [i]_q}
+$$
+\cr
+\noalign{\vskip -9pt} % dirty trick, gobbles the trailing \strut from \sectext
+\entryskip
+\longentry fetch({\it ringname}, {\it name\/})&
+				map from ring {\it ringname\/} to current
+				base\-ring.  The rings have to be identical up
+				to names of ring variables\cr
+\longentry imap({\it ringname}, {\it name\/})&
+				map from subring {\it ringname\/} to current
+				basering\cr
+\longentry subst({\it expression}, {\it ringvar}, {\it monomial\/})&
+				substitute {\it ringvar\/} by {\it monomial\/}
+				in {\it expression}\cr
+\endsec
+
+\sec Miscellany(1.5cm)
+\longentry setring({\it ringname\/})&
+				make {\it ringname\/} the current basering\cr
+\subsec{Data on polynomials}
+\longentry ord({\it poly\/\alt vector\/})&
+				return (weighted) degree of initial term\cr
+\longentry deg({\it poly\/\alt vector\/})&
+				return maximal (weighted) degree\cr
+\longentry
+size({\it ideal\/\alt module\/})\par
+size({\it poly\/\alt vector\/})\par
+size({\it string\/\alt intvec\/\alt list\/})&
+				return (1) number of non-zero generators;
+				(2) number of monomials; (3) length\cr
+\longentry lead({\it expression\/})&
+				return initial term(s)\cr
+\subsec{Operations on polynomials}
+\longentry gcd({\it $\hbox{poly}_1$}, {\it $\hbox{poly}_2$\/})&
+				return greatest common divisor\cr
+\longentry factorize({\it poly\/}\opt{, {\it int\/}})&
+				return irreducible factors.  Return constant
+				factor and multiplicities in dependency on {\it
+				int}.\cr
+\endsec
+
+\sec Differentiation and jets(1.5cm)
+\longentry
+diff({\it expression}, {\it ringvar\/})\par
+diff({\it $\hbox{ideal}_1$}, {\it $\hbox{ideal}_2$\/})&
+				(1) return partial derivation by {\it
+				ringvar\/}; (2) differentiate each elt.\ of {\it
+				$\hbox{ideal}_2$\/} by the differential
+				operators corres\-pon\-ding to the elements of {\it
+				$\hbox{ideal}_1$}\cr
+\longentry jacob({\it poly\/\alt ideal\/})&
+				return jacobi ideal or matrix, resp.\cr
+\longentry jet({\it expression}, {\it int\/}\opt{, {\it intvec\/}})&
+				return {\it int\/}-jet of {\it expression}.
+				Return weighted {\it int\/}-jet if {\it
+				intvec\/} is specified.\cr
+\endsec
+
+\eject
+
+\sec Standard bases(1.5cm)
+\longentry groebner({\it ideal\/\alt module\/}\opt{, {\it int\/}})&
+				compute a standard basis (SB) of {\it ideal\/}
+				resp.\ {\it module\/} using a heuristically
+				chosen method.  Delimit com\-pu\-tation time to
+				{\it int\/} seconds.\cr
+\longentry std({\it ideal\/\alt module\/}\opt{, {\it intvec\/}})&
+				compute a SB.  Use first Hilbert series {\it
+				intvec\/} (result from {\tt hilb($\ldots$, 1)})
+				for Hilbert-driven computation.\cr
+\longentry stdfglm({\it ideal\/}\opt{, {\it string\/}})&
+				use FGLM algorithm to compute a SB from a SB
+				w.r.t.\ the ``simpler'' ordering {\it string\/}
+				(de\-faults to {\tt dp})\cr
+\longentry stdhilb({\it ideal\/}\opt{, {\it intvec\/}})&
+				use Hilbert-driven algorithm to compute a SB.
+				If Hil\-bert series {\it intvec\/} is not
+				specified compute it first.\cr
+\longentry fglm({\it ringname}, {\it idealname\/})&
+				use FGLM algorithm to transform SB {\it
+				idealname\/} from ring {\it ringname\/} to a SB
+				w.r.t.\ the ordering of the current basering\cr
+\longentry reduce({\it expression}, {\it ideal\/\alt module\/}\opt{, {\it int\/}})&
+				reduce {\it expression\/} w.r.t.\ second
+				argument which should be a SB.  Use lazy
+				reduction if {\it int\/} equals one.\cr
+\endsec
+
+\sec Computation of invariants(1.5cm)
+\sectext
+Most of the results are meaningful only if the input ideal or module is
+represented by a standard basis.\cr
+\longentry degree({\it ideal\/\alt module\/})&
+				display (Krull) dimension, codimension and
+				multiplicity\cr
+\longentry dim({\it ideal\/\alt module\/})&
+				return (Krull) dimension\cr
+\longentry hilb({\it ideal\/\alt module\/}\opt{, {\it int\/}})&
+				display first and second Hilbert series with one
+				argument.  Return {\it int}-th Hilber series
+				otherwise (${\it \hbox{int}} = 1,2$).\cr
+\longentry mult({\it ideal\/\alt module\/})&
+				return multiplicity\cr
+\longentry vdim({\it ideal\/\alt module\/})&
+				return vector space dimension of current
+				basering modulo {\it ideal\/} or {\it module},
+				resp.\cr
+\endsec
+
+\sec Resolutions(1.5cm)
+\sectext
+An integer argument {\it length\/} in the following descriptions specifies the
+length of the resolution to compute.  If {\it length\/} equals zero, the whole
+resolution is computed.\cr
+\longentry res({\it ideal\/\alt module}, {\it length\/}\opt{, {\it int\/}})&
+				compute a free resolution (FR) of {\it ideal\/}
+				resp.\ {\it module\/} using a heuristically
+				chosen method.  Compute a minimal resolution if
+				a third argument is given.\cr
+\longentry mres({\it ideal\/\alt module}, {\it length\/})&
+				compute a minimal FR using the standard basis
+				method\cr
+\longentry lres({\it ideal\/\alt module}, {\it length\/})&
+				compute a FR using LaSacala's method\cr
+\longentry sres({\it ideal\/\alt module}, {\it length\/})&
+				compute a FR using Schreyer's method\cr
+\longentry syz({\it ideal\/\alt module\/})&
+				compute the first syzygy\cr
+\longentry minres({\it resolution\/\alt list\/})&
+				minimize a free resolution\cr
+\longentry betty({\it resolution\/\alt list\/})&
+				compute the graded Betti numbers of a module
+				represented by a resolution\cr
+\endsec
+
+\bye

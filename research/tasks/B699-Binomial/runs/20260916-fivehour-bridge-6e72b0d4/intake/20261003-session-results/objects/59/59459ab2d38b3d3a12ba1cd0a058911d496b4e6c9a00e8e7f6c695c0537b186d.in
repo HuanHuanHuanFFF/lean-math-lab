@@ -1,0 +1,17 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: @PACKAGE@
+Description: The Singular polynomial/coefficient arithmetic and related supporting functionality
+Version: @PACKAGE_VERSION@
+URL: https://github.com/Singular/Sources/tree/spielwiese/@PACKAGE@
+
+Requires: @PKG_REQUIRE@
+Conflicts:
+
+Cflags: -I${includedir} -I${includedir}/singular @SINGULAR_CFLAGS@ @FLINT_CFLAGS@ @NTL_CPPFLAGS@ @GMP_CPPFLAGS@
+Libs: -L${libdir} -lpolys @FLINT_LIBS@ @GMP_LIBS@ @USEPPROCSDYNAMICLD@
+Libs.private:
+

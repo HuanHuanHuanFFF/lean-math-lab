@@ -1,0 +1,269 @@
+@comment -*-texinfo-*-
+@comment this file contains Release notes and various howto's
+
+@c The following directives are necessary for proper compilation
+@c with emacs (C-c C-e C-r).  Please keep it as it is.  Since it
+@c is wrapped in `@ignore' and `@end ignore' it does not harm `tex' or
+@c `makeinfo' but is a great help in editing this file (emacs
+@c ignores the `@ignore').
+@ignore
+%**start
+\input texinfo.tex
+@setfilename platform.info
+@node Installation and Platform Specifics
+@menu
+* Installation and Platform Specifics::
+@end menu
+@node Installation and Platform Specifics, Index, SINGULAR libraries, Top
+@chapter Installation and Platform Specifics
+%**end
+@end ignore
+
+@menu
+* News and changes::
+* Parallel computing::
+* Singular 3 and Singular 4::
+* libSingular::
+* Download instructions::
+* Used environment variables::
+* Unix installation instructions::
+* Windows installation instructions::
+* Macintosh installation instructions::
+@end menu
+
+@c ----------------------------------------------------------
+@node News and changes
+@section News and changes
+@cindex news
+@cindex changes
+
+@include NEWS.texi
+
+@c ----------------------------------------------------------
+@node Parallel computing
+@section Parallel computing
+@cindex Parallel computing
+@cindex parallelization
+
+@include parallel.texi
+
+@c ----------------------------------------------------------
+@node Singular 3 and Singular 4
+@section Singular 3 and Singular 4
+@cindex Singular 3 and Singular 4
+
+@include changes_in_singular4.texi
+
+@c ----------------------------------------------
+@node libSingular
+@section libSingular
+@cindex libSingular
+@cindex GMP
+@cindex signal handler
+
+@code{libSingular} is the C++-library version of @sc{Singular}.@*
+@code{Singular/libsingular.h} is the main include file,
+@code{-lSingular} the link parameter,@*
+@code{lib/pkgconfig/Singular.pc} provides all parameters in the pkconfig format.
+
+It contains all parts of @sc{Singular} with the following exceptions:
+@enumerate
+@item
+memory allocation functions for GMP
+(see @code{mmInit} in @code{Singular/tesths.cc})
+@item
+signal handlers
+(see @code{init_signals} in @code{Singular/cntrlc.cc}).@*
+At least a handler for @code{SIGCHLD} must be installed
+for the commands @ref{waitfirst}, @ref{waitall} and the routines from @ref{parallel_lib}, @ref{modstd_lib}, @ref{normal_lib}, @ref{tasks_lib}.@*
+If the child was started by @code{libSingular} the handler
+has to call @code{sig_chld_hdl} from @code{Singular/links/ssiLink.cc}
+or implement something similar (call @code{slClose(l)} for ssi links).
+@item
+error handlers for factory, NTL
+(see @code{init_signals} in @code{Singular/cntrlc.cc}).@*
+@item parallelism:
+The number of cores defaults to 1 (@ref{Parallel computing})
+@end enumerate
+@c ----------------------------------------------------------
+@node Download instructions
+@section Download instructions
+@cindex downloading
+@cindex instructions, downloading
+@cindex howto, download
+
+@sc{Singular} is available as source and binary program for most common hard-
+and software platforms.
+Instructions to download and install @sc{Singular} can be found
+at
+@display
+@uref{https://www.singular.uni-kl.de/index.php/singular-download.html}.
+@end display
+
+Sources od release versions of @sc{Singular} are also available
+from our FTP site
+@display
+@uref{ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/src/}.
+@end display
+or
+@display
+@uref{https://wwww.singular.uni-kl.de/ftp/pub/Math/Singular/src/}.
+@end display
+
+@c @include README_download.texi
+
+@c ----------------------------------------------------------
+@node Used environment variables
+@section Used environment variables
+@cindex environment variables
+@cindex used environment variables
+@cindex path
+@cindex paths
+
+@sc{Singular} needs to find some files (dynamic modules, libraries, help files).
+Usually they are found relative to the location of the (main) executable
+(after following symlinks).
+This can be changed by setting the following environment variables.
+
+@itemize
+@item SINGULAR_EXECUTABLE (should usually not be set)
+@*the complete filename of the main executable, usually derived from
+the command line (inspecting also PATH, following symlinks).
+@*If SINGULAR_EXECUTABLE cannot be found, $prefix/bin/Singular is assumed.
+@*For @code{libSingular}: SINGULAR_EXECUTABLE is set to the argument of @code{siInit} (it must exist).
+@item SINGULAR_BIN_DIR
+@*the directory of the main executable, usually derived from
+$SINGULAR_EXECUTABLE
+@item SINGULAR_ROOT_DIR
+@*the root of the singular tree, default: $SINGULAR_BIN_DIR/..
+@item SINGULAR_DATA_DIR
+@*the root of the singular data files, default: $SINGULAR_BIN_DIR/../share
+@item SINGULARPATH
+@*the directories for libraries and optional dynamic modules (separated by @code{;}), default:
+  @itemize
+  @item $SINGULAR_DATA_DIR/singular/LIB
+  @item $SINGULAR_ROOT_DIR/share/singular/LIB
+  @item $SINGULAR_BIN_DIR/../share/singular/LIB
+  @item $SINGULAR_DATA_DIR/factory
+  @item $SINGULAR_ROOT_DIR/share/factory
+  @item $SINGULAR_BIN_DIR/LIB
+  @item $SINGULAR_BIN_DIR/../factory
+  @item $SINGULAR_BIN_DIR/MOD
+  @item $SINGULAR_ROOT_DIR/lib/singular/MOD
+  @item $SINGULAR_ROOT_DIR/libexec/singular/MOD
+  @item $prefix/lib/singular/MOD
+  @item $prefix/libexec/singular/MOD
+  @item $SINGULAR_BIN_DIR
+  @end itemize
+@item SINGULAR_PROCS_DIR
+@*the directories for dynamic modules (separated by @code{;}), default:
+  @itemize
+  @item $SINGULAR_BIN_DIR/MOD
+  @item $SINGULAR_ROOT_DIR/lib/singular/MOD
+  @item $SINGULAR_ROOT_DIR/libexec/singular/MOD
+  @item $prefix/lib/singular/MOD
+  @item $prefix/libexec/singular/MOD
+  @end itemize
+@item SINGULAR_INFO_FILE
+@*@code{singular.info}, default: $SINGULAR_DATA_DIR/info/singular.info
+@item SINGULAR_IDX_FILE
+@*the help index, default: $SINGULAR_DATA_DIR/singular/singular.idx
+@item SINGULAR_HTML_DIR
+@*the directory of the manual as html files,
+default: $SINGULAR_DATA_DIR/singular/html
+@item SINGULAR_URL
+@*the URL of the manual, default: https://www.singular.uni-kl.de/Manual/
+@item SINGULAR_CPUS
+maximal number of cpu cores to use, default: all available
+@*can also be given by a command line argument: @code{--cpus=...}
+@end itemize
+
+The effective list of directories/files can be printed by @code{Singular -v},
+see @ref{Command line options}.
+
+Depending on the used functions, these environment variables apply also to @code{libSingular}.
+@c ----------------------------------------------------------
+@node Unix installation instructions
+@section Unix installation instructions
+@cindex Unix installation
+@cindex instructions, Unix installation
+@cindex howto, install on Unix
+
+Install binaries:
+@uref{https://www.singular.uni-kl.de/index.php/singular-download/install-linuxunix.html}
+
+or build it yourself:
+@itemize
+@item
+Install the necessary packages:
+  @itemize
+  @item
+  libtool
+  @item
+  gnu make
+  @item
+  gcc, g++
+  @item
+  libreadline
+  @item
+  gmp, mpfr
+  @item
+  ntl
+  @item
+  libcdd
+  @end itemize
+@item
+Install flint 2.5 (or newer):
+@code{./configure --with-gmp=/usr --prefix=$HOME/tmp}
+@*@code{make && make install}
+@item
+Install Singular
+@code{./configure --with-flint=$HOME/tmp --enable-gfanlib --prefix=$HOME/Singular4}
+@*@code{make && make install}
+@*(@code{$prefix/bin/Singular} is the main executable)
+@item (optional)
+install 4ti2
+@item (optional)
+install surf/surfer
+@item (optional)
+install normaliz 2.8 (or newer)
+@end itemize
+
+See also
+@url{https://github.com/Singular/Singular/wiki/Step-by-Step-Installation-Instructions-for-Singular}
+which includes instructions adapted for debian and fedora based systems.
+
+@c ----------------------------------------------------------
+@node Windows installation instructions
+@section Windows installation instructions
+@cindex Windows installation
+@cindex instructions, Windows installation
+@cindex howto, install on Windows
+
+One possiblity is the use of Cygwin:
+@url{https://www.singular.uni-kl.de/index.php/singular-download/install-windows.html}
+
+Another possibility:@*
+Microsoft Windows 10 and later includes the "Windows Subsystem for Linux",@*
+which allows users to install Ubuntu Linux and to install and
+run Singular under it (via @code{apt install singular}).
+
+@c ----------------------------------------------------------
+@node Macintosh installation instructions
+@section Macintosh installation instructions
+@cindex Macintosh installation
+@cindex instructions, Macintosh installation
+@cindex howto, install on Macintosh
+
+@strong{Installation of the provided binaries}
+@url{https://www.singular.uni-kl.de/index.php/singular-download/install-os-x.html}
+
+If your Mac refuses to open Singular because of an "unidentified developer":
+Open System Preferences. Go to the Security & Privacy tab. Click on
+the lock and enter your password so you can make changes. Change the
+setting for 'Allow apps downloaded from' to 'App Store and identified
+developers'.
+
+You may also check @url{https://support.apple.com/en-en/guide/mac-help/mh40616/mac}
+
+

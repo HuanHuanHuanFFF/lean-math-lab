@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/mnt/data/B699-C-R11-EIGHTJET-CONTENT012-20261003/code/verify.py", line 550, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/B699-C-R11-EIGHTJET-CONTENT012-20261003/code/verify.py", line 549, in main
+    a=parser.parse_args();run(a.root,a.output,a.check)
+                          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-C-R11-EIGHTJET-CONTENT012-20261003/code/verify.py", line 540, in run
+    require(json.loads(target.read_text())==content,'certificate JSON changed '+name)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-C-R11-EIGHTJET-CONTENT012-20261003/code/verify.py", line 26, in require
+    if not cond:raise ValueError(msg)
+                ^^^^^^^^^^^^^^^^^^^^^
+ValueError: certificate JSON changed FAILURE_CONTROLS.json
