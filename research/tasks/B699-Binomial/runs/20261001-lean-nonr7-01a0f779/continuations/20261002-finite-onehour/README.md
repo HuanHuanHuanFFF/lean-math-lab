@@ -54,3 +54,7 @@ Leader独占README/frontier/REPORT及problem OVERVIEW，只做行政来源/Git/�
 固定68dcfb038已push并核source语义/字节；run36993633549在cache阶段由本控制器tree1792MiB守卫停止（峰2040.33MiB），本轮数学源未编，不计接受。实际runner有效余量约14GiB、disk85.75GB，无cgroup限额；原artifact11220084104（13085B）已按摘要和15成员映射接收，原ZIP在D:\ResearchArtifacts\b699-finite-onehour，Git外。
 
 cache单阶段根据实测校准startup5120/tree3072MiB，LEAN_NUM_THREADS1、CPU<=2/nice19/reserve900保留；proof仍原3072/1792/-j1/M3132/asyncfalse。具体峰值子环节unknown，不编造并发或数学失败。因旧10:12:29起跑窗口已过，本次协调收紧job上限至8分钟，新起跑最晚10:16:29（原hard deadline10:25:29减9分钟），checkout前晚起跑即拒绝。原用户预算完全不延长，每build仍绝对deadline。数学manifest10源/50根不变，源码和kernel结果仍pending；新profile/门禁仅资源和时限适配。
+
+## 本轮截止与实际停止
+
+数学/调试预算10:25:29 UTC结束，无延期。runtime实际停止观测10:25:43.877（保真实时间）：本轮ownedCount0/liveOwned0/terminated0，共享lock空闲；物理余约1.0GiB/D30.993GiB。两owned远端CI均completed/failure，无active。截止后只行政copy/报告/普通push，无proof/checker/新CI。最新报告REPORT.md及reviews/FINAL-PENDING.json确认新数学接受0。静态修复入口为nextcheck-ready-not-run，workflow仅保manual_dispatch与过期门禁，最终push不会启动proof。

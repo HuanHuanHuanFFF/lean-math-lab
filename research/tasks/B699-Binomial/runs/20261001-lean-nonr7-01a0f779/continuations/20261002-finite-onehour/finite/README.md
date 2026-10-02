@@ -21,3 +21,11 @@ Owner finite_supply_sol，复杂既定目标，gpt-6.1-sol/xhigh。固定基线 
 `OldFiniteTerminal.lean`已经写出旧finite结论特化与已接受height的最短接线；独立语义对应通过，但旧source闭包缺失使它仍为候选。`SparseTerminal.lean.candidate`是另一接线模板，明确尚无CompleteChain，不作为可编译root或accepted源。全稀疏链未生成，遵守先32真实成本的门槛。
 
 runtime原入口在约1026MiB可用量下保3072MiB启动门槛；原恢复者未提供可执行新入口。中断仅为用户切换fast，09:49接续不重启预算。新runtime_recovery_sol于09:50:54原生采样物理余744MiB，低于900MiB运行reserve，任何新Lean/checker都未启动；准备固定小profile仍须安全观察允许。环境/预算原因不转述成数学反例或方法失败。
+
+## 10:15 UTC 收敛
+
+NormNum三数学源与独立typed从窄CI准备时即按hash冻结，没有变更；Root保存检查点后报告push `f639d4a64`，8分钟job重试、最晚10:16:29起跑，原10:25:29截止保持。此刻全部新数学源进入收敛：不新route、不全链生成。CI当前结论与确切raw收据由Root/runtime记录，本目录不提前报告kernel通过。
+
+GCD备选在 `alternative/`，27源闭包约71.8KiB。semantic_verify_sol已经独立逐字重建18old/new映射、17整namespace suffix与TrialComplete theorem原摘取，并核对同32数字；记录 `../reviews/alternative-source-correspondence.json`。全部新imports/namespace/type与实际Basis/P仍待编译，不继承历史对象接受。`HANDOFF.md`给当前结果、失败层与下一可执行，最终数学源列表与hash由freeze文件锁定。
+
+如果最终CI接受原题pilot，实际scope只能是19662301≤n<19811023、i≥4883、所有原合法j，同Nat.Prime p≥i整除完整两choose，无Gap/height等数学外置输入；它与旧有限域重叠、完整指标新增0。若未实际成功，所有候选仍待验。原全n≤20M/i≥4883有限供应没有供给，真正无限Gap和无界前沿保持。

@@ -18,3 +18,9 @@ runtime_recovery_sol负责窄LinuxCI及actual编译、公理、normal checker。
 即使新pilot通过，范围与历史n≤20M结论重叠：新完整指标0，累计{1,2,11,29}∪[35,4882]。有限20M全供应输入仍未消，无条件无限Gap4095/10M未证。尚有所有i≥4883、合法i<j≤n/2、n<4096i的未接受区域；其中无限n/i/j及Gap的y均保留，R7未改，不主张新颖性。
 
 下一可执行义务：先接窄CI真实原题root收据；资源允许的后续轮再恢复完整旧finite闭包或核验全部稀疏链并接已接受height，才使全i≥4883消费者只保真实无限Gap输入。没有输入供应时不能把条件消费者称为完整原题定理。
+
+## 本轮终点
+
+最终状态见FINAL-PENDING.json：新primality、原题Common、完整finite与无限Gap接受均0。两次CI原件保留：第一次cache guardstop；第二次cache及9pins成功，随后NormNum.Prime源hash守卫拒绝，未进入新数学编译/公理/checker。独立固定Gitblob对应见normnum-pinned-blob-independent-map.json；8719B/LF与Windows8926B仅CRLF物化差异，实际失败remote叶hash未被旧runner捕获。
+
+新的入口守卫静态审核要求固定pinned Gitblob的SHA/大小及actual remote raw source与它完全相等，并保留binary stdout来源；历史Windows源/原失败哈希不改写。此修复只标nextcheck-ready-not-run，不增加数学接受。所有数学审查于10:25:29前结束；此后只行政封存已结束记录。

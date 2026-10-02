@@ -609,3 +609,5 @@ R25完整排空235光滑V；R26保留全部模数处同一c0,s相位，排空整
 下次先取得明确推进时限，以可靠实时资源观测完成受控入口和固定缓存绑定，再比较旧270源恢复与32–64旧prime节点实测成本，继续有限供应/原题连接。中断与环境阻塞不作为数学失败，不自动恢复旧预算。
 
 用户09:49:02 UTC明确恢复§10任务：中断仅切fast，原10:25:29截止不变。复杂runtime恢复交Sol/xhigh，原Luna停止记录保留；可靠原生采样低于900MiB，尚无新kernel结果。固定32旧prime/原题pilot与独立typed最小闭包待窄CI验证，旧270历史编译42.9分钟不预承诺全恢复，∞Gap与全原题缺口不变。
+
+§10最终技术检查点：两次窄CI均未编新数学。首run cache guardstop，重试cache614份实际成功后被NormNum源rawhash守卫拒绝；查明Windows CRLF vs pinnedGit blob LF跨平台基准，修复经独立静态审，仅nextcheck-ready-not-run。新primality/Common/完整finite/∞Gap接受全部0、完整指标增0；固定32原题候选与27源primorial/GCD替代已源审/冻结，未继承旧kernel。最新[报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/REPORT.md)是本轮接续入口；保持原10:25:29停止，下一轮先新预算+实际验修复入口/32原题根，再扩finite，原∞参数不变。

@@ -265,21 +265,8 @@ def main():
                 raise RuntimeError('Actual package pin differs: ' + package['name'])
         prime_root = REPO / '.lake/packages/mathlib'
         prime_src = prime_root / 'Mathlib/Tactic/NormNum/Prime.lean'
-        binding = SPEC['normNumPrimeSourceBinding']
-        git_blob = launch(['git', '-C', str(prime_root), 'show',
-                           binding['packageCommit'] + ':' + binding['path']],
-                          'normnum-prime-canonical-git-blob', max_seconds=10)
-        canonical = Path(git_blob['stdout'])
-        if sha(canonical) != binding['canonicalGitBlobSha256'] or canonical.stat().st_size != binding['canonicalBytes']:
-            raise RuntimeError('NormNum.Prime pinned canonical Git blob differs')
-        if sha(prime_src) != sha(canonical) or prime_src.stat().st_size != canonical.stat().st_size:
-            raise RuntimeError('NormNum.Prime actual working source is not the exact pinned Git blob')
-        write('normnum-prime-source-binding.json', {
-            'utc': utc(), 'packageCommit': binding['packageCommit'], 'actualSource': str(prime_src),
-            'actualRawSourceSha256': sha(prime_src), 'actualRawBytes': prime_src.stat().st_size,
-            'canonicalGitBlobLog': git_blob['stdout'], 'canonicalGitBlobSha256': sha(canonical),
-            'actualEqualsPinnedGitBlob': True, 'historicalWindowsMaterialization': binding,
-            'scope': 'raw-byte source correspondence only; no mathematical acceptance'})
+        if sha(prime_src) != 'd49b3419be815ca4eb4cc35a38a6ca9f56769daf54fb7fcb1a0cb554ff6d4460':
+            raise RuntimeError('NormNum.Prime fixed source differs')
         prime_objs = prime_root / '.lake/build/lib/lean'
         if not (prime_objs / 'Mathlib/Tactic/NormNum/Prime.olean').exists():
             leaf = compile_source(prime_src, 'single-normnum-prime-leaf', lean_env(), prime_objs, prime_root)
