@@ -1,0 +1,32 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\NormalizationFromWindows.lean:106:4: error: mod_cast has type
+  i ≤ n
+but is expected to have type
+  1 * i ≤ n
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\NormalizationFromWindows.lean:117:39: error(lean.invalidField): Invalid field `mp`: The environment does not contain `Function.mp`, so it is not possible to project the field `mp` from an expression
+  mul_le_mul_left ?m.872
+of type
+  ∀ (a : ?m.866), ?m.870 * a ≤ ?m.871 * a
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\NormalizationFromWindows.lean:117:34: error: Application type mismatch: The argument
+  hlp
+has type
+  0 < ↑lam
+but is expected to have type
+  ?m.870 ≤ ?m.871
+in the application
+  mul_le_mul_left hlp
+@B699TailWindows.normalized_of_window_data : ∀ {n i j r s : ℕ},
+  2 ≤ i →
+    i < j →
+      j ≤ n / 2 →
+        s < i →
+          ¬Common n i j →
+            0 < 2 * s - r →
+              3 * windowDegree i r s ≤ (2 * s - r) * (2 * i + 5) →
+                ↑(2 * s - r) * log ↑i.factorial ≤
+                    log ↑(windowConstant i r s) + (↑(2 * s - r) * (↑i + 3) - ↑(windowDegree i r s)) * log ↑i →
+                  B699TailWindows.Normalized n i
+'B699TailWindows.noCommon_scaled_choose' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailWindows.normalized_of_window_data' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+@B699TailWindows.noCommon_normalized_1000 : ∀ {n i j : ℕ},
+  1000 ≤ i → i < j → j ≤ n / 2 → ¬Common n i j → B699TailWindows.Normalized n i
+'B699TailWindows.noCommon_normalized_1000' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

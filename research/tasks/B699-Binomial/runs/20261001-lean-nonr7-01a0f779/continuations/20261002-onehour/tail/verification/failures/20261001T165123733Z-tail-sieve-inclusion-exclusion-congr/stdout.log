@@ -1,0 +1,55 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:47:73: error: unsolved goals
+case e'_2
+P : Finset ℕ
+b : ℕ
+S : ℕ → Finset ↥(Finset.Icc 1 b) := fun q => {m | q ∣ ↑m}
+hsets : (P.inf fun q => (S q)ᶜ) = P.inf fun q => {m | ¬q ∣ ↑m}
+m : ↥(Finset.Icc 1 b)
+⊢ (m ∈ P.inf fun q => {m ∈ (Finset.Icc 1 b).attach | ¬q ∣ ↑m}) ↔
+    m ∈ P.inf fun q => {m ∈ (Finset.Icc 1 b).attach | ¬q ∣ ↑m}
+
+case e'_3
+P : Finset ℕ
+b : ℕ
+S : ℕ → Finset ↥(Finset.Icc 1 b) := fun q => {m | q ∣ ↑m}
+hsets : (P.inf fun q => (S q)ᶜ) = P.inf fun q => {m | ¬q ∣ ↑m}
+⊢ (survivors P b).card = {m ∈ Finset.Icc 1 b | ∀ q ∈ P, ¬q ∣ m}.card
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:60:4: error: unsolved goals
+case e'_2
+P : Finset ℕ
+b : ℕ
+S : ℕ → Finset ↥(Finset.Icc 1 b) := fun q => {m | q ∣ ↑m}
+hcompl : (P.inf fun q => (S q)ᶜ).card = (survivors P b).card
+t : Finset ℕ
+m : ↥(Finset.Icc 1 b)
+⊢ m ∈ t.inf S ↔ m ∈ t.inf fun q => {m ∈ (Finset.Icc 1 b).attach | q ∣ ↑m}
+
+case e'_3
+P : Finset ℕ
+b : ℕ
+S : ℕ → Finset ↥(Finset.Icc 1 b) := fun q => {m | q ∣ ↑m}
+hcompl : (P.inf fun q => (S q)ᶜ).card = (survivors P b).card
+t : Finset ℕ
+⊢ (intersections t b).card = {m ∈ Finset.Icc 1 b | ∀ q ∈ t, q ∣ m}.card
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:58:10: warning: This simp argument is unused:
+  survivors
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:64:12: warning: This simp argument is unused:
+  intersections
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+B699ContinuationSieve.survivors_card_inclusion_exclusion : ∀ (P : Finset ℕ) (b : ℕ),
+  ↑(B699ContinuationSieve.survivors P b).card =
+    ∑ t ∈ P.powerset, (-1) ^ t.card * ↑(B699ContinuationSieve.intersections t b).card
+'B699ContinuationSieve.restricted_inf_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699ContinuationSieve.survivors_card_inclusion_exclusion' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

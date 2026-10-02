@@ -1,0 +1,324 @@
+{
+  "owner": "/root/tail_verify",
+  "baseline": "4d22485e20e509e33348b33e63f6902becbae414",
+  "startUtc": "2026-10-01T13:42:09Z",
+  "hardDeadlineUtc": "2026-10-01T15:42:09Z",
+  "freezeUtc": "2026-10-01T15:37:56.4968915Z",
+  "status": "accepted_prerequisites_final_original_consumer_pending",
+  "originalTarget": "forall n i j:Nat, 4883<=i -> i<j -> j<=n/2 -> exists p:Nat, Prime p and i<=p and p divides choose(n,i) and p divides choose(n,j)",
+  "fullOriginalTailAccepted": false,
+  "newCompleteOriginalIndices": [],
+  "newAcceptedOriginalRegions": [],
+  "acceptedPrerequisites": [
+    {
+      "module": "WindowParameters",
+      "scope": "All natural i>=1000: exact m,c,q,r,lambda offsets and endpoint positivity.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T141559020Z/evidence.json",
+      "sourceSha256": "229e1c8527141548c976626d97307e04f209b4e533a6a7a72d7ad8031b7b553c",
+      "objectSha256": "fcc5e56eea7524e183c50fc9d69a1797c4f1926d39e10c59f3c07ed8c19b034b",
+      "declarations": [
+        "B699TailParameters.normalization_parameters"
+      ],
+      "axioms": {
+        "B699TailParameters.normalization_parameters": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "ICAlgebra",
+      "scope": "Paper IC real algebra contradiction with explicit normalization/log bounds; no sieve rows.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T142020902Z/evidence.json",
+      "sourceSha256": "3a5b280a94d8e071d8093cca83a9b212b3d00470b20be5926ac3f236ba024fbf",
+      "objectSha256": "e3717b59241d04ccc8fc3a1a8ea524275c4c4d363a84f8e40ce80136377c1eb2",
+      "declarations": [
+        "B699TailIC.ic_real_obstruction"
+      ],
+      "axioms": {
+        "B699TailIC.ic_real_obstruction": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "FactorialLogBounds",
+      "scope": "All n>=1 factorial log bounds and all q>=1 superFactorial log lower bound.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T142622263Z/evidence.json",
+      "sourceSha256": "2487c0ea6a60558ec6bda42b3139131fd376c81a7b890b70ce4148d55c03523f",
+      "objectSha256": "59f0e6de5d99d52de8dd4102135abd4aa3f0a5778b1dfb1130312e8f2f01ade9",
+      "declarations": [
+        "B699TailFactorial.log_factorial_bounds",
+        "B699TailFactorial.log_superFactorial_lower"
+      ],
+      "axioms": {
+        "B699TailFactorial.log_factorial_bounds": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailFactorial.log_superFactorial_lower": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "IntegerCountBridge",
+      "scope": "Actual negative-log error bound plus IC algebra import; standard three axioms.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T142939186Z/evidence.json",
+      "sourceSha256": "ab1f8bbea2e58b5884243b80413f9b6ba1bafc74c85bd6679f1ddceeee75e428",
+      "objectSha256": "93b166cf81829f62aab20aadf94283de6bd18ade4bfc6613235d20ebc9a1b608",
+      "declarations": [
+        "B699TailIC.neg_log_one_sub_le",
+        "B699TailIC.neg_log_one_sub_le_4095",
+        "B699TailIC.ic_real_obstruction"
+      ],
+      "axioms": {
+        "B699TailIC.neg_log_one_sub_le_4095": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailIC.neg_log_one_sub_le": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailIC.ic_real_obstruction": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "NormalizationConstants",
+      "scope": "All m>=333 and c=1,2,3: actual factorial/superFactorial normalization constant.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T144214146Z/evidence.json",
+      "sourceSha256": "d888de1b73bc14c2dbcbd224fa87917960d7676c023a171c8348d9daa6c3850b",
+      "objectSha256": "6446d8354d19ba8905a06a952f66a0731cb9b8df64fccd4dec90e507da92a0fa",
+      "declarations": [
+        "B699TailNormalization.normalization_log_constant",
+        "B699TailNormalization.scaled_log_ratio_lower",
+        "B699TailNormalization.factorial_normalization"
+      ],
+      "axioms": {
+        "B699TailNormalization.scaled_log_ratio_lower": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailNormalization.factorial_normalization": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailNormalization.normalization_log_constant": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "SlimChebyshev",
+      "scope": "Theta upper bound and exact inclusive prime-counting Abel identity for real x>=2.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T144527797Z/evidence.json",
+      "sourceSha256": "5fe945e96596c4a3ec7d5cd00475c929216123990d0088e411c050c1f5d13664",
+      "objectSha256": "ec5712c3197eb28a68a1e9f8bde2784ea9541fcd1e4a4c4ca7126398cfae3b22",
+      "declarations": [
+        "B699SlimChebyshev.theta_le_log4_mul_x",
+        "B699SlimChebyshev.primeCounting_eq_theta_div_log_add_integral"
+      ],
+      "axioms": {
+        "B699SlimChebyshev.theta_le_log4_mul_x": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699SlimChebyshev.primeCounting_eq_theta_div_log_add_integral": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "ECBase",
+      "scope": "Fixed 128 kernel base: 31 primes and 2^145<=primorial128.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T145752239Z/evidence.json",
+      "sourceSha256": "0f9ae78db010323f9d180c0bbe3770005158625ac042de3981aae510b55147fd",
+      "objectSha256": "d1a88ea9dc217d26843ba04ae9da9a598eccbd53b71c895ff88e8c959933bc41",
+      "declarations": [
+        "B699TailECBase.primes_le_128",
+        "B699TailECBase.primeCounting_128",
+        "B699TailECBase.primorial_128_lower"
+      ],
+      "axioms": {
+        "B699TailECBase.primes_le_128": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailECBase.primorial_128_lower": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailECBase.primeCounting_128": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "NormalizationFromWindows",
+      "scope": "All original legal noCommon with i>=1000 imply actual normalization A, no extra N/EC/Gap premise.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T150015086Z/evidence.json",
+      "sourceSha256": "76f3e6896e18a06101dd73088b907c14fb64e6c80d139f1a79e1a9ea7b14525a",
+      "objectSha256": "61db94e88fb52b04ee74c9df09aadaaffe4f88ff3ae9394ebc3ec77cd7b5b267",
+      "declarations": [
+        "B699TailWindows.noCommon_scaled_choose",
+        "B699TailWindows.normalized_of_window_data",
+        "B699TailWindows.noCommon_normalized_1000"
+      ],
+      "axioms": {
+        "B699TailWindows.noCommon_scaled_choose": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailWindows.normalized_of_window_data": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailWindows.noCommon_normalized_1000": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "ElementaryCount",
+      "scope": "All real x>=128: pi(floor x)<=log4*x/(log x-3/2), no distribution premise.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T150657845Z/evidence.json",
+      "sourceSha256": "9f815633679d0a039c2416a34dd03483b972e5a1c307716c3fe3227c285e5cd4",
+      "objectSha256": "93a5785244fc68d017c0b4c1fab56d80cef7291482a57fa29fe4aa6b2930c95b",
+      "declarations": [
+        "B699TailCount.elementary_primeCounting_bound",
+        "B699TailCount.primeCounting_128",
+        "B699TailCount.primorial_128_lower",
+        "B699TailCount.denominator_pos"
+      ],
+      "axioms": {
+        "B699TailCount.primorial_128_lower": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailCount.elementary_primeCounting_bound": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailCount.primeCounting_128": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailCount.denominator_pos": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    },
+    {
+      "module": "UniformCountTail",
+      "scope": "Actual pi(i-1)/i and normalization A imply n<4096i for i>=131072; A remains explicit in this declaration.",
+      "evidence": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/verification/20261001T151446065Z/evidence.json",
+      "sourceSha256": "b681e15c10b20f45ed51405b5e1f3a76c35012af2b840a64211e0e213724b4b4",
+      "objectSha256": "381d09d547345993b05da8a8a5ae9c9ffb88cf5b129021f2beafe08110fd9037",
+      "declarations": [
+        "B699TailUniform.large_index_bounds",
+        "B699TailUniform.normalized_excludes_4096",
+        "B699TailUniform.normalized_height_131072"
+      ],
+      "axioms": {
+        "B699TailUniform.large_index_bounds": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailUniform.normalized_height_131072": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699TailUniform.normalized_excludes_4096": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      }
+    }
+  ],
+  "unacceptedCandidates": [
+    {
+      "source": "Consumers.lean",
+      "sha256": "376967d09206b1333ef8ee9d143a643a719b88b1f3dd13a31388a880bc4f16a3",
+      "accepted": false
+    },
+    {
+      "source": "ConsumerPublic.lean",
+      "sha256": "8d1e146a9dba206fbdfda1f1904b251e6dc8cb0ffd590d458c96054fdf22d8a8",
+      "accepted": false
+    },
+    {
+      "source": "GapAdapter.lean",
+      "sha256": "abd8ee14dcb0c894b1e7145cf8b134cb973778d3b65c543e925f055b742deb0f",
+      "accepted": false
+    }
+  ],
+  "finalConsumerFailure": "Legacy Consumers blocked by physical-memory preflight. ConsumerPublic single safe probe exit1: cannot import non-module NormalizationFromWindows from module, before proof/type/axiom.",
+  "remaining": [
+    "Final source-connected same-prime consumer must compile and pass axioms before any original region is accepted.",
+    "4883..131071 count bridge: paper IC algebra checked, 115 sieve rows and count-certificate correctness not connected.",
+    "Uniform Gap(4095,10000000) for all unbounded y: no accepted Lean proof.",
+    "All smaller-ratio n and full i>=4883 route remain outside original-kernel acceptance; old finite-n input still needs fixed-object/source binding if adopted."
+  ],
+  "failedAttemptCopies": [
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T135957999Z-tail-ec-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T140236871Z-tail-ec-after-cache",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T140409956Z-tail-ec-runner-fixed",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T140641872Z-tail-ec-math-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T140822592Z-tail-factorial-math-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T140945263Z-tail-ec-approved-cap",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T141122282Z-tail-factorial-basic",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T141352623Z-tail-factorial-basic-1024",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T141417430Z-tail-ic-algebra-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T142334314Z-tail-factorial-slim-native",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T142748059Z-tail-ec-3132",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T143306713Z-tail-normalization-constants-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T143514716Z-tail-ec-1792-diagnostic",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T143610753Z-tail-normalization-constants-repair",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T143739060Z-tail-slim-chebyshev-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T143920154Z-tail-normalization-constants-fixed",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T144106060Z-tail-slim-chebyshev-1792",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T144633098Z-tail-normalization-windows-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T144828187Z-tail-ec-slim-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T145047060Z-tail-normalization-windows-fixed",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T145339493Z-tail-ec-base",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T150148602Z-tail-ec-base-separated",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T151144250Z-tail-uniform-count-first",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\tail\\verification\\failures\\20261001T153055273Z-tail-public-original-consumer"
+  ]
+}

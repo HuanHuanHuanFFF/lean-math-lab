@@ -1,0 +1,18 @@
+fun {n a b} =>
+  Math.B699.ZeroBoundaryWindowLog.window_log_ne_zero : ∀ {n a b : ℕ},
+  a < n → b < n → a ≠ b → Real.log ↑(n - a) - Real.log ↑(n - b) ≠ 0
+fun {n a b} =>
+  Math.B699.ZeroBoundaryWindowLog.window_log_abs_le : ∀ {n a b : ℕ},
+  33 < n → a ≤ 33 → b ≤ 33 → |Real.log ↑(n - a) - Real.log ↑(n - b)| ≤ 33 / (↑n - 33)
+fun {n a b} =>
+  Math.B699.ZeroBoundaryWindowLog.window_log_bounds : ∀ {n a b : ℕ},
+  4096 < n →
+    a < 34 →
+      b < 34 →
+        a ≠ b →
+          0 < |Real.log ↑(n - a) - Real.log ↑(n - b)| ∧
+            |Real.log ↑(n - a) - Real.log ↑(n - b)| ≤ 33 / (↑n - 33) ∧
+              |Real.log ↑(n - a) - Real.log ↑(n - b)| < 128 / ↑n
+'Math.B699.ZeroBoundaryWindowLog.window_log_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryWindowLog.window_log_abs_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryWindowLog.window_log_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,31 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\NormalizationConstants.lean:45:4: error: No goals to be solved
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\tail\NormalizationConstants.lean:51:56: error: unsolved goals
+x q c : ℝ
+hx : 0 < x
+hc : c < x
+hq : q = 2 / 3 * (x - c)
+hp : 0 < 1 - c / x
+hqp : 0 < q
+hmul : q / x = 2 / 3 * (1 - c / x)
+hlog : log q - log x = log (2 / 3) + log (1 - c / x)
+he : -log (1 - c / x) ≤ c / x / (1 - c / x)
+hw : q * -log (1 - c / x) ≤ q * (c / x / (1 - c / x))
+⊢ c * x * (-c + x)⁻¹ - c ^ 2 * (-c + x)⁻¹ = c
+B699TailNormalization.factorial_normalization : ∀ (m c : ℕ),
+  333 ≤ m →
+    1 ≤ c →
+      c ≤ 3 →
+        have i := 3 * m + c;
+        have q := 2 * m;
+        have lam := 3 * m - c + 1;
+        ↑lam * log ↑i.factorial ≤
+          ↑q * (↑q + 1) * log 2 + 3 * log ↑q.superFactorial + (↑lam * (↑i + 3) - 3 * ↑m * (↑q + 1)) * log ↑i
+'B699TailNormalization.normalization_log_constant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailNormalization.scaled_log_ratio_lower' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699TailNormalization.factorial_normalization' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]

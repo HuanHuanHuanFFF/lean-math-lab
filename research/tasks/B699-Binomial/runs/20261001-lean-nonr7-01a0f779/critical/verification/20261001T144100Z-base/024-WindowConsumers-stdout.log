@@ -1,0 +1,30 @@
+fun {n j} =>
+  Math.B699.CriticalWindowLogBase.actual_i28_log_pair : ∀ {n j : ℕ},
+  4096 < n →
+    28 < j → j ≤ n / 2 → ¬B699LargePrimeStructure.Common n 28 j → Math.B699.CriticalWindowLogBase.ActualLogPair n 28
+fun {n j} =>
+  Math.B699.CriticalWindowLogBase.actual_i31_log_pair : ∀ {n j : ℕ},
+  4096 < n →
+    31 < j → j ≤ n / 2 → ¬B699LargePrimeStructure.Common n 31 j → Math.B699.CriticalWindowLogBase.ActualLogPair n 31
+fun {n j} =>
+  Math.B699.CriticalWindowLogBase.actual_i34_log_pair : ∀ {n j : ℕ},
+  4096 < n →
+    34 < j → j ≤ n / 2 → ¬B699LargePrimeStructure.Common n 34 j → Math.B699.CriticalWindowLogBase.ActualLogPair n 34
+def Math.B699.CriticalWindowLogBase.ActualLogPair : ℕ → ℕ → Prop :=
+fun n i =>
+  ∃ p q a b A B,
+    Math.B699.CriticalM64Windows.M64PairData n i p q a b A B ∧
+      0 <
+          |Math.B699.ZeroBoundaryWindowLog.linearForm A B p q (Math.B699.CriticalM64Windows.fullExponent n i p)
+              (Math.B699.CriticalM64Windows.fullExponent n i q)| ∧
+        |Math.B699.ZeroBoundaryWindowLog.linearForm A B p q (Math.B699.CriticalM64Windows.fullExponent n i p)
+                (Math.B699.CriticalM64Windows.fullExponent n i q)| ≤
+            33 / (↑n - 33) ∧
+          |Math.B699.ZeroBoundaryWindowLog.linearForm A B p q (Math.B699.CriticalM64Windows.fullExponent n i p)
+                (Math.B699.CriticalM64Windows.fullExponent n i q)| <
+            128 / ↑n
+'Math.B699.CriticalWindowLogBase.ActualLogPair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.CriticalWindowLogBase.actual_log_pair_of_windows' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.CriticalWindowLogBase.actual_i28_log_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.CriticalWindowLogBase.actual_i31_log_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.CriticalWindowLogBase.actual_i34_log_pair' depends on axioms: [propext, Classical.choice, Quot.sound]

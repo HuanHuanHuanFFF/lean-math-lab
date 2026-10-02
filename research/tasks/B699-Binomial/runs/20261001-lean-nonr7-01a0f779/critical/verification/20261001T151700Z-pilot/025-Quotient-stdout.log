@@ -1,0 +1,22 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\critical\ZeroBoundaryLogSeparation\Quotient.lean:63:2: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+fun {nlo nhi dlo dhi qlo qhi} {a b} =>
+  Math.B699.ZeroBoundaryLogSeparation.quotientBoxCheck_sound : ∀ {nlo nhi dlo dhi qlo qhi : ℚ} {a b : ℝ},
+  Math.B699.ZeroBoundaryLogSeparation.quotientBoxCheck nlo nhi dlo dhi qlo qhi = true →
+    ↑nlo ≤ a ∧ a ≤ ↑nhi → ↑dlo ≤ b ∧ b ≤ ↑dhi → ↑qlo ≤ a / b ∧ a / b ≤ ↑qhi
+fun {v l epsilon z} =>
+  Math.B699.ZeroBoundaryLogSeparation.scaled_separation : ∀ {v l epsilon z : ℝ},
+  0 < v → 1 / 2 < l → 0 < epsilon → epsilon ≤ v * |z| → epsilon / (2 * v) < |l * z|
+fun {lp lq lb} =>
+  Math.B699.ZeroBoundaryLogSeparation.normalized_form_eq : ∀ {lp lq lb : ℝ} (x y : ℤ),
+  lq ≠ 0 → lq * (↑x * (lp / lq) - ↑y + lb / lq) = lb + ↑x * lp - ↑y * lq
+'Math.B699.ZeroBoundaryLogSeparation.quotientBoxCheck_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.scaled_separation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.normalized_form_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+fun {n} {l alpha} {y} =>
+  Math.B699.ZeroBoundaryLogSeparation.zero_first_coordinate_small_n : ∀ {n : ℕ} {l alpha : ℝ} {y : ℤ},
+  0 < n → 1 / 2 < l → y ≠ 0 → |l * (0 * alpha - ↑y)| < 128 / ↑n → n < 256
+'Math.B699.ZeroBoundaryLogSeparation.zero_first_coordinate_small_n' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

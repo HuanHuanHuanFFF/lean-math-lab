@@ -1,0 +1,25 @@
+Math.B699.ZeroBoundaryLogSeparation.pilot_nonresonant_check : Math.B699.ZeroBoundaryLogSeparation.nonresonantCheck
+    Math.B699.ZeroBoundaryLogSeparation.M0 (1 / 100) Math.B699.ZeroBoundaryLogSeparation.nonresonantFive =
+  true
+Math.B699.ZeroBoundaryLogSeparation.pilot_resonant_check : Math.B699.ZeroBoundaryLogSeparation.resonantCheck
+    Math.B699.ZeroBoundaryLogSeparation.M0 Math.B699.ZeroBoundaryLogSeparation.approximation23 =
+  true
+fun {alpha beta} =>
+  Math.B699.ZeroBoundaryLogSeparation.pilot_nonresonant_abstract : ∀ {alpha beta : ℝ},
+  ↑Math.B699.ZeroBoundaryLogSeparation.alpha23Lower ≤ alpha ∧
+      alpha ≤ ↑Math.B699.ZeroBoundaryLogSeparation.alpha23Upper →
+    ↑Math.B699.ZeroBoundaryLogSeparation.betaFiveLower ≤ beta ∧
+        beta ≤ ↑Math.B699.ZeroBoundaryLogSeparation.betaFiveUpper →
+      ∀ (x y : ℤ), |x| ≤ ↑Math.B699.ZeroBoundaryLogSeparation.M0 → 1 / 100 ≤ 9881527843552324 * |↑x * alpha - ↑y + beta|
+fun {alpha} =>
+  Math.B699.ZeroBoundaryLogSeparation.pilot_resonant_abstract : ∀ {alpha : ℝ},
+  ↑Math.B699.ZeroBoundaryLogSeparation.alpha23Lower ≤ alpha ∧
+      alpha ≤ ↑Math.B699.ZeroBoundaryLogSeparation.alpha23Upper →
+    ∀ (x y : ℤ),
+      |x| ≤ ↑Math.B699.ZeroBoundaryLogSeparation.M0 → ¬(x = 0 ∧ y = 0) → 1 / 2 < 9881527843552324 * |↑x * alpha - ↑y|
+'Math.B699.ZeroBoundaryLogSeparation.pilot_nonresonant_check' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.pilot_resonant_check' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.pilot_nonresonant_abstract' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Math.B699.ZeroBoundaryLogSeparation.pilot_resonant_abstract' depends on axioms: [propext, Classical.choice, Quot.sound]

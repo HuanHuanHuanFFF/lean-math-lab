@@ -1,0 +1,34 @@
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:30:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  x ∈ s.inf fun q => {m | R q ↑m}
+in the target expression
+  (x ∈ {m | R q ↑m} ⊓ s.inf fun q => {m | R q ↑m}) ↔ ∀ q_1 ∈ insert q s, R q_1 ↑x
+
+case insert
+b : ℕ
+R : ℕ → ℕ → Prop
+x : ↥(Finset.Icc 1 b)
+q : ℕ
+s : Finset ℕ
+hqs : q ∉ s
+ih : (x ∈ s.inf fun q => {m | R q ↑m}) ↔ ∀ q ∈ s, R q ↑x
+⊢ (x ∈ {m | R q ↑m} ⊓ s.inf fun q => {m | R q ↑m}) ↔ ∀ q_1 ∈ insert q s, R q_1 ↑x
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:55:4: error: Type mismatch: After simplification, term
+  restricted_inf_card P b fun q m => ¬q ∣ m
+ has type
+  (P.inf fun q => {m ∈ (Finset.Icc 1 b).attach | ¬q ∣ ↑m}).card = {m ∈ Finset.Icc 1 b | ∀ q ∈ P, ¬q ∣ m}.card
+but is expected to have type
+  (P.inf fun q => {m ∈ (Finset.Icc 1 b).attach | ¬q ∣ ↑m}).card = {m ∈ Finset.Icc 1 b | ∀ q ∈ P, ¬q ∣ m}.card
+D:\CodingProject\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\continuations\20261002-onehour\tail\SieveInclusionExclusion.lean:57:7: error: Type mismatch: After simplification, term
+  restricted_inf_card t b fun q m => q ∣ m
+ has type
+  (t.inf fun q => {m ∈ (Finset.Icc 1 b).attach | q ∣ ↑m}).card = {m ∈ Finset.Icc 1 b | ∀ q ∈ t, q ∣ m}.card
+but is expected to have type
+  (t.inf fun q => {m ∈ (Finset.Icc 1 b).attach | q ∣ ↑m}).card = {m ∈ Finset.Icc 1 b | ∀ q ∈ t, q ∣ m}.card
+B699ContinuationSieve.survivors_card_inclusion_exclusion : ∀ (P : Finset ℕ) (b : ℕ),
+  ↑(B699ContinuationSieve.survivors P b).card =
+    ∑ t ∈ P.powerset, (-1) ^ t.card * ↑(B699ContinuationSieve.intersections t b).card
+'B699ContinuationSieve.restricted_inf_card' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699ContinuationSieve.survivors_card_inclusion_exclusion' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

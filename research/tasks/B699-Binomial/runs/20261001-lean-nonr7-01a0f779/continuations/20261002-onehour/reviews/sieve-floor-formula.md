@@ -1,0 +1,11 @@
+# Exact finite sieve / floor formula independent review
+
+Verifier `/root/runtime_review`, GPT-6.1 Sol/xhigh, 2026-10-01. **Accepted general identities**, with fixed stages `../tail/verification/20261001T165237841Z/stage-manifest.json` and `../tail/verification/20261001T165320579Z/stage-manifest.json`.
+
+Accepted source hashes are `7dbb7665d4f580fc2618db9655079245fbf54b08367e1037d1bf897e78de03b0` (SieveInclusionExclusion) and `bfa2fb3244156e567d767e5dc0d90352573583a0b7fcb3510ea8a4e0428eb2e0` (SieveFloor). Independently recomputed source, actual snapshot, object, receipt, stdout and all stage member hashes agree. Both sources are unchanged, actual exits are 0, pinned argv is `-j1 -M3132 -DElab.async=false`. Actual wall times are 13.034/13.014 seconds, tree peaks 1066.11/1085.86 MiB. Every printed transitive axiom set contains only propext, Classical.choice, Quot.sound.
+
+I read the fixed public declarations and proof bodies. Inclusion-exclusion quantifies over every finite natural set P and every natural b. On the finite subtype of integers 1…b it identifies complements/intersections exactly by cardinality-preserving bijections. It proves `Int(card survivors)=Σ(t⊆P) (−1)^card(t) card(intersections(t,b))`, with the full powerset, not a truncated sum.
+
+SieveFloor adds the explicit condition that every member of P is prime. It proves the product divides m iff every member divides m using distinct-prime coprimality, then converts the inclusive interval 1…b to (0,b] and applies the actual multiples-cardinality theorem. Thus every intersection cardinal is exactly the natural floor division b/product(t), yielding the full signed integer powerset formula. For t=empty, the product is 1 and the term is b; for P=empty the whole identity reduces to card(1…b)=b. For b=0 both the interval and every floor term are zero. No positivity assumption on b, endpoint omission, floating-point computation, or unproved floor estimate appears.
+
+This proves the paper's exact finite sieve formula as a reusable theorem. It does not evaluate any of the 115 fixed rows or discharge their π(b)≤T inputs. The original interval 1000…131071 therefore remains conditional on those explicit finite sums/count bounds; no new unconditional original region or complete index is claimed from the formula alone.
