@@ -23,3 +23,11 @@
 运行任务正在依据原始stdout确认输出目录默认参数在import时固定、随后修改OBJECTS/LEAN_PATH造成写入与导入根分离的工具路径疑点；未收到完整原件前不把猜测写成确定根因或修复通过。57fb已跑入口冻结，修订另立v2。新重试安排40分钟job/latest12:23:45 UTC，所有阶段仍原13:04:45；数学四源与目标不变，不因入口失败自动收工。
 
 12:19:55运行任务收到完整80632B artifact，实际stdout为unknown module prefix research；NatSplice实际-o写runtime/evidence/objects，而LEAN_PATH读full-normnum/evidence/objects，根因已由原始参数/输出确认。普通成员精确保存于runtime/ci/37005473924，压缩原包在Git外。新full-stage-v2显式传统一b.OBJECTS/b.REPO到全部compile、统一b.OBJECTS/b.ROOT到audit，checker/manifest/artifact同新v2根；AST与固定SHA静态检查通过，实际新proof尚未重跑，不称修复已经kernel通过。v2源码d82c03df9ecf48dcfd9221c8e2c4114e226f237e9b9a1159e3bd09c18488c855，spec81a65b64992d22c716d426cb08fabec2128aa4da7ae761665a8642599951e0ee，原数学源/目标/预算/资源限制不变。
+
+v2已普通push并核远端一致3821935b3bc3ccfad0a9b27e76dde8fe6278a793；实际[CI37006254308](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37006254308)、job110835123290，12:22:02创建且gate/preflight通过。运行任务确认首七支持源实际compile/Std3审计成功，输出路径问题已在实际编译修复；但12:24:10在support-07-FiniteSupplyOnly提前失败，128未开始。
+
+新失败为执行依赖顺序：supportSources误包含finalSources中的FiniteSupplyOnly，它导入尚待生成的CompleteChain；来源是Windows路径规范化前列表排除失配遗留。待完整raw签件独立确认，不修改数学体。v3仅修元数据stage graph，必须support∩final空且支持导入在阶段已供应；重试窗口34分钟/latest12:29:45，仍原13:04:45。旧v2源码/spec/raw保持冻结，部分支持验收不计原题指标。
+
+12:30:58 v3最终入口Ready：运行任务已以Git外原902b…ZIP确认CompleteChain尚不存在而被final提前导入的实际错误。semantic独立逐源含import all核查support7∩final2空、前置拓扑依赖齐、支持源不引用deferred模块，见reviews/v3-stage-dag-review.json。新v3数学四源及独立typed均未改，静态图审不作为新kernel接受。
+
+原34分钟计划准备与取原件耗时后不再有足够发布/排队余量，主动改28分钟job/latest12:35:45 UTC（原hard减29分钟），inside27分钟自动读取且绝对13:04:45不变，避免只有数秒的晚门禁窗口。v3源码c0b26fc135e52b7dd7081d771d08bb2ffeca592ba83e31c6023e91836df8a529，最终spec ca4565aa902aafb6fc298738a60a678a2fd179a23bec1c63e9825f5416dde152，workflow387a6bde06884b65c50cfaf1eb28ef9d9f8da0f15df3e6c68fa03fee0e877167。先真实128成本门控，再全链/finite-only；原globalfinite/完整指标仍待实际接受。
