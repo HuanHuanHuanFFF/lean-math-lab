@@ -10,4 +10,6 @@
 
 输入旧../20261002-terminal-gap-twohour/gap三候选13根及source-map，旧runtime/gap-probe-stage.py/spec/closure只作为新时窗模板，过期守卫不可直接复跑。旧源审不等于kernel接受；修订另存owned源并映射原字节，源码/raw/object与准确scope须S实际核验。CI绿灯与条件前置不等于真Gap。
 
-下一步：C尽早给四源窄probe READY、fresh资源预检和代表导入，Root发布触发；S锁固定输入和接受标准。失败按API/模式/资源/数学缺口分类，预算内修复，不在缺前置时提前结束。
+18:19:40实际四源compile0、三候选13根Std3与3normalchecker0；S完整绑定待签。之后成功恢复已有 `/root/gap_supply_astra`（Astra max）做限定真实有效θ/ψ输入所需的无条件前置供应，只 owns supply/；实际 live 清单确认 C/S/A 加 Root 共四任务，并发子任务三路。先前新spawn/旧F失败记录保留，不误计成启动。
+
+下一步：S完成实际原包/source/object/raw绑定接受，Root小闭环发布；A采用刚编译接口寻找具体必需、可在剩预算实现的无条件前置，避免重复已证明接口、已定位sorry或新增条件包装。新候选由C唯一远端小复验并交S，硬截止不变。
