@@ -1,0 +1,973 @@
+module
+public import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-tail-twohour».tail.ModernPrunedCount
+import all research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-tail-twohour».tail.ModernPrunedCount
+
+/-! Generated untrusted goals for fixed rows; acceptance requires actual kernel proofs. -/
+set_option maxRecDepth 20000
+set_option maxHeartbeats 2000000
+public section
+namespace B699ModernPrunedSieve.ModernSingle113
+open B699ModernPrunedSieve
+
+theorem sub_congr {a b c d : Int} (ha : a = c) (hb : b = d) : a - b = c - d := by
+  cases ha
+  cases hb
+  rfl
+
+theorem node_8_130362 : count [19, 17, 13, 11, 7, 5, 3, 2] 130362 = (22295 : Int) := by
+  decide
+
+theorem node_8_5667 : count [19, 17, 13, 11, 7, 5, 3, 2] 5667 = (968 : Int) := by
+  decide
+
+theorem node_7_130362 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (21327 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [19, 17, 13, 11, 7, 5, 3, 2] (130362 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (22295 : Int) - (968 : Int) :=
+      sub_congr node_8_130362 node_8_5667
+    _ = (21327 : Int) := by decide
+
+theorem node_8_4495 : count [19, 17, 13, 11, 7, 5, 3, 2] 4495 = (768 : Int) := by
+  decide
+
+theorem node_8_195 : count [19, 17, 13, 11, 7, 5, 3, 2] 195 = (37 : Int) := by
+  decide
+
+theorem node_7_4495 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 4495 = (731 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 4495 = count [19, 17, 13, 11, 7, 5, 3, 2] 4495 - count [19, 17, 13, 11, 7, 5, 3, 2] (4495 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 4495 (by decide)
+    _ = (768 : Int) - (37 : Int) :=
+      sub_congr node_8_4495 node_8_195
+    _ = (731 : Int) := by decide
+
+theorem node_6_130362 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (20596 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (130362 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (21327 : Int) - (731 : Int) :=
+      sub_congr node_7_130362 node_7_4495
+    _ = (20596 : Int) := by decide
+
+theorem node_8_4205 : count [19, 17, 13, 11, 7, 5, 3, 2] 4205 = (717 : Int) := by
+  decide
+
+theorem node_8_182 : count [19, 17, 13, 11, 7, 5, 3, 2] 182 = (35 : Int) := by
+  decide
+
+theorem node_7_4205 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 4205 = (682 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 4205 = count [19, 17, 13, 11, 7, 5, 3, 2] 4205 - count [19, 17, 13, 11, 7, 5, 3, 2] (4205 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 4205 (by decide)
+    _ = (717 : Int) - (35 : Int) :=
+      sub_congr node_8_4205 node_8_182
+    _ = (682 : Int) := by decide
+
+theorem node_8_145 : count [19, 17, 13, 11, 7, 5, 3, 2] 145 = (27 : Int) := by
+  decide
+
+theorem node_8_6 : count [19, 17, 13, 11, 7, 5, 3, 2] 6 = (1 : Int) := by
+  decide
+
+theorem node_7_145 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 145 = (26 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 145 = count [19, 17, 13, 11, 7, 5, 3, 2] 145 - count [19, 17, 13, 11, 7, 5, 3, 2] (145 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 145 (by decide)
+    _ = (27 : Int) - (1 : Int) :=
+      sub_congr node_8_145 node_8_6
+    _ = (26 : Int) := by decide
+
+theorem node_6_4205 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 4205 = (656 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 4205 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 4205 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (4205 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 4205 (by decide)
+    _ = (682 : Int) - (26 : Int) :=
+      sub_congr node_7_4205 node_7_145
+    _ = (656 : Int) := by decide
+
+theorem node_5_130362 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (19940 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (130362 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (20596 : Int) - (656 : Int) :=
+      sub_congr node_6_130362 node_6_4205
+    _ = (19940 : Int) := by decide
+
+theorem node_8_3523 : count [19, 17, 13, 11, 7, 5, 3, 2] 3523 = (597 : Int) := by
+  decide
+
+theorem node_8_153 : count [19, 17, 13, 11, 7, 5, 3, 2] 153 = (29 : Int) := by
+  decide
+
+theorem node_7_3523 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 = (568 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 = count [19, 17, 13, 11, 7, 5, 3, 2] 3523 - count [19, 17, 13, 11, 7, 5, 3, 2] (3523 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 3523 (by decide)
+    _ = (597 : Int) - (29 : Int) :=
+      sub_congr node_8_3523 node_8_153
+    _ = (568 : Int) := by decide
+
+theorem node_8_121 : count [19, 17, 13, 11, 7, 5, 3, 2] 121 = (23 : Int) := by
+  decide
+
+theorem node_8_5 : count [19, 17, 13, 11, 7, 5, 3, 2] 5 = (1 : Int) := by
+  decide
+
+theorem node_7_121 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 121 = (22 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 121 = count [19, 17, 13, 11, 7, 5, 3, 2] 121 - count [19, 17, 13, 11, 7, 5, 3, 2] (121 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 121 (by decide)
+    _ = (23 : Int) - (1 : Int) :=
+      sub_congr node_8_121 node_8_5
+    _ = (22 : Int) := by decide
+
+theorem node_6_3523 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 = (546 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (3523 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 (by decide)
+    _ = (568 : Int) - (22 : Int) :=
+      sub_congr node_7_3523 node_7_121
+    _ = (546 : Int) := by decide
+
+theorem node_8_113 : count [19, 17, 13, 11, 7, 5, 3, 2] 113 = (23 : Int) := by
+  decide
+
+theorem node_8_4 : count [19, 17, 13, 11, 7, 5, 3, 2] 4 = (1 : Int) := by
+  decide
+
+theorem node_7_113 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 113 = (22 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 113 = count [19, 17, 13, 11, 7, 5, 3, 2] 113 - count [19, 17, 13, 11, 7, 5, 3, 2] (113 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 113 (by decide)
+    _ = (23 : Int) - (1 : Int) :=
+      sub_congr node_8_113 node_8_4
+    _ = (22 : Int) := by decide
+
+theorem node_8_3 : count [19, 17, 13, 11, 7, 5, 3, 2] 3 = (1 : Int) := by
+  decide
+
+theorem node_8_0 : count [19, 17, 13, 11, 7, 5, 3, 2] 0 = (0 : Int) := by
+  exact count_zero [19, 17, 13, 11, 7, 5, 3, 2]
+
+theorem node_7_3 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3 = (1 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3 = count [19, 17, 13, 11, 7, 5, 3, 2] 3 - count [19, 17, 13, 11, 7, 5, 3, 2] (3 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 3 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_8_3 node_8_0
+    _ = (1 : Int) := by decide
+
+theorem node_6_113 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 113 = (21 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 113 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 113 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (113 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 113 (by decide)
+    _ = (22 : Int) - (1 : Int) :=
+      sub_congr node_7_113 node_7_3
+    _ = (21 : Int) := by decide
+
+theorem node_5_3523 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 = (525 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (3523 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3523 (by decide)
+    _ = (546 : Int) - (21 : Int) :=
+      sub_congr node_6_3523 node_6_113
+    _ = (525 : Int) := by decide
+
+theorem node_4_130362 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (19415 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (130362 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (19940 : Int) - (525 : Int) :=
+      sub_congr node_5_130362 node_5_3523
+    _ = (19415 : Int) := by decide
+
+theorem node_8_3179 : count [19, 17, 13, 11, 7, 5, 3, 2] 3179 = (539 : Int) := by
+  decide
+
+theorem node_8_138 : count [19, 17, 13, 11, 7, 5, 3, 2] 138 = (26 : Int) := by
+  decide
+
+theorem node_7_3179 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = (513 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = count [19, 17, 13, 11, 7, 5, 3, 2] 3179 - count [19, 17, 13, 11, 7, 5, 3, 2] (3179 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 3179 (by decide)
+    _ = (539 : Int) - (26 : Int) :=
+      sub_congr node_8_3179 node_8_138
+    _ = (513 : Int) := by decide
+
+theorem node_8_109 : count [19, 17, 13, 11, 7, 5, 3, 2] 109 = (22 : Int) := by
+  decide
+
+theorem node_7_109 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 109 = (21 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 109 = count [19, 17, 13, 11, 7, 5, 3, 2] 109 - count [19, 17, 13, 11, 7, 5, 3, 2] (109 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 109 (by decide)
+    _ = (22 : Int) - (1 : Int) :=
+      sub_congr node_8_109 node_8_4
+    _ = (21 : Int) := by decide
+
+theorem node_6_3179 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = (492 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (3179 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 (by decide)
+    _ = (513 : Int) - (21 : Int) :=
+      sub_congr node_7_3179 node_7_109
+    _ = (492 : Int) := by decide
+
+theorem node_8_102 : count [19, 17, 13, 11, 7, 5, 3, 2] 102 = (19 : Int) := by
+  decide
+
+theorem node_7_102 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 102 = (18 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 102 = count [19, 17, 13, 11, 7, 5, 3, 2] 102 - count [19, 17, 13, 11, 7, 5, 3, 2] (102 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 102 (by decide)
+    _ = (19 : Int) - (1 : Int) :=
+      sub_congr node_8_102 node_8_4
+    _ = (18 : Int) := by decide
+
+theorem node_6_102 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 102 = (17 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 102 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 102 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (102 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 102 (by decide)
+    _ = (18 : Int) - (1 : Int) :=
+      sub_congr node_7_102 node_7_3
+    _ = (17 : Int) := by decide
+
+theorem node_5_3179 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = (475 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (3179 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 (by decide)
+    _ = (492 : Int) - (17 : Int) :=
+      sub_congr node_6_3179 node_6_102
+    _ = (475 : Int) := by decide
+
+theorem node_8_85 : count [19, 17, 13, 11, 7, 5, 3, 2] 85 = (16 : Int) := by
+  decide
+
+theorem node_7_85 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 85 = (15 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 85 = count [19, 17, 13, 11, 7, 5, 3, 2] 85 - count [19, 17, 13, 11, 7, 5, 3, 2] (85 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 85 (by decide)
+    _ = (16 : Int) - (1 : Int) :=
+      sub_congr node_8_85 node_8_3
+    _ = (15 : Int) := by decide
+
+theorem node_8_2 : count [19, 17, 13, 11, 7, 5, 3, 2] 2 = (1 : Int) := by
+  decide
+
+theorem node_7_2 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2 = (1 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2 = count [19, 17, 13, 11, 7, 5, 3, 2] 2 - count [19, 17, 13, 11, 7, 5, 3, 2] (2 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 2 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_8_2 node_8_0
+    _ = (1 : Int) := by decide
+
+theorem node_6_85 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 85 = (14 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 85 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 85 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (85 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 85 (by decide)
+    _ = (15 : Int) - (1 : Int) :=
+      sub_congr node_7_85 node_7_2
+    _ = (14 : Int) := by decide
+
+theorem node_7_0 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 0 = (0 : Int) := by
+  exact count_zero [23, 19, 17, 13, 11, 7, 5, 3, 2]
+
+theorem node_6_2 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2 = (1 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (2 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 2 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_7_2 node_7_0
+    _ = (1 : Int) := by decide
+
+theorem node_5_85 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 85 = (13 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 85 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 85 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (85 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 85 (by decide)
+    _ = (14 : Int) - (1 : Int) :=
+      sub_congr node_6_85 node_6_2
+    _ = (13 : Int) := by decide
+
+theorem node_4_3179 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = (462 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (3179 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3179 (by decide)
+    _ = (475 : Int) - (13 : Int) :=
+      sub_congr node_5_3179 node_5_85
+    _ = (462 : Int) := by decide
+
+theorem node_3_130362 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (18953 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (130362 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (19415 : Int) - (462 : Int) :=
+      sub_congr node_4_130362 node_4_3179
+    _ = (18953 : Int) := by decide
+
+theorem node_8_3031 : count [19, 17, 13, 11, 7, 5, 3, 2] 3031 = (515 : Int) := by
+  decide
+
+theorem node_8_131 : count [19, 17, 13, 11, 7, 5, 3, 2] 131 = (25 : Int) := by
+  decide
+
+theorem node_7_3031 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = (490 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = count [19, 17, 13, 11, 7, 5, 3, 2] 3031 - count [19, 17, 13, 11, 7, 5, 3, 2] (3031 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 3031 (by decide)
+    _ = (515 : Int) - (25 : Int) :=
+      sub_congr node_8_3031 node_8_131
+    _ = (490 : Int) := by decide
+
+theorem node_8_104 : count [19, 17, 13, 11, 7, 5, 3, 2] 104 = (20 : Int) := by
+  decide
+
+theorem node_7_104 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 104 = (19 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 104 = count [19, 17, 13, 11, 7, 5, 3, 2] 104 - count [19, 17, 13, 11, 7, 5, 3, 2] (104 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 104 (by decide)
+    _ = (20 : Int) - (1 : Int) :=
+      sub_congr node_8_104 node_8_4
+    _ = (19 : Int) := by decide
+
+theorem node_6_3031 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = (471 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (3031 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 (by decide)
+    _ = (490 : Int) - (19 : Int) :=
+      sub_congr node_7_3031 node_7_104
+    _ = (471 : Int) := by decide
+
+theorem node_8_97 : count [19, 17, 13, 11, 7, 5, 3, 2] 97 = (18 : Int) := by
+  decide
+
+theorem node_7_97 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 97 = (17 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 97 = count [19, 17, 13, 11, 7, 5, 3, 2] 97 - count [19, 17, 13, 11, 7, 5, 3, 2] (97 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 97 (by decide)
+    _ = (18 : Int) - (1 : Int) :=
+      sub_congr node_8_97 node_8_4
+    _ = (17 : Int) := by decide
+
+theorem node_6_97 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 97 = (16 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 97 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 97 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (97 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 97 (by decide)
+    _ = (17 : Int) - (1 : Int) :=
+      sub_congr node_7_97 node_7_3
+    _ = (16 : Int) := by decide
+
+theorem node_5_3031 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = (455 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (3031 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 (by decide)
+    _ = (471 : Int) - (16 : Int) :=
+      sub_congr node_6_3031 node_6_97
+    _ = (455 : Int) := by decide
+
+theorem node_8_81 : count [19, 17, 13, 11, 7, 5, 3, 2] 81 = (15 : Int) := by
+  decide
+
+theorem node_7_81 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 81 = (14 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 81 = count [19, 17, 13, 11, 7, 5, 3, 2] 81 - count [19, 17, 13, 11, 7, 5, 3, 2] (81 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 81 (by decide)
+    _ = (15 : Int) - (1 : Int) :=
+      sub_congr node_8_81 node_8_3
+    _ = (14 : Int) := by decide
+
+theorem node_6_81 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 81 = (13 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 81 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 81 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (81 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 81 (by decide)
+    _ = (14 : Int) - (1 : Int) :=
+      sub_congr node_7_81 node_7_2
+    _ = (13 : Int) := by decide
+
+theorem node_5_81 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 81 = (12 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 81 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 81 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (81 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 81 (by decide)
+    _ = (13 : Int) - (1 : Int) :=
+      sub_congr node_6_81 node_6_2
+    _ = (12 : Int) := by decide
+
+theorem node_4_3031 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = (443 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (3031 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 (by decide)
+    _ = (455 : Int) - (12 : Int) :=
+      sub_congr node_5_3031 node_5_81
+    _ = (443 : Int) := by decide
+
+theorem node_8_73 : count [19, 17, 13, 11, 7, 5, 3, 2] 73 = (14 : Int) := by
+  decide
+
+theorem node_7_73 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = (13 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = count [19, 17, 13, 11, 7, 5, 3, 2] 73 - count [19, 17, 13, 11, 7, 5, 3, 2] (73 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 73 (by decide)
+    _ = (14 : Int) - (1 : Int) :=
+      sub_congr node_8_73 node_8_3
+    _ = (13 : Int) := by decide
+
+theorem node_6_73 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = (12 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 73 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (73 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 73 (by decide)
+    _ = (13 : Int) - (1 : Int) :=
+      sub_congr node_7_73 node_7_2
+    _ = (12 : Int) := by decide
+
+theorem node_5_73 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = (11 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (73 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 (by decide)
+    _ = (12 : Int) - (1 : Int) :=
+      sub_congr node_6_73 node_6_2
+    _ = (11 : Int) := by decide
+
+theorem node_8_1 : count [19, 17, 13, 11, 7, 5, 3, 2] 1 = (1 : Int) := by
+  decide
+
+theorem node_7_1 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = (1 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = count [19, 17, 13, 11, 7, 5, 3, 2] 1 - count [19, 17, 13, 11, 7, 5, 3, 2] (1 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 1 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_8_1 node_8_0
+    _ = (1 : Int) := by decide
+
+theorem node_6_1 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = (1 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 1 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (1 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 1 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_7_1 node_7_0
+    _ = (1 : Int) := by decide
+
+theorem node_6_0 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 0 = (0 : Int) := by
+  exact count_zero [29, 23, 19, 17, 13, 11, 7, 5, 3, 2]
+
+theorem node_5_1 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = (1 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (1 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_6_1 node_6_0
+    _ = (1 : Int) := by decide
+
+theorem node_4_73 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = (10 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (73 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 73 (by decide)
+    _ = (11 : Int) - (1 : Int) :=
+      sub_congr node_5_73 node_5_1
+    _ = (10 : Int) := by decide
+
+theorem node_3_3031 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = (433 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (3031 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 3031 (by decide)
+    _ = (443 : Int) - (10 : Int) :=
+      sub_congr node_4_3031 node_4_73
+    _ = (433 : Int) := by decide
+
+theorem node_2_130362 : count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (18520 : Int) := by
+  calc
+    count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (130362 / 43) :=
+      count_step 43 [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (18953 : Int) - (433 : Int) :=
+      sub_congr node_3_130362 node_3_3031
+    _ = (18520 : Int) := by decide
+
+theorem node_8_2773 : count [19, 17, 13, 11, 7, 5, 3, 2] 2773 = (472 : Int) := by
+  decide
+
+theorem node_8_120 : count [19, 17, 13, 11, 7, 5, 3, 2] 120 = (23 : Int) := by
+  decide
+
+theorem node_7_2773 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = (449 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = count [19, 17, 13, 11, 7, 5, 3, 2] 2773 - count [19, 17, 13, 11, 7, 5, 3, 2] (2773 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 2773 (by decide)
+    _ = (472 : Int) - (23 : Int) :=
+      sub_congr node_8_2773 node_8_120
+    _ = (449 : Int) := by decide
+
+theorem node_8_95 : count [19, 17, 13, 11, 7, 5, 3, 2] 95 = (17 : Int) := by
+  decide
+
+theorem node_7_95 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 95 = (16 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 95 = count [19, 17, 13, 11, 7, 5, 3, 2] 95 - count [19, 17, 13, 11, 7, 5, 3, 2] (95 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 95 (by decide)
+    _ = (17 : Int) - (1 : Int) :=
+      sub_congr node_8_95 node_8_4
+    _ = (16 : Int) := by decide
+
+theorem node_6_2773 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = (433 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (2773 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 (by decide)
+    _ = (449 : Int) - (16 : Int) :=
+      sub_congr node_7_2773 node_7_95
+    _ = (433 : Int) := by decide
+
+theorem node_8_89 : count [19, 17, 13, 11, 7, 5, 3, 2] 89 = (17 : Int) := by
+  decide
+
+theorem node_7_89 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 89 = (16 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 89 = count [19, 17, 13, 11, 7, 5, 3, 2] 89 - count [19, 17, 13, 11, 7, 5, 3, 2] (89 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 89 (by decide)
+    _ = (17 : Int) - (1 : Int) :=
+      sub_congr node_8_89 node_8_3
+    _ = (16 : Int) := by decide
+
+theorem node_6_89 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 89 = (15 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 89 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 89 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (89 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 89 (by decide)
+    _ = (16 : Int) - (1 : Int) :=
+      sub_congr node_7_89 node_7_3
+    _ = (15 : Int) := by decide
+
+theorem node_5_2773 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = (418 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2773 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 (by decide)
+    _ = (433 : Int) - (15 : Int) :=
+      sub_congr node_6_2773 node_6_89
+    _ = (418 : Int) := by decide
+
+theorem node_8_74 : count [19, 17, 13, 11, 7, 5, 3, 2] 74 = (14 : Int) := by
+  decide
+
+theorem node_7_74 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 74 = (13 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 74 = count [19, 17, 13, 11, 7, 5, 3, 2] 74 - count [19, 17, 13, 11, 7, 5, 3, 2] (74 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 74 (by decide)
+    _ = (14 : Int) - (1 : Int) :=
+      sub_congr node_8_74 node_8_3
+    _ = (13 : Int) := by decide
+
+theorem node_6_74 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 74 = (12 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 74 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 74 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (74 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 74 (by decide)
+    _ = (13 : Int) - (1 : Int) :=
+      sub_congr node_7_74 node_7_2
+    _ = (12 : Int) := by decide
+
+theorem node_5_74 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 74 = (11 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 74 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 74 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (74 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 74 (by decide)
+    _ = (12 : Int) - (1 : Int) :=
+      sub_congr node_6_74 node_6_2
+    _ = (11 : Int) := by decide
+
+theorem node_4_2773 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = (407 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2773 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 (by decide)
+    _ = (418 : Int) - (11 : Int) :=
+      sub_congr node_5_2773 node_5_74
+    _ = (407 : Int) := by decide
+
+theorem node_8_67 : count [19, 17, 13, 11, 7, 5, 3, 2] 67 = (12 : Int) := by
+  decide
+
+theorem node_7_67 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = (11 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = count [19, 17, 13, 11, 7, 5, 3, 2] 67 - count [19, 17, 13, 11, 7, 5, 3, 2] (67 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 67 (by decide)
+    _ = (12 : Int) - (1 : Int) :=
+      sub_congr node_8_67 node_8_2
+    _ = (11 : Int) := by decide
+
+theorem node_6_67 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = (10 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 67 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (67 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 67 (by decide)
+    _ = (11 : Int) - (1 : Int) :=
+      sub_congr node_7_67 node_7_2
+    _ = (10 : Int) := by decide
+
+theorem node_5_67 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = (9 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (67 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 (by decide)
+    _ = (10 : Int) - (1 : Int) :=
+      sub_congr node_6_67 node_6_2
+    _ = (9 : Int) := by decide
+
+theorem node_4_67 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = (8 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (67 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 67 (by decide)
+    _ = (9 : Int) - (1 : Int) :=
+      sub_congr node_5_67 node_5_1
+    _ = (8 : Int) := by decide
+
+theorem node_3_2773 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = (399 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2773 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 (by decide)
+    _ = (407 : Int) - (8 : Int) :=
+      sub_congr node_4_2773 node_4_67
+    _ = (399 : Int) := by decide
+
+theorem node_8_64 : count [19, 17, 13, 11, 7, 5, 3, 2] 64 = (11 : Int) := by
+  decide
+
+theorem node_7_64 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = (10 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = count [19, 17, 13, 11, 7, 5, 3, 2] 64 - count [19, 17, 13, 11, 7, 5, 3, 2] (64 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 64 (by decide)
+    _ = (11 : Int) - (1 : Int) :=
+      sub_congr node_8_64 node_8_2
+    _ = (10 : Int) := by decide
+
+theorem node_6_64 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = (9 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 64 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (64 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 64 (by decide)
+    _ = (10 : Int) - (1 : Int) :=
+      sub_congr node_7_64 node_7_2
+    _ = (9 : Int) := by decide
+
+theorem node_5_64 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = (8 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (64 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 (by decide)
+    _ = (9 : Int) - (1 : Int) :=
+      sub_congr node_6_64 node_6_2
+    _ = (8 : Int) := by decide
+
+theorem node_4_64 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = (7 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (64 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 (by decide)
+    _ = (8 : Int) - (1 : Int) :=
+      sub_congr node_5_64 node_5_1
+    _ = (7 : Int) := by decide
+
+theorem node_5_0 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 0 = (0 : Int) := by
+  exact count_zero [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2]
+
+theorem node_4_1 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = (1 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (1 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_5_1 node_5_0
+    _ = (1 : Int) := by decide
+
+theorem node_3_64 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = (6 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (64 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 64 (by decide)
+    _ = (7 : Int) - (1 : Int) :=
+      sub_congr node_4_64 node_4_1
+    _ = (6 : Int) := by decide
+
+theorem node_2_2773 : count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = (393 : Int) := by
+  calc
+    count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 = count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 - count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2773 / 43) :=
+      count_step 43 [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2773 (by decide)
+    _ = (399 : Int) - (6 : Int) :=
+      sub_congr node_3_2773 node_3_64
+    _ = (393 : Int) := by decide
+
+theorem node_1_130362 : count [47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (18127 : Int) := by
+  calc
+    count [47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (130362 / 47) :=
+      count_step 47 [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (18520 : Int) - (393 : Int) :=
+      sub_congr node_2_130362 node_2_2773
+    _ = (18127 : Int) := by decide
+
+theorem node_8_2459 : count [19, 17, 13, 11, 7, 5, 3, 2] 2459 = (418 : Int) := by
+  decide
+
+theorem node_8_106 : count [19, 17, 13, 11, 7, 5, 3, 2] 106 = (20 : Int) := by
+  decide
+
+theorem node_7_2459 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = (398 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = count [19, 17, 13, 11, 7, 5, 3, 2] 2459 - count [19, 17, 13, 11, 7, 5, 3, 2] (2459 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 2459 (by decide)
+    _ = (418 : Int) - (20 : Int) :=
+      sub_congr node_8_2459 node_8_106
+    _ = (398 : Int) := by decide
+
+theorem node_8_84 : count [19, 17, 13, 11, 7, 5, 3, 2] 84 = (16 : Int) := by
+  decide
+
+theorem node_7_84 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 84 = (15 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 84 = count [19, 17, 13, 11, 7, 5, 3, 2] 84 - count [19, 17, 13, 11, 7, 5, 3, 2] (84 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 84 (by decide)
+    _ = (16 : Int) - (1 : Int) :=
+      sub_congr node_8_84 node_8_3
+    _ = (15 : Int) := by decide
+
+theorem node_6_2459 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = (383 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (2459 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 (by decide)
+    _ = (398 : Int) - (15 : Int) :=
+      sub_congr node_7_2459 node_7_84
+    _ = (383 : Int) := by decide
+
+theorem node_8_79 : count [19, 17, 13, 11, 7, 5, 3, 2] 79 = (15 : Int) := by
+  decide
+
+theorem node_7_79 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 79 = (14 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 79 = count [19, 17, 13, 11, 7, 5, 3, 2] 79 - count [19, 17, 13, 11, 7, 5, 3, 2] (79 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 79 (by decide)
+    _ = (15 : Int) - (1 : Int) :=
+      sub_congr node_8_79 node_8_3
+    _ = (14 : Int) := by decide
+
+theorem node_6_79 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 79 = (13 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 79 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 79 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (79 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 79 (by decide)
+    _ = (14 : Int) - (1 : Int) :=
+      sub_congr node_7_79 node_7_2
+    _ = (13 : Int) := by decide
+
+theorem node_5_2459 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = (370 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2459 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 (by decide)
+    _ = (383 : Int) - (13 : Int) :=
+      sub_congr node_6_2459 node_6_79
+    _ = (370 : Int) := by decide
+
+theorem node_8_66 : count [19, 17, 13, 11, 7, 5, 3, 2] 66 = (11 : Int) := by
+  decide
+
+theorem node_7_66 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 66 = (10 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 66 = count [19, 17, 13, 11, 7, 5, 3, 2] 66 - count [19, 17, 13, 11, 7, 5, 3, 2] (66 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 66 (by decide)
+    _ = (11 : Int) - (1 : Int) :=
+      sub_congr node_8_66 node_8_2
+    _ = (10 : Int) := by decide
+
+theorem node_6_66 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 66 = (9 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 66 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 66 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (66 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 66 (by decide)
+    _ = (10 : Int) - (1 : Int) :=
+      sub_congr node_7_66 node_7_2
+    _ = (9 : Int) := by decide
+
+theorem node_5_66 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 66 = (8 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 66 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 66 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (66 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 66 (by decide)
+    _ = (9 : Int) - (1 : Int) :=
+      sub_congr node_6_66 node_6_2
+    _ = (8 : Int) := by decide
+
+theorem node_4_2459 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = (362 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2459 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 (by decide)
+    _ = (370 : Int) - (8 : Int) :=
+      sub_congr node_5_2459 node_5_66
+    _ = (362 : Int) := by decide
+
+theorem node_8_59 : count [19, 17, 13, 11, 7, 5, 3, 2] 59 = (10 : Int) := by
+  decide
+
+theorem node_7_59 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = (9 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = count [19, 17, 13, 11, 7, 5, 3, 2] 59 - count [19, 17, 13, 11, 7, 5, 3, 2] (59 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 59 (by decide)
+    _ = (10 : Int) - (1 : Int) :=
+      sub_congr node_8_59 node_8_2
+    _ = (9 : Int) := by decide
+
+theorem node_6_59 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = (8 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 59 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (59 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 59 (by decide)
+    _ = (9 : Int) - (1 : Int) :=
+      sub_congr node_7_59 node_7_2
+    _ = (8 : Int) := by decide
+
+theorem node_5_59 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = (7 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (59 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 (by decide)
+    _ = (8 : Int) - (1 : Int) :=
+      sub_congr node_6_59 node_6_1
+    _ = (7 : Int) := by decide
+
+theorem node_4_59 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = (6 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (59 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 59 (by decide)
+    _ = (7 : Int) - (1 : Int) :=
+      sub_congr node_5_59 node_5_1
+    _ = (6 : Int) := by decide
+
+theorem node_3_2459 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = (356 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2459 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 (by decide)
+    _ = (362 : Int) - (6 : Int) :=
+      sub_congr node_4_2459 node_4_59
+    _ = (356 : Int) := by decide
+
+theorem node_8_57 : count [19, 17, 13, 11, 7, 5, 3, 2] 57 = (9 : Int) := by
+  decide
+
+theorem node_7_57 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = (8 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = count [19, 17, 13, 11, 7, 5, 3, 2] 57 - count [19, 17, 13, 11, 7, 5, 3, 2] (57 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 57 (by decide)
+    _ = (9 : Int) - (1 : Int) :=
+      sub_congr node_8_57 node_8_2
+    _ = (8 : Int) := by decide
+
+theorem node_6_57 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = (7 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 57 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (57 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 57 (by decide)
+    _ = (8 : Int) - (1 : Int) :=
+      sub_congr node_7_57 node_7_1
+    _ = (7 : Int) := by decide
+
+theorem node_5_57 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = (6 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (57 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 (by decide)
+    _ = (7 : Int) - (1 : Int) :=
+      sub_congr node_6_57 node_6_1
+    _ = (6 : Int) := by decide
+
+theorem node_4_57 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = (5 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (57 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 (by decide)
+    _ = (6 : Int) - (1 : Int) :=
+      sub_congr node_5_57 node_5_1
+    _ = (5 : Int) := by decide
+
+theorem node_3_57 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = (4 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (57 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 57 (by decide)
+    _ = (5 : Int) - (1 : Int) :=
+      sub_congr node_4_57 node_4_1
+    _ = (4 : Int) := by decide
+
+theorem node_2_2459 : count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = (352 : Int) := by
+  calc
+    count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 - count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2459 / 43) :=
+      count_step 43 [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 (by decide)
+    _ = (356 : Int) - (4 : Int) :=
+      sub_congr node_3_2459 node_3_57
+    _ = (352 : Int) := by decide
+
+theorem node_8_52 : count [19, 17, 13, 11, 7, 5, 3, 2] 52 = (8 : Int) := by
+  decide
+
+theorem node_7_52 : count [23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = (7 : Int) := by
+  calc
+    count [23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = count [19, 17, 13, 11, 7, 5, 3, 2] 52 - count [19, 17, 13, 11, 7, 5, 3, 2] (52 / 23) :=
+      count_step 23 [19, 17, 13, 11, 7, 5, 3, 2] 52 (by decide)
+    _ = (8 : Int) - (1 : Int) :=
+      sub_congr node_8_52 node_8_2
+    _ = (7 : Int) := by decide
+
+theorem node_6_52 : count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = (6 : Int) := by
+  calc
+    count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = count [23, 19, 17, 13, 11, 7, 5, 3, 2] 52 - count [23, 19, 17, 13, 11, 7, 5, 3, 2] (52 / 29) :=
+      count_step 29 [23, 19, 17, 13, 11, 7, 5, 3, 2] 52 (by decide)
+    _ = (7 : Int) - (1 : Int) :=
+      sub_congr node_7_52 node_7_1
+    _ = (6 : Int) := by decide
+
+theorem node_5_52 : count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = (5 : Int) := by
+  calc
+    count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 - count [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (52 / 31) :=
+      count_step 31 [29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 (by decide)
+    _ = (6 : Int) - (1 : Int) :=
+      sub_congr node_6_52 node_6_1
+    _ = (5 : Int) := by decide
+
+theorem node_4_52 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = (4 : Int) := by
+  calc
+    count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 - count [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (52 / 37) :=
+      count_step 37 [31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 (by decide)
+    _ = (5 : Int) - (1 : Int) :=
+      sub_congr node_5_52 node_5_1
+    _ = (4 : Int) := by decide
+
+theorem node_3_52 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = (3 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (52 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 (by decide)
+    _ = (4 : Int) - (1 : Int) :=
+      sub_congr node_4_52 node_4_1
+    _ = (3 : Int) := by decide
+
+theorem node_4_0 : count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 0 = (0 : Int) := by
+  exact count_zero [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2]
+
+theorem node_3_1 : count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = (1 : Int) := by
+  calc
+    count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 = count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 - count [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (1 / 41) :=
+      count_step 41 [37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 1 (by decide)
+    _ = (1 : Int) - (0 : Int) :=
+      sub_congr node_4_1 node_4_0
+    _ = (1 : Int) := by decide
+
+theorem node_2_52 : count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = (2 : Int) := by
+  calc
+    count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 = count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 - count [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (52 / 43) :=
+      count_step 43 [41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 52 (by decide)
+    _ = (3 : Int) - (1 : Int) :=
+      sub_congr node_3_52 node_3_1
+    _ = (2 : Int) := by decide
+
+theorem node_1_2459 : count [47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = (350 : Int) := by
+  calc
+    count [47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 = count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 - count [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (2459 / 47) :=
+      count_step 47 [43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 2459 (by decide)
+    _ = (352 : Int) - (2 : Int) :=
+      sub_congr node_2_2459 node_2_52
+    _ = (350 : Int) := by decide
+
+theorem node_0_130362 : count [53, 47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = (17777 : Int) := by
+  calc
+    count [53, 47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 = count [47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 - count [47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] (130362 / 53) :=
+      count_step 53 [47, 43, 41, 37, 31, 29, 23, 19, 17, 13, 11, 7, 5, 3, 2] 130362 (by decide)
+    _ = (18127 : Int) - (350 : Int) :=
+      sub_congr node_1_130362 node_1_2459
+    _ = (17777 : Int) := by decide
+
+theorem row_113 : count primes 130362 ≤ (17792 : Int) - 15 := by
+  rw [show count primes 130362 = (17777 : Int) from node_0_130362]
+  decide
+
+def pairs : List (Nat × Nat) := [(130362, 17792)]
+theorem pairs_valid : ∀ bt ∈ pairs, count primes bt.1 ≤ (bt.2 : Int) - 15 := by
+  intro bt hbt
+  simp only [pairs, List.mem_cons, List.not_mem_nil, or_false] at hbt
+  rcases hbt with rfl
+  · exact row_113
+end B699ModernPrunedSieve.ModernSingle113
+#check @B699ModernPrunedSieve.ModernSingle113.pairs_valid
+#print axioms B699ModernPrunedSieve.ModernSingle113.pairs_valid

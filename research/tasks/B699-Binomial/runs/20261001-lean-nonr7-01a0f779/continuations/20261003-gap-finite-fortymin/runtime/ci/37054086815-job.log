@@ -1,0 +1,582 @@
++﻿2026-10-02T19:26:12.1253452Z Current runner version: '2.337.0'
+2026-10-02T19:26:12.1278907Z ##[group]Runner Image Provisioner
+2026-10-02T19:26:12.1279869Z Hosted Compute Agent
+2026-10-02T19:26:12.1280517Z Version: 20260901.588
+2026-10-02T19:26:12.1281207Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-02T19:26:12.1281987Z Build Date: 2026-09-01T19:56:44Z
+2026-10-02T19:26:12.1282681Z Worker ID: {a54e5d19-fc2e-4a0e-9443-8a71a15e83d3}
+2026-10-02T19:26:12.1283798Z Azure Region: eastus2
+2026-10-02T19:26:12.1284428Z ##[endgroup]
+2026-10-02T19:26:12.1286459Z ##[group]Operating System
+2026-10-02T19:26:12.1287237Z Ubuntu
+2026-10-02T19:26:12.1287798Z 24.04.5
+2026-10-02T19:26:12.1288378Z LTS
+2026-10-02T19:26:12.1288932Z ##[endgroup]
+2026-10-02T19:26:12.1289477Z ##[group]Runner Image
+2026-10-02T19:26:12.1290145Z Image: ubuntu-24.04
+2026-10-02T19:26:12.1290712Z Version: 20260927.320.1
+2026-10-02T19:26:12.1292041Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-02T19:26:12.1293621Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-02T19:26:12.1294701Z ##[endgroup]
+2026-10-02T19:26:12.1295817Z ##[group]GITHUB_TOKEN Permissions
+2026-10-02T19:26:12.1298291Z Contents: read
+2026-10-02T19:26:12.1298915Z Metadata: read
+2026-10-02T19:26:12.1299541Z ##[endgroup]
+2026-10-02T19:26:12.1301961Z Secret source: Actions
+2026-10-02T19:26:12.1303008Z Cache mode: write
+2026-10-02T19:26:12.1303965Z Prepare workflow directory
+2026-10-02T19:26:12.1684507Z Prepare all required actions
+2026-10-02T19:26:12.1731946Z Getting action download info
+2026-10-02T19:26:12.4225034Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-02T19:26:12.5317152Z Download action repository 'leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596' (SHA:50fcf42d2e460296f1a34b402e990d1b24f8b596)
+2026-10-02T19:26:12.6541955Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-02T19:26:12.8692046Z Getting action download info
+2026-10-02T19:26:12.9759482Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-10-02T19:26:13.1776087Z Complete job name: scoped
+2026-10-02T19:26:13.2472519Z ##[group]Run echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
+2026-10-02T19:26:13.2473903Z [36;1mecho "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"[0m
+2026-10-02T19:26:13.2475493Z [36;1mtest "$(date -u +%s)" -le "$(date -u -d '2026-10-02 19:26:45 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }[0m
+2026-10-02T19:26:13.2776808Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T19:26:13.2778080Z env:
+2026-10-02T19:26:13.2779636Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:26:13.2781405Z ##[endgroup]
+2026-10-02T19:26:13.3300816Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-10-02T19:26:13.3301877Z with:
+2026-10-02T19:26:13.3302415Z   repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T19:26:13.3310323Z   token: ***
+2026-10-02T19:26:13.3310842Z   ssh-strict: true
+2026-10-02T19:26:13.3311348Z   ssh-user: git
+2026-10-02T19:26:13.3311877Z   persist-credentials: true
+2026-10-02T19:26:13.3312488Z   clean: true
+2026-10-02T19:26:13.3313023Z   sparse-checkout-cone-mode: true
+2026-10-02T19:26:13.3313686Z   fetch-depth: 1
+2026-10-02T19:26:13.3314188Z   fetch-tags: false
+2026-10-02T19:26:13.3314707Z   show-progress: true
+2026-10-02T19:26:13.3315231Z   lfs: false
+2026-10-02T19:26:13.3315730Z   submodules: false
+2026-10-02T19:26:13.3316614Z   set-safe-directory: true
+2026-10-02T19:26:13.3317268Z   allow-unsafe-pr-checkout: false
+2026-10-02T19:26:13.3317910Z env:
+2026-10-02T19:26:13.3319429Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:26:13.3321415Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:26:13.3322052Z ##[endgroup]
+2026-10-02T19:26:13.4259290Z Syncing repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T19:26:13.4262927Z ##[group]Getting Git version info
+2026-10-02T19:26:13.4264727Z Working directory is '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T19:26:13.4267499Z [command]/usr/bin/git version
+2026-10-02T19:26:13.4354611Z git version 2.55.0
+2026-10-02T19:26:13.4429392Z ##[endgroup]
+2026-10-02T19:26:13.4438259Z Temporarily overriding HOME='/home/runner/work/_temp/c26350a8-f22e-4e84-aae7-dc692617ee4f' before making global git config changes
+2026-10-02T19:26:13.4442372Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T19:26:13.4445810Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T19:26:13.4455840Z Deleting the contents of '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T19:26:13.4465396Z ##[group]Determining repository object format
+2026-10-02T19:26:13.4469272Z ##[endgroup]
+2026-10-02T19:26:13.4470880Z ##[group]Initializing the repository
+2026-10-02T19:26:13.4472715Z [command]/usr/bin/git init /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T19:26:13.4612057Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-02T19:26:13.4614273Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-02T19:26:13.4616994Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-02T19:26:13.4618466Z hint: call:
+2026-10-02T19:26:13.4618933Z hint:
+2026-10-02T19:26:13.4619586Z hint: 	git config --global init.defaultBranch <name>
+2026-10-02T19:26:13.4620421Z hint:
+2026-10-02T19:26:13.4621171Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-02T19:26:13.4622822Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-02T19:26:13.4623909Z hint:
+2026-10-02T19:26:13.4624395Z hint: 	git branch -m <name>
+2026-10-02T19:26:13.4624986Z hint:
+2026-10-02T19:26:13.4625837Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-02T19:26:13.4628481Z Initialized empty Git repository in /home/runner/work/lean-math-lab/lean-math-lab/.git/
+2026-10-02T19:26:13.4633098Z [command]/usr/bin/git remote add origin https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T19:26:13.4691772Z ##[endgroup]
+2026-10-02T19:26:13.4693201Z ##[group]Disabling automatic garbage collection
+2026-10-02T19:26:13.4696060Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-02T19:26:13.4731351Z ##[endgroup]
+2026-10-02T19:26:13.4732919Z ##[group]Setting up auth
+2026-10-02T19:26:13.4733601Z Removing SSH command configuration
+2026-10-02T19:26:13.4737007Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T19:26:13.4773285Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T19:26:13.5186526Z Removing HTTP extra header
+2026-10-02T19:26:13.5192209Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T19:26:13.5231236Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T19:26:13.5447812Z Removing includeIf entries pointing to credentials config files
+2026-10-02T19:26:13.5453187Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T19:26:13.5491022Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T19:26:13.5718150Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-02T19:26:13.5758788Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path /home/runner/work/_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:26:13.5795282Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:26:13.5840137Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:26:13.5880676Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:26:13.5915006Z ##[endgroup]
+2026-10-02T19:26:13.5917696Z ##[group]Fetching the repository
+2026-10-02T19:26:13.5923765Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c5b69cd1266779b9cde0c6260fd5e54b9a940740:refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T19:26:30.9511314Z From https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T19:26:30.9512398Z  * [new ref]             c5b69cd1266779b9cde0c6260fd5e54b9a940740 -> origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T19:26:30.9521206Z [command]/usr/bin/git branch --list --remote origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T19:26:30.9552468Z   origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T19:26:30.9560703Z [command]/usr/bin/git rev-parse refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T19:26:30.9587324Z c5b69cd1266779b9cde0c6260fd5e54b9a940740
+2026-10-02T19:26:30.9591331Z ##[endgroup]
+2026-10-02T19:26:30.9591948Z ##[group]Determining the checkout info
+2026-10-02T19:26:30.9592899Z ##[endgroup]
+2026-10-02T19:26:30.9596392Z [command]/usr/bin/git sparse-checkout disable
+2026-10-02T19:26:30.9654720Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-02T19:26:30.9689371Z ##[group]Checking out the ref
+2026-10-02T19:26:30.9694128Z [command]/usr/bin/git checkout --progress --force -B huan/b699-lean-next-20261002-01a0f779 refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T19:26:32.1702925Z Updating files:   4% (3657/90513)
+2026-10-02T19:26:32.2256018Z Updating files:   5% (4526/90513)
+2026-10-02T19:26:32.3009273Z Updating files:   6% (5431/90513)
+2026-10-02T19:26:32.4484078Z Updating files:   7% (6336/90513)
+2026-10-02T19:26:32.5031828Z Updating files:   8% (7242/90513)
+2026-10-02T19:26:32.5727242Z Updating files:   9% (8147/90513)
+2026-10-02T19:26:32.6347976Z Updating files:  10% (9052/90513)
+2026-10-02T19:26:32.7317993Z Updating files:  11% (9957/90513)
+2026-10-02T19:26:32.7876726Z Updating files:  12% (10862/90513)
+2026-10-02T19:26:32.8373591Z Updating files:  13% (11767/90513)
+2026-10-02T19:26:32.8983005Z Updating files:  14% (12672/90513)
+2026-10-02T19:26:32.9846515Z Updating files:  15% (13577/90513)
+2026-10-02T19:26:33.0445552Z Updating files:  16% (14483/90513)
+2026-10-02T19:26:33.0607332Z Updating files:  17% (15388/90513)
+2026-10-02T19:26:33.1369722Z Updating files:  17% (15588/90513)
+2026-10-02T19:26:33.1840439Z Updating files:  18% (16293/90513)
+2026-10-02T19:26:33.2326611Z Updating files:  19% (17198/90513)
+2026-10-02T19:26:33.2692541Z Updating files:  20% (18103/90513)
+2026-10-02T19:26:33.3096738Z Updating files:  21% (19008/90513)
+2026-10-02T19:26:33.3566952Z Updating files:  22% (19913/90513)
+2026-10-02T19:26:33.3917313Z Updating files:  23% (20818/90513)
+2026-10-02T19:26:33.4345663Z Updating files:  24% (21724/90513)
+2026-10-02T19:26:33.4724148Z Updating files:  25% (22629/90513)
+2026-10-02T19:26:33.5076651Z Updating files:  26% (23534/90513)
+2026-10-02T19:26:33.5421253Z Updating files:  27% (24439/90513)
+2026-10-02T19:26:33.5789716Z Updating files:  28% (25344/90513)
+2026-10-02T19:26:33.6178426Z Updating files:  29% (26249/90513)
+2026-10-02T19:26:33.6569072Z Updating files:  30% (27154/90513)
+2026-10-02T19:26:33.6926409Z Updating files:  31% (28060/90513)
+2026-10-02T19:26:33.7322299Z Updating files:  32% (28965/90513)
+2026-10-02T19:26:33.7731970Z Updating files:  33% (29870/90513)
+2026-10-02T19:26:33.8140902Z Updating files:  34% (30775/90513)
+2026-10-02T19:26:33.8544201Z Updating files:  35% (31680/90513)
+2026-10-02T19:26:33.8926350Z Updating files:  36% (32585/90513)
+2026-10-02T19:26:33.9312368Z Updating files:  37% (33490/90513)
+2026-10-02T19:26:33.9721150Z Updating files:  38% (34395/90513)
+2026-10-02T19:26:34.0113366Z Updating files:  39% (35301/90513)
+2026-10-02T19:26:34.0513767Z Updating files:  40% (36206/90513)
+2026-10-02T19:26:34.0607303Z Updating files:  41% (37111/90513)
+2026-10-02T19:26:34.0938702Z Updating files:  41% (37329/90513)
+2026-10-02T19:26:34.1787765Z Updating files:  42% (38016/90513)
+2026-10-02T19:26:34.2652780Z Updating files:  43% (38921/90513)
+2026-10-02T19:26:34.2972885Z Updating files:  44% (39826/90513)
+2026-10-02T19:26:34.3413637Z Updating files:  45% (40731/90513)
+2026-10-02T19:26:34.3941264Z Updating files:  46% (41636/90513)
+2026-10-02T19:26:34.4256690Z Updating files:  47% (42542/90513)
+2026-10-02T19:26:34.4756790Z Updating files:  48% (43447/90513)
+2026-10-02T19:26:34.5156188Z Updating files:  49% (44352/90513)
+2026-10-02T19:26:34.5583469Z Updating files:  50% (45257/90513)
+2026-10-02T19:26:34.5998295Z Updating files:  51% (46162/90513)
+2026-10-02T19:26:34.6395918Z Updating files:  52% (47067/90513)
+2026-10-02T19:26:34.6746436Z Updating files:  53% (47972/90513)
+2026-10-02T19:26:34.7096794Z Updating files:  54% (48878/90513)
+2026-10-02T19:26:34.8364858Z Updating files:  55% (49783/90513)
+2026-10-02T19:26:34.8704067Z Updating files:  56% (50688/90513)
+2026-10-02T19:26:34.9077885Z Updating files:  57% (51593/90513)
+2026-10-02T19:26:34.9467612Z Updating files:  58% (52498/90513)
+2026-10-02T19:26:34.9823556Z Updating files:  59% (53403/90513)
+2026-10-02T19:26:35.0175625Z Updating files:  60% (54308/90513)
+2026-10-02T19:26:35.0540071Z Updating files:  61% (55213/90513)
+2026-10-02T19:26:35.0606746Z Updating files:  62% (56119/90513)
+2026-10-02T19:26:35.0913341Z Updating files:  62% (56298/90513)
+2026-10-02T19:26:35.1366136Z Updating files:  63% (57024/90513)
+2026-10-02T19:26:35.1818309Z Updating files:  64% (57929/90513)
+2026-10-02T19:26:35.2236463Z Updating files:  65% (58834/90513)
+2026-10-02T19:26:35.2923324Z Updating files:  66% (59739/90513)
+2026-10-02T19:26:35.3406388Z Updating files:  67% (60644/90513)
+2026-10-02T19:26:35.4875923Z Updating files:  68% (61549/90513)
+2026-10-02T19:26:35.5425542Z Updating files:  69% (62454/90513)
+2026-10-02T19:26:35.6004295Z Updating files:  70% (63360/90513)
+2026-10-02T19:26:35.6679988Z Updating files:  71% (64265/90513)
+2026-10-02T19:26:35.7304512Z Updating files:  72% (65170/90513)
+2026-10-02T19:26:35.7832467Z Updating files:  73% (66075/90513)
+2026-10-02T19:26:35.8876087Z Updating files:  74% (66980/90513)
+2026-10-02T19:26:35.9700301Z Updating files:  75% (67885/90513)
+2026-10-02T19:26:36.0654730Z Updating files:  76% (68790/90513)
+2026-10-02T19:26:36.5163060Z Updating files:  76% (69130/90513)
+2026-10-02T19:26:36.6127823Z Updating files:  77% (69696/90513)
+2026-10-02T19:26:36.7486877Z Updating files:  78% (70601/90513)
+2026-10-02T19:26:36.8229901Z Updating files:  79% (71506/90513)
+2026-10-02T19:26:37.0006561Z Updating files:  80% (72411/90513)
+2026-10-02T19:26:37.0613486Z Updating files:  81% (73316/90513)
+2026-10-02T19:26:37.6313240Z Updating files:  81% (73758/90513)
+2026-10-02T19:26:37.6996837Z Updating files:  82% (74221/90513)
+2026-10-02T19:26:37.8118934Z Updating files:  83% (75126/90513)
+2026-10-02T19:26:37.8721763Z Updating files:  84% (76031/90513)
+2026-10-02T19:26:37.9625235Z Updating files:  85% (76937/90513)
+2026-10-02T19:26:38.0608811Z Updating files:  86% (77842/90513)
+2026-10-02T19:26:38.1982598Z Updating files:  86% (78224/90513)
+2026-10-02T19:26:38.4239084Z Updating files:  87% (78747/90513)
+2026-10-02T19:26:38.6086828Z Updating files:  88% (79652/90513)
+2026-10-02T19:26:38.8226610Z Updating files:  89% (80557/90513)
+2026-10-02T19:26:39.0861506Z Updating files:  90% (81462/90513)
+2026-10-02T19:26:39.1541764Z Updating files:  90% (81995/90513)
+2026-10-02T19:26:39.4748958Z Updating files:  91% (82367/90513)
+2026-10-02T19:26:39.7848492Z Updating files:  92% (83272/90513)
+2026-10-02T19:26:40.0305206Z Updating files:  93% (84178/90513)
+2026-10-02T19:26:40.0608182Z Updating files:  94% (85083/90513)
+2026-10-02T19:26:40.2113773Z Updating files:  94% (85357/90513)
+2026-10-02T19:26:40.2760575Z Updating files:  95% (85988/90513)
+2026-10-02T19:26:40.3238090Z Updating files:  96% (86893/90513)
+2026-10-02T19:26:40.3871704Z Updating files:  97% (87798/90513)
+2026-10-02T19:26:40.4395424Z Updating files:  98% (88703/90513)
+2026-10-02T19:26:40.4841392Z Updating files:  99% (89608/90513)
+2026-10-02T19:26:40.4841999Z Updating files: 100% (90513/90513)
+2026-10-02T19:26:40.4842663Z Updating files: 100% (90513/90513), done.
+2026-10-02T19:26:40.5959415Z Switched to a new branch 'huan/b699-lean-next-20261002-01a0f779'
+2026-10-02T19:26:40.5961498Z branch 'huan/b699-lean-next-20261002-01a0f779' set up to track 'origin/huan/b699-lean-next-20261002-01a0f779'.
+2026-10-02T19:26:40.6085906Z ##[endgroup]
+2026-10-02T19:26:40.6136870Z [command]/usr/bin/git log -1 --format=%H
+2026-10-02T19:26:40.6167666Z c5b69cd1266779b9cde0c6260fd5e54b9a940740
+2026-10-02T19:26:40.6303801Z ##[group]Run python3 "$B699_RUNTIME/transfer-stage.py" preflight
+2026-10-02T19:26:40.6304287Z [36;1mpython3 "$B699_RUNTIME/transfer-stage.py" preflight[0m
+2026-10-02T19:26:40.6369037Z shell: /usr/bin/bash -e {0}
+2026-10-02T19:26:40.6369293Z env:
+2026-10-02T19:26:40.6369842Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:26:40.6370472Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:26:40.6370723Z ##[endgroup]
+2026-10-02T19:26:40.7804191Z ##[group]Run leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+2026-10-02T19:26:40.7804620Z with:
+2026-10-02T19:26:40.7804818Z   auto-config: false
+2026-10-02T19:26:40.7805030Z   build: false
+2026-10-02T19:26:40.7805226Z   test: false
+2026-10-02T19:26:40.7805409Z   lint: false
+2026-10-02T19:26:40.7805610Z   use-mathlib-cache: false
+2026-10-02T19:26:40.7805854Z   use-github-cache: false
+2026-10-02T19:26:40.7806086Z   mk_all-check: false
+2026-10-02T19:26:40.7806600Z   check-reservoir-eligibility: false
+2026-10-02T19:26:40.7806880Z   leanchecker: false
+2026-10-02T19:26:40.7807098Z   lean4checker: false
+2026-10-02T19:26:40.7807314Z   nanoda: false
+2026-10-02T19:26:40.7807525Z   nanoda-allow-sorry: true
+2026-10-02T19:26:40.7807759Z   axiom-audit: false
+2026-10-02T19:26:40.7808043Z   axiom-audit-allow: propext,Classical.choice,Quot.sound
+2026-10-02T19:26:40.7808392Z   lake-package-directory: .
+2026-10-02T19:26:40.7808660Z   reinstall-transient-toolchain: false
+2026-10-02T19:26:40.7808989Z env:
+2026-10-02T19:26:40.7809523Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:26:40.7810135Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:26:40.7810386Z ##[endgroup]
+2026-10-02T19:26:40.7897039Z ##[start-action display=install elan;id=__leanprover_lean-action.__run]
+2026-10-02T19:26:40.7972558Z ##[group]Run : Install Elan
+2026-10-02T19:26:40.7972819Z [36;1m: Install Elan[0m
+2026-10-02T19:26:40.7973109Z [36;1m${GITHUB_ACTION_PATH}/scripts/install_elan.sh[0m
+2026-10-02T19:26:40.8037452Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T19:26:40.8037793Z env:
+2026-10-02T19:26:40.8038344Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:26:40.8038986Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:26:40.8039237Z ##[endgroup]
+2026-10-02T19:26:40.8149001Z ##[group]Elan Installation Output
+2026-10-02T19:26:40.9031643Z info: downloading installer
+2026-10-02T19:26:41.6150507Z info: downloading https://releases.lean-lang.org/lean4/v4.33.1/lean-4.33.1-linux.tar.zst
+2026-10-02T19:26:45.1854804Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.33.1
+2026-10-02T19:26:51.8241243Z Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+2026-10-02T19:26:51.8696960Z Lake version 5.0.0-src+819816b (Lean version 4.33.1)
+2026-10-02T19:26:51.8745204Z ##[endgroup]
+2026-10-02T19:26:51.8745472Z 
+2026-10-02T19:26:51.8771126Z ##[end-action id=__leanprover_lean-action.__run;outcome=success;conclusion=success;duration_ms=11087]
+2026-10-02T19:26:51.8775392Z ##[start-action display=configure `lean-action`;id=__leanprover_lean-action.config]
+2026-10-02T19:26:51.8793471Z ##[group]Run : Configure Lean Action
+2026-10-02T19:26:51.8793782Z [36;1m: Configure Lean Action[0m
+2026-10-02T19:26:51.8794085Z [36;1m${GITHUB_ACTION_PATH}/scripts/config.sh[0m
+2026-10-02T19:26:51.8859741Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T19:26:51.8860087Z env:
+2026-10-02T19:26:51.8860636Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:26:51.8861260Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:26:51.8861512Z   AUTO_CONFIG: false
+2026-10-02T19:26:51.8861722Z   BUILD: false
+2026-10-02T19:26:51.8861914Z   TEST: false
+2026-10-02T19:26:51.8862101Z   LINT: false
+2026-10-02T19:26:51.8862290Z ##[endgroup]
+2026-10-02T19:26:51.9314493Z ##[group]Configure lean-action
+2026-10-02T19:26:51.9364696Z ##[end-action id=__leanprover_lean-action.config;outcome=success;conclusion=success;duration_ms=58]
+2026-10-02T19:26:51.9369935Z ##[start-action display=reinstall transient toolchain;id=__leanprover_lean-action.__run_2]
+2026-10-02T19:26:51.9387808Z ##[end-action id=__leanprover_lean-action.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9390532Z ##[start-action display=ensure all files are imported;id=__leanprover_lean-action.mk_all]
+2026-10-02T19:26:51.9394110Z ##[end-action id=__leanprover_lean-action.mk_all;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9396650Z ##[start-action display=Run actions/cache/restore@v5;id=__leanprover_lean-action.__actions_cache]
+2026-10-02T19:26:51.9400110Z ##[end-action id=__leanprover_lean-action.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9401948Z ##[start-action display=detect mathlib;id=__leanprover_lean-action.detect-mathlib]
+2026-10-02T19:26:51.9405917Z ##[end-action id=__leanprover_lean-action.detect-mathlib;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9408141Z ##[start-action display=get mathlib cache;id=__leanprover_lean-action.__run_3]
+2026-10-02T19:26:51.9428675Z ##[end-action id=__leanprover_lean-action.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9454320Z ##[start-action display=build HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.build]
+2026-10-02T19:26:51.9458989Z ##[end-action id=__leanprover_lean-action.build;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9460913Z ##[start-action display=Run actions/cache/save@v5;id=__leanprover_lean-action.__actions_cache_2]
+2026-10-02T19:26:51.9464371Z ##[end-action id=__leanprover_lean-action.__actions_cache_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9468115Z ##[start-action display=test HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.test]
+2026-10-02T19:26:51.9472300Z ##[end-action id=__leanprover_lean-action.test;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9475017Z ##[start-action display=lint HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.lint]
+2026-10-02T19:26:51.9479550Z ##[end-action id=__leanprover_lean-action.lint;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9481655Z ##[start-action display=check reservoir eligibility;id=__leanprover_lean-action.__run_4]
+2026-10-02T19:26:51.9484994Z ##[end-action id=__leanprover_lean-action.__run_4;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9487913Z ##[start-action display=check environment with leanchecker;id=__leanprover_lean-action.__run_5]
+2026-10-02T19:26:51.9492432Z ##[end-action id=__leanprover_lean-action.__run_5;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9494692Z ##[start-action display=check environment with nanoda;id=__leanprover_lean-action.nanoda]
+2026-10-02T19:26:51.9498111Z ##[end-action id=__leanprover_lean-action.nanoda;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9500488Z ##[start-action display=audit axioms with axiom-audit;id=__leanprover_lean-action.axiom-audit]
+2026-10-02T19:26:51.9503954Z ##[end-action id=__leanprover_lean-action.axiom-audit;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T19:26:51.9554298Z ##[group]Run python3 "$B699_RUNTIME/transfer-stage.py" generic
+2026-10-02T19:26:51.9554783Z [36;1mpython3 "$B699_RUNTIME/transfer-stage.py" generic[0m
+2026-10-02T19:26:51.9610268Z shell: /usr/bin/bash -e {0}
+2026-10-02T19:26:51.9610518Z env:
+2026-10-02T19:26:51.9611058Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:26:51.9611692Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:26:51.9611945Z ##[endgroup]
+2026-10-02T19:26:52.4371928Z {"label": "toolchain-prefix", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:26:52.6269761Z {"label": "toolchain-version", "status": "success", "exitCode": 0, "peakMiB": 39.98}
+2026-10-02T19:28:19.0325423Z {"label": "focused-cache", "status": "success", "exitCode": 0, "peakMiB": 1752.15}
+2026-10-02T19:28:19.0395254Z {"label": "pin-mathlib", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0461030Z {"label": "pin-plausible", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0525801Z {"label": "pin-LeanSearchClient", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0590497Z {"label": "pin-importGraph", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0654304Z {"label": "pin-proofwidgets", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0718387Z {"label": "pin-aesop", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0782704Z {"label": "pin-Qq", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0848378Z {"label": "pin-batteries", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0913063Z {"label": "pin-Cli", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:19.0979617Z {"label": "normnum-prime-canonical-git-blob", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:20.1175855Z {"label": "lean-path-1790969299098422044", "status": "success", "exitCode": 0, "peakMiB": 821.21}
+2026-10-02T19:28:21.2989166Z {"label": "generic-CompositeCore", "status": "success", "exitCode": 0, "peakMiB": 1489.47}
+2026-10-02T19:28:21.3040625Z TRANSFER_RECEIPT {"utc": "2026-10-02T19:28:20.121788+00:00", "startUtc": "2026-10-02T19:28:20.121799+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "-j1", "-M3132", "-DElab.async=false", "-R", "/home/runner/work/lean-math-lab/lean-math-lab", "-o", "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/lean/CompositeCore.olean", "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/lean/CompositeCore.lean"], "pid": 2814, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T19:28:20.119732+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "9157574656", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "11716722688", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15288860672, "effectiveAvailableBytes": 15288860672, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 84119093248}, "hardDeadlineUtc": "2026-10-02T19:30:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 1561821184, "minimumAvailableBytes": 15234457600, "startupMemoryMiB": 3072, "treeMemoryMiB": 3072, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550", "status": "success", "exitCode": 0, "stopReason": null, "endUtc": "2026-10-02T19:28:21.298062+00:00", "wallSeconds": 1.1782948970794678, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/generic-CompositeCore/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/generic-CompositeCore/stderr.log", "stdoutSha256": "1ba8baab090b2dc9f95d7ad8b9a31d6c49c87e9f42a4a25453e7cea2a983c3fa", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "mode": "Lean", "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/lean/CompositeCore.lean", "sourceSha256": "cee177d0bcb9a0b51ab72afc5fd47f00a67c3c1995844154e5e041e304f7fd40", "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/generic-CompositeCore/source.lean", "sourceUnchanged": true, "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/lean/CompositeCore.olean", "objectSha256": "41b5e8741bc5e76eb6acdcbabcfd4234bf38af3ecf4d4fa4904a37c1cdc84a03", "objectParts": [{"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/lean/CompositeCore.olean", "bytes": 61968, "sha256": "41b5e8741bc5e76eb6acdcbabcfd4234bf38af3ecf4d4fa4904a37c1cdc84a03"}]}
+2026-10-02T19:28:21.3073271Z generic stdout first2048bytes theorem B699CompositeCore20261003.common_succ_of_nonprime : ∀ {n i j : ℕ},
+2026-10-02T19:28:21.3074273Z   ¬Nat.Prime i →
+2026-10-02T19:28:21.3074715Z     ¬Nat.Prime (i + 1) →
+2026-10-02T19:28:21.3075386Z       (∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) →
+2026-10-02T19:28:21.3077026Z         ∃ p, Nat.Prime p ∧ i + 1 ≤ p ∧ p ∣ n.choose (i + 1) ∧ p ∣ n.choose j :=
+2026-10-02T19:28:21.3077719Z fun {n i j} hi his hcommon =>
+2026-10-02T19:28:21.3078188Z   Exists.casesOn hcommon fun p h =>
+2026-10-02T19:28:21.3078838Z     And.casesOn h fun hp right =>
+2026-10-02T19:28:21.3079323Z       And.casesOn right fun hpi right =>
+2026-10-02T19:28:21.3079857Z         And.casesOn right fun hdiv hdivj =>
+2026-10-02T19:28:21.3101588Z           have hne := fun heq => hi (Eq.mp (congrArg Nat.Prime heq) hp);
+2026-10-02T19:28:21.3102188Z           have hpis :=
+2026-10-02T19:28:21.3103404Z             Decidable.byContradiction fun a => B699CompositeCore20261003.common_succ_of_nonprime._proof_1 p hpi hne a;
+2026-10-02T19:28:21.3104432Z           have hndiv := fun hd =>
+2026-10-02T19:28:21.3104954Z             have hle := Nat.le_of_dvd (Nat.succ_pos i) hd;
+2026-10-02T19:28:21.3105493Z             have heq :=
+2026-10-02T19:28:21.3105942Z               Decidable.byContradiction fun a =>
+2026-10-02T19:28:21.3106931Z                 B699CompositeCore20261003.common_succ_of_nonprime._proof_2 p hpis hle a;
+2026-10-02T19:28:21.3107766Z             his (Eq.mp (congrArg Nat.Prime heq) hp);
+2026-10-02T19:28:21.3108297Z           have hprod :=
+2026-10-02T19:28:21.3109310Z             Eq.mpr (id (congrArg (fun _a => p ∣ _a) (Nat.choose_succ_right_eq n i))) (dvd_mul_of_dvd_left hdiv (n - i));
+2026-10-02T19:28:21.3110358Z           have hnew := Or.resolve_right (Nat.Prime.dvd_or_dvd hp hprod) hndiv;
+2026-10-02T19:28:21.3111554Z           Exists.intro p ⟨hp, ⟨hpis, ⟨hnew, hdivj⟩⟩⟩
+2026-10-02T19:28:21.3112605Z 'B699CompositeCore20261003.common_succ_of_nonprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T19:28:21.3113414Z 
+2026-10-02T19:28:21.3113579Z generic stderr first2048bytes 
+2026-10-02T19:28:24.3095904Z {"label": "generic-normal-checker", "status": "success", "exitCode": 0, "peakMiB": 1227.04}
+2026-10-02T19:28:24.3109958Z TRANSFER_RECEIPT {"utc": "2026-10-02T19:28:21.303966+00:00", "startUtc": "2026-10-02T19:28:21.303981+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker", "-v", "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20261001-lean-nonr7-01a0f779\u00bb.continuations.\u00ab20261003-gap-finite-fortymin\u00bb.lean.CompositeCore"], "pid": 2820, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T19:28:21.301760+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "9164095488", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "11723243520", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15375249408, "effectiveAvailableBytes": 15375249408, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 84119011328}, "hardDeadlineUtc": "2026-10-02T19:30:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 1286643712, "minimumAvailableBytes": 15305097216, "startupMemoryMiB": 3072, "treeMemoryMiB": 3072, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker", "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0", "status": "success", "exitCode": 0, "stopReason": null, "endUtc": "2026-10-02T19:28:24.308811+00:00", "wallSeconds": 3.00696063041687, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/generic-normal-checker/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/generic-normal-checker/stderr.log", "stdoutSha256": "fd161356a640fd7b02116463e3554d4909deadd05126d2d0adb8c21a59936bec", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+2026-10-02T19:28:24.3122556Z generic-checker stdout first2048bytes replaying research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261003-gap-finite-fortymin».lean.CompositeCore
+2026-10-02T19:28:24.3123305Z 
+2026-10-02T19:28:24.3123421Z generic-checker stderr first2048bytes 
+2026-10-02T19:28:24.3124011Z GENERIC_ACTUAL_TYPE_RAW theorem B699CompositeCore20261003.common_succ_of_nonprime : ∀ {n i j : ℕ},
+2026-10-02T19:28:24.3124522Z   ¬Nat.Prime i →
+2026-10-02T19:28:24.3124772Z     ¬Nat.Prime (i + 1) →
+2026-10-02T19:28:24.3125140Z       (∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) →
+2026-10-02T19:28:24.3125632Z         ∃ p, Nat.Prime p ∧ i + 1 ≤ p ∧ p ∣ n.choose (i + 1) ∧ p ∣ n.choose j :=
+2026-10-02T19:28:24.3126000Z fun {n i j} hi his hcommon =>
+2026-10-02T19:28:24.3126392Z   Exists.casesOn hcommon fun p h =>
+2026-10-02T19:28:24.3126664Z     And.casesOn h fun hp right =>
+2026-10-02T19:28:24.3126937Z       And.casesOn right fun hpi right =>
+2026-10-02T19:28:24.3127225Z         And.casesOn right fun hdiv hdivj =>
+2026-10-02T19:28:24.3127573Z           have hne := fun heq => hi (Eq.mp (congrArg Nat.Prime heq) hp);
+2026-10-02T19:28:24.3127918Z           have hpis :=
+2026-10-02T19:28:24.3128390Z             Decidable.byContradiction fun a => B699CompositeCore20261003.common_succ_of_nonprime._proof_1 p hpi hne a;
+2026-10-02T19:28:24.3128916Z           have hndiv := fun hd =>
+2026-10-02T19:28:24.3129214Z             have hle := Nat.le_of_dvd (Nat.succ_pos i) hd;
+2026-10-02T19:28:24.3129524Z             have heq :=
+2026-10-02T19:28:24.3129767Z               Decidable.byContradiction fun a =>
+2026-10-02T19:28:24.3130195Z                 B699CompositeCore20261003.common_succ_of_nonprime._proof_2 p hpis hle a;
+2026-10-02T19:28:24.3130642Z             his (Eq.mp (congrArg Nat.Prime heq) hp);
+2026-10-02T19:28:24.3130933Z           have hprod :=
+2026-10-02T19:28:24.3131449Z             Eq.mpr (id (congrArg (fun _a => p ∣ _a) (Nat.choose_succ_right_eq n i))) (dvd_mul_of_dvd_left hdiv (n - i));
+2026-10-02T19:28:24.3132021Z           have hnew := Or.resolve_right (Nat.Prime.dvd_or_dvd hp hprod) hndiv;
+2026-10-02T19:28:24.3132471Z           Exists.intro p ⟨hp, ⟨hpis, ⟨hnew, hdivj⟩⟩⟩
+2026-10-02T19:28:24.3133012Z 'B699CompositeCore20261003.common_succ_of_nonprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T19:28:24.3133444Z 
+2026-10-02T19:28:24.3341763Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-02T19:28:24.3342392Z with:
+2026-10-02T19:28:24.3342766Z   name: b699-composite-generic-c5b69cd1266779b9cde0c6260fd5e54b9a940740-37054086815
+2026-10-02T19:28:24.3343456Z   path: .tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/
+2026-10-02T19:28:24.3343968Z   if-no-files-found: warn
+2026-10-02T19:28:24.3344201Z   retention-days: 30
+2026-10-02T19:28:24.3344419Z   compression-level: 6
+2026-10-02T19:28:24.3344634Z   overwrite: false
+2026-10-02T19:28:24.3344847Z   include-hidden-files: false
+2026-10-02T19:28:24.3345079Z env:
+2026-10-02T19:28:24.3345599Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:28:24.3346507Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:28:24.3346762Z ##[endgroup]
+2026-10-02T19:28:24.4977703Z (node:2830) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-02T19:28:24.4979015Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-02T19:28:24.5257387Z With the provided path, there will be 55 files uploaded
+2026-10-02T19:28:24.5263875Z Artifact name is valid!
+2026-10-02T19:28:24.5264770Z Root directory input is valid!
+2026-10-02T19:28:24.7534690Z Beginning upload of artifact content to blob storage
+2026-10-02T19:28:24.8219942Z (node:2830) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-02T19:28:24.8657368Z Uploaded bytes 54290
+2026-10-02T19:28:24.8784315Z Finished uploading artifact content to blob storage!
+2026-10-02T19:28:24.8785643Z SHA256 digest of uploaded artifact zip is f6034bf75ea698e9514e65ffdb3ddb12bbc7751044e68e6fd7a736cb9ec99e89
+2026-10-02T19:28:24.8787859Z Finalizing artifact upload
+2026-10-02T19:28:25.1512961Z Artifact b699-composite-generic-c5b69cd1266779b9cde0c6260fd5e54b9a940740-37054086815.zip successfully finalized. Artifact ID 11247124898
+2026-10-02T19:28:25.1514418Z Artifact b699-composite-generic-c5b69cd1266779b9cde0c6260fd5e54b9a940740-37054086815 has been successfully uploaded! Final size is 54290 bytes. Artifact ID is 11247124898
+2026-10-02T19:28:25.1519783Z Artifact download URL: https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37054086815/artifacts/11247124898
+2026-10-02T19:28:25.1652810Z ##[group]Run python3 "$B699_RUNTIME/transfer-stage.py"
+2026-10-02T19:28:25.1653570Z [36;1mpython3 "$B699_RUNTIME/transfer-stage.py"[0m
+2026-10-02T19:28:25.1720083Z shell: /usr/bin/bash -e {0}
+2026-10-02T19:28:25.1720340Z env:
+2026-10-02T19:28:25.1720902Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:28:25.1721550Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:28:25.1724136Z   B699_ARTIFACT_TOKEN: ***
+2026-10-02T19:28:25.1724389Z ##[endgroup]
+2026-10-02T19:28:25.4477862Z {"label": "toolchain-prefix", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:25.6260011Z {"label": "toolchain-version", "status": "success", "exitCode": 0, "peakMiB": 54.95}
+2026-10-02T19:28:41.7826697Z {"label": "focused-cache", "status": "success", "exitCode": 0, "peakMiB": 965.35}
+2026-10-02T19:28:41.7896994Z {"label": "pin-mathlib", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.7963078Z {"label": "pin-plausible", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8032213Z {"label": "pin-LeanSearchClient", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8110470Z {"label": "pin-importGraph", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8188415Z {"label": "pin-proofwidgets", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8265037Z {"label": "pin-aesop", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8337074Z {"label": "pin-Qq", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8401157Z {"label": "pin-batteries", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8464424Z {"label": "pin-Cli", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:41.8529377Z {"label": "normnum-prime-canonical-git-blob", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T19:28:52.7246017Z {"label": "lean-path-1790969331701237332", "status": "success", "exitCode": 0, "peakMiB": 820.61}
+2026-10-02T19:28:54.9457880Z {"label": "composite-CompositeTransferLegacy", "status": "failed", "exitCode": 1, "peakMiB": 3334.84}
+2026-10-02T19:28:54.9510965Z TRANSFER_RECEIPT {"utc": "2026-10-02T19:28:52.759061+00:00", "startUtc": "2026-10-02T19:28:52.759073+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "-j1", "-M4096", "-DElab.async=false", "-R", "/home/runner/work/lean-math-lab/lean-math-lab", "-o", "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.olean", "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean"], "pid": 3011, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T19:28:52.756802+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "12662689792", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "15221350400", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15584845824, "effectiveAvailableBytes": 15584845824, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 80777756672}, "hardDeadlineUtc": "2026-10-02T19:30:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 3496828928, "minimumAvailableBytes": 15267110912, "startupMemoryMiB": 6144, "treeMemoryMiB": 5120, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550", "status": "failed", "exitCode": 1, "stopReason": null, "endUtc": "2026-10-02T19:28:54.944876+00:00", "wallSeconds": 2.188042640686035, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/evidence/composite-CompositeTransferLegacy/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/evidence/composite-CompositeTransferLegacy/stderr.log", "stdoutSha256": "ac46f3fae20be5205d165b92d216a411abd60cdd24c6bf10e36fb77f3336ea1d", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+2026-10-02T19:28:54.9532591Z Controlled child failed: composite-CompositeTransferLegacy
+2026-10-02T19:28:54.9534767Z FAILED stdout first2048bytes /home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean:38:48: error: maximum recursion depth has been reached
+2026-10-02T19:28:54.9537063Z use `set_option maxRecDepth <num>` to increase limit
+2026-10-02T19:28:54.9537750Z use `set_option diagnostics true` to get diagnostic information
+2026-10-02T19:28:54.9539609Z /home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean:38:60: error: maximum recursion depth has been reached
+2026-10-02T19:28:54.9541312Z use `set_option maxRecDepth <num>` to increase limit
+2026-10-02T19:28:54.9541970Z use `set_option diagnostics true` to get diagnostic information
+2026-10-02T19:28:54.9543870Z /home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean:44:48: error: maximum recursion depth has been reached
+2026-10-02T19:28:54.9545697Z use `set_option maxRecDepth <num>` to increase limit
+2026-10-02T19:28:54.9546599Z use `set_option diagnostics true` to get diagnostic information
+2026-10-02T19:28:54.9548596Z /home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean:44:60: error: maximum recursion depth has been reached
+2026-10-02T19:28:54.9550537Z use `set_option maxRecDepth <num>` to increase limit
+2026-10-02T19:28:54.9551249Z use `set_option diagnostics true` to get diagnostic information
+2026-10-02T19:28:54.9553172Z /home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean:49:48: error: maximum recursion depth has been reached
+2026-10-02T19:28:54.9555314Z use `set_option maxRecDepth <num>` to increase limit
+2026-10-02T19:28:54.9555996Z use `set_option diagnostics true` to get diagnostic information
+2026-10-02T19:28:54.9557925Z /home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean:49:60: error: maximum recursion depth has been reached
+2026-10-02T19:28:54.9559690Z use `
+2026-10-02T19:28:54.9560021Z FAILED stderr first2048bytes 
+2026-10-02T19:28:54.9647688Z ##[error]Process completed with exit code 1.
+2026-10-02T19:28:54.9695378Z ##[group]Run python3 "$B699_RUNTIME/transfer-stage.py" manifest
+2026-10-02T19:28:54.9695884Z [36;1mpython3 "$B699_RUNTIME/transfer-stage.py" manifest[0m
+2026-10-02T19:28:54.9756797Z shell: /usr/bin/bash -e {0}
+2026-10-02T19:28:54.9757060Z env:
+2026-10-02T19:28:54.9757625Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:28:54.9758251Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:28:54.9758507Z ##[endgroup]
+2026-10-02T19:28:56.0591719Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-02T19:28:56.0592149Z with:
+2026-10-02T19:28:56.0592485Z   name: b699-composite-c5b69cd1266779b9cde0c6260fd5e54b9a940740-37054086815
+2026-10-02T19:28:56.0593081Z   path: .tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/evidence/
+2026-10-02T19:28:56.0593563Z   if-no-files-found: warn
+2026-10-02T19:28:56.0593799Z   retention-days: 30
+2026-10-02T19:28:56.0594196Z   compression-level: 6
+2026-10-02T19:28:56.0594418Z   overwrite: false
+2026-10-02T19:28:56.0594643Z   include-hidden-files: false
+2026-10-02T19:28:56.0594880Z env:
+2026-10-02T19:28:56.0595405Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+2026-10-02T19:28:56.0596030Z   B699_JOB_START_EPOCH: 1790969173
+2026-10-02T19:28:56.0596543Z ##[endgroup]
+2026-10-02T19:28:56.2276778Z (node:3022) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-02T19:28:56.2277755Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-02T19:28:56.5908840Z With the provided path, there will be 1918 files uploaded
+2026-10-02T19:28:56.5914056Z Artifact name is valid!
+2026-10-02T19:28:56.5914753Z Root directory input is valid!
+2026-10-02T19:28:56.8051864Z Beginning upload of artifact content to blob storage
+2026-10-02T19:28:58.3297122Z (node:3022) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-02T19:28:58.5797790Z Uploaded bytes 8388608
+2026-10-02T19:28:59.5856788Z Uploaded bytes 16777216
+2026-10-02T19:29:00.6364054Z Uploaded bytes 25165824
+2026-10-02T19:29:01.6352210Z Uploaded bytes 33554432
+2026-10-02T19:29:02.6657916Z Uploaded bytes 41943040
+2026-10-02T19:29:03.7133416Z Uploaded bytes 50331648
+2026-10-02T19:29:04.8889294Z Uploaded bytes 58720256
+2026-10-02T19:29:05.7593754Z Uploaded bytes 67108864
+2026-10-02T19:29:06.7963989Z Uploaded bytes 75497472
+2026-10-02T19:29:07.8278008Z Uploaded bytes 83886080
+2026-10-02T19:29:08.8322729Z Uploaded bytes 92274688
+2026-10-02T19:29:09.8847071Z Uploaded bytes 100663296
+2026-10-02T19:29:10.8574733Z Uploaded bytes 109051904
+2026-10-02T19:29:11.9130114Z Uploaded bytes 117440512
+2026-10-02T19:29:12.9552150Z Uploaded bytes 125829120
+2026-10-02T19:29:13.9111651Z Uploaded bytes 134217728
+2026-10-02T19:29:14.9481818Z Uploaded bytes 142606336
+2026-10-02T19:29:15.9367369Z Uploaded bytes 150994944
+2026-10-02T19:29:17.0102909Z Uploaded bytes 159383552
+2026-10-02T19:29:18.0467839Z Uploaded bytes 167772160
+2026-10-02T19:29:18.9989259Z Uploaded bytes 176160768
+2026-10-02T19:29:20.0619093Z Uploaded bytes 184549376
+2026-10-02T19:29:21.0913050Z Uploaded bytes 192937984
+2026-10-02T19:29:22.0353754Z Uploaded bytes 201326592
+2026-10-02T19:29:23.0899140Z Uploaded bytes 209715200
+2026-10-02T19:29:24.1021520Z Uploaded bytes 218103808
+2026-10-02T19:29:25.2334661Z Uploaded bytes 226492416
+2026-10-02T19:29:26.1294898Z Uploaded bytes 234881024
+2026-10-02T19:29:27.1960315Z Uploaded bytes 243269632
+2026-10-02T19:29:28.2286850Z Uploaded bytes 251658240
+2026-10-02T19:29:29.2046434Z Uploaded bytes 260046848
+2026-10-02T19:29:30.3229977Z Uploaded bytes 268435456
+2026-10-02T19:29:31.2987123Z Uploaded bytes 276824064
+2026-10-02T19:29:32.2352714Z Uploaded bytes 285212672
+2026-10-02T19:29:33.2748036Z Uploaded bytes 293601280
+2026-10-02T19:29:34.2927113Z Uploaded bytes 301989888
+2026-10-02T19:29:35.2350369Z Uploaded bytes 310378496
+2026-10-02T19:29:36.2367320Z Uploaded bytes 318767104
+2026-10-02T19:29:36.5017272Z Uploaded bytes 320918554
+2026-10-02T19:29:36.5155332Z Finished uploading artifact content to blob storage!
+2026-10-02T19:29:36.5158979Z SHA256 digest of uploaded artifact zip is 1e3e65b9c868a9a67b5bf38f794ef774f9c51450751af017d237cb5d04bc85a6
+2026-10-02T19:29:36.5161509Z Finalizing artifact upload
+2026-10-02T19:29:36.7823726Z Artifact b699-composite-c5b69cd1266779b9cde0c6260fd5e54b9a940740-37054086815.zip successfully finalized. Artifact ID 11247716540
+2026-10-02T19:29:36.7824873Z Artifact b699-composite-c5b69cd1266779b9cde0c6260fd5e54b9a940740-37054086815 has been successfully uploaded! Final size is 320918554 bytes. Artifact ID is 11247716540
+2026-10-02T19:29:36.7833335Z Artifact download URL: https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37054086815/artifacts/11247716540
+2026-10-02T19:29:36.8078475Z Post job cleanup.
+2026-10-02T19:29:36.8856698Z [command]/usr/bin/git version
+2026-10-02T19:29:36.8898501Z git version 2.55.0
+2026-10-02T19:29:36.8943407Z Temporarily overriding HOME='/home/runner/work/_temp/774ba85a-71f4-4eb1-95e6-a7addff53db0' before making global git config changes
+2026-10-02T19:29:36.8945293Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T19:29:36.8949433Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T19:29:36.8984012Z Removing SSH command configuration
+2026-10-02T19:29:36.8991296Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T19:29:36.9031875Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T19:29:36.9364166Z Removing HTTP extra header
+2026-10-02T19:29:36.9365489Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T19:29:36.9407418Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T19:29:36.9743070Z Removing includeIf entries pointing to credentials config files
+2026-10-02T19:29:36.9750186Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T19:29:36.9782745Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T19:29:36.9783984Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T19:29:36.9785022Z includeif.gitdir:/github/workspace/.git.path
+2026-10-02T19:29:36.9785875Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T19:29:36.9791561Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T19:29:36.9852090Z /home/runner/work/_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:29:36.9872019Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-0fa24ced\-cbdd\-4835\-a6df\-23c0a4ca505b\.config
+2026-10-02T19:29:36.9906051Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T19:29:36.9934926Z /home/runner/work/_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:29:36.9951989Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-0fa24ced\-cbdd\-4835\-a6df\-23c0a4ca505b\.config
+2026-10-02T19:29:36.9990089Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-02T19:29:37.0017666Z /github/runner_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:29:37.0027597Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-0fa24ced\-cbdd\-4835\-a6df\-23c0a4ca505b\.config
+2026-10-02T19:29:37.0064135Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T19:29:37.0093849Z /github/runner_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config
+2026-10-02T19:29:37.0102935Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-0fa24ced\-cbdd\-4835\-a6df\-23c0a4ca505b\.config
+2026-10-02T19:29:37.0151701Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T19:29:37.0477197Z Removing credentials config '/home/runner/work/_temp/git-credentials-0fa24ced-cbdd-4835-a6df-23c0a4ca505b.config'
+2026-10-02T19:29:37.0616420Z Cleaning up orphan processes
+2026-10-02T19:29:37.0892325Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

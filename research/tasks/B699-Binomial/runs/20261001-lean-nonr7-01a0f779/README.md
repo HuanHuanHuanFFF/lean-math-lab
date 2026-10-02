@@ -1,6 +1,6 @@
 # B699：R7 之外的两小时 Lean 验证
 
-**最新接续已收尾：** [Oct3 Gap前置半小时](continuations/20261003-gap-halfhour/README.md)，上海02:08:36–02:38:36，无延期。三源13根已实际编译/Std3/normalchecker并正式独立接受；另64点66根候选仅源审/精确计算，未编。完整集 `{1,2,11,29}∪[35,4884]` 不变，真无限Gap未供。下文各旧预算是历史快照；[最新报告](continuations/20261003-gap-halfhour/REPORT.md)和[下一最小检查](continuations/20261003-gap-halfhour/supply/HANDOFF.md)是接续入口。
+**最新接续已收尾：** [Oct3真Gap40分钟](continuations/20261003-gap-finite-fortymin/README.md)，原上海02:40:45–03:20:45，按重要突破规则一次延10min至03:30:45已停止。真有限Gap `[10M,10146761)` 正式接受；相邻合数传递核心执行成功报告/独立绑定pending，具体4885–4888因递归深度限制未接受。完整集 `{1,2,11,29}∪[35,4884]` 不变，真无限Gap未供。[最新报告](continuations/20261003-gap-finite-fortymin/REPORT.md)与[核验交接](continuations/20261003-gap-finite-fortymin/reviews/HANDOFF.md)给下一项明确检查，以下旧轮状态保留。
 
 状态：已于15:42:09 UTC硬截止停止研究与验证，无延期。15:42:46最终停机回执确认本轮无遗留进程、编译锁已释放。Leader `/root` 只负责协调、来源与状态登记；技术接受由具名执行/核验任务交付。
 

@@ -3,7 +3,7 @@ param([switch]$StopAtDeadline)
 $ErrorActionPreference='Stop'
 $repo=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../../../../../../..'))
 $tool=Join-Path $repo '.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime'
-$deadline=[DateTimeOffset]::Parse('2026-10-02T19:20:45Z').UtcDateTime
+$deadline=[DateTimeOffset]::Parse('2026-10-02T19:30:45Z').UtcDateTime
 if($StopAtDeadline -and [DateTime]::UtcNow -lt $deadline){throw 'Deadline stop is not yet due'}
 $owned=@(); $live=@(); $terminated=@(); $reused=@()
 foreach($f in Get-ChildItem -LiteralPath (Join-Path $tool 'logs') -Recurse -File -Filter receipt.json){
