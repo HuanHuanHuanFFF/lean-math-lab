@@ -1,0 +1,22 @@
+import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».tail.ElementaryCount
+set_option maxRecDepth 20000
+set_option maxHeartbeats 1600000
+#print axioms B699TailCount.log_four
+#print axioms B699TailCount.log_128
+#print axioms B699TailCount.log_two_lower
+#print axioms B699TailCount.log_two_upper
+#print axioms B699TailCount.log_lower
+#print axioms B699TailCount.denominator_pos
+#print axioms B699TailCount.primes_le_128
+#print axioms B699TailCount.primeCounting_128
+#print axioms B699TailCount.primorial_128_lower
+#print axioms B699TailCount.theta_128_lower
+#print axioms B699TailCount.base_remainder_le
+#print axioms B699TailCount.correction_128_ge
+#print axioms B699TailCount.hasDerivAt_correction
+#print axioms B699TailCount.correctionDeriv_lower
+#print axioms B699TailCount.thetaIntegrand_le
+#print axioms B699TailCount.thetaIntegrand_intervalIntegrable
+#print axioms B699TailCount.correctionDeriv_intervalIntegrable
+#print axioms B699TailCount.integral_thetaIntegrand_le
+#print axioms B699TailCount.elementary_primeCounting_bound
