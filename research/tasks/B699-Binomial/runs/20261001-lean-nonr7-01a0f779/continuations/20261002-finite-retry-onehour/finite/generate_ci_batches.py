@@ -160,22 +160,24 @@ def main() -> None:
             and cost.get("acceptedNodeCount", 0) >= 128):
         raise ValueError("Full generation requires an accepted same-method 128-node cost checkpoint")
     selected, frozen = prepare_literals(args.repo)
+    prefix = "NormNum" if args.method == "normnum" else "Primorial"
+    start_node = len(selected) - args.nodes if args.start == -1 else args.start
     if args.mode == "batch":
-        if args.start < 0 or args.start + args.nodes > len(selected):
+        if start_node < 0 or start_node + args.nodes > len(selected):
             raise ValueError("Batch outside selected literals")
-        outputs = [block(args.repo, f"{args.method.title()}Batch{args.start:05d}", selected[args.start:args.start + args.nodes], args.method)]
+        outputs = [block(args.repo, f"{prefix}Batch{start_node:05d}", selected[start_node:start_node + args.nodes], args.method)]
     else:
         outputs = []
         for start in range(0, len(selected) - 1, args.nodes - 1):
             values = selected[start:min(start + args.nodes, len(selected))]
-            outputs.append(block(args.repo, f"{args.method.title()}Block{len(outputs):03d}", values, args.method))
+            outputs.append(block(args.repo, f"{prefix}Block{len(outputs):03d}", values, args.method))
         outputs.append(complete(args.repo, outputs))
     report = {"selectionRule": "farthest fixed literal <= previous+4883; no primality search",
               "method": args.method,
               "frozenInputs": frozen, "selected": selected, "selectedCount": len(selected),
               "outputs": outputs, "scope": "closed chain 2..20000093 only after actual acceptance",
               "actualCostCheckpoint": str(args.accepted_cost_receipt), "executedLean": False}
-    target = args.repo / NEW / "generated" / (f"{args.mode}-{args.start}-source-map.json")
+    target = args.repo / NEW / "generated" / (f"{args.method}-{args.mode}-{start_node}-source-map.json")
     target.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"selectedCount": len(selected), "sourceCount": len(outputs), "executedLean": False}))
 
