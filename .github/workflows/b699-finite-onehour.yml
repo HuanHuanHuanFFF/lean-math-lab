@@ -1,17 +1,19 @@
-name: B699 finite prime-gap Pilot64 verification
+name: B699 complete composite indices4885through4888
 
 on:
   workflow_dispatch:
   push:
     branches: [huan/b699-lean-next-20261002-01a0f779]
     paths:
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/pilot64-stage.py
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/pilot64-stage-spec.json
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/terminal-stage-v2.py
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/terminal-stage-v2-spec.json
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/linux-runner-v2.py
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/linux-source-manifest-v2.json
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer/transfer-stage.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer/transfer-stage-spec.json
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer/cold-stage-spec.json
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer/terminal-stage-v2.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer/terminal-stage-v2-spec.json
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer/linux-runner-v2.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer/linux-source-manifest-v2.json
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/CompositeExactLegacy.lean
       - .github/workflows/b699-finite-onehour.yml
 
 permissions:
@@ -22,18 +24,18 @@ concurrency:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 25
     env:
-      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
     steps:
       - name: Reject late start before checkout or installation
         shell: bash
         run: |
           echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 19:07:45 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 19:13:45 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - name: Record current cgroup resources and exact source bytes
-        run: python3 "$B699_RUNTIME/pilot64-stage.py" preflight
+      - name: Actual resources and exact fixed sources
+        run: python3 "$B699_RUNTIME/transfer-stage.py" preflight
       - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
         with:
           auto-config: 'false'
@@ -42,15 +44,15 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'false'
           use-github-cache: 'false'
-      - name: Verify Pilot64 and exact literal, axioms, normal checkers
-        run: python3 "$B699_RUNTIME/pilot64-stage.py"
-      - name: Freeze proof member manifest
+      - name: Necessary physical providers and complete composite original indices
+        run: python3 "$B699_RUNTIME/transfer-stage.py"
+      - name: Preserve complete source raw and member manifest
         if: always()
-        run: python3 "$B699_RUNTIME/pilot64-stage.py" manifest
+        run: python3 "$B699_RUNTIME/transfer-stage.py" manifest
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: b699-gap-pilot64-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/
+          name: b699-composite-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/evidence/
           if-no-files-found: warn
           retention-days: 30
