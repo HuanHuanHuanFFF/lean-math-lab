@@ -95,10 +95,25 @@ def compile(path,label,env):
 def transport():
     global CAPABILITY
     check_deadline();t=SPEC['transport']
-    event=json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
-    CAPABILITY=event.get('inputs',{}).get('proof_download_url','')
-    if not CAPABILITY.startswith('https://'):raise RuntimeError('One-time proof transfer input is unavailable')
-    print('::add-mask::'+CAPABILITY,flush=True)
+    token=os.environ.pop('B699_ARTIFACT_TOKEN','')
+    if not token:raise RuntimeError('Existing CI artifact token unavailable')
+    class NoRedirect(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self,req,fp,code,msg,headers,newurl):return None
+    api='https://api.github.com/repos/HuanHuanHuanFFF/lean-math-lab/actions/artifacts/'+str(t['artifact'])+'/zip'
+    req=urllib.request.Request(api,headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','User-Agent':'B699ProofRead/1'})
+    code=None
+    try:
+        response=urllib.request.build_opener(NoRedirect).open(req,timeout=15)
+        code=response.status
+    except urllib.error.HTTPError as e:
+        code=e.code
+        if code not in (301,302,303,307,308):
+            b.write('artifact-api-read.json',{'utc':b.utc(),'httpCode':code,'tokenSaved':False,'capabilitySaved':False,'scope':'existing CI token same-repository readonly; no permissions changed'})
+            raise RuntimeError('Existing-token artifact API refused: HTTP'+str(code))
+        CAPABILITY=e.headers.get('Location','')
+    token=None
+    b.write('artifact-api-read.json',{'utc':b.utc(),'httpCode':code,'tokenSaved':False,'capabilitySaved':False,'redirectAuthorizationForwarded':False})
+    if not CAPABILITY.startswith('https://'):raise RuntimeError('No HTTPS proof artifact redirect')
     expiry=urllib.parse.parse_qs(urllib.parse.urlsplit(CAPABILITY).query).get('se',[None])[0]
     archive=b.ROOT/'accepted-full.zip';archive.parent.mkdir(parents=True,exist_ok=True)
     before=b.resources()
@@ -130,12 +145,6 @@ def transport():
             with z.open(item) as src,target.open('wb') as out:shutil.copyfileobj(src,out)
             if name in plan and (target.stat().st_size!=plan[name]['bytes'] or b.sha(target)!=plan[name]['sha256']):raise RuntimeError('Original member byte binding differs')
             mapped.append({'member':name,'storedPath':str(target),'bytes':target.stat().st_size,'sha256':b.sha(target)})
-        for item in mapped:
-            if not item['member'].startswith('generated-sources/'):continue
-            p=Path(item['storedPath']);target=b.REPO/item['member'][len('generated-sources/'):]
-            if target.exists() and b.sha(target)!=item['sha256']:raise RuntimeError('Refuse replacing different generated source')
-            target.parent.mkdir(parents=True,exist_ok=True)
-            if not target.exists():shutil.copyfile(p,target)
     if any((b.OBJECTS/'Mathlib').rglob('*')):raise RuntimeError('Private prefix must not shadow Mathlib')
     b.write('accepted-proof-transfer.json',{'utc':b.utc(),'sourceCommit':t['sourceCommit'],'run':t['run'],'artifact':t['artifact'],'zipSha256':t['zipSha256'],'members':mapped,'formerReadCapabilityExpiresUtc':expiry,'inputChannel':'one-time workflow dispatch event, never tracked or included in artifact','scope':'exact byte transportation, not new mathematical acceptance'})
     CAPABILITY=None

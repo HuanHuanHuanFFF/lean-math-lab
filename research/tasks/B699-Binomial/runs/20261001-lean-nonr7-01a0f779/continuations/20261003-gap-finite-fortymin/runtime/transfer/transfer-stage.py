@@ -23,19 +23,53 @@ def compile_fixed(s,label,env):
  else:f.audited(r,roots)
  r.update(originalModulePath=s['modulePath'],acceptedOriginPath=s['originPath'],explicitSourceRoot=str(root),physicalRecoveryNotNewMath=True);b.write(label+'/receipt.json',r)
  return r
+def generic():
+ b.EVIDENCE=b.ROOT/'generic-evidence';b.OBJECTS=b.EVIDENCE/'objects';b.EVIDENCE.mkdir(parents=True,exist_ok=True)
+ b.SPEC['mathlibImports']=['Mathlib.Data.Nat.Choose.Dvd','Mathlib.Data.Nat.Prime.Defs'];b.SPEC['skipUnusedNormNumLeafBuild']=True
+ old=sys.argv[:];sys.argv=[str(HERE/'linux-runner-v2.py'),'cache']
+ try:b.main()
+ finally:sys.argv=old
+ env=b.lean_env();p=check_source(SPEC['genericSource']);r=f.compile(SPEC['genericSource']['path'],'generic-CompositeCore',env);emit(r,'generic')
+ tc=json.loads((b.EVIDENCE/'toolchain.json').read_text());cr=b.launch([tc['leanchecker'],'-v',f.mod(SPEC['genericSource']['path'])],'generic-normal-checker',env,max_seconds=120);emit(cr,'generic-checker')
+ print('GENERIC_ACTUAL_TYPE_RAW '+Path(r['stdout']).read_text(),flush=True)
+ old=sys.argv[:];sys.argv=[str(HERE/'linux-runner-v2.py'),'manifest']
+ try:b.main()
+ finally:sys.argv=old
 def run():
+ artifact_token=os.environ.pop('B699_ARTIFACT_TOKEN','')
  b.write('transfer-stage-spec.json',SPEC);shutil.copyfile(__file__,b.EVIDENCE/'transfer-stage.py')
  for n in ['cold-stage-spec.json','terminal-stage-v2-spec.json']:shutil.copyfile(HERE/n,b.EVIDENCE/n)
  b.SPEC['mathlibImports']=f.SPEC['cacheRoots'];old=sys.argv[:];sys.argv=[str(HERE/'linux-runner-v2.py'),'cache']
  try:b.main()
  finally:sys.argv=old
- env=b.lean_env();tc=json.loads((b.EVIDENCE/'toolchain.json').read_text());done=set()
- for i,path in enumerate(COLD['bootstrapSupport']):f.compile(path,f'physical-bootstrap-{i:02d}-{Path(path).stem}',env);done.add(path)
- for i,s in enumerate(COLD['fixedAcceptedSources']):compile_fixed(s,f'physical-full-{i:02d}',env)
- supplier=COLD['finiteSupplier'];f.compile(supplier,'physical-finite-supplier',env);done.add(supplier)
+ tc=json.loads((b.EVIDENCE/'toolchain.json').read_text());done=set();reused={}
+ f.SPEC['transport']={'sourceCommit':SPEC['adoptedArtifact']['sourceCommit'],'run':SPEC['adoptedArtifact']['runId'],'artifact':SPEC['adoptedArtifact']['id'],'zipBytes':SPEC['adoptedArtifact']['zipBytes'],'zipSha256':SPEC['adoptedArtifact']['zipSha256']}
+ try:
+  os.environ['B699_ARTIFACT_TOKEN']=artifact_token;artifact_token=None
+  f.transport();oldtc=json.loads((b.EVIDENCE/'accepted-proof/toolchain.json').read_text())
+  for k in ['leanSha256','leancheckerSha256']:
+   if oldtc[k]!=tc[k]:raise RuntimeError('Adopted proof toolchain executable differs')
+  reused=f.index_reuse();b.write('adopted-source-object-index.json',{'utc':b.utc(),'adoptedZipSha256':SPEC['adoptedArtifact']['zipSha256'],'sourceObjects':reused,'oldExecutionIncrement':0})
+ except BaseException as e:
+  b.write('transport-fallback.json',{'utc':b.utc(),'class':type(e).__name__,'reason':str(e),'scope':'only safe source recompilation fallback, no permission/auth changes'})
+ finally:os.environ.pop('B699_ARTIFACT_TOKEN',None)
+ env=b.lean_env()
+ def supplier(path,label):
+  if path in reused:
+   b.write(label+'/adopted-object.json',{'utc':b.utc(),'path':path,'sourceSha256':reused[path]['sourceSha256'],'oldReceipt':reused[path],'adoptedZipSha256':SPEC['adoptedArtifact']['zipSha256'],'actualNewCompile':False});return
+  f.compile(path,label,env)
+
+ for i,path in enumerate(COLD['bootstrapSupport']):supplier(path,f'physical-bootstrap-{i:02d}-{Path(path).stem}');done.add(path)
+ for i,s in enumerate(COLD['fixedAcceptedSources']):
+  if s['path'] in reused:b.write(f'physical-full-{i:02d}/adopted-object.json',{'source':s,'oldReceipt':reused[s['path']],'actualNewCompile':False,'adoptedZipSha256':SPEC['adoptedArtifact']['zipSha256']})
+  else:compile_fixed(s,f'physical-full-{i:02d}',env)
+ supplier_path=COLD['finiteSupplier'];
+ if supplier_path in reused:b.write('physical-finite-supplier/adopted-object.json',{'path':supplier_path,'oldReceipt':reused[supplier_path],'actualNewCompile':False})
+ else:f.compile(supplier_path,'physical-finite-supplier',env)
+ done.add(supplier_path)
  for i,s in enumerate(f.SPEC['sources']):
   if s['path'] in done:continue
-  f.compile(s['path'],f'physical-terminal-{i:03d}-{Path(s["path"]).stem}',env);done.add(s['path'])
+  supplier(s['path'],f'physical-terminal-{i:03d}-{Path(s["path"]).stem}');done.add(s['path'])
  source=SPEC['compositeSource'];check_source(source);r=f.compile(source['path'],'composite-CompositeTransferLegacy',env);emit(r,'new-composite-transfer')
  cr=b.launch([tc['leanchecker'],'-v',f.mod(source['path'])],'composite-transfer-normal-checker',env,max_seconds=300);emit(cr,'new-transfer-checker')
  exact=SPEC['exactSource'];check_source(exact);r=f.compile(exact['path'],'composite-CompositeExactLegacy',env)
@@ -52,6 +86,7 @@ def main():
  with f.locked():
   if mode=='preflight':
    check_source(SPEC['compositeSource']);check_source(SPEC['exactSource']);sys.argv=[str(HERE/'linux-runner-v2.py'),'preflight'];b.main();return
+  if mode=='generic':generic();return
   if mode!='run':raise RuntimeError('Unknown transfer stage')
   run()
 if __name__=='__main__':

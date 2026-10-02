@@ -282,7 +282,7 @@ def main():
             'actualEqualsPinnedGitBlob': True, 'historicalWindowsMaterialization': binding,
             'scope': 'raw-byte source correspondence only; no mathematical acceptance'})
         prime_objs = prime_root / '.lake/build/lib/lean'
-        if not (prime_objs / 'Mathlib/Tactic/NormNum/Prime.olean').exists():
+        if not (prime_objs / 'Mathlib/Tactic/NormNum/Prime.olean').exists() and not SPEC.get('skipUnusedNormNumLeafBuild',False):
             leaf = compile_source(prime_src, 'single-normnum-prime-leaf', lean_env(), prime_objs, prime_root)
             for part in leaf['objectParts']:
                 dest = EVIDENCE / 'single-normnum-prime-leaf/objects' / Path(part['path']).name
