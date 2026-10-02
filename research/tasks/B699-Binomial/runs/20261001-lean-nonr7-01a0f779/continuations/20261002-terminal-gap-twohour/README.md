@@ -1,5 +1,7 @@
 # 有限链接受、终端连接与无限 Gap 两小时接续
 
+**最终范围：** 旧全finite在新预算独立完整绑定接受；完整4883/4884、onlyGap终端未执行到；三Gap候选源只有独立源审，真Gap未供，完整指标新增0。最新完整CI在第87前置观测到3079.51MiB峰/exit−9，资源修订4096未实测。上海23:35起停止新重任务，原23:45:10截止不延期；[完整报告](REPORT.md)。
+
 用户于2026-10-02明确授权继续执行选中的三项任务，再推进两小时；内存重的Lean验证转GitHub CI。沿用分支 `huan/b699-lean-next-20261002-01a0f779`，输入提交 `a5cd6d41567381dcc61707fb55c475847305f878`。实际开始 `2026-10-02 13:45:10 UTC`（上海21:45:10），原截止 `15:45:10 UTC`（上海23:45:10）。全体共享截止，预留最后十分钟验证、停止及记录，本轮不自动延期。
 
 采用上一轮 [最终报告](../20261002-finite-full-onehour/REPORT.md)、具名独立核验 [交接](../20261002-finite-full-onehour/reviews/HANDOFF.md)、[有限源码交接](../20261002-finite-full-onehour/finite/HANDOFF.md)。旧源码、原始日志、清单、草稿废止及接受记录冻结；新技术记录写本目录，链接而不复制全部旧材料。
@@ -15,7 +17,7 @@
 
 ## 已采用证据与下一执行
 
-全finite run37007287888，source `fd7f7ec9d5c466596f7173f91b9cc34a3e1a9d83`：4171节点、33分块、4418标准公理根、三个正常checker exit0；正式独立绑定尚pending。原包 `D:/ResearchArtifacts/b699-finite-full-onehour/b699-full-onehour-37007287888.zip`，323173525B，SHA256 `65a3c64ff7d8ae45c7177ba8bd336a6f0e2993895e526e3663944df64b59eb6e`；225对象parts已在ignored.tools，343普通成员和来源映射在上一轮runtime。下一步先独立接受该固定原包；运行准备可同时进行，但终端接受不能跳过上游绑定。
+启动采用时：全finite run37007287888，source `fd7f7ec9d5c466596f7173f91b9cc34a3e1a9d83`：4171节点、33分块、4418标准公理根、三个正常checker exit0；正式独立绑定尚pending。原包 `D:/ResearchArtifacts/b699-finite-full-onehour/b699-full-onehour-37007287888.zip`，323173525B，SHA256 `65a3c64ff7d8ae45c7177ba8bd336a6f0e2993895e526e3663944df64b59eb6e`；225对象parts已在ignored.tools，343普通成员和来源映射在上一轮runtime。先独立接受该固定原包；运行准备同时进行。
 
 13:52:08 UTC阶段更新：S已完成同原包独立完整绑定并正式接受：[具名接受原件](reviews/FULL-FINITE-INDEPENDENT-ACCEPTED.json)。568成员中的567清单成员全部size/SHA绑定、45实际compile的source/objectparts/raw/argv/exit闭合、4418AX输出标准子集、三个实际normalchecker0；仅4.26秒流式解析/hash，无kernel重跑。有限原题范围正式接受，完整指标仍新增0，终端和无限Gap继续执行。
 
@@ -24,3 +26,5 @@
 20–30分钟检查执行入口/独立绑定与Gap路线；60分钟检查真实终端成本和Gap最小缺口；15:35:10停止开启新重任务并整理；15:45:10结束全轮。待派发/实际派发/执行和接受分别更新。
 
 三个任务已通过collaboration实际派发：S/C以模型档位相符的旧任务followup续派，Gap以fresh fork新任务启动。最多三子任务；Gap先查原纸面供应与已Lean能力，终端运行准备和独立绑定同时进行。
+
+14:16:10 UTC实际首CI已起跑：[run37018676362](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37018676362)，job110875813736，固定源d768e95afc238d7a1143596cdc58b720e806b987，gate/checkout/132-source资源预检已真实通过。自动审批拒绝将临时signed地址写Git；现有gh未登录/browser不可用/defaultbranch缺workflow，改受控CI冷编固定34旧生成源再接95终端及3个optional Gap前置。没有URL/认证/权限/main变更；必要恢复的额外成本与实际结果见REPORT，原截止不变。

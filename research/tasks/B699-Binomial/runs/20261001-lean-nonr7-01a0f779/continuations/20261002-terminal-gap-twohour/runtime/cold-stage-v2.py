@@ -56,7 +56,7 @@ def run():
         print('ACTUAL_TOOLCHAIN_JSON '+(proof_evidence/'toolchain.json').read_text(),flush=True)
         print('ACTUAL_TOOLCHAIN_VERSION '+(proof_evidence/'toolchain-version/stdout.log').read_text(),flush=True)
     finally:b.EVIDENCE=proof_evidence
-    probe=SPEC.get('optionalGapProbe')
+    probe=SPEC.get('optionalGapProbe') if SPEC.get('runOptionalGapProbe',True) else None
     if probe:
         latest=datetime.datetime.fromisoformat(probe['stopNewHeavyUtc'].replace('Z','+00:00')).timestamp()
         if time.time()>=latest or b.DEADLINE-time.time()<180:
