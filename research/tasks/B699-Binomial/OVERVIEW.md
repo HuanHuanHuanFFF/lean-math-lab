@@ -611,3 +611,11 @@ R25完整排空235光滑V；R26保留全部模数处同一c0,s相位，排空整
 用户09:49:02 UTC明确恢复§10任务：中断仅切fast，原10:25:29截止不变。复杂runtime恢复交Sol/xhigh，原Luna停止记录保留；可靠原生采样低于900MiB，尚无新kernel结果。固定32旧prime/原题pilot与独立typed最小闭包待窄CI验证，旧270历史编译42.9分钟不预承诺全恢复，∞Gap与全原题缺口不变。
 
 §10最终技术检查点：两次窄CI均未编新数学。首run cache guardstop，重试cache614份实际成功后被NormNum源rawhash守卫拒绝；查明Windows CRLF vs pinnedGit blob LF跨平台基准，修复经独立静态审，仅nextcheck-ready-not-run。新primality/Common/完整finite/∞Gap接受全部0、完整指标增0；固定32原题候选与27源primorial/GCD替代已源审/冻结，未继承旧kernel。最新[报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/REPORT.md)是本轮接续入口；保持原10:25:29停止，下一轮先新预算+实际验修复入口/32原题根，再扩finite，原∞参数不变。
+
+## 11. 2026-10-02 固定小块实跑与有限供应新一小时
+
+用户新授权上海18:59:22–19:59:22（UTC10:59:22–11:59:22），不恢复旧预算。输入88f17f5，沿用huan/b699-lean-next-20261002-01a0f779，新执行检查点15f929eb146bba482cc1d3a560f2283b45aa9c90已经push；[接续入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/README.md)。
+
+初probe仍取§10固定10源/50公开根/两个typed及32旧prime原字节，先实际验pinnedGitblob平台映射与kernel闭环；原源码/旧失败/报告不修改。新Math/Typed尚未接受，缓存/CI排队不当证明。原enforcement单锁、低CPU、900余量保留；当前本机384MiB不足，立即用限时Linux窄probe，而非整轮等待RAM。
+
+有实际32成本/接受后继续4473小基底+primorial/GCD同32路线，扩分批全finite20M及原题仅余Gap消费者。历史源对应可复用，但新imports/kernel不可继承；不生成未实测全4k表，不重建已知42.9min旧270。完整集与已验比例域仍同§9，∞Gap和未覆盖i/n/j/y不变；每完成并验证阶段普通commit/push，原11:59:22硬截止不延期。
