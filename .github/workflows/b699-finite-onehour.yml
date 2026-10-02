@@ -1,6 +1,17 @@
-name: B699 Elementary first terminal verification
+name: B699 final terminal forty-minute verification
 
 on:
+  push:
+    branches:
+      - huan/b699-lean-next-20261002-01a0f779
+    paths:
+      - .github/workflows/b699-finite-onehour.yml
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime/cold-stage-v2.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime/cold-stage-v2-spec.json
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime/terminal-stage-v2.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime/terminal-stage-v2-spec.json
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime/linux-runner-v2.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime/linux-source-manifest-v2.json
   workflow_dispatch:
 
 permissions:
@@ -13,15 +24,15 @@ concurrency:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     env:
-      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
     steps:
       - name: Reject late start before checkout or installation
         shell: bash
         run: |
           echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 16:24:00 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 17:06:00 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Record actual runner resources and fixed source bytes
         run: python3 "$B699_RUNTIME/cold-stage-v2.py" preflight
@@ -33,7 +44,7 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'false'
           use-github-cache: 'false'
-      - name: ElementaryCount first then fixed finite and terminal with independent binding
+      - name: Restore exact objects and verify final terminal with independent binding
         run: python3 "$B699_RUNTIME/cold-stage-v2.py"
       - name: Preserve ordinary raw receipts and byte manifest
         if: always()
@@ -42,13 +53,13 @@ jobs:
         if: always()
         with:
           name: b699-terminal-legacy-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/
+          path: .tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/evidence/
           if-no-files-found: warn
           retention-days: 30
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: b699-terminal-independent-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/validation/
+          path: .tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/validation/
           if-no-files-found: warn
           retention-days: 30
