@@ -619,3 +619,5 @@ R25完整排空235光滑V；R26保留全部模数处同一c0,s相位，排空整
 初probe仍取§10固定10源/50公开根/两个typed及32旧prime原字节，先实际验pinnedGitblob平台映射与kernel闭环；原源码/旧失败/报告不修改。新Math/Typed尚未接受，缓存/CI排队不当证明。原enforcement单锁、低CPU、900余量保留；当前本机384MiB不足，立即用限时Linux窄probe，而非整轮等待RAM。
 
 有实际32成本/接受后继续4473小基底+primorial/GCD同32路线，扩分批全finite20M及原题仅余Gap消费者。历史源对应可复用，但新imports/kernel不可继承；不生成未实测全4k表，不重建已知42.9min旧270。完整集与已验比例域仍同§9，∞Gap和未覆盖i/n/j/y不变；每完成并验证阶段普通commit/push，原11:59:22硬截止不延期。
+
+§11阶段独立接受（11:25:15）：run37000189936、source521d1fd06，32prime及原题slice[19662301,19811023)/i≥4883/alllegalj，无额外数学前提，50roots实际编译/Std3拒绝、独立literaltyped、normalchecker均通过。小块与历史finite20M重叠，完整指标增0；原finite全域/∞Gap仍未供。真实Pilot32 4.61s为后续128/fullchain成本依据，不当全题百分比。详见新轮REPORT/reviews/PILOT-ORIGINAL-ACCEPTED.json；继续有限供应及端点指标消费者，原11:59:22截止不变。
