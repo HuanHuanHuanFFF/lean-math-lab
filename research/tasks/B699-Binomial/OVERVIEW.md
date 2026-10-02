@@ -625,3 +625,9 @@ R25完整排空235光滑V；R26保留全部模数处同一c0,s相位，排空整
 §11最终冻结：32原题闭环正式独立接受；完整finite/onlyGap/4883与4884完整指标只完成候选源和独立typed准备。三个后续作业均因晚启动门禁在checkout前拒绝，128与full未生成或编译，不是数学方法失败。原上海19:59:22停止，不延期；最终workflow manual-only且门禁过期，停止和资源实际回执见本轮runtime/REPORT.md。新完整指标0，累计{1,2,11,29}∪[35,4882]，无条件比例i≥1000且n≥4096i保留；未接受低比例及∞Gap的i/n/j/y仍相应无界，R7未推进。新预算下一执行为实际高端128成本/AX/checker门控→完整链→最小finite-only独立接受→高度闭包与各终端；复用已接受32不重初始化。[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/REPORT.md)、[固定源交接](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/finite/HANDOFF.md)、[独立范围封存](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/reviews/HANDOFF.md)。
 
 停止实测12:00:08.469 UTC（截止后仅行政观测）：自有进程0/检查锁空闲/远端active0，D余30.841GiB、Native物理余0.413GiB，未关闭他人程序；详见本轮runtime/stop-receipt.json。固定proof/checker均在预算内结束，截止后没有新数学执行。
+
+## 12. 2026-10-02 完整有限链再一小时
+
+用户明确新授权，上海20:04:45–21:04:45（UTC12:04:45–13:04:45），同分支huan/b699-lean-next-20261002-01a0f779，输入29e4bf59b527515af8b1d761df03a6f61121d3ff，不恢复旧预算、不延期、不R7。[本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-full-onehour/README.md)。三个正确档位Sol/xhigh任务已实际followup：finite实现、独立语义、受控运行，独占新continuation文件，旧源/签件冻结。
+
+采用§9无条件比例原题及§11固定32真实接受，从已准备高端128实际成本/AX/checker继续→共享端点全链→最小finite-only→高度闭包及4883/4884或onlyGap消费者。预期消除指定≤20M有限供应依赖，不把阶段模板或重叠小块计完整指标；当前完整集与所有∞参数仍同§11。12:06:21本机实测Native余0.695GiB/D30.816GiB，低于物理门槛，直接受控串行CI，48分钟job/latest12:15:45且所有阶段原hard13:04:45。新owned生成器/源码12:06:30 READY，旧过期守卫不直接重跑；优先尽早发布运行，不等待材料美化。
