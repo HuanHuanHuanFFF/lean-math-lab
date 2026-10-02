@@ -14,4 +14,10 @@ semantic_verify_sol于13:52:08 UTC在新预算中正式闭合上一轮缺少的�
 
 本机13:48:56 Native实测物理可用1.031GiB、D29.472GiB、CPU忙39.25%，不启动重Lean。运行任务直接准备受控CI，统一source/object输出根、准确95源图和transport哈希，复用v3对象后验代表性导入，再接高度和完整4883/4884及onlyGap消费者。
 
+独立finite接受闭环已普通push `ca3affd4276993b04ef5e50194523a987fedcbbc`，远端同SHA。首次普通空白检查把固定原件CRLF逐行列为尾空白；没有改原件，按一次性 `core.whitespace=-blank-at-eof,cr-at-eol` 重新核HEAD差异实际exit0。之后Git检查全部重定向文件，仅回传小型结果，避免输出完整巨大原件。
+
+静态终端入口由C和S独立检查：95源、93support/2final互斥、实际import all拓扑、原raw==Gitblob、三处compile显式一致Objects/Repo或Objects/Root、同LeanPath和kernelSHA条件；此READY不称kernel接受。[独立图记录](reviews/terminal-independent-stage-dag.json)及安全manual-only入口已push `794ae8899270f20d1e0679d60b874798483bed78`，远端同SHA。
+
+对象跨job运输实际阻断：自动审批拒绝把signed临时只读地址写仓库；未写或混入Git。安全候选改一次性dispatch输入并立即mask，但本机现成gh没有认证、CUA无browser可用、main没有这份工作流，官方dispatch要求defaultbranch存在工作流。因此不改变认证/权限/main；C采用受控CI冷重编已验固定33块+Complete的对象，额外预计约原实测十分钟。这是必要运行前置恢复，不重新搜索数学、不重复32/128探针；原finite独立接受保留，新的对象与终端仍需实际执行。原截止不变。
+
 Gap研究任务正在追原纸面Dusart短区间供应及其真正Lean分析依赖；已验Nat/Real/log/条件适配不重复计进展。真无界Gap仍未接受，低比例i/n/j和y仍无界，R7不动。当前完整指标仍 `{1,2,11,29}∪[35,4882]`，无条件比例i≥1000,n≥4096i既有接受保留。

@@ -56,7 +56,7 @@ def main():
           'proofStartupMiB':3072,'proofTreeMiB':3072,'physicalReserveMiB':900,
           'transport':{k:v for k,v in old['transport'].items() if k in ['sourceCommit','run','artifact','zipSha256']}}
     spec['transport'].update(zipBytes=323173525,inputChannel='workflow-dispatch-input; no tracked bearer URL',scope='one proof ZIP read capability only; no account token')
-    manifest.update(hardDeadline=DEADLINE,taskSources=sources,mathlibImports=old['cacheRoots'])
+    manifest.update(hardDeadline=DEADLINE,lastJobStart=spec['lastJobStart'],taskSources=sources,mathlibImports=old['cacheRoots'])
     write('terminal-stage-spec.json',spec);write('linux-source-manifest.json',manifest)
     write('source-adoption-map.json',{'scope':'exact-byte administrative adoption; no mathematical acceptance','sources':adoption})
     write('preflight-graph.json',{'executedLean':False,'knownProjectSources':94,'typedSources':1,'orderedTotal':95,
