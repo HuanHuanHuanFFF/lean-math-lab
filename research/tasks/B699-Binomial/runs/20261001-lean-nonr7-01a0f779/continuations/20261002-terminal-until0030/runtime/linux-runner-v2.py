@@ -180,7 +180,8 @@ def compile_source(source, label, env, out_root=OBJECTS, source_root=REPO):
     snapshot.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source, snapshot)
     toolchain = json.loads((EVIDENCE / 'toolchain.json').read_text())
-    r = launch([toolchain['lean'], '-j1', '-M3132', '-DElab.async=false', '-R', str(source_root),
+    memory_mib = 4096 if any(x in source.stem for x in ['ElementaryCount','ICConsumer','RowsNumeric','UniformCountTail','Consumers','FiniteConsumerLegacy','FinalConsumersTypedLegacy']) else 3132
+    r = launch([toolchain['lean'], '-j1', '-M'+str(memory_mib), '-DElab.async=false', '-R', str(source_root),
                 '-o', str(obj), str(source)], label, env)
     if sha(source) != before or sha(snapshot) != before:
         raise RuntimeError('Source changed during compile')

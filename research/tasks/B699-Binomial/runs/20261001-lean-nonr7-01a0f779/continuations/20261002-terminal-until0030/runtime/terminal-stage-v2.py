@@ -9,6 +9,9 @@ b.ROOT=b.REPO/SPEC['toolRoot'];b.EVIDENCE=b.ROOT/'evidence';b.OBJECTS=b.EVIDENCE
 CAPABILITY=None
 _launch=b.launch
 def terminal_launch(*args,**kwargs):
+    label=str(args[1] if len(args)>1 else kwargs.get('label',''))
+    ec=any(x in label for x in ['ElementaryCount','elementary','ICConsumer','RowsNumeric','UniformCountTail','Consumers','FiniteConsumerLegacy','FinalConsumersTypedLegacy','terminal-original-normal-checker'])
+    if ec:kwargs['startup_mib']=6144;kwargs['tree_mib']=5120
     kwargs.setdefault('startup_mib',SPEC['proofStartupMiB'])
     kwargs.setdefault('tree_mib',SPEC['proofTreeMiB'])
     return _launch(*args,**kwargs)
