@@ -1,5 +1,7 @@
 # 继续至上海00:30：终端优先
 
+**终点：原00:30已停止，不延期，完整指标新增0。** EC三前置实际compile/完整AX/normalchecker通过，独立capsule绑定未在截止前闭合，仍pending；四final/33恢复/Gap未执行。本轮明确诊断旧M3132内部阈值，并实际M4096代表成功，不能把资源配置或CI绿色算原题接受。[最终报告](REPORT.md) · [独立交接](reviews/HANDOFF.md)。
+
 用户新授权“继续推进到00:30”。实际开始2026-10-02 15:48:19 UTC（上海23:48:19），硬截止2026-10-02 16:30:00 UTC（上海2026-10-03 00:30:00），不延期；16:25起只收尾。本轮预算41分41秒含协调、执行、独立核验与交接，旧两小时已结束，不改旧接受/失败/原件。
 
 沿用branch `huan/b699-lean-next-20261002-01a0f779`，固定输入 `82bfbe8882993f2ae56da15737d7008864730b27`，启动工作区干净。采用上一轮[REPORT](../20261002-terminal-gap-twohour/REPORT.md)、[运行交接](../20261002-terminal-gap-twohour/runtime/HANDOFF.md)、[独立交接](../20261002-terminal-gap-twohour/reviews/HANDOFF.md)。
