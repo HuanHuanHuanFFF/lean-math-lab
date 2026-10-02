@@ -1,5 +1,7 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+**Oct3 新40分钟（执行中）：** 上海00:48:54–01:28:54（UTC16:48:54–17:28:54）同分支/input9901ae725，C/S已实际续派，[本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/README.md)。S先对旧成功EC3 capsule完成未闭合独立绑定，C同步按实测M4096新预算准备Legacy最终消费者；不重新研究Gap，不重复已完成kernel作进度。旧轮全部原件/预算及pending保留，本轮新接受只看具名签件，当前完整指标增0。
+
 **最新00:30轮已停止（2026-10-03）：** 上海Oct2 23:48:19–Oct3 00:30（UTC15:48:19–16:30）同分支/input82bfbe888，不延期；[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/REPORT.md)。直接原日志明确-M3132的Lean interpreter memory_exception，与tree4096/systemOOM不同；EC3最小闭包在M4096/tree5120后实际compile/完整Std3/normalchecker0、16:26:32结束，600s成本门控保partial、不启动33或四主终端/Gap。S独立source/objectparts/raw绑定未在16:30闭合，仍pending，16:30:57后解析结果排除不补签；完整指标增0，旧fullfinite及无条件比例保留。下一新预算先固定成功capsule绑定，不重跑代表，再用Legacy四根与129parts目录核验继续。真实行政stop16:31:32 owned0/lockfree/activeCI0，D29.397GiB/RAM2.171GiB；只有截止后行政归档，所有Lean重执行在CI，版本v4.33.1。
 
 **当前Lean接续终点（2026-10-02）：** 上海21:45:10–23:45:10新两小时、同分支，23:35起停止新重任务、不延期；[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/REPORT.md)。上海21:52:08，S正式补完全finite固定fd7f7ec/ZIP65a3独立绑定接受：全部n≤20M、i≥4883、合法j的原题有限供应，无额外数学输入；[具名原件](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/reviews/FULL-FINITE-INDEPENDENT-ACCEPTED.json)。审计modern/legacy模式已实证修复，完整v2到了第87前置ElementaryCount后观测3079.51MiB/exit−9；四终端根及3Gap源13根未执行到，完整指标新增0。远端4096配置仅批准未实测，原stopReason JSON未取得，不称OOM或数学反例。下一新预算先CI最小ElementaryCount闭包测峰、再接Legacy终端和同标准目录核验；真无界Gap仍缺有效θ/ψ供应，低比例i/n/j/y无界、R7不动。历史纸面覆盖与当前Lean覆盖分开。
