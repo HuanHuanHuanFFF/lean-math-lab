@@ -1,6 +1,17 @@
-name: B699 finite one-hour scoped verification
+name: B699 finite retry one-hour scoped verification
 
 on:
+  push:
+    branches: [huan/b699-lean-next-20261002-01a0f779]
+    paths:
+      - .github/workflows/b699-finite-onehour.yml
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/Pilot32.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/PilotConsumer.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/semantic/OriginalPilotTyped.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/semantic/NewChainTyped.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/runtime/linux-runner.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/runtime/linux-source-manifest.json
   workflow_dispatch:
 
 permissions:
@@ -9,14 +20,14 @@ permissions:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
     env:
-      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/runtime
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/runtime
     steps:
       - name: Reject late start before checkout or installation
         shell: bash
         run: |
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 10:16:29 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 11:46:22 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Record actual runner resources and fixed source bytes
         run: python3 "$B699_RUNTIME/linux-runner.py" preflight
@@ -38,7 +49,7 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: b699-finite-onehour-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-finite-onehour-ci/evidence/
+          name: b699-finite-retry-onehour-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261002-finite-retry-onehour/runtime/evidence/
           if-no-files-found: warn
           retention-days: 30
