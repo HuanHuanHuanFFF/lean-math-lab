@@ -28,6 +28,20 @@ def run():
     preliminary_tc=json.loads((b.EVIDENCE/'toolchain.json').read_text())
     b.launch([preliminary_tc['leanchecker'],'-v',f.mod(SPEC['representativeTarget'])],'representative-elementary-normal-checker',env,max_seconds=300)
     b.write('representative-elementary-closed.json',{'utc':b.utc(),'status':'compiler-axiom-checker-passed','sources':SPEC['representativeSources']})
+    for path in SPEC['representativeSources']:
+        i=next(i for i,s in enumerate(f.SPEC['sources']) if s['path']==path)
+        label=f'terminal-{i:03d}-{Path(path).stem}'
+        for folder in [b.EVIDENCE/label,b.EVIDENCE/(label+'-audit')]:
+            for name in ['receipt.json','axiom-audit.json']:
+                p=folder/name
+                if p.exists():print('EC_BINDING_JSON '+p.parent.name+'/'+name+' '+p.read_text(),flush=True)
+    print('EC_CHECKER_JSON '+(b.EVIDENCE/'representative-elementary-normal-checker/receipt.json').read_text(),flush=True)
+    remaining=b.DEADLINE-time.time();full_cost=SPEC['estimatedRepeatedFullSourceCostSeconds']
+    b.write('full-budget-gate.json',{'remainingSeconds':remaining,'fixedAcceptedFullCostEstimateSeconds':full_cost})
+    if remaining<full_cost:
+        b.write('partial-representative-closed.json',{'utc':b.utc(),'status':'representative-passed-full-budget-rejected','remainingSeconds':remaining,'fullCostSeconds':full_cost})
+        print('PARTIAL_EC_ONLY: full fixed chain exceeds actual remaining budget',flush=True)
+        return
     for i,path in enumerate(SPEC['bootstrapSupport']):
         if path in done:continue
         f.compile(path,f'bootstrap-{i:02d}-{Path(path).stem}',env);done.add(path)
