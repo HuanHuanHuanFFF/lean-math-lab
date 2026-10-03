@@ -1,5 +1,9 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+**当前正式Lean前沿（Oct4一小时轮已停止，未延期）：** 完整集 `{1,2,11,29} ∪ [35,5000]`；本轮从4884新增116个完整指标，全部合法Nat n/j、同实际Prime p≥i双完整choose，无额外数学假设。S最后UTC18:27:45签[ba064f6f完整5000](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/reviews/TAIL5000-INDEPENDENT-ACCEPTED.json)，固定source5b42228/run37143741098/217e原包；11fresh阶段/116AX根/11normalchecker/四准确literal/1728oldexternal全绑定。[最终报告与全部接受索引](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/REPORT.md)。三步短证书→旧generic绑定→四完整4885–4888已全部通过，继而复用旧PrimeChain右端增99个prime，统一接至5000；没有重编129供应器或重造整个Gap初段。三个CI全部成功，数学实际最后UTC18:23:23，原一小时18:36:13截止内收尾；D余24.604GiB，本机未启动Lean。原递归故障已实测解决，当前无该卡点纸面重写需求。
+
+**下一可执行项与剩余缺口：** 新授权预算可复用本轮已验tail_chain/common_of_tail_chain及当前新objects，向右延长至新K后重新检准确原题消费者；旧链不重算。完整大指标尚有i≥5001的低比例i/n/j无界，真无限Gap的y及有效θ/ψ供应、低23与R7仍开。若要完整所有i≥4883，仍需真无界Gap或其他统一论证，更多固定K不能代替它。以下Oct4描述是本轮历史阶段快照，以本段与签件为当前状态。
+
 **Oct4 短证书接合已接受到4888：** 一小时轮先完成五非素性叶子、旧generic独立绑定及四完整消费者；S于UTC18:15:23签62b404，固定0690/run37142647213，86新成员+1728旧external、source/object/raw/全AX/两normalchecker及五literal全绑定。完整集已为 `{1,2,11,29} ∪ [35,4888]`，新增4，全部合法Nat n/j、同实际Prime p≥i双完整choose，无额外数学输入。[当前报告与签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/REPORT.md)。原by decide递归深度故障由短因子证书实测修复，暂无纸面改写需求；继续同预算验证右端延长候选至4889/5000，尚不计新范围。最终上海02:36:13不变，R7/低23/真无限Gap仍开。
 
 **Oct4 一小时 Lean 接续已授权执行：** 上海01:36:13–02:36:13（UTC Oct3 17:36:13–18:36:13），沿用原任务分支，先验五条短非素性证书、补旧generic独立绑定、接四完整4885–4888；三步通过后继续同预算，未通过须给精确故障及优化需求。[本轮入口与分工](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/README.md)。采用材料固定提交b675203a；仅已授权运行，不提升原题接受。当前完整集仍 `{1,2,11,29} ∪ [35,4884]`，重Lean全部CI；R7/真无限Gap缺口保持。八分钟收尾，未预先延时。

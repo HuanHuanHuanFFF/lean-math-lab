@@ -1,5 +1,37 @@
 # 一小时接续：阶段记录
 
+## 最终结果与停止
+
+本轮已完成，未延时。三步全接受后继续有限链右端延长，S于UTC18:27:45正式[接受完整4883–5000](reviews/TAIL5000-INDEPENDENT-ACCEPTED.json)，签件SHA `ba064f6fdeaec74c14c7feb3bc5e75da030dcb9b340cfae810633832cae2d785`；[完整绑定](reviews/TAIL5000-INDEPENDENT-BINDING.json) SHA `f35a8ab2b84b6fb35721b46d6a5a0915a184c79a11160d7754e00a4f0fa56903`。固定执行source `5b42228cc2b05d701f7f7ea935b315c36d36bbac`、CI `37143741098`、5000原包SHA `217e1297ba044c005a13d8be5884a7167daf1c3600fb28148d9195d8155561bc`。11个实际fresh阶段、全部源码/新对象parts/raw、116个AX根、11个normalchecker及4889/5000四个准确literal类型、1728个旧external成员/129原收据/128物理objects均独立绑定。
+
+准确覆盖：所有Nat n/i/j满足 `4883 ≤ i ≤ 5000`、`i < j ≤ n/2`，存在同一个真实 `Nat.Prime p`、`i ≤ p`，同除 `n.choose i` 和 `n.choose j`，**无额外Gap或其他数学输入**。原题端点p=i、两完整choose不改。累计完整集 `{1,2,11,29} ∪ [35,5000]`；本轮相对开工4884新增116，四合数转移增4、4889增1、4890–5000增111。
+
+### 三步及后续接受索引
+
+| 阶段 | 固定执行来源 | 独立签件与范围 |
+|---|---|---|
+| 旧generic绑定 | c5b69cd / 37054086815 / f6034原包 | [9259d3bf签件](reviews/GENERIC-COMPOSITE-INDEPENDENT-ACCEPTED.json)，条件same-prime转移工具；没有重kernel或新完整指标 |
+| 五短证书 | 9f07f6805 / 37141812711 / bbc975原包 | [84542258签件](reviews/NONPRIME-LEAF-INDEPENDENT-ACCEPTED.json)，¬Prime4884–4888与4succ接缝；AX仅propext |
+| 四完整消费者 | 0690b321d / 37142647213 / 14a0d6原包 | [62b40489签件](reviews/COMPOSITE-FULL-INDEPENDENT-ACCEPTED.json)，全合法Nat n/j的完整4885–4888 |
+| 延长链至4889 | 5b42228cc / 37143741098 / 15a5f2原包 | [d3e05b1a签件](reviews/TAIL4889-INDEPENDENT-ACCEPTED.json)，完整4883–4889 |
+| 延长链至5000 | 同5b42228cc / 同37143741098 / 217e12原包 | [ba064f6f签件](reviews/TAIL5000-INDEPENDENT-ACCEPTED.json)，完整4883–5000 |
+
+这次是既有纸面方法与库定理的形式化/接合，没有声称新数学发现、无限Gap或完整B699闭合。仅使用旧已验PrimeChain 4883 2 20000093，增99个素数、分≤16边小块向右延长到20482069，与已验比例域拼接；无需重新从10M生成整个Gap初段或重编129个已验供应器。
+
+### 实际成本与资源
+
+短证书compile1.191秒、typed audit1.025秒、normalchecker3.058秒；完整CompositeTransfer compile2.367秒、准确literal源compile2.206秒、两normalchecker各约4.89秒。全消费者峰约3334MiB，沿用CI串行/2CPU/M4096/tree5120守卫。缓存83.953秒和full cache16.467秒单列为环境成本；不把原2.188秒失败编译当八处decide各自耗时，也不把更换proof term直接说成总体同比提速。原最大递归深度故障本次实际消失，**当前没有证据要求为这个卡点重写纸面推理**。
+
+三次CI均completed success：[小证书37141812711](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37141812711)、[四完整37142647213](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37142647213)、[延长链37143741098](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37143741098)。记录由具名C/S提供，Root仅登记和发布。正常checker使用同固定Lean的replay，不声称第二种独立kernel实现；独立性来自S对source/object/raw/准确scope的核查。
+
+全部重Lean在CI，本机Lean启动/终止0；数学最后子进程实际UTC18:23:23.052892结束，S最后签UTC18:27:45，proofStop18:28:13及最终18:36:13未延。C封存的owned CI active0、三run均成功，D余24.604GiB（实际18:28:51）；本机物理freeRAM与CPU负载因CIM拒绝为null，不用CLR上限或逻辑CPU数冒充可用资源。原包全在 `D:/ResearchArtifacts/b699-nonprime-onehour`，普通成员及字节映射见[runtime最终交接](runtime/HANDOFF.md)、[清单](runtime/ordinary-inventory.json)及各`runtime/ci/*/RAW_INTAKE.json`；二进制/ZIP均不入Git。新对象+强old29a3 external绑定将交付缩为51KB、457KB、1.26MB、12.42MB四包，避免重复320MB。
+
+### 剩余范围与下一项
+
+未覆盖大指标从i≥5001开始，其低比例域仍有无界i/n/j；真无限Gap的y、有效θ/ψ供应、低非R7的23项与R7={3,…,9}保持开放。没有用固定i有限段代替全体i≥4883。
+
+下一新授权预算可复用本轮已接受tail_chain、统一common_of_tail_chain与当前新对象，再延长右端并验证新的K；先测少量新块，避免从2或10M重做旧链。若目标是一次闭合所有i≥4883，则仍需真正无上界的Gap(4095,10^7)供应或另一条统一数学论证，更多固定K只减少对应有限指标带。已停止，没有配置下一轮后台任务。下列内容为本轮阶段历史；其中pending在本节最终签件范围内已被正式接受，不倒填旧轮的失败或拒绝。
+
 **三个闭环已经全部完成：** S于UTC18:15:23正式[接受完整4885–4888](reviews/COMPOSITE-FULL-INDEPENDENT-ACCEPTED.json)，签件SHA `62b4048977ba5653c85ba1a07a21e3ce2d85eb10b863f16973c3be2b79307c7b`；[完整绑定](reviews/COMPOSITE-FULL-INDEPENDENT-BINDING.json) SHA `5ef34562600ef61421a9cffdb09335f40531386c4743f01339b0c7c586c15cd1`。固定0690/run37142647213/14a0原包：86新成员+1728旧外部成员、129原收据与128物理objects、新source/object/raw、全AX及两checker、S五个实际literal均绑定。新增4完整指标，覆盖全部合法Nat n/j、同实际Prime p≥i双完整choose，无额外数学输入。当前完整集 `{1,2,11,29} ∪ [35,4888]`。
 
 **同预算继续：** C准备在一个CI串行跑最小4889（10新根+2literal）后扩大5000（102新根+2literal），只恢复一次旧provider、分两小包及时独立绑定。S已经独立源审九candidate及2+2literal；未执行前不登记原题新范围。
