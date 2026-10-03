@@ -1,0 +1,11 @@
+theorem succ_inj : succ a = succ b ↔ a = b := (Nat.succ.injEq a b).to_iff
+
+theorem succ_le_succ_iff : succ a ≤ succ b ↔ a ≤ b := ⟨le_of_succ_le_succ, succ_le_succ⟩
+
+theorem succ_lt_succ_iff : succ a < succ b ↔ a < b := ⟨lt_of_succ_lt_succ, succ_lt_succ⟩
+
+theorem succ_ne_succ_iff : succ a ≠ succ b ↔ a ≠ b := by simp [Nat.succ.injEq]
+
+theorem succ_succ_ne_one (a : Nat) : succ (succ a) ≠ 1 := nofun
+
+theorem add_one_inj : a + 1 = b + 1 ↔ a = b := succ_inj

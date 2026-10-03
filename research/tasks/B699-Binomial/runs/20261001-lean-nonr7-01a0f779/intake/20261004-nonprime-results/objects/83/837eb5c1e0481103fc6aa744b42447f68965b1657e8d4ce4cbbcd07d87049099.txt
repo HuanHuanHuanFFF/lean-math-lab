@@ -1,0 +1,102 @@
+@[inline] def withNatValue (a : Expr) (k : Nat → MetaM (Option α)) : MetaM (Option α) := do
+  if !a.hasExprMVar && a.hasFVar then
+    return none
+  let a ← instantiateMVars a
+  if a.hasExprMVar || a.hasFVar then
+    return none
+  let a ← whnf a
+  match a with
+  | .const ``Nat.zero _ => k 0
+  | .lit (.natVal v)    => k v
+  | _                   => return none
+
+def reduceUnaryNatOp (f : Nat → Nat) (a : Expr) : MetaM (Option Expr) :=
+  withNatValue a fun a =>
+  return mkRawNatLit <| f a
+
+def reduceBinNatOp (f : Nat → Nat → Nat) (a b : Expr) : MetaM (Option Expr) :=
+  withNatValue a fun a =>
+  withNatValue b fun b => do
+  trace[Meta.isDefEq.whnf.reduceBinOp] "{a} op {b}"
+  return mkRawNatLit <| f a b
+
+def reducePow (a b : Expr) : MetaM (Option Expr) :=
+  withNatValue a fun a =>
+  withNatValue b fun b => OptionT.run do
+  guard (← checkExponent b)
+  trace[Meta.isDefEq.whnf.reduceBinOp] "{a} ^ {b}"
+  return mkRawNatLit <| a ^ b
+
+def reduceBinNatPred (f : Nat → Nat → Bool) (a b : Expr) : MetaM (Option Expr) := do
+  withNatValue a fun a =>
+  withNatValue b fun b =>
+  return toExpr <| f a b
+
+def reduceNat? (e : Expr) : MetaM (Option Expr) :=
+  match e with
+  | .app (.const fn _) a =>
+    if fn == ``Nat.succ then
+      reduceUnaryNatOp Nat.succ a
+    else
+      return none
+  | .app (.app (.const fn _) a1) a2 =>
+    match fn with
+    | ``Nat.add => reduceBinNatOp Nat.add a1 a2
+    | ``Nat.sub => reduceBinNatOp Nat.sub a1 a2
+    | ``Nat.mul => reduceBinNatOp Nat.mul a1 a2
+    | ``Nat.div => reduceBinNatOp Nat.div a1 a2
+    | ``Nat.mod => reduceBinNatOp Nat.mod a1 a2
+    | ``Nat.pow => reducePow a1 a2
+    | ``Nat.gcd => reduceBinNatOp Nat.gcd a1 a2
+    | ``Nat.beq => reduceBinNatPred Nat.beq a1 a2
+    | ``Nat.ble => reduceBinNatPred Nat.ble a1 a2
+    | ``Nat.land => reduceBinNatOp Nat.land a1 a2
+    | ``Nat.lor  => reduceBinNatOp Nat.lor a1 a2
+    | ``Nat.xor  => reduceBinNatOp Nat.xor a1 a2
+    | ``Nat.shiftLeft  => reduceBinNatOp Nat.shiftLeft a1 a2
+    | ``Nat.shiftRight => reduceBinNatOp Nat.shiftRight a1 a2
+    | _ => return none
+  | _ =>
+    return none
+
+
+@[inline] private def useWHNFCache (e : Expr) : MetaM Bool := do
+  -- We cache only closed terms without expr metavars.
+  -- Potential refinement: cache if `e` is not stuck at a metavariable
+  if e.hasFVar || e.hasExprMVar || (← read).canUnfold?.isSome then
+    return false
+  else
+    return true
+
+@[inline] private def cached? (useCache : Bool) (e : Expr) : MetaM (Option Expr) := do
+  if useCache then
+    return (← get).cache.whnf.find? (← mkExprConfigCacheKey e)
+  else
+    return none
+
+private def cache (useCache : Bool) (e r : Expr) : MetaM Expr := do
+  if useCache then
+    let key ← mkExprConfigCacheKey e
+    modify fun s => { s with cache.whnf := s.cache.whnf.insert key r }
+  return r
+
+set_option compiler.ignoreBorrowAnnotation true in
+@[export lean_whnf]
+partial def whnfImp (e : Expr) : MetaM Expr :=
+  withIncRecDepth <| whnfEasyCases e fun e => do
+    let useCache ← useWHNFCache e
+    match (← cached? useCache e) with
+    | some e' => pure e'
+    | none    =>
+      withTraceNode `Meta.whnf (fun _ => return m!"Non-easy whnf: {e}") do
+        checkSystem "whnf"
+        let e' ← whnfCore e
+        match (← reduceNat? e') with
+        | some v => cache useCache e v
+        | none   =>
+          match (← reduceNative? e') with
+          | some v => cache useCache e v
+          | none   =>
+            match (← unfoldDefinition? e') with
+            | some e'' => cache useCache e (← whnfImp e'')
+            | none => cache useCache e e'

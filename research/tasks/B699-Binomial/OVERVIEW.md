@@ -1,5 +1,7 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+2026-10-04接收：[两会话4884–4888非素性证书](runs/20261001-lean-nonr7-01a0f779/intake/20261004-nonprime-results/SUMMARY.md)。昨日四个消费者的`by decide`触发maximum recursion depth；新包统一为五个乘积证书并校准模块/命名空间接线，但附件没有真实编译、公理/checker或性能数据。当前只能说有针对性的候选修复；本次本机预检因缺固定运行时/导入对象而阻塞，未运行Lean，详情见[核验状态](runs/20261001-lean-nonr7-01a0f779/intake/20261004-nonprime-results/VERIFICATION_STATUS.md)，与原题完整4885–4888接受分开。本接收不恢复大尾研究，不改变已登记完整集/R7/真无限Gap缺口；A七分量和B饱和终端仍为§4下一研究重点。
+
 资料归档更新至2026-10-03：五个新会话总包47个正式研究阶段见§3H，[摘要](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/SUMMARY.md)、[逐轮原件](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/ROUND_INDEX.md)与[来源/恢复入口](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/README.md)。上批11包及历史作者链继续保留；同名轮次、不同坐标域和证据账本分别登记。已有Lean状态按固定验收记录引用，新材料不自动升级为项目接受。
 
 这是B699跨轮的单文件接续入口。当前作者前沿以§1、§3H及§4为准；§3A—3G为保留快照。历史Lean记录§7—9保持固定来源；另一个并行分支的已发布签件见下段，只读登记，不合入其正在工作的代码或改动。

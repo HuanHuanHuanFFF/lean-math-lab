@@ -1,0 +1,15 @@
+usage: replay_existing.py [-h] --lean LEAN --project PROJECT --out OUT
+                          [--timeout TIMEOUT]
+
+Use an EXISTING native Lean executable and built pinned packages, read-only.
+No elan/lake invocation, downloads, package installation, builds of
+dependencies, checker guessing, or writes into the project. All new files go
+to --out. This launcher has NOT been tested with Lean in the delivery
+environment.
+
+options:
+  -h, --help         show this help message and exit
+  --lean LEAN        Absolute existing native executable, NOT an elan shim
+  --project PROJECT  Read-only existing project with built dependencies
+  --out OUT          New directory outside the project and delivery
+  --timeout TIMEOUT

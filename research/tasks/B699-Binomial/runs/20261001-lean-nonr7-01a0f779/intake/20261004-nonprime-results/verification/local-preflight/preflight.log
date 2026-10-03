@@ -1,0 +1,22 @@
+Nonprime 4884-4888 probe: preflight and source-provenance log
+This log records observations only; no Lean command was started.
+
+2026-10-03T17:01:53Z | preflight | exit 1 for Get-CimInstance Win32_OperatingSystem: access denied. No system mutation.
+2026-10-03T17:01:53Z | Get-Process filter for lean|lake|elan | no matching process visible.
+2026-10-03T17:01:53Z | [Environment]::ProcessorCount | 16.
+2026-10-03T17:01:53Z | [GC]::GetGCMemoryInfo | TotalAvailableMemoryBytes=15.69 GiB; treated as runtime/host estimate, not free physical memory.
+2026-10-03T17:01:53Z | Get-PSDrive D | Free=26.38 GiB.
+2026-10-03T17:06:33Z | GlobalMemoryStatusEx | success; ullAvailPhys=2.238 GiB; ullTotalPhys=15.694 GiB; dwMemoryLoad=85.
+2026-10-03T17:06:33Z | IsProcessInJob + QueryInformationJobObject | process is in a Job; extended flags=0x2800; JobMemoryLimitBytes=0; CPU-rate flags=0 and rate=0; no explicit Job memory/CPU rate limit reported.
+2026-10-03T17:06:33Z | Get-PSDrive D | Free=26.36 GiB.
+
+2026-10-03 | Source mapping | MEMBERS.json size=468239 bytes at C:\Users\幻\.codex\worktrees\b699-intake-1003\Math\research\tasks\B699-Binomial\runs\20261001-lean-nonr7-01a0f779\intake\20261004-nonprime-results\MEMBERS.json. A/01-main and B/05-final-recommended both map to objects/47/47a4cfc1c737190ca3143bbe3b3fdc4871c7e81ae16abe0f60c36d6248df3b91.lean; observed size=835 and Get-FileHash SHA256=47a4cfc1c737190ca3143bbe3b3fdc4871c7e81ae16abe0f60c36d6248df3b91. One source selected because the member hashes are equal.
+2026-10-03 | Source inspection | import Mathlib.Data.Nat.Prime.Basic; declarations target ¬ Nat.Prime 4884..4888; no textual sorry/admit/axiom token found in this 835-byte source.
+2026-10-03 | Pin inspection | lean-toolchain=leanprover/lean4:v4.33.1; lake-manifest mathlib rev=0df444a360eaa60ab8c11dca51a86af692955474; process-local `git -c safe.directory=... rev-parse HEAD` returned the same mathlib SHA.
+2026-10-03 | Local availability | no pinned toolchain executable under D:\CodingProject\Math\.tools\elan\toolchains or C:\Users\幻\.elan\toolchains; Get-Command lean/lake/elan returned no commands; no LEAN/LAKE/ELAN path environment variable; expected Prime.Basic.olean absent from checked current/intake worktree build locations; .tools/cache/mathlib only showed curl.cfg (457914 bytes).
+2026-10-03 | Receipt references | read limited metadata only. A R1 compile receipt member SHA256=73233f14e573a63d9d5e4a1dc318083aa214888a4022eeedcee026f34e892914. B stage1 compile receipt member SHA256=43af7ac5e2631355fde79d16ec5296cc2439bf2810746742b3c2c4671d83d6d2; its recorded source SHA=4e4f649567aa6e82ce3153058a4c6fb4d2172440aaaa443239205c00cac588ea, which differs from selected source. Neither receipt was treated as current-source acceptance.
+2026-10-03 | Git read-only | branch=huan/b699-lean-next-20261002-01a0f779; HEAD=0315fa513e889c528ec756b490d9e632190a4b56; pre-write status clean.
+
+Lean compilation, explicit -o emission, imported-object type/axiom audit, normalchecker, and old-decide reproduction: NOT RUN. No child Lean process, timeout, exit code, runtime, or peak memory exists for those checks. Reason: fixed toolchain and matching imported .olean/searchpath are unavailable; fetching/installing/building was outside scope.
+
+2026-10-03T17:12Z | Select-String fixed source token scan | exit 0 | text scan result: no sorry/admit/axiom tokens
