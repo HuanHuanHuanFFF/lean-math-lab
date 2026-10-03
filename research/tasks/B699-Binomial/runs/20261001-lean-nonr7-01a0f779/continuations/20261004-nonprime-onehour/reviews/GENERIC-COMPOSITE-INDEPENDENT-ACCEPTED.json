@@ -1,0 +1,32 @@
+{
+  "status": "accepted-conditional-generic-tool",
+  "verifier": "/root/nonprime_source_review_20261004",
+  "signedUtc": "2026-10-03T17:43:50.326676+00:00",
+  "hardDeadlineUtc": "2026-10-03T18:36:13+00:00",
+  "binding": "GENERIC-COMPOSITE-INDEPENDENT-BINDING.json",
+  "bindingSha256": "572ce5451927ff743651a5bcb9b834b59ecdedfa1453bc1a9378030cf715ad9f",
+  "fixedSourceCommit": "c5b69cd1266779b9cde0c6260fd5e54b9a940740",
+  "sourceSha256": "cee177d0bcb9a0b51ab72afc5fd47f00a67c3c1995844154e5e041e304f7fd40",
+  "actualRunId": "37054086815",
+  "archiveSha256": "f6034bf75ea698e9514e65ffdb3ddb12bbc7751044e68e6fd7a736cb9ec99e89",
+  "originalMemberCount": 55,
+  "actualLiteralType": "theorem B699CompositeCore20261003.common_succ_of_nonprime : ∀ {n i j : ℕ},\n  ¬Nat.Prime i →\n    ¬Nat.Prime (i + 1) →\n      (∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) →\n        ∃ p, Nat.Prime p ∧ i + 1 ≤ p ∧ p ∣ n.choose (i + 1) ∧ p ∣ n.choose j",
+  "actualTransitiveAxioms": {
+    "B699CompositeCore20261003.common_succ_of_nonprime": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "semanticAcceptance": "Two nonprime adjacent indices and an existing same actual prime witness imply a successor-index witness using that same prime.",
+  "requiredMathematicalInputs": [
+    "not Prime i",
+    "not Prime (i+1)",
+    "exists same actual prime p >= i dividing both complete n.choose i and n.choose j"
+  ],
+  "newCompleteOriginalIndices": [],
+  "genuineInfiniteGapAccepted": false,
+  "kernelRerunByVerifier": false,
+  "checkerMeaning": "Existing fixed Lean normal checker replay bound to source/object/raw receipt; no independent kernel implementation.",
+  "remainingGap": "Does not supply hcommon and does not accept any of the four full 4885..4888 consumers."
+}

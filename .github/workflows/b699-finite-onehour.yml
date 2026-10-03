@@ -1,7 +1,14 @@
-name: B699 complete composite indices4885through4888
+name: B699 nonprime leaf and complete consumer verification
 
 on:
   workflow_dispatch:
+  push:
+    branches: [huan/b699-lean-next-20261002-01a0f779]
+    paths:
+      - .github/workflows/b699-finite-onehour.yml
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/lean/**
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/runtime/nonprime-stage.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/runtime/stage-spec.json
 
 permissions:
   contents: read
@@ -11,18 +18,19 @@ concurrency:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 40
     env:
-      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime/transfer
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/runtime
     steps:
-      - name: Reject late start before checkout or installation
+      - name: Reject expired publication window
         shell: bash
         run: |
           echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-02 19:26:45 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-03 18:16:13 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Actual resources and exact fixed sources
-        run: python3 "$B699_RUNTIME/transfer-stage.py" preflight
+        id: plan
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" preflight
       - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
         with:
           auto-config: 'false'
@@ -31,26 +39,30 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'false'
           use-github-cache: 'false'
-      - name: Generic successor API, exact type, axioms, normal checker
-        run: python3 "$B699_RUNTIME/transfer-stage.py" generic
+      - name: Five nonprime leaves exact interfaces axioms and normal checker
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" leaf
+      - name: Preserve minimal leaf source object raw evidence
+        if: always()
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" manifest-leaf
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: b699-composite-generic-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/generic-evidence/
+          name: b699-nonprime-leaf-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/leaf-evidence/
           if-no-files-found: warn
           retention-days: 30
-      - name: Necessary physical providers and complete composite original indices
+      - name: Reuse fixed accepted providers and check four complete consumers
+        if: success() && steps.plan.outputs.full_enabled == 'true'
         env:
           B699_ARTIFACT_TOKEN: ${{ github.token }}
-        run: python3 "$B699_RUNTIME/transfer-stage.py"
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" full
       - name: Preserve complete source raw and member manifest
-        if: always()
-        run: python3 "$B699_RUNTIME/transfer-stage.py" manifest
+        if: always() && steps.plan.outputs.full_enabled == 'true'
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" manifest-full
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always()
+        if: always() && steps.plan.outputs.full_enabled == 'true'
         with:
-          name: b699-composite-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/transfer/evidence/
+          name: b699-nonprime-full-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/full-evidence/
           if-no-files-found: warn
           retention-days: 30
