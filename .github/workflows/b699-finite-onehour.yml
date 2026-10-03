@@ -26,7 +26,7 @@ jobs:
         shell: bash
         run: |
           echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-03 18:16:13 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-03 18:20:13 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Actual resources and exact fixed sources
         id: plan
@@ -67,5 +67,37 @@ jobs:
         with:
           name: b699-nonprime-full-${{ github.sha }}-${{ github.run_id }}
           path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/full-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Extend only six tail primes and bind complete 4889 literals
+        if: success() && steps.plan.outputs.tail_enabled == 'true'
+        env:
+          B699_ARTIFACT_TOKEN: ${{ github.token }}
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" tail4889
+      - name: Preserve independent 4889 stage package
+        if: always() && steps.plan.outputs.tail_enabled == 'true'
+        run: |
+          python3 "$B699_RUNTIME/nonprime-stage.py" manifest-tail
+          python3 "$B699_RUNTIME/nonprime-stage.py" package-tail4889
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.tail_enabled == 'true'
+        with:
+          name: b699-tail4889-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/tail4889-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Extend six bounded blocks and bind complete up-to-5000 literals
+        if: success() && steps.plan.outputs.tail5000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" tail5000
+      - name: Preserve separate 5000 stage package
+        if: always() && steps.plan.outputs.tail5000_enabled == 'true'
+        run: |
+          python3 "$B699_RUNTIME/nonprime-stage.py" manifest-tail
+          python3 "$B699_RUNTIME/nonprime-stage.py" package-tail5000
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.tail5000_enabled == 'true'
+        with:
+          name: b699-tail5000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/tail5000-delivery/
           if-no-files-found: warn
           retention-days: 30

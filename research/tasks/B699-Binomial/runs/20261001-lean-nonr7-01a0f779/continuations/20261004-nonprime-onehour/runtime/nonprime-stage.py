@@ -23,6 +23,17 @@ b.ROOT = REPO / SPEC['toolRoot']
 BASE = b.ROOT
 COLD = json.loads((OLD / 'cold-stage-spec.json').read_text())
 OLD_TRANSFER = json.loads((OLD / 'transfer-stage-spec.json').read_text())
+_controlled_launch = b.launch
+
+
+def phase_launch(argv, label, *args, **kwargs):
+    # New legacy consumers load the same large provider closure as CompositeTransfer.
+    if label.startswith('composite-') and '-M3132' in argv:
+        argv = ['-M4096' if x == '-M3132' else x for x in argv]
+    return _controlled_launch(argv, label, *args, **kwargs)
+
+
+b.launch = phase_launch
 
 
 def select(phase):
@@ -82,11 +93,8 @@ def leaf():
             'adoptedOldProviderCount': 0, 'mathematicalAcceptance': 'pending independent S binding'})
 
 
-def full():
-    if not SPEC['fullEnabled']:
-        b.write('full-not-run.json', {'utc': b.utc(), 'reason': 'leaf independent acceptance gate not enabled'})
-        return
-    cache(f.SPEC['cacheRoots'] + ['Mathlib.Data.Nat.Prime.Basic'])
+def adopt_providers(imports):
+    cache(imports)
     t = OLD_TRANSFER['adoptedArtifact']
     f.SPEC['transport'] = {'sourceCommit': t['sourceCommit'], 'run': t['runId'],
                           'artifact': t['id'], 'zipBytes': t['zipBytes'], 'zipSha256': t['zipSha256']}
@@ -111,7 +119,14 @@ def full():
         adopted.append({'path': path, 'oldReceipt': reused[path], 'actualNewCompile': False})
     b.write('physical-adoption.json', {'utc': b.utc(), 'adopted': adopted,
             'adoptedCount': len(adopted), 'oldProofIncrement': 0})
-    env = b.lean_env()
+    return b.lean_env()
+
+
+def full():
+    if not SPEC['fullEnabled']:
+        b.write('full-not-run.json', {'utc': b.utc(), 'reason': 'leaf independent acceptance gate not enabled'})
+        return
+    env = adopt_providers(f.SPEC['cacheRoots'] + ['Mathlib.Data.Nat.Prime.Basic'])
     compile_checked(SPEC['certificateSource'], 'full-NonprimeCertificates', env)
     compile_checked(SPEC['compositeSource'], 'composite-CompositeTransfer', env)
     checker(SPEC['compositeSource'], 'composite-normal-checker', env)
@@ -123,9 +138,38 @@ def full():
             'genuineInfiniteGapProvided': False, 'mathematicalAcceptance': 'pending independent S binding'})
 
 
-def package_full():
+def tail4889():
+    if not SPEC.get('tailEnabled'):
+        raise RuntimeError('Tail execution gate is closed')
+    b.SPEC['skipUnusedNormNumLeafBuild'] = False
+    env = adopt_providers(f.SPEC['cacheRoots'] + ['Mathlib.Data.Nat.Prime.Basic'])
+    for index, row in enumerate(SPEC['tail4889Sources']):
+        label = ('tail4889-' if index == 0 else 'composite-tail4889-') + Path(row['path']).stem
+        compile_checked(row, label, env)
+        checker(row, label + '-normal-checker', env)
+    b.write('tail4889-closed.json', {'utc': b.utc(), 'actualFinalCheckerExit': 0,
+            'freshRoots': SPEC['tail4889Roots'], 'literalRoots': SPEC['tail4889LiteralRoots'],
+            'candidateCompleteUpper': 4889, 'genuineInfiniteGapProvided': False,
+            'mathematicalAcceptance': 'pending independent S exact-source/object/raw binding'})
+
+
+def tail5000():
+    if not SPEC.get('tail5000Enabled') or not (b.EVIDENCE / 'tail4889-closed.json').is_file():
+        raise RuntimeError('Successful tail4889 prerequisite is missing')
+    env = b.lean_env()
+    for index, row in enumerate(SPEC['tail5000Sources']):
+        label = ('tail5000-' if index < 6 else 'composite-tail5000-') + Path(row['path']).stem
+        compile_checked(row, label, env)
+        checker(row, label + '-normal-checker', env)
+    b.write('tail5000-closed.json', {'utc': b.utc(), 'actualFinalCheckerExit': 0,
+            'freshRoots': SPEC['tail5000Roots'], 'literalRoots': SPEC['tail5000LiteralRoots'],
+            'candidateCompleteUpper': 5000, 'genuineInfiniteGapProvided': False,
+            'mathematicalAcceptance': 'pending independent S exact-source/object/raw binding'})
+
+
+def package_full(delivery_name='full'):
     """Keep complete new evidence; bind unchanged old members to their fixed ZIP."""
-    target = BASE / 'full-delivery'
+    target = BASE / (delivery_name + '-delivery')
     if target.exists():
         raise RuntimeError('Refuse overwriting an existing delivery')
     target.mkdir(parents=True)
@@ -181,14 +225,15 @@ def package_full():
 
 def main():
     phase = sys.argv[1] if len(sys.argv) > 1 else 'leaf'
-    if phase not in ['preflight', 'leaf', 'full', 'manifest-leaf', 'manifest-full', 'package-full']:
+    if phase not in ['preflight', 'leaf', 'full', 'manifest-leaf', 'manifest-full', 'package-full',
+                     'tail4889', 'tail5000', 'manifest-tail', 'package-tail4889', 'package-tail5000']:
         raise RuntimeError('Unknown phase')
-    select('full' if phase.endswith('full') or phase == 'full' else 'leaf')
+    select('tail' if 'tail' in phase else 'full' if phase.endswith('full') or phase == 'full' else 'leaf')
     if phase.startswith('manifest-'):
         manifest()
         return
-    if phase == 'package-full':
-        package_full()
+    if phase.startswith('package-'):
+        package_full(phase[len('package-'):])
         return
     fixed()
     b.write('stage-spec.json', SPEC)
@@ -201,10 +246,16 @@ def main():
             if os.environ.get('GITHUB_OUTPUT'):
                 with Path(os.environ['GITHUB_OUTPUT']).open('a') as output:
                     output.write('full_enabled=' + str(SPEC['fullEnabled']).lower() + '\n')
+                    output.write('tail_enabled=' + str(SPEC.get('tailEnabled', False)).lower() + '\n')
+                    output.write('tail5000_enabled=' + str(SPEC.get('tail5000Enabled', False)).lower() + '\n')
         elif phase == 'leaf':
             leaf()
-        else:
+        elif phase == 'full':
             full()
+        elif phase == 'tail4889':
+            tail4889()
+        else:
+            tail5000()
 
 
 if __name__ == '__main__':
