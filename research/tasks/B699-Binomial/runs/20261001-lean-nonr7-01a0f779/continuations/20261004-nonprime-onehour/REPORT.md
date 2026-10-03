@@ -2,6 +2,8 @@
 
 ## 最终结果与停止
 
+**实际行政发布时间更正：** 首最终提交 `c5173e461c26ec2463724d4a263c357efe168fcd` 的普通push/远端SHA核对完成后，真实时钟为UTC18:36:39，较原最终18:36:13晚26秒。证明最后18:23:23、独立签最后18:27:45均在原时窗内；超时部分仅行政发布核对，没有恢复Lean、重跑kernel、追加签件或研究，也没有倒填截止。此补记属于截止后的行政纠错，不声明研究预算延长。
+
 本轮已完成，未延时。三步全接受后继续有限链右端延长，S于UTC18:27:45正式[接受完整4883–5000](reviews/TAIL5000-INDEPENDENT-ACCEPTED.json)，签件SHA `ba064f6fdeaec74c14c7feb3bc5e75da030dcb9b340cfae810633832cae2d785`；[完整绑定](reviews/TAIL5000-INDEPENDENT-BINDING.json) SHA `f35a8ab2b84b6fb35721b46d6a5a0915a184c79a11160d7754e00a4f0fa56903`。固定执行source `5b42228cc2b05d701f7f7ea935b315c36d36bbac`、CI `37143741098`、5000原包SHA `217e1297ba044c005a13d8be5884a7167daf1c3600fb28148d9195d8155561bc`。11个实际fresh阶段、全部源码/新对象parts/raw、116个AX根、11个normalchecker及4889/5000四个准确literal类型、1728个旧external成员/129原收据/128物理objects均独立绑定。
 
 准确覆盖：所有Nat n/i/j满足 `4883 ≤ i ≤ 5000`、`i < j ≤ n/2`，存在同一个真实 `Nat.Prime p`、`i ≤ p`，同除 `n.choose i` 和 `n.choose j`，**无额外Gap或其他数学输入**。原题端点p=i、两完整choose不改。累计完整集 `{1,2,11,29} ∪ [35,5000]`；本轮相对开工4884新增116，四合数转移增4、4889增1、4890–5000增111。
