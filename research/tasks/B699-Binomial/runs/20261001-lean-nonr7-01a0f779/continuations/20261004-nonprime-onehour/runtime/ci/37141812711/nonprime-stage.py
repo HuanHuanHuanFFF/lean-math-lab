@@ -123,72 +123,13 @@ def full():
             'genuineInfiniteGapProvided': False, 'mathematicalAcceptance': 'pending independent S binding'})
 
 
-def package_full():
-    """Keep complete new evidence; bind unchanged old members to their fixed ZIP."""
-    target = BASE / 'full-delivery'
-    if target.exists():
-        raise RuntimeError('Refuse overwriting an existing delivery')
-    target.mkdir(parents=True)
-    current_objects = set()
-    lean_paths = []
-    for p in b.EVIDENCE.glob('*/receipt.json'):
-        receipt = json.loads(p.read_text())
-        if receipt.get('mode') == 'Lean':
-            lean_paths.append({'receipt': p.relative_to(b.EVIDENCE).as_posix(),
-                               'effectiveLeanPath': receipt.get('effectiveLeanPath')})
-            for part in receipt.get('objectParts', []):
-                current_objects.add(Path(part['path']).relative_to(b.EVIDENCE).as_posix())
-    for p in sorted(b.EVIDENCE.rglob('*')):
-        if not p.is_file():
-            continue
-        rel = p.relative_to(b.EVIDENCE).as_posix()
-        if rel.startswith('accepted-proof/') or (rel.startswith('objects/') and rel not in current_objects):
-            continue
-        dst = target / rel
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(p, dst)
-    transfer_path = b.EVIDENCE / 'accepted-proof-transfer.json'
-    transfer = json.loads(transfer_path.read_text()) if transfer_path.exists() else None
-    external = []
-    for row in transfer['members'] if transfer else []:
-        actual = Path(row['storedPath'])
-        if actual.stat().st_size != row['bytes'] or b.sha(actual) != row['sha256']:
-            raise RuntimeError('Actual supplied old member changed: ' + row['member'])
-        external.append({**row, 'actualBytes': actual.stat().st_size,
-                         'actualSha256': row['sha256'], 'includedInDelivery': False})
-    origin = transfer or {'sourceCommit': OLD_TRANSFER['adoptedArtifact']['sourceCommit'],
-                         'run': OLD_TRANSFER['adoptedArtifact']['runId'],
-                         'artifact': OLD_TRANSFER['adoptedArtifact']['id'],
-                         'zipSha256': OLD_TRANSFER['adoptedArtifact']['zipSha256']}
-    binding = {'utc': b.utc(), 'sourceCommit': origin['sourceCommit'], 'run': origin['run'],
-               'artifact': origin['artifact'], 'zipSha256': origin['zipSha256'],
-               'zipBytes': OLD_TRANSFER['adoptedArtifact']['zipBytes'],
-               'externalMembers': external, 'actualCompilerSearchPaths': lean_paths,
-               'actualTransferCompleted': transfer is not None,
-               'scope': 'exact external byte binding; old proof acceptance remains separately signed'}
-    (target / 'external-member-bindings.json').write_text(json.dumps(binding, indent=2) + '\n')
-    # The retained producer manifest is an ordinary nested member of this delivery.
-    own_manifest = target / 'delivery-manifest.json'
-    members = [{'path': p.relative_to(target).as_posix(), 'bytes': p.stat().st_size,
-                'sha256': b.sha(p)} for p in sorted(target.rglob('*'))
-               if p.is_file() and p != own_manifest]
-    own_manifest.write_text(json.dumps({'utc': b.utc(), 'head': os.environ.get('GITHUB_SHA'),
-                           'runId': os.environ.get('GITHUB_RUN_ID'), 'members': members,
-                           'excludedExactPath': 'delivery-manifest.json'}, indent=2) + '\n')
-    print(json.dumps({'delivery': str(target), 'members': len(members),
-                      'externalMembers': len(external), 'bytes': sum(x['bytes'] for x in members)}))
-
-
 def main():
     phase = sys.argv[1] if len(sys.argv) > 1 else 'leaf'
-    if phase not in ['preflight', 'leaf', 'full', 'manifest-leaf', 'manifest-full', 'package-full']:
+    if phase not in ['preflight', 'leaf', 'full', 'manifest-leaf', 'manifest-full']:
         raise RuntimeError('Unknown phase')
     select('full' if phase.endswith('full') or phase == 'full' else 'leaf')
     if phase.startswith('manifest-'):
         manifest()
-        return
-    if phase == 'package-full':
-        package_full()
         return
     fixed()
     b.write('stage-spec.json', SPEC)

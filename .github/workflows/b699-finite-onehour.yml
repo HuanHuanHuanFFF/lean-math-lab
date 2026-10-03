@@ -59,10 +59,13 @@ jobs:
       - name: Preserve complete source raw and member manifest
         if: always() && steps.plan.outputs.full_enabled == 'true'
         run: python3 "$B699_RUNTIME/nonprime-stage.py" manifest-full
+      - name: Package complete new evidence with fixed old member bindings
+        if: always() && steps.plan.outputs.full_enabled == 'true'
+        run: python3 "$B699_RUNTIME/nonprime-stage.py" package-full
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.plan.outputs.full_enabled == 'true'
         with:
           name: b699-nonprime-full-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/full-evidence/
+          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/full-delivery/
           if-no-files-found: warn
           retention-days: 30
