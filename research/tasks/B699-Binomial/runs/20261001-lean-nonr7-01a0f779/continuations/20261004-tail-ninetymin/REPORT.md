@@ -1,6 +1,6 @@
 # Oct4 90分钟Lean接续：执行记录
 
-本轮执行中；完整6000已由S独立接受，正式完整集为 `{1,2,11,29} ∪ [35,6000]`。10000及有限Gap尚未接受；最终结果以本文件具名签件为准。
+完整10000已由S独立接受，正式完整集为 `{1,2,11,29} ∪ [35,10000]`。本轮相对旧5000新增5000个完整指标，全部合法n/j、同实际Prime p≥i双完整choose、无额外数学输入。有限Gap已有CI成功、独立绑定仍pending；6001/10001额外端点只是未启动候选。本轮已停止新Lean启动，以下按实际阶段保留记录。
 
 ## 本轮边界与采用
 
@@ -44,3 +44,11 @@ S于UTC11:07:32签[完整6000](reviews/TAIL6000-INDEPENDENT-ACCEPTED.json)，sig
 主冻结ready后C在Leader提交期间追加stagegap，导致 `f39a969add3a8a301a777877764d0ad67f227d1c` 清单已纳五源码但提交未纳。run37197029076实际预检 `FileNotFoundError: RatioForward`，Lean action/证明均未启动；[失败记录](runtime/ci/37197029076-preflight/RECEIPT.json)保留。解码job log保留解码来源与末newline规范化说明，不冒充原压缩日志字节。
 
 Leader立即补齐五源至e47faa4ff，远端SHA一致；C验证fixed Git的75task sources+7helpers全可读且SHA匹配，再运行main，原证明和限额没有变。后续冻结后不再追加target，新增可选端点只另draft待新freeze；supply触发已缩为Lean源，文档/hash发布不再启动重复CI。这个失败属于提交/冻结接线，不能要求用纸面数学改写解决它。
+
+## 完整10000独立接受
+
+S于UTC11:21:42签[完整10000](reviews/TAIL10000-INDEPENDENT-ACCEPTED.json)，sig `4d3edd8d68ee82fe4f078c2866e57a91fedb6ef15e954e9d036a38c802a2c41a`，binding `7f5a1557ff9c1d75a6dd6b8bf2d37d752038b2abbe5bdf1f0cd6e6a2c0efc7f9`。固定e47faa4ff / run37197120772 / artifact11302125590 / ZIP `e906e2fb73ccb9d8a4048ca7ccd8c41cc66b17ecf40524a73424d0a1f1f957aa`（371633305B）。864native成员逐byte/hash、三旧origin全1728/188/169成员、147旧source/raw/parts/实际首LEAN_PATH、主pipeline累计48fresh源/2818AX根/48normalchecker0、single10000与完整[4883,10000]两准确字面types全绑定，无额外数学输入。
+
+相对6000新增4000，本轮相对旧5000累计5000；先前5001和6000增量已包含，不能重复叠加。最大实际RSS `3736342528` bytes约3.48GiB。全部重Lean在CI，本轮没有证明复杂度或资源失败，不需要因本轮运行重写已通过消费者的纸面推理。真无限尾仍缺准确Dusart/Gap或有效θ/ψ的Lean供应，见[已知出版证明依赖与准确交付接口](supply/UNIFORM-ROUTE-GAP.md)；这是形式化前置缺口。
+
+main三个阶段CI均于UTC11:16:50完成success，有限Gap接受待独立原包绑定。原最晚启动11:15:50已过，没有新启动6001/10001，保持source-only候选；若将来10000范围已接受，6001附加不计新增指标，只有10001可比10000再增1。workflow自动push已清理为手动/原过期绝对守卫，避免收尾资料推送触发晚CI；权限仍contents:read。
