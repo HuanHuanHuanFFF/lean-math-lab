@@ -1,0 +1,119 @@
+{
+  "status": "INDEPENDENT_ACCEPTED_PAPER_DIRECT_SOURCE_AND_RABIN_CERTIFICATES",
+  "verifier": "/root/verify_reg3_module",
+  "task_class": "Complex established target",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "source_baseline": "a3090b6ce85e45137a1b9909346858d8a262ec8a",
+  "branch": "huan/b699-r7-paper-20261004-01a0e34b",
+  "completed_utc": "2026-10-04T17:14:28.832816+00:00",
+  "candidate": {
+    "path": "research/tasks/B699-Binomial/runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/notes/main/02-h107-factor-count-candidate.md",
+    "bytes": 3656,
+    "sha256": "3ad50979f78365d07f67e1d95c13e2f75b87d698f9e3d96b017db3f8fab00c0e"
+  },
+  "fixed_input_manifest": "fixed-inputs.json",
+  "accepted_scope": [
+    {
+      "id": "explicit-P-full-source-membership",
+      "claim": "The explicit nonzero F257 polynomial P, q107/D305, satisfies all fixed 21 Hasse source orders",
+      "status": "accepted_direct_finite_field_check",
+      "evidence": "direct-source-result.json",
+      "jets": 23476,
+      "uses_backsubstitution_trace": false
+    },
+    {
+      "id": "specialization2-complete-factorization",
+      "claim": "P(2,X), degree107/unit189, has exactly distinct irreducible factors of degrees16,37,54 with multiplicity1",
+      "status": "accepted_product_and_Rabin",
+      "evidence": "factor-independent-result.json",
+      "omega": 3
+    },
+    {
+      "id": "rational-factor-count-transfer",
+      "claim": "Every nonzero rational G in V107 has at most3 nonvertical Q irreducible factors counted with multiplicity, and degrees partition16,37,54",
+      "status": "accepted_paper",
+      "adopted_prior": "F257 source kernel dimension1, old independently accepted deformation receipt",
+      "vertical_factors": "Specialize to nonzero constants and are excluded from count",
+      "primitive_reduction": "All primitive factors reduce nonzero; overall X107 at both steps forces every factor to preserve X degree",
+      "no_rational_existence_claim": true
+    },
+    {
+      "id": "general-degree-loss-lemma",
+      "claim": "For primitive integer G and nonzero F=Gbar(c,X), original nonvertical factor count k<=Omega(F)+deg_X(G)-deg_X(F)<=Omega(F)+h-deg_X(F)",
+      "status": "accepted_paper",
+      "field": "Any prime p and c in F_p",
+      "excluded_case": "F=0",
+      "new_finite_applications": "Not part of this item"
+    },
+    {
+      "id": "specialization17-independent-strengthening",
+      "claim": "P(17,X), degree107/unit221, has distinct irreducible degrees1,1,17,88; two subset-sum sets intersect only0,107; every nonzero rational G in V107 has exactly1 nonvertical Q irreducible factor, multiplicity1, degree107",
+      "status": "accepted_product_Rabin_and_paper",
+      "evidence": [
+        "factor17-independent-result.json",
+        "subset-intersection-result.json"
+      ],
+      "candidate_unchanged": true
+    }
+  ],
+  "source_to_original_application": {
+    "status": "conditional_on_existing_source_and_nonvertical_factor_contract",
+    "claim": "The entire h<=107 source domain with seven distinct nonvertical loadable factors is empty; with adopted h>=107 bound its necessary frontier becomes h>=108",
+    "does_not_use": [
+      "Small-coefficient NC9 consumer",
+      "400|n",
+      "global649",
+      "E<=1 scalar-budget model"
+    ],
+    "preserved_boundaries": [
+      "Original source bridge proof strength is unchanged",
+      "No COVER7 to COVER6 automatic implication",
+      "R7 remains unchanged"
+    ]
+  },
+  "independent_execution": {
+    "compiler": "g++ (GCC) 13.1.0",
+    "source_check": "direct_source_jets.cpp",
+    "source_check_output": "direct-source-result.json",
+    "factor2_script": "check_factor.py",
+    "factor17_script": "check_factor17.py",
+    "factor_algorithm": "Standard-library exact modular polynomial multiply/remainder/gcd/Frobenius; no SymPy factorization or irreducibility routine used",
+    "all_exit_codes": 0
+  },
+  "resource_observed": {
+    "length": 64,
+    "load": 88,
+    "physical_total": 16851132416,
+    "physical_available": 1924915200,
+    "pagefile_total": 68390739968,
+    "pagefile_available": 33239236608,
+    "virtual_total": 140737488224256,
+    "virtual_available": 140733006667776,
+    "extended_virtual_available": 0,
+    "cpu_visible": 16,
+    "disk_C_free": 21870370816,
+    "disk_D_free": 15857569792
+  },
+  "not_accepted": [
+    "Existence of rational or actual G",
+    "All h>=108 domains",
+    "h108 projective directions not yet checked",
+    "Original NC bridge full chain reproof",
+    "R7 reduction",
+    "Complete original n/j or prime-power bounds",
+    "General REG3 UNIT",
+    "Lean or human peer review",
+    "Novelty"
+  ],
+  "global_R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "Lean": false
+}
