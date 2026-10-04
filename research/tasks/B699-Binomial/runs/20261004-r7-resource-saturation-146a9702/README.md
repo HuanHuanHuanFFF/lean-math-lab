@@ -29,3 +29,9 @@
 最后结果：[七可载分量E≤1](notes/a/02-seven-factor-excess-bound.md)已由/root/review_excess（Complex established target，gpt-6.1-sol/xhigh）[条件接受](reviews/a-excess/REPORT.md)。固定候选SHA c464d68726ee40d731bf4e77aa63798c271854555c34846bc9aa2976541230f3；历史作者前置不升级。独立实现完整核对79个E≥2状态，结果SHA6712b1f8ce0b4b3770e4ba9f5e564b173ceac87c7b95156b48051d71a5119916。无Lean，无R7缩减，COVER7不变。
 
 A继续：作者78态仅必要row-budget，真实21源商与非平衡系数模型未终端。主线程写notes/a、experiments/a；当前检查点见[frontier](frontier.md)。B由/root/reg3_saturation（Research，gpt-6-astra/max）仅写notes/b、experiments/b，研究J_new饱和；其候选待独立审读。各支不改他人文件。
+
+## 阶段B已交付：REG3新非零门
+
+[root/reg3_saturation固定证明](notes/b/03-E-nonzero-proof.md)（SHA080aca0fb4fcda95ce5b21452142044404754c247c45cf01276393dc071922e3）已由/root/review_b_nonzero [独立接受](reviews/b-nonzero/REPORT.md)。复域B0N≠0与P5=V0=V1=0推出uy−y+1≠0，V0可合法首一九次；完整19项独立检查通过。只接受固定REG3代数身份，不升级原题恢复、全域饱和、点表、Lean或新颖性。原a/n/j与完整源幂仍无界。
+
+阶段A已普通推送b06de211d0cd6acb4d631e468676ab296687b4fd并核对远端SHA；详见[发布记录](PUBLICATION.md)。后续用户已明确授权每完成一段就推送本公开纸面分支，不含PR或合并。
