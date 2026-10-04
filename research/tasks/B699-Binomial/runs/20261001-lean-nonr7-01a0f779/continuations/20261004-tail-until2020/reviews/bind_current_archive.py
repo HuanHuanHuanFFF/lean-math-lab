@@ -20,7 +20,7 @@ HERE = Path(__file__).resolve().parent
 REPO = next(p for p in HERE.parents if (p / '.git').exists())
 BASE = HERE.parent.relative_to(REPO).as_posix() + '/'
 START = datetime.fromisoformat('2026-10-04T11:49:12+00:00')
-STOP = datetime.fromisoformat('2026-10-04T12:13:00+00:00')
+STOP = datetime.fromisoformat('2026-10-04T12:16:00+00:00')
 DEADLINE = datetime.fromisoformat('2026-10-04T12:20:00+00:00')
 OLD = [
     {'zip': 'D:/ResearchArtifacts/b699-terminal-fortymin/b699-main-37037647747.zip',
@@ -147,9 +147,9 @@ def main():
         require(sha(z.read('tail-stage.py')) == sha(git_bytes(head, BASE + 'runtime/tail-stage.py')),
                 'Actual runtime source differs')
         require(spec['roundStartUtc'] == '2026-10-04T11:49:12Z'
-                    and spec['proofStopUtc'] == '2026-10-04T12:13:00Z'
+                    and spec['proofStopUtc'] == '2026-10-04T12:16:00Z'
                     and spec['finalDeadlineUtc'] == '2026-10-04T12:20:00Z'
-                    and spec['lastJobStart'] == '2026-10-04T12:05:00Z', 'Original guards changed')
+                    and spec['lastJobStart'] == '2026-10-04T12:14:00Z', 'Original guards changed')
         prepared = obj('prepared.json')
         prefix = prepared['actualFirstSearchPrefix']
         require(prefix.endswith('/' + spec['toolRoot'] + '/evidence/objects')
