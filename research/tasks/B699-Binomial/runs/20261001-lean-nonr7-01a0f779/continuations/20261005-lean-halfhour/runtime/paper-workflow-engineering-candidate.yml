@@ -15,11 +15,15 @@ jobs:
     steps:
       - name: Reject expired new round launch window
         run: |
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 18:49:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          task_job_start=$(date -u +%s)
+          test "$task_job_start" -le "$(date -u -d '2026-10-04 18:49:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          echo "B699_ADMITTED_JOB_START_EPOCH=$task_job_start" >> "$GITHUB_ENV"
+          echo "B699_ADMITTED_JOB_RUN_ID=$GITHUB_RUN_ID" >> "$GITHUB_ENV"
+          echo "B699_ADMITTED_JOB_SOURCE_SHA=$GITHUB_SHA" >> "$GITHUB_ENV"
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Actual resources and both frozen finite height sources
         id: plan
-        run: python3 "$B699_RUNTIME/paper-stage.py" preflight
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" preflight
       - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
         with:
           auto-config: 'false'
@@ -31,13 +35,13 @@ jobs:
       - name: Restore ten exact origins and345source objects
         env:
           B699_ARTIFACT_TOKEN: ${{ github.token }}
-        run: python3 "$B699_RUNTIME/paper-stage.py" prepare
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" prepare
       - name: Complete powerdecomp source and exact literal
         if: success() && steps.plan.outputs.powerdecomp_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" powerdecomp
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" powerdecomp
       - name: Preserve complete powerdecomp checkpoint
         if: always() && steps.plan.outputs.powerdecomp_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" package-powerdecomp
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" package-powerdecomp
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.plan.outputs.powerdecomp_enabled == 'true'
         with:
@@ -47,10 +51,10 @@ jobs:
           retention-days: 30
       - name: Complete powercore source and exact literal
         if: success() && steps.plan.outputs.powercore_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" powercore
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" powercore
       - name: Preserve complete powercore checkpoint
         if: always() && steps.plan.outputs.powercore_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" package-powercore
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" package-powercore
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.plan.outputs.powercore_enabled == 'true'
         with:
@@ -60,10 +64,10 @@ jobs:
           retention-days: 30
       - name: Complete localpower source and exact literal
         if: success() && steps.plan.outputs.localpower_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" localpower
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" localpower
       - name: Preserve complete localpower checkpoint
         if: always() && steps.plan.outputs.localpower_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" package-localpower
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" package-localpower
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.plan.outputs.localpower_enabled == 'true'
         with:
@@ -73,10 +77,10 @@ jobs:
           retention-days: 30
       - name: Complete weakupper source and exact literal
         if: success() && steps.plan.outputs.weakupper_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" weakupper
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" weakupper
       - name: Preserve complete weakupper checkpoint
         if: always() && steps.plan.outputs.weakupper_enabled == 'true'
-        run: python3 "$B699_RUNTIME/paper-stage.py" package-weakupper
+        run: python3 "$B699_RUNTIME/paper-stage-engineering-candidate.py" package-weakupper
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.plan.outputs.weakupper_enabled == 'true'
         with:

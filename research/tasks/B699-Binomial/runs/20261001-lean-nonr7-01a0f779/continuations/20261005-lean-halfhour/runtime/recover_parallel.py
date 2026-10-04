@@ -23,7 +23,7 @@ def sha(p):
 def recover(artifact,size,digest,prefix,target,tag):
     start=time.monotonic(); base=prefix.stat().st_size if prefix and prefix.exists() else 0
     chunks=ROOT/('chunks-'+tag); chunks.mkdir(exist_ok=True)
-    if shutil.disk_usage(ROOT).free<14*1024**3: raise RuntimeError('Disk reserve rejected')
+    if shutil.disk_usage(ROOT).free<10*1024**3+2*size: raise RuntimeError('Disk reserve rejected')
     ranges=[(x,min(size,x+8*1024**2)) for x in range(base,size,8*1024**2)]
     done=base
     shared_url=None
@@ -84,16 +84,4 @@ def recover(artifact,size,digest,prefix,target,tag):
     (HERE/('COMPLETE-'+tag+'.json')).write_text(json.dumps(result,indent=2)+'\n'); print(json.dumps(result),flush=True)
 
 if __name__=='__main__':
-    import sys
-    try:
-        if sys.argv[1]=='tiny':
-            recover(11306801187,2416995,'fb0642947f4f81af6b8c206e4f9acfd5b381d10c34a4df166711e95e0a795e6c',
-                None,ROOT/'b699-tail2h-tinytail30000-37210857364-complete.zip','tiny')
-        else:
-            recover(11306775385,923266078,'8d37f8464e3ca059ad1ee9baf865c5f72fe39074d2219240a01efa293cee2068',
-                ROOT/'b699-tail2h-upperinitial-37207871560-resumed.zip',
-                ROOT/'b699-tail2h-upperinitial-37207871560-complete.zip','upper')
-    except BaseException as exc:
-        reason=str(exc)
-        if 'http' in reason.lower(): reason='Transport failure; private URL omitted'
-        print(type(exc).__name__+': '+reason); raise SystemExit(1)
+    raise SystemExit('Use download_exact.py with explicit current artifact/bytes/SHA/label; historical downloads are not implicit')
