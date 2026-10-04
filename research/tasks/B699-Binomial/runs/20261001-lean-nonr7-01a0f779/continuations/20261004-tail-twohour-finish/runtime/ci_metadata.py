@@ -31,6 +31,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('--run', type=int)
     p.add_argument('--head')
+    p.add_argument('--compact', action='store_true')
     args = p.parse_args()
     if args.run:
         d = get('actions/runs/' + str(args.run))
@@ -53,7 +54,13 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     (out / ((str(args.run) if args.run else 'runs') + '-' +
        dt.datetime.now(dt.timezone.utc).strftime('%H%M%S') + '.json')).write_text(json.dumps(result, indent=2) + '\n')
-    print(json.dumps(result))
+    shown = result
+    if args.compact and 'jobs' in result:
+        shown = {k:v for k,v in result.items() if k!='jobs'}
+        shown['jobs'] = [{**{k:v for k,v in x.items() if k!='steps'},
+             'recentSteps':[y for y in x['steps'] if y['status']!='pending'][-5:]}
+             for x in result['jobs']]
+    print(json.dumps(shown))
 
 if __name__ == '__main__':
     try:

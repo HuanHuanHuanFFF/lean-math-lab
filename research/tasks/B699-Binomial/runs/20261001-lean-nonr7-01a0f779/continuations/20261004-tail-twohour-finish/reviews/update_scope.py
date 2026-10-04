@@ -10,7 +10,7 @@ sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 utc = datetime.now(timezone.utc).isoformat()
 entries = []
 upper = 10000
-for k in (10001,13000,15000):
+for k in (10001,13000,15000,30000):
     path = HERE/('TAIL%d-INDEPENDENT-ACCEPTED.json' % k)
     if not path.is_file():
         continue
@@ -21,17 +21,31 @@ for k in (10001,13000,15000):
     upper = max(upper,k)
     entries.append({'signature': path.name, 'signatureSha256': sha(path), 'binding': bpath.name, 'bindingSha256': sha(bpath), 'signedUtc': s['signedUtc'], 'fixedSourceCommit': s['fixedSourceCommit'], 'runId': s['actualRunId'], 'artifactId': s['artifactId'], 'archiveSha256': s['archiveSha256'], 'acceptedOriginalUpper': k, 'freshAXRootCount': s['freshAXRootCount'], 'normalCheckerCount': len(s['normalCheckerExits']), 'extraMathematicalInputs': []})
 
-gaps = [{'lowerInclusive': 20482069, 'upperExclusive':40956329, 'integerYCount':40956329-20482069, 'signature':str((OLD/'GAP-FORWARD-INDEPENDENT-ACCEPTED.json').relative_to(HERE.parent.parent)), 'signatureSha256':sha(OLD/'GAP-FORWARD-INDEPENDENT-ACCEPTED.json'), 'evidence': 'reused prior accepted scope, not a new run'}]
-gap_path = HERE/'GAP-FORWARD-INDEPENDENT-ACCEPTED.json'
-if gap_path.is_file():
-    s = json.loads(gap_path.read_text(encoding='utf-8-sig'))
-    if sha(HERE/s['binding']) != s['bindingSha256']:
-        raise RuntimeError('Gap signature/binding mismatch')
-    gaps = s['acceptedFiniteGapScopes']
-    entries.append({'signature':gap_path.name, 'signatureSha256':sha(gap_path), 'binding':s['binding'], 'bindingSha256':s['bindingSha256'], 'signedUtc':s['signedUtc'], 'fixedSourceCommit':s['fixedSourceCommit'], 'runId':s['actualRunId'], 'artifactId':s['artifactId'], 'archiveSha256':s['archiveSha256'], 'freshAXRootCount':s['freshAXRootCount'], 'normalCheckerCount':len(s['normalCheckerExits']), 'extraMathematicalInputs':[]})
+pilot_path = HERE.parent.parent/'20261003-gap-finite-fortymin/reviews/PILOT64-INDEPENDENT-ACCEPTED.json'
+pilot = json.loads(pilot_path.read_text(encoding='utf-8-sig'))
+if pilot['acceptedFiniteYRange'] != {'lowerInclusive':10000000,'upperExclusive':10146761} or sha(pilot_path)!='4483d967c36f28ca9bfb1d5e557e658cf5069424c377213d6f27ab3aba0f86d9':
+    raise RuntimeError('Prior accepted pilot baseline changed')
+gaps = [{'lowerInclusive':10000000,'upperExclusive':10146761,'integerYCount':146761,'signature':str(pilot_path.relative_to(HERE.parent.parent)),'signatureSha256':sha(pilot_path),'evidence':'reused prior accepted scope, no old proof rerun'}, {'lowerInclusive': 20482069, 'upperExclusive':40956329, 'integerYCount':40956329-20482069, 'signature':str((OLD/'GAP-FORWARD-INDEPENDENT-ACCEPTED.json').relative_to(HERE.parent.parent)), 'signatureSha256':sha(OLD/'GAP-FORWARD-INDEPENDENT-ACCEPTED.json'), 'evidence': 'reused prior accepted scope, not a new run'}]
+for sig_name in ('GAP-FORWARD-INDEPENDENT-ACCEPTED.json','THETA-INITIAL-INDEPENDENT-ACCEPTED.json'):
+    gap_path = HERE/sig_name
+    if gap_path.is_file():
+        s = json.loads(gap_path.read_text(encoding='utf-8-sig'))
+        if sha(HERE/s['binding']) != s['bindingSha256']:
+            raise RuntimeError('Gap signature/binding mismatch')
+        gaps += [{**r,'scopeSignature':sig_name} for r in s['acceptedFiniteGapScopes']]
+        entries.append({'signature':gap_path.name, 'signatureSha256':sha(gap_path), 'binding':s['binding'], 'bindingSha256':s['bindingSha256'], 'signedUtc':s['signedUtc'], 'fixedSourceCommit':s['fixedSourceCommit'], 'runId':s['actualRunId'], 'artifactId':s['artifactId'], 'archiveSha256':s['archiveSha256'], 'freshAXRootCount':s['freshAXRootCount'], 'normalCheckerCount':len(s['normalCheckerExits']), 'extraMathematicalInputs':[]})
+
+regions = []
+for r in sorted(gaps,key=lambda q:(q['lowerInclusive'],q['upperExclusive'])):
+    lo,hi = r['lowerInclusive'],r['upperExclusive']
+    if regions and lo<=regions[-1]['upperExclusive']:
+        regions[-1]['upperExclusive'] = max(regions[-1]['upperExclusive'],hi)
+        regions[-1]['integerYCount'] = regions[-1]['upperExclusive']-regions[-1]['lowerInclusive']
+    else:
+        regions.append({'lowerInclusive':lo,'upperExclusive':hi,'integerYCount':hi-lo,'evidence':'set union of exact accepted finite Gap scopes; individual source/literal scopes remain listed separately'})
 
 max_gap = max(gaps, key=lambda r: r['upperExclusive']-r['lowerInclusive'])
-result = {'utc':utc, 'verifier':'/root/tail2h_verification', 'status':'accepted-original-through-%d' % upper if entries else 'source-ready-runtime-pending', 'completeOriginalSet':'{1,2,11,29} union [35,%d]' % upper, 'newOriginalIndicesFromRoundStart':'[10001,%d]' % upper if upper>10000 else [], 'newOriginalIndexCountFromRoundStart':upper-10000, 'originalDomain':'All legal Nat n/i/j, same actual Nat.Prime p>=i divides both complete n.choose i and n.choose j', 'completeExtraMathematicalInputs':[], 'signatureEntries':entries, 'acceptedMaximumFiniteGap':max_gap, 'allAcceptedFiniteGapScopes':gaps, 'newFiniteGapYCountFromRoundStart':max_gap['upperExclusive']-max_gap['lowerInclusive']-(40956329-20482069), 'gapDoesNotIncreaseOriginalIndexCount':True, 'pendingTargets':[k for k in (10001,13000,15000) if k>upper], 'genuineInfiniteGapSupplied':False, 'R7Changed':False, 'remainingUnboundedRegion':'Low-ratio domain i>=%d with unbounded i/n/j; genuine Gap y and effective theta/psi supply remain unbounded. Low23 and R7 still open.' % (upper+1), 'sourceReady':'FROZEN-SOURCE-READY.json', 'optionalForwardSourceReady':'FORWARD-SOURCE-READY.json', 'kernelRerunByS':False, 'old195SourceCompileIncrement':0, 'normalCheckerMeaning':'Actual pinned Lean normal replay, not a second kernel implementation', 'startUtc':'2026-10-04T13:16:38Z', 'proofStopUtc':'2026-10-04T14:46:00Z', 'lastJobStartUtc':'2026-10-04T13:55:00Z', 'hardDeadlineUtc':'2026-10-04T15:16:38Z', 'extended':False}
+result = {'utc':utc, 'verifier':'/root/tail2h_verification', 'status':'accepted-original-through-%d' % upper if entries else 'source-ready-runtime-pending', 'completeOriginalSet':'{1,2,11,29} union [35,%d]' % upper, 'newOriginalIndicesFromRoundStart':'[10001,%d]' % upper if upper>10000 else [], 'newOriginalIndexCountFromRoundStart':upper-10000, 'originalDomain':'All legal Nat n/i/j, same actual Nat.Prime p>=i divides both complete n.choose i and n.choose j', 'completeExtraMathematicalInputs':[], 'signatureEntries':entries, 'acceptedMaximumFiniteGap':max_gap, 'allAcceptedFiniteGapScopes':gaps, 'acceptedFiniteGapUnionRegions':regions, 'baselineFiniteGapYCount':146761+40956329-20482069, 'newFiniteGapYCountFromRoundStart':sum(r['integerYCount'] for r in regions)-(146761+40956329-20482069), 'thetaInitialConsumerAccepted':(HERE/'THETA-INITIAL-INDEPENDENT-ACCEPTED.json').is_file(), 'gapDoesNotIncreaseOriginalIndexCount':True, 'pendingTargets':[k for k in (10001,13000,15000,30000) if k>upper], 'genuineInfiniteGapSupplied':False, 'R7Changed':False, 'remainingUnboundedRegion':'Low-ratio domain i>=%d with unbounded i/n/j; genuine Gap y and effective theta/psi supply remain unbounded. Low23 and R7 still open.' % (upper+1), 'sourceReady':'FROZEN-SOURCE-READY.json', 'optionalForwardSourceReady':'FORWARD-SOURCE-READY.json', 'fullInitialSourceReady':'INITIAL-SOURCE-READY.json', 'conditionalThetaBridgeAccepted':False, 'kernelRerunByS':False, 'old195SourceCompileIncrement':0, 'new26PrimeSourceRecompileIncrement':0, 'normalCheckerMeaning':'Actual pinned Lean normal replay, not a second kernel implementation', 'startUtc':'2026-10-04T13:16:38Z', 'mainLastJobStartUtc':'2026-10-04T13:55:00Z', 'secondLastJobStartUtc':'2026-10-04T14:05:00Z', 'proofStopUtc':'2026-10-04T14:46:00Z', 'hardDeadlineUtc':'2026-10-04T15:16:38Z', 'extended':False}
 (HERE/'CURRENT-SCOPE.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 gap_line = '当前最大真实有限Gap `[%d,%d)`，%d个整数y；严格Prime p>y和4095*(p-y)≤y；Gap不增加完整i计数。' % (max_gap['lowerInclusive'],max_gap['upperExclusive'],max_gap['upperExclusive']-max_gap['lowerInclusive'])
 lines = ['# S独立核验接续入口','', 'S=/root/tail2h_verification；gpt-6.1-sol/xhigh；仅拥有本 reviews；本机 Lean 0、无 Git/push。', '', '当前完整全集 `{1,2,11,29}∪[35,%d]`，本轮从10000净增%d个完整指标。全部合法Nat n/j、同实际Prime p≥i双完整choose、额外数学输入为空；阶段互相包含，累计范围不叠加。' % (upper,upper-10000), '', gap_line, '']
