@@ -25,3 +25,5 @@ UTC13:35:06.236924，S正式独立接受10001：`reviews/TAIL10001-INDEPENDENT-A
 第二波：五origin227已接受对象复用，9small forward + lower45 + upper45 +准确finiteInitial/K30000消费者。源A/S冻结ready，尚未执行/接受。成功预期供整个theta有限初段[10M,122568684)，仅余两个无界theta供应；更多固定K不叫无限尾。真实26prime块compile347.948s/checker253.759s，consumer峰3.562GiB；大consumer/normalchecker改CI-M6144/tree8192/start10240、串行仍两CPU/nice，不提高本机负荷。第二launch14:05、proofStop14:46、hard15:16:38；upper单元按实测1350s及保存余量准入，预算不足就不启动新单元。实际下载291MB耗8m52约0.52MB/s，预计final0.9–1.1GB需29–35min，独立签/发布可能被传输预算压住。只intake小forward及最终完整cumulative包，早large checkpoint仅服务器留存、未本机intake，不能声称其成员齐全。未提前延时；若重要具体成果近完成，延时必须另记录/通知且遵原¼上限。
 
 UTC14:10:19.586822，S接受最大有限Gap[19995885,61439401)：签f7bfd1828e8cc36bd471757311c01babe2b6aa2fe60b248dc079032a2edf96f7，fixed d265/run37207871560/art11305456719/ZIPcac30a65002387c32723830d8eccd899ce27a1501ac0b1944cf6fe27857a7bed；203native/9fresh/19AX/9normalchecker、5origin227全绑定。原题仍15000/net5000。详细执行记录见[REPORT](REPORT.md)。
+
+UTC约15:00记录唯一15min核验/行政收尾延时至15:31:38（上海23:31:38），原¼cap15:46:38内。90块与tiny4消费者actual kernel执行已close，923MB原包恢复/独立全绑定尚pending；原因、实际证据、剩余bytes/ETA及不补签约束见[EXTENSION](EXTENSION.md)。原数学source/runner guard/历史不改，不开新研究或CI。
