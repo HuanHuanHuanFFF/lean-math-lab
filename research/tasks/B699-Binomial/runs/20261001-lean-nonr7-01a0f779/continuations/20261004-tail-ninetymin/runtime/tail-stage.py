@@ -266,6 +266,11 @@ def main():
             b.write('resources-start.json', b.resources())
             if not any(x['enabled'] for x in SPEC['stages']):
                 raise RuntimeError('No source-aligned stage enabled')
+            if os.environ.get('GITHUB_OUTPUT'):
+                enabled = {x['name']: x['enabled'] for x in SPEC['stages']}
+                with Path(os.environ['GITHUB_OUTPUT']).open('a') as out:
+                    for name in ['stage5001', 'probe', 'stage6000', 'stage10000']:
+                        out.write(name + '_enabled=' + str(enabled.get(name, False)).lower() + '\n')
         elif mode == 'prepare':
             prepare()
         else:

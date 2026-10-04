@@ -27,6 +27,7 @@ jobs:
           test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 11:15:50 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Actual resources and frozen stage sources
+        id: plan
         run: python3 "$B699_RUNTIME/tail-stage.py" preflight
       - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
         with:
@@ -50,5 +51,18 @@ jobs:
         with:
           name: b699-tail90-stage5001-${{ github.sha }}-${{ github.run_id }}
           path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage5001-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Representative fixed16 relative16 and relative64 costs
+        if: success() && steps.plan.outputs.probe_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" probe
+      - name: Preserve representative closed or failed stage
+        if: always() && steps.plan.outputs.probe_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-probe
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.probe_enabled == 'true'
+        with:
+          name: b699-tail90-probe-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/probe-delivery/
           if-no-files-found: warn
           retention-days: 30
