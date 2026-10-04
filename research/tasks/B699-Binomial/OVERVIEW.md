@@ -1,6 +1,6 @@
 # Erdős 699：累计研究总览与下一轮接续
 
-2026-10-05五十分钟轮收尾：SPEC107/108/109已独立接受，原21源中h≤109的G非竖因子按重数≤6；七可载域最低h提升到110。给定必要表E0由354→326，E1仍51。h107另有恰一个非竖不可约因子的加强。通用几何工具与B新特征零饱和成员正在收齐独立签件。[当前报告](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/REPORT.md)。
+2026-10-05五十分钟纸面轮已完成：原21源中h≤109的G非竖因子按重数≤6，七可载域最低h从107提升到110；给定必要表E0由354→326，E1仍51。A一般几何预算/维数旗标和B精确N-colon关系也已独立接受。全局COVER7、R7与原无界参数仍未闭合；无Lean、未延长。[完整报告](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/REPORT.md)。
 
 2026-10-05一小时接续完成：[本轮报告](runs/20261004-r7-resource-saturation-146a9702/continuations/20261004-onehour/REPORT.md)与[当前前沿](runs/20261004-r7-resource-saturation-146a9702/frontier.md)。A新增ODD-SAT6、四源域排除及同一G联合变形/最低层刚性；给定必要表E1由58→51，E0仍354。B已实际构造完整九维/五次纤维秩接口，受限h²空间被排；全域UNIT/点表与原恢复仍未完成。R7和COVER7不变，无Lean或延长。
 
@@ -10,7 +10,7 @@
 
 资料归档更新至2026-10-03：五个新会话总包47个正式研究阶段见§3H，[摘要](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/SUMMARY.md)、[逐轮原件](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/ROUND_INDEX.md)与[来源/恢复入口](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/README.md)。上批11包及历史作者链继续保留；同名轮次、不同坐标域和证据账本分别登记。已有Lean状态按固定验收记录引用，新材料不自动升级为项目接受。
 
-这是B699跨轮的单文件接续入口。当前前沿以§1、§3H、§3I、§3J、§3K及§4为准；§3H是最新来源作者基线，§3I记录本轮独立研究与核验；§3A—3G为保留快照。历史Lean记录§7—9保持固定来源；另一个并行分支的已发布签件见下段，只读登记，不合入其正在工作的代码或改动。
+这是B699跨轮的单文件接续入口。当前前沿以§1、§3H、§3I、§3J、§3K及§4为准；§3H是最新来源作者基线，§3I—3K记录各次本地纸面研究与核验；§3A—3G为保留快照。历史Lean记录§7—9保持固定来源；另一个并行分支的已发布签件见下段，只读登记，不合入其正在工作的代码或改动。
 
 **并行Lean的固定状态观察（2026-10-03）：** 已发布9de7559c中的[正式签件](https://github.com/HuanHuanHuanFFF/lean-math-lab/blob/9de7559cd9ec1e9b83774c1e8c63706c6299afa2/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/reviews/TERMINAL-ORIGINAL-INDEPENDENT-ACCEPTED.json)由/root/semantic_verify_sol登记完整4883/4884接受，集合{1,2,11,29}∪[35,4884]；固定源be6b2df9b58b4f732564dc882945ec5415c81f1a，真无限Gap供应仍缺。本次未重做数学核验或合入该工作分支；§7—9和E包中的较早集合均是历史基线。[观察元数据](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/OBSERVED_PARALLEL_WORK.json)。
 
@@ -624,11 +624,11 @@ R8定位23个非R7指标的九组源而不新增整指标采用；R9 G7={17,23,2
 
 B已实际构造完整9×45关系矩阵与门算子，允许r根精确等价于rank([R,S^5e0])>rank(R)；五次只为纤维长度界，不是全局colon指数。三类精确代数纤维、受限h²证书空间不可能性及明确非零子式已独立核验。全域UNIT、完整点表及原输入恢复仍未完成；36855不扣减。最后同一G变形预算已独立接受：Σ(dim W_i−1)≤dim V_h−1，h107层因子源保持空间一维；小权次系数界与ell7/8排除按准确合同接受。作者q≥6聚合测试仍不能排空最低E0层，未得COVER6。完整签件和未试的“大有限域因子”接续测试见本轮报告，后者明确未执行。本轮无Lean/CI、PR、合并或延长。
 
-## 3K. 2026-10-05 五十分钟接续（收尾）
+## 3K. 2026-10-05 五十分钟纸面接续（完整交付）
 
 SPEC107的[独立签件](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/reviews/specialization107/REPORT.md)接受：任意非零Q源G(q≤107,D≤305)恰有一个非竖Q不可约因子，重数1。SPEC108的[签件](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/reviews/specialization108/REPORT.md)完整接收二维F257源核258方向，给q≤108域非竖因子计重≤6。SPEC109的[签件](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/reviews/specialization109/REPORT.md)完整接收四维F11核、1464方向及五个联合次数例外，给q≤109域同一六因子界；不从任何模核反推Q源G存在。
 
-七可载域最低h由107提升到110；必要表E0删除21+1+6态，由354→326，E1仍51。它们是必要模型数，原DP/NC9桥采用等级不变，不是原(n,j)实例数。h110的七个竖分配作者诊断仍含五/六维支，见[下一检查](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/notes/main/05-h110-next-check.md)。通用几何与B饱和成员在[本轮报告](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/REPORT.md)中分项登记。COVER7/R7不变，原n/j/g及完整源幂仍无界，无Lean。
+七可载域最低h由107提升到110；必要表E0删除21+1+6态，由354→326，E1仍51。它们是必要模型数，原DP/NC9桥采用等级不变，不是原(n,j)实例数。h110的七个竖分配作者诊断仍含五/六维支，见[下一检查](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/notes/main/05-h110-next-check.md)。一般工具[独立接受](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/reviews/geometric-budget/REPORT.md)：实际重数/几何轨道预算Σe_i d_i(t_i−1)≤dimV_h−1，以及逐层维数上界（h108≤2、h152≤86）。B的[独立签件](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/reviews/N-colon-member/REPORT.md)接受完整NW身份、W∈J:N及原h≠0域理想等价；未证明W∉J、严格增理想、UNIT或提速。B9解释/模扫、A05及h110诊断保留原证据等级。COVER7/R7不变，原n/j/g及完整源幂仍无界，无Lean。
 
 ## 4. 下一轮优先怎样选题
 
@@ -637,7 +637,7 @@ SPEC107的[独立签件](runs/20261004-r7-resource-saturation-146a9702/continuat
 **下一轮优先重点：A 的七分量结构模型与 B 的合法规范点代数终端。** 用户于2026-10-03确认这两个方向优先；C/D/E及其它旧路线保留为支撑和后备。本条登记研究方向，不启动新研究轮次；实际预算、采用源与核验责任在开工时另行固定。已完成的八分量、例外零域和既有槽末端不重复派单。
 
 1. **重点 A：从h110继续完整源空间与同一G因式约束。** h107/108/109已经独立排除七可载，不重复恢复。先读§3K的h110诊断：E0六种竖分配商空间作者维数1/4/5/4/5/4，E1维6。可先验证计重distinct-degree与1000方向有界测试，再决定是否覆盖F11六维空间的177156个方向；保留专化为零、退度、因子重数及联合degree例外。或用计重变形/几何轨道条件统一降维。预期整层下界再提升或明确方法剩余方向；孤立删一个低维状态不代表全球前沿推进。当前必要表326+51不是实际曲线/原点，原n,j,g、模板指数及完整粗幂仍无界；高层源维数增长需新的结构判断。
-2. **重点 B：从新合法首一九次表示继续特征零饱和终端。** 固定J_new与h=B0DNK，采用已独立接受的uy−y+1非零；在其合法局部化中以1,r,…,r8表示，再完整处理N/D/K与全部恢复门。**预期作用：** 若取得h幂成员/UNIT，统一排所采用REG3域；若仅列规范点，仍须控制原斜率a及完整幂/n,j恢复。**首个检查点：** 使用已构造的完整9×45矩阵与S^5门向量，判定合法二变量基点能否严格增秩，或取得真正特征零成员/穷尽分解；不重复矩阵接口建设，也不把模UNIT或K=0边界当终端。36855仍是作者上界，未成为点表。
+2. **重点 B：将新精确N-colon成员接入九维关系模，再做特征零饱和。** 保留完整J_new、h=B0DNK及所有恢复门；加入已接受的r次8多项式W是原合法域上的理想等价。先检验新增关系是否减少尚未饱和的支撑，再处理r/N/D/K与余下秩增量，目标为真正UNIT/穷尽分解或合法精确点。W∉J及严格增理想尚未证明；作者千万Fp基点为空和B9边界说明不能代替全域证明。即使列出规范点，原斜率a、工作底、完整幂/n,j恢复仍需另证；36855仍仅作者上界。
 3. **C完整支持与(3,3,2)。** 先处理真实残标签/粗源全指数是否可统一闭合，或建立与ε的有效桥；只添高槽菜单可能不改变原42类。D_a q0^T修正必须带入。
 4. **D尺度/原源桥。** 利用同(n,Q)唯一H与Q门、B条件及五源完整估值争取统一支持/尺度矛盾；唯一恢复本身不界n/Q，指定入口不等于最低A。
 5. **E分级来源与可形式化高尾。** I13固定旧源全链是下一审计；作者三窗口/完整小部高尾若采用须先固定所有出版输入与消费者。当前Lean真无限Gap仍缺，不用作者纸面覆盖替代供应。
