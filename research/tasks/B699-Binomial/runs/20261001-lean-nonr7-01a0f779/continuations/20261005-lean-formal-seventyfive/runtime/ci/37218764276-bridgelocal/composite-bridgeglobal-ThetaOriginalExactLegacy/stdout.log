@@ -1,0 +1,14 @@
+theorem B699ThetaVerify20261005.gap_from_two_uniform_theta_exact : (∀ (x : ℝ),
+    0 < x → Chebyshev.theta x - x ≤ x / 36260) →
+  (∀ (x : ℝ), 122568683 < x → x - Chebyshev.theta x ≤ x / (20 * Real.log x ^ 2)) →
+    ∀ (y : ℕ), 10000000 ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y :=
+fun hupper hlower => B699TailFinish20261004.ThetaBridge.gap_from_two_uniform_theta hupper hlower
+'B699ThetaVerify20261005.gap_from_two_uniform_theta_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem B699ThetaVerify20261005.original_tail_from_two_uniform_theta_exact : (∀ (x : ℝ),
+    0 < x → Chebyshev.theta x - x ≤ x / 36260) →
+  (∀ (x : ℝ), 122568683 < x → x - Chebyshev.theta x ≤ x / (20 * Real.log x ^ 2)) →
+    ∀ (n i j : ℕ), 4883 ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun hupper hlower => B699TailFinish20261004.ThetaBridge.original_tail_from_two_uniform_theta hupper hlower
+'B699ThetaVerify20261005.original_tail_from_two_uniform_theta_exact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
