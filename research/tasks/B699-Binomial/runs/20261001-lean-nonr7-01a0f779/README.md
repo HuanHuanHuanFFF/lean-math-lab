@@ -1,5 +1,7 @@
 # B699：R7 之外的两小时 Lean 验证
 
+**Oct4九十分钟轮已收束：** 正式完整集 `{1,2,11,29} ∪ [35,10000]`，本轮净增5000、全部合法n/j且无额外数学输入；真实有限Gap [20482069,40956329)亦独立接受。所有重Lean在CI，无证明复杂度故障，原预算未延期，R7未动。单点6001/10001未启动。当前总览以[问题OVERVIEW](../../OVERVIEW.md)为准；[本轮最终报告](continuations/20261004-tail-ninetymin/REPORT.md)及五具名签件可冷读恢复。以下段落保留历史状态。
+
 **Oct4一小时轮最终已停止，未延期：** 三步闭环及延长链后续全部通过，累计完整集 `{1,2,11,29} ∪ [35,5000]`，本轮新增116，全部合法Nat n/j、同实际Prime p≥i双完整choose、无额外数学输入。S最后签ba064f6f/source5b42228/run37143741098；三个CI全成功。[最终报告](continuations/20261004-nonprime-onehour/REPORT.md) · [签件](continuations/20261004-nonprime-onehour/reviews/TAIL5000-INDEPENDENT-ACCEPTED.json) · [下一可执行入口](continuations/20261004-nonprime-onehour/README.md)。R7/低23/真无限Gap保持，i≥5001仍有未覆盖域。以下为历史阶段状态。
 
 **Oct4 三步闭环全部通过：** 本轮S正式接受完整4885–4888，累计完整上界4888，无额外数学输入；[当前报告](continuations/20261004-nonprime-onehour/REPORT.md)。正在同一小时预算接有限链右端延长的4889/5000候选，尚未接受；上海02:36:13最终截止保持。

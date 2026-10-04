@@ -1,6 +1,18 @@
 # Oct4 90分钟Lean接续：执行记录
 
-完整10000已由S独立接受，正式完整集为 `{1,2,11,29} ∪ [35,10000]`。本轮相对旧5000新增5000个完整指标，全部合法n/j、同实际Prime p≥i双完整choose、无额外数学输入。有限Gap已有CI成功、独立绑定仍pending；6001/10001额外端点只是未启动候选。本轮已停止新Lean启动，以下按实际阶段保留记录。
+本轮已收束。正式完整集为 `{1,2,11,29} ∪ [35,10000]`，相对旧5000净增5000个完整指标，全部合法Nat n/j、同实际Prime p≥i双完整choose、无额外数学输入。真实有限Gap `[20482069,40956329)` 也已独立接受；6001/10001额外端点只是未启动候选。原90分钟预算未延期，全部重Lean在CI，无证明复杂度/资源故障。以下早期阶段中的pending/current数值保留当时语境，以本段与具名签件为最终状态。
+
+当前可冷读核验入口：[S最终范围](reviews/CURRENT-SCOPE.json)、[S交接](reviews/HANDOFF.md)、[C最终运行与原包索引](runtime/FINAL.json)、[C交接](runtime/HANDOFF.md)、[A数学来源与候选交接](supply/HANDOFF.md)。
+
+| 正确接受入口 | 已接受范围 | 固定源 / 实际CI |
+|---|---|---|
+| [5001](reviews/TAIL5001-INDEPENDENT-ACCEPTED.json) | 全合法n/j的[4883,5001]，额外输入为空 | edc3d997 / 37196132408 |
+| [relative probe VALID](reviews/PROBE-RELATIVE-VALID-INDEPENDENT-ACCEPTED.json) | 通用接线与16/64代表证书；原题范围不增 | d077ec827 / 37196421370 |
+| [6000](reviews/TAIL6000-INDEPENDENT-ACCEPTED.json) | 全合法n/j的[4883,6000]，额外输入为空 | e47faa4ff / 37197120772 |
+| [10000](reviews/TAIL10000-INDEPENDENT-ACCEPTED.json) | 全合法n/j的[4883,10000]，额外输入为空 | e47faa4ff / 37197120772 |
+| [真实有限Gap](reviews/GAP-FORWARD-INDEPENDENT-ACCEPTED.json) | 全部Nat y∈[20482069,40956329)，同子段取并集 | e47faa4ff / 37197120772 |
+
+上表均由具名S `/root/tail90_verification` 检查固定source、实际类型、传递公理、正常checker及raw/objects/三份复用闭包；不把源码审读或Python准备升格。正常checker使用固定Lean同一内核。新发现研究、原创性、人审与赏金资格不在本轮验收结论内。
 
 ## 本轮边界与采用
 
@@ -52,3 +64,21 @@ S于UTC11:21:42签[完整10000](reviews/TAIL10000-INDEPENDENT-ACCEPTED.json)，s
 相对6000新增4000，本轮相对旧5000累计5000；先前5001和6000增量已包含，不能重复叠加。最大实际RSS `3736342528` bytes约3.48GiB。全部重Lean在CI，本轮没有证明复杂度或资源失败，不需要因本轮运行重写已通过消费者的纸面推理。真无限尾仍缺准确Dusart/Gap或有效θ/ψ的Lean供应，见[已知出版证明依赖与准确交付接口](supply/UNIFORM-ROUTE-GAP.md)；这是形式化前置缺口。
 
 main三个阶段CI均于UTC11:16:50完成success，有限Gap接受待独立原包绑定。原最晚启动11:15:50已过，没有新启动6001/10001，保持source-only候选；若将来10000范围已接受，6001附加不计新增指标，只有10001可比10000再增1。workflow自动push已清理为手动/原过期绝对守卫，避免收尾资料推送触发晚CI；权限仍contents:read。
+
+## 最终有限Gap、资源与归档
+
+S于UTC11:30:24签[真实有限Gap](reviews/GAP-FORWARD-INDEPENDENT-ACCEPTED.json)，sig `974055551ab3a146f7e90188004ed992d5bcefce494c1077ca8c4a044dabcd4d`，binding `cbff382464bd5a0698ef8d16ce6fc709fed07d7d1a6a361a9eea7803f0a123f3`；固定e47 / run37197120772 / artifact11302220564 / 原ZIP `7ac606c19b9a83bf8718a0a97f0cb5ef157b7dff196aed3b9a3859ee078280cf`（371720614B）。937native成员、三旧origin/147闭包、累计53fresh源/2824AX根/53normalchecker0及两个实际Gap literal全绑定。全部Nat `20482069≤y<40956329` 都有实际Prime p>y，且 `4095*(p-y)≤y`，无额外数学输入；6000子段包含其中，不相加计数。原题完整i上限仍10000。
+
+原start UTC10:22:50、proofStop11:32:50、hard11:52:50均未延期。主最后实际证明/checker子进程于UTC11:15:59.594572结束；S最后正式Gap签11:30:24；A于11:32:13冻结，S于11:33:59冻结。主child累计932.55s、峰3.4799GiB、最低可用13.990GiB；数字来自实际CI收据，不是本机余量。CIM本机内存/CPU查询拒绝，保持unknown；本机Lean启动/终止均0，最终D约21.996GiB。Git发布使用进程局部两线程压缩和禁自动GC。
+
+本轮三CI success、一次冻结源码预检failure，全部completed/ownedactive0。没有递归、心跳、OOM、超时或证明复杂度故障。五原ZIP全在 `D:/ResearchArtifacts/b699-tail-ninetymin`，压缩包及binary不入Git；[普通文件完整inventory](runtime/ordinary-inventory.json)含1812文件/24284391B，排除仅inventory自身。C最后只读检查5ZIP/2327native映射/539binary引用/1812普通文件全hash、size、可读性通过；S也分别检查10000的640ordinary+224parts、Gap的704ordinary+233parts的实际保留路径。Gap224重复parts经完整bytes/SHA映射复用1235534984B，9新parts实体外置；原ZIP/对象均未删除。
+
+## 下一可执行项与准确优化需求
+
+先保留已验比例域 `i≥1000,n≥4096i`、有限N≤20M供应及本轮完整K范围。仍未知完整大指标为i≥10001的低比例未覆盖域，i/n/j全局无界；真Gap的y也无界。低非R7的23项 `{10}∪[12,28]∪[30,34]` 和R7 `{3,…,9}` 未动。没有完成全B699或所有i≥4883。
+
+有限接续可在新预算下复用同prime endpoint40956329，先实际验 `Extra10001Legacy` 与独立literal，不增prime；下一更多K按实际块成本扩展。四Extra源本轮没有真实执行，全部pending。
+
+完整无限尾需要无额外假设的 `∀Nat y≥10^7, ∃实际Prime p>y, 4095*(p-y)≤y` 供应或另一统一原题论证。准确现成consumer接口与已发表依赖拆分见 [UNIFORM-ROUTE-GAP](supply/UNIFORM-ROUTE-GAP.md)、[Dusart依赖核对](supply/DUSART-DEPENDENCIES.md)、[S独立来源审读](reviews/UNIFORM-SUPPLY-INDEPENDENT-REVIEW.md)。本轮未取得的上游[7]原文、[23]有限原始证书和表号对应仍缺来源闭包；这不是对已发表定理有效性的否定，也不是实际Lean复杂度测量。若让其他agent优化纸面，可直接供应上述较弱准确Gap及完整依赖/适合kernel的小证书；已通过的有限消费者无需因本轮运行重写。
+
+自动push已关闭，保手动入口与原过期启动guard。下一轮须新用户预算、重新设置受控启动与停止窗口；不直接dispatch本轮过期配置。Leader沿用本分支普通push并核对远端SHA；没有merge、PR、认证或权限变更。

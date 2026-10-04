@@ -13,20 +13,30 @@ S=`/root/tail90_verification`，`gpt-6.1-sol/xhigh`，仅写本目录。不运�
 
 原包均外置 `D:/ResearchArtifacts/b699-tail-ninetymin/`，C的普通/二进制member可恢复映射在 `runtime/ci/<run>-<stage>/RAW_INTAKE.json`。旧原包29a3/217e未重kernel；重读其raw bytes不提升旧数学证据等级。正常checker是实际固定Lean replay，不是第二独立内核实现。
 
+- [10000签件](TAIL10000-INDEPENDENT-ACCEPTED.json)及[绑定](TAIL10000-INDEPENDENT-BINDING.json)：同fixed source/run，artifact `11302125590`，371633305B原ZIP `e906e2fb73ccb9d8a4048ca7ccd8c41cc66b17ecf40524a73424d0a1f1f957aa`；864native成员、147复用闭包及三origin全members/parts/actual首import环境、48fresh源2818根AX/48normalchecker0、单10000及完整 `[4883,10000]` actual literal全通过。额外数学输入空，所有合法Nat n/j；完整全集现 `{1,2,11,29}∪[35,10000]`，相对6000增4000，本轮相对5000累计增5000。各阶段覆盖互相包含，不能把累计数字相加。真实finiteGap已另接受，见下方Gap签件；不改变完整i上限。
+
 ## 源审与候选
 
 [无界供应审读](UNIFORM-SUPPLY-INDEPENDENT-REVIEW.md)从实际onlyGap终端向上追溯DS、两θ有效界及ψ误差输入；供应都仍显式未消去。纸面出版输入、θ/ψ桥梁、finite链或作者PASS不升格。该缺口当前属于未形式化数学输入/完整源未供，未出现新数学复杂度失败。
 
-[有限端点审读](FINITE-ENDPOINT-INDEPENDENT-REVIEW.md)、[55源冻结](CANDIDATES-INDEPENDENT-SOURCE-REVIEW.json)与[程序](review_candidates.py)检查2844 relative integer edges/seams、端点和准确literal源码；计算不证明primality。主6000/10000消费者独立literal已交C。主fixed source `e47faa4ff2cf11e2b125c7e0e0a890c4b990a61e` 冻结后不增加目标；待收到包，以[三origin程序](bind_finite_archive.py)绑定147旧source/3个完整原包及每个fresh proof/原题literal。6000已按上方签件接受；10000仍执行待包，不提升其等级。
+[有限端点审读](FINITE-ENDPOINT-INDEPENDENT-REVIEW.md)、[55源冻结](CANDIDATES-INDEPENDENT-SOURCE-REVIEW.json)与[程序](review_candidates.py)检查2844 relative integer edges/seams、端点和准确literal源码；计算不证明primality。主6000/10000消费者独立literal已交C。主fixed source `e47faa4ff2cf11e2b125c7e0e0a890c4b990a61e` 冻结后不增加目标；待收到包，以[三origin程序](bind_finite_archive.py)绑定147旧source/3个完整原包及每个fresh proof/原题literal。6000与10000均已按上方签件正式接受；finiteGap已另正式核验接受。
 
 [Forward有限Gap审读](FORWARD-GAP-INDEPENDENT-REVIEW.md)和[5源冻结](FORWARD-GAP-INDEPENDENT-SOURCE-REVIEW.json)：可选准确范围 `[20482069,24574447)` / `[20482069,40956329)`，strict y<p，完整整数 `4095*(p-y)≤y`；没有主链下方千万至seed的供应，更没有无界y供应。独立Gap literal已备，必须实际新编/AX/checker/binding后才接受。
 
-另备6001/10001两个零新增prime末端候选及独立literal，仅静态准备；主运行不变。只有主success且仍在新CI启动上限内，才另冻结并附验。候选不是接受。
+另备6001/10001两个零新增prime末端候选及独立literal，仅静态准备；主运行不变。只有主success且仍在新CI启动上限内，才另冻结并附验。候选不是接受。原latestStart已于11:15:50Z结束；没有此前真实起跑收据时，本轮不再新执行这些候选。
 
 新增计数按最终最高已接受范围计算：主10000接受后，6001属于已覆盖重用，新增0；10001相对10000才新增1。若最终只有6000，则独立6001相对6000新增1。各signature的 `newCompleteOriginalIndexCountFrom5000` 是累计相对本轮开始的范围计数，不把同一指标在不同consumer的接受重复相加。
+
+## 最终有限Gap与恢复映射
+
+[Gap签件](GAP-FORWARD-INDEPENDENT-ACCEPTED.json)与[绑定](GAP-FORWARD-INDEPENDENT-BINDING.json)已实际exit0，source e47/CI37197120772/artifact11302220564，371720614B ZIP `7ac606c19b9a83bf8718a0a97f0cb5ef157b7dff196aed3b9a3859ee078280cf`；937native、53累计fresh/2824AX/53normalchecker0及三旧origin/147闭包全绑定。两actual独立Gap literal均通过，最大并集为 `[20482069,40956329)`（20,474,260个Nat y），无额外数学输入；较小6000区间包含其中，不相加。这既不是全10M初段，也不是无限Gap。
+
+[10000保留映射核对](TAIL10000-RETAINED-MEMBERS.json)与[Gap保留映射核对](GAP-FORWARD-RETAINED-MEMBERS.json)由[程序](verify_retained_member_map.py)逐actual `storedPath`流式比对原ZIP每个成员、size/SHA及Git边界；实际分别640普通+224binary、704普通+233binary全部通过。包含每个self/nested manifest，canonical复用对象映射可恢复；不重kernel。
+
+最终机器入口是[CURRENT-SCOPE.json](CURRENT-SCOPE.json)；原5001/probe/6000/10000各签件及其程序bytes保留，阶段范围互含，最终新增只计 `[5001,10000]` 的5000个指标。四Extra文件仅source-only，不再本轮起跑。
 
 ## 拒绝式检查与剩余前沿
 
 [AX门](check_transitive_axioms.py)从actual source的 `#print axioms` 精确库存，拒绝缺失/重/额外root与Std3之外公理；[门自检](AX-GATE-SELF-CHECK.json)实际两正例/五拒绝例通过。这只检parser行为，proof接受另需actual compiler、完整types、AX、normalchecker、固定Git/raw/object全部parts及实际首search prefix。
 
-当前完整未知从 `i≥6001` 的低比例域继续，i/n/j仍无界；真Gap无界y、θ/ψ有效界、低23与R7均保留。之后任何有限K接受只能消去相应有限i区间、仍保完整n/j；无限供应缺口不随固定K增大而消失。新结果范围、额外数学输入与签字时窗由各正式签件决定。
+当前完整未知从 `i≥10001` 的低比例域继续，i/n/j仍无界；真Gap无界y、θ/ψ有效界、低23与R7均保留。之后任何有限K接受只能消去相应有限i区间、仍保完整n/j；无限供应缺口不随固定K增大而消失。新结果范围、额外数学输入与签字时窗由各正式签件决定。

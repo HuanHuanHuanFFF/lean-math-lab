@@ -1,0 +1,8 @@
+theorem B699TailNinetyVerify20261004.complete_10000_exact : ∀ (n j : ℕ),
+  10000 < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ 10000 ≤ p ∧ p ∣ n.choose 10000 ∧ p ∣ n.choose j :=
+fun n j hij hjn => B699TailNinety20261004.complete_10000 hij hjn
+'B699TailNinetyVerify20261004.complete_10000_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem B699TailNinetyVerify20261004.all_upto_10000_exact : ∀ (n i j : ℕ),
+  4883 ≤ i → i ≤ 10000 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun n i j hi hiu hij hjn => B699TailNinety20261004.common_upto_10000 hi hiu hij hjn
+'B699TailNinetyVerify20261004.all_upto_10000_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
