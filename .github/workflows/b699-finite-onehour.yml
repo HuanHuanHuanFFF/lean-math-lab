@@ -1,6 +1,11 @@
-name: B699 controlled tail until2020 verification
+name: B699 controlled two-hour tail verification
 on:
   workflow_dispatch:
+  push:
+    branches: ['huan/b699-lean-next-20261002-01a0f779']
+    paths:
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/runtime/stage-spec.json'
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/runtime/tail-stage.py'
 permissions:
   contents: read
 concurrency:
@@ -9,14 +14,14 @@ concurrency:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 80
     env:
-      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/runtime
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/runtime
     steps:
       - name: Reject expired absolute launch window
         shell: bash
         run: |
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 12:14:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 13:55:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Actual resources and frozen stage sources
         id: plan
@@ -42,8 +47,8 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.plan.outputs.stage10001_enabled == 'true'
         with:
-          name: b699-until2020-stage10001-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-until2020/runtime/stage10001-delivery/
+          name: b699-tail2h-stage10001-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/runtime/stage10001-delivery/
           if-no-files-found: warn
           retention-days: 30
       - name: Complete finite original consumers through 13000
@@ -55,7 +60,20 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always() && steps.plan.outputs.stage13000_enabled == 'true'
         with:
-          name: b699-until2020-stage13000-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-until2020/runtime/stage13000-delivery/
+          name: b699-tail2h-stage13000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/runtime/stage13000-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete finite original consumers through 15000
+        if: success() && steps.plan.outputs.stage15000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" stage15000
+      - name: Preserve independent 15000 closed or failed stage
+        if: always() && steps.plan.outputs.stage15000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage15000
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.stage15000_enabled == 'true'
+        with:
+          name: b699-tail2h-stage15000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/runtime/stage15000-delivery/
           if-no-files-found: warn
           retention-days: 30
