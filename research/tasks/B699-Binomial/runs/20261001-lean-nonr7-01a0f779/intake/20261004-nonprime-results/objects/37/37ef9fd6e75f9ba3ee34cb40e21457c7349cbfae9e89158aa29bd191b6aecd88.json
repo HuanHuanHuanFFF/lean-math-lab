@@ -1,0 +1,92 @@
+{
+  "status": "候选源码／未实测（Lean、公理输出、正常 kernel checker）",
+  "record_created_utc": "2026-10-03T14:47:57.469065+00:00",
+  "input_archive_sha256": "07718cea3fc75e7a62b3b8491a2875aaeaef3d074976f782e662d8bc9327ccf6",
+  "source_file": "NonprimeCertificates.lean",
+  "source_sha256": "7c3dea91fad223ed1cfd11e1486c69142ecc97496d6b728e876e2f490c7b722f",
+  "expected_environment": {
+    "lean_toolchain": "leanprover/lean4:v4.33.1",
+    "mathlib_commit": "0df444a360eaa60ab8c11dca51a86af692955474"
+  },
+  "observed_environment": {
+    "lean_executable": null,
+    "lake_executable": null,
+    "elan_executable": null,
+    "Lean_version_output": null,
+    "installed_mathlib_commit": null,
+    "library_cache": "no Lean/mathlib cache found in the bounded local search; input contains no complete cache",
+    "OS_cache": "not controlled"
+  },
+  "input_integrity": {
+    "status": "checked",
+    "verified_member_hash_count": 13,
+    "scope": "byte checks only",
+    "record": "static-check/stdout.log"
+  },
+  "integer_factor_checks": {
+    "status": "checked_in_Python_NOT_Lean",
+    "count": 5,
+    "record": "static-check/stdout.log"
+  },
+  "patch_replay": {
+    "status": "checked_as_text_NOT_Lean",
+    "exit_code": 0,
+    "byte_equal": true,
+    "record": "patch-replay/comparison.json"
+  },
+  "compile": {
+    "status": "not_started",
+    "command": [
+      "lake",
+      "env",
+      "lean",
+      "NonprimeCertificates.lean"
+    ],
+    "command_exit_code": null,
+    "recorder_exit_code": 127,
+    "reason": {
+      "type": "FileNotFoundError",
+      "errno": 2,
+      "message": "[Errno 2] No such file or directory: 'lake'"
+    },
+    "Lean_wall_seconds": null,
+    "Lean_peak_memory_bytes": null,
+    "record": "compile-attempt/receipt.json"
+  },
+  "axiom_audit": {
+    "status": "not_run",
+    "actual_results": null,
+    "command_exit_code": null,
+    "audit_source": "AuditNonprimeCertificates.lean",
+    "reason": "No runnable pinned Lean environment; no actual #print axioms output exists."
+  },
+  "normal_kernel_checker": {
+    "status": "not_run",
+    "exact_entry_point": null,
+    "command": null,
+    "exit_code": null,
+    "wall_seconds": null,
+    "peak_memory_bytes": null,
+    "reason": "Project normal-checker entry and full checker environment are not supplied; no guessed checker command was run."
+  },
+  "large_consumer": {
+    "status": "not_compiled_not_integrated",
+    "original_generic_transfer_text_preserved": true,
+    "scope": "Original project executor must perform full integration."
+  },
+  "successful_baseline_or_performance_comparison": null,
+  "historical_failure_not_current_measurement": {
+    "exit_code": 1,
+    "wall_seconds": 2.188042640686035,
+    "peak_tree_working_set_bytes": 3496828928,
+    "note": "Original unsuccessful full-consumer run, not a success baseline and not rerun here."
+  },
+  "declared_types_not_actual_Lean_output": {
+    "B699CompositeTransfer20261003.not_prime_4884": "¬ Nat.Prime 4884",
+    "B699CompositeTransfer20261003.not_prime_4885": "¬ Nat.Prime 4885",
+    "B699CompositeTransfer20261003.not_prime_4886": "¬ Nat.Prime 4886",
+    "B699CompositeTransfer20261003.not_prime_4887": "¬ Nat.Prime 4887",
+    "B699CompositeTransfer20261003.not_prime_4888": "¬ Nat.Prime 4888"
+  },
+  "no_repository_write_commit_push_publish_or_automation_performed": true
+}

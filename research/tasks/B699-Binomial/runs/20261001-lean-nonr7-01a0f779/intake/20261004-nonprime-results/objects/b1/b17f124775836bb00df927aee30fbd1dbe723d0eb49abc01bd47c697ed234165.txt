@@ -1,0 +1,75 @@
+L001: import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».terminal.FiniteConsumerLegacy
+L002: import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261003-gap-finite-fortymin».supply.NonprimeCertificates
+L003: 
+L004: /-! Transfers a same-prime witness across two adjacent nonprime indices.
+L005: The original complete 4884 provider is already accepted; no prime-gap estimate
+L006: or newly generated finite chain is a mathematical input to the four corollaries.
+L007: -/
+L008: set_option autoImplicit false
+L009: set_option relaxedAutoImplicit false
+L010: set_option Elab.async false
+L011: 
+L012: namespace B699CompositeTransfer20261003
+L013: 
+L014: theorem common_succ_of_nonprime {n i j : Nat}
+L015:     (hi : ¬ Nat.Prime i) (his : ¬ Nat.Prime (i + 1))
+L016:     (hcommon : ∃ p : Nat, p.Prime ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) :
+L017:     ∃ p : Nat, p.Prime ∧ i + 1 ≤ p ∧ p ∣ n.choose (i + 1) ∧ p ∣ n.choose j := by
+L018:   obtain ⟨p, hp, hpi, hdiv, hdivj⟩ := hcommon
+L019:   have hne : p ≠ i := by
+L020:     intro heq
+L021:     apply hi
+L022:     simpa only [heq] using hp
+L023:   have hpis : i + 1 ≤ p := by omega
+L024:   have hndiv : ¬ p ∣ i + 1 := by
+L025:     intro hd
+L026:     have hle : p ≤ i + 1 := Nat.le_of_dvd (Nat.succ_pos i) hd
+L027:     have heq : p = i + 1 := by omega
+L028:     apply his
+L029:     simpa only [heq] using hp
+L030:   have hprod : p ∣ n.choose (i + 1) * (i + 1) := by
+L031:     rw [Nat.choose_succ_right_eq]
+L032:     exact dvd_mul_of_dvd_left hdiv (n - i)
+L033:   have hnew : p ∣ n.choose (i + 1) :=
+L034:     (hp.dvd_or_dvd hprod).resolve_right hndiv
+L035:   exact ⟨p, hp, hpis, hnew, hdivj⟩
+L036: 
+L037: theorem complete_4885 {n j : Nat} (hij : 4885 < j) (hjn : j ≤ n / 2) :
+L038:     ∃ p : Nat, p.Prime ∧ 4885 ≤ p ∧ p ∣ n.choose 4885 ∧ p ∣ n.choose j := by
+L039:   exact common_succ_of_nonprime (i := 4884) _root_.B699CompositeTransfer20261003.not_prime_4884 _root_.B699CompositeTransfer20261003.not_prime_4885
+L040:     (B699FiniteFull20261002.common_indices_4883_4884 (i := 4884)
+L041:       (by decide) (by decide) (by omega) hjn)
+L042: 
+L043: theorem complete_4886 {n j : Nat} (hij : 4886 < j) (hjn : j ≤ n / 2) :
+L044:     ∃ p : Nat, p.Prime ∧ 4886 ≤ p ∧ p ∣ n.choose 4886 ∧ p ∣ n.choose j := by
+L045:   exact common_succ_of_nonprime (i := 4885) _root_.B699CompositeTransfer20261003.not_prime_4885 _root_.B699CompositeTransfer20261003.not_prime_4886
+L046:     (complete_4885 (by omega) hjn)
+L047: 
+L048: theorem complete_4887 {n j : Nat} (hij : 4887 < j) (hjn : j ≤ n / 2) :
+L049:     ∃ p : Nat, p.Prime ∧ 4887 ≤ p ∧ p ∣ n.choose 4887 ∧ p ∣ n.choose j := by
+L050:   exact common_succ_of_nonprime (i := 4886) _root_.B699CompositeTransfer20261003.not_prime_4886 _root_.B699CompositeTransfer20261003.not_prime_4887
+L051:     (complete_4886 (by omega) hjn)
+L052: 
+L053: theorem complete_4888 {n j : Nat} (hij : 4888 < j) (hjn : j ≤ n / 2) :
+L054:     ∃ p : Nat, p.Prime ∧ 4888 ≤ p ∧ p ∣ n.choose 4888 ∧ p ∣ n.choose j := by
+L055:   exact common_succ_of_nonprime (i := 4887) _root_.B699CompositeTransfer20261003.not_prime_4887 _root_.B699CompositeTransfer20261003.not_prime_4888
+L056:     (complete_4887 (by omega) hjn)
+L057: 
+L058: theorem complete_4885_through_4888 {n i j : Nat}
+L059:     (hi : 4885 ≤ i) (hiu : i ≤ 4888) (hij : i < j) (hjn : j ≤ n / 2) :
+L060:     ∃ p : Nat, p.Prime ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j := by
+L061:   have hcases : i = 4885 ∨ i = 4886 ∨ i = 4887 ∨ i = 4888 := by omega
+L062:   rcases hcases with rfl | rfl | rfl | rfl
+L063:   · exact complete_4885 hij hjn
+L064:   · exact complete_4886 hij hjn
+L065:   · exact complete_4887 hij hjn
+L066:   · exact complete_4888 hij hjn
+L067: 
+L068: end B699CompositeTransfer20261003
+L069: 
+L070: #print axioms B699CompositeTransfer20261003.common_succ_of_nonprime
+L071: #print axioms B699CompositeTransfer20261003.complete_4885
+L072: #print axioms B699CompositeTransfer20261003.complete_4886
+L073: #print axioms B699CompositeTransfer20261003.complete_4887
+L074: #print axioms B699CompositeTransfer20261003.complete_4888
+L075: #print axioms B699CompositeTransfer20261003.complete_4885_through_4888

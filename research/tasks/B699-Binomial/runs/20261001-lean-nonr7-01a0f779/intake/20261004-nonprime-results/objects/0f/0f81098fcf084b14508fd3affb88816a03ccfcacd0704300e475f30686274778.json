@@ -1,0 +1,93 @@
+{
+  "status_zh": "候选源码／未实测",
+  "status_en": "CANDIDATE_SOURCE_NOT_LEAN_TESTED",
+  "created_utc": "2026-10-03T14:45:00.466979+00:00",
+  "target_toolchain": "leanprover/lean4:v4.33.1",
+  "target_mathlib_commit": "0df444a360eaa60ab8c11dca51a86af692955474",
+  "actual_lean_version": null,
+  "actual_mathlib_checkout_revision": null,
+  "source_sha256": "4e4f649567aa6e82ce3153058a4c6fb4d2172440aaaa443239205c00cac588ea",
+  "input_archive_sha256": "07718cea3fc75e7a62b3b8491a2875aaeaef3d074976f782e662d8bc9327ccf6",
+  "input_consumer_sha256": "31ca5aaa79f1286caef8794e33cdf09da6528ff4b756aec9a2aeefc06175e747",
+  "minimal_compile": {
+    "attempted_command": "lake env lean NonprimeCertificates.lean",
+    "shell_exit_code": 127,
+    "lean_started": false,
+    "status": "BLOCKED_BEFORE_LEAN_START",
+    "compiler_exit_code": null,
+    "compile_wall_seconds": null,
+    "compile_peak_memory_bytes": null,
+    "raw_receipt": "local/compile.receipt.json",
+    "blocker": "lake, lean and elan not found in the probed PATH; no fixed dependency installation available"
+  },
+  "axiom_audit": {
+    "attempted_command": "lake env lean AuditNonprimeCertificates.lean",
+    "shell_exit_code": 127,
+    "lean_started": false,
+    "status": "NO_ACTUAL_PRINT_AXIOMS_OUTPUT",
+    "raw_receipt": "local/axioms.receipt.json",
+    "declarations": [
+      {
+        "name": "B699NonprimeCertificates.not_prime_4884",
+        "declared_source_type": "¬ Nat.Prime 4884",
+        "lean_observed_type": null,
+        "actual_axioms": null
+      },
+      {
+        "name": "B699NonprimeCertificates.not_prime_4885",
+        "declared_source_type": "¬ Nat.Prime 4885",
+        "lean_observed_type": null,
+        "actual_axioms": null
+      },
+      {
+        "name": "B699NonprimeCertificates.not_prime_4886",
+        "declared_source_type": "¬ Nat.Prime 4886",
+        "lean_observed_type": null,
+        "actual_axioms": null
+      },
+      {
+        "name": "B699NonprimeCertificates.not_prime_4887",
+        "declared_source_type": "¬ Nat.Prime 4887",
+        "lean_observed_type": null,
+        "actual_axioms": null
+      },
+      {
+        "name": "B699NonprimeCertificates.not_prime_4888",
+        "declared_source_type": "¬ Nat.Prime 4888",
+        "lean_observed_type": null,
+        "actual_axioms": null
+      }
+    ]
+  },
+  "project_kernel_checker": {
+    "status": "NOT_RUN",
+    "command": null,
+    "exit_code": null,
+    "wall_seconds": null,
+    "peak_memory_bytes": null,
+    "reason": "Exact project checker entry and full checker environment were not provided; no command guessed."
+  },
+  "full_consumer": {
+    "status": "NOT_RUN",
+    "accepted": false,
+    "reason": "Integration intentionally left to original project environment."
+  },
+  "static_checks": {
+    "status": "PASSED_NON_LEAN_CHECKS_ONLY",
+    "receipt": "local/static-checks.receipt.json"
+  },
+  "download_probe": {
+    "shell_exit_code": 6,
+    "reason": "Could not resolve host: api.github.com",
+    "receipt": "local/release-download-probe.receipt.json"
+  },
+  "cache_state": {
+    "mathlib_olean_cache": "Not available in this delivery runtime; supplied snapshots are not build dependencies.",
+    "os_page_cache": "Not controlled or measured",
+    "warm_cold_comparison": null
+  },
+  "performance_scope": "No compilation/checker performance measurement exists. Recorded shell/curl/Python times and RSS are not Lean proof costs.",
+  "trust_boundary": "No axiom declarations or admitted proofs in minimal source by static inspection. Actual transitive axiom closure has NOT been checked.",
+  "historical_failure": "Original 2.188042640686035-second failed run is preserved under input/evidence and is NOT a successful baseline.",
+  "repository_mutations": "None; only separate delivery files were created under /mnt/data."
+}

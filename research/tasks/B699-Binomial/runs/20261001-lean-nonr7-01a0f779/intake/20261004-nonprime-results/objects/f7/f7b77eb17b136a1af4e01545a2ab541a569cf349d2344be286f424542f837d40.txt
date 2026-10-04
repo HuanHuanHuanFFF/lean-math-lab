@@ -1,0 +1,6 @@
+import Mathlib.Data.Nat.Prime.Defs
+
+theorem not_prime_4884 : ¬ Nat.Prime 4884 :=
+  fun h => Or.elim (h.isUnit_or_isUnit (a:=2) (b:=2442) rfl)
+    (fun u => Nat.succ_succ_ne_one 0 (Nat.isUnit_iff.mp u))
+    (fun u => Nat.succ_succ_ne_one 2440 (Nat.isUnit_iff.mp u))

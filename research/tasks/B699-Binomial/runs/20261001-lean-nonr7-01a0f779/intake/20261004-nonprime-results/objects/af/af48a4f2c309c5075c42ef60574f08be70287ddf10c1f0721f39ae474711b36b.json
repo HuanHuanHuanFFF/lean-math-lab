@@ -1,0 +1,65 @@
+{
+  "created_utc": "2026-10-03T15:26:11.872298+00:00",
+  "checks": [
+    {
+      "file": "scripts/build_audits.py",
+      "sha256": "bc2331a15b78f4ccbc3badf3c7d75c6718ef10241210bdc18f6cb42ae8713fae",
+      "python_ast_parse": "PASS"
+    },
+    {
+      "file": "scripts/replay_no_install.py",
+      "sha256": "9b1e2176ae3ff1889ebd1cf7920ab07cb0efd99f03a16ce9a882e2cc8f2955d9",
+      "python_ast_parse": "PASS"
+    },
+    {
+      "file": "scripts/run_command.py",
+      "sha256": "438420d9fe0b491faddf1072314425040efe6308c8971d416c07af596a87702d",
+      "python_ast_parse": "PASS"
+    },
+    {
+      "file": "scripts/static_check.py",
+      "sha256": "53eeece58700ddc63ca55f31875156cc3aafc59c2d134d4afdb7f29518ee4f60",
+      "python_ast_parse": "PASS"
+    },
+    {
+      "file": "scripts/verify_packet.py",
+      "sha256": "2d872f577ff01cae107851e67f6d4c71fce12949ad0a136c4d7ced66b034d83f",
+      "python_ast_parse": "PASS"
+    },
+    {
+      "file": "scripts/run_command.py",
+      "argv": [
+        "python3",
+        "/mnt/data/B699-Nonprime-StructureReview-20261003/scripts/run_command.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: run_command.py [-h] --cwd CWD --out OUT --label LABEL [--source SOURCE]\n                      [--timeout TIMEOUT]\n                      ...\n\nCapture an explicit command; no installer, shell, checker inference or\nacceptance claim.\n\npositional arguments:\n  command\n\noptions:\n  -h, --help         show this help message and exit\n  --cwd CWD\n  --out OUT\n  --label LABEL\n  --source SOURCE\n  --timeout TIMEOUT\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/replay_no_install.py",
+      "argv": [
+        "python3",
+        "/mnt/data/B699-Nonprime-StructureReview-20261003/scripts/replay_no_install.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: replay_no_install.py [-h] --project PROJECT --lean-bin LEAN_BIN\n                            --out OUT [--timeout TIMEOUT]\n\nRun the standalone files with an ALREADY INSTALLED pinned Lean and prebuilt\ndependencies. Reads a prepared project only. Writes fresh command evidence and\nobjects outside that project. Does not invoke Lake/elan, build dependencies,\ndownload files, install tools or infer a checker.\n\noptions:\n  -h, --help           show this help message and exit\n  --project PROJECT    Existing, fully prepared pinned project\n  --lean-bin LEAN_BIN  Absolute native bin/lean, NOT an elan shim\n  --out OUT            New evidence directory outside project and packet\n  --timeout TIMEOUT\n",
+      "stderr": ""
+    },
+    {
+      "file": "scripts/verify_packet.py",
+      "argv": [
+        "python3",
+        "/mnt/data/B699-Nonprime-StructureReview-20261003/scripts/verify_packet.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: verify_packet.py [-h] [--extract-to EXTRACT_TO] [--receipt RECEIPT]\n                        archive\n\nVerify a sealed packet ZIP, extract a new copy, and optionally write a\nDETACHED receipt. Checks paths, duplicates, CRC, the exact manifest member set\nand SHA-256 after extraction. Also records independent system unzip/sha256sum\nchecks when available. Not a Lean checker.\n\npositional arguments:\n  archive\n\noptions:\n  -h, --help            show this help message and exit\n  --extract-to EXTRACT_TO\n  --receipt RECEIPT\n",
+      "stderr": ""
+    }
+  ],
+  "lean_executed": false,
+  "scope": "Python parse and CLI help only; replay Lean path remains unexecuted"
+}

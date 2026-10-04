@@ -1,0 +1,75 @@
+optional<expr> type_checker::reduce_nat(expr const & e) {
+    unsigned nargs = get_app_num_args(e);
+    if (nargs == 1) {
+        expr const & f = app_fn(e);
+        if (f == *g_nat_succ) {
+            expr arg = whnf(app_arg(e));
+            if (!is_nat_lit_ext(arg)) return none_expr();
+            nat v = get_nat_val(arg);
+            v = v + nat(1);
+            check_nat_size(env(), nat_size_in_bytes(v));
+            return some_expr(mk_lit(literal(v)));
+        }
+    } else if (nargs == 2) {
+        expr const & f = app_fn(app_fn(e));
+        if (!is_constant(f)) return none_expr();
+        if (f == *g_nat_add) return reduce_bin_nat_op(nat_add, e, /* check_size */ true);
+        if (f == *g_nat_sub) return reduce_bin_nat_op(nat_sub, e, /* check_size */ true);
+        if (f == *g_nat_mul) return reduce_bin_nat_op(nat_mul, e, /* check_size */ true);
+        if (f == *g_nat_pow) return reduce_pow(e);
+        if (f == *g_nat_gcd) return reduce_bin_nat_op(nat_gcd, e);
+        if (f == *g_nat_mod) return reduce_bin_nat_op(nat_mod, e);
+        if (f == *g_nat_div) return reduce_bin_nat_op(nat_div, e);
+        if (f == *g_nat_beq) return reduce_bin_nat_pred(nat_eq, e);
+        if (f == *g_nat_ble) return reduce_bin_nat_pred(nat_le, e);
+        if (f == *g_nat_land) return reduce_bin_nat_op(nat_land, e);
+        if (f == *g_nat_lor)  return reduce_bin_nat_op(nat_lor, e);
+        if (f == *g_nat_xor)  return reduce_bin_nat_op(nat_lxor, e);
+        if (f == *g_nat_shiftLeft) return reduce_shiftLeft(e);
+        if (f == *g_nat_shiftRight) return reduce_bin_nat_op(lean_nat_shiftr, e);
+    }
+    return none_expr();
+}
+
+/** \brief Put expression \c t in weak head normal form */
+expr type_checker::whnf(expr const & e) {
+    // Do not cache easy cases
+    switch (e.kind()) {
+    case expr_kind::BVar:  case expr_kind::Sort: case expr_kind::MVar: case expr_kind::Pi:
+    case expr_kind::Lit:
+        return e;
+    case expr_kind::MData:
+        return whnf(mdata_expr(e));
+    case expr_kind::FVar:
+        if (is_let_fvar(m_lctx, e))
+            break;
+        else
+            return e;
+    case expr_kind::Lambda: case expr_kind::App:
+    case expr_kind::Const:  case expr_kind::Let: case expr_kind::Proj:
+        break;
+    }
+
+    // check cache
+    auto it = m_st->m_whnf.find(e);
+    if (it != m_st->m_whnf.end())
+        return it->second;
+
+    expr t = e;
+    while (true) {
+        expr t1 = whnf_core(t);
+        if (auto v = reduce_native(env(), t1)) {
+            m_st->m_whnf.insert(mk_pair(e, *v));
+            return *v;
+        } else if (auto v = reduce_nat(t1)) {
+            m_st->m_whnf.insert(mk_pair(e, *v));
+            return *v;
+        } else if (auto next_t = unfold_definition(t1)) {
+            t = *next_t;
+        } else {
+            auto r = t1;
+            m_st->m_whnf.insert(mk_pair(e, r));
+            return r;
+        }
+    }
+}
