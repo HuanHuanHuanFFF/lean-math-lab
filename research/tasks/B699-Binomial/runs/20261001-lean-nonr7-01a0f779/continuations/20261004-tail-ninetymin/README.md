@@ -21,9 +21,9 @@
 
 ## 归属与接受
 
-- A：复杂Lean实现，`gpt-6.1-sol/xhigh`；独占 `supply/**`，追溯数学前置、实现候选并给最小检查目标。
-- C：复杂依赖恢复与CI执行，`gpt-6.1-sol/xhigh`；独占 `runtime/**`、本轮整合源 `lean/**` 和 `.github/workflows/b699-finite-onehour.yml`；代表性执行、资源守卫、日志、对象、原包与来源清单。
-- S：复杂声明/依赖/证据核验，`gpt-6.1-sol/xhigh`；独占 `reviews/**`；独立原题字面消费者、可执行公理白名单、源码/对象/原日志绑定及接受签件。
+- A `/root/tail90_implementation`：复杂Lean实现，`gpt-6.1-sol/xhigh`；独占 `supply/**`，追溯数学前置、实现候选并给最小检查目标。
+- C `/root/tail90_runtime`：复杂依赖恢复与CI执行，`gpt-6.1-sol/xhigh`；独占 `runtime/**`、本轮整合源 `lean/**` 和 `.github/workflows/b699-finite-onehour.yml`；代表性执行、资源守卫、日志、对象、原包与来源清单。
+- S `/root/tail90_verification`：复杂声明/依赖/证据核验，`gpt-6.1-sol/xhigh`；独占 `reviews/**`；独立原题字面消费者、可执行公理白名单、源码/对象/原日志绑定及接受签件。
 - Root Leader：本README、REPORT、问题OVERVIEW、run导航、协调、普通commit/push与远端SHA核对。执行者不提交、不push、不改别人的目录。
 
 全部重Lean在CI、串行运行；固定 Lean v4.33.1、mathlib `0df444a360eaa60ab8c11dca51a86af692955474` 及原pins。新运行须先实际检查runner资源。D盘初见剩余约24.6GiB；不本机安装或启动重Lean，不删其他任务缓存。ZIP/编译二进制在仓库外；普通材料按ARTIFACTS规则归档。
@@ -31,3 +31,11 @@
 接受需准确原题声明、实际编译、传递公理审计（拒绝sorryAx/额外数学axiom）、正常checker、固定source/object/raw绑定与具名独立核验；源审或Python计算不升格。发现明确复杂度瓶颈即向Leader报告并停止重试，由Leader依用户要求终止本轮证明、整理具体纸面优化需求。
 
 普通分支push沿用既有授权；不merge、不推main、不强推、不建PR、不改变认证/权限。
+
+## 首次检查后的执行选择
+
+A从实际源确认统一Dusart供应未形式化；S独立确认 `original_tail_of_gap`、θ/ψ和 `nat_gap_of_dusart` 均保留对应无界数学输入，固定K链不能代供。这里是出版解析定理的形式化缺口，未观测到新递归/OOM/运行复杂度故障。
+
+Leader选择A提出的可执行第二路线：先验旧endpoint支持5001的端点优化，随后完整扩展至6000；用实际代表块成本、进程树峰值和剩余窗口门控10000。所有新结果在签件前保持pending。这些有限i区间均覆盖全部合法n/j，但真无限Gap和更大i/n/j尾部仍无界；预期收益与无限尾目标分开记录。
+
+预算状态记录已于同分支push为 `c294e889bc3eb64492de19952a0eb7d969ba729a`，远端SHA匹配，未触发重CI。

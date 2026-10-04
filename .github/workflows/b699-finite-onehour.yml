@@ -1,15 +1,14 @@
-name: B699 nonprime leaf and complete consumer verification
-
+name: B699 controlled tail ninety minute verification
 on:
-  workflow_dispatch:
   push:
     branches: [huan/b699-lean-next-20261002-01a0f779]
     paths:
       - .github/workflows/b699-finite-onehour.yml
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/lean/**
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/runtime/nonprime-stage.py
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/runtime/stage-spec.json
-
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/supply/**
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/*.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/check_transitive_axioms.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/runtime/tail-stage.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/runtime/stage-spec.json
 permissions:
   contents: read
 concurrency:
@@ -20,17 +19,15 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     env:
-      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/runtime
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/runtime
     steps:
-      - name: Reject expired publication window
+      - name: Reject expired absolute launch window
         shell: bash
         run: |
-          echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-03 18:20:13 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 11:15:50 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - name: Actual resources and exact fixed sources
-        id: plan
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" preflight
+      - name: Actual resources and frozen stage sources
+        run: python3 "$B699_RUNTIME/tail-stage.py" preflight
       - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
         with:
           auto-config: 'false'
@@ -39,65 +36,19 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'false'
           use-github-cache: 'false'
-      - name: Five nonprime leaves exact interfaces axioms and normal checker
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" leaf
-      - name: Preserve minimal leaf source object raw evidence
-        if: always()
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" manifest-leaf
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always()
-        with:
-          name: b699-nonprime-leaf-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/leaf-evidence/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Reuse fixed accepted providers and check four complete consumers
-        if: success() && steps.plan.outputs.full_enabled == 'true'
+      - name: Restore exact 129 and 11 accepted source object closures
         env:
           B699_ARTIFACT_TOKEN: ${{ github.token }}
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" full
-      - name: Preserve complete source raw and member manifest
-        if: always() && steps.plan.outputs.full_enabled == 'true'
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" manifest-full
-      - name: Package complete new evidence with fixed old member bindings
-        if: always() && steps.plan.outputs.full_enabled == 'true'
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" package-full
+        run: python3 "$B699_RUNTIME/tail-stage.py" prepare
+      - name: Complete 5001 proof exact literals axioms and normal checker
+        run: python3 "$B699_RUNTIME/tail-stage.py" stage5001
+      - name: Preserve first independent closed or failed stage
+        if: always()
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage5001
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.full_enabled == 'true'
+        if: always()
         with:
-          name: b699-nonprime-full-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/full-delivery/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Extend only six tail primes and bind complete 4889 literals
-        if: success() && steps.plan.outputs.tail_enabled == 'true'
-        env:
-          B699_ARTIFACT_TOKEN: ${{ github.token }}
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" tail4889
-      - name: Preserve independent 4889 stage package
-        if: always() && steps.plan.outputs.tail_enabled == 'true'
-        run: |
-          python3 "$B699_RUNTIME/nonprime-stage.py" manifest-tail
-          python3 "$B699_RUNTIME/nonprime-stage.py" package-tail4889
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.tail_enabled == 'true'
-        with:
-          name: b699-tail4889-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/tail4889-delivery/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Extend six bounded blocks and bind complete up-to-5000 literals
-        if: success() && steps.plan.outputs.tail5000_enabled == 'true'
-        run: python3 "$B699_RUNTIME/nonprime-stage.py" tail5000
-      - name: Preserve separate 5000 stage package
-        if: always() && steps.plan.outputs.tail5000_enabled == 'true'
-        run: |
-          python3 "$B699_RUNTIME/nonprime-stage.py" manifest-tail
-          python3 "$B699_RUNTIME/nonprime-stage.py" package-tail5000
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.tail5000_enabled == 'true'
-        with:
-          name: b699-tail5000-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-nonprime-onehour/runtime/tail5000-delivery/
+          name: b699-tail90-stage5001-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage5001-delivery/
           if-no-files-found: warn
           retention-days: 30
