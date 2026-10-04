@@ -1,6 +1,6 @@
 # Oct5：75分钟 Lean 形式化报告
 
-本轮开始UTC2026-10-04 16:35:50（上海Oct5 00:35:50），原截止17:50:50（上海01:50:50），不延期。证明执行已经结束，最终行政封存与push在本轮预算内进行；最终发布提交与时点由Git记录和Leader发布回执给出。同一分支huan/b699-lean-next-20261002-01a0f779，初始提交db0f06bd1115d5815b432c18f537378fa0aa520e。
+本轮开始UTC2026-10-04 16:35:50（上海Oct5 00:35:50），原截止17:50:50（上海01:50:50），不延期。证明执行已经结束，主体材料已于本轮预算内提交并push：3b836fa62b9bab6364297032edb1015e79a3eea0，UTC17:42:28远端SHA一致且工作树干净；本封存记录随后单独提交，最终SHA见Git。时间与发布核对见[Leader回执](LEADER-PUBLICATION-RECEIPT.json)。同一分支huan/b699-lean-next-20261002-01a0f779，初始提交db0f06bd1115d5815b432c18f537378fa0aa520e。
 
 ## 实际验收与前沿变化
 
@@ -27,7 +27,7 @@
 
 ## 第三个消费者：源码候选，未验收
 
-[FiniteHeightConsumerLegacy.lean](supply/FiniteHeightConsumerLegacy.lean)和两条独立字面目标已源审就绪，拟无条件覆盖i≥4883且n-i<122568684，并推出n≤122568684的区域。**没有发布或启动第三个CI，没有编译、AX或kernel结果，当前完整区域不得据此扩大。**
+[FiniteHeightConsumerLegacy.lean](supply/FiniteHeightConsumerLegacy.lean)和两条独立字面目标已源审就绪，拟无条件覆盖i≥4883且n-i<122568684，并推出n≤122568684的区域。**候选源码已随本次封存推送；启动窗口内未发布为可执行CI单元，未启动第三个CI，没有编译、AX或kernel结果，当前完整区域不得据此扩大。**
 
 A实际source-ready为UTC17:25:02，S为17:25:56，C原READY为17:27:39；最终受控发布未赶上17:28启动截止。另发现CI前置stage误写tinytail30000，实际应为tail30000：原bad冻结spec/READY及诊断保留，修正版仅source presence/hash/AST和真实origin.stageName静态门控通过。时间与配置问题不是Lean复杂度或数学反例，不据此要求重写纸面证明。见[独立pending记录](reviews/FINITE-HEIGHT-RUNTIME-PENDING.json)、[配置诊断](runtime/HEIGHT-DIAGNOSTIC.json)与[修正版静态READY](runtime/HEIGHT-CORRECTED-STATIC-READY.json)。
 
@@ -37,7 +37,7 @@ A实际source-ready为UTC17:25:02，S为17:25:56，C原READY为17:27:39；最终
 
 父原包923266078B与tiny原包2416995B已经完整恢复并通过size/SHA；旧断流前缀、partial与chunks原件保留。本轮未因传输恢复而重做已成功数学执行。父104与tiny4的历史实际编译/AX/checker成本见[测量回执](reviews/MEASURED-COSTS.json)，不能计作本轮新运行。
 
-两个新CI均completed success：第一37218764276于UTC17:02:35完成，第二37219682143于17:17:26完成；最后正常checker child分别在17:02:28.628101和17:17:17.945252结束。第一4模块编译/AX累计约8.50s、正常checker16.48s；第二约13.15s和9.08s。记录值是相应child加总，并非CI排队、恢复、独立绑定的整轮耗时。新单元没有观察到递归深度、OOM或证明计算量故障。
+历史37207871560整体run仍显示failure；本轮接受其已经成功的数学stage固定源对象/raw和独立绑定，不改写历史整体GitHub状态。两个新CI均completed success：第一37218764276于UTC17:02:35完成，第二37219682143于17:17:26完成；最后正常checker child分别在17:02:28.628101和17:17:17.945252结束。第一4模块编译/AX累计约8.50s、正常checker16.48s；第二约13.15s和9.08s。记录值是相应child加总，并非CI排队、恢复、独立绑定的整轮耗时。新单元没有观察到递归深度、OOM或证明计算量故障。
 
 固定Lean为leanprover/lean4:v4.33.1（819816b2e0a3bf405af45ae5c7af2491d8f5bee6），Mathlib为0df444a360eaa60ab8c11dca51a86af692955474。实际composite执行-M6144、startup6144MiB/tree5120MiB；早期预案10240/8192被固定helper覆写，按真实回执记录，原source/helper不改。所有重Lean在CI串行、两CPU/nice19，本机Lean0。
 
