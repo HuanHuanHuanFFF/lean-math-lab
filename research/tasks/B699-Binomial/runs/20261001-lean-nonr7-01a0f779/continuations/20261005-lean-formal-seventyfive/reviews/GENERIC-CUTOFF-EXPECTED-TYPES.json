@@ -1,0 +1,79 @@
+{
+  "verifier": "/root/tail2h_verification",
+  "utc": "2026-10-04T17:20:01.854629+00:00",
+  "fixedSourceCommit": "7a1bb1aace4d7200b8cc23d65b8d6648eb0a016c",
+  "scope": "Five independently stated source-aligned conditional targets; full strings constructed from reviewed declarations with actual pinned printer notation, not producer PASS",
+  "types": {
+    "B699ThetaVerify20261005.gap_of_uniform_relative_theta_exact": {
+      "file": "UniformThetaGapExactLegacy.lean",
+      "expected": "theorem B699ThetaVerify20261005.gap_of_uniform_relative_theta_exact : ∀ (D Y : ℕ) (u l : ℝ), 0 < D → 0 < Y → ↑D * u + (↑D + 1) * l < 1 → (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) → (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) → ∀ (y : ℕ), Y ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ D * (p - y) ≤ y"
+    },
+    "B699ThetaVerify20261005.gap_4095_of_uniform_relative_theta_exact": {
+      "file": "UniformThetaGapExactLegacy.lean",
+      "expected": "theorem B699ThetaVerify20261005.gap_4095_of_uniform_relative_theta_exact : ∀ (D Y : ℕ) (u l : ℝ), 4095 ≤ D → 0 < Y → Y ≤ 122568684 → ↑D * u + (↑D + 1) * l < 1 → (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) → (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) → ∀ (y : ℕ), 10000000 ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y"
+    },
+    "B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_exact": {
+      "file": "UniformThetaGapExactLegacy.lean",
+      "expected": "theorem B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_exact : ∀ (D Y : ℕ) (u l : ℝ), 4095 ≤ D → 0 < Y → Y ≤ 122568684 → ↑D * u + (↑D + 1) * l < 1 → (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) → (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) → ∀ (n i j : ℕ), 4883 ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j"
+    },
+    "B699ThetaVerify20261005.original_tail_of_gap_at_cutoff_exact": {
+      "file": "GapCutoffExactLegacy.lean",
+      "expected": "theorem B699ThetaVerify20261005.original_tail_of_gap_at_cutoff_exact : ∀ {Y : ℕ}, (∀ (y : ℕ), Y ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y) → ∀ (n i j : ℕ), 4883 ≤ i → Y ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j"
+    },
+    "B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_at_cutoff_exact": {
+      "file": "GapCutoffExactLegacy.lean",
+      "expected": "theorem B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_at_cutoff_exact : ∀ {D Y : ℕ} {u l : ℝ}, 4095 ≤ D → 0 < Y → ↑D * u + (↑D + 1) * l < 1 → (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) → (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) → ∀ (n i j : ℕ), 4883 ≤ i → Y ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j"
+    }
+  },
+  "unboundedMathematicalInputs": {
+    "genericGapAndOriginal": [
+      "(∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x)",
+      "(∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x)"
+    ],
+    "cutoffFromGap": [
+      "forall Nat y>=Y:exists actual Prime p>y with4095*(p-y)<=y"
+    ],
+    "cutoffFromRelativeTheta": [
+      "(∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x)",
+      "(∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x)"
+    ]
+  },
+  "structuralAndScalarPremises": {
+    "genericGapD": [
+      "D:Nat,Y:Nat,u:Real,l:Real",
+      "D>0",
+      "Y>0",
+      "↑D * u + (↑D + 1) * l < 1"
+    ],
+    "genericGap4095AndEntireOriginal": [
+      "D>=4095",
+      "0<Y<=122568684",
+      "↑D * u + (↑D + 1) * l < 1"
+    ],
+    "cutoffFromGap": [
+      "Y:Nat",
+      "i>=4883",
+      "i>=Y; equivalently i>=max(4883,Y)",
+      "no Y upper bound"
+    ],
+    "cutoffFromRelativeTheta": [
+      "D>=4095",
+      "Y>0",
+      "↑D * u + (↑D + 1) * l < 1",
+      "i>=4883 and i>=Y",
+      "no Y upper bound"
+    ]
+  },
+  "mathSuppliersProved": false,
+  "unconditionalOriginalIndexIncrement": 0,
+  "literalSources": [
+    {
+      "path": "UniformThetaGapExactLegacy.lean",
+      "sha256": "9c89952c4d40c043c122b2b6112e91f2ac4af3f5aefb2d453793812e84959bf5"
+    },
+    {
+      "path": "GapCutoffExactLegacy.lean",
+      "sha256": "7ea225210aec50ad46cbe0d916318c81af2217ebc7175648f539361844cf8679"
+    }
+  ]
+}

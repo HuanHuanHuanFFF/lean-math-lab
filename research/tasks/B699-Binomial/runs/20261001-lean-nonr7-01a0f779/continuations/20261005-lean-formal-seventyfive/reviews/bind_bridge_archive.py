@@ -309,7 +309,7 @@ def main():
                     if frozen['storage']=='accepted-theta2':
                         ax=check_ax(old.read(source_member), old.read(name.removesuffix('receipt.json')+'stdout.log'))
                         require(len(ax['roots'])==(5 if 'ThetaInterval' in name else 4), 'Theta nine actual roots missing')
-                        phase=name.removesuffix('/receipt.json')
+                        phase=name.removesuffix('/receipt.json').rsplit('-',1)[0]
                         cr=json.loads(old.read(phase+'-normal-checker/receipt.json'))
                         require(cr.get('childStarted') is True and cr['status']=='success' and cr['exitCode']==0 and cr.get('stopReason') is None, 'Theta actual normal checker failed')
                         require(cr['arguments']==[tc['leanchecker'],'-v',module(relative)] and cr['executableSha256']==tc['leancheckerSha256'], 'Theta actual normal checker target differs')

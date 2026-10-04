@@ -1,11 +1,6 @@
-name: B699 controlled conditional theta bridge verification
+name: B699 controlled finite original height verification
 on:
   workflow_dispatch:
-  push:
-    branches: ['huan/b699-lean-next-20261002-01a0f779']
-    paths:
-      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/runtime/generic-stage-spec.json'
-      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/runtime/generic-stage.py'
 permissions:
   contents: read
 concurrency:
@@ -14,17 +9,17 @@ concurrency:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 20
     env:
       B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/runtime
     steps:
       - name: Reject expired new round launch window
         run: |
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 17:22:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 17:28:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - name: Actual resources and all frozen four bridge sources
+      - name: Actual resources and both frozen finite height sources
         id: plan
-        run: python3 "$B699_RUNTIME/generic-stage.py" preflight
+        run: python3 "$B699_RUNTIME/height-stage.py" preflight
       - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
         with:
           auto-config: 'false'
@@ -33,33 +28,20 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'false'
           use-github-cache: 'false'
-      - name: Restore nine exact origins and341source objects
+      - name: Restore ten exact origins and345source objects
         env:
           B699_ARTIFACT_TOKEN: ${{ github.token }}
-        run: python3 "$B699_RUNTIME/generic-stage.py" prepare
-      - name: Complete original two uniform theta conditional bridge
-        if: success() && steps.plan.outputs.generic_enabled == 'true'
-        run: python3 "$B699_RUNTIME/generic-stage.py" generic
-      - name: Preserve global conditional bridge
-        if: always() && steps.plan.outputs.generic_enabled == 'true'
-        run: python3 "$B699_RUNTIME/generic-stage.py" package-generic
+        run: python3 "$B699_RUNTIME/height-stage.py" prepare
+      - name: Complete unconditional finite original height consumer
+        if: success() && steps.plan.outputs.finiteheight_enabled == 'true'
+        run: python3 "$B699_RUNTIME/height-stage.py" finiteheight
+      - name: Preserve finite height proof evidence
+        if: always() && steps.plan.outputs.finiteheight_enabled == 'true'
+        run: python3 "$B699_RUNTIME/height-stage.py" package-finiteheight
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.generic_enabled == 'true'
+        if: always() && steps.plan.outputs.finiteheight_enabled == 'true'
         with:
-          name: b699-formal75-generic-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-formal-seventyfive/generic-runtime/generic-delivery/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Complete smaller-domain two theta conditional bridge
-        if: success() && steps.plan.outputs.cutoff_enabled == 'true'
-        run: python3 "$B699_RUNTIME/generic-stage.py" cutoff
-      - name: Preserve local conditional bridge
-        if: always() && steps.plan.outputs.cutoff_enabled == 'true'
-        run: python3 "$B699_RUNTIME/generic-stage.py" package-cutoff
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.cutoff_enabled == 'true'
-        with:
-          name: b699-formal75-cutoff-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-formal-seventyfive/generic-runtime/cutoff-delivery/
+          name: b699-formal75-finiteheight-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-formal-seventyfive/height-runtime/finiteheight-delivery/
           if-no-files-found: warn
           retention-days: 30
