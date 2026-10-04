@@ -1,5 +1,7 @@
 # R7：七分量资源与合法规范点饱和
 
+**最新接续：[20261004一小时阶段报告](continuations/20261004-onehour/REPORT.md) · [当前前沿](frontier.md)。** 原始无总时限阶段保留如下；本轮用户另给一小时预算，实际起止与签件在continuation中。
+
 - 负责人：本地纸面研究执行者 /root；主线程亲自研究 A/i9。用户指定 gpt-6-astra / xhigh。
 - 初始化检查点：2026-10-04 22:24 Asia/Shanghai。总时长与截止时间：未指定；采用成果检查点，不套用云端预算。
 - 工作区：`$env:USERPROFILE/.codex/worktrees/b699-intake-1003/Math`；分支 `huan/b699-r7-paper-20261004-01a0e34b`；固定基线 `b1852293998ab1d6ccf98b1505582e1da44ce89a`；开始时工作区干净。
