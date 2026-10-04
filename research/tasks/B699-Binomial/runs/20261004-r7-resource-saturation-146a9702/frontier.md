@@ -1,14 +1,16 @@
-# 当前接续前沿（2026-10-05五十分钟轮，SPEC107/108阶段）
+# 当前接续前沿（2026-10-05五十分钟轮，SPEC107/108/109阶段）
 
 最新入口：[五十分钟报告](continuations/20261005-fiftymin/REPORT.md)。先前[一小时报告](continuations/20261004-onehour/REPORT.md)及原始REPORT保留历史身份。R7={3,4,5,6,7,8,9}与COVER7不变；原题保留同一p≥i、完整幂及同一n,j。
 
 ## A：整层源空间已开始排除
 
-SPEC107已独立接受：满足21源、q≤107/D305的任何非零Q多项式恰有一个非竖Q不可约因子，重数1、q107。完整模源维1加N=2与17两次精确不可约分解/次数子集交证明此结论，不断言Q上存在G。签件见[独立报告](continuations/20261005-fiftymin/reviews/specialization107/REPORT.md)。七可载G因此须109≤h≤152；一般源G的旧h≥107本身没有被改成无条件h≥108。
+SPEC107已独立接受：满足21源、q≤107/D305的任何非零Q多项式恰有一个非竖Q不可约因子，重数1、q107。完整模源维1加N=2与17两次精确不可约分解/次数子集交证明此结论，不断言Q上存在G。签件见[独立报告](continuations/20261005-fiftymin/reviews/specialization107/REPORT.md)。七可载G因此须110≤h≤152；一般源G的旧h≥107本身没有被改成无条件h≥108。
 
-给定必要模型E0删除21个h107态和1个h108态，354→332；E1仍51，最低h110。S305、E≤1及E1唯一epsilon1归属、ODD6/SOURCE4仍按先前签件接受。global649/NC9桥/小系数消费者的历史采用等级不随新源定理升级，原DP和实际G/曲线未恢复。
+给定必要模型E0删除h107/108/109的21+1+6态，354→326；E1仍51，最低h110。S305、E≤1及E1唯一epsilon1归属、ODD6/SOURCE4仍按先前签件接受。global649/NC9桥/小系数消费者的历史采用等级不随新源定理升级，原DP和实际G/曲线未恢复。
 
-通用退度式k_nonvertical≤Ω(F)+deg_XG−deg_XF已纸面接受。SPEC108的完整二维F257源空间及258个射影方向证书已经[独立接受](continuations/20261005-fiftymin/reviews/specialization108/REPORT.md)：任意非零Q源G(q≤108,D305)非竖因子计重≤6。h109/F11四维1464方向的作者联合证书正在复核；下一步先收齐独立验证，再选择更高维空间的约束方法。
+通用退度式k_nonvertical≤Ω(F)+deg_XG−deg_XF已纸面接受。SPEC108完整二维F257空间258方向与SPEC109完整四维F11空间1464方向均已独立接受；109最后五个方向另用保次数专化的degree子集不相容短证。故固定源域所有q≤109的G非竖因子按重数≤6，不由模非零反推Q存在。[最新签件](continuations/20261005-fiftymin/reviews/specialization109/REPORT.md)。
+
+下一步从h110开始，先读[有界诊断与执行入口](continuations/20261005-fiftymin/notes/main/05-h110-next-check.md)。必要竖分配商核的作者维数1/4/5/4/5/4、E1维6；高维支不可忽略。先验证计重distinct-degree方法与残方向比例，或找统一降维条件，再在新预算内考虑177156个射影方向。并非所有更高h都适合机械枚举，h152空间维数上界86。
 
 ## B：终端仍开放
 
