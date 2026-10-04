@@ -1,5 +1,13 @@
-name: B699 controlled tail ninety minute verification
+name: B699 controlled tail until2020 verification
 on:
+  push:
+    branches: [huan/b699-lean-next-20261002-01a0f779]
+    paths:
+      - .github/workflows/b699-finite-onehour.yml
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/supply/**/*.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/reviews/*.lean
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/runtime/tail-stage.py
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/runtime/stage-spec.json
   workflow_dispatch:
 permissions:
   contents: read
@@ -9,14 +17,14 @@ concurrency:
 jobs:
   scoped:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 18
     env:
-      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/runtime
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/runtime
     steps:
       - name: Reject expired absolute launch window
         shell: bash
         run: |
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 11:15:50 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 12:08:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Actual resources and frozen stage sources
         id: plan
@@ -29,72 +37,33 @@ jobs:
           lint: 'false'
           use-mathlib-cache: 'false'
           use-github-cache: 'false'
-      - name: Restore exact 129 and 11 accepted source object closures
+      - name: Restore four exact accepted origins and195source objects
         env:
           B699_ARTIFACT_TOKEN: ${{ github.token }}
         run: python3 "$B699_RUNTIME/tail-stage.py" prepare
-      - name: Complete 5001 proof exact literals axioms and normal checker
-        if: success() && steps.plan.outputs.stage5001_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" stage5001
-      - name: Preserve first independent closed or failed stage
-        if: always() && steps.plan.outputs.stage5001_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage5001
+      - name: Complete finite original consumers through 10001
+        if: success() && steps.plan.outputs.stage10001_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" stage10001
+      - name: Preserve independent 10001 closed or failed stage
+        if: always() && steps.plan.outputs.stage10001_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage10001
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.stage5001_enabled == 'true'
+        if: always() && steps.plan.outputs.stage10001_enabled == 'true'
         with:
-          name: b699-tail90-stage5001-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage5001-delivery/
+          name: b699-until2020-stage10001-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-until2020/runtime/stage10001-delivery/
           if-no-files-found: warn
           retention-days: 30
-      - name: Representative fixed16 relative16 and relative64 costs
-        if: success() && steps.plan.outputs.probe_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" probe
-      - name: Preserve representative closed or failed stage
-        if: always() && steps.plan.outputs.probe_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" package-probe
+      - name: Complete finite original consumers through 13000
+        if: success() && steps.plan.outputs.stage13000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" stage13000
+      - name: Preserve independent 13000 closed or failed stage
+        if: always() && steps.plan.outputs.stage13000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage13000
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.probe_enabled == 'true'
+        if: always() && steps.plan.outputs.stage13000_enabled == 'true'
         with:
-          name: b699-tail90-probe-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/probe-delivery/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Complete finite original consumers through 6000
-        if: success() && steps.plan.outputs.stage6000_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" stage6000
-      - name: Preserve separate 6000 closed or failed stage
-        if: always() && steps.plan.outputs.stage6000_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage6000
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.stage6000_enabled == 'true'
-        with:
-          name: b699-tail90-stage6000-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage6000-delivery/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Complete finite original consumers through 10000
-        if: success() && steps.plan.outputs.stage10000_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" stage10000
-      - name: Preserve separate 10000 closed or failed stage
-        if: always() && steps.plan.outputs.stage10000_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage10000
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.stage10000_enabled == 'true'
-        with:
-          name: b699-tail90-stage10000-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage10000-delivery/
-          if-no-files-found: warn
-          retention-days: 30
-      - name: Optional finite forward Gap interfaces without new primes
-        if: success() && steps.plan.outputs.stagegap_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" stagegap
-      - name: Preserve separate finite forward Gap stage
-        if: always() && steps.plan.outputs.stagegap_enabled == 'true'
-        run: python3 "$B699_RUNTIME/tail-stage.py" package-stagegap
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always() && steps.plan.outputs.stagegap_enabled == 'true'
-        with:
-          name: b699-tail90-stagegap-${{ github.sha }}-${{ github.run_id }}
-          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stagegap-delivery/
+          name: b699-until2020-stage13000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-until2020/runtime/stage13000-delivery/
           if-no-files-found: warn
           retention-days: 30

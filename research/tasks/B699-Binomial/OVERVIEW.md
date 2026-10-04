@@ -1,5 +1,7 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+**Oct4继续至20:20执行中：** 新授权上海19:49:12–20:20:00，绝对截止不延期，同分支/同run，先实际验零prime的10001接合，再按旧64块实测成本门控更大完整K（候选15000）。正式集仍 `{1,2,11,29} ∪ [35,10000]`；新结果pending，R7不动，所有重Lean在CI。[新预算、归属与断点](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/README.md)。下段为已结束上一轮结果。
+
 **Oct4 90分钟Lean轮已收束，正式完整集为 `{1,2,11,29} ∪ [35,10000]`。** 相对旧5000净增5000个完整指标，全部合法Nat n/j、同实际Prime p≥i双完整choose、无额外数学输入；R7未动。S于UTC11:21:42签[完整10000](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/TAIL10000-INDEPENDENT-ACCEPTED.json)，固定source e47faa4ff2cf11e2b125c7e0e0a890c4b990a61e / CI37197120772 / 原ZIP e906e2fb，864native成员、三复用origin/147source闭包、48fresh源/2818AX/48normalchecker/两准确literal全绑定。S于11:30:24另签[真实有限Gap](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/GAP-FORWARD-INDEPENDENT-ACCEPTED.json)：全Nat y∈[20482069,40956329)，实际Prime p>y、4095*(p-y)≤y、额外输入为空，937native/累计53fresh/2824AX/53normalchecker及两Gap literal全绑定。较小6000子段与上段取并集，有限Gap不增加原题完整i计数。[最终报告与五正确接受入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/REPORT.md)。
 
 **本轮成本、失败与发布边界：** 上海18:22:50–19:52:50原90分钟预算未延期；实际最后proof/checker child于UTC11:15:59结束，最后S签11:30:24。三CI success，一次f39冻结清单漏纳五源码的预检failure，Lean未启动、已e47补齐并全source/hash核对；无新的递归/OOM/超时/证明复杂度故障。主CI peak3.48GiB，全部重Lean在CI，本机Lean0；最终D约22GiB。五ZIP及binary在仓库外，1812普通文件及完整成员映射在本轮runtime，重复对象按bytes核对复用，原件未删。自动push已关闭，保原过期手动守卫，收尾不新CI；6001/10001额外端点只保存未执行候选。
