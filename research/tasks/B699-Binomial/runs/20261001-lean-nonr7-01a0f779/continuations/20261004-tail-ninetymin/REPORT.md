@@ -1,6 +1,6 @@
 # Oct4 90分钟Lean接续：执行记录
 
-本轮执行中；完整5001已由S独立接受，正式完整集为 `{1,2,11,29} ∪ [35,5001]`。6000/10000尚未接受；最终结果以本文件具名签件为准。
+本轮执行中；完整6000已由S独立接受，正式完整集为 `{1,2,11,29} ∪ [35,6000]`。10000及有限Gap尚未接受；最终结果以本文件具名签件为准。
 
 ## 本轮边界与采用
 
@@ -32,3 +32,15 @@ C实际记录Endpoint编译2.524s、峰3350.8MiB，checker5.677s；独立literal
 S另给[正确probe入口](reviews/PROBE-RELATIVE-VALID-INDEPENDENT-ACCEPTED.json)，fixed `d077ec8278b504da5bf03ccc4ecd3662f8d19547` / run37196421370 / artifact11301262648；169本包成员、109fresh AX根、7normalchecker、完整旧闭包全绑定。首probe调用曾误用artifact0，原件保留且[明确纠正](reviews/PROBE-RELATIVE-ADMIN-CORRECTION.md)，仅准确artifact完整重新绑定的VALID签件是当前接受入口，不回改旧错误记录。relative core及代表块接受不增加完整指标，完整集仍到5001。
 
 64-prime代表块实际编8.242s、峰1194MiB，checker7.400s、峰1328.9MiB；固定16与relative16均通过。C据实测[批量门控](runtime/BATCH_GATE.json)估计6000/10000新编与checker合计约12.4min加环境恢复，属于预测；实际完成和峰值仍待新运行。下一阶段复用probe7已验源对象，不重编本轮已通过的source。当前剩余完整大指标从i≥5002开始；前文未接受时的i≥5001为历史阶段状态。
+
+## 完整6000接受与本轮已消去范围
+
+S于UTC11:07:32签[完整6000](reviews/TAIL6000-INDEPENDENT-ACCEPTED.json)，sig `8edcc0b620ed232d30a315c7b124af81e77b37d66e2702d3893cd2b912269a71`，binding `24d7dfe13f4e68d15ebb844fe5747400895b180e667619533dcbf7c4211c9dd3`；fixed `e47faa4ff2cf11e2b125c7e0e0a890c4b990a61e` / [run37197120772](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37197120772) / artifact11301805020 / ZIP `b8af80b0086ef145e63fb9ac10966cf324614c42cfea580c621f3c4adadc8417`（79155198B）。273本包成员与29a3/217e/probe三完整origin、147旧source/raw/objects/首LEAN_PATH强绑定；13fresh源、684AX根、13normalchecker0、单6000与完整区间两准确原题literal，全部合法Nat n/j，无额外数学输入。本阶段相对5001新增999，本轮相对旧5000累计新增1000；旧source未重编，S不重kernel。
+
+11个prime块实测compiler median8.36s/max8.55，checker median7.53s/max7.70，prime阶段最大1374.6MiB；完整consumer compiler2.18s/3386MiB、literal2.01s/3389.4MiB，两个checker约4.85s/3053MiB。无阈值提升、复杂度失败或资源停止。10000只在当前pipeline继续，尚不计接受。
+
+## 本轮一次CI接线错误及修复
+
+主冻结ready后C在Leader提交期间追加stagegap，导致 `f39a969add3a8a301a777877764d0ad67f227d1c` 清单已纳五源码但提交未纳。run37197029076实际预检 `FileNotFoundError: RatioForward`，Lean action/证明均未启动；[失败记录](runtime/ci/37197029076-preflight/RECEIPT.json)保留。解码job log保留解码来源与末newline规范化说明，不冒充原压缩日志字节。
+
+Leader立即补齐五源至e47faa4ff，远端SHA一致；C验证fixed Git的75task sources+7helpers全可读且SHA匹配，再运行main，原证明和限额没有变。后续冻结后不再追加target，新增可选端点只另draft待新freeze；supply触发已缩为Lean源，文档/hash发布不再启动重复CI。这个失败属于提交/冻结接线，不能要求用纸面数学改写解决它。
