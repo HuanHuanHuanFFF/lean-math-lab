@@ -1,5 +1,7 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+**Oct5新30分钟Lean验证正在执行（上海02:31:34–03:01:34，原hard不预延）。** [本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/README.md)：先运行上轮两个有限高度源及精确literal，复用345已验对象，不重90prime链；同时实施新纸面LP/局部接口及1/12000实例。首候选区域i≥4883且n−i<122568684（含n≤T）仍未验收，当前完整集与finiteGap接受保持；真无界供应和R7/低23未闭合。本机Lean0、重Lean CI串行两CPU/nice19、D余14.65GiB并保10GiB。云端下一纸面轮据用户报告推进，本地不重复该研究。下面各段为先前检查点。
+
 **Oct5两份无界供应优化材料已审读，未新增Lean验收。** [接收评估与证据](runs/20261001-lean-nonr7-01a0f779/intake/20261005-uniform-gap-paper-results/SUMMARY.md)：具名Astra数学审读和Sol接口/轻量证书复跑确认有纸面简化。优先保留局部新增素数幂LP及1/12000上误差松弛；第二包按所列已发表输入的纸面供应链完整，但有限ψ、显式公式、零点前缀及小零点倒数和仍未有无参数Lean闭包。八重平滑主线另需[122568684,8×10¹¹)有限Gap，成本未测。旧F0 pending与全正实数U比较属于旧输入快照，当前F0/局部化/Generic接受保持；完整指标仍{1,2,11,29}∪[35,30000]，R7/低23及真Gap的Lean供应未闭合。本次只审材料和轻量算术，不续开研究轮/Lean/CI，原件及30成员精确保留。
 
 **Oct5 75分钟Lean形式化接续已收尾：完整集合 `{1,2,11,29}∪[35,30000]`，本轮净新增15000。** 整个有限Gap初段 `10000000≤y<122568684` 也已独立接受。S在新授权窗口完成原d265/b1de父104+tiny4的source/object/raw/AX/checker及完整成员绑定，恢复923MB父原件与tiny原件，旧90块与四消费者没有重编。[本轮最终报告与接续入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/REPORT.md) · [最终独立范围](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/reviews/CURRENT-SCOPE.json)。
