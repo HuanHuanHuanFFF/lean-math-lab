@@ -1,0 +1,143 @@
+{
+  "source_provenance": [
+    {
+      "member": "inputs/generic.json",
+      "retained_path": "objects/f5/f5ad7ce85081bde5b957ddb5a8e24a443e01842a8b589fcd6e1dc70264759d07.json",
+      "bytes": 414651,
+      "sha256": "f5ad7ce85081bde5b957ddb5a8e24a443e01842a8b589fcd6e1dc70264759d07"
+    },
+    {
+      "member": "certificates/colon_4.json",
+      "retained_path": "objects/25/25fcff6fec21d700980ca9bc2abd90cd8e8dd876ad0f10fca64626659ccf6e4c.json",
+      "bytes": 126243,
+      "sha256": "25fcff6fec21d700980ca9bc2abd90cd8e8dd876ad0f10fca64626659ccf6e4c"
+    },
+    {
+      "member": "certificates/colon_3.json",
+      "retained_path": "objects/c1/c1b0dbbc3f36c1bc65334e2e0a8befdcdfa299b8e9f64cf2afa548ed2d7c77d6.json",
+      "bytes": 139337,
+      "sha256": "c1b0dbbc3f36c1bc65334e2e0a8befdcdfa299b8e9f64cf2afa548ed2d7c77d6"
+    },
+    {
+      "member": "certificates/colon_2.json",
+      "retained_path": "objects/7e/7e60c4126e574fbccf3a743781e53758a5083ac76d01e5d4c83da0e615244469.json",
+      "bytes": 151145,
+      "sha256": "7e60c4126e574fbccf3a743781e53758a5083ac76d01e5d4c83da0e615244469"
+    },
+    {
+      "member": "certificates/colon_1.json",
+      "retained_path": "objects/8d/8d839bfc71450e363f81ed85787061ee7c5f0dcf066c8b91d57cce8a572f0611.json",
+      "bytes": 145418,
+      "sha256": "8d839bfc71450e363f81ed85787061ee7c5f0dcf066c8b91d57cce8a572f0611"
+    },
+    {
+      "member": "certificates/colon_0.json",
+      "retained_path": "objects/76/76d34a72e3bb1171f563c3437b8b3f8a2de435ab33eda6136574b6f6af70ad62.json",
+      "bytes": 94598,
+      "sha256": "76d34a72e3bb1171f563c3437b8b3f8a2de435ab33eda6136574b6f6af70ad62"
+    }
+  ],
+  "base_ring": "QQ[u,y,1/(u*(u-1)*y*(y-1)*(u*y-y+1))]",
+  "rank": 9,
+  "basis": [
+    "r^0",
+    "r^1",
+    "r^2",
+    "r^3",
+    "r^4",
+    "r^5",
+    "r^6",
+    "r^7",
+    "r^8"
+  ],
+  "L": "-1105920*u^8*y^7*(u-1)^2*(y-1)^3*(u*y-y+1)^5",
+  "A_entries": "A[i+1,i]=L (0<=i<8); A[i,8]=-[r^i]V0 (0<=i<9); all other entries zero",
+  "generator_order": [
+    "P5",
+    "V4",
+    "V3",
+    "V2",
+    "V1"
+  ],
+  "w_F": "w_F[i]=L*[r^i]F-[r^9]F*[r^i]V0 (0<=i<9)",
+  "R_columns": "A^j*w_F (F in generator_order, 0<=j<9)",
+  "gate": "s=r*D*N*K; D=8*r*u^2*y^2-6*(u-1)^2*(y-1)^2",
+  "S": "sum_{k=0}^6 ([r^k]s)*L^(6-k)*A^k",
+  "v": "S^9 * e_0",
+  "pointwise_allowed_iff": "rank([R,v]) > rank(R)",
+  "scheme_warning": "9 bounds nilpotency only after fixing a complex base point; not a global colon stabilization bound",
+  "checks": [
+    {
+      "case": "rational-generic",
+      "matrix_shape": [
+        9,
+        45
+      ],
+      "matrix_rank": 9,
+      "augmented_shape": [
+        9,
+        46
+      ],
+      "augmented_rank": 9,
+      "all_relation_columns_exact": 45,
+      "all_gate_iterates_exact": 9,
+      "gate_degree": 6,
+      "saturation_member_exact": true,
+      "largest_matrix_coefficient_bits": 443,
+      "gate_vector_coefficient_bits": 2571,
+      "unit_inversions_verified": 124
+    },
+    {
+      "case": "four-boundary-base-fibers",
+      "matrix_shape": [
+        9,
+        45
+      ],
+      "matrix_rank": 8,
+      "augmented_shape": [
+        9,
+        46
+      ],
+      "augmented_rank": 8,
+      "all_relation_columns_exact": 45,
+      "all_gate_iterates_exact": 9,
+      "gate_degree": 6,
+      "saturation_member_exact": true,
+      "largest_matrix_coefficient_bits": 475,
+      "gate_vector_coefficient_bits": 2704,
+      "unit_inversions_verified": 122
+    },
+    {
+      "case": "F0-complex-fiber",
+      "matrix_shape": [
+        9,
+        45
+      ],
+      "matrix_rank": 8,
+      "augmented_shape": [
+        9,
+        46
+      ],
+      "augmented_rank": 8,
+      "all_relation_columns_exact": 45,
+      "all_gate_iterates_exact": 9,
+      "gate_degree": 6,
+      "saturation_member_exact": true,
+      "largest_matrix_coefficient_bits": 340,
+      "gate_vector_coefficient_bits": 1989,
+      "unit_inversions_verified": 122
+    }
+  ],
+  "resource": {
+    "length": 64,
+    "load": 87,
+    "physical_total": 16851132416,
+    "physical_available": 2093109248,
+    "pagefile_total": 68390739968,
+    "pagefile_available": 34876551168,
+    "virtual_total": 140737488224256,
+    "virtual_available": 140732998279168,
+    "extended_virtual_available": 0
+  },
+  "seconds": 2.993012800012366
+}

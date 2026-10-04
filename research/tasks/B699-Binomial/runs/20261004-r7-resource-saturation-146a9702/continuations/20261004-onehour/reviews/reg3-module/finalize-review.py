@@ -1,0 +1,28 @@
+from pathlib import Path
+import hashlib,json,datetime
+root=Path.cwd();run=root/'research/tasks/B699-Binomial/runs/20261004-r7-resource-saturation-146a9702';cont=run/'continuations/20261004-onehour';out=cont/'reviews/reg3-module'
+def rec(p):return {'path':str(p.relative_to(root)).replace('\\','/'),'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+deps=[run/'notes/b/01-source-and-routes.md',run/'reviews/b-nonzero/REPORT.md',run/'reviews/b-nonzero/acceptance.json',root/'research/tasks/B699-Binomial/runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/MEMBERS.json']
+(out/'adopted-dependencies.json').write_text(json.dumps({'adopted_not_reproved':'E nonzero on B0*N allowed common fiber; definitions D and B0','files':[rec(p) for p in deps]},indent=2)+'\n',encoding='utf-8')
+frozen=json.loads((out/'fixed-inputs.json').read_text(encoding='utf-8'))
+changed=[]
+for rel,z in frozen['files'].items():
+ p=root/rel
+ if hashlib.sha256(p.read_bytes()).hexdigest()!=z['sha256']:changed.append(rel)
+assert {Path(rel).name for rel in changed}=={'02-h2-bounded-space.md','generate_membership_input.py'}
+assert json.loads((out/'final-author-freeze-check.json').read_text(encoding='utf-8'))['all_exact_bytes']
+checks=json.loads((out/'independent-checks.json').read_text(encoding='utf-8'))
+h2=json.loads((out/'h2-independent-result.json').read_text(encoding='utf-8'))
+assert (h2['rank'],h2['rows'],h2['monomials'],h2['target_in_span'])==(2450,2450,7367,False)
+h2['augmented_rank']=2451
+status={'status':'INDEPENDENT_ACCEPTED_PAPER_EXACT_CERTIFICATES','verifier':'/root/verify_reg3_module','task_class':'Complex established target','model':'gpt-6.1-sol','reasoning_effort':'xhigh','source_baseline':'f08ead6b850d3f88188f1acc7769cce9ee565482','branch':'huan/b699-r7-paper-20261004-01a0e34b','review_completed_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'fixed_inputs_manifest':'fixed-inputs.json','final_author_freeze':'final-author-freeze-check.json','source_transition':'source-transition.json','adopted_dependencies':'adopted-dependencies.json','accepted_scope':[
+ {'id':'nine-dimensional-complete-relations','status':'accepted','domain':'Every complex base point with u*(u-1)*y*(y-1)*(u*y-y+1)!=0','claim':'The complete six-form common root with r*D*N*K!=0 exists iff rank([R,S^9e0])>rank(R); R is the explicit complete 9x45 relation matrix','evidence':['REPORT.md','independent-checks.json','independent-run-3.log']},
+ {'id':'p5-nonzero-and-power-five','status':'accepted','claim':'P5 is not identically zero in r at every basic allowed complex base point; fiber quotient length<=5 and the same criterion uses S^5e0','evidence':{'fixed_size_resultants':4,'exact_integer_determinant_nodes':96,'rational_polynomial_bezout_identities':2,'coefficient_identities':2,'files':['independent-checks.json','independent-run-3.log']}},
+ {'id':'three-complete-algebra-fibers','status':'accepted','claim':'Complete gcd/Bezout/gate identities and all 45 relation columns, all gate powers 1..9, ranks and augmented ranks, over QQ and the designated quartic/quadratic quotient algebras','checks':checks['fibers'],'warning':'Finite implementation checks; quartic fibers are deleted by K and quadratic fibers by r; not allowed Omega points or global exclusion'},
+ {'id':'h2-specific-space-nonmembership','status':'accepted','claim':'h^2 is outside the exact listed rational multiplier space; no assertion about full ideal membership','modular_result':h2,'explicit_minor':{'order':2451,'prime':32003,'determinant_mod_p':29924,'independent_log':'minor-independent-run.log','exit_code':0},'input':checks['h2_input'],'evidence':['h2-independent-result.json','h2-run-receipt.json','h2-stderr.log','independent-checks.json']}],
+ 'remaining_gaps':['Global UNIT or global h-power membership','Global colon stabilization at power 5 or 9','Solving all two-variable rank/minor conditions','Exhaustive RUR or allowed point list','Original a, work-base/powers/exponents, n and j recovery','R7 reduction or original problem closure','Lean and transitive axiom audit','Novelty and human peer review'],
+ 'global_R7':[3,4,5,6,7,8,9],'original_problem_closed':False,'global_new_original_n_j_exclusion':0,'Lean':False,'novelty':'unassessed; P5 nonzero is a reconstruction of an old author lemma','source_provenance':checks['source_provenance'],'independent_execution':{'script':'independent_verify.py','log':'independent-run-3.log','cpp_source_sha256':checks['h2_input']['cpp_sha256'],'cpp_version':'g++ (GCC) 13.1.0','python':checks['python'],'sympy':checks['sympy'],'note':'Separate quotient-ring and rational Gaussian determinant implementation; h2 audited frozen C++ is recompiled and rerun against independently reconstructed exact bytes'},'initial_diagnostic':'Review input initially had LF instead of author CRLF; normalized bytes identical; exact CRLF reconstruction then matched hash and all checks passed. Failed log preserved.',
+ 'evidence_files':[rec(p) for p in sorted(out.iterdir()) if p.is_file() and p.name not in ['acceptance.json','evidence-manifest.json']]}
+(out/'acceptance.json').write_text(json.dumps(status,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+(out/'evidence-manifest.json').write_text(json.dumps({'files':[rec(p) for p in sorted(out.iterdir()) if p.is_file() and p.name!='evidence-manifest.json']},indent=2)+'\n',encoding='utf-8')
+print(json.dumps({'status':status['status'],'initial_fixed_files':len(frozen['files']),'post_initial_changes_recorded':len(changed),'final_author_files_checked':23,'review_files':len(list(out.iterdir())),'accepted_subitems':len(status['accepted_scope']),'completed_utc':status['review_completed_utc']}))
