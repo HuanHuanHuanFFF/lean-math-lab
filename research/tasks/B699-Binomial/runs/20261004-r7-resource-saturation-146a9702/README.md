@@ -16,7 +16,7 @@
 
 ## 当前状态
 
-来源恢复中；没有新定理或数学接受。研究、精确实验、独立 AI 审读、Lean、新颖性、发布分开记录。独立审读任务待候选论证固定后安排。
+A7-E1、A三次费用≥2与S305/E1归属已获具名独立条件接受；B/REG3 uy−y+1非零已获固定代数命题独立接受。统一X次数门另在核验。没有Lean或R7缩减；当前接续见frontier。研究、精确实验、独立AI、原题回传、Lean及新颖性分开记录。
 
 ## 资源观察
 
@@ -35,3 +35,9 @@ A继续：作者78态仅必要row-budget，真实21源商与非平衡系数模�
 [root/reg3_saturation固定证明](notes/b/03-E-nonzero-proof.md)（SHA080aca0fb4fcda95ce5b21452142044404754c247c45cf01276393dc071922e3）已由/root/review_b_nonzero [独立接受](reviews/b-nonzero/REPORT.md)。复域B0N≠0与P5=V0=V1=0推出uy−y+1≠0，V0可合法首一九次；完整19项独立检查通过。只接受固定REG3代数身份，不升级原题恢复、全域饱和、点表、Lean或新颖性。原a/n/j与完整源幂仍无界。
 
 阶段A已普通推送b06de211d0cd6acb4d631e468676ab296687b4fd并核对远端SHA；详见[发布记录](PUBLICATION.md)。后续用户已明确授权每完成一段就推送本公开纸面分支，不含PR或合并。
+
+## 阶段A后续已交付：三次真实商及源最低权次
+
+[05](notes/a/05-global-cubic-cost.md)由/root/review_excess [条件接受](reviews/a-cubic/REPORT.md)：q3/epsilon1可载因子总费用≥2，两族统一真实商已排空，不依赖七因子/global649。[06](notes/a/06-source-minimal-degree.md)由/root/review_source_degree [分项条件接受](reviews/a-degree/REPORT.md)：S305、无额外竖因子、E=实际epsilon和，E1唯一非平衡因子确属七可载因子。原21源及特定历史消费者安全性继续保持各自采用等级。
+
+作者完整E0粗表751态、E1细化78态；三次新门没有使78减小，不宣称实际G或原NC实现。最新X次数门在notes/a/07与专属核验中，未签收部分暂不提高证据等级。
