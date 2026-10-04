@@ -4,7 +4,7 @@ on:
     branches: [huan/b699-lean-next-20261002-01a0f779]
     paths:
       - .github/workflows/b699-finite-onehour.yml
-      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/supply/**
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/supply/**/*.lean
       - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/*.lean
       - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/check_transitive_axioms.py
       - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/runtime/tail-stage.py
@@ -42,12 +42,13 @@ jobs:
           B699_ARTIFACT_TOKEN: ${{ github.token }}
         run: python3 "$B699_RUNTIME/tail-stage.py" prepare
       - name: Complete 5001 proof exact literals axioms and normal checker
+        if: success() && steps.plan.outputs.stage5001_enabled == 'true'
         run: python3 "$B699_RUNTIME/tail-stage.py" stage5001
       - name: Preserve first independent closed or failed stage
-        if: always()
+        if: always() && steps.plan.outputs.stage5001_enabled == 'true'
         run: python3 "$B699_RUNTIME/tail-stage.py" package-stage5001
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        if: always()
+        if: always() && steps.plan.outputs.stage5001_enabled == 'true'
         with:
           name: b699-tail90-stage5001-${{ github.sha }}-${{ github.run_id }}
           path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage5001-delivery/
@@ -64,5 +65,44 @@ jobs:
         with:
           name: b699-tail90-probe-${{ github.sha }}-${{ github.run_id }}
           path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/probe-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete finite original consumers through 6000
+        if: success() && steps.plan.outputs.stage6000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" stage6000
+      - name: Preserve separate 6000 closed or failed stage
+        if: always() && steps.plan.outputs.stage6000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage6000
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.stage6000_enabled == 'true'
+        with:
+          name: b699-tail90-stage6000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage6000-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete finite original consumers through 10000
+        if: success() && steps.plan.outputs.stage10000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" stage10000
+      - name: Preserve separate 10000 closed or failed stage
+        if: always() && steps.plan.outputs.stage10000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-stage10000
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.stage10000_enabled == 'true'
+        with:
+          name: b699-tail90-stage10000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stage10000-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Optional finite forward Gap interfaces without new primes
+        if: success() && steps.plan.outputs.stagegap_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" stagegap
+      - name: Preserve separate finite forward Gap stage
+        if: always() && steps.plan.outputs.stagegap_enabled == 'true'
+        run: python3 "$B699_RUNTIME/tail-stage.py" package-stagegap
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.stagegap_enabled == 'true'
+        with:
+          name: b699-tail90-stagegap-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-ninetymin/runtime/stagegap-delivery/
           if-no-files-found: warn
           retention-days: 30

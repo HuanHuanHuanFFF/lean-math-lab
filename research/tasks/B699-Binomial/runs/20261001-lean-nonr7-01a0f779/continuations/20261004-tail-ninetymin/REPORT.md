@@ -1,6 +1,6 @@
 # Oct4 90分钟Lean接续：执行记录
 
-本轮执行中；正式完整集保持 `{1,2,11,29} ∪ [35,5000]`，新候选尚未接受。最终结果以本文件后续具名签件为准。
+本轮执行中；完整5001已由S独立接受，正式完整集为 `{1,2,11,29} ∪ [35,5001]`。6000/10000尚未接受；最终结果以本文件具名签件为准。
 
 ## 本轮边界与采用
 
@@ -22,3 +22,13 @@ A与S分别检查实际现有消费者；S[独立源审](reviews/UNIFORM-SUPPLY-
 ## 当前仍未解决
 
 真无界Gap的y与有效解析供应；完整大指标未覆盖低比例域的i≥5001及其无界n/j；低23与R7。候选、有限Python边界检查、AX门自身检查和源码审读分别记录，均不替代实际Lean接受。
+
+## 首两阶段实际接受与成本
+
+S于UTC10:48:37独立接受[完整5001](reviews/TAIL5001-INDEPENDENT-ACCEPTED.json)，sig SHA `9f6c6784301ed745c1a73c3ab2a0d32bf255974cf7be4f414de394991b0e9adb`，绑定 `3017045cebe41b70dc90e6405f1245a35ce17ac5f6c23e4da0b2765b0fad160a`；fixed `edc3d9972097a5dd7e936c1152c60517311bd228` / run37196132408 / artifact11301441536 / ZIP `625a1e5b147b4daa7484e857f4d42711baad6bd423cc2057fd1c6a748ae877c9`（348758B）。84本包成员、29a3全部1728及217e完整成员、140旧收据/source/objects与首实际LEAN_PATH全绑定，两新源5AX根/两normalchecker/单指标及完整区间literal实际通过。新增完整指标1；额外数学输入为空，全部合法n/j，不重kernel。
+
+C实际记录Endpoint编译2.524s、峰3350.8MiB，checker5.677s；独立literal编译2.342s、checker5.510s；实际cache恢复93.18s，不能把旧17s沿用于新job。本机未启动Lean。
+
+S另给[正确probe入口](reviews/PROBE-RELATIVE-VALID-INDEPENDENT-ACCEPTED.json)，fixed `d077ec8278b504da5bf03ccc4ecd3662f8d19547` / run37196421370 / artifact11301262648；169本包成员、109fresh AX根、7normalchecker、完整旧闭包全绑定。首probe调用曾误用artifact0，原件保留且[明确纠正](reviews/PROBE-RELATIVE-ADMIN-CORRECTION.md)，仅准确artifact完整重新绑定的VALID签件是当前接受入口，不回改旧错误记录。relative core及代表块接受不增加完整指标，完整集仍到5001。
+
+64-prime代表块实际编8.242s、峰1194MiB，checker7.400s、峰1328.9MiB；固定16与relative16均通过。C据实测[批量门控](runtime/BATCH_GATE.json)估计6000/10000新编与checker合计约12.4min加环境恢复，属于预测；实际完成和峰值仍待新运行。下一阶段复用probe7已验源对象，不重编本轮已通过的source。当前剩余完整大指标从i≥5002开始；前文未接受时的i≥5001为历史阶段状态。

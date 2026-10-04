@@ -64,7 +64,7 @@ def cache():
         sys.argv = old_args
 
 
-def download_supplement(t, token):
+def download_supplement(t, token, package_name='accepted-tail5000'):
     class NoRedirect(urllib.request.HTTPRedirectHandler):
         def redirect_request(self, req, fp, code, msg, headers, newurl):
             return None
@@ -85,7 +85,7 @@ def download_supplement(t, token):
             'tokenSaved': False, 'capabilitySaved': False, 'redirectAuthorizationForwarded': False})
     if not capability or not capability.startswith('https://'):
         raise RuntimeError('Fixed supplement artifact read refused; no cold fallback')
-    archive = BASE / 'accepted-tail5000.zip'
+    archive = BASE / (package_name + '.zip')
     started = time.time()
     with urllib.request.urlopen(capability, timeout=30) as src, archive.open('wb') as out:
         while True:
@@ -99,7 +99,7 @@ def download_supplement(t, token):
     capability = None
     if archive.stat().st_size != t['zipBytes'] or b.sha(archive) != t['zipSha256']:
         raise RuntimeError('Fixed supplement ZIP size or digest differs')
-    package = b.EVIDENCE / 'accepted-tail5000'
+    package = b.EVIDENCE / package_name
     package.mkdir(parents=True, exist_ok=True)
     mapped = []
     with zipfile.ZipFile(archive) as z:
@@ -111,7 +111,8 @@ def download_supplement(t, token):
         if names != set(plan) | {'delivery-manifest.json'}:
             raise RuntimeError('Incomplete or extra supplement members')
         external = json.loads(z.read('external-member-bindings.json'))
-        if external['zipSha256'] != SPEC['adoptedArtifact']['zipSha256'] or not external['actualTransferCompleted']:
+        bound_shas = {external['zipSha256']} if 'zipSha256' in external else {x['zipSha256'] for x in external['origins']}
+        if SPEC['adoptedArtifact']['zipSha256'] not in bound_shas:
             raise RuntimeError('Supplement upstream ZIP binding differs')
         for item in z.infolist():
             if item.is_dir():
@@ -131,7 +132,7 @@ def download_supplement(t, token):
                 raise RuntimeError('Supplement member byte binding differs')
             mapped.append({'member': name, 'storedPath': str(target), 'bytes': target.stat().st_size,
                            'sha256': b.sha(target)})
-    b.write('accepted-tail5000-transfer.json', {'utc': b.utc(), **t, 'members': mapped,
+    b.write(package_name + '-transfer.json', {'utc': b.utc(), **t, 'members': mapped,
             'oldExecutionIncrement': 0, 'scope': 'exact byte transport; prior named acceptance retained'})
 
 
@@ -143,9 +144,12 @@ def prepare():
     f.SPEC['transport'] = SPEC['adoptedArtifact']
     f.transport()
     download_supplement(SPEC['tail5000Artifact'], token)
+    for artifact in SPEC.get('reusedPrerequisiteArtifacts', []):
+        download_supplement(artifact, token, artifact['packageName'])
     token = None
     tc = json.loads((b.EVIDENCE / 'toolchain.json').read_text())
-    for name in ['accepted-proof', 'accepted-tail5000']:
+    package_names = ['accepted-tail5000'] + [x['packageName'] for x in SPEC.get('reusedPrerequisiteArtifacts', [])]
+    for name in ['accepted-proof'] + package_names:
         old_tc = json.loads((b.EVIDENCE / name / 'toolchain.json').read_text())
         for key in ['leanSha256', 'leancheckerSha256']:
             if old_tc[key] != tc[key]:
@@ -154,7 +158,8 @@ def prepare():
     if len(index) != 129:
         raise RuntimeError('Expected exact 129-source accepted reuse')
     supplement = {}
-    for p in (b.EVIDENCE / 'accepted-tail5000').rglob('receipt.json'):
+    receipts = [p for name in package_names for p in (b.EVIDENCE / name).rglob('receipt.json')]
+    for p in receipts:
         r = json.loads(p.read_text())
         if r.get('mode') != 'Lean' or r.get('status') != 'success' or r.get('exitCode') != 0 or not r.get('sourceUnchanged'):
             continue
@@ -168,9 +173,18 @@ def prepare():
                 raise RuntimeError('Supplement object part differs')
         if not (REPO / path).is_file() or b.sha(REPO / path) != r['sourceSha256']:
             raise RuntimeError('Supplement current source differs: ' + path)
+        if path in supplement:
+            raise RuntimeError('Duplicate reused fresh source')
         supplement[path] = r
-    if len(supplement) != 11 or set(index) & set(supplement):
-        raise RuntimeError('Expected exact disjoint 11-source tail5000 reuse')
+    expected = 11 + sum(x['sourceCount'] for x in SPEC.get('reusedPrerequisiteArtifacts', []))
+    if len(supplement) != expected or set(index) & set(supplement):
+        raise RuntimeError('Reused supplemental source count or disjointness differs')
+    for artifact in SPEC.get('reusedPrerequisiteArtifacts', []):
+        closure = b.EVIDENCE / artifact['packageName'] / (artifact['stageName'] + '-closed.json')
+        if not closure.is_file():
+            raise RuntimeError('Prior successful stage closure is missing')
+        b.write(artifact['stageName'] + '-adopted.json', {'utc': b.utc(), 'origin': artifact,
+                'closureSha256': b.sha(closure), 'actualNewCompile': False})
     if any((b.OBJECTS / 'Mathlib').rglob('*')):
         raise RuntimeError('Private prefix must not shadow Mathlib')
     b.write('adopted-source-object-index.json', {'utc': b.utc(), 'sourceObjects': {**index, **supplement},
@@ -189,7 +203,7 @@ def run_stage(name):
         raise RuntimeError('Exact accepted-object preparation is missing')
     stage = stages[name]
     for prerequisite in stage.get('prerequisites', []):
-        if not (b.EVIDENCE / (prerequisite + '-closed.json')).is_file():
+        if not any((b.EVIDENCE / (prerequisite + suffix)).is_file() for suffix in ['-closed.json', '-adopted.json']):
             raise RuntimeError('Successful prerequisite missing: ' + prerequisite)
     env = b.lean_env()
     for row in stage['sources']:
@@ -225,13 +239,15 @@ def package(name):
         if not p.is_file():
             continue
         rel = p.relative_to(b.EVIDENCE).as_posix()
-        if rel.startswith(('accepted-proof/', 'accepted-tail5000/')) or (rel.startswith('objects/') and rel not in new_objects):
+        if rel.split('/', 1)[0].startswith('accepted-') and '/' in rel:
+            continue
+        if rel.startswith('objects/') and rel not in new_objects:
             continue
         dst = target / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(p, dst)
     bindings = []
-    for transfer in ['accepted-proof-transfer.json', 'accepted-tail5000-transfer.json']:
+    for transfer in ['accepted-proof-transfer.json', 'accepted-tail5000-transfer.json'] + [x['packageName'] + '-transfer.json' for x in SPEC.get('reusedPrerequisiteArtifacts', [])]:
         p = b.EVIDENCE / transfer
         if not p.exists():
             continue
@@ -269,7 +285,7 @@ def main():
             if os.environ.get('GITHUB_OUTPUT'):
                 enabled = {x['name']: x['enabled'] for x in SPEC['stages']}
                 with Path(os.environ['GITHUB_OUTPUT']).open('a') as out:
-                    for name in ['stage5001', 'probe', 'stage6000', 'stage10000']:
+                    for name in ['stage5001', 'probe', 'stage6000', 'stage10000', 'stagegap']:
                         out.write(name + '_enabled=' + str(enabled.get(name, False)).lower() + '\n')
         elif mode == 'prepare':
             prepare()
