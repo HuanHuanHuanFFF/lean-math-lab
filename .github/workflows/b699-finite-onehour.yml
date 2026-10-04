@@ -24,7 +24,7 @@ jobs:
       - name: Reject expired absolute launch window
         shell: bash
         run: |
-          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 12:08:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 12:14:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Actual resources and frozen stage sources
         id: plan

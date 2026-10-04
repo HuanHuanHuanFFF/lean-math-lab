@@ -33,3 +33,5 @@ ZIP及binary在仓库外D，所有ordinary与exact成员映射入Git，复用已
 12:03:30后实际source齐全的最终门控：15000因协调/准备时间未启动，改13000，仅17已准备块/1088prime，端点53399837。96source全exists/hash且S literal到位，Leader最终内部latestStart12:05、proofStop12:13、用户hard12:20不变，7分钟全绑定/发布。实测块body约5m10，恢复cache约2m15及消费者约30s，预测12:12附近；实际不足按guard停止、pending不重试，不能声称15k或复杂度失败。原此前暂定启动点均因准备/协调超过而修订，非真实已起跑记录。
 
 最终实际冻结ready以C回执为准：latestStart12:08:00 UTC、proofStop12:14:30 UTC、用户hard12:20:00固定。全部96source+7helper存在/hash核对通过，10001→13000同pipeline17块完整，sources/spec ready后不再改。此前内部门控因跨任务协调投递延迟未赶上，均不是实际启动，不回填时间；13000若截止不完整保持pending不重试。
+
+最终缩到10001-only：b4f42bb/CI37201084291 created12:08:27因旧launch12:08拒绝，checkout/Lean未启动，归调度问题。现仅10001两原源，13000=false，15000未启；launch12:14、proofStop12:16、userhard12:20。96source+7helper已存在/hash冻结，C READY10001-only；不再改变窗口/目标。
