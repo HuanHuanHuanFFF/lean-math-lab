@@ -1,0 +1,91 @@
+{
+  "status": "accepted-conditional-generic-theta-and-cutoff-consumers",
+  "verifier": "/root/tail2h_verification",
+  "taskClass": "Complex established semantic and dependency verification",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "xhigh",
+  "signedUtc": "2026-10-04T17:22:16.663305+00:00",
+  "hardDeadlineUtc": "2026-10-04T17:50:50+00:00",
+  "binding": "GENERIC-CUTOFF-INDEPENDENT-BINDING.json",
+  "bindingSha256": "607082f35286d3e3d174ae279441a6631d0abb7743f9aa54ef49e5b9600ae62f",
+  "fixedSourceCommit": "7a1bb1aace4d7200b8cc23d65b8d6648eb0a016c",
+  "actualRunId": "37219682143",
+  "artifactId": "11309942383",
+  "archiveSha256": "62a8a90b6d9a9a26529a60ba3240da89d6c975065ffb8404fed43daffd7b4da8",
+  "freshAXRootCount": 10,
+  "normalCheckerExits": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "acceptedFreshMathematicalRoots": [
+    "B699GapCutoff20261005.original_tail_of_gap_at_cutoff",
+    "B699GapCutoff20261005.original_tail_of_uniform_relative_theta_at_cutoff",
+    "B699ThetaVerify20261005.gap_4095_of_uniform_relative_theta_exact",
+    "B699ThetaVerify20261005.gap_of_uniform_relative_theta_exact",
+    "B699ThetaVerify20261005.original_tail_of_gap_at_cutoff_exact",
+    "B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_at_cutoff_exact",
+    "B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_exact",
+    "B699UniformTheta20261005.gap_4095_of_uniform_relative_theta",
+    "B699UniformTheta20261005.gap_of_uniform_relative_theta",
+    "B699UniformTheta20261005.original_tail_of_uniform_relative_theta"
+  ],
+  "actualConditionalLiteralTypes": {
+    "B699ThetaVerify20261005.gap_of_uniform_relative_theta_exact": "theorem B699ThetaVerify20261005.gap_of_uniform_relative_theta_exact : ∀ (D Y : ℕ) (u l : ℝ),\n  0 < D →\n    0 < Y →\n      ↑D * u + (↑D + 1) * l < 1 →\n        (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) →\n          (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) →\n            ∀ (y : ℕ), Y ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ D * (p - y) ≤ y",
+    "B699ThetaVerify20261005.gap_4095_of_uniform_relative_theta_exact": "theorem B699ThetaVerify20261005.gap_4095_of_uniform_relative_theta_exact : ∀ (D Y : ℕ) (u l : ℝ),\n  4095 ≤ D →\n    0 < Y →\n      Y ≤ 122568684 →\n        ↑D * u + (↑D + 1) * l < 1 →\n          (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) →\n            (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) →\n              ∀ (y : ℕ), 10000000 ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y",
+    "B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_exact": "theorem B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_exact : ∀ (D Y : ℕ) (u l : ℝ),\n  4095 ≤ D →\n    0 < Y →\n      Y ≤ 122568684 →\n        ↑D * u + (↑D + 1) * l < 1 →\n          (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) →\n            (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) →\n              ∀ (n i j : ℕ),\n                4883 ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j",
+    "B699ThetaVerify20261005.original_tail_of_gap_at_cutoff_exact": "theorem B699ThetaVerify20261005.original_tail_of_gap_at_cutoff_exact : ∀ {Y : ℕ},\n  (∀ (y : ℕ), Y ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y) →\n    ∀ (n i j : ℕ), 4883 ≤ i → Y ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j",
+    "B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_at_cutoff_exact": "theorem B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_at_cutoff_exact : ∀ {D Y : ℕ} {u l : ℝ},\n  4095 ≤ D →\n    0 < Y →\n      ↑D * u + (↑D + 1) * l < 1 →\n        (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) →\n          (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) →\n            ∀ (n i j : ℕ),\n              4883 ≤ i → Y ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j"
+  },
+  "completeExtraMathematicalInputs": {
+    "genericGapAndOriginal": [
+      "(∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x)",
+      "(∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x)"
+    ],
+    "cutoffFromGap": [
+      "forall Nat y>=Y:exists actual Prime p>y with4095*(p-y)<=y"
+    ],
+    "cutoffFromRelativeTheta": [
+      "(∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x)",
+      "(∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x)"
+    ]
+  },
+  "structuralAndScalarPremises": {
+    "genericGapD": [
+      "D:Nat,Y:Nat,u:Real,l:Real",
+      "D>0",
+      "Y>0",
+      "↑D * u + (↑D + 1) * l < 1"
+    ],
+    "genericGap4095AndEntireOriginal": [
+      "D>=4095",
+      "0<Y<=122568684",
+      "↑D * u + (↑D + 1) * l < 1"
+    ],
+    "cutoffFromGap": [
+      "Y:Nat",
+      "i>=4883",
+      "i>=Y; equivalently i>=max(4883,Y)",
+      "no Y upper bound"
+    ],
+    "cutoffFromRelativeTheta": [
+      "D>=4095",
+      "Y>0",
+      "↑D * u + (↑D + 1) * l < 1",
+      "i>=4883 and i>=Y",
+      "no Y upper bound"
+    ]
+  },
+  "analyticalBoundsProvided": false,
+  "unconditionalOriginalIndexIncrement": 0,
+  "unconditionalInfiniteGapAccepted": false,
+  "cutoffOriginalScope": "all Nat n i j with i>=max(4883,Y),i<j<=n/2;same actual Prime p>=i divides both complete chooses",
+  "cutoffYUpperBoundRequired": false,
+  "cutoffFiniteInitialMathematicalInputRequired": false,
+  "preservedCompleteOriginalScope": "{1,2,11,29} union [35,30000]",
+  "preservedFiniteGapScope": "10000000<=y<122568684",
+  "kernelRerunByVerifier": false,
+  "checkerMeaning": "Pinned Lean normal replay, not a second kernel implementation",
+  "R7Changed": false
+}

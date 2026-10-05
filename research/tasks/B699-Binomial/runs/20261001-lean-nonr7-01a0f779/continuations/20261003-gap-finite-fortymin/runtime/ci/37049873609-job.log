@@ -1,0 +1,1107 @@
+﻿2026-10-02T18:48:03.2147140Z Current runner version: '2.337.0'
+2026-10-02T18:48:03.2173285Z ##[group]Runner Image Provisioner
+2026-10-02T18:48:03.2174279Z Hosted Compute Agent
+2026-10-02T18:48:03.2175238Z Version: 20260901.588
+2026-10-02T18:48:03.2175920Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-02T18:48:03.2176705Z Build Date: 2026-09-01T19:56:44Z
+2026-10-02T18:48:03.2177374Z Worker ID: {6aecdb74-9850-4843-83a2-88199026c76c}
+2026-10-02T18:48:03.2178146Z Azure Region: westus3
+2026-10-02T18:48:03.2178755Z ##[endgroup]
+2026-10-02T18:48:03.2180509Z ##[group]Operating System
+2026-10-02T18:48:03.2181253Z Ubuntu
+2026-10-02T18:48:03.2181810Z 24.04.5
+2026-10-02T18:48:03.2182388Z LTS
+2026-10-02T18:48:03.2182901Z ##[endgroup]
+2026-10-02T18:48:03.2183837Z ##[group]Runner Image
+2026-10-02T18:48:03.2184745Z Image: ubuntu-24.04
+2026-10-02T18:48:03.2185318Z Version: 20260927.320.1
+2026-10-02T18:48:03.2186625Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-02T18:48:03.2188168Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-02T18:48:03.2189204Z ##[endgroup]
+2026-10-02T18:48:03.2190330Z ##[group]GITHUB_TOKEN Permissions
+2026-10-02T18:48:03.2192285Z Contents: read
+2026-10-02T18:48:03.2192969Z Metadata: read
+2026-10-02T18:48:03.2193603Z ##[endgroup]
+2026-10-02T18:48:03.2196097Z Secret source: Actions
+2026-10-02T18:48:03.2197105Z Cache mode: write
+2026-10-02T18:48:03.2197834Z Prepare workflow directory
+2026-10-02T18:48:03.2617326Z Prepare all required actions
+2026-10-02T18:48:03.2665891Z Getting action download info
+2026-10-02T18:48:03.6411625Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-02T18:48:03.9995600Z Download action repository 'leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596' (SHA:50fcf42d2e460296f1a34b402e990d1b24f8b596)
+2026-10-02T18:48:04.3186508Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-02T18:48:04.6018479Z Getting action download info
+2026-10-02T18:48:04.7590580Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-10-02T18:48:04.9519840Z Complete job name: scoped
+2026-10-02T18:48:05.0258973Z ##[group]Run echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
+2026-10-02T18:48:05.0259972Z [36;1mecho "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"[0m
+2026-10-02T18:48:05.0261017Z [36;1mtest "$(date -u +%s)" -le "$(date -u -d '2026-10-02 19:07:45 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }[0m
+2026-10-02T18:48:05.1391224Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T18:48:05.1393078Z env:
+2026-10-02T18:48:05.1394754Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:48:05.1396277Z ##[endgroup]
+2026-10-02T18:48:05.1921155Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-10-02T18:48:05.1922553Z with:
+2026-10-02T18:48:05.1923424Z   repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T18:48:05.1931435Z   token: ***
+2026-10-02T18:48:05.1932292Z   ssh-strict: true
+2026-10-02T18:48:05.1933146Z   ssh-user: git
+2026-10-02T18:48:05.1934002Z   persist-credentials: true
+2026-10-02T18:48:05.1935212Z   clean: true
+2026-10-02T18:48:05.1936044Z   sparse-checkout-cone-mode: true
+2026-10-02T18:48:05.1936992Z   fetch-depth: 1
+2026-10-02T18:48:05.1937797Z   fetch-tags: false
+2026-10-02T18:48:05.1938629Z   show-progress: true
+2026-10-02T18:48:05.1939445Z   lfs: false
+2026-10-02T18:48:05.1940198Z   submodules: false
+2026-10-02T18:48:05.1941010Z   set-safe-directory: true
+2026-10-02T18:48:05.1941914Z   allow-unsafe-pr-checkout: false
+2026-10-02T18:48:05.1942805Z env:
+2026-10-02T18:48:05.1944675Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:48:05.1946871Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:48:05.1947693Z ##[endgroup]
+2026-10-02T18:48:05.3013377Z Syncing repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T18:48:05.3017127Z ##[group]Getting Git version info
+2026-10-02T18:48:05.3018552Z Working directory is '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T18:48:05.3020643Z [command]/usr/bin/git version
+2026-10-02T18:48:05.4057136Z git version 2.55.0
+2026-10-02T18:48:05.4080886Z ##[endgroup]
+2026-10-02T18:48:05.4092706Z Temporarily overriding HOME='/home/runner/work/_temp/f29ce489-b61f-4a49-a034-2af461bd6abe' before making global git config changes
+2026-10-02T18:48:05.4098135Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T18:48:05.4099712Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T18:48:05.4363619Z Deleting the contents of '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T18:48:05.4367094Z ##[group]Determining repository object format
+2026-10-02T18:48:05.4368945Z ##[endgroup]
+2026-10-02T18:48:05.4369895Z ##[group]Initializing the repository
+2026-10-02T18:48:05.4373920Z [command]/usr/bin/git init /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T18:48:05.4901232Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-02T18:48:05.4903634Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-02T18:48:05.4907976Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-02T18:48:05.4909549Z hint: call:
+2026-10-02T18:48:05.4910338Z hint:
+2026-10-02T18:48:05.4911305Z hint: 	git config --global init.defaultBranch <name>
+2026-10-02T18:48:05.4912493Z hint:
+2026-10-02T18:48:05.4913765Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-02T18:48:05.4915881Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-02T18:48:05.4917286Z hint:
+2026-10-02T18:48:05.4918153Z hint: 	git branch -m <name>
+2026-10-02T18:48:05.4919085Z hint:
+2026-10-02T18:48:05.4920256Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-02T18:48:05.4922150Z Initialized empty Git repository in /home/runner/work/lean-math-lab/lean-math-lab/.git/
+2026-10-02T18:48:05.4925335Z [command]/usr/bin/git remote add origin https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T18:48:05.5188441Z ##[endgroup]
+2026-10-02T18:48:05.5190097Z ##[group]Disabling automatic garbage collection
+2026-10-02T18:48:05.5192430Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-02T18:48:05.5231947Z ##[endgroup]
+2026-10-02T18:48:05.5233325Z ##[group]Setting up auth
+2026-10-02T18:48:05.5234316Z Removing SSH command configuration
+2026-10-02T18:48:05.5239608Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T18:48:05.5278361Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T18:48:05.6804308Z Removing HTTP extra header
+2026-10-02T18:48:05.6810677Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T18:48:05.6847583Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T18:48:05.7073679Z Removing includeIf entries pointing to credentials config files
+2026-10-02T18:48:05.7079005Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T18:48:05.7117906Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T18:48:05.7362651Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-02T18:48:05.7414127Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path /home/runner/work/_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:48:05.7450596Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:48:05.7489771Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:48:05.7526745Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:48:05.7558501Z ##[endgroup]
+2026-10-02T18:48:05.7559342Z ##[group]Fetching the repository
+2026-10-02T18:48:05.7568952Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +e0eadc9395457d7da81aee7b8a3e49e264c5024e:refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T18:49:21.6545808Z From https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T18:49:21.6547067Z  * [new ref]             e0eadc9395457d7da81aee7b8a3e49e264c5024e -> origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T18:49:21.6562642Z [command]/usr/bin/git branch --list --remote origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T18:49:21.6595364Z   origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T18:49:21.6604952Z [command]/usr/bin/git rev-parse refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T18:49:21.6633479Z e0eadc9395457d7da81aee7b8a3e49e264c5024e
+2026-10-02T18:49:21.6638039Z ##[endgroup]
+2026-10-02T18:49:21.6638547Z ##[group]Determining the checkout info
+2026-10-02T18:49:21.6639460Z ##[endgroup]
+2026-10-02T18:49:21.6643889Z [command]/usr/bin/git sparse-checkout disable
+2026-10-02T18:49:21.6804608Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-02T18:49:21.6842723Z ##[group]Checking out the ref
+2026-10-02T18:49:21.6848773Z [command]/usr/bin/git checkout --progress --force -B huan/b699-lean-next-20261002-01a0f779 refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T18:49:22.7871358Z Updating files:   3% (3538/90395)
+2026-10-02T18:49:22.9033149Z Updating files:   4% (3616/90395)
+2026-10-02T18:49:22.9615544Z Updating files:   5% (4520/90395)
+2026-10-02T18:49:23.0383287Z Updating files:   6% (5424/90395)
+2026-10-02T18:49:23.1930347Z Updating files:   7% (6328/90395)
+2026-10-02T18:49:23.2496250Z Updating files:   8% (7232/90395)
+2026-10-02T18:49:23.3210669Z Updating files:   9% (8136/90395)
+2026-10-02T18:49:23.3851968Z Updating files:  10% (9040/90395)
+2026-10-02T18:49:23.4831828Z Updating files:  11% (9944/90395)
+2026-10-02T18:49:23.5422180Z Updating files:  12% (10848/90395)
+2026-10-02T18:49:23.5933357Z Updating files:  13% (11752/90395)
+2026-10-02T18:49:23.6561910Z Updating files:  14% (12656/90395)
+2026-10-02T18:49:23.7449069Z Updating files:  15% (13560/90395)
+2026-10-02T18:49:23.7794890Z Updating files:  16% (14464/90395)
+2026-10-02T18:49:23.8063499Z Updating files:  16% (15017/90395)
+2026-10-02T18:49:23.9008559Z Updating files:  17% (15368/90395)
+2026-10-02T18:49:23.9543647Z Updating files:  18% (16272/90395)
+2026-10-02T18:49:24.0032528Z Updating files:  19% (17176/90395)
+2026-10-02T18:49:24.0401418Z Updating files:  20% (18079/90395)
+2026-10-02T18:49:24.0822529Z Updating files:  21% (18983/90395)
+2026-10-02T18:49:24.1316576Z Updating files:  22% (19887/90395)
+2026-10-02T18:49:24.1692897Z Updating files:  23% (20791/90395)
+2026-10-02T18:49:24.2160482Z Updating files:  24% (21695/90395)
+2026-10-02T18:49:24.2551884Z Updating files:  25% (22599/90395)
+2026-10-02T18:49:24.2919095Z Updating files:  26% (23503/90395)
+2026-10-02T18:49:24.3278621Z Updating files:  27% (24407/90395)
+2026-10-02T18:49:24.3655255Z Updating files:  28% (25311/90395)
+2026-10-02T18:49:24.4083577Z Updating files:  29% (26215/90395)
+2026-10-02T18:49:24.4478858Z Updating files:  30% (27119/90395)
+2026-10-02T18:49:24.4859206Z Updating files:  31% (28023/90395)
+2026-10-02T18:49:24.5271598Z Updating files:  32% (28927/90395)
+2026-10-02T18:49:24.5693327Z Updating files:  33% (29831/90395)
+2026-10-02T18:49:24.6118521Z Updating files:  34% (30735/90395)
+2026-10-02T18:49:24.6532781Z Updating files:  35% (31639/90395)
+2026-10-02T18:49:24.6935576Z Updating files:  36% (32543/90395)
+2026-10-02T18:49:24.7331299Z Updating files:  37% (33447/90395)
+2026-10-02T18:49:24.7745845Z Updating files:  38% (34351/90395)
+2026-10-02T18:49:24.7805221Z Updating files:  39% (35255/90395)
+2026-10-02T18:49:24.8177649Z Updating files:  39% (35307/90395)
+2026-10-02T18:49:24.8593879Z Updating files:  40% (36158/90395)
+2026-10-02T18:49:24.9029065Z Updating files:  41% (37062/90395)
+2026-10-02T18:49:24.9746916Z Updating files:  42% (37966/90395)
+2026-10-02T18:49:25.0830932Z Updating files:  43% (38870/90395)
+2026-10-02T18:49:25.1145019Z Updating files:  44% (39774/90395)
+2026-10-02T18:49:25.1618952Z Updating files:  45% (40678/90395)
+2026-10-02T18:49:25.2163504Z Updating files:  46% (41582/90395)
+2026-10-02T18:49:25.2491218Z Updating files:  47% (42486/90395)
+2026-10-02T18:49:25.3006039Z Updating files:  48% (43390/90395)
+2026-10-02T18:49:25.3422217Z Updating files:  49% (44294/90395)
+2026-10-02T18:49:25.3853945Z Updating files:  50% (45198/90395)
+2026-10-02T18:49:25.4281844Z Updating files:  51% (46102/90395)
+2026-10-02T18:49:25.4694004Z Updating files:  52% (47006/90395)
+2026-10-02T18:49:25.5060452Z Updating files:  53% (47910/90395)
+2026-10-02T18:49:25.5429815Z Updating files:  54% (48814/90395)
+2026-10-02T18:49:25.6750258Z Updating files:  55% (49718/90395)
+2026-10-02T18:49:25.7105730Z Updating files:  56% (50622/90395)
+2026-10-02T18:49:25.7487923Z Updating files:  57% (51526/90395)
+2026-10-02T18:49:25.7784709Z Updating files:  58% (52430/90395)
+2026-10-02T18:49:25.7884024Z Updating files:  58% (53092/90395)
+2026-10-02T18:49:25.8251653Z Updating files:  59% (53334/90395)
+2026-10-02T18:49:25.8616215Z Updating files:  60% (54237/90395)
+2026-10-02T18:49:25.9015833Z Updating files:  61% (55141/90395)
+2026-10-02T18:49:25.9410529Z Updating files:  62% (56045/90395)
+2026-10-02T18:49:25.9827152Z Updating files:  63% (56949/90395)
+2026-10-02T18:49:26.0291545Z Updating files:  64% (57853/90395)
+2026-10-02T18:49:26.0725740Z Updating files:  65% (58757/90395)
+2026-10-02T18:49:26.1431193Z Updating files:  66% (59661/90395)
+2026-10-02T18:49:26.1932307Z Updating files:  67% (60565/90395)
+2026-10-02T18:49:26.3292948Z Updating files:  68% (61469/90395)
+2026-10-02T18:49:26.3819749Z Updating files:  69% (62373/90395)
+2026-10-02T18:49:26.4377106Z Updating files:  70% (63277/90395)
+2026-10-02T18:49:26.5084289Z Updating files:  71% (64181/90395)
+2026-10-02T18:49:26.5730921Z Updating files:  72% (65085/90395)
+2026-10-02T18:49:26.6225500Z Updating files:  73% (65989/90395)
+2026-10-02T18:49:26.7230192Z Updating files:  74% (66893/90395)
+2026-10-02T18:49:26.7784819Z Updating files:  75% (67797/90395)
+2026-10-02T18:49:26.7843676Z Updating files:  75% (68597/90395)
+2026-10-02T18:49:27.2556148Z Updating files:  76% (68701/90395)
+2026-10-02T18:49:27.3728431Z Updating files:  77% (69605/90395)
+2026-10-02T18:49:27.4835021Z Updating files:  78% (70509/90395)
+2026-10-02T18:49:27.5848744Z Updating files:  79% (71413/90395)
+2026-10-02T18:49:27.7605437Z Updating files:  80% (72316/90395)
+2026-10-02T18:49:27.7783938Z Updating files:  81% (73220/90395)
+2026-10-02T18:49:28.3370554Z Updating files:  81% (73506/90395)
+2026-10-02T18:49:28.4900577Z Updating files:  82% (74124/90395)
+2026-10-02T18:49:28.5639473Z Updating files:  83% (75028/90395)
+2026-10-02T18:49:28.6762167Z Updating files:  84% (75932/90395)
+2026-10-02T18:49:28.7290576Z Updating files:  85% (76836/90395)
+2026-10-02T18:49:28.7788781Z Updating files:  86% (77740/90395)
+2026-10-02T18:49:28.9846133Z Updating files:  86% (77846/90395)
+2026-10-02T18:49:29.2244028Z Updating files:  87% (78644/90395)
+2026-10-02T18:49:29.4229446Z Updating files:  88% (79548/90395)
+2026-10-02T18:49:29.6330380Z Updating files:  89% (80452/90395)
+2026-10-02T18:49:29.7833587Z Updating files:  90% (81356/90395)
+2026-10-02T18:49:29.9760429Z Updating files:  90% (81716/90395)
+2026-10-02T18:49:30.2984007Z Updating files:  91% (82260/90395)
+2026-10-02T18:49:30.6148010Z Updating files:  92% (83164/90395)
+2026-10-02T18:49:30.8088679Z Updating files:  93% (84068/90395)
+2026-10-02T18:49:30.8624296Z Updating files:  93% (84505/90395)
+2026-10-02T18:49:31.0876593Z Updating files:  94% (84972/90395)
+2026-10-02T18:49:31.1509041Z Updating files:  95% (85876/90395)
+2026-10-02T18:49:31.2022707Z Updating files:  96% (86780/90395)
+2026-10-02T18:49:31.2648488Z Updating files:  97% (87684/90395)
+2026-10-02T18:49:31.3180118Z Updating files:  98% (88588/90395)
+2026-10-02T18:49:31.3635722Z Updating files:  99% (89492/90395)
+2026-10-02T18:49:31.3636677Z Updating files: 100% (90395/90395)
+2026-10-02T18:49:31.3637398Z Updating files: 100% (90395/90395), done.
+2026-10-02T18:49:31.4769627Z Switched to a new branch 'huan/b699-lean-next-20261002-01a0f779'
+2026-10-02T18:49:31.4771253Z branch 'huan/b699-lean-next-20261002-01a0f779' set up to track 'origin/huan/b699-lean-next-20261002-01a0f779'.
+2026-10-02T18:49:31.4953085Z ##[endgroup]
+2026-10-02T18:49:31.5003578Z [command]/usr/bin/git log -1 --format=%H
+2026-10-02T18:49:31.5034952Z e0eadc9395457d7da81aee7b8a3e49e264c5024e
+2026-10-02T18:49:31.5174179Z ##[group]Run python3 "$B699_RUNTIME/pilot64-stage.py" preflight
+2026-10-02T18:49:31.5174960Z [36;1mpython3 "$B699_RUNTIME/pilot64-stage.py" preflight[0m
+2026-10-02T18:49:31.5238776Z shell: /usr/bin/bash -e {0}
+2026-10-02T18:49:31.5239040Z env:
+2026-10-02T18:49:31.5239585Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:49:31.5240224Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:49:31.5240498Z ##[endgroup]
+2026-10-02T18:49:31.6420416Z ##[group]Run leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+2026-10-02T18:49:31.6421082Z with:
+2026-10-02T18:49:31.6421395Z   auto-config: false
+2026-10-02T18:49:31.6421695Z   build: false
+2026-10-02T18:49:31.6421972Z   test: false
+2026-10-02T18:49:31.6422252Z   lint: false
+2026-10-02T18:49:31.6422565Z   use-mathlib-cache: false
+2026-10-02T18:49:31.6422960Z   use-github-cache: false
+2026-10-02T18:49:31.6423344Z   mk_all-check: false
+2026-10-02T18:49:31.6423733Z   check-reservoir-eligibility: false
+2026-10-02T18:49:31.6424161Z   leanchecker: false
+2026-10-02T18:49:31.6424824Z   lean4checker: false
+2026-10-02T18:49:31.6425180Z   nanoda: false
+2026-10-02T18:49:31.6425496Z   nanoda-allow-sorry: true
+2026-10-02T18:49:31.6425886Z   axiom-audit: false
+2026-10-02T18:49:31.6426377Z   axiom-audit-allow: propext,Classical.choice,Quot.sound
+2026-10-02T18:49:31.6426973Z   lake-package-directory: .
+2026-10-02T18:49:31.6427427Z   reinstall-transient-toolchain: false
+2026-10-02T18:49:31.6427940Z env:
+2026-10-02T18:49:31.6428810Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:49:31.6429826Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:49:31.6430225Z ##[endgroup]
+2026-10-02T18:49:31.6537234Z ##[start-action display=install elan;id=__leanprover_lean-action.__run]
+2026-10-02T18:49:31.6572020Z ##[group]Run : Install Elan
+2026-10-02T18:49:31.6572303Z [36;1m: Install Elan[0m
+2026-10-02T18:49:31.6572586Z [36;1m${GITHUB_ACTION_PATH}/scripts/install_elan.sh[0m
+2026-10-02T18:49:31.6638238Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T18:49:31.6638600Z env:
+2026-10-02T18:49:31.6639131Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:49:31.6639738Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:49:31.6639994Z ##[endgroup]
+2026-10-02T18:49:31.6753097Z ##[group]Elan Installation Output
+2026-10-02T18:49:31.7581190Z info: downloading installer
+2026-10-02T18:49:33.0543038Z info: downloading https://releases.lean-lang.org/lean4/v4.33.1/lean-4.33.1-linux.tar.zst
+2026-10-02T18:49:38.1180378Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.33.1
+2026-10-02T18:49:45.1160278Z Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+2026-10-02T18:49:45.1689751Z Lake version 5.0.0-src+819816b (Lean version 4.33.1)
+2026-10-02T18:49:45.1730140Z ##[endgroup]
+2026-10-02T18:49:45.1730582Z 
+2026-10-02T18:49:45.1780717Z ##[end-action id=__leanprover_lean-action.__run;outcome=success;conclusion=success;duration_ms=13524]
+2026-10-02T18:49:45.1785742Z ##[start-action display=configure `lean-action`;id=__leanprover_lean-action.config]
+2026-10-02T18:49:45.1803672Z ##[group]Run : Configure Lean Action
+2026-10-02T18:49:45.1803973Z [36;1m: Configure Lean Action[0m
+2026-10-02T18:49:45.1804275Z [36;1m${GITHUB_ACTION_PATH}/scripts/config.sh[0m
+2026-10-02T18:49:45.1870963Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T18:49:45.1871328Z env:
+2026-10-02T18:49:45.1871858Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:49:45.1872478Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:49:45.1872739Z   AUTO_CONFIG: false
+2026-10-02T18:49:45.1872960Z   BUILD: false
+2026-10-02T18:49:45.1873155Z   TEST: false
+2026-10-02T18:49:45.1873344Z   LINT: false
+2026-10-02T18:49:45.1873534Z ##[endgroup]
+2026-10-02T18:49:45.2695168Z ##[group]Configure lean-action
+2026-10-02T18:49:45.2749940Z ##[end-action id=__leanprover_lean-action.config;outcome=success;conclusion=success;duration_ms=96]
+2026-10-02T18:49:45.2755113Z ##[start-action display=reinstall transient toolchain;id=__leanprover_lean-action.__run_2]
+2026-10-02T18:49:45.2773241Z ##[end-action id=__leanprover_lean-action.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2776602Z ##[start-action display=ensure all files are imported;id=__leanprover_lean-action.mk_all]
+2026-10-02T18:49:45.2780471Z ##[end-action id=__leanprover_lean-action.mk_all;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2782404Z ##[start-action display=Run actions/cache/restore@v5;id=__leanprover_lean-action.__actions_cache]
+2026-10-02T18:49:45.2785954Z ##[end-action id=__leanprover_lean-action.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2787784Z ##[start-action display=detect mathlib;id=__leanprover_lean-action.detect-mathlib]
+2026-10-02T18:49:45.2791094Z ##[end-action id=__leanprover_lean-action.detect-mathlib;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2792894Z ##[start-action display=get mathlib cache;id=__leanprover_lean-action.__run_3]
+2026-10-02T18:49:45.2813663Z ##[end-action id=__leanprover_lean-action.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2839871Z ##[start-action display=build HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.build]
+2026-10-02T18:49:45.2844158Z ##[end-action id=__leanprover_lean-action.build;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2846363Z ##[start-action display=Run actions/cache/save@v5;id=__leanprover_lean-action.__actions_cache_2]
+2026-10-02T18:49:45.2849711Z ##[end-action id=__leanprover_lean-action.__actions_cache_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2853224Z ##[start-action display=test HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.test]
+2026-10-02T18:49:45.2857653Z ##[end-action id=__leanprover_lean-action.test;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2860423Z ##[start-action display=lint HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.lint]
+2026-10-02T18:49:45.2864660Z ##[end-action id=__leanprover_lean-action.lint;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2866842Z ##[start-action display=check reservoir eligibility;id=__leanprover_lean-action.__run_4]
+2026-10-02T18:49:45.2870067Z ##[end-action id=__leanprover_lean-action.__run_4;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2872656Z ##[start-action display=check environment with leanchecker;id=__leanprover_lean-action.__run_5]
+2026-10-02T18:49:45.2877227Z ##[end-action id=__leanprover_lean-action.__run_5;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2879471Z ##[start-action display=check environment with nanoda;id=__leanprover_lean-action.nanoda]
+2026-10-02T18:49:45.2882655Z ##[end-action id=__leanprover_lean-action.nanoda;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.2885202Z ##[start-action display=audit axioms with axiom-audit;id=__leanprover_lean-action.axiom-audit]
+2026-10-02T18:49:45.2888468Z ##[end-action id=__leanprover_lean-action.axiom-audit;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T18:49:45.3257718Z ##[group]Run python3 "$B699_RUNTIME/pilot64-stage.py"
+2026-10-02T18:49:45.3258193Z [36;1mpython3 "$B699_RUNTIME/pilot64-stage.py"[0m
+2026-10-02T18:49:45.3320133Z shell: /usr/bin/bash -e {0}
+2026-10-02T18:49:45.3320401Z env:
+2026-10-02T18:49:45.3320947Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:49:45.3321577Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:49:45.3321838Z ##[endgroup]
+2026-10-02T18:49:45.4178294Z PILOT64_CURRENT_RESOURCES {"utc": "2026-10-02T18:49:45.416897+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "7460519936", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "10024189952", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15112839168, "effectiveAvailableBytes": 15112839168, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 85714972672}
+2026-10-02T18:49:45.6239099Z {"label": "toolchain-prefix", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:49:45.8038673Z {"label": "toolchain-version", "status": "success", "exitCode": 0, "peakMiB": 53.35}
+2026-10-02T18:51:18.1567413Z {"label": "focused-cache", "status": "success", "exitCode": 0, "peakMiB": 1751.42}
+2026-10-02T18:51:18.1642247Z {"label": "pin-mathlib", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.1715292Z {"label": "pin-plausible", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.1784550Z {"label": "pin-LeanSearchClient", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.1852577Z {"label": "pin-importGraph", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.1920228Z {"label": "pin-proofwidgets", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.1989778Z {"label": "pin-aesop", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.2060978Z {"label": "pin-Qq", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.2132598Z {"label": "pin-batteries", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.2202857Z {"label": "pin-Cli", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:18.2272026Z {"label": "normnum-prime-canonical-git-blob", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T18:51:19.0938429Z {"label": "lean-path-1790967078227800968", "status": "success", "exitCode": 0, "peakMiB": 820.85}
+2026-10-02T18:51:19.9485925Z {"label": "pilot64-00-ChainCore", "status": "success", "exitCode": 0, "peakMiB": 775.02}
+2026-10-02T18:51:19.9532767Z PILOT64_SOURCE_RECEIPT {"utc": "2026-10-02T18:51:19.098119+00:00", "startUtc": "2026-10-02T18:51:19.098132+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "-j1", "-M3132", "-DElab.async=false", "-R", "/home/runner/work/lean-math-lab/lean-math-lab", "-o", "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean", "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.lean"], "pid": 2858, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T18:51:19.095899+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "9169997824", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "11733479424", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15483207680, "effectiveAvailableBytes": 15483207680, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 84105699328}, "hardDeadlineUtc": "2026-10-02T19:20:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 812666880, "minimumAvailableBytes": 15386238976, "startupMemoryMiB": 3072, "treeMemoryMiB": 3072, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550", "status": "success", "exitCode": 0, "stopReason": null, "endUtc": "2026-10-02T18:51:19.947828+00:00", "wallSeconds": 0.8518953323364258, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-00-ChainCore/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-00-ChainCore/stderr.log", "stdoutSha256": "fea197df750769151a8f2e87a9596148b4c8ad0272eb459a0fe497872a7274c9", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "mode": "Lean", "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.lean", "sourceSha256": "2a604dbaa835880ddadbc128960315903a5c837c8cb53c6eef056349845ed692", "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-00-ChainCore/source.lean", "sourceUnchanged": true, "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean", "objectSha256": "cadec0d63491abf865bbad84947fdc75f763119fc57d59498726ec6c7f13717f", "objectParts": [{"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean.server", "bytes": 2216, "sha256": "b7280a5386025470534d488acb77aebdcddf7cb8f31b619686753a1808388c9f"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.ir", "bytes": 1576, "sha256": "9bd82f241760e72de9b73c0f0da5a570df0d5c84575d2f62a4bca597444371e9"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean.private", "bytes": 48600, "sha256": "84a9777561f078143a3b89e8dc2b6743e0fe58e578bedcb3362d5b18f047bad6"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.ir.sig", "bytes": 176, "sha256": "353c195156eb4f020ee43fc5c1e0c123a5373f78f6d8330303953b97b386b99c"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean", "bytes": 39664, "sha256": "cadec0d63491abf865bbad84947fdc75f763119fc57d59498726ec6c7f13717f"}]}
+2026-10-02T18:51:19.9572416Z 'B699Finite20261002.PrimeChain.trans' depends on axioms: [propext]
+2026-10-02T18:51:19.9573445Z 'B699Finite20261002.PrimeChain.near_top' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:19.9574143Z 
+2026-10-02T18:51:26.3693013Z {"label": "pilot64-01-Pilot64", "status": "success", "exitCode": 0, "peakMiB": 1080.8}
+2026-10-02T18:51:26.3871992Z PILOT64_SOURCE_RECEIPT {"utc": "2026-10-02T18:51:19.954602+00:00", "startUtc": "2026-10-02T18:51:19.954615+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "-j1", "-M3132", "-DElab.async=false", "-R", "/home/runner/work/lean-math-lab/lean-math-lab", "-o", "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean", "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.lean"], "pid": 2863, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T18:51:19.952194+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "9176465408", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "11739947008", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15406657536, "effectiveAvailableBytes": 15406657536, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 84105555968}, "hardDeadlineUtc": "2026-10-02T19:20:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 1133297664, "minimumAvailableBytes": 15233507328, "startupMemoryMiB": 3072, "treeMemoryMiB": 3072, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550", "status": "success", "exitCode": 0, "stopReason": null, "endUtc": "2026-10-02T18:51:26.368472+00:00", "wallSeconds": 6.416247367858887, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-Pilot64/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-Pilot64/stderr.log", "stdoutSha256": "daf052858aeea7921baa0c02d1aed3ad074065c91bd1c7365b801ea97519e6fb", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "mode": "Lean", "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.lean", "sourceSha256": "d8df5d3bc6063fe4f7b847917b503fe038dda904ab9cd44706ec47bf8794e048", "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-Pilot64/source.lean", "sourceUnchanged": true, "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean", "objectSha256": "46471422f6e972f367a4007ec63f2052eed5082006aaede35feca1081beb0e4b", "objectParts": [{"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean.server", "bytes": 15680, "sha256": "fe0f30f8ec22ffb3546ec2a72ba290034dcd6d24a5ea9d61452b7db6f90bc9e7"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.ir.sig", "bytes": 176, "sha256": "578d5ea820e43f14b6ecd070667ba4e0fbf55de59d657afcdeb6e8f03d33cba6"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean", "bytes": 37896, "sha256": "46471422f6e972f367a4007ec63f2052eed5082006aaede35feca1081beb0e4b"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean.private", "bytes": 16786344, "sha256": "8646249f5b8852e00c2ce13ac3983adf8a6603164f0268dc2d6ec7f1ef69c6da"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.ir", "bytes": 2256, "sha256": "e5c673007db453cf62bf4554246e3d5503e36f04bed3207aac71464ce40bf73c"}]}
+2026-10-02T18:51:26.3911871Z 'B699GapSlice20261003.prime0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3912943Z 'B699GapSlice20261003.prime1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3913928Z 'B699GapSlice20261003.prime2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3915401Z 'B699GapSlice20261003.prime3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3916403Z 'B699GapSlice20261003.prime4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3917420Z 'B699GapSlice20261003.prime5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3918483Z 'B699GapSlice20261003.prime6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3919553Z 'B699GapSlice20261003.prime7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3920535Z 'B699GapSlice20261003.prime8' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3921556Z 'B699GapSlice20261003.prime9' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3922573Z 'B699GapSlice20261003.prime10' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3923597Z 'B699GapSlice20261003.prime11' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3925280Z 'B699GapSlice20261003.prime12' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3926671Z 'B699GapSlice20261003.prime13' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3928060Z 'B699GapSlice20261003.prime14' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3929787Z 'B699GapSlice20261003.prime15' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3931213Z 'B699GapSlice20261003.prime16' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3932610Z 'B699GapSlice20261003.prime17' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3934029Z 'B699GapSlice20261003.prime18' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3935439Z 'B699GapSlice20261003.prime19' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3936889Z 'B699GapSlice20261003.prime20' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3938579Z 'B699GapSlice20261003.prime21' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:26.3939867Z 'B699GapSlice20261003.prime22' depends on axioms: [propext, Classical.choice, 
+2026-10-02T18:51:31.9820404Z {"label": "pilot64-01-normal-checker", "status": "success", "exitCode": 0, "peakMiB": 1304.06}
+2026-10-02T18:51:31.9843017Z PILOT64_CHECKER_RECEIPT {"utc": "2026-10-02T18:51:26.387099+00:00", "startUtc": "2026-10-02T18:51:26.387111+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker", "-v", "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20261001-lean-nonr7-01a0f779\u00bb.continuations.\u00ab20261003-gap-halfhour\u00bb.supply.Pilot64"], "pid": 2873, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T18:51:26.384669+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "9183244288", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "11746488320", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15487852544, "effectiveAvailableBytes": 15487852544, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 84088639488}, "hardDeadlineUtc": "2026-10-02T19:20:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 1367404544, "minimumAvailableBytes": 15377846272, "startupMemoryMiB": 3072, "treeMemoryMiB": 3072, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker", "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0", "status": "success", "exitCode": 0, "stopReason": null, "endUtc": "2026-10-02T18:51:31.981043+00:00", "wallSeconds": 5.596283197402954, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-normal-checker/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-normal-checker/stderr.log", "stdoutSha256": "bece298795b80ad86a4d233cde07b5a139774493cede2ae4c86e46e2b28aa4e3", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+2026-10-02T18:51:31.9856634Z PILOT64_AXIOM_AUDIT {
+2026-10-02T18:51:31.9856892Z   "utc": "2026-10-02T18:51:26.383190+00:00",
+2026-10-02T18:51:31.9857198Z   "status": "accepted-standard-axioms",
+2026-10-02T18:51:31.9859056Z   "roots": [
+2026-10-02T18:51:31.9859366Z     "B699GapSlice20261003.prime0",
+2026-10-02T18:51:31.9859797Z     "B699GapSlice20261003.prime1",
+2026-10-02T18:51:31.9860260Z     "B699GapSlice20261003.prime2",
+2026-10-02T18:51:31.9860689Z     "B699GapSlice20261003.prime3",
+2026-10-02T18:51:31.9861096Z     "B699GapSlice20261003.prime4",
+2026-10-02T18:51:31.9861500Z     "B699GapSlice20261003.prime5",
+2026-10-02T18:51:31.9861912Z     "B699GapSlice20261003.prime6",
+2026-10-02T18:51:31.9862312Z     "B699GapSlice20261003.prime7",
+2026-10-02T18:51:31.9862721Z     "B699GapSlice20261003.prime8",
+2026-10-02T18:51:31.9863134Z     "B699GapSlice20261003.prime9",
+2026-10-02T18:51:31.9863551Z     "B699GapSlice20261003.prime10",
+2026-10-02T18:51:31.9863975Z     "B699GapSlice20261003.prime11",
+2026-10-02T18:51:31.9864669Z     "B699GapSlice20261003.prime12",
+2026-10-02T18:51:31.9865102Z     "B699GapSlice20261003.prime13",
+2026-10-02T18:51:31.9865519Z     "B699GapSlice20261003.prime14",
+2026-10-02T18:51:31.9865940Z     "B699GapSlice20261003.prime15",
+2026-10-02T18:51:31.9866374Z     "B699GapSlice20261003.prime16",
+2026-10-02T18:51:31.9866827Z     "B699GapSlice20261003.prime17",
+2026-10-02T18:51:31.9867997Z     "B699GapSlice20261003.prime18",
+2026-10-02T18:51:31.9868683Z     "B699GapSlice20261003.prime19",
+2026-10-02T18:51:31.9869329Z     "B699GapSlice20261003.prime20",
+2026-10-02T18:51:31.9870060Z     "B699GapSlice20261003.prime21",
+2026-10-02T18:51:31.9870737Z     "B699GapSlice20261003.prime22",
+2026-10-02T18:51:31.9871304Z     "B699GapSlice20261003.prime23",
+2026-10-02T18:51:31.9872037Z     "B699GapSlice20261003.prime24",
+2026-10-02T18:51:31.9872635Z     "B699GapSlice20261003.prime25",
+2026-10-02T18:51:31.9873345Z     "B699GapSlice20261003.prime26",
+2026-10-02T18:51:31.9873951Z     "B699GapSlice20261003.prime27",
+2026-10-02T18:51:31.9874754Z     "B699GapSlice20261003.prime28",
+2026-10-02T18:51:31.9875425Z     "B699GapSlice20261003.prime29",
+2026-10-02T18:51:31.9875972Z     "B699GapSlice20261003.prime30",
+2026-10-02T18:51:31.9876564Z     "B699GapSlice20261003.prime31",
+2026-10-02T18:51:31.9877209Z     "B699GapSlice20261003.prime32",
+2026-10-02T18:51:31.9878097Z     "B699GapSlice20261003.prime33",
+2026-10-02T18:51:31.9878825Z     "B699GapSlice20261003.prime34",
+2026-10-02T18:51:31.9879393Z     "B699GapSlice20261003.prime35",
+2026-10-02T18:51:31.9880050Z     "B699GapSlice20261003.prime36",
+2026-10-02T18:51:31.9880640Z     "B699GapSlice20261003.prime37",
+2026-10-02T18:51:31.9881209Z     "B699GapSlice20261003.prime38",
+2026-10-02T18:51:31.9881843Z     "B699GapSlice20261003.prime39",
+2026-10-02T18:51:31.9901588Z     "B699GapSlice20261003.prime40",
+2026-10-02T18:51:31.9902141Z     "B699GapSlice20261003.prime41",
+2026-10-02T18:51:31.9902595Z     "B699GapSlice20261003.prime42",
+2026-10-02T18:51:31.9903056Z     "B699GapSlice20261003.prime43",
+2026-10-02T18:51:31.9903537Z     "B699GapSlice20261003.prime44",
+2026-10-02T18:51:31.9903990Z     "B699GapSlice20261003.prime45",
+2026-10-02T18:51:31.9904745Z     "B699GapSlice20261003.prime46",
+2026-10-02T18:51:31.9905237Z     "B699GapSlice20261003.prime47",
+2026-10-02T18:51:31.9905666Z     "B699GapSlice20261003.prime48",
+2026-10-02T18:51:31.9906159Z     "B699GapSlice20261003.prime49",
+2026-10-02T18:51:31.9906606Z     "B699GapSlice20261003.prime50",
+2026-10-02T18:51:31.9907034Z     "B699GapSlice20261003.prime51",
+2026-10-02T18:51:31.9907501Z     "B699GapSlice20261003.prime52",
+2026-10-02T18:51:31.9908123Z     "B699GapSlice20261003.prime53",
+2026-10-02T18:51:31.9908797Z     "B699GapSlice20261003.prime54",
+2026-10-02T18:51:31.9909351Z     "B699GapSlice20261003.prime55",
+2026-10-02T18:51:31.9909778Z     "B699GapSlice20261003.prime56",
+2026-10-02T18:51:31.9910204Z     "B699GapSlice20261003.prime57",
+2026-10-02T18:51:31.9910748Z     "B699GapSlice20261003.prime58",
+2026-10-02T18:51:31.9911348Z     "B699GapSlice20261003.prime59",
+2026-10-02T18:51:31.9911843Z     "B699GapSlice20261003.prime60",
+2026-10-02T18:51:31.9912267Z     "B699GapSlice20261003.prime61",
+2026-10-02T18:51:31.9912905Z     "B699GapSlice20261003.prime62",
+2026-10-02T18:51:31.9913421Z     "B699GapSlice20261003.prime63",
+2026-10-02T18:51:31.9913852Z     "B699GapSlice20261003.chain",
+2026-10-02T18:51:31.9914597Z     "B699GapSlice20261003.initial_slice"
+2026-10-02T18:51:31.9915053Z   ],
+2026-10-02T18:51:31.9915407Z   "actualAxioms": {
+2026-10-02T18:51:31.9915811Z     "B699GapSlice20261003.prime0": [
+2026-10-02T18:51:31.9916237Z       "propext",
+2026-10-02T18:51:31.9916583Z       "Classical.choice",
+2026-10-02T18:51:31.9916962Z       "Quot.sound"
+2026-10-02T18:51:31.9917288Z     ],
+2026-10-02T18:51:31.9917615Z     "B699GapSlice20261003.prime1": [
+2026-10-02T18:51:31.9918058Z       "propext",
+2026-10-02T18:51:31.9918418Z       "Classical.choice",
+2026-10-02T18:51:31.9918800Z       "Quot.sound"
+2026-10-02T18:51:31.9919132Z     ],
+2026-10-02T18:51:31.9919472Z     "B699GapSlice20261003.prime2": [
+2026-10-02T18:51:31.9919954Z       "propext",
+2026-10-02T18:51:31.9920339Z       "Classical.choice",
+2026-10-02T18:51:31.9920716Z       "Quot.sound"
+2026-10-02T18:51:31.9921086Z     ],
+2026-10-02T18:51:31.9921443Z     "B699GapSlice20261003.prime3": [
+2026-10-02T18:51:31.9921905Z       "propext",
+2026-10-02T18:51:31.9922278Z       "Classical.choice",
+2026-10-02T18:51:31.9923027Z       "Quot.sound"
+2026-10-02T18:51:31.9923381Z     ],
+2026-10-02T18:51:31.9923730Z     "B699GapSlice20261003.prime4": [
+2026-10-02T18:51:31.9924223Z       "propext",
+2026-10-02T18:51:31.9924835Z       "Classical.choice",
+2026-10-02T18:51:31.9925231Z       "Quot.sound"
+2026-10-02T18:51:31.9925562Z     ],
+2026-10-02T18:51:31.9925938Z     "B699GapSlice20261003.prime5": [
+2026-10-02T18:51:31.9926375Z       "propext",
+2026-10-02T18:51:31.9926735Z       "Classical.choice",
+2026-10-02T18:51:31.9927172Z       "Quot.sound"
+2026-10-02T18:51:31.9927513Z     ],
+2026-10-02T18:51:31.9927927Z     "B699GapSlice20261003.prime6": [
+2026-10-02T18:51:31.9928436Z       "propext",
+2026-10-02T18:51:31.9928834Z       "Classical.choice",
+2026-10-02T18:51:31.9929417Z       "Quot.sound"
+2026-10-02T18:51:31.9929810Z     ],
+2026-10-02T18:51:31.9930312Z     "B699GapSlice20261003.prime7": [
+2026-10-02T18:51:31.9930950Z       "propext",
+2026-10-02T18:51:31.9931558Z       "Classical.choice",
+2026-10-02T18:51:31.9931999Z       "Quot.sound"
+2026-10-02T18:51:31.9932333Z     ],
+2026-10-02T18:51:31.9932695Z     "B699GapSlice20261003.prime8": [
+2026-10-02T18:51:31.9933207Z       "propext",
+2026-10-02T18:51:31.9933548Z       "Classical.choice",
+2026-10-02T18:51:31.9933958Z       "Quot.sound"
+2026-10-02T18:51:31.9934305Z     ],
+2026-10-02T18:51:31.9935897Z     "B699GapSlice20261003.prime9": [
+2026-10-02T18:51:31.9936365Z       "propext",
+2026-10-02T18:51:31.9936732Z       "Classical.choice",
+2026-10-02T18:51:31.9937124Z       "Quot.sound"
+2026-10-02T18:51:31.9937443Z     ],
+2026-10-02T18:51:31.9937780Z     "B699GapSlice20261003.prime10": [
+2026-10-02T18:51:31.9938254Z       "propext",
+2026-10-02T18:51:31.9938625Z       "Classical.choice",
+2026-10-02T18:51:31.9939024Z       "Quot.sound"
+2026-10-02T18:51:31.9939340Z     ],
+2026-10-02T18:51:31.9939678Z     "B699GapSlice20261003.prime11": [
+2026-10-02T18:51:31.9940103Z       "propext",
+2026-10-02T18:51:31.9940443Z       "Classical.choice",
+2026-10-02T18:51:31.9940910Z       "Quot.sound"
+2026-10-02T18:51:31.9941245Z     ],
+2026-10-02T18:51:31.9941641Z     "B699GapSlice20261003.prime12": [
+2026-10-02T18:51:31.9942055Z       "propext",
+2026-10-02T18:51:31.9942393Z       "Classical.choice",
+2026-10-02T18:51:31.9942753Z       "Quot.sound"
+2026-10-02T18:51:31.9943073Z     ],
+2026-10-02T18:51:31.9943454Z     "B699GapSlice20261003.prime13": [
+2026-10-02T18:51:31.9943967Z       "propext",
+2026-10-02T18:51:31.9944310Z       "Classical.choice",
+2026-10-02T18:51:31.9944945Z       "Quot.sound"
+2026-10-02T18:51:31.9945265Z     ],
+2026-10-02T18:51:31.9945589Z     "B699GapSlice20261003.prime14": [
+2026-10-02T18:51:31.9946011Z       "propext",
+2026-10-02T18:51:31.9946353Z       "Classical.choice",
+2026-10-02T18:51:31.9946725Z       "Quot.sound"
+2026-10-02T18:51:31.9947052Z     ],
+2026-10-02T18:51:31.9947445Z     "B699GapSlice20261003.prime15": [
+2026-10-02T18:51:31.9947941Z       "propext",
+2026-10-02T18:51:31.9948363Z       "Classical.choice",
+2026-10-02T18:51:31.9948774Z       "Quot.sound"
+2026-10-02T18:51:31.9949137Z     ],
+2026-10-02T18:51:31.9949467Z     "B699GapSlice20261003.prime16": [
+2026-10-02T18:51:31.9949897Z       "propext",
+2026-10-02T18:51:31.9950239Z       "Classical.choice",
+2026-10-02T18:51:31.9950616Z       "Quot.sound"
+2026-10-02T18:51:31.9950936Z     ],
+2026-10-02T18:51:31.9951267Z     "B699GapSlice20261003.prime17": [
+2026-10-02T18:51:31.9951695Z       "propext",
+2026-10-02T18:51:31.9952031Z       "Classical.choice",
+2026-10-02T18:51:31.9952410Z       "Quot.sound"
+2026-10-02T18:51:31.9952769Z     ],
+2026-10-02T18:51:31.9953098Z     "B699GapSlice20261003.prime18": [
+2026-10-02T18:51:31.9953578Z       "propext",
+2026-10-02T18:51:31.9953919Z       "Classical.choice",
+2026-10-02T18:51:31.9954288Z       "Quot.sound"
+2026-10-02T18:51:31.9954835Z     ],
+2026-10-02T18:51:31.9955158Z     "B699GapSlice20261003.prime19": [
+2026-10-02T18:51:31.9955612Z       "propext",
+2026-10-02T18:51:31.9955946Z       "Classical.choice",
+2026-10-02T18:51:31.9956345Z       "Quot.sound"
+2026-10-02T18:51:31.9957026Z     ],
+2026-10-02T18:51:31.9957346Z     "B699GapSlice20261003.prime20": [
+2026-10-02T18:51:31.9957777Z       "propext",
+2026-10-02T18:51:31.9958150Z       "Classical.choice",
+2026-10-02T18:51:31.9958527Z       "Quot.sound"
+2026-10-02T18:51:31.9958855Z     ],
+2026-10-02T18:51:31.9959177Z     "B699GapSlice20261003.prime21": [
+2026-10-02T18:51:31.9959457Z       "propext",
+2026-10-02T18:51:31.9959840Z       "Classical.choice",
+2026-10-02T18:51:31.9960070Z       "Quot.sound"
+2026-10-02T18:51:31.9960256Z     ],
+2026-10-02T18:51:31.9960443Z     "B699GapSlice20261003.prime22": [
+2026-10-02T18:51:31.9960691Z       "propext",
+2026-10-02T18:51:31.9961050Z       "Classical.choice",
+2026-10-02T18:51:31.9961299Z       "Quot.sound"
+2026-10-02T18:51:31.9961645Z     ],
+2026-10-02T18:51:31.9961997Z     "B699GapSlice20261003.prime23": [
+2026-10-02T18:51:31.9962423Z       "propext",
+2026-10-02T18:51:31.9962731Z       "Classical.choice",
+2026-10-02T18:51:31.9963125Z       "Quot.sound"
+2026-10-02T18:51:31.9963883Z     ],
+2026-10-02T18:51:31.9964597Z     "B699GapSlice20261003.prime24": [
+2026-10-02T18:51:31.9965061Z       "propext",
+2026-10-02T18:51:31.9965427Z       "Classical.choice",
+2026-10-02T18:51:31.9965804Z       "Quot.sound"
+2026-10-02T18:51:31.9966135Z     ],
+2026-10-02T18:51:31.9966483Z     "B699GapSlice20261003.prime25": [
+2026-10-02T18:51:31.9966947Z       "propext",
+2026-10-02T18:51:31.9967293Z       "Classical.choice",
+2026-10-02T18:51:31.9967656Z       "Quot.sound"
+2026-10-02T18:51:31.9967995Z     ],
+2026-10-02T18:51:31.9968386Z     "B699GapSlice20261003.prime26": [
+2026-10-02T18:51:31.9968829Z       "propext",
+2026-10-02T18:51:31.9969192Z       "Classical.choice",
+2026-10-02T18:51:31.9969592Z       "Quot.sound"
+2026-10-02T18:51:31.9969993Z     ],
+2026-10-02T18:51:31.9970325Z     "B699GapSlice20261003.prime27": [
+2026-10-02T18:51:31.9970763Z       "propext",
+2026-10-02T18:51:31.9971103Z       "Classical.choice",
+2026-10-02T18:51:31.9971511Z       "Quot.sound"
+2026-10-02T18:51:31.9971865Z     ],
+2026-10-02T18:51:31.9972195Z     "B699GapSlice20261003.prime28": [
+2026-10-02T18:51:31.9972627Z       "propext",
+2026-10-02T18:51:31.9973003Z       "Classical.choice",
+2026-10-02T18:51:31.9973383Z       "Quot.sound"
+2026-10-02T18:51:31.9973737Z     ],
+2026-10-02T18:51:31.9974088Z     "B699GapSlice20261003.prime29": [
+2026-10-02T18:51:31.9974835Z       "propext",
+2026-10-02T18:51:31.9975212Z       "Classical.choice",
+2026-10-02T18:51:31.9975599Z       "Quot.sound"
+2026-10-02T18:51:31.9975921Z     ],
+2026-10-02T18:51:31.9976247Z     "B699GapSlice20261003.prime30": [
+2026-10-02T18:51:31.9976700Z       "propext",
+2026-10-02T18:51:31.9977044Z       "Classical.choice",
+2026-10-02T18:51:31.9977435Z       "Quot.sound"
+2026-10-02T18:51:31.9977787Z     ],
+2026-10-02T18:51:31.9978199Z     "B699GapSlice20261003.prime31": [
+2026-10-02T18:51:31.9978644Z       "propext",
+2026-10-02T18:51:31.9979022Z       "Classical.choice",
+2026-10-02T18:51:31.9979412Z       "Quot.sound"
+2026-10-02T18:51:31.9979759Z     ],
+2026-10-02T18:51:31.9980128Z     "B699GapSlice20261003.prime32": [
+2026-10-02T18:51:31.9980569Z       "propext",
+2026-10-02T18:51:31.9980920Z       "Classical.choice",
+2026-10-02T18:51:31.9981328Z       "Quot.sound"
+2026-10-02T18:51:31.9981665Z     ],
+2026-10-02T18:51:31.9982007Z     "B699GapSlice20261003.prime33": [
+2026-10-02T18:51:31.9982455Z       "propext",
+2026-10-02T18:51:31.9982814Z       "Classical.choice",
+2026-10-02T18:51:31.9983199Z       "Quot.sound"
+2026-10-02T18:51:31.9983528Z     ],
+2026-10-02T18:51:31.9983882Z     "B699GapSlice20261003.prime34": [
+2026-10-02T18:51:31.9984501Z       "propext",
+2026-10-02T18:51:31.9984882Z       "Classical.choice",
+2026-10-02T18:51:31.9985272Z       "Quot.sound"
+2026-10-02T18:51:31.9985634Z     ],
+2026-10-02T18:51:31.9985967Z     "B699GapSlice20261003.prime35": [
+2026-10-02T18:51:31.9986503Z       "propext",
+2026-10-02T18:51:31.9986961Z       "Classical.choice",
+2026-10-02T18:51:31.9987450Z       "Quot.sound"
+2026-10-02T18:51:31.9987902Z     ],
+2026-10-02T18:51:31.9988254Z     "B699GapSlice20261003.prime36": [
+2026-10-02T18:51:31.9989167Z       "propext",
+2026-10-02T18:51:31.9989515Z       "Classical.choice",
+2026-10-02T18:51:31.9989922Z       "Quot.sound"
+2026-10-02T18:51:31.9990256Z     ],
+2026-10-02T18:51:31.9990623Z     "B699GapSlice20261003.prime37": [
+2026-10-02T18:51:31.9991093Z       "propext",
+2026-10-02T18:51:31.9991443Z       "Classical.choice",
+2026-10-02T18:51:31.9991825Z       "Quot.sound"
+2026-10-02T18:51:31.9992177Z     ],
+2026-10-02T18:51:31.9992534Z     "B699GapSlice20261003.prime38": [
+2026-10-02T18:51:31.9992976Z       "propext",
+2026-10-02T18:51:31.9993314Z       "Classical.choice",
+2026-10-02T18:51:31.9993710Z       "Quot.sound"
+2026-10-02T18:51:31.9994031Z     ],
+2026-10-02T18:51:31.9994565Z     "B699GapSlice20261003.prime39": [
+2026-10-02T18:51:31.9995046Z       "propext",
+2026-10-02T18:51:31.9995379Z       "Classical.choice",
+2026-10-02T18:51:31.9995750Z       "Quot.sound"
+2026-10-02T18:51:31.9996099Z     ],
+2026-10-02T18:51:31.9996672Z     "B699GapSlice20261003.prime40": [
+2026-10-02T18:51:31.9997152Z       "propext",
+2026-10-02T18:51:31.9997510Z       "Classical.choice",
+2026-10-02T18:51:31.9997889Z       "Quot.sound"
+2026-10-02T18:51:31.9998213Z     ],
+2026-10-02T18:51:31.9998560Z     "B699GapSlice20261003.prime41": [
+2026-10-02T18:51:31.9998995Z       "propext",
+2026-10-02T18:51:31.9999337Z       "Classical.choice",
+2026-10-02T18:51:31.9999734Z       "Quot.sound"
+2026-10-02T18:51:32.0000047Z     ],
+2026-10-02T18:51:32.0000359Z     "B699GapSlice20261003.prime42": [
+2026-10-02T18:51:32.0000806Z       "propext",
+2026-10-02T18:51:32.0001160Z       "Classical.choice",
+2026-10-02T18:51:32.0001586Z       "Quot.sound"
+2026-10-02T18:51:32.0001923Z     ],
+2026-10-02T18:51:32.0002265Z     "B699GapSlice20261003.prime43": [
+2026-10-02T18:51:32.0002704Z       "propext",
+2026-10-02T18:51:32.0003041Z       "Classical.choice",
+2026-10-02T18:51:32.0003428Z       "Quot.sound"
+2026-10-02T18:51:32.0003750Z     ],
+2026-10-02T18:51:32.0004080Z     "B699GapSlice20261003.prime44": [
+2026-10-02T18:51:32.0004705Z       "propext",
+2026-10-02T18:51:32.0005046Z       "Classical.choice",
+2026-10-02T18:51:32.0005420Z       "Quot.sound"
+2026-10-02T18:51:32.0005766Z     ],
+2026-10-02T18:51:32.0006116Z     "B699GapSlice20261003.prime45": [
+2026-10-02T18:51:32.0006550Z       "propext",
+2026-10-02T18:51:32.0006910Z       "Classical.choice",
+2026-10-02T18:51:32.0007289Z       "Quot.sound"
+2026-10-02T18:51:32.0007604Z     ],
+2026-10-02T18:51:32.0007922Z     "B699GapSlice20261003.prime46": [
+2026-10-02T18:51:32.0008355Z       "propext",
+2026-10-02T18:51:32.0008685Z       "Classical.choice",
+2026-10-02T18:51:32.0009069Z       "Quot.sound"
+2026-10-02T18:51:32.0009421Z     ],
+2026-10-02T18:51:32.0009795Z     "B699GapSlice20261003.prime47": [
+2026-10-02T18:51:32.0010309Z       "propext",
+2026-10-02T18:51:32.0010646Z       "Classical.choice",
+2026-10-02T18:51:32.0011010Z       "Quot.sound"
+2026-10-02T18:51:32.0011337Z     ],
+2026-10-02T18:51:32.0011670Z     "B699GapSlice20261003.prime48": [
+2026-10-02T18:51:32.0012094Z       "propext",
+2026-10-02T18:51:32.0012495Z       "Classical.choice",
+2026-10-02T18:51:32.0012867Z       "Quot.sound"
+2026-10-02T18:51:32.0013179Z     ],
+2026-10-02T18:51:32.0013494Z     "B699GapSlice20261003.prime49": [
+2026-10-02T18:51:32.0013922Z       "propext",
+2026-10-02T18:51:32.0014252Z       "Classical.choice",
+2026-10-02T18:51:32.0014845Z       "Quot.sound"
+2026-10-02T18:51:32.0015175Z     ],
+2026-10-02T18:51:32.0015506Z     "B699GapSlice20261003.prime50": [
+2026-10-02T18:51:32.0015932Z       "propext",
+2026-10-02T18:51:32.0016268Z       "Classical.choice",
+2026-10-02T18:51:32.0016629Z       "Quot.sound"
+2026-10-02T18:51:32.0016947Z     ],
+2026-10-02T18:51:32.0017288Z     "B699GapSlice20261003.prime51": [
+2026-10-02T18:51:32.0017715Z       "propext",
+2026-10-02T18:51:32.0018042Z       "Classical.choice",
+2026-10-02T18:51:32.0018406Z       "Quot.sound"
+2026-10-02T18:51:32.0018716Z     ],
+2026-10-02T18:51:32.0019041Z     "B699GapSlice20261003.prime52": [
+2026-10-02T18:51:32.0019472Z       "propext",
+2026-10-02T18:51:32.0020128Z       "Classical.choice",
+2026-10-02T18:51:32.0020492Z       "Quot.sound"
+2026-10-02T18:51:32.0020801Z     ],
+2026-10-02T18:51:32.0021145Z     "B699GapSlice20261003.prime53": [
+2026-10-02T18:51:32.0021574Z       "propext",
+2026-10-02T18:51:32.0021920Z       "Classical.choice",
+2026-10-02T18:51:32.0022277Z       "Quot.sound"
+2026-10-02T18:51:32.0022588Z     ],
+2026-10-02T18:51:32.0022902Z     "B699GapSlice20261003.prime54": [
+2026-10-02T18:51:32.0023321Z       "propext",
+2026-10-02T18:51:32.0023663Z       "Classical.choice",
+2026-10-02T18:51:32.0024028Z       "Quot.sound"
+2026-10-02T18:51:32.0024531Z     ],
+2026-10-02T18:51:32.0024848Z     "B699GapSlice20261003.prime55": [
+2026-10-02T18:51:32.0025269Z       "propext",
+2026-10-02T18:51:32.0025593Z       "Classical.choice",
+2026-10-02T18:51:32.0025955Z       "Quot.sound"
+2026-10-02T18:51:32.0026299Z     ],
+2026-10-02T18:51:32.0026630Z     "B699GapSlice20261003.prime56": [
+2026-10-02T18:51:32.0027276Z       "propext",
+2026-10-02T18:51:32.0027632Z       "Classical.choice",
+2026-10-02T18:51:32.0028094Z       "Quot.sound"
+2026-10-02T18:51:32.0028422Z     ],
+2026-10-02T18:51:32.0028730Z     "B699GapSlice20261003.prime57": [
+2026-10-02T18:51:32.0029146Z       "propext",
+2026-10-02T18:51:32.0029471Z       "Classical.choice",
+2026-10-02T18:51:32.0029838Z       "Quot.sound"
+2026-10-02T18:51:32.0030158Z     ],
+2026-10-02T18:51:32.0030479Z     "B699GapSlice20261003.prime58": [
+2026-10-02T18:51:32.0030899Z       "propext",
+2026-10-02T18:51:32.0031231Z       "Classical.choice",
+2026-10-02T18:51:32.0031595Z       "Quot.sound"
+2026-10-02T18:51:32.0031918Z     ],
+2026-10-02T18:51:32.0032246Z     "B699GapSlice20261003.prime59": [
+2026-10-02T18:51:32.0032675Z       "propext",
+2026-10-02T18:51:32.0033017Z       "Classical.choice",
+2026-10-02T18:51:32.0033433Z       "Quot.sound"
+2026-10-02T18:51:32.0033754Z     ],
+2026-10-02T18:51:32.0034074Z     "B699GapSlice20261003.prime60": [
+2026-10-02T18:51:32.0034740Z       "propext",
+2026-10-02T18:51:32.0035089Z       "Classical.choice",
+2026-10-02T18:51:32.0035476Z       "Quot.sound"
+2026-10-02T18:51:32.0035794Z     ],
+2026-10-02T18:51:32.0036120Z     "B699GapSlice20261003.prime61": [
+2026-10-02T18:51:32.0036550Z       "propext",
+2026-10-02T18:51:32.0036897Z       "Classical.choice",
+2026-10-02T18:51:32.0037271Z       "Quot.sound"
+2026-10-02T18:51:32.0037593Z     ],
+2026-10-02T18:51:32.0037926Z     "B699GapSlice20261003.prime62": [
+2026-10-02T18:51:32.0038356Z       "propext",
+2026-10-02T18:51:32.0038702Z       "Classical.choice",
+2026-10-02T18:51:32.0039074Z       "Quot.sound"
+2026-10-02T18:51:32.0039394Z     ],
+2026-10-02T18:51:32.0039728Z     "B699GapSlice20261003.prime63": [
+2026-10-02T18:51:32.0040159Z       "propext",
+2026-10-02T18:51:32.0040503Z       "Classical.choice",
+2026-10-02T18:51:32.0040878Z       "Quot.sound"
+2026-10-02T18:51:32.0041201Z     ],
+2026-10-02T18:51:32.0041527Z     "B699GapSlice20261003.chain": [
+2026-10-02T18:51:32.0041977Z       "propext",
+2026-10-02T18:51:32.0042336Z       "Classical.choice",
+2026-10-02T18:51:32.0042713Z       "Quot.sound"
+2026-10-02T18:51:32.0043032Z     ],
+2026-10-02T18:51:32.0043372Z     "B699GapSlice20261003.initial_slice": [
+2026-10-02T18:51:32.0043835Z       "propext",
+2026-10-02T18:51:32.0044186Z       "Classical.choice",
+2026-10-02T18:51:32.0044769Z       "Quot.sound"
+2026-10-02T18:51:32.0045089Z     ]
+2026-10-02T18:51:32.0045373Z   },
+2026-10-02T18:51:32.0045959Z   "sourceSha256": "d8df5d3bc6063fe4f7b847917b503fe038dda904ab9cd44706ec47bf8794e048",
+2026-10-02T18:51:32.0046978Z   "stdoutSha256": "daf052858aeea7921baa0c02d1aed3ad074065c91bd1c7365b801ea97519e6fb"
+2026-10-02T18:51:32.0047707Z }
+2026-10-02T18:51:32.0047880Z 
+2026-10-02T18:51:32.0048033Z PILOT64_AUDIT_RECEIPT {
+2026-10-02T18:51:32.0048428Z   "utc": "2026-10-02T18:51:19.954602+00:00",
+2026-10-02T18:51:32.0048896Z   "startUtc": "2026-10-02T18:51:19.954615+00:00",
+2026-10-02T18:51:32.0049371Z   "arguments": [
+2026-10-02T18:51:32.0049909Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T18:51:32.0050795Z     "-j1",
+2026-10-02T18:51:32.0051108Z     "-M3132",
+2026-10-02T18:51:32.0051437Z     "-DElab.async=false",
+2026-10-02T18:51:32.0051845Z     "-R",
+2026-10-02T18:51:32.0052260Z     "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T18:51:32.0052759Z     "-o",
+2026-10-02T18:51:32.0054770Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean",
+2026-10-02T18:51:32.0057535Z     "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.lean"
+2026-10-02T18:51:32.0058764Z   ],
+2026-10-02T18:51:32.0059052Z   "pid": 2863,
+2026-10-02T18:51:32.0059478Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T18:51:32.0060251Z   "cpus": [
+2026-10-02T18:51:32.0060574Z     0,
+2026-10-02T18:51:32.0060860Z     1
+2026-10-02T18:51:32.0061137Z   ],
+2026-10-02T18:51:32.0061425Z   "nice": 19,
+2026-10-02T18:51:32.0061753Z   "resourceBefore": {
+2026-10-02T18:51:32.0062147Z     "utc": "2026-10-02T18:51:19.952194+00:00",
+2026-10-02T18:51:32.0062819Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T18:51:32.0063432Z     "cgroupAncestorLimits": [
+2026-10-02T18:51:32.0063824Z       {
+2026-10-02T18:51:32.0064300Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T18:51:32.0065151Z         "memoryMax": "max",
+2026-10-02T18:51:32.0065564Z         "memoryCurrent": "9176465408",
+2026-10-02T18:51:32.0065999Z         "cpuMax": "max 100000"
+2026-10-02T18:51:32.0066375Z       },
+2026-10-02T18:51:32.0066662Z       {
+2026-10-02T18:51:32.0067007Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T18:51:32.0067490Z         "memoryMax": "max",
+2026-10-02T18:51:32.0067899Z         "memoryCurrent": "11739947008",
+2026-10-02T18:51:32.0068369Z         "cpuMax": "max 100000"
+2026-10-02T18:51:32.0068758Z       },
+2026-10-02T18:51:32.0069043Z       {
+2026-10-02T18:51:32.0069355Z         "path": "/sys/fs/cgroup",
+2026-10-02T18:51:32.0069785Z         "memoryMax": null,
+2026-10-02T18:51:32.0070170Z         "memoryCurrent": null,
+2026-10-02T18:51:32.0070644Z         "cpuMax": null
+2026-10-02T18:51:32.0070988Z       }
+2026-10-02T18:51:32.0071275Z     ],
+2026-10-02T18:51:32.0071608Z     "hostMemAvailableBytes": 15406657536,
+2026-10-02T18:51:32.0072104Z     "effectiveAvailableBytes": 15406657536,
+2026-10-02T18:51:32.0072575Z     "allowedCpuIds": [
+2026-10-02T18:51:32.0072929Z       0,
+2026-10-02T18:51:32.0073269Z       1,
+2026-10-02T18:51:32.0073560Z       2,
+2026-10-02T18:51:32.0073845Z       3
+2026-10-02T18:51:32.0074130Z     ],
+2026-10-02T18:51:32.0074674Z     "diskFreeBytes": 84105555968
+2026-10-02T18:51:32.0075086Z   },
+2026-10-02T18:51:32.0075423Z   "hardDeadlineUtc": "2026-10-02T19:20:45Z",
+2026-10-02T18:51:32.0075918Z   "childStarted": true,
+2026-10-02T18:51:32.0076339Z   "peakTreeWorkingSetBytes": 1133297664,
+2026-10-02T18:51:32.0076827Z   "minimumAvailableBytes": 15233507328,
+2026-10-02T18:51:32.0077290Z   "startupMemoryMiB": 3072,
+2026-10-02T18:51:32.0077694Z   "treeMemoryMiB": 3072,
+2026-10-02T18:51:32.0085087Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T18:51:32.0093089Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T18:51:32.0094087Z   "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+2026-10-02T18:51:32.0095061Z   "status": "success",
+2026-10-02T18:51:32.0095415Z   "exitCode": 0,
+2026-10-02T18:51:32.0095751Z   "stopReason": null,
+2026-10-02T18:51:32.0096133Z   "endUtc": "2026-10-02T18:51:26.368472+00:00",
+2026-10-02T18:51:32.0096606Z   "wallSeconds": 6.416247367858887,
+2026-10-02T18:51:32.0098110Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-Pilot64/stdout.log",
+2026-10-02T18:51:32.0100285Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-Pilot64/stderr.log",
+2026-10-02T18:51:32.0101865Z   "stdoutSha256": "daf052858aeea7921baa0c02d1aed3ad074065c91bd1c7365b801ea97519e6fb",
+2026-10-02T18:51:32.0102852Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+2026-10-02T18:51:32.0103558Z   "mode": "Lean",
+2026-10-02T18:51:32.0104915Z   "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.lean",
+2026-10-02T18:51:32.0106484Z   "sourceSha256": "d8df5d3bc6063fe4f7b847917b503fe038dda904ab9cd44706ec47bf8794e048",
+2026-10-02T18:51:32.0108134Z   "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-Pilot64/source.lean",
+2026-10-02T18:51:32.0109513Z   "sourceUnchanged": true,
+2026-10-02T18:51:32.0111384Z   "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean",
+2026-10-02T18:51:32.0113577Z   "objectSha256": "46471422f6e972f367a4007ec63f2052eed5082006aaede35feca1081beb0e4b",
+2026-10-02T18:51:32.0114287Z   "objectParts": [
+2026-10-02T18:51:32.0114784Z     {
+2026-10-02T18:51:32.0116618Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean.server",
+2026-10-02T18:51:32.0118623Z       "bytes": 15680,
+2026-10-02T18:51:32.0119226Z       "sha256": "fe0f30f8ec22ffb3546ec2a72ba290034dcd6d24a5ea9d61452b7db6f90bc9e7"
+2026-10-02T18:51:32.0119912Z     },
+2026-10-02T18:51:32.0120213Z     {
+2026-10-02T18:51:32.0121997Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.ir.sig",
+2026-10-02T18:51:32.0123940Z       "bytes": 176,
+2026-10-02T18:51:32.0124751Z       "sha256": "578d5ea820e43f14b6ecd070667ba4e0fbf55de59d657afcdeb6e8f03d33cba6"
+2026-10-02T18:51:32.0125426Z     },
+2026-10-02T18:51:32.0125706Z     {
+2026-10-02T18:51:32.0127502Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean",
+2026-10-02T18:51:32.0129896Z       "bytes": 37896,
+2026-10-02T18:51:32.0130469Z       "sha256": "46471422f6e972f367a4007ec63f2052eed5082006aaede35feca1081beb0e4b"
+2026-10-02T18:51:32.0131127Z     },
+2026-10-02T18:51:32.0131415Z     {
+2026-10-02T18:51:32.0133292Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean.private",
+2026-10-02T18:51:32.0135509Z       "bytes": 16786344,
+2026-10-02T18:51:32.0136096Z       "sha256": "8646249f5b8852e00c2ce13ac3983adf8a6603164f0268dc2d6ec7f1ef69c6da"
+2026-10-02T18:51:32.0136754Z     },
+2026-10-02T18:51:32.0137032Z     {
+2026-10-02T18:51:32.0139010Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.ir",
+2026-10-02T18:51:32.0140945Z       "bytes": 2256,
+2026-10-02T18:51:32.0141506Z       "sha256": "e5c673007db453cf62bf4554246e3d5503e36f04bed3207aac71464ce40bf73c"
+2026-10-02T18:51:32.0142168Z     }
+2026-10-02T18:51:32.0142445Z   ]
+2026-10-02T18:51:32.0142729Z }
+2026-10-02T18:51:32.0142893Z 
+2026-10-02T18:51:33.0165167Z {"label": "pilot64-02-Pilot64Exact", "status": "success", "exitCode": 0, "peakMiB": 803.2}
+2026-10-02T18:51:33.0218323Z PILOT64_SOURCE_RECEIPT {"utc": "2026-10-02T18:51:31.986749+00:00", "startUtc": "2026-10-02T18:51:31.986763+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "-j1", "-M3132", "-DElab.async=false", "-R", "/home/runner/work/lean-math-lab/lean-math-lab", "-o", "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean", "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean"], "pid": 2887, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T18:51:31.984157+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "9195171840", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "11758743552", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15512625152, "effectiveAvailableBytes": 15512625152, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 84088573952}, "hardDeadlineUtc": "2026-10-02T19:20:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 842211328, "minimumAvailableBytes": 15442280448, "startupMemoryMiB": 3072, "treeMemoryMiB": 3072, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean", "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550", "status": "success", "exitCode": 0, "stopReason": null, "endUtc": "2026-10-02T18:51:33.015594+00:00", "wallSeconds": 1.0314059257507324, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-Pilot64Exact/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-Pilot64Exact/stderr.log", "stdoutSha256": "f37aa700b3fa5bfc4525be29d04b8091257a42605f5d0d0362c121e896bb1036", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "mode": "Lean", "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean", "sourceSha256": "49129904be72e644f4efcbde9451f9d46b9cd0a9c05271474572267c53ac1ae8", "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-Pilot64Exact/source.lean", "sourceUnchanged": true, "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean", "objectSha256": "521cbd39e3e5e32fae150e789014fee28eed833a8d6d8cd4ae4c180eb5ffdcd2", "objectParts": [{"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.ir.sig", "bytes": 176, "sha256": "caf0f882a7b2a02d916717f6002ed6490a4a81b3e4b97d9d9e8ab273e3650e7c"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.ir", "bytes": 1928, "sha256": "bc38cc010e490e0d99ea91448333ce84a51ff02ce17c1d2e423848c248b5dc99"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean", "bytes": 9760, "sha256": "521cbd39e3e5e32fae150e789014fee28eed833a8d6d8cd4ae4c180eb5ffdcd2"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean.server", "bytes": 832, "sha256": "41a08a1a315a90145dec93fb088194a43cd78ef4a535a25ce72d01d131053a2a"}, {"path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean.private", "bytes": 1600, "sha256": "60f9c7906d2a0a30e0e827ccff840af45d89129429e87845537555a0414aea34"}]}
+2026-10-02T18:51:33.0259215Z theorem B699GapFiniteVerify20261003.pilot64_chain_exact : B699Finite20261002.PrimeChain 2442 9999889 10149203 :=
+2026-10-02T18:51:33.0260544Z B699GapSlice20261003.chain
+2026-10-02T18:51:33.0261578Z theorem B699GapFiniteVerify20261003.pilot64_initial_slice_exact : ∀ (y : ℕ),
+2026-10-02T18:51:33.0262864Z   10000000 ≤ y → y < 10146761 → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y :=
+2026-10-02T18:51:33.0263669Z fun y hy hyhi => B699GapSlice20261003.initial_slice hy hyhi
+2026-10-02T18:51:33.0264898Z 'B699GapFiniteVerify20261003.pilot64_chain_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:33.0266311Z 'B699GapFiniteVerify20261003.pilot64_initial_slice_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T18:51:33.0267157Z 
+2026-10-02T18:51:36.2337612Z {"label": "pilot64-02-normal-checker", "status": "success", "exitCode": 0, "peakMiB": 1299.6}
+2026-10-02T18:51:36.2353869Z PILOT64_CHECKER_RECEIPT {"utc": "2026-10-02T18:51:33.021610+00:00", "startUtc": "2026-10-02T18:51:33.021627+00:00", "arguments": ["/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker", "-v", "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20261001-lean-nonr7-01a0f779\u00bb.continuations.\u00ab20261003-gap-finite-fortymin\u00bb.reviews.Pilot64Exact"], "pid": 2892, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T18:51:33.019105+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "9198559232", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "11762393088", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15521153024, "effectiveAvailableBytes": 15521153024, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 84088381440}, "hardDeadlineUtc": "2026-10-02T19:20:45Z", "childStarted": true, "peakTreeWorkingSetBytes": 1362726912, "minimumAvailableBytes": 15451877376, "startupMemoryMiB": 3072, "treeMemoryMiB": 3072, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker", "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0", "status": "success", "exitCode": 0, "stopReason": null, "endUtc": "2026-10-02T18:51:36.232905+00:00", "wallSeconds": 3.213709831237793, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-normal-checker/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-normal-checker/stderr.log", "stdoutSha256": "73ccf3778e96ddad9c70335c9333f19937dd4ad09826bc20f8ade84b04b06dce", "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+2026-10-02T18:51:36.2366078Z PILOT64_AXIOM_AUDIT {
+2026-10-02T18:51:36.2366324Z   "utc": "2026-10-02T18:51:33.018006+00:00",
+2026-10-02T18:51:36.2366621Z   "status": "accepted-standard-axioms",
+2026-10-02T18:51:36.2366889Z   "roots": [
+2026-10-02T18:51:36.2367133Z     "B699GapFiniteVerify20261003.pilot64_chain_exact",
+2026-10-02T18:51:36.2367512Z     "B699GapFiniteVerify20261003.pilot64_initial_slice_exact"
+2026-10-02T18:51:36.2367835Z   ],
+2026-10-02T18:51:36.2368019Z   "actualAxioms": {
+2026-10-02T18:51:36.2368279Z     "B699GapFiniteVerify20261003.pilot64_chain_exact": [
+2026-10-02T18:51:36.2368581Z       "propext",
+2026-10-02T18:51:36.2368783Z       "Classical.choice",
+2026-10-02T18:51:36.2369004Z       "Quot.sound"
+2026-10-02T18:51:36.2369191Z     ],
+2026-10-02T18:51:36.2369455Z     "B699GapFiniteVerify20261003.pilot64_initial_slice_exact": [
+2026-10-02T18:51:36.2369790Z       "propext",
+2026-10-02T18:51:36.2369989Z       "Classical.choice",
+2026-10-02T18:51:36.2370373Z       "Quot.sound"
+2026-10-02T18:51:36.2370583Z     ]
+2026-10-02T18:51:36.2370756Z   },
+2026-10-02T18:51:36.2371084Z   "sourceSha256": "49129904be72e644f4efcbde9451f9d46b9cd0a9c05271474572267c53ac1ae8",
+2026-10-02T18:51:36.2371639Z   "stdoutSha256": "f37aa700b3fa5bfc4525be29d04b8091257a42605f5d0d0362c121e896bb1036"
+2026-10-02T18:51:36.2372043Z }
+2026-10-02T18:51:36.2372139Z 
+2026-10-02T18:51:36.2372232Z PILOT64_AUDIT_RECEIPT {
+2026-10-02T18:51:36.2372465Z   "utc": "2026-10-02T18:51:31.986749+00:00",
+2026-10-02T18:51:36.2372750Z   "startUtc": "2026-10-02T18:51:31.986763+00:00",
+2026-10-02T18:51:36.2373022Z   "arguments": [
+2026-10-02T18:51:36.2373327Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T18:51:36.2373688Z     "-j1",
+2026-10-02T18:51:36.2373870Z     "-M3132",
+2026-10-02T18:51:36.2374062Z     "-DElab.async=false",
+2026-10-02T18:51:36.2374273Z     "-R",
+2026-10-02T18:51:36.2374818Z     "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T18:51:36.2375111Z     "-o",
+2026-10-02T18:51:36.2376186Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean",
+2026-10-02T18:51:36.2377868Z     "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean"
+2026-10-02T18:51:36.2378637Z   ],
+2026-10-02T18:51:36.2378810Z   "pid": 2887,
+2026-10-02T18:51:36.2379100Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T18:51:36.2379404Z   "cpus": [
+2026-10-02T18:51:36.2379584Z     0,
+2026-10-02T18:51:36.2379751Z     1
+2026-10-02T18:51:36.2379914Z   ],
+2026-10-02T18:51:36.2380077Z   "nice": 19,
+2026-10-02T18:51:36.2380268Z   "resourceBefore": {
+2026-10-02T18:51:36.2380494Z     "utc": "2026-10-02T18:51:31.984157+00:00",
+2026-10-02T18:51:36.2380885Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T18:51:36.2381256Z     "cgroupAncestorLimits": [
+2026-10-02T18:51:36.2381487Z       {
+2026-10-02T18:51:36.2381767Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T18:51:36.2382136Z         "memoryMax": "max",
+2026-10-02T18:51:36.2382370Z         "memoryCurrent": "9195171840",
+2026-10-02T18:51:36.2382626Z         "cpuMax": "max 100000"
+2026-10-02T18:51:36.2382843Z       },
+2026-10-02T18:51:36.2383011Z       {
+2026-10-02T18:51:36.2383205Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T18:51:36.2383478Z         "memoryMax": "max",
+2026-10-02T18:51:36.2383707Z         "memoryCurrent": "11758743552",
+2026-10-02T18:51:36.2383966Z         "cpuMax": "max 100000"
+2026-10-02T18:51:36.2384183Z       },
+2026-10-02T18:51:36.2384605Z       {
+2026-10-02T18:51:36.2384833Z         "path": "/sys/fs/cgroup",
+2026-10-02T18:51:36.2385081Z         "memoryMax": null,
+2026-10-02T18:51:36.2385319Z         "memoryCurrent": null,
+2026-10-02T18:51:36.2385816Z         "cpuMax": null
+2026-10-02T18:51:36.2386013Z       }
+2026-10-02T18:51:36.2386177Z     ],
+2026-10-02T18:51:36.2386371Z     "hostMemAvailableBytes": 15512625152,
+2026-10-02T18:51:36.2386659Z     "effectiveAvailableBytes": 15512625152,
+2026-10-02T18:51:36.2386930Z     "allowedCpuIds": [
+2026-10-02T18:51:36.2387135Z       0,
+2026-10-02T18:51:36.2387305Z       1,
+2026-10-02T18:51:36.2387471Z       2,
+2026-10-02T18:51:36.2387635Z       3
+2026-10-02T18:51:36.2387799Z     ],
+2026-10-02T18:51:36.2387988Z     "diskFreeBytes": 84088573952
+2026-10-02T18:51:36.2388219Z   },
+2026-10-02T18:51:36.2388418Z   "hardDeadlineUtc": "2026-10-02T19:20:45Z",
+2026-10-02T18:51:36.2388696Z   "childStarted": true,
+2026-10-02T18:51:36.2388934Z   "peakTreeWorkingSetBytes": 842211328,
+2026-10-02T18:51:36.2389211Z   "minimumAvailableBytes": 15442280448,
+2026-10-02T18:51:36.2389475Z   "startupMemoryMiB": 3072,
+2026-10-02T18:51:36.2389710Z   "treeMemoryMiB": 3072,
+2026-10-02T18:51:36.2393855Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T18:51:36.2398510Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T18:51:36.2399086Z   "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+2026-10-02T18:51:36.2399511Z   "status": "success",
+2026-10-02T18:51:36.2399717Z   "exitCode": 0,
+2026-10-02T18:51:36.2399915Z   "stopReason": null,
+2026-10-02T18:51:36.2400141Z   "endUtc": "2026-10-02T18:51:33.015594+00:00",
+2026-10-02T18:51:36.2400420Z   "wallSeconds": 1.0314059257507324,
+2026-10-02T18:51:36.2401181Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-Pilot64Exact/stdout.log",
+2026-10-02T18:51:36.2402452Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-Pilot64Exact/stderr.log",
+2026-10-02T18:51:36.2403361Z   "stdoutSha256": "f37aa700b3fa5bfc4525be29d04b8091257a42605f5d0d0362c121e896bb1036",
+2026-10-02T18:51:36.2403919Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+2026-10-02T18:51:36.2404454Z   "mode": "Lean",
+2026-10-02T18:51:36.2405389Z   "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean",
+2026-10-02T18:51:36.2406337Z   "sourceSha256": "49129904be72e644f4efcbde9451f9d46b9cd0a9c05271474572267c53ac1ae8",
+2026-10-02T18:51:36.2407277Z   "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-Pilot64Exact/source.lean",
+2026-10-02T18:51:36.2408077Z   "sourceUnchanged": true,
+2026-10-02T18:51:36.2409204Z   "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean",
+2026-10-02T18:51:36.2410679Z   "objectSha256": "521cbd39e3e5e32fae150e789014fee28eed833a8d6d8cd4ae4c180eb5ffdcd2",
+2026-10-02T18:51:36.2411092Z   "objectParts": [
+2026-10-02T18:51:36.2411285Z     {
+2026-10-02T18:51:36.2412371Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.ir.sig",
+2026-10-02T18:51:36.2413504Z       "bytes": 176,
+2026-10-02T18:51:36.2413832Z       "sha256": "caf0f882a7b2a02d916717f6002ed6490a4a81b3e4b97d9d9e8ab273e3650e7c"
+2026-10-02T18:51:36.2414211Z     },
+2026-10-02T18:51:36.2414520Z     {
+2026-10-02T18:51:36.2415730Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.ir",
+2026-10-02T18:51:36.2416883Z       "bytes": 1928,
+2026-10-02T18:51:36.2417225Z       "sha256": "bc38cc010e490e0d99ea91448333ce84a51ff02ce17c1d2e423848c248b5dc99"
+2026-10-02T18:51:36.2417599Z     },
+2026-10-02T18:51:36.2417763Z     {
+2026-10-02T18:51:36.2418835Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean",
+2026-10-02T18:51:36.2419979Z       "bytes": 9760,
+2026-10-02T18:51:36.2420305Z       "sha256": "521cbd39e3e5e32fae150e789014fee28eed833a8d6d8cd4ae4c180eb5ffdcd2"
+2026-10-02T18:51:36.2420686Z     },
+2026-10-02T18:51:36.2420853Z     {
+2026-10-02T18:51:36.2421947Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean.server",
+2026-10-02T18:51:36.2423108Z       "bytes": 832,
+2026-10-02T18:51:36.2423422Z       "sha256": "41a08a1a315a90145dec93fb088194a43cd78ef4a535a25ce72d01d131053a2a"
+2026-10-02T18:51:36.2423792Z     },
+2026-10-02T18:51:36.2423958Z     {
+2026-10-02T18:51:36.2425170Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean.private",
+2026-10-02T18:51:36.2426341Z       "bytes": 1600,
+2026-10-02T18:51:36.2426660Z       "sha256": "60f9c7906d2a0a30e0e827ccff840af45d89129429e87845537555a0414aea34"
+2026-10-02T18:51:36.2427035Z     }
+2026-10-02T18:51:36.2427196Z   ]
+2026-10-02T18:51:36.2427362Z }
+2026-10-02T18:51:36.2427454Z 
+2026-10-02T18:51:36.2498794Z ##[group]Run python3 "$B699_RUNTIME/pilot64-stage.py" manifest
+2026-10-02T18:51:36.2499287Z [36;1mpython3 "$B699_RUNTIME/pilot64-stage.py" manifest[0m
+2026-10-02T18:51:36.2561441Z shell: /usr/bin/bash -e {0}
+2026-10-02T18:51:36.2561706Z env:
+2026-10-02T18:51:36.2562289Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:51:36.2562926Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:51:36.2563187Z ##[endgroup]
+2026-10-02T18:51:36.3574723Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-02T18:51:36.3575183Z with:
+2026-10-02T18:51:36.3575540Z   name: b699-gap-pilot64-e0eadc9395457d7da81aee7b8a3e49e264c5024e-37049873609
+2026-10-02T18:51:36.3576176Z   path: .tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/
+2026-10-02T18:51:36.3576885Z   if-no-files-found: warn
+2026-10-02T18:51:36.3577161Z   retention-days: 30
+2026-10-02T18:51:36.3577395Z   compression-level: 6
+2026-10-02T18:51:36.3577617Z   overwrite: false
+2026-10-02T18:51:36.3577832Z   include-hidden-files: false
+2026-10-02T18:51:36.3578066Z env:
+2026-10-02T18:51:36.3578563Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/runtime
+2026-10-02T18:51:36.3579157Z   B699_JOB_START_EPOCH: 1790966885
+2026-10-02T18:51:36.3579408Z ##[endgroup]
+2026-10-02T18:51:36.5335015Z (node:2910) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-02T18:51:36.5336254Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-02T18:51:36.5686655Z With the provided path, there will be 89 files uploaded
+2026-10-02T18:51:36.5695198Z Artifact name is valid!
+2026-10-02T18:51:36.5696221Z Root directory input is valid!
+2026-10-02T18:51:36.9232540Z Beginning upload of artifact content to blob storage
+2026-10-02T18:51:37.6632842Z (node:2910) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-02T18:51:38.3007629Z Uploaded bytes 5169253
+2026-10-02T18:51:38.3585130Z Finished uploading artifact content to blob storage!
+2026-10-02T18:51:38.3586422Z SHA256 digest of uploaded artifact zip is a6078693cf9757ea6effa469d653cc72362abc8b782044e39e5d54ece5b75374
+2026-10-02T18:51:38.3588096Z Finalizing artifact upload
+2026-10-02T18:51:38.6189207Z Artifact b699-gap-pilot64-e0eadc9395457d7da81aee7b8a3e49e264c5024e-37049873609.zip successfully finalized. Artifact ID 11245683261
+2026-10-02T18:51:38.6192170Z Artifact b699-gap-pilot64-e0eadc9395457d7da81aee7b8a3e49e264c5024e-37049873609 has been successfully uploaded! Final size is 5169253 bytes. Artifact ID is 11245683261
+2026-10-02T18:51:38.6197780Z Artifact download URL: https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37049873609/artifacts/11245683261
+2026-10-02T18:51:38.6401158Z Post job cleanup.
+2026-10-02T18:51:38.7294279Z [command]/usr/bin/git version
+2026-10-02T18:51:38.7346007Z git version 2.55.0
+2026-10-02T18:51:38.7398676Z Temporarily overriding HOME='/home/runner/work/_temp/822a51eb-b012-4586-ba54-570849add74b' before making global git config changes
+2026-10-02T18:51:38.7400137Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T18:51:38.7405522Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T18:51:38.7443120Z Removing SSH command configuration
+2026-10-02T18:51:38.7449776Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T18:51:38.7493923Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T18:51:38.7860116Z Removing HTTP extra header
+2026-10-02T18:51:38.7868032Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T18:51:38.7920288Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T18:51:38.8278146Z Removing includeIf entries pointing to credentials config files
+2026-10-02T18:51:38.8287086Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T18:51:38.8321631Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T18:51:38.8322862Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T18:51:38.8323998Z includeif.gitdir:/github/workspace/.git.path
+2026-10-02T18:51:38.8325533Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T18:51:38.8332699Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T18:51:38.8415819Z /home/runner/work/_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:51:38.8418112Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-92c019b6\-1d70\-4bcf\-879e\-401919c07f10\.config
+2026-10-02T18:51:38.8457717Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T18:51:38.8509608Z /home/runner/work/_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:51:38.8530717Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-92c019b6\-1d70\-4bcf\-879e\-401919c07f10\.config
+2026-10-02T18:51:38.8567242Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-02T18:51:38.8599305Z /github/runner_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:51:38.8607771Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-92c019b6\-1d70\-4bcf\-879e\-401919c07f10\.config
+2026-10-02T18:51:38.8646271Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T18:51:38.8673095Z /github/runner_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config
+2026-10-02T18:51:38.8682271Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-92c019b6\-1d70\-4bcf\-879e\-401919c07f10\.config
+2026-10-02T18:51:38.8722111Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T18:51:38.9044089Z Removing credentials config '/home/runner/work/_temp/git-credentials-92c019b6-1d70-4bcf-879e-401919c07f10.config'
+2026-10-02T18:51:38.9199208Z Cleaning up orphan processes
+2026-10-02T18:51:38.9569786Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

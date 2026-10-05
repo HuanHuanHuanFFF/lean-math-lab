@@ -1,0 +1,70 @@
+{
+  "status": "independent-source-ready-not-kernel-accepted",
+  "verifier": "/root/tail2h_verification",
+  "utc": "2026-10-04T16:47:51.155837+00:00",
+  "class": "complex-established-semantic-review",
+  "model": "gpt-6.1-sol",
+  "reasoningEffort": "xhigh",
+  "sources": [
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/supply/ThetaOriginalLegacy.lean",
+      "bytes": 1842,
+      "sha256": "9682b9d5432d518702701349c7bcd172a978a13c6d850ec2b5ae6b6e8cbf836d",
+      "roots": [
+        "B699TailFinish20261004.ThetaBridge.gap_from_two_uniform_theta",
+        "B699TailFinish20261004.ThetaBridge.original_tail_from_two_uniform_theta"
+      ]
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/supply/ThetaLocalizedLegacy.lean",
+      "bytes": 3243,
+      "sha256": "c4cbc577333009a5d873ac0ee8e6ec1d8f52be3d5471d1efcc6118bd48f0776f",
+      "roots": [
+        "B699ThetaLocalized20261005.gap_above_theta_threshold",
+        "B699ThetaLocalized20261005.gap_from_two_local_uniform_theta",
+        "B699ThetaLocalized20261005.original_tail_from_two_local_uniform_theta"
+      ]
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/reviews/ThetaOriginalExactLegacy.lean",
+      "bytes": 1472,
+      "sha256": "580dd6db025357a6aa728954ad93e31ff0a27ec6213e23c2b2b03873c7b8246b",
+      "roots": [
+        "B699ThetaVerify20261005.gap_from_two_uniform_theta_exact",
+        "B699ThetaVerify20261005.original_tail_from_two_uniform_theta_exact"
+      ]
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/reviews/ThetaLocalizedExactLegacy.lean",
+      "bytes": 2060,
+      "sha256": "0e5350371d4ff3e948b70737ecab4d5c6d90b9b8a435a8a46cf860c5c1fcb35c",
+      "roots": [
+        "B699ThetaVerify20261005.gap_above_theta_threshold_exact",
+        "B699ThetaVerify20261005.gap_from_two_local_uniform_theta_exact",
+        "B699ThetaVerify20261005.original_tail_from_two_local_uniform_theta_exact"
+      ]
+    }
+  ],
+  "producerRootCount": 5,
+  "independentExactLiteralRootCount": 5,
+  "conditionalInputs": {
+    "globalUpper": "forall Real x>0, theta(x)-x<=x/36260",
+    "localizedUpper": "forall Real x>122568683, theta(x)-x<=x/36260",
+    "lower": "forall Real x>122568683, x-theta(x)<=x/(20*(log x)^2)"
+  },
+  "eachConsumerExternalUnboundedInputCount": 2,
+  "noneOfTheseInputsSupplied": true,
+  "actualThetaFunction": "Pinned mathlib Chebyshev.theta",
+  "localizedSourceReview": "Original high-tail consumer uses U only at y>=122568684, hence y>122568683; L is used at z=y+y/4095>122568683. No analytical estimate is proved or assumed true by definition. Exact literals expose both unbounded Real hypotheses and real Nat prime witnesses.",
+  "conclusionDomains": [
+    "Gap4095 for all Nat y>=122568684 (localized helper)",
+    "Gap4095 for all Nat y>=10000000 (given two explicit estimates and accepted finite initial)",
+    "All Nat n/i/j with4883<=i and i<j<=n/2, same actual Prime p>=i divides both complete n.choose i and n.choose j"
+  ],
+  "finiteInitialDependencyStillPending": true,
+  "oldThetaObjectsMustActuallyBeRestoredOrFreshChecked": true,
+  "newUnconditionalOriginalIndicesFromTheseConditionalBridges": 0,
+  "sourceFrozenUntilLeaderACK": true,
+  "kernelExecutionByS": false,
+  "scriptSha256": "62cf5a7366118d7f244008e045a1815d45c12c7684e73f748df145b391d846bc"
+}

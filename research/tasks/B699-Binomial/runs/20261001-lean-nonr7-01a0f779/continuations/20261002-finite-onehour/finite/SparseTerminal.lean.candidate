@@ -1,0 +1,29 @@
+module
+public import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-finite-onehour».finite.CompleteChain
+public import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-tail-twohour».gap.FiniteSupply
+public import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-tail-twohour».tail.ActualUniformConsumers
+
+/-! Uncompiled consumer template: CompleteChain must first be truly supplied.
+This file is not a Lean root and makes no assertion of accepted finite coverage. -/
+set_option autoImplicit false
+set_option relaxedAutoImplicit false
+set_option Elab.async false
+
+@[expose] public section
+namespace B699Finite20261002
+
+theorem finite_top_supply : B699TailGap.FiniteTopSupply 4883 20000000 := by
+  intro n hnlo hnhi
+  exact complete_chain.near_top hnlo (by omega)
+
+theorem original_tail_of_gap (hgap : B699TailGap.Gap 4095 10000000) :
+    ∀ n i j : Nat, 4883 ≤ i → i < j → j ≤ n / 2 →
+      ∃ p : Nat, p.Prime ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j := by
+  apply B699TailGap.original_tail_of_prime_supplies ?_ hgap finite_top_supply
+  intro n i j hi hij hjn hno
+  exact B699ActualUniform.counterexample_height_4883 hi hij hjn hno
+
+end B699Finite20261002
+
+#print axioms B699Finite20261002.finite_top_supply
+#print axioms B699Finite20261002.original_tail_of_gap

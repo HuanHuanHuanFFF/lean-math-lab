@@ -1,0 +1,1144 @@
+﻿2026-10-02T16:23:54.5713278Z Current runner version: '2.337.0'
+2026-10-02T16:23:54.5741106Z ##[group]Runner Image Provisioner
+2026-10-02T16:23:54.5742185Z Hosted Compute Agent
+2026-10-02T16:23:54.5742915Z Version: 20260901.588
+2026-10-02T16:23:54.5743664Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-02T16:23:54.5744858Z Build Date: 2026-09-01T19:56:44Z
+2026-10-02T16:23:54.5745684Z Worker ID: {44d78d42-b393-4d0d-9b88-57f94fb2db2c}
+2026-10-02T16:23:54.5746639Z Azure Region: northcentralus
+2026-10-02T16:23:54.5747382Z ##[endgroup]
+2026-10-02T16:23:54.5749257Z ##[group]Operating System
+2026-10-02T16:23:54.5750691Z Ubuntu
+2026-10-02T16:23:54.5751327Z 24.04.5
+2026-10-02T16:23:54.5751996Z LTS
+2026-10-02T16:23:54.5752633Z ##[endgroup]
+2026-10-02T16:23:54.5753375Z ##[group]Runner Image
+2026-10-02T16:23:54.5754252Z Image: ubuntu-24.04
+2026-10-02T16:23:54.5755116Z Version: 20260927.320.1
+2026-10-02T16:23:54.5756751Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-02T16:23:54.5758747Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-02T16:23:54.5760112Z ##[endgroup]
+2026-10-02T16:23:54.5761631Z ##[group]GITHUB_TOKEN Permissions
+2026-10-02T16:23:54.5763924Z Contents: read
+2026-10-02T16:23:54.5764828Z Metadata: read
+2026-10-02T16:23:54.5765579Z ##[endgroup]
+2026-10-02T16:23:54.5767718Z Secret source: Actions
+2026-10-02T16:23:54.5768902Z Cache mode: write
+2026-10-02T16:23:54.5770015Z Prepare workflow directory
+2026-10-02T16:23:54.6156755Z Prepare all required actions
+2026-10-02T16:23:54.6211594Z Getting action download info
+2026-10-02T16:23:54.8709018Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-02T16:23:54.9478483Z Download action repository 'leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596' (SHA:50fcf42d2e460296f1a34b402e990d1b24f8b596)
+2026-10-02T16:23:55.1410267Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-02T16:23:55.3690125Z Getting action download info
+2026-10-02T16:23:55.4533540Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-10-02T16:23:55.6397637Z Complete job name: scoped
+2026-10-02T16:23:55.6935943Z ##[group]Run echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
+2026-10-02T16:23:55.6936764Z [36;1mecho "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"[0m
+2026-10-02T16:23:55.6937749Z [36;1mtest "$(date -u +%s)" -le "$(date -u -d '2026-10-02 16:24:00 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }[0m
+2026-10-02T16:23:55.7159980Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T16:23:55.7160841Z env:
+2026-10-02T16:23:55.7161610Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:23:55.7162511Z ##[endgroup]
+2026-10-02T16:23:55.7580238Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-10-02T16:23:55.7580870Z with:
+2026-10-02T16:23:55.7581260Z   repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:23:55.7584392Z   token: ***
+2026-10-02T16:23:55.7585054Z   ssh-strict: true
+2026-10-02T16:23:55.7585457Z   ssh-user: git
+2026-10-02T16:23:55.7585839Z   persist-credentials: true
+2026-10-02T16:23:55.7586258Z   clean: true
+2026-10-02T16:23:55.7586625Z   sparse-checkout-cone-mode: true
+2026-10-02T16:23:55.7587041Z   fetch-depth: 1
+2026-10-02T16:23:55.7587402Z   fetch-tags: false
+2026-10-02T16:23:55.7587768Z   show-progress: true
+2026-10-02T16:23:55.7588138Z   lfs: false
+2026-10-02T16:23:55.7588477Z   submodules: false
+2026-10-02T16:23:55.7588844Z   set-safe-directory: true
+2026-10-02T16:23:55.7589251Z   allow-unsafe-pr-checkout: false
+2026-10-02T16:23:55.7589657Z env:
+2026-10-02T16:23:55.7590442Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:23:55.7591527Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:23:55.7591940Z ##[endgroup]
+2026-10-02T16:23:55.8415972Z Syncing repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:23:55.8418780Z ##[group]Getting Git version info
+2026-10-02T16:23:55.8419466Z Working directory is '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T16:23:55.8420377Z [command]/usr/bin/git version
+2026-10-02T16:23:55.8980272Z git version 2.55.0
+2026-10-02T16:23:55.9002198Z ##[endgroup]
+2026-10-02T16:23:55.9008874Z Temporarily overriding HOME='/home/runner/work/_temp/01d43dbb-aad1-426f-8d60-c7802d507c88' before making global git config changes
+2026-10-02T16:23:55.9010754Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T16:23:55.9013015Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T16:23:55.9062461Z Deleting the contents of '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T16:23:55.9065591Z ##[group]Determining repository object format
+2026-10-02T16:23:55.9066951Z ##[endgroup]
+2026-10-02T16:23:55.9067921Z ##[group]Initializing the repository
+2026-10-02T16:23:55.9071523Z [command]/usr/bin/git init /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T16:23:55.9175198Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-02T16:23:55.9176047Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-02T16:23:55.9177058Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-02T16:23:55.9177914Z hint: call:
+2026-10-02T16:23:55.9178322Z hint:
+2026-10-02T16:23:55.9179020Z hint: 	git config --global init.defaultBranch <name>
+2026-10-02T16:23:55.9179826Z hint:
+2026-10-02T16:23:55.9180584Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-02T16:23:55.9181773Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-02T16:23:55.9182782Z hint:
+2026-10-02T16:23:55.9183348Z hint: 	git branch -m <name>
+2026-10-02T16:23:55.9183960Z hint:
+2026-10-02T16:23:55.9184933Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-02T16:23:55.9186318Z Initialized empty Git repository in /home/runner/work/lean-math-lab/lean-math-lab/.git/
+2026-10-02T16:23:55.9188931Z [command]/usr/bin/git remote add origin https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:23:55.9235239Z ##[endgroup]
+2026-10-02T16:23:55.9236277Z ##[group]Disabling automatic garbage collection
+2026-10-02T16:23:55.9238245Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-02T16:23:55.9268817Z ##[endgroup]
+2026-10-02T16:23:55.9270233Z ##[group]Setting up auth
+2026-10-02T16:23:55.9274003Z Removing SSH command configuration
+2026-10-02T16:23:55.9281161Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T16:23:55.9304972Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T16:23:55.9610048Z Removing HTTP extra header
+2026-10-02T16:23:55.9615188Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T16:23:55.9646717Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T16:23:55.9834199Z Removing includeIf entries pointing to credentials config files
+2026-10-02T16:23:55.9839064Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T16:23:55.9870765Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T16:23:56.0075567Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-02T16:23:56.0109564Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path /home/runner/work/_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:23:56.0138734Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:23:56.0171103Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:23:56.0201711Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:23:56.0233947Z ##[endgroup]
+2026-10-02T16:23:56.0234615Z ##[group]Fetching the repository
+2026-10-02T16:23:56.0236192Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ab0056429b2cd4ce1fd2a04c069cdf345382316d:refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:24:14.2420087Z From https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:24:14.2420939Z  * [new ref]             ab0056429b2cd4ce1fd2a04c069cdf345382316d -> origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:24:14.2428672Z [command]/usr/bin/git branch --list --remote origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:24:14.2457185Z   origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:24:14.2463541Z [command]/usr/bin/git rev-parse refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:24:14.2487358Z ab0056429b2cd4ce1fd2a04c069cdf345382316d
+2026-10-02T16:24:14.2490741Z ##[endgroup]
+2026-10-02T16:24:14.2491316Z ##[group]Determining the checkout info
+2026-10-02T16:24:14.2491989Z ##[endgroup]
+2026-10-02T16:24:14.2494937Z [command]/usr/bin/git sparse-checkout disable
+2026-10-02T16:24:14.2544243Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-02T16:24:14.2573931Z ##[group]Checking out the ref
+2026-10-02T16:24:14.2577252Z [command]/usr/bin/git checkout --progress --force -B huan/b699-lean-next-20261002-01a0f779 refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:24:15.3845399Z Updating files:   6% (5558/89089)
+2026-10-02T16:24:15.5086881Z Updating files:   7% (6237/89089)
+2026-10-02T16:24:15.5509392Z Updating files:   8% (7128/89089)
+2026-10-02T16:24:15.6042838Z Updating files:   9% (8019/89089)
+2026-10-02T16:24:15.6517599Z Updating files:  10% (8909/89089)
+2026-10-02T16:24:15.7361305Z Updating files:  11% (9800/89089)
+2026-10-02T16:24:15.7860560Z Updating files:  12% (10691/89089)
+2026-10-02T16:24:15.8193506Z Updating files:  13% (11582/89089)
+2026-10-02T16:24:15.8728865Z Updating files:  14% (12473/89089)
+2026-10-02T16:24:15.9446188Z Updating files:  15% (13364/89089)
+2026-10-02T16:24:15.9915443Z Updating files:  16% (14255/89089)
+2026-10-02T16:24:16.0690544Z Updating files:  17% (15146/89089)
+2026-10-02T16:24:16.1055598Z Updating files:  18% (16037/89089)
+2026-10-02T16:24:16.1419980Z Updating files:  19% (16927/89089)
+2026-10-02T16:24:16.1709902Z Updating files:  20% (17818/89089)
+2026-10-02T16:24:16.1993574Z Updating files:  21% (18709/89089)
+2026-10-02T16:24:16.2399593Z Updating files:  22% (19600/89089)
+2026-10-02T16:24:16.2668966Z Updating files:  23% (20491/89089)
+2026-10-02T16:24:16.2972768Z Updating files:  24% (21382/89089)
+2026-10-02T16:24:16.3300334Z Updating files:  25% (22273/89089)
+2026-10-02T16:24:16.3359912Z Updating files:  26% (23164/89089)
+2026-10-02T16:24:16.3581842Z Updating files:  26% (23365/89089)
+2026-10-02T16:24:16.3856754Z Updating files:  27% (24055/89089)
+2026-10-02T16:24:16.4136786Z Updating files:  28% (24945/89089)
+2026-10-02T16:24:16.4418478Z Updating files:  29% (25836/89089)
+2026-10-02T16:24:16.4738635Z Updating files:  30% (26727/89089)
+2026-10-02T16:24:16.5031326Z Updating files:  31% (27618/89089)
+2026-10-02T16:24:16.5324953Z Updating files:  32% (28509/89089)
+2026-10-02T16:24:16.5646647Z Updating files:  33% (29400/89089)
+2026-10-02T16:24:16.5973726Z Updating files:  34% (30291/89089)
+2026-10-02T16:24:16.6297677Z Updating files:  35% (31182/89089)
+2026-10-02T16:24:16.6606463Z Updating files:  36% (32073/89089)
+2026-10-02T16:24:16.6913839Z Updating files:  37% (32963/89089)
+2026-10-02T16:24:16.7225732Z Updating files:  38% (33854/89089)
+2026-10-02T16:24:16.7540422Z Updating files:  39% (34745/89089)
+2026-10-02T16:24:16.7853292Z Updating files:  40% (35636/89089)
+2026-10-02T16:24:16.8182049Z Updating files:  41% (36527/89089)
+2026-10-02T16:24:16.8581409Z Updating files:  42% (37418/89089)
+2026-10-02T16:24:16.9245287Z Updating files:  43% (38309/89089)
+2026-10-02T16:24:17.0335585Z Updating files:  44% (39200/89089)
+2026-10-02T16:24:17.0579784Z Updating files:  45% (40091/89089)
+2026-10-02T16:24:17.1004827Z Updating files:  46% (40981/89089)
+2026-10-02T16:24:17.1380172Z Updating files:  47% (41872/89089)
+2026-10-02T16:24:17.1647947Z Updating files:  48% (42763/89089)
+2026-10-02T16:24:17.2065275Z Updating files:  49% (43654/89089)
+2026-10-02T16:24:17.2383059Z Updating files:  50% (44545/89089)
+2026-10-02T16:24:17.2717643Z Updating files:  51% (45436/89089)
+2026-10-02T16:24:17.3040849Z Updating files:  52% (46327/89089)
+2026-10-02T16:24:17.3349667Z Updating files:  53% (47218/89089)
+2026-10-02T16:24:17.3360598Z Updating files:  54% (48109/89089)
+2026-10-02T16:24:17.3618895Z Updating files:  54% (48140/89089)
+2026-10-02T16:24:17.3897411Z Updating files:  55% (48999/89089)
+2026-10-02T16:24:17.4980670Z Updating files:  56% (49890/89089)
+2026-10-02T16:24:17.5240258Z Updating files:  57% (50781/89089)
+2026-10-02T16:24:17.5535457Z Updating files:  58% (51672/89089)
+2026-10-02T16:24:17.5855115Z Updating files:  59% (52563/89089)
+2026-10-02T16:24:17.6129353Z Updating files:  60% (53454/89089)
+2026-10-02T16:24:17.6400938Z Updating files:  61% (54345/89089)
+2026-10-02T16:24:17.6688374Z Updating files:  62% (55236/89089)
+2026-10-02T16:24:17.6981246Z Updating files:  63% (56127/89089)
+2026-10-02T16:24:17.7297259Z Updating files:  64% (57017/89089)
+2026-10-02T16:24:17.7660959Z Updating files:  65% (57908/89089)
+2026-10-02T16:24:17.7997778Z Updating files:  66% (58799/89089)
+2026-10-02T16:24:17.8566172Z Updating files:  67% (59690/89089)
+2026-10-02T16:24:17.8966506Z Updating files:  68% (60581/89089)
+2026-10-02T16:24:18.0108225Z Updating files:  69% (61472/89089)
+2026-10-02T16:24:18.0521084Z Updating files:  70% (62363/89089)
+2026-10-02T16:24:18.0932513Z Updating files:  71% (63254/89089)
+2026-10-02T16:24:18.1460325Z Updating files:  72% (64145/89089)
+2026-10-02T16:24:18.1958929Z Updating files:  73% (65035/89089)
+2026-10-02T16:24:18.2322697Z Updating files:  74% (65926/89089)
+2026-10-02T16:24:18.3135940Z Updating files:  75% (66817/89089)
+2026-10-02T16:24:18.3362028Z Updating files:  76% (67708/89089)
+2026-10-02T16:24:18.3633329Z Updating files:  76% (68115/89089)
+2026-10-02T16:24:18.8181564Z Updating files:  77% (68599/89089)
+2026-10-02T16:24:19.0543039Z Updating files:  78% (69490/89089)
+2026-10-02T16:24:19.1436102Z Updating files:  79% (70381/89089)
+2026-10-02T16:24:19.2252385Z Updating files:  80% (71272/89089)
+2026-10-02T16:24:19.3439786Z Updating files:  81% (72163/89089)
+2026-10-02T16:24:19.3704263Z Updating files:  81% (73001/89089)
+2026-10-02T16:24:19.7937141Z Updating files:  82% (73053/89089)
+2026-10-02T16:24:19.9622416Z Updating files:  83% (73944/89089)
+2026-10-02T16:24:20.0148062Z Updating files:  84% (74835/89089)
+2026-10-02T16:24:20.1027022Z Updating files:  85% (75726/89089)
+2026-10-02T16:24:20.1458368Z Updating files:  86% (76617/89089)
+2026-10-02T16:24:20.3159299Z Updating files:  87% (77508/89089)
+2026-10-02T16:24:20.3362412Z Updating files:  88% (78399/89089)
+2026-10-02T16:24:20.5785665Z Updating files:  88% (78481/89089)
+2026-10-02T16:24:20.7311862Z Updating files:  89% (79290/89089)
+2026-10-02T16:24:20.9065823Z Updating files:  90% (80181/89089)
+2026-10-02T16:24:21.1321167Z Updating files:  91% (81071/89089)
+2026-10-02T16:24:21.3408720Z Updating files:  92% (81962/89089)
+2026-10-02T16:24:21.4327384Z Updating files:  92% (82694/89089)
+2026-10-02T16:24:21.7750733Z Updating files:  93% (82853/89089)
+2026-10-02T16:24:22.2679514Z Updating files:  94% (83744/89089)
+2026-10-02T16:24:22.3360782Z Updating files:  95% (84635/89089)
+2026-10-02T16:24:22.5199151Z Updating files:  95% (84833/89089)
+2026-10-02T16:24:22.7085883Z Updating files:  96% (85526/89089)
+2026-10-02T16:24:22.7855121Z Updating files:  97% (86417/89089)
+2026-10-02T16:24:22.8301565Z Updating files:  98% (87308/89089)
+2026-10-02T16:24:22.8774225Z Updating files:  99% (88199/89089)
+2026-10-02T16:24:22.8774611Z Updating files: 100% (89089/89089)
+2026-10-02T16:24:22.8775087Z Updating files: 100% (89089/89089), done.
+2026-10-02T16:24:22.9763943Z Switched to a new branch 'huan/b699-lean-next-20261002-01a0f779'
+2026-10-02T16:24:22.9765240Z branch 'huan/b699-lean-next-20261002-01a0f779' set up to track 'origin/huan/b699-lean-next-20261002-01a0f779'.
+2026-10-02T16:24:22.9879801Z ##[endgroup]
+2026-10-02T16:24:22.9921510Z [command]/usr/bin/git log -1 --format=%H
+2026-10-02T16:24:22.9949943Z ab0056429b2cd4ce1fd2a04c069cdf345382316d
+2026-10-02T16:24:23.0084986Z ##[group]Run python3 "$B699_RUNTIME/cold-stage-v2.py" preflight
+2026-10-02T16:24:23.0085561Z [36;1mpython3 "$B699_RUNTIME/cold-stage-v2.py" preflight[0m
+2026-10-02T16:24:23.0145283Z shell: /usr/bin/bash -e {0}
+2026-10-02T16:24:23.0145500Z env:
+2026-10-02T16:24:23.0145908Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:24:23.0146358Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:24:23.0146566Z ##[endgroup]
+2026-10-02T16:24:23.1327494Z ##[group]Run leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+2026-10-02T16:24:23.1327849Z with:
+2026-10-02T16:24:23.1328018Z   auto-config: false
+2026-10-02T16:24:23.1328205Z   build: false
+2026-10-02T16:24:23.1328361Z   test: false
+2026-10-02T16:24:23.1328516Z   lint: false
+2026-10-02T16:24:23.1328681Z   use-mathlib-cache: false
+2026-10-02T16:24:23.1328874Z   use-github-cache: false
+2026-10-02T16:24:23.1329055Z   mk_all-check: false
+2026-10-02T16:24:23.1329249Z   check-reservoir-eligibility: false
+2026-10-02T16:24:23.1329464Z   leanchecker: false
+2026-10-02T16:24:23.1329629Z   lean4checker: false
+2026-10-02T16:24:23.1329807Z   nanoda: false
+2026-10-02T16:24:23.1329989Z   nanoda-allow-sorry: true
+2026-10-02T16:24:23.1330170Z   axiom-audit: false
+2026-10-02T16:24:23.1330395Z   axiom-audit-allow: propext,Classical.choice,Quot.sound
+2026-10-02T16:24:23.1330668Z   lake-package-directory: .
+2026-10-02T16:24:23.1330879Z   reinstall-transient-toolchain: false
+2026-10-02T16:24:23.1331155Z env:
+2026-10-02T16:24:23.1331546Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:24:23.1331991Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:24:23.1332197Z ##[endgroup]
+2026-10-02T16:24:23.1409941Z ##[start-action display=install elan;id=__leanprover_lean-action.__run]
+2026-10-02T16:24:23.1434333Z ##[group]Run : Install Elan
+2026-10-02T16:24:23.1434576Z [36;1m: Install Elan[0m
+2026-10-02T16:24:23.1434965Z [36;1m${GITHUB_ACTION_PATH}/scripts/install_elan.sh[0m
+2026-10-02T16:24:23.1495235Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T16:24:23.1495538Z env:
+2026-10-02T16:24:23.1495951Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:24:23.1496398Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:24:23.1496606Z ##[endgroup]
+2026-10-02T16:24:23.2302277Z ##[group]Elan Installation Output
+2026-10-02T16:24:23.2758065Z info: downloading installer
+2026-10-02T16:24:24.0691626Z info: downloading https://releases.lean-lang.org/lean4/v4.33.1/lean-4.33.1-linux.tar.zst
+2026-10-02T16:24:29.6673455Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.33.1
+2026-10-02T16:24:41.5724353Z Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+2026-10-02T16:24:41.6081265Z Lake version 5.0.0-src+819816b (Lean version 4.33.1)
+2026-10-02T16:24:41.6118340Z ##[endgroup]
+2026-10-02T16:24:41.6118489Z 
+2026-10-02T16:24:41.6134249Z ##[end-action id=__leanprover_lean-action.__run;outcome=success;conclusion=success;duration_ms=18472]
+2026-10-02T16:24:41.6139594Z ##[start-action display=configure `lean-action`;id=__leanprover_lean-action.config]
+2026-10-02T16:24:41.6155191Z ##[group]Run : Configure Lean Action
+2026-10-02T16:24:41.6155449Z [36;1m: Configure Lean Action[0m
+2026-10-02T16:24:41.6155696Z [36;1m${GITHUB_ACTION_PATH}/scripts/config.sh[0m
+2026-10-02T16:24:41.6213313Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T16:24:41.6213601Z env:
+2026-10-02T16:24:41.6214003Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:24:41.6214486Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:24:41.6214953Z   AUTO_CONFIG: false
+2026-10-02T16:24:41.6215130Z   BUILD: false
+2026-10-02T16:24:41.6215286Z   TEST: false
+2026-10-02T16:24:41.6215437Z   LINT: false
+2026-10-02T16:24:41.6215595Z ##[endgroup]
+2026-10-02T16:24:41.6558308Z ##[group]Configure lean-action
+2026-10-02T16:24:41.6603371Z ##[end-action id=__leanprover_lean-action.config;outcome=success;conclusion=success;duration_ms=46]
+2026-10-02T16:24:41.6607866Z ##[start-action display=reinstall transient toolchain;id=__leanprover_lean-action.__run_2]
+2026-10-02T16:24:41.6622615Z ##[end-action id=__leanprover_lean-action.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6625864Z ##[start-action display=ensure all files are imported;id=__leanprover_lean-action.mk_all]
+2026-10-02T16:24:41.6629121Z ##[end-action id=__leanprover_lean-action.mk_all;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6630734Z ##[start-action display=Run actions/cache/restore@v5;id=__leanprover_lean-action.__actions_cache]
+2026-10-02T16:24:41.6633565Z ##[end-action id=__leanprover_lean-action.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6635367Z ##[start-action display=detect mathlib;id=__leanprover_lean-action.detect-mathlib]
+2026-10-02T16:24:41.6638308Z ##[end-action id=__leanprover_lean-action.detect-mathlib;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6639864Z ##[start-action display=get mathlib cache;id=__leanprover_lean-action.__run_3]
+2026-10-02T16:24:41.6657750Z ##[end-action id=__leanprover_lean-action.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6678364Z ##[start-action display=build HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.build]
+2026-10-02T16:24:41.6682176Z ##[end-action id=__leanprover_lean-action.build;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6683731Z ##[start-action display=Run actions/cache/save@v5;id=__leanprover_lean-action.__actions_cache_2]
+2026-10-02T16:24:41.6686808Z ##[end-action id=__leanprover_lean-action.__actions_cache_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6689942Z ##[start-action display=test HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.test]
+2026-10-02T16:24:41.6693429Z ##[end-action id=__leanprover_lean-action.test;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6696098Z ##[start-action display=lint HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.lint]
+2026-10-02T16:24:41.6699627Z ##[end-action id=__leanprover_lean-action.lint;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6701186Z ##[start-action display=check reservoir eligibility;id=__leanprover_lean-action.__run_4]
+2026-10-02T16:24:41.6703980Z ##[end-action id=__leanprover_lean-action.__run_4;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6706866Z ##[start-action display=check environment with leanchecker;id=__leanprover_lean-action.__run_5]
+2026-10-02T16:24:41.6710640Z ##[end-action id=__leanprover_lean-action.__run_5;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6712468Z ##[start-action display=check environment with nanoda;id=__leanprover_lean-action.nanoda]
+2026-10-02T16:24:41.6715366Z ##[end-action id=__leanprover_lean-action.nanoda;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6717436Z ##[start-action display=audit axioms with axiom-audit;id=__leanprover_lean-action.axiom-audit]
+2026-10-02T16:24:41.6720160Z ##[end-action id=__leanprover_lean-action.axiom-audit;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T16:24:41.6767394Z ##[group]Run python3 "$B699_RUNTIME/cold-stage-v2.py"
+2026-10-02T16:24:41.6767732Z [36;1mpython3 "$B699_RUNTIME/cold-stage-v2.py"[0m
+2026-10-02T16:24:41.6822094Z shell: /usr/bin/bash -e {0}
+2026-10-02T16:24:41.6822318Z env:
+2026-10-02T16:24:41.6822742Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:24:41.6823183Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:24:41.6823388Z ##[endgroup]
+2026-10-02T16:24:41.9885606Z {"label": "toolchain-prefix", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:24:42.1680686Z {"label": "toolchain-version", "status": "success", "exitCode": 0, "peakMiB": 41.91}
+2026-10-02T16:26:08.6393286Z {"label": "focused-cache", "status": "success", "exitCode": 0, "peakMiB": 1752.43}
+2026-10-02T16:26:08.6601525Z {"label": "pin-mathlib", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.7094300Z {"label": "pin-plausible", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.7190930Z {"label": "pin-LeanSearchClient", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.7399455Z {"label": "pin-importGraph", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.7593451Z {"label": "pin-proofwidgets", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.7697717Z {"label": "pin-aesop", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.7898212Z {"label": "pin-Qq", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.7993721Z {"label": "pin-batteries", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.8087688Z {"label": "pin-Cli", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:08.8188059Z {"label": "normnum-prime-canonical-git-blob", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T16:26:09.5172775Z {"label": "lean-path-1790958368819114454", "status": "success", "exitCode": 0, "peakMiB": 820.85}
+2026-10-02T16:26:13.6547688Z {"label": "terminal-085-ECBase", "status": "success", "exitCode": 0, "peakMiB": 2111.25}
+2026-10-02T16:26:16.9566228Z {"label": "terminal-086-SlimChebyshev", "status": "success", "exitCode": 0, "peakMiB": 3074.41}
+2026-10-02T16:26:18.8210773Z {"label": "terminal-086-SlimChebyshev-audit", "status": "success", "exitCode": 0, "peakMiB": 3027.89}
+2026-10-02T16:26:25.4109489Z {"label": "terminal-087-ElementaryCount", "status": "success", "exitCode": 0, "peakMiB": 3142.88}
+2026-10-02T16:26:27.3987477Z {"label": "terminal-087-ElementaryCount-audit", "status": "success", "exitCode": 0, "peakMiB": 3020.09}
+2026-10-02T16:26:32.0296042Z {"label": "representative-elementary-normal-checker", "status": "success", "exitCode": 0, "peakMiB": 2702.84}
+2026-10-02T16:26:32.0297863Z EC_BINDING_JSON terminal-085-ECBase/receipt.json {
+2026-10-02T16:26:32.0298290Z   "utc": "2026-10-02T16:26:09.521195+00:00",
+2026-10-02T16:26:32.0298654Z   "startUtc": "2026-10-02T16:26:09.521206+00:00",
+2026-10-02T16:26:32.0298940Z   "arguments": [
+2026-10-02T16:26:32.0299270Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0299691Z     "-j1",
+2026-10-02T16:26:32.0299909Z     "-M3132",
+2026-10-02T16:26:32.0300585Z     "-DElab.async=false",
+2026-10-02T16:26:32.0300827Z     "-R",
+2026-10-02T16:26:32.0301089Z     "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0301455Z     "-o",
+2026-10-02T16:26:32.0302465Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ECBase.olean",
+2026-10-02T16:26:32.0303944Z     "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ECBase.lean"
+2026-10-02T16:26:32.0304603Z   ],
+2026-10-02T16:26:32.0304976Z   "pid": 2613,
+2026-10-02T16:26:32.0305532Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0305910Z   "cpus": [
+2026-10-02T16:26:32.0306123Z     0,
+2026-10-02T16:26:32.0306339Z     1
+2026-10-02T16:26:32.0306543Z   ],
+2026-10-02T16:26:32.0306747Z   "nice": 19,
+2026-10-02T16:26:32.0306985Z   "resourceBefore": {
+2026-10-02T16:26:32.0307279Z     "utc": "2026-10-02T16:26:09.519389+00:00",
+2026-10-02T16:26:32.0312606Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0313076Z     "cgroupAncestorLimits": [
+2026-10-02T16:26:32.0313363Z       {
+2026-10-02T16:26:32.0313719Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0314169Z         "memoryMax": "max",
+2026-10-02T16:26:32.0314454Z         "memoryCurrent": "11177136128",
+2026-10-02T16:26:32.0314946Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0315215Z       },
+2026-10-02T16:26:32.0315404Z       {
+2026-10-02T16:26:32.0315572Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T16:26:32.0315792Z         "memoryMax": "max",
+2026-10-02T16:26:32.0315986Z         "memoryCurrent": "13743132672",
+2026-10-02T16:26:32.0316188Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0316364Z       },
+2026-10-02T16:26:32.0316503Z       {
+2026-10-02T16:26:32.0316654Z         "path": "/sys/fs/cgroup",
+2026-10-02T16:26:32.0316854Z         "memoryMax": null,
+2026-10-02T16:26:32.0317040Z         "memoryCurrent": null,
+2026-10-02T16:26:32.0317227Z         "cpuMax": null
+2026-10-02T16:26:32.0317388Z       }
+2026-10-02T16:26:32.0317528Z     ],
+2026-10-02T16:26:32.0317690Z     "hostMemAvailableBytes": 15375233024,
+2026-10-02T16:26:32.0317914Z     "effectiveAvailableBytes": 15375233024,
+2026-10-02T16:26:32.0318125Z     "allowedCpuIds": [
+2026-10-02T16:26:32.0318289Z       0,
+2026-10-02T16:26:32.0318424Z       1,
+2026-10-02T16:26:32.0318557Z       2,
+2026-10-02T16:26:32.0318691Z       3
+2026-10-02T16:26:32.0318826Z     ],
+2026-10-02T16:26:32.0318980Z     "diskFreeBytes": 82199310336
+2026-10-02T16:26:32.0319160Z   },
+2026-10-02T16:26:32.0319321Z   "hardDeadlineUtc": "2026-10-02T16:30:00Z",
+2026-10-02T16:26:32.0319534Z   "childStarted": true,
+2026-10-02T16:26:32.0319719Z   "peakTreeWorkingSetBytes": 2213806080,
+2026-10-02T16:26:32.0319939Z   "minimumAvailableBytes": 15180484608,
+2026-10-02T16:26:32.0320156Z   "startupMemoryMiB": 5120,
+2026-10-02T16:26:32.0320340Z   "treeMemoryMiB": 4096,
+2026-10-02T16:26:32.0323248Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T16:26:32.0326803Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0327246Z   "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+2026-10-02T16:26:32.0338257Z   "status": "success",
+2026-10-02T16:26:32.0338468Z   "exitCode": 0,
+2026-10-02T16:26:32.0338722Z   "stopReason": null,
+2026-10-02T16:26:32.0338916Z   "endUtc": "2026-10-02T16:26:13.653961+00:00",
+2026-10-02T16:26:32.0339143Z   "wallSeconds": 4.134547233581543,
+2026-10-02T16:26:32.0339890Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-085-ECBase/stdout.log",
+2026-10-02T16:26:32.0340763Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-085-ECBase/stderr.log",
+2026-10-02T16:26:32.0341445Z   "stdoutSha256": "fe8f0881679ca4c9c686c65b76ac466b93143b60b654fee449fa448bdf5d20b9",
+2026-10-02T16:26:32.0341879Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+2026-10-02T16:26:32.0342188Z   "mode": "Lean",
+2026-10-02T16:26:32.0342609Z   "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ECBase.lean",
+2026-10-02T16:26:32.0343158Z   "sourceSha256": "0f9ae78db010323f9d180c0bbe3770005158625ac042de3981aae510b55147fd",
+2026-10-02T16:26:32.0343856Z   "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-085-ECBase/source.lean",
+2026-10-02T16:26:32.0344459Z   "sourceUnchanged": true,
+2026-10-02T16:26:32.0345352Z   "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ECBase.olean",
+2026-10-02T16:26:32.0346170Z   "objectSha256": "d1a88ea9dc217d26843ba04ae9da9a598eccbd53b71c895ff88e8c959933bc41",
+2026-10-02T16:26:32.0346510Z   "objectParts": [
+2026-10-02T16:26:32.0346667Z     {
+2026-10-02T16:26:32.0347300Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ECBase.olean",
+2026-10-02T16:26:32.0347971Z       "bytes": 21480,
+2026-10-02T16:26:32.0348243Z       "sha256": "d1a88ea9dc217d26843ba04ae9da9a598eccbd53b71c895ff88e8c959933bc41"
+2026-10-02T16:26:32.0348534Z     }
+2026-10-02T16:26:32.0348669Z   ]
+2026-10-02T16:26:32.0348810Z }
+2026-10-02T16:26:32.0348889Z 
+2026-10-02T16:26:32.0349004Z EC_BINDING_JSON terminal-085-ECBase/axiom-audit.json {
+2026-10-02T16:26:32.0349256Z   "utc": "2026-10-02T16:26:13.656170+00:00",
+2026-10-02T16:26:32.0349476Z   "status": "accepted-standard-axioms",
+2026-10-02T16:26:32.0349677Z   "roots": [
+2026-10-02T16:26:32.0349838Z     "B699TailECBase.primes_le_128",
+2026-10-02T16:26:32.0350049Z     "B699TailECBase.primeCounting_128",
+2026-10-02T16:26:32.0350265Z     "B699TailECBase.primorial_128_lower"
+2026-10-02T16:26:32.0350457Z   ],
+2026-10-02T16:26:32.0350598Z   "actualAxioms": {
+2026-10-02T16:26:32.0350769Z     "B699TailECBase.primes_le_128": [
+2026-10-02T16:26:32.0350967Z       "propext",
+2026-10-02T16:26:32.0351127Z       "Classical.choice",
+2026-10-02T16:26:32.0351295Z       "Quot.sound"
+2026-10-02T16:26:32.0351441Z     ],
+2026-10-02T16:26:32.0351605Z     "B699TailECBase.primeCounting_128": [
+2026-10-02T16:26:32.0351807Z       "propext",
+2026-10-02T16:26:32.0351961Z       "Classical.choice",
+2026-10-02T16:26:32.0352124Z       "Quot.sound"
+2026-10-02T16:26:32.0352270Z     ],
+2026-10-02T16:26:32.0352564Z     "B699TailECBase.primorial_128_lower": [
+2026-10-02T16:26:32.0352765Z       "propext",
+2026-10-02T16:26:32.0352916Z       "Classical.choice",
+2026-10-02T16:26:32.0353085Z       "Quot.sound"
+2026-10-02T16:26:32.0353231Z     ]
+2026-10-02T16:26:32.0353364Z   },
+2026-10-02T16:26:32.0353616Z   "sourceSha256": "0f9ae78db010323f9d180c0bbe3770005158625ac042de3981aae510b55147fd",
+2026-10-02T16:26:32.0354030Z   "stdoutSha256": "fe8f0881679ca4c9c686c65b76ac466b93143b60b654fee449fa448bdf5d20b9"
+2026-10-02T16:26:32.0354324Z }
+2026-10-02T16:26:32.0354403Z 
+2026-10-02T16:26:32.0354617Z EC_BINDING_JSON terminal-086-SlimChebyshev/receipt.json {
+2026-10-02T16:26:32.0355052Z   "utc": "2026-10-02T16:26:13.659016+00:00",
+2026-10-02T16:26:32.0355384Z   "startUtc": "2026-10-02T16:26:13.659027+00:00",
+2026-10-02T16:26:32.0355604Z   "arguments": [
+2026-10-02T16:26:32.0355846Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0356126Z     "-j1",
+2026-10-02T16:26:32.0356272Z     "-M3132",
+2026-10-02T16:26:32.0356439Z     "-DElab.async=false",
+2026-10-02T16:26:32.0356610Z     "-R",
+2026-10-02T16:26:32.0356785Z     "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0357003Z     "-o",
+2026-10-02T16:26:32.0357650Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/SlimChebyshev.olean",
+2026-10-02T16:26:32.0358592Z     "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/SlimChebyshev.lean"
+2026-10-02T16:26:32.0359017Z   ],
+2026-10-02T16:26:32.0359157Z   "pid": 2618,
+2026-10-02T16:26:32.0359354Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0359586Z   "cpus": [
+2026-10-02T16:26:32.0359725Z     0,
+2026-10-02T16:26:32.0359861Z     1
+2026-10-02T16:26:32.0360000Z   ],
+2026-10-02T16:26:32.0360139Z   "nice": 19,
+2026-10-02T16:26:32.0360302Z   "resourceBefore": {
+2026-10-02T16:26:32.0360484Z     "utc": "2026-10-02T16:26:13.657197+00:00",
+2026-10-02T16:26:32.0360819Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0361095Z     "cgroupAncestorLimits": [
+2026-10-02T16:26:32.0361277Z       {
+2026-10-02T16:26:32.0361500Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0361784Z         "memoryMax": "max",
+2026-10-02T16:26:32.0361969Z         "memoryCurrent": "11186839552",
+2026-10-02T16:26:32.0362177Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0362350Z       },
+2026-10-02T16:26:32.0362486Z       {
+2026-10-02T16:26:32.0362644Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T16:26:32.0362861Z         "memoryMax": "max",
+2026-10-02T16:26:32.0363042Z         "memoryCurrent": "13752836096",
+2026-10-02T16:26:32.0363237Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0363406Z       },
+2026-10-02T16:26:32.0363546Z       {
+2026-10-02T16:26:32.0363702Z         "path": "/sys/fs/cgroup",
+2026-10-02T16:26:32.0363895Z         "memoryMax": null,
+2026-10-02T16:26:32.0364082Z         "memoryCurrent": null,
+2026-10-02T16:26:32.0364269Z         "cpuMax": null
+2026-10-02T16:26:32.0364429Z       }
+2026-10-02T16:26:32.0364566Z     ],
+2026-10-02T16:26:32.0364901Z     "hostMemAvailableBytes": 15468666880,
+2026-10-02T16:26:32.0365127Z     "effectiveAvailableBytes": 15468666880,
+2026-10-02T16:26:32.0365344Z     "allowedCpuIds": [
+2026-10-02T16:26:32.0365505Z       0,
+2026-10-02T16:26:32.0365639Z       1,
+2026-10-02T16:26:32.0365771Z       2,
+2026-10-02T16:26:32.0365904Z       3
+2026-10-02T16:26:32.0366039Z     ],
+2026-10-02T16:26:32.0366188Z     "diskFreeBytes": 82199257088
+2026-10-02T16:26:32.0366368Z   },
+2026-10-02T16:26:32.0366532Z   "hardDeadlineUtc": "2026-10-02T16:30:00Z",
+2026-10-02T16:26:32.0366743Z   "childStarted": true,
+2026-10-02T16:26:32.0366930Z   "peakTreeWorkingSetBytes": 3223752704,
+2026-10-02T16:26:32.0367147Z   "minimumAvailableBytes": 15196368896,
+2026-10-02T16:26:32.0367480Z   "startupMemoryMiB": 5120,
+2026-10-02T16:26:32.0367664Z   "treeMemoryMiB": 4096,
+2026-10-02T16:26:32.0370622Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T16:26:32.0373731Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0374158Z   "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+2026-10-02T16:26:32.0374483Z   "status": "success",
+2026-10-02T16:26:32.0374736Z   "exitCode": 0,
+2026-10-02T16:26:32.0374902Z   "stopReason": null,
+2026-10-02T16:26:32.0375085Z   "endUtc": "2026-10-02T16:26:16.953176+00:00",
+2026-10-02T16:26:32.0375300Z   "wallSeconds": 3.2959558963775635,
+2026-10-02T16:26:32.0375860Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-086-SlimChebyshev/stdout.log",
+2026-10-02T16:26:32.0376757Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-086-SlimChebyshev/stderr.log",
+2026-10-02T16:26:32.0377411Z   "stdoutSha256": "cae06799340b1a9bb8f41ce327ca92327465aa8441c61450068697534df1868d",
+2026-10-02T16:26:32.0377821Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+2026-10-02T16:26:32.0378120Z   "mode": "Lean",
+2026-10-02T16:26:32.0378541Z   "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/SlimChebyshev.lean",
+2026-10-02T16:26:32.0379105Z   "sourceSha256": "5fe945e96596c4a3ec7d5cd00475c929216123990d0088e411c050c1f5d13664",
+2026-10-02T16:26:32.0379791Z   "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-086-SlimChebyshev/source.lean",
+2026-10-02T16:26:32.0380377Z   "sourceUnchanged": true,
+2026-10-02T16:26:32.0381075Z   "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/SlimChebyshev.olean",
+2026-10-02T16:26:32.0381888Z   "objectSha256": "ec5712c3197eb28a68a1e9f8bde2784ea9541fcd1e4a4c4ca7126398cfae3b22",
+2026-10-02T16:26:32.0382195Z   "objectParts": [
+2026-10-02T16:26:32.0382348Z     {
+2026-10-02T16:26:32.0382989Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/SlimChebyshev.olean",
+2026-10-02T16:26:32.0383680Z       "bytes": 456880,
+2026-10-02T16:26:32.0383941Z       "sha256": "ec5712c3197eb28a68a1e9f8bde2784ea9541fcd1e4a4c4ca7126398cfae3b22"
+2026-10-02T16:26:32.0384223Z     }
+2026-10-02T16:26:32.0384355Z   ]
+2026-10-02T16:26:32.0384491Z }
+2026-10-02T16:26:32.0384760Z 
+2026-10-02T16:26:32.0384901Z EC_BINDING_JSON terminal-086-SlimChebyshev-audit/receipt.json {
+2026-10-02T16:26:32.0385187Z   "utc": "2026-10-02T16:26:16.961944+00:00",
+2026-10-02T16:26:32.0385407Z   "startUtc": "2026-10-02T16:26:16.961954+00:00",
+2026-10-02T16:26:32.0385617Z   "arguments": [
+2026-10-02T16:26:32.0385850Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0386120Z     "-j1",
+2026-10-02T16:26:32.0386261Z     "-M3132",
+2026-10-02T16:26:32.0386415Z     "-DElab.async=false",
+2026-10-02T16:26:32.0386583Z     "-R",
+2026-10-02T16:26:32.0386936Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full",
+2026-10-02T16:26:32.0387338Z     "-o",
+2026-10-02T16:26:32.0387939Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/terminal_086_SlimChebyshev_Audit.olean",
+2026-10-02T16:26:32.0388868Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/terminal_086_SlimChebyshev_Audit.lean"
+2026-10-02T16:26:32.0389374Z   ],
+2026-10-02T16:26:32.0389514Z   "pid": 2625,
+2026-10-02T16:26:32.0389707Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0389964Z   "cpus": [
+2026-10-02T16:26:32.0390108Z     0,
+2026-10-02T16:26:32.0390247Z     1
+2026-10-02T16:26:32.0390382Z   ],
+2026-10-02T16:26:32.0390521Z   "nice": 19,
+2026-10-02T16:26:32.0390674Z   "resourceBefore": {
+2026-10-02T16:26:32.0390850Z     "utc": "2026-10-02T16:26:16.959879+00:00",
+2026-10-02T16:26:32.0391144Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0391424Z     "cgroupAncestorLimits": [
+2026-10-02T16:26:32.0391608Z       {
+2026-10-02T16:26:32.0391827Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0392101Z         "memoryMax": "max",
+2026-10-02T16:26:32.0392285Z         "memoryCurrent": "11186315264",
+2026-10-02T16:26:32.0392492Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0392672Z       },
+2026-10-02T16:26:32.0392810Z       {
+2026-10-02T16:26:32.0392967Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T16:26:32.0393174Z         "memoryMax": "max",
+2026-10-02T16:26:32.0393350Z         "memoryCurrent": "13752311808",
+2026-10-02T16:26:32.0393548Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0393722Z       },
+2026-10-02T16:26:32.0393860Z       {
+2026-10-02T16:26:32.0394007Z         "path": "/sys/fs/cgroup",
+2026-10-02T16:26:32.0394207Z         "memoryMax": null,
+2026-10-02T16:26:32.0394385Z         "memoryCurrent": null,
+2026-10-02T16:26:32.0394563Z         "cpuMax": null
+2026-10-02T16:26:32.0394820Z       }
+2026-10-02T16:26:32.0394958Z     ],
+2026-10-02T16:26:32.0395114Z     "hostMemAvailableBytes": 15371956224,
+2026-10-02T16:26:32.0395334Z     "effectiveAvailableBytes": 15371956224,
+2026-10-02T16:26:32.0395547Z     "allowedCpuIds": [
+2026-10-02T16:26:32.0395715Z       0,
+2026-10-02T16:26:32.0395854Z       1,
+2026-10-02T16:26:32.0395985Z       2,
+2026-10-02T16:26:32.0396121Z       3
+2026-10-02T16:26:32.0396254Z     ],
+2026-10-02T16:26:32.0396405Z     "diskFreeBytes": 82198769664
+2026-10-02T16:26:32.0396584Z   },
+2026-10-02T16:26:32.0396741Z   "hardDeadlineUtc": "2026-10-02T16:30:00Z",
+2026-10-02T16:26:32.0396954Z   "childStarted": true,
+2026-10-02T16:26:32.0397137Z   "peakTreeWorkingSetBytes": 3174977536,
+2026-10-02T16:26:32.0397353Z   "minimumAvailableBytes": 15230259200,
+2026-10-02T16:26:32.0397558Z   "startupMemoryMiB": 5120,
+2026-10-02T16:26:32.0397739Z   "treeMemoryMiB": 4096,
+2026-10-02T16:26:32.0400629Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T16:26:32.0403939Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0404372Z   "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+2026-10-02T16:26:32.0404887Z   "status": "success",
+2026-10-02T16:26:32.0405056Z   "exitCode": 0,
+2026-10-02T16:26:32.0405216Z   "stopReason": null,
+2026-10-02T16:26:32.0405395Z   "endUtc": "2026-10-02T16:26:18.780556+00:00",
+2026-10-02T16:26:32.0405611Z   "wallSeconds": 1.8206520080566406,
+2026-10-02T16:26:32.0406729Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-086-SlimChebyshev-audit/stdout.log",
+2026-10-02T16:26:32.0408188Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-086-SlimChebyshev-audit/stderr.log",
+2026-10-02T16:26:32.0409190Z   "stdoutSha256": "f662e3043deee90cffae8a501c9d5dfc1a662251df0fcc510638d7c5580d92be",
+2026-10-02T16:26:32.0409626Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+2026-10-02T16:26:32.0409937Z   "mode": "Lean",
+2026-10-02T16:26:32.0410426Z   "source": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/terminal_086_SlimChebyshev_Audit.lean",
+2026-10-02T16:26:32.0411049Z   "sourceSha256": "57c45f1e8140e073ee2875894289980d04ed3d28be7d7015f708484024ecbc5c",
+2026-10-02T16:26:32.0411765Z   "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-086-SlimChebyshev-audit/source.lean",
+2026-10-02T16:26:32.0412379Z   "sourceUnchanged": true,
+2026-10-02T16:26:32.0412940Z   "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/terminal_086_SlimChebyshev_Audit.olean",
+2026-10-02T16:26:32.0413620Z   "objectSha256": "2322259af40aa8ed953139e6f524c87b3c290896e0af5f1b702a3dc461ec7659",
+2026-10-02T16:26:32.0413930Z   "objectParts": [
+2026-10-02T16:26:32.0414084Z     {
+2026-10-02T16:26:32.0414606Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/terminal_086_SlimChebyshev_Audit.olean",
+2026-10-02T16:26:32.0415311Z       "bytes": 1872,
+2026-10-02T16:26:32.0415569Z       "sha256": "2322259af40aa8ed953139e6f524c87b3c290896e0af5f1b702a3dc461ec7659"
+2026-10-02T16:26:32.0415855Z     }
+2026-10-02T16:26:32.0415992Z   ]
+2026-10-02T16:26:32.0416129Z }
+2026-10-02T16:26:32.0416210Z 
+2026-10-02T16:26:32.0416361Z EC_BINDING_JSON terminal-086-SlimChebyshev-audit/axiom-audit.json {
+2026-10-02T16:26:32.0416647Z   "utc": "2026-10-02T16:26:18.822067+00:00",
+2026-10-02T16:26:32.0416870Z   "status": "accepted-standard-axioms",
+2026-10-02T16:26:32.0417078Z   "roots": [
+2026-10-02T16:26:32.0417246Z     "B699SlimChebyshev.theta_eq_sum_Icc",
+2026-10-02T16:26:32.0417479Z     "B699SlimChebyshev.theta_eq_log_primorial",
+2026-10-02T16:26:32.0417711Z     "B699SlimChebyshev.theta_le_log4_mul_x",
+2026-10-02T16:26:32.0417931Z     "B699SlimChebyshev.deriv_inv_log_apply",
+2026-10-02T16:26:32.0418338Z     "B699SlimChebyshev.integrableOn_theta_div_id_mul_log_sq",
+2026-10-02T16:26:32.0418664Z     "B699SlimChebyshev.primeCounting_eq_theta_div_log_add_integral"
+2026-10-02T16:26:32.0418929Z   ],
+2026-10-02T16:26:32.0419073Z   "actualAxioms": {
+2026-10-02T16:26:32.0419249Z     "B699SlimChebyshev.theta_eq_sum_Icc": [
+2026-10-02T16:26:32.0419457Z       "propext",
+2026-10-02T16:26:32.0419618Z       "Classical.choice",
+2026-10-02T16:26:32.0419789Z       "Quot.sound"
+2026-10-02T16:26:32.0419936Z     ],
+2026-10-02T16:26:32.0420108Z     "B699SlimChebyshev.theta_eq_log_primorial": [
+2026-10-02T16:26:32.0420330Z       "propext",
+2026-10-02T16:26:32.0420488Z       "Classical.choice",
+2026-10-02T16:26:32.0420758Z       "Quot.sound"
+2026-10-02T16:26:32.0420912Z     ],
+2026-10-02T16:26:32.0421073Z     "B699SlimChebyshev.theta_le_log4_mul_x": [
+2026-10-02T16:26:32.0421282Z       "propext",
+2026-10-02T16:26:32.0421435Z       "Classical.choice",
+2026-10-02T16:26:32.0421607Z       "Quot.sound"
+2026-10-02T16:26:32.0421753Z     ],
+2026-10-02T16:26:32.0421917Z     "B699SlimChebyshev.deriv_inv_log_apply": [
+2026-10-02T16:26:32.0422124Z       "propext",
+2026-10-02T16:26:32.0422279Z       "Classical.choice",
+2026-10-02T16:26:32.0422441Z       "Quot.sound"
+2026-10-02T16:26:32.0422587Z     ],
+2026-10-02T16:26:32.0422790Z     "B699SlimChebyshev.integrableOn_theta_div_id_mul_log_sq": [
+2026-10-02T16:26:32.0423047Z       "propext",
+2026-10-02T16:26:32.0423199Z       "Classical.choice",
+2026-10-02T16:26:32.0423361Z       "Quot.sound"
+2026-10-02T16:26:32.0423504Z     ],
+2026-10-02T16:26:32.0423723Z     "B699SlimChebyshev.primeCounting_eq_theta_div_log_add_integral": [
+2026-10-02T16:26:32.0423998Z       "propext",
+2026-10-02T16:26:32.0424153Z       "Classical.choice",
+2026-10-02T16:26:32.0424319Z       "Quot.sound"
+2026-10-02T16:26:32.0424464Z     ]
+2026-10-02T16:26:32.0424600Z   },
+2026-10-02T16:26:32.0424955Z   "sourceSha256": "57c45f1e8140e073ee2875894289980d04ed3d28be7d7015f708484024ecbc5c",
+2026-10-02T16:26:32.0425385Z   "stdoutSha256": "f662e3043deee90cffae8a501c9d5dfc1a662251df0fcc510638d7c5580d92be"
+2026-10-02T16:26:32.0425683Z }
+2026-10-02T16:26:32.0425758Z 
+2026-10-02T16:26:32.0425887Z EC_BINDING_JSON terminal-087-ElementaryCount/receipt.json {
+2026-10-02T16:26:32.0426149Z   "utc": "2026-10-02T16:26:18.824957+00:00",
+2026-10-02T16:26:32.0426365Z   "startUtc": "2026-10-02T16:26:18.824967+00:00",
+2026-10-02T16:26:32.0426575Z   "arguments": [
+2026-10-02T16:26:32.0426811Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0427089Z     "-j1",
+2026-10-02T16:26:32.0427233Z     "-M4096",
+2026-10-02T16:26:32.0427386Z     "-DElab.async=false",
+2026-10-02T16:26:32.0427559Z     "-R",
+2026-10-02T16:26:32.0427742Z     "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0427959Z     "-o",
+2026-10-02T16:26:32.0428608Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ElementaryCount.olean",
+2026-10-02T16:26:32.0429553Z     "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ElementaryCount.lean"
+2026-10-02T16:26:32.0429988Z   ],
+2026-10-02T16:26:32.0430131Z   "pid": 2630,
+2026-10-02T16:26:32.0430322Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0430552Z   "cpus": [
+2026-10-02T16:26:32.0430696Z     0,
+2026-10-02T16:26:32.0430831Z     1
+2026-10-02T16:26:32.0430966Z   ],
+2026-10-02T16:26:32.0431103Z   "nice": 19,
+2026-10-02T16:26:32.0431260Z   "resourceBefore": {
+2026-10-02T16:26:32.0431437Z     "utc": "2026-10-02T16:26:18.823131+00:00",
+2026-10-02T16:26:32.0431763Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0432036Z     "cgroupAncestorLimits": [
+2026-10-02T16:26:32.0432217Z       {
+2026-10-02T16:26:32.0432434Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0432836Z         "memoryMax": "max",
+2026-10-02T16:26:32.0433026Z         "memoryCurrent": "11185520640",
+2026-10-02T16:26:32.0433228Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0433400Z       },
+2026-10-02T16:26:32.0433536Z       {
+2026-10-02T16:26:32.0433697Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T16:26:32.0433912Z         "memoryMax": "max",
+2026-10-02T16:26:32.0434098Z         "memoryCurrent": "13751259136",
+2026-10-02T16:26:32.0434298Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0434472Z       },
+2026-10-02T16:26:32.0434611Z       {
+2026-10-02T16:26:32.0434843Z         "path": "/sys/fs/cgroup",
+2026-10-02T16:26:32.0435042Z         "memoryMax": null,
+2026-10-02T16:26:32.0435334Z         "memoryCurrent": null,
+2026-10-02T16:26:32.0435521Z         "cpuMax": null
+2026-10-02T16:26:32.0435680Z       }
+2026-10-02T16:26:32.0435813Z     ],
+2026-10-02T16:26:32.0435974Z     "hostMemAvailableBytes": 15550136320,
+2026-10-02T16:26:32.0436204Z     "effectiveAvailableBytes": 15550136320,
+2026-10-02T16:26:32.0436414Z     "allowedCpuIds": [
+2026-10-02T16:26:32.0436572Z       0,
+2026-10-02T16:26:32.0436707Z       1,
+2026-10-02T16:26:32.0436842Z       2,
+2026-10-02T16:26:32.0436976Z       3
+2026-10-02T16:26:32.0437112Z     ],
+2026-10-02T16:26:32.0437259Z     "diskFreeBytes": 82198732800
+2026-10-02T16:26:32.0437442Z   },
+2026-10-02T16:26:32.0437602Z   "hardDeadlineUtc": "2026-10-02T16:30:00Z",
+2026-10-02T16:26:32.0437813Z   "childStarted": true,
+2026-10-02T16:26:32.0437997Z   "peakTreeWorkingSetBytes": 3295543296,
+2026-10-02T16:26:32.0438213Z   "minimumAvailableBytes": 15223283712,
+2026-10-02T16:26:32.0438419Z   "startupMemoryMiB": 6144,
+2026-10-02T16:26:32.0438602Z   "treeMemoryMiB": 5120,
+2026-10-02T16:26:32.0441505Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T16:26:32.0444592Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0445217Z   "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+2026-10-02T16:26:32.0445542Z   "status": "success",
+2026-10-02T16:26:32.0445708Z   "exitCode": 0,
+2026-10-02T16:26:32.0445874Z   "stopReason": null,
+2026-10-02T16:26:32.0446058Z   "endUtc": "2026-10-02T16:26:25.410151+00:00",
+2026-10-02T16:26:32.0446276Z   "wallSeconds": 6.5869951248168945,
+2026-10-02T16:26:32.0446836Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-087-ElementaryCount/stdout.log",
+2026-10-02T16:26:32.0447739Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-087-ElementaryCount/stderr.log",
+2026-10-02T16:26:32.0448399Z   "stdoutSha256": "bc458940a61eb6f07fa7ffb272e8efe1716faed924bdeca5f106d7057497fe89",
+2026-10-02T16:26:32.0448815Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+2026-10-02T16:26:32.0449298Z   "mode": "Lean",
+2026-10-02T16:26:32.0449733Z   "source": "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ElementaryCount.lean",
+2026-10-02T16:26:32.0450299Z   "sourceSha256": "9f815633679d0a039c2416a34dd03483b972e5a1c307716c3fe3227c285e5cd4",
+2026-10-02T16:26:32.0450986Z   "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-087-ElementaryCount/source.lean",
+2026-10-02T16:26:32.0451571Z   "sourceUnchanged": true,
+2026-10-02T16:26:32.0452347Z   "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ElementaryCount.olean",
+2026-10-02T16:26:32.0453174Z   "objectSha256": "15c32791aa1b01ec8e0a7949ba74c959faf923ce7c2cb87733e392b64fb02da5",
+2026-10-02T16:26:32.0453492Z   "objectParts": [
+2026-10-02T16:26:32.0453646Z     {
+2026-10-02T16:26:32.0454289Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/tail/ElementaryCount.olean",
+2026-10-02T16:26:32.0455080Z       "bytes": 968368,
+2026-10-02T16:26:32.0455342Z       "sha256": "15c32791aa1b01ec8e0a7949ba74c959faf923ce7c2cb87733e392b64fb02da5"
+2026-10-02T16:26:32.0455626Z     }
+2026-10-02T16:26:32.0455762Z   ]
+2026-10-02T16:26:32.0455898Z }
+2026-10-02T16:26:32.0455977Z 
+2026-10-02T16:26:32.0456118Z EC_BINDING_JSON terminal-087-ElementaryCount-audit/receipt.json {
+2026-10-02T16:26:32.0456409Z   "utc": "2026-10-02T16:26:25.416089+00:00",
+2026-10-02T16:26:32.0456630Z   "startUtc": "2026-10-02T16:26:25.416101+00:00",
+2026-10-02T16:26:32.0456841Z   "arguments": [
+2026-10-02T16:26:32.0457077Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0457352Z     "-j1",
+2026-10-02T16:26:32.0457494Z     "-M4096",
+2026-10-02T16:26:32.0457647Z     "-DElab.async=false",
+2026-10-02T16:26:32.0457817Z     "-R",
+2026-10-02T16:26:32.0458166Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full",
+2026-10-02T16:26:32.0458562Z     "-o",
+2026-10-02T16:26:32.0459069Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/terminal_087_ElementaryCount_Audit.olean",
+2026-10-02T16:26:32.0459939Z     "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/terminal_087_ElementaryCount_Audit.lean"
+2026-10-02T16:26:32.0460438Z   ],
+2026-10-02T16:26:32.0460577Z   "pid": 2637,
+2026-10-02T16:26:32.0460771Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0461008Z   "cpus": [
+2026-10-02T16:26:32.0461148Z     0,
+2026-10-02T16:26:32.0461284Z     1
+2026-10-02T16:26:32.0461417Z   ],
+2026-10-02T16:26:32.0461553Z   "nice": 19,
+2026-10-02T16:26:32.0461711Z   "resourceBefore": {
+2026-10-02T16:26:32.0461888Z     "utc": "2026-10-02T16:26:25.414288+00:00",
+2026-10-02T16:26:32.0462166Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0462439Z     "cgroupAncestorLimits": [
+2026-10-02T16:26:32.0462620Z       {
+2026-10-02T16:26:32.0462861Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0463136Z         "memoryMax": "max",
+2026-10-02T16:26:32.0463322Z         "memoryCurrent": "11190243328",
+2026-10-02T16:26:32.0463525Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0463704Z       },
+2026-10-02T16:26:32.0463848Z       {
+2026-10-02T16:26:32.0464004Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T16:26:32.0464213Z         "memoryMax": "max",
+2026-10-02T16:26:32.0464394Z         "memoryCurrent": "13755719680",
+2026-10-02T16:26:32.0464793Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0464962Z       },
+2026-10-02T16:26:32.0465098Z       {
+2026-10-02T16:26:32.0465243Z         "path": "/sys/fs/cgroup",
+2026-10-02T16:26:32.0465434Z         "memoryMax": null,
+2026-10-02T16:26:32.0465611Z         "memoryCurrent": null,
+2026-10-02T16:26:32.0465793Z         "cpuMax": null
+2026-10-02T16:26:32.0465951Z       }
+2026-10-02T16:26:32.0466090Z     ],
+2026-10-02T16:26:32.0466245Z     "hostMemAvailableBytes": 15558660096,
+2026-10-02T16:26:32.0466462Z     "effectiveAvailableBytes": 15558660096,
+2026-10-02T16:26:32.0466667Z     "allowedCpuIds": [
+2026-10-02T16:26:32.0466823Z       0,
+2026-10-02T16:26:32.0466958Z       1,
+2026-10-02T16:26:32.0467089Z       2,
+2026-10-02T16:26:32.0467323Z       3
+2026-10-02T16:26:32.0467461Z     ],
+2026-10-02T16:26:32.0467608Z     "diskFreeBytes": 82197737472
+2026-10-02T16:26:32.0467786Z   },
+2026-10-02T16:26:32.0467944Z   "hardDeadlineUtc": "2026-10-02T16:30:00Z",
+2026-10-02T16:26:32.0468166Z   "childStarted": true,
+2026-10-02T16:26:32.0468351Z   "peakTreeWorkingSetBytes": 3166797824,
+2026-10-02T16:26:32.0468563Z   "minimumAvailableBytes": 15239524352,
+2026-10-02T16:26:32.0468768Z   "startupMemoryMiB": 6144,
+2026-10-02T16:26:32.0468950Z   "treeMemoryMiB": 5120,
+2026-10-02T16:26:32.0471812Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T16:26:32.0474984Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+2026-10-02T16:26:32.0475412Z   "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+2026-10-02T16:26:32.0475733Z   "status": "success",
+2026-10-02T16:26:32.0475895Z   "exitCode": 0,
+2026-10-02T16:26:32.0476060Z   "stopReason": null,
+2026-10-02T16:26:32.0476241Z   "endUtc": "2026-10-02T16:26:27.397975+00:00",
+2026-10-02T16:26:32.0476465Z   "wallSeconds": 1.9836630821228027,
+2026-10-02T16:26:32.0477040Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-087-ElementaryCount-audit/stdout.log",
+2026-10-02T16:26:32.0477980Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-087-ElementaryCount-audit/stderr.log",
+2026-10-02T16:26:32.0478653Z   "stdoutSha256": "45e0ad632032fb6ffa4cac17df8cebd766597e41310490d7b34b180e62a9ff2e",
+2026-10-02T16:26:32.0479065Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+2026-10-02T16:26:32.0479367Z   "mode": "Lean",
+2026-10-02T16:26:32.0479851Z   "source": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/terminal_087_ElementaryCount_Audit.lean",
+2026-10-02T16:26:32.0480494Z   "sourceSha256": "ffa0e6efb2f5d066cc31005ecbba84014491d0f8baef7f7cdd25b21b82139d59",
+2026-10-02T16:26:32.0481203Z   "sourceSnapshot": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/terminal-087-ElementaryCount-audit/source.lean",
+2026-10-02T16:26:32.0481934Z   "sourceUnchanged": true,
+2026-10-02T16:26:32.0482488Z   "object": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/terminal_087_ElementaryCount_Audit.olean",
+2026-10-02T16:26:32.0483173Z   "objectSha256": "fab0cf072d33c31e08d4840fe42b2f2ffeb5f5db205694bf6678bfb97311f31d",
+2026-10-02T16:26:32.0483485Z   "objectParts": [
+2026-10-02T16:26:32.0483637Z     {
+2026-10-02T16:26:32.0484255Z       "path": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects/terminal_087_ElementaryCount_Audit.olean",
+2026-10-02T16:26:32.0485007Z       "bytes": 1872,
+2026-10-02T16:26:32.0485274Z       "sha256": "fab0cf072d33c31e08d4840fe42b2f2ffeb5f5db205694bf6678bfb97311f31d"
+2026-10-02T16:26:32.0485569Z     }
+2026-10-02T16:26:32.0485703Z   ]
+2026-10-02T16:26:32.0485836Z }
+2026-10-02T16:26:32.0485916Z 
+2026-10-02T16:26:32.0486063Z EC_BINDING_JSON terminal-087-ElementaryCount-audit/axiom-audit.json {
+2026-10-02T16:26:32.0486352Z   "utc": "2026-10-02T16:26:27.399485+00:00",
+2026-10-02T16:26:32.0486577Z   "status": "accepted-standard-axioms",
+2026-10-02T16:26:32.0486781Z   "roots": [
+2026-10-02T16:26:32.0486936Z     "B699TailCount.log_four",
+2026-10-02T16:26:32.0487125Z     "B699TailCount.log_128",
+2026-10-02T16:26:32.0487313Z     "B699TailCount.log_two_lower",
+2026-10-02T16:26:32.0487512Z     "B699TailCount.log_two_upper",
+2026-10-02T16:26:32.0487703Z     "B699TailCount.log_lower",
+2026-10-02T16:26:32.0487901Z     "B699TailCount.denominator_pos",
+2026-10-02T16:26:32.0488107Z     "B699TailCount.primes_le_128",
+2026-10-02T16:26:32.0488312Z     "B699TailCount.primeCounting_128",
+2026-10-02T16:26:32.0488527Z     "B699TailCount.primorial_128_lower",
+2026-10-02T16:26:32.0488741Z     "B699TailCount.theta_128_lower",
+2026-10-02T16:26:32.0488952Z     "B699TailCount.base_remainder_le",
+2026-10-02T16:26:32.0489160Z     "B699TailCount.correction_128_ge",
+2026-10-02T16:26:32.0489369Z     "B699TailCount.hasDerivAt_correction",
+2026-10-02T16:26:32.0489591Z     "B699TailCount.correctionDeriv_lower",
+2026-10-02T16:26:32.0489805Z     "B699TailCount.thetaIntegrand_le",
+2026-10-02T16:26:32.0490042Z     "B699TailCount.thetaIntegrand_intervalIntegrable",
+2026-10-02T16:26:32.0490324Z     "B699TailCount.correctionDeriv_intervalIntegrable",
+2026-10-02T16:26:32.0490584Z     "B699TailCount.integral_thetaIntegrand_le",
+2026-10-02T16:26:32.0490832Z     "B699TailCount.elementary_primeCounting_bound"
+2026-10-02T16:26:32.0491051Z   ],
+2026-10-02T16:26:32.0491201Z   "actualAxioms": {
+2026-10-02T16:26:32.0491369Z     "B699TailCount.log_four": [
+2026-10-02T16:26:32.0491553Z       "propext",
+2026-10-02T16:26:32.0491717Z       "Classical.choice",
+2026-10-02T16:26:32.0491896Z       "Quot.sound"
+2026-10-02T16:26:32.0492050Z     ],
+2026-10-02T16:26:32.0492203Z     "B699TailCount.log_128": [
+2026-10-02T16:26:32.0492388Z       "propext",
+2026-10-02T16:26:32.0492548Z       "Classical.choice",
+2026-10-02T16:26:32.0492717Z       "Quot.sound"
+2026-10-02T16:26:32.0492869Z     ],
+2026-10-02T16:26:32.0493019Z     "B699TailCount.log_two_lower": [
+2026-10-02T16:26:32.0493217Z       "propext",
+2026-10-02T16:26:32.0493372Z       "Classical.choice",
+2026-10-02T16:26:32.0493534Z       "Quot.sound"
+2026-10-02T16:26:32.0493678Z     ],
+2026-10-02T16:26:32.0493825Z     "B699TailCount.log_two_upper": [
+2026-10-02T16:26:32.0494016Z       "propext",
+2026-10-02T16:26:32.0494167Z       "Classical.choice",
+2026-10-02T16:26:32.0494332Z       "Quot.sound"
+2026-10-02T16:26:32.0494477Z     ],
+2026-10-02T16:26:32.0494717Z     "B699TailCount.log_lower": [
+2026-10-02T16:26:32.0494901Z       "propext",
+2026-10-02T16:26:32.0495055Z       "Classical.choice",
+2026-10-02T16:26:32.0495224Z       "Quot.sound"
+2026-10-02T16:26:32.0495366Z     ],
+2026-10-02T16:26:32.0495636Z     "B699TailCount.denominator_pos": [
+2026-10-02T16:26:32.0495830Z       "propext",
+2026-10-02T16:26:32.0495982Z       "Classical.choice",
+2026-10-02T16:26:32.0496145Z       "Quot.sound"
+2026-10-02T16:26:32.0496290Z     ],
+2026-10-02T16:26:32.0496437Z     "B699TailCount.primes_le_128": [
+2026-10-02T16:26:32.0496622Z       "propext",
+2026-10-02T16:26:32.0496774Z       "Classical.choice",
+2026-10-02T16:26:32.0496937Z       "Quot.sound"
+2026-10-02T16:26:32.0497083Z     ],
+2026-10-02T16:26:32.0497242Z     "B699TailCount.primeCounting_128": [
+2026-10-02T16:26:32.0497443Z       "propext",
+2026-10-02T16:26:32.0497594Z       "Classical.choice",
+2026-10-02T16:26:32.0497756Z       "Quot.sound"
+2026-10-02T16:26:32.0497899Z     ],
+2026-10-02T16:26:32.0498153Z     "B699TailCount.primorial_128_lower": [
+2026-10-02T16:26:32.0498356Z       "propext",
+2026-10-02T16:26:32.0498510Z       "Classical.choice",
+2026-10-02T16:26:32.0498675Z       "Quot.sound"
+2026-10-02T16:26:32.0498822Z     ],
+2026-10-02T16:26:32.0498980Z     "B699TailCount.theta_128_lower": [
+2026-10-02T16:26:32.0499173Z       "propext",
+2026-10-02T16:26:32.0499328Z       "Classical.choice",
+2026-10-02T16:26:32.0499492Z       "Quot.sound"
+2026-10-02T16:26:32.0499639Z     ],
+2026-10-02T16:26:32.0499791Z     "B699TailCount.base_remainder_le": [
+2026-10-02T16:26:32.0499989Z       "propext",
+2026-10-02T16:26:32.0500141Z       "Classical.choice",
+2026-10-02T16:26:32.0500305Z       "Quot.sound"
+2026-10-02T16:26:32.0500449Z     ],
+2026-10-02T16:26:32.0500601Z     "B699TailCount.correction_128_ge": [
+2026-10-02T16:26:32.0500794Z       "propext",
+2026-10-02T16:26:32.0500945Z       "Classical.choice",
+2026-10-02T16:26:32.0501116Z       "Quot.sound"
+2026-10-02T16:26:32.0501257Z     ],
+2026-10-02T16:26:32.0501423Z     "B699TailCount.hasDerivAt_correction": [
+2026-10-02T16:26:32.0501630Z       "propext",
+2026-10-02T16:26:32.0501785Z       "Classical.choice",
+2026-10-02T16:26:32.0501948Z       "Quot.sound"
+2026-10-02T16:26:32.0502091Z     ],
+2026-10-02T16:26:32.0502255Z     "B699TailCount.correctionDeriv_lower": [
+2026-10-02T16:26:32.0502458Z       "propext",
+2026-10-02T16:26:32.0502608Z       "Classical.choice",
+2026-10-02T16:26:32.0502772Z       "Quot.sound"
+2026-10-02T16:26:32.0502917Z     ],
+2026-10-02T16:26:32.0503074Z     "B699TailCount.thetaIntegrand_le": [
+2026-10-02T16:26:32.0503270Z       "propext",
+2026-10-02T16:26:32.0503419Z       "Classical.choice",
+2026-10-02T16:26:32.0503582Z       "Quot.sound"
+2026-10-02T16:26:32.0503726Z     ],
+2026-10-02T16:26:32.0503908Z     "B699TailCount.thetaIntegrand_intervalIntegrable": [
+2026-10-02T16:26:32.0504143Z       "propext",
+2026-10-02T16:26:32.0504292Z       "Classical.choice",
+2026-10-02T16:26:32.0504455Z       "Quot.sound"
+2026-10-02T16:26:32.0504600Z     ],
+2026-10-02T16:26:32.0504881Z     "B699TailCount.correctionDeriv_intervalIntegrable": [
+2026-10-02T16:26:32.0505120Z       "propext",
+2026-10-02T16:26:32.0505278Z       "Classical.choice",
+2026-10-02T16:26:32.0505439Z       "Quot.sound"
+2026-10-02T16:26:32.0505595Z     ],
+2026-10-02T16:26:32.0505762Z     "B699TailCount.integral_thetaIntegrand_le": [
+2026-10-02T16:26:32.0505981Z       "propext",
+2026-10-02T16:26:32.0506132Z       "Classical.choice",
+2026-10-02T16:26:32.0506294Z       "Quot.sound"
+2026-10-02T16:26:32.0506440Z     ],
+2026-10-02T16:26:32.0506615Z     "B699TailCount.elementary_primeCounting_bound": [
+2026-10-02T16:26:32.0506840Z       "propext",
+2026-10-02T16:26:32.0506994Z       "Classical.choice",
+2026-10-02T16:26:32.0507164Z       "Quot.sound"
+2026-10-02T16:26:32.0507311Z     ]
+2026-10-02T16:26:32.0507445Z   },
+2026-10-02T16:26:32.0507703Z   "sourceSha256": "ffa0e6efb2f5d066cc31005ecbba84014491d0f8baef7f7cdd25b21b82139d59",
+2026-10-02T16:26:32.0508137Z   "stdoutSha256": "45e0ad632032fb6ffa4cac17df8cebd766597e41310490d7b34b180e62a9ff2e"
+2026-10-02T16:26:32.0508435Z }
+2026-10-02T16:26:32.0508515Z 
+2026-10-02T16:26:32.0508580Z EC_CHECKER_JSON {
+2026-10-02T16:26:32.0508746Z   "utc": "2026-10-02T16:26:27.402040+00:00",
+2026-10-02T16:26:32.0508959Z   "startUtc": "2026-10-02T16:26:27.402053+00:00",
+2026-10-02T16:26:32.0509282Z   "arguments": [
+2026-10-02T16:26:32.0509540Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+2026-10-02T16:26:32.0509831Z     "-v",
+2026-10-02T16:26:32.0510426Z     "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».tail.ElementaryCount"
+2026-10-02T16:26:32.0510777Z   ],
+2026-10-02T16:26:32.0510918Z   "pid": 2645,
+2026-10-02T16:26:32.0511115Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T16:26:32.0511344Z   "cpus": [
+2026-10-02T16:26:32.0511484Z     0,
+2026-10-02T16:26:32.0511620Z     1
+2026-10-02T16:26:32.0511755Z   ],
+2026-10-02T16:26:32.0511892Z   "nice": 19,
+2026-10-02T16:26:32.0512049Z   "resourceBefore": {
+2026-10-02T16:26:32.0512334Z     "utc": "2026-10-02T16:26:27.400149+00:00",
+2026-10-02T16:26:32.0512622Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0512896Z     "cgroupAncestorLimits": [
+2026-10-02T16:26:32.0513077Z       {
+2026-10-02T16:26:32.0513309Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T16:26:32.0513587Z         "memoryMax": "max",
+2026-10-02T16:26:32.0513773Z         "memoryCurrent": "11189821440",
+2026-10-02T16:26:32.0513976Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0514150Z       },
+2026-10-02T16:26:32.0514288Z       {
+2026-10-02T16:26:32.0514451Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T16:26:32.0514751Z         "memoryMax": "max",
+2026-10-02T16:26:32.0514936Z         "memoryCurrent": "13755297792",
+2026-10-02T16:26:32.0515129Z         "cpuMax": "max 100000"
+2026-10-02T16:26:32.0515299Z       },
+2026-10-02T16:26:32.0515433Z       {
+2026-10-02T16:26:32.0515582Z         "path": "/sys/fs/cgroup",
+2026-10-02T16:26:32.0515783Z         "memoryMax": null,
+2026-10-02T16:26:32.0515966Z         "memoryCurrent": null,
+2026-10-02T16:26:32.0516151Z         "cpuMax": null
+2026-10-02T16:26:32.0516315Z       }
+2026-10-02T16:26:32.0516448Z     ],
+2026-10-02T16:26:32.0516614Z     "hostMemAvailableBytes": 15442993152,
+2026-10-02T16:26:32.0516835Z     "effectiveAvailableBytes": 15442993152,
+2026-10-02T16:26:32.0517044Z     "allowedCpuIds": [
+2026-10-02T16:26:32.0517201Z       0,
+2026-10-02T16:26:32.0517335Z       1,
+2026-10-02T16:26:32.0517472Z       2,
+2026-10-02T16:26:32.0517608Z       3
+2026-10-02T16:26:32.0517741Z     ],
+2026-10-02T16:26:32.0517889Z     "diskFreeBytes": 82197716992
+2026-10-02T16:26:32.0518066Z   },
+2026-10-02T16:26:32.0518224Z   "hardDeadlineUtc": "2026-10-02T16:30:00Z",
+2026-10-02T16:26:32.0518437Z   "childStarted": true,
+2026-10-02T16:26:32.0518627Z   "peakTreeWorkingSetBytes": 2834132992,
+2026-10-02T16:26:32.0518846Z   "minimumAvailableBytes": 15327924224,
+2026-10-02T16:26:32.0519054Z   "startupMemoryMiB": 6144,
+2026-10-02T16:26:32.0519236Z   "treeMemoryMiB": 5120,
+2026-10-02T16:26:32.0522116Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T16:26:32.0525430Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+2026-10-02T16:26:32.0526011Z   "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0",
+2026-10-02T16:26:32.0526346Z   "status": "success",
+2026-10-02T16:26:32.0526510Z   "exitCode": 0,
+2026-10-02T16:26:32.0526672Z   "stopReason": null,
+2026-10-02T16:26:32.0526854Z   "endUtc": "2026-10-02T16:26:32.028870+00:00",
+2026-10-02T16:26:32.0527072Z   "wallSeconds": 4.628656625747681,
+2026-10-02T16:26:32.0527683Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/representative-elementary-normal-checker/stdout.log",
+2026-10-02T16:26:32.0528767Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/representative-elementary-normal-checker/stderr.log",
+2026-10-02T16:26:32.0529488Z   "stdoutSha256": "86e7a4b2767627e9c6314586ff0f6359709b6db2bf18bfecff36c4a630145c00",
+2026-10-02T16:26:32.0529913Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+2026-10-02T16:26:32.0530215Z }
+2026-10-02T16:26:32.0530296Z 
+2026-10-02T16:26:32.0530450Z PARTIAL_EC_ONLY: full fixed chain exceeds actual remaining budget
+2026-10-02T16:26:32.0572152Z ##[group]Run python3 "$B699_RUNTIME/cold-stage-v2.py" manifest
+2026-10-02T16:26:32.0572527Z [36;1mpython3 "$B699_RUNTIME/cold-stage-v2.py" manifest[0m
+2026-10-02T16:26:32.0627450Z shell: /usr/bin/bash -e {0}
+2026-10-02T16:26:32.0627665Z env:
+2026-10-02T16:26:32.0628065Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:26:32.0628509Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:26:32.0628708Z ##[endgroup]
+2026-10-02T16:26:32.1364179Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-02T16:26:32.1364523Z with:
+2026-10-02T16:26:32.1364949Z   name: b699-terminal-legacy-ab0056429b2cd4ce1fd2a04c069cdf345382316d-37033645484
+2026-10-02T16:26:32.1365449Z   path: .tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/evidence/
+2026-10-02T16:26:32.1365804Z   if-no-files-found: warn
+2026-10-02T16:26:32.1365989Z   retention-days: 30
+2026-10-02T16:26:32.1366164Z   compression-level: 6
+2026-10-02T16:26:32.1366341Z   overwrite: false
+2026-10-02T16:26:32.1366511Z   include-hidden-files: false
+2026-10-02T16:26:32.1366698Z env:
+2026-10-02T16:26:32.1367073Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:26:32.1367510Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:26:32.1367702Z ##[endgroup]
+2026-10-02T16:26:32.2765521Z (node:2665) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-02T16:26:32.2766207Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-02T16:26:32.2983281Z With the provided path, there will be 86 files uploaded
+2026-10-02T16:26:32.2983938Z Artifact name is valid!
+2026-10-02T16:26:32.2984233Z Root directory input is valid!
+2026-10-02T16:26:32.5398768Z Beginning upload of artifact content to blob storage
+2026-10-02T16:26:32.6529442Z (node:2665) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-02T16:26:32.9341328Z Uploaded bytes 564567
+2026-10-02T16:26:32.9666820Z Finished uploading artifact content to blob storage!
+2026-10-02T16:26:32.9667589Z SHA256 digest of uploaded artifact zip is 9abe3616decca9aa0732eb919376b9411310017820f2a46c4a5c979d7df68ca8
+2026-10-02T16:26:32.9668281Z Finalizing artifact upload
+2026-10-02T16:26:33.2132446Z Artifact b699-terminal-legacy-ab0056429b2cd4ce1fd2a04c069cdf345382316d-37033645484.zip successfully finalized. Artifact ID 11238857142
+2026-10-02T16:26:33.2134831Z Artifact b699-terminal-legacy-ab0056429b2cd4ce1fd2a04c069cdf345382316d-37033645484 has been successfully uploaded! Final size is 564567 bytes. Artifact ID is 11238857142
+2026-10-02T16:26:33.2137907Z Artifact download URL: https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37033645484/artifacts/11238857142
+2026-10-02T16:26:33.2258139Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-02T16:26:33.2258465Z with:
+2026-10-02T16:26:33.2258775Z   name: b699-terminal-independent-ab0056429b2cd4ce1fd2a04c069cdf345382316d-37033645484
+2026-10-02T16:26:33.2259285Z   path: .tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/validation/
+2026-10-02T16:26:33.2259642Z   if-no-files-found: warn
+2026-10-02T16:26:33.2259834Z   retention-days: 30
+2026-10-02T16:26:33.2260012Z   compression-level: 6
+2026-10-02T16:26:33.2260193Z   overwrite: false
+2026-10-02T16:26:33.2260368Z   include-hidden-files: false
+2026-10-02T16:26:33.2260561Z env:
+2026-10-02T16:26:33.2260960Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/runtime
+2026-10-02T16:26:33.2261405Z   B699_JOB_START_EPOCH: 1790958235
+2026-10-02T16:26:33.2261606Z ##[endgroup]
+2026-10-02T16:26:33.3662335Z (node:2677) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-02T16:26:33.3663057Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-02T16:26:33.3697366Z ##[warning]No files were found with the provided path: .tools/b699-lean-20261001-01a0f779/20261002-terminal-until0030/runtime/full/validation/. No artifacts will be uploaded.
+2026-10-02T16:26:33.3882839Z Post job cleanup.
+2026-10-02T16:26:33.4642133Z [command]/usr/bin/git version
+2026-10-02T16:26:33.4689234Z git version 2.55.0
+2026-10-02T16:26:33.4734135Z Temporarily overriding HOME='/home/runner/work/_temp/130dd727-c1e5-480a-8334-b1daa333c869' before making global git config changes
+2026-10-02T16:26:33.4735307Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T16:26:33.4739031Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T16:26:33.4770397Z Removing SSH command configuration
+2026-10-02T16:26:33.4775870Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T16:26:33.4810231Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T16:26:33.5105867Z Removing HTTP extra header
+2026-10-02T16:26:33.5110880Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T16:26:33.5146592Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T16:26:33.5445449Z Removing includeIf entries pointing to credentials config files
+2026-10-02T16:26:33.5451458Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T16:26:33.5480103Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T16:26:33.5480676Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T16:26:33.5481053Z includeif.gitdir:/github/workspace/.git.path
+2026-10-02T16:26:33.5481345Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T16:26:33.5488579Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T16:26:33.5513423Z /home/runner/work/_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:26:33.5522029Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-cf50464d\-95c3\-4895\-9f4b\-d380fa8c784f\.config
+2026-10-02T16:26:33.5558770Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T16:26:33.5583802Z /home/runner/work/_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:26:33.5598941Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-cf50464d\-95c3\-4895\-9f4b\-d380fa8c784f\.config
+2026-10-02T16:26:33.5636335Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-02T16:26:33.5660663Z /github/runner_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:26:33.5667766Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-cf50464d\-95c3\-4895\-9f4b\-d380fa8c784f\.config
+2026-10-02T16:26:33.5702727Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T16:26:33.5726301Z /github/runner_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config
+2026-10-02T16:26:33.5733234Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-cf50464d\-95c3\-4895\-9f4b\-d380fa8c784f\.config
+2026-10-02T16:26:33.5767856Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T16:26:33.6035769Z Removing credentials config '/home/runner/work/_temp/git-credentials-cf50464d-95c3-4895-9f4b-d380fa8c784f.config'
+2026-10-02T16:26:33.6165090Z Cleaning up orphan processes
+2026-10-02T16:26:33.6429426Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

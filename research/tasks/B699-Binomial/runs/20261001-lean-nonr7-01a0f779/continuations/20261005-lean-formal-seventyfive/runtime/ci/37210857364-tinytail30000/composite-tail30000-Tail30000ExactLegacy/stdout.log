@@ -1,0 +1,8 @@
+theorem B699TailFinishVerify20261004.complete_30000_exact : ∀ (n j : ℕ),
+  30000 < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ 30000 ≤ p ∧ p ∣ n.choose 30000 ∧ p ∣ n.choose j :=
+fun n j hij hjn => B699TailFinish20261004.FullInitial.complete_30000 hij hjn
+'B699TailFinishVerify20261004.complete_30000_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem B699TailFinishVerify20261004.all_upto_30000_exact : ∀ (n i j : ℕ),
+  4883 ≤ i → i ≤ 30000 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun n i j hi hiu hij hjn => B699TailFinish20261004.FullInitial.common_upto_30000 hi hiu hij hjn
+'B699TailFinishVerify20261004.all_upto_30000_exact' depends on axioms: [propext, Classical.choice, Quot.sound]

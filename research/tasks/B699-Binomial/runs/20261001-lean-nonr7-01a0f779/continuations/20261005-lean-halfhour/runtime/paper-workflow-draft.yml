@@ -1,0 +1,91 @@
+name: B699 controlled local power prerequisites and conditional consumers
+on:
+  workflow_dispatch:
+  push:
+    branches: ['huan/b699-lean-next-20261002-01a0f779']
+    paths:
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/runtime/paper-stage-spec.json'
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/runtime/paper-stage.py'
+permissions:
+  contents: read
+concurrency:
+  group: b699-controlled-proof
+  cancel-in-progress: false
+jobs:
+  scoped:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/runtime
+    steps:
+      - name: Reject expired new round launch window
+        run: |
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 18:49:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Actual resources and both frozen finite height sources
+        id: plan
+        run: python3 "$B699_RUNTIME/paper-stage.py" preflight
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Restore ten exact origins and345source objects
+        env:
+          B699_ARTIFACT_TOKEN: ${{ github.token }}
+        run: python3 "$B699_RUNTIME/paper-stage.py" prepare
+      - name: Complete powerdecomp source and exact literal
+        if: success() && steps.plan.outputs.powerdecomp_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" powerdecomp
+      - name: Preserve complete powerdecomp checkpoint
+        if: always() && steps.plan.outputs.powerdecomp_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" package-powerdecomp
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.powerdecomp_enabled == 'true'
+        with:
+          name: b699-halfhour-powerdecomp-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-halfhour/paper-runtime/powerdecomp-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete powercore source and exact literal
+        if: success() && steps.plan.outputs.powercore_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" powercore
+      - name: Preserve complete powercore checkpoint
+        if: always() && steps.plan.outputs.powercore_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" package-powercore
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.powercore_enabled == 'true'
+        with:
+          name: b699-halfhour-powercore-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-halfhour/paper-runtime/powercore-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete localpower source and exact literal
+        if: success() && steps.plan.outputs.localpower_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" localpower
+      - name: Preserve complete localpower checkpoint
+        if: always() && steps.plan.outputs.localpower_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" package-localpower
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.localpower_enabled == 'true'
+        with:
+          name: b699-halfhour-localpower-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-halfhour/paper-runtime/localpower-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete weakupper source and exact literal
+        if: success() && steps.plan.outputs.weakupper_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" weakupper
+      - name: Preserve complete weakupper checkpoint
+        if: always() && steps.plan.outputs.weakupper_enabled == 'true'
+        run: python3 "$B699_RUNTIME/paper-stage.py" package-weakupper
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.weakupper_enabled == 'true'
+        with:
+          name: b699-halfhour-weakupper-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-halfhour/paper-runtime/weakupper-delivery/
+          if-no-files-found: warn
+          retention-days: 30

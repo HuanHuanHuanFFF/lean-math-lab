@@ -1,0 +1,92 @@
+name: B699 controlled local power actual endpoint LP proof
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: b699-controlled-proof
+  cancel-in-progress: false
+jobs:
+  scoped:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/runtime
+    steps:
+      - name: Admit this run and source before checkout
+        run: |
+          task_job_start=$(date -u +%s)
+          test "$task_job_start" -ge "$(date -u -d '2026-10-05 08:04:27 UTC' +%s)" || exit 124
+          test "$task_job_start" -le "$(date -u -d '2026-10-05 09:20:00 UTC' +%s)" || exit 124
+          echo "B699_ADMITTED_JOB_START_EPOCH=$task_job_start" >> "$GITHUB_ENV"
+          echo "B699_ADMITTED_JOB_RUN_ID=$GITHUB_RUN_ID" >> "$GITHUB_ENV"
+          echo "B699_ADMITTED_JOB_SOURCE_SHA=$GITHUB_SHA" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Actual resource and fixed source preflight
+        id: plan
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" preflight
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Focused Mathlib cache and representative import
+        id: prepare
+        env:
+          B699_ARTIFACT_TOKEN: ${{ github.token }}
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" prepare
+      - name: Fresh rootwidth producer and independent literal
+        if: always() && steps.prepare.outcome == 'success' && steps.plan.outputs.rootwidth_enabled == 'true'
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" rootwidth
+      - name: Preserve rootwidth complete or failed checkpoint
+        if: always()
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" package-rootwidth
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-ninetymin-rootwidth-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/endpoint-runtime/rootwidth-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Fresh master producer and independent literal
+        if: always() && steps.prepare.outcome == 'success' && steps.plan.outputs.master_enabled == 'true'
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" master
+      - name: Preserve master complete or failed checkpoint
+        if: always()
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" package-master
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-ninetymin-master-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/endpoint-runtime/master-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Fresh monotonic producer and independent literal
+        if: always() && steps.prepare.outcome == 'success' && steps.plan.outputs.monotonic_enabled == 'true'
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" monotonic
+      - name: Preserve monotonic complete or failed checkpoint
+        if: always()
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" package-monotonic
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-ninetymin-monotonic-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/endpoint-runtime/monotonic-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Fresh endpoint producer and independent literal
+        if: always() && steps.prepare.outcome == 'success' && steps.plan.outputs.endpoint_enabled == 'true'
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" endpoint
+      - name: Preserve endpoint complete or failed checkpoint
+        if: always()
+        run: python3 "$B699_RUNTIME/endpoint-stage.py" package-endpoint
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-ninetymin-endpoint-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/endpoint-runtime/endpoint-delivery/
+          if-no-files-found: warn
+          retention-days: 30

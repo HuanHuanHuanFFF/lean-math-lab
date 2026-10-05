@@ -1,0 +1,7 @@
+theorem B699GapFiniteVerify20261003.pilot64_chain_exact : B699Finite20261002.PrimeChain 2442 9999889 10149203 :=
+B699GapSlice20261003.chain
+theorem B699GapFiniteVerify20261003.pilot64_initial_slice_exact : ∀ (y : ℕ),
+  10000000 ≤ y → y < 10146761 → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y :=
+fun y hy hyhi => B699GapSlice20261003.initial_slice hy hyhi
+'B699GapFiniteVerify20261003.pilot64_chain_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699GapFiniteVerify20261003.pilot64_initial_slice_exact' depends on axioms: [propext, Classical.choice, Quot.sound]

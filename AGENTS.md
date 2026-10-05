@@ -16,7 +16,19 @@ Give each mathematical problem one stable directory under `research/tasks/<id>-<
 
 Record each run's owner, owned files, source baseline, reused results, last proved result, failed approaches, next subgoal, and effort checkpoint. Workers within a run own disjoint files or subdirectories. Coordinate changes to shared files through one owner; merge contributions without replacing another run's account. Keep research, proof, review, novelty, and publication states separate. Preserve other tasks' untracked or modified files.
 
-Unless the user specifies otherwise, delegate substantive mathematical research to `gpt-6-astra` with reasoning effort `max`, with at most two such research subagents active concurrently across the task tree, excluding the primary agent. This is a ceiling, not a required roster. Delegate routine organization, documentation, and bounded support work to `gpt-6-luna` with reasoning effort `max`. Use a fresh or bounded history fork; full-history forks inherit parent settings. Specify file ownership and acceptance checks. Coordinate edits to shared modules, dependencies, and entry points through the primary task.
+Unless the user specifies otherwise, classify each delegated task by its mathematical uncertainty and execution difficulty, then select its model automatically:
+
+| Task class | Model / reasoning effort | Typical work |
+|---|---|---|
+| Research | `gpt-6-astra` / `max` | Develop mathematical routes, resolve an unproved argument, or establish a new bound or structural reduction. |
+| Complex work with an established target | `gpt-6.1-sol` / `xhigh` | Understand or organize substantial material, implement Lean proofs, connect dependencies, debug difficult failures, or review nontrivial statement correspondence. |
+| Simple, bounded work with a fixed procedure | `gpt-6-luna` / `xhigh`; use `max` for careful multi-step checks | Routine organization, focused edits, and running or checking established compilation, certificate, axiom-audit, or log procedures. |
+
+Route verification by its actual difficulty: a fixed check can use Luna, a complex semantic or dependency review uses Sol, and an unresolved mathematical justification uses Astra. Keep the same source-aligned statements, executable acceptance checks, and independent-verifier requirements for every model. Split mixed tasks when their files and outputs can be owned independently; otherwise use the model for the hardest required part.
+
+Record the task class, model, reasoning effort, ownership, and acceptance checks in the worker brief. Reclassify when the observed work crosses a class boundary; retain the same task identity, evidence, and shared deadline, and record the reason. A routine tool failure alone does not make a task mathematical research. Reuse an existing worker only when its model and effort match the assigned class.
+
+Keep at most two research subagents active concurrently across the task tree, excluding the primary agent; total concurrency also follows the user's round limit and the available runtime capacity. These are ceilings, not a required roster. Use a fresh or bounded history fork when selecting a model or effort; full-history forks inherit parent settings. Coordinate edits to shared modules, dependencies, and entry points through the primary task.
 
 ## Research Time Budget
 

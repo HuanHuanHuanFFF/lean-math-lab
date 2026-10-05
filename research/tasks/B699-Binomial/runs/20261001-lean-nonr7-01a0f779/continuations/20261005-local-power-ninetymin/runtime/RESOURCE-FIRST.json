@@ -1,0 +1,691 @@
+{
+  "sourceCommit": "b3a4e16cbf243cc59f1811765830777594cc61e9",
+  "runId": 37282736334,
+  "selectedResources": {
+    "resources-start.json": {
+      "utc": "2026-10-05T08:18:16.991840+00:00",
+      "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+      "cgroupAncestorLimits": [
+        {
+          "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+          "memoryMax": "max",
+          "memoryCurrent": "4417945600",
+          "cpuMax": "max 100000"
+        },
+        {
+          "path": "/sys/fs/cgroup/system.slice",
+          "memoryMax": "max",
+          "memoryCurrent": "6984581120",
+          "cpuMax": "max 100000"
+        },
+        {
+          "path": "/sys/fs/cgroup",
+          "memoryMax": null,
+          "memoryCurrent": null,
+          "cpuMax": null
+        }
+      ],
+      "hostMemAvailableBytes": 15020990464,
+      "effectiveAvailableBytes": 15020990464,
+      "allowedCpuIds": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "diskFreeBytes": 88619245568
+    },
+    "resources-package-powerdecomp.json": {
+      "utc": "2026-10-05T08:20:23.667131+00:00",
+      "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+      "cgroupAncestorLimits": [
+        {
+          "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+          "memoryMax": "max",
+          "memoryCurrent": "11445088256",
+          "cpuMax": "max 100000"
+        },
+        {
+          "path": "/sys/fs/cgroup/system.slice",
+          "memoryMax": "max",
+          "memoryCurrent": "14012342272",
+          "cpuMax": "max 100000"
+        },
+        {
+          "path": "/sys/fs/cgroup",
+          "memoryMax": null,
+          "memoryCurrent": null,
+          "cpuMax": null
+        }
+      ],
+      "hostMemAvailableBytes": 15477362688,
+      "effectiveAvailableBytes": 15477362688,
+      "allowedCpuIds": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "diskFreeBytes": 81966243840
+    },
+    "job-admission.json": {
+      "admittedJobStartEpoch": 1791188267,
+      "preflightObservedEpoch": 1791188296.991106,
+      "source": "b3a4e16cbf243cc59f1811765830777594cc61e9",
+      "runId": "37282736334",
+      "classification": "same-job start admitted before checkout; proof deadline unchanged"
+    },
+    "toolchain.json": {
+      "utc": "2026-10-05T08:18:30.051610+00:00",
+      "lean": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+      "leanchecker": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+      "version": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+      "leanSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      "leancheckerSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0"
+    }
+  },
+  "receipts": [
+    {
+      "member": "composite-minimal-relevant-import/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:06.066686+00:00",
+      "endUtc": "2026-10-05T08:20:08.091711+00:00",
+      "wallSeconds": 2.0271594524383545,
+      "peakTreeWorkingSetBytes": 3183771648,
+      "stopReason": null,
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M6144",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/minimal-runtime/evidence/relevant-import.lean"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 6144,
+      "treeMemoryMiB": 5120,
+      "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      "minimumAvailableBytes": 15221272576
+    },
+    {
+      "member": "composite-powerdecomp-LocalPowerDecomposition/receipt.json",
+      "mode": "Lean",
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:09.049705+00:00",
+      "endUtc": "2026-10-05T08:20:11.077446+00:00",
+      "wallSeconds": 2.0299477577209473,
+      "peakTreeWorkingSetBytes": 1784623104,
+      "stopReason": null,
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M6144",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/minimal-runtime/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/supply/LocalPowerDecomposition.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/supply/LocalPowerDecomposition.lean"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 6144,
+      "treeMemoryMiB": 5120,
+      "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      "minimumAvailableBytes": 15348244480
+    },
+    {
+      "member": "composite-powerdecomp-LocalPowerDecomposition-normal-checker/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:11.265779+00:00",
+      "endUtc": "2026-10-05T08:20:16.145505+00:00",
+      "wallSeconds": 4.88175892829895,
+      "peakTreeWorkingSetBytes": 2833113088,
+      "stopReason": null,
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "-v",
+        "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20261001-lean-nonr7-01a0f779\u00bb.continuations.\u00ab20261005-lean-halfhour\u00bb.supply.LocalPowerDecomposition"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 6144,
+      "treeMemoryMiB": 5120,
+      "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0",
+      "minimumAvailableBytes": 15294783488
+    },
+    {
+      "member": "composite-powerdecomp-LocalPowerDecomposition-strict-axioms/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:11.083802+00:00",
+      "endUtc": "2026-10-05T08:20:11.262125+00:00",
+      "wallSeconds": 0.18050026893615723,
+      "peakTreeWorkingSetBytes": 16293888,
+      "stopReason": null,
+      "arguments": [
+        "python3",
+        "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/check_transitive_axioms.py",
+        "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/supply/LocalPowerDecomposition.lean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/minimal-runtime/evidence/composite-powerdecomp-LocalPowerDecomposition/stdout.log",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/minimal-runtime/evidence/composite-powerdecomp-LocalPowerDecomposition/strict-axiom-audit.json"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 6144,
+      "treeMemoryMiB": 5120,
+      "executableSha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+      "minimumAvailableBytes": 15428227072
+    },
+    {
+      "member": "composite-powerdecomp-LocalPowerDecompositionLiteral/receipt.json",
+      "mode": "Lean",
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:16.149900+00:00",
+      "endUtc": "2026-10-05T08:20:18.512530+00:00",
+      "wallSeconds": 2.364746332168579,
+      "peakTreeWorkingSetBytes": 3193778176,
+      "stopReason": null,
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M6144",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/minimal-runtime/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LocalPowerDecompositionLiteral.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LocalPowerDecompositionLiteral.lean"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 6144,
+      "treeMemoryMiB": 5120,
+      "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      "minimumAvailableBytes": 15193296896
+    },
+    {
+      "member": "composite-powerdecomp-LocalPowerDecompositionLiteral-normal-checker/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:18.695952+00:00",
+      "endUtc": "2026-10-05T08:20:23.584332+00:00",
+      "wallSeconds": 4.890345096588135,
+      "peakTreeWorkingSetBytes": 2833276928,
+      "stopReason": null,
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "-v",
+        "research.tasks.\u00abB699-Binomial\u00bb.runs.\u00ab20261001-lean-nonr7-01a0f779\u00bb.continuations.\u00ab20261005-local-power-ninetymin\u00bb.reviews.LocalPowerDecompositionLiteral"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 6144,
+      "treeMemoryMiB": 5120,
+      "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0",
+      "minimumAvailableBytes": 15327440896
+    },
+    {
+      "member": "composite-powerdecomp-LocalPowerDecompositionLiteral-strict-axioms/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:18.517962+00:00",
+      "endUtc": "2026-10-05T08:20:18.692401+00:00",
+      "wallSeconds": 0.17674779891967773,
+      "peakTreeWorkingSetBytes": 16134144,
+      "stopReason": null,
+      "arguments": [
+        "python3",
+        "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/check_transitive_axioms.py",
+        "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LocalPowerDecompositionLiteral.lean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/minimal-runtime/evidence/composite-powerdecomp-LocalPowerDecompositionLiteral/stdout.log",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261005-local-power-ninetymin/minimal-runtime/evidence/composite-powerdecomp-LocalPowerDecompositionLiteral/strict-axiom-audit.json"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 6144,
+      "treeMemoryMiB": 5120,
+      "executableSha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f",
+      "minimumAvailableBytes": 15335161856
+    },
+    {
+      "member": "focused-cache/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:18:30.055301+00:00",
+      "endUtc": "2026-10-05T08:20:05.130513+00:00",
+      "wallSeconds": 95.07755446434021,
+      "peakTreeWorkingSetBytes": 1833279488,
+      "stopReason": null,
+      "arguments": [
+        "lake",
+        "exe",
+        "cache",
+        "get",
+        "Mathlib.Algebra.Order.Floor.Semiring",
+        "Mathlib.NumberTheory.Chebyshev",
+        "Mathlib.Order.Interval.Finset.Nat",
+        "Mathlib.Tactic.Linarith",
+        "Mathlib.Tactic.NormNum",
+        "Mathlib.Tactic.Ring"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 5120,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "e0f4b30b29c565625189744847dfef5f132b6322c5e452dbebfeae780c9749e5",
+      "minimumAvailableBytes": 15015714816
+    },
+    {
+      "member": "lean-path-1791188405199193673/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.201634+00:00",
+      "endUtc": "2026-10-05T08:20:06.062377+00:00",
+      "wallSeconds": 0.862356424331665,
+      "peakTreeWorkingSetBytes": 862875648,
+      "stopReason": null,
+      "arguments": [
+        "lake",
+        "env",
+        "printenv",
+        "LEAN_PATH"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "e0f4b30b29c565625189744847dfef5f132b6322c5e452dbebfeae780c9749e5",
+      "minimumAvailableBytes": 15328083968
+    },
+    {
+      "member": "lean-path-1791188408178800280/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:08.181290+00:00",
+      "endUtc": "2026-10-05T08:20:09.044384+00:00",
+      "wallSeconds": 0.8648831844329834,
+      "peakTreeWorkingSetBytes": 863027200,
+      "stopReason": null,
+      "arguments": [
+        "lake",
+        "env",
+        "printenv",
+        "LEAN_PATH"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "e0f4b30b29c565625189744847dfef5f132b6322c5e452dbebfeae780c9749e5",
+      "minimumAvailableBytes": 15308386304
+    },
+    {
+      "member": "normnum-prime-canonical-git-blob/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.193946+00:00",
+      "endUtc": "2026-10-05T08:20:05.197845+00:00",
+      "wallSeconds": 0.0055637359619140625,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib",
+        "show",
+        "0df444a360eaa60ab8c11dca51a86af692955474:Mathlib/Tactic/NormNum/Prime.lean"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15387709440
+    },
+    {
+      "member": "pin-Cli/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.187398+00:00",
+      "endUtc": "2026-10-05T08:20:05.191141+00:00",
+      "wallSeconds": 0.0053403377532958984,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15387107328
+    },
+    {
+      "member": "pin-LeanSearchClient/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.147723+00:00",
+      "endUtc": "2026-10-05T08:20:05.151571+00:00",
+      "wallSeconds": 0.005506753921508789,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15386750976
+    },
+    {
+      "member": "pin-Qq/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.174456+00:00",
+      "endUtc": "2026-10-05T08:20:05.178210+00:00",
+      "wallSeconds": 0.005403757095336914,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15387308032
+    },
+    {
+      "member": "pin-aesop/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.167735+00:00",
+      "endUtc": "2026-10-05T08:20:05.171628+00:00",
+      "wallSeconds": 0.005609273910522461,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15387516928
+    },
+    {
+      "member": "pin-batteries/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.180913+00:00",
+      "endUtc": "2026-10-05T08:20:05.184662+00:00",
+      "wallSeconds": 0.005282163619995117,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15387508736
+    },
+    {
+      "member": "pin-importGraph/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.154302+00:00",
+      "endUtc": "2026-10-05T08:20:05.158185+00:00",
+      "wallSeconds": 0.005462646484375,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15387303936
+    },
+    {
+      "member": "pin-mathlib/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.134407+00:00",
+      "endUtc": "2026-10-05T08:20:05.138286+00:00",
+      "wallSeconds": 0.006085872650146484,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15386951680
+    },
+    {
+      "member": "pin-plausible/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.141108+00:00",
+      "endUtc": "2026-10-05T08:20:05.144954+00:00",
+      "wallSeconds": 0.005423545837402344,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15386951680
+    },
+    {
+      "member": "pin-proofwidgets/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:20:05.160938+00:00",
+      "endUtc": "2026-10-05T08:20:05.164814+00:00",
+      "wallSeconds": 0.005447864532470703,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "git",
+        "-C",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "d4d2ba562243015206d4248edfec871a74786499292d00ed072dbca2f5ae8073",
+      "minimumAvailableBytes": 15387316224
+    },
+    {
+      "member": "toolchain-prefix/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:18:29.608434+00:00",
+      "endUtc": "2026-10-05T08:18:29.814269+00:00",
+      "wallSeconds": 0.20768475532531738,
+      "peakTreeWorkingSetBytes": 0,
+      "stopReason": null,
+      "arguments": [
+        "lean",
+        "--print-prefix"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "e0f4b30b29c565625189744847dfef5f132b6322c5e452dbebfeae780c9749e5",
+      "minimumAvailableBytes": 15048916992
+    },
+    {
+      "member": "toolchain-version/receipt.json",
+      "mode": null,
+      "status": "success",
+      "exitCode": 0,
+      "startUtc": "2026-10-05T08:18:29.848822+00:00",
+      "endUtc": "2026-10-05T08:18:30.027755+00:00",
+      "wallSeconds": 0.1809225082397461,
+      "peakTreeWorkingSetBytes": 58585088,
+      "stopReason": null,
+      "arguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "--version"
+      ],
+      "cpus": [
+        0,
+        1
+      ],
+      "nice": 19,
+      "startupMemoryMiB": 3072,
+      "treeMemoryMiB": 3072,
+      "executableSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+      "minimumAvailableBytes": 15038164992
+    }
+  ],
+  "firstFreshSources": 2,
+  "maximumObservedProcessTreeBytes": 3193778176,
+  "actualCompileAndCheckerWallSeconds": 14.524046182632446,
+  "mathematicalAcceptance": "pending S",
+  "localHeavyLeanStarted": false
+}

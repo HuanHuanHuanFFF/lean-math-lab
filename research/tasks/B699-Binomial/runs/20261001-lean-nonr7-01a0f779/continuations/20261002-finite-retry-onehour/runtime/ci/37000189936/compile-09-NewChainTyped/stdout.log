@@ -1,0 +1,9 @@
+theorem B699FiniteSemantic.new_chain_coverage_exact : ∀ {gap lo hi n : ℕ},
+  B699Finite20261002.PrimeChain gap lo hi → lo ≤ n → n < hi → ∃ p, Nat.Prime p ∧ p ≤ n ∧ n < p + gap :=
+fun {gap lo hi n} chain lower upper => B699Finite20261002.PrimeChain.near_top chain lower upper
+theorem B699FiniteSemantic.pilot_coverage_exact : ∀ {n : ℕ},
+  19662301 ≤ n → n < 19811023 → ∃ p, Nat.Prime p ∧ p ≤ n ∧ n < p + 4883 :=
+fun {n} lower upper => B699Finite20261002.PrimeChain.near_top B699Finite20261002.Pilot32.chain lower upper
+'B699Finite20261002.Pilot32.chain' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteSemantic.new_chain_coverage_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteSemantic.pilot_coverage_exact' depends on axioms: [propext, Classical.choice, Quot.sound]

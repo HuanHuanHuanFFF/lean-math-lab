@@ -1,0 +1,132 @@
+name: B699 controlled two-hour finite forward verification
+on:
+  workflow_dispatch:
+  push:
+    branches: ['huan/b699-lean-next-20261002-01a0f779']
+    paths:
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/runtime/gap-stage-spec.json'
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/runtime/gap-stage.py'
+permissions:
+  contents: read
+concurrency:
+  group: b699-controlled-proof
+  cancel-in-progress: false
+jobs:
+  scoped:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/runtime
+    steps:
+      - name: Reject expired absolute launch window
+        shell: bash
+        run: |
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 14:05:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Actual resources and frozen forward sources
+        id: plan
+        run: python3 "$B699_RUNTIME/gap-stage.py" preflight
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Restore five exact accepted origins and227source objects
+        env:
+          B699_ARTIFACT_TOKEN: ${{ github.token }}
+        run: python3 "$B699_RUNTIME/gap-stage.py" prepare
+      - name: Complete finite forward lower extension
+        if: success() && steps.plan.outputs.gaplower_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" gaplower
+      - name: Preserve lower forward stage
+        if: always() && steps.plan.outputs.gaplower_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" package-gaplower
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.gaplower_enabled == 'true'
+        with:
+          name: b699-tail2h-gaplower-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/gap-runtime/gaplower-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete finite forward through 13000 endpoint
+        if: success() && steps.plan.outputs.gap13000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" gap13000
+      - name: Preserve 13000 forward stage
+        if: always() && steps.plan.outputs.gap13000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" package-gap13000
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.gap13000_enabled == 'true'
+        with:
+          name: b699-tail2h-gap13000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/gap-runtime/gap13000-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete finite forward through 15000 endpoint
+        if: success() && steps.plan.outputs.gap15000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" gap15000
+      - name: Preserve 15000 forward stage
+        if: always() && steps.plan.outputs.gap15000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" package-gap15000
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.gap15000_enabled == 'true'
+        with:
+          name: b699-tail2h-gap15000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/gap-runtime/gap15000-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+# Larger finite stages appended
+      - name: Complete lowerinitial finite verification unit
+        if: success() && steps.plan.outputs.lowerinitial_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" lowerinitial
+      - name: Preserve lowerinitial cumulative checkpoint
+        if: always() && steps.plan.outputs.lowerinitial_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" package-lowerinitial
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.lowerinitial_enabled == 'true'
+        with:
+          name: b699-tail2h-lowerinitial-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/gap-runtime/lowerinitial-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete upperinitial finite verification unit
+        if: success() && steps.plan.outputs.upperinitial_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" upperinitial
+      - name: Preserve upperinitial cumulative checkpoint
+        if: always() && steps.plan.outputs.upperinitial_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" package-upperinitial
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.upperinitial_enabled == 'true'
+        with:
+          name: b699-tail2h-upperinitial-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/gap-runtime/upperinitial-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete fullinitial finite verification unit
+        if: success() && steps.plan.outputs.fullinitial_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" fullinitial
+      - name: Preserve fullinitial cumulative checkpoint
+        if: always() && steps.plan.outputs.fullinitial_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" package-fullinitial
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.fullinitial_enabled == 'true'
+        with:
+          name: b699-tail2h-fullinitial-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/gap-runtime/fullinitial-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Complete tail30000 finite verification unit
+        if: success() && steps.plan.outputs.tail30000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" tail30000
+      - name: Preserve tail30000 cumulative checkpoint
+        if: always() && steps.plan.outputs.tail30000_enabled == 'true'
+        run: python3 "$B699_RUNTIME/gap-stage.py" package-tail30000
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.tail30000_enabled == 'true'
+        with:
+          name: b699-tail2h-tail30000-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261004-tail-twohour-finish/gap-runtime/tail30000-delivery/
+          if-no-files-found: warn
+          retention-days: 30
