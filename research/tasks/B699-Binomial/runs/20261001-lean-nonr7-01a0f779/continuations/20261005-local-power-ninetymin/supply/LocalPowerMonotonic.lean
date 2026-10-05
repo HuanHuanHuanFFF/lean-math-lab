@@ -51,7 +51,10 @@ theorem log_ratio_le {A x : ℝ} (hA : 16 ≤ A) (hx : A ≤ x) :
       _ ≤ Real.log (q * A) * (Real.sqrt q * Real.sqrt x) := hcross
       _ = _ := by ring
   rw [hshift x, hshift A]
-  exact (div_le_div_iff₀ hsX hsA).mpr ((mul_le_mul_iff_left₀ hsQ).mp hcancel)
+  have hcancel' : (Real.log (q * x) * Real.sqrt A) * Real.sqrt q ≤
+      (Real.log (q * A) * Real.sqrt x) * Real.sqrt q := by
+    simpa only [mul_comm] using hcancel
+  exact (div_le_div_iff₀ hsX hsA).mpr ((mul_le_mul_iff_left₀ hsQ).mp hcancel')
 
 theorem log_square_ratio_le {A x : ℝ} (hA : 16 ≤ A) (hx : A ≤ x) :
     Real.log (x + x / 4095) ^ 2 / x ≤
