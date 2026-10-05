@@ -1,0 +1,19 @@
+ValueError: Error from parse_expr with transformed code: "Integer (2 )*N **Integer (3 )*Symbol ('X' )-Integer (3 )*N **Integer (2 )*Symbol ('X' )**Integer (2 )-Integer (20 )*N **Integer (2 )*Symbol ('X' )+N *Symbol ('X' )**Integer (3 )+Integer (26 )*N *Symbol ('X' )**Integer (2 )+Integer (46 )*N *Symbol ('X' )-Integer (7 )*Symbol ('X' )**Integer (3 )-Integer (35 )*Symbol ('X' )**Integer (2 )-Integer (28 )*Symbol ('X' )"
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\幻\.codex\worktrees\b699-intake-1003\Math\research\tasks\B699-Binomial\runs\20261004-r7-resource-saturation-146a9702\reviews\a-cubic\independent_receive.py", line 135, in <module>
+    claimed=sp.Poly(sp.sympify(author_results[cfg]['common_polynomial']),N,X,domain=sp.QQ)
+                    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\幻\AppData\Roaming\Python\Python314\site-packages\sympy\core\sympify.py", line 507, in sympify
+    expr = parse_expr(a, local_dict=locals, transformations=transformations, evaluate=evaluate)
+  File "C:\Users\幻\AppData\Roaming\Python\Python314\site-packages\sympy\parsing\sympy_parser.py", line 1090, in parse_expr
+    raise e from ValueError(f"Error from parse_expr with transformed code: {code!r}")
+  File "C:\Users\幻\AppData\Roaming\Python\Python314\site-packages\sympy\parsing\sympy_parser.py", line 1081, in parse_expr
+    rv = eval_expr(code, local_dict, global_dict)
+  File "C:\Users\幻\AppData\Roaming\Python\Python314\site-packages\sympy\parsing\sympy_parser.py", line 905, in eval_expr
+    expr = eval(
+        code, global_dict, local_dict)  # take local objects in preference
+  File "<string>", line 1, in <module>
+TypeError: unsupported operand type(s) for ** or pow(): 'function' and 'Integer'

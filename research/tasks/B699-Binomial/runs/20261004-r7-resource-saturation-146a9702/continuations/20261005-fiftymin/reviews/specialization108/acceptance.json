@@ -1,0 +1,139 @@
+{
+  "status": "INDEPENDENT_ACCEPTED_PAPER_FULL_PROJECTIVE_AND_RABIN_CERTIFICATES",
+  "verifier": "/root/verify_reg3_module",
+  "task_class": "Complex established target",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "xhigh",
+  "source_baseline": "a3090b6ce85e45137a1b9909346858d8a262ec8a",
+  "branch": "huan/b699-r7-paper-20261004-01a0e34b",
+  "completed_utc": "2026-10-04T17:21:32.730541+00:00",
+  "candidate": {
+    "path": "research/tasks/B699-Binomial/runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/notes/main/03-h108-projective-candidate.md",
+    "bytes": 3360,
+    "sha256": "d60f04c8382c634823c0f7a857c4376332e85e07f226708f63e57f3ee0123b26"
+  },
+  "fixed_input_manifest": "fixed-inputs.json",
+  "exact_theorem": "For every nonzero rational G with deg_X<=108, deg_(1,2)<=305 and the fixed21 integer Hasse source constraints, its nonvertical rational irreducible factors counted with multiplicity are at most6.",
+  "accepted_scope": [
+    {
+      "id": "complete-modular-kernel",
+      "status": "accepted_full_trace_reception",
+      "field": "F257",
+      "dimension": 2,
+      "conditions": 23476,
+      "nonredundant": 21580,
+      "weights": "two305,107 times306",
+      "evidence": "receive-e108.json"
+    },
+    {
+      "id": "two-explicit-basis-vectors",
+      "status": "accepted_direct_source_and_independence",
+      "q_degrees": [
+        107,
+        108
+      ],
+      "D": [
+        305,
+        305
+      ],
+      "basis0": "Same bytes as independently accepted SPEC107 P; prior direct23476 jets reused",
+      "basis1": "New independent direct23476 jets all0",
+      "independence": "different X degrees",
+      "evidence": "basis1-direct-source-result.json"
+    },
+    {
+      "id": "all-projective-directions",
+      "status": "accepted_exact_coverage_and_direct_specialization",
+      "count": 258,
+      "directions": "P0+tP1 for all t in F257, plus P1",
+      "all_nonzero_selected_specializations": true,
+      "selected_N_values": [
+        0,
+        2,
+        17
+      ],
+      "evidence": "prepare-receipt.json"
+    },
+    {
+      "id": "all-factor-products-and-Rabin",
+      "status": "accepted_exact_finite_field_checks",
+      "factor_occurrences": 1162,
+      "distinct_factor_polynomials": 1129,
+      "frobenius_iterations": 27830,
+      "gcd_checks": 1433,
+      "bound_histogram": {
+        "1": 2,
+        "2": 11,
+        "3": 43,
+        "4": 63,
+        "5": 76,
+        "6": 63
+      },
+      "maximum_bound": 6,
+      "evidence": "all-factor-result.json",
+      "uses_SymPy_factorization": false
+    },
+    {
+      "id": "primitive-Gauss-degree-loss-consumer",
+      "status": "accepted_paper",
+      "claim": "k<=Omega(F)+deg_XG-deg_XF<=Omega(F)+108-deg_XF<=6",
+      "vertical": "nonzero constants after each chosen specialization",
+      "repeated_or_colliding_factors": "counted with multiplicity",
+      "nonzero_F": "checked every direction",
+      "no_rational_existence_claim": true
+    }
+  ],
+  "conditional_original_application": {
+    "claim": "No seven distinct nonvertical loadable factors for h<=108; adopted source/nonvertical contracts and lower bound give h>=109",
+    "does_not_use": [
+      "small-coefficient NC9 consumer",
+      "400|n",
+      "global649",
+      "E<=1 proxy budget"
+    ],
+    "source_bridge_evidence_grade_unchanged": true,
+    "COVER7_to_COVER6": false
+  },
+  "necessary_table_application": {
+    "status": "conditional_adoption_only; counts not independently recomputed",
+    "author_claim": "E0:354->332 by deleting21 h107 and1 h108 rows; E1:51 unchanged",
+    "full_DP_and_global649_not_reverified": true
+  },
+  "independent_execution": {
+    "compiler": "g++ (GCC)13.1.0",
+    "direct_source": "direct_basis1_jets.cpp",
+    "coverage_specialization": "prepare_certificates.py",
+    "factor_consumer": "check_all_factors.cpp",
+    "factor_algorithm": "Exact modular multiplication, Euclidean gcd and all Rabin conditions",
+    "factor_seconds": 1.45889,
+    "all_exit_codes": 0,
+    "logs": [
+      "receiver-build.log",
+      "receive-e108.json",
+      "source-build.log",
+      "basis1-direct-source-result.json",
+      "prepare-run.log",
+      "all-factor-run.log"
+    ]
+  },
+  "not_accepted": [
+    "h109 or higher source domains",
+    "Rational or actual source G existence",
+    "Original source bridge full chain reproof",
+    "Full necessary-table DP",
+    "COVER6",
+    "R7 reduction",
+    "Original n/j or full prime-power absolute bounds",
+    "Lean, human peer review or novelty"
+  ],
+  "global_R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "Lean": false
+}

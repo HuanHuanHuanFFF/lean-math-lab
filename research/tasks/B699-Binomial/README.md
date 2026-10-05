@@ -10,6 +10,7 @@
 
 | 批次 | 主题 | 接续 |
 |---|---|---|
+| [20261004-r7-resource-saturation-146a9702](runs/20261004-r7-resource-saturation-146a9702/README.md) | 本地R7纸面及一小时接续：七可载h≥111，h≤114源阶/低q刚性，E0/E1=320/50；B两次严格门外收缩，R7未减 | [最新报告](runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-onehour-h110/REPORT.md) · [本轮前沿](runs/20261004-r7-resource-saturation-146a9702/frontier.md) |
 | [20261001-lean-nonr7-01a0f779](runs/20261001-lean-nonr7-01a0f779/README.md) | 非R7分轮Lean验证：完整集已至30000；Oct5真实局部素数幂LP通界、两个阈值及RD2条件接线接受；真无界ψ/Gap供应仍缺 | [最新报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/REPORT.md) · [累计总览](OVERVIEW.md) · [LP端点签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LP-ENDPOINTS-INDEPENDENT-ACCEPTED.json) |
 | [20260912-leader-r7-joint-58-c8c256bc](runs/20260912-leader-r7-joint-58-c8c256bc/README.md) | 当前 canonical 接收、研究调度与证据登记；各次交付保持来源和 run 身份 | [当前状态](runs/20260912-leader-r7-joint-58-c8c256bc/CURRENT_STATUS.md) · [接受责任](runs/20260912-leader-r7-joint-58-c8c256bc/acceptance.md) · [本轮接收与任务](runs/20260912-leader-r7-joint-58-c8c256bc/intake/20260914-outer-cubic-transfer/README.md) |
 | [20260912-leader-r7-continuation-c8c256bc](runs/20260912-leader-r7-continuation-c8c256bc/README.md) | 上一接收：i9约束、i3双侧与五因子消费者；补收D上一轮B任务的单侧a≤21闭合，修订三任务；R7不变 | [状态](runs/20260912-leader-r7-continuation-c8c256bc/frontier.md) · [原件恢复](runs/20260912-leader-r7-continuation-c8c256bc/ARCHIVES.json) · [任务](runs/20260912-leader-r7-continuation-c8c256bc/prompts/README.md) |

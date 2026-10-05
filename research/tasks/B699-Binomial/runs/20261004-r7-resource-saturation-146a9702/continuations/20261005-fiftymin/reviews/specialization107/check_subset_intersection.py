@@ -1,0 +1,8 @@
+from pathlib import Path
+import json
+out=Path.cwd()/'research/tasks/B699-Binomial/runs/20261004-r7-resource-saturation-146a9702/continuations/20261005-fiftymin/reviews/specialization107'
+def sums(ds):return sorted({sum(ds[j] for j in range(len(ds)) if mask>>j&1) for mask in range(1<<len(ds))})
+s2=sums([16,37,54]);s17=sums([1,1,17,88]);inter=sorted(set(s2)&set(s17));assert inter==[0,107]
+result={'N2_degrees':[16,37,54],'N17_degrees':[1,1,17,88],'N2_subset_sums':s2,'N17_subset_sums':s17,'intersection':inter,'proper_nonzero_subset_intersection':[],'consequence':'Any nonzero rational G in V107 has exactly one nonvertical irreducible factor, multiplicity1, X-degree107. No existence claimed.'}
+(out/'subset-intersection-result.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+r=out/'REPORT.md';text=r.read_text(encoding='utf-8-sig');text+='''\n## 7. 同冻结来源的独立加强：恰有一个非竖因子\n\n原候选不改。本核验另从同一basis.poly.tsv直接重建N=17专化，仍保持X107，首项单位221。独立脚本check_factor17.py验证完整乘积与次数1、1、17、88的四个首一因子的Rabin条件（17检验迭代1；88检验迭代44、8；线性因子直接属于不可约情形），所有因子互相gcd1、重数1。见 [factor17-independent-result.json](factor17-independent-result.json) 与 [factor17-independent-run.log](factor17-independent-run.log)。\n\nN=2的degree子集和为{0,16,37,53,54,70,91,107}；N=17为{0,1,2,17,18,19,88,89,90,105,106,107}，交集恰{0,107}，枚举见 [subset-intersection-result.json](subset-intersection-result.json)。同一原因子在两专化均保留X次数，所以其q_i必须同时属于两个子集和。q_i>0只能取107；整体q=107又保证至少一个且至多一个，重数必1。\n\n因此进一步独立接受：**任何非零G∈V107恰有一个非竖有理不可约因子，重数1，X次数107**。可能存在的竖因子只贡献非零常数，结论仍不声称有理G存在。该加强是两已核专化的共同必要条件，不需要两种专化的不可约因子在系数或编号上配对。\n''';r.write_text(text,encoding='utf-8');print(json.dumps(result))
