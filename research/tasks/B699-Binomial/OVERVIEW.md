@@ -1,5 +1,7 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+**本轮08:28:48 UTC首前置已独立接受。** [Decomposition签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/DECOMPOSITION-INDEPENDENT-ACCEPTED.json)：S接受真实ψ−θ完整有限幂和分解、局部化及区间整数card界，固定b3a4e16／CI37282736334，2fresh/8Std3 AX/2normal及94原生成员完整绑定。完整指标增量0；真正LP总界仍在后续测试，不能把前置当无界Gap供应。
+
 **Oct5 90分钟Lean接续已授权执行（上海16:04:27–17:34:27）。** [本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/README.md)：从a0f9ff06固定基线接续，A实现真实局部素数幂误差LP，C先修CI重复准入检查并执行最小模块，S独立题面/AX/kernel/源对象绑定；三者均6.1-sol/xhigh，Root统一发布。本机不重Lean，D保≥10GiB，不重编已验大链。先Decomposition，再实根宽度/θ区间计数与总估计；前置成功不自动增加完整指标。现接受范围沿用下文，新增接受暂0；原题真无界供应、低23/R7保持未闭合。以下为已结束轮次快照。
 
 **Oct5两份Round2无界供应优化结果已审读，未新增Lean验收。** [评估与原件](runs/20261001-lean-nonr7-01a0f779/intake/20261005-uniform-gap-round2-results/SUMMARY.md)：Astra逐式数学审读及60项独立标量检查、Sol作者68/52项复跑和40/43/24字节覆盖均完成。RD2局部ψ增量尾由50bn降至14.4bn、RH高度589824→294912，删除小倒数和/单端常数分支；S6由S8尾800bn降至16bn、6重7项、RH高度800000，改真素数质量。RD2原F2需ψ[T0,ceil(rB)]，亦可改直接Nat Gap[T0,B)后与已验F0/高尾拼合；任何新中段或零点证书均未交付。两主推导未发现致命错误，RD2一处log调用域措辞修正已补核、不改原字节；总工程成本下降未测。完整集、已验有限高度与Gap保持，旧20个LP候选根仍未编。本次不续开Lean/CI/研究轮；下一新窗口先修准入、验证LP前置与真正供应，源状态以具体签件为准。以下为先前检查点。
