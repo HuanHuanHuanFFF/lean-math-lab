@@ -15,4 +15,9 @@
 - C10:40:43取得Legacy失败：首import缺Mathlib.Analysis.SpecialFunctions.Log.Monotone.olean。旧345＋new18恢复及FullInitialGap probe实际成功；cacheRoots遗漏新LP Monotonic的Mathlib叶，非数学/资源失败。下一版从全部adopted taskSources补cache imports，不重编旧大链。
 - ηKernel/Weight候选和独立raw已备，下一批先η链，再旧对象恢复/Legacy，并独立保存成功stage。Beta整数积分小探针为η质量→sinh提供前置，尚未运行，不推迟当前链。
 
-当前ψ通用平滑四根接受；ηproducer通过但pair待raw重验，原题接线待cache补齐。完整指标增量0，具体核/真ψ预算未供。
+- S已签ETA-SERIES-INDEPENDENT-ACCEPTED：旧成功producer5AX/1normal与修raw5AX/1normal全部绑定，合10AX/2normal，不双算旧producer。q^n/(n!)²真tsum收敛、非负、≥1和[0,81]连续接受。
+- 第三Kernel仅API/导入问题：rawEta未展开及ℝ Lebesgue/default measure实例缺失，A新6f9bbbf9补raw展开和Lebesgue.Basic；Weight因缺Kernel未Lean。
+- 第三Legacy正确skipped：旧I0 importprobe缺SuperFactorial.olean。C把旧固定cacheRoots替换成directimports而漏掉旧根，修法必须原全集∪新根。旧对象仍未重编，不能记作数学失败。
+- 第四READY11:05:28，Kernel修+Weight+Legacy，6fresh/48AX、已签Psi/Eta四源复用；原旧cache全集∪新direct roots，并明确含SuperFactorial/Log.Monotone/Lebesgue。本轮不再缩旧图或等未实测质量链。
+
+当前ψ四根、ηSeries五根接受；具体核/归一及原题接线修订待第四CI。原题完整指标增量0、真ψ预算未供。

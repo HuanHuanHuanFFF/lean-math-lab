@@ -3,7 +3,6 @@ public import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f7
 public import Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp
 public import Mathlib.MeasureTheory.Function.LocallyIntegrable
 public import Mathlib.MeasureTheory.Integral.Bochner.Set
-public import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 public import Mathlib.Tactic.Ring
 set_option autoImplicit false
 set_option relaxedAutoImplicit false
@@ -48,7 +47,7 @@ theorem raw_eta_ge_scale {s : ℝ} (hs : s ∈ Set.Icc (-epsilon) epsilon) :
     kernelScale ≤ rawEta s := by
   have h := mul_le_mul_of_nonneg_left
     (B699EtaSeries20261005.series_ge_one (radial_range hs)) scale_pos.le
-  simpa only [mul_one, rawEta] using h
+  simpa only [mul_one] using h
 
 theorem eta_nonneg (s : ℝ) : 0 ≤ eta s := by
   by_cases hs : s ∈ Set.Ioo (-epsilon) epsilon
