@@ -14,4 +14,4 @@
 
 资源：本机不启动重Lean，CI先串行2CPU/nice19/j1/asyncfalse，固定Lean4.33.1与Mathlib0df444。D保≥10GiB，IO低缓冲；不删除旧证据/缓存、不干预其他任务。每阶段源/对象/日志/全AX/normal和原生成员闭合后才接受。
 
-状态：已启动；新增接受暂0。下一项：pureψ固定source/literal的首实际编译反馈。
+状态：已收尾，5pair/33数学根独立接受，见REPORT.md和reviews/FINAL-SUMMARY.json。原题完整指标增0；质量/λ和3积分probe未实测，下一窗口先发已备小包。

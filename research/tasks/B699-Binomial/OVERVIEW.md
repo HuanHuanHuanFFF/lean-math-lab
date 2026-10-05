@@ -1,8 +1,10 @@
 # Erdős 699：累计研究总览与下一轮接续
 
-**Oct5继续80分钟Lean已授权（上海18:17:11–19:37:11）。** [本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/README.md)：基线16d97c601，首发已备纯ψ平滑2source/8AX，不等待Legacy生成；原题接线另行准备，通过后继续具体η核前置。已验LP/Thin全部复用，完整指标暂无变化。原hard包含核验/推送，三具名任务6.1-sol/xhigh；本机不重Lean，保D≥10GiB及无关target-survey资料。
+**Oct5 ψ前置80分钟轮已在原预算内收尾。** [本轮报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/REPORT.md)：真实ψ通用平滑4根、η级数5根、具体η核9根、归一权及实际ψ实例11根、原题Legacy4根全部具名S独立接受，5pair/33producer根/66unique AX/10source/10normal。原c18、ε1/16384 strictIoo η具体化，w=exp(-s/2)η/actual integral λ的非负/可积/质量1已供，genericψ权条件消去；λ≠已证closedLogan身份，ηmass1/λ≥1/Fourier仍未供。
 
-本轮首[ψ平滑签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/reviews/PSI-SMOOTHING-INDEPENDENT-ACCEPTED.json)已独立接受：fixedf084aa／CI37296215678，2source/8AX/2normal、94native；实际ψ正权夹逼与向内差分，不假设DifferenceBudget，仍需标准核条件。η级数及Legacy第二包继续实测，尚无无条件完整指标新增。
+[原题接线签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/reviews/ORIGINAL-LEGACY-INDEPENDENT-ACCEPTED.json)：fixedcf13536c／CI37301049852，旧I0/原题对象363只继承已验绑定、不重编；两路真实DB+finiteψ[T0,C]或DB+Nat middleGap[T0,B)，已无LP/I0输入，所有合法Nat n/i/j i≥4883同Prime p≥i双完整choose，仍条件。无条件完整集保持{1,2,11,29}∪[35,30000]，finiteGap/有限高度保持，原题完整指标增0，真DB/新middle证书、低23/R7与剩余无界参数仍缺。
+
+最后Beta/对称矩/积分换序3probe旧6301在job-start门拒绝，未Lean；24:30/27:00两新内部窗口候选准备后过门亦未dispatch，ηmass1/λ≥1链14根仍candidate。原上海18:17:11–19:37:11未延。下轮开头直接首发这3probe，保旧cacheRoots全集∪新依赖，按实际执行+核验+pub成本一次留足时间；不再重证已验ψ/η/LP。未发现已运行分析证明的大计算/内存瓶颈，工程缓存/内部早门失败与数学失败分开。无关target-survey目录保留。本机重Lean0，执行入口随末次push关闭。下列为此前检查点。
 
 **Oct5有限Gap接线30分钟轮已收尾。** [本轮报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-gap-bridge-halfhour/REPORT.md)：Thin两数学根已独立接受，固定11147592／CI37292900036，2fresh/4Std3 AX/2normal和110native全绑定。真正ψ预算+Nat middleGap[T0,B)+I0可接Gap10M，消去Real有限ψ/C跨窗要求；实际中段证书和ψ预算仍缺。原题完整指标增0，保持{1,2,11,29}∪[35,30000]。Legacy和真实ψ正权平滑4根都保未编候选：第二大包准备/发布错过过窄启动门，转小包也未留足准备/核验时间，均未dispatch，属于执行安排失误而非数学失败。原上海17:44:48–18:14:48不延。下一窗口先直接验纯ψ小包，再按实际对象恢复和验收成本接Legacy；详见本轮supply/PSI-DEPENDENCIES.md。
 
