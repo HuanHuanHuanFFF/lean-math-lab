@@ -72,7 +72,7 @@ Treat research records as a deliverable for the next human or agent. Maintain th
 
 Keep detailed progress and evidence in the owning run; maintain the cumulative continuation summary in the problem-level `OVERVIEW.md`, with one coordinating owner. The research index and problem README link to it and to run records. Run-level overviews are historical snapshots or redirects, not competing current summaries. The repository root README states the project's motivation and stable entry points.
 
-Store research deliveries as ordinary files with member-level provenance; keep archive files outside the checkout and out of Git. Before archive intake, duplicate cleanup, reading a missing historical path, or replaying old evidence, read [docs/ARTIFACTS.md](docs/ARTIFACTS.md). Use its member-completeness and exact-byte mapping procedure; restored local duplicates are not new tracked deliverables.
+Curate research deliveries into reusable ordinary files: the exact claim, necessary arguments and code, decisive evidence, source hashes, accepted scope, gaps, and continuation entry. Publish selected materials with provenance rather than complete original-delivery snapshots, duplicate reports, or packaging manifests. Keep compressed archives out of the checkout and Git; use temporary files outside the checkout only for intake or requested transfer. Before intake, cleanup, historical recovery, or evidence replay, read [docs/ARTIFACTS.md](docs/ARTIFACTS.md). Finish by checking retained-source hashes, current links, and remaining archives; keep mathematical acceptance separate from these administrative checks.
 
 ## Structure and Style
 
