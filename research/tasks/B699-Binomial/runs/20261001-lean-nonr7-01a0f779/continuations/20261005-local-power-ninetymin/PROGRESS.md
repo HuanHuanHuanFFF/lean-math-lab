@@ -22,4 +22,10 @@
 - 08:36:02 UTC：S签 [THETA-FINITE-SUMS-INDEPENDENT-ACCEPTED.json](reviews/THETA-FINITE-SUMS-INDEPENDENT-ACCEPTED.json)，固定5d169109／run37283606716／artifact11333471905，143native完整绑定；Theta区间与有限和共4fresh/14Std3 AX/4normal通过。RootWidth和Master排除在该接受范围外，整体run仍failure。
 - 第三修订包119文件已推送 `a7096f3cc83b9d44cfb08180a701fc5211248c16` 并核远端一致，包含修订RootWidth、Master、Monotonic与Endpoint候选，各stage独立执行；等待C实际dispatch回执。
 
-当前接受Decomposition、ThetaInterval、FiniteSums前置；真正LP总界与专化尚待验。该文件随重大检查点更新，最终签件与REPORT为准确验收入口。
+- 08:37:32 UTC：第三批实际dispatch，run [37284799968](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37284799968)，固定a7096f3c。Root只读GitHub确认RootWidth阶段成功15秒；Master/Monotonic分别约4秒报错，Endpoint因前置缺失未进Lean，整次run failure。
+- 08:43:21 UTC：C已直接给A原始bounded错误。Master第40/84行是不等式相加项序；Monotonic第33/41行是let值/log参数归一与函数beta归约，未见资源/超时失败。C于08:44:13完整回收第三原包与maps，S核Width成功包；A修订后准备第四CI。
+- Theta/FiniteSums签件及累计记录已推送 `cb2bf8552a8fec05221fca8d260d16f65c9f9b28`，远端一致，不改第三run固定源。
+
+- S另签 [ROOT-WIDTH-INDEPENDENT-ACCEPTED.json](reviews/ROOT-WIDTH-INDEPENDENT-ACCEPTED.json)：固定a7096f／run37284799968／artifact11333234851，100native，2fresh/6Std3 AX/2normal。实际全Real x≥0、Nat k≥2根宽度接受。A已修Master/Monotonic项序与归约，新版本待第四CI，原版本留diagnostics。
+
+当前接受Decomposition、ThetaInterval、FiniteSums、RootWidth前置；真正LP总界与专化修订待验。该文件随重大检查点更新，最终签件与REPORT为准确验收入口。
