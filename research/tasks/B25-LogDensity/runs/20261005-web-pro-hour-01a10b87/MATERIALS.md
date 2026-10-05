@@ -18,10 +18,16 @@
 
 旧 delivery/originals/Erdos25-B-20261005/proofs/ 下五份固定论证现在位于 results/proofs/，字节不变；所选 experiments/ 和 data/ 迁到 experiments/finite-systems/code 与 data。详细映射见 SOURCES.json。reviews 原相对布局保留。平台与阅读副本从 [共享固定题面](../../../../shared/20261005-target-survey-01a10b87/README.md) 进入。
 
-泛泛 REPORT/HANDOFF、原 README、CLAIMS/SELF_AUDIT、会话时钟、MANIFEST/INTAKE、输入副本及任务提示词、全包 replay/REPRODUCE、重复作者 replay 输出、exhaust_small 的大枚举和互素启发式搜索未复制。独立审读内对省略报告的历史对照仍保留原文和旧哈希；实际接受的五份论证与具名执行证据完整可读，不需原 ZIP。
+泛泛 REPORT/HANDOFF、原 README、CLAIMS/SELF_AUDIT、会话时钟、MANIFEST/INTAKE、输入副本及任务提示词、全包 replay/REPRODUCE、重复作者 replay 输出未复制。独立审读内对省略报告的历史对照仍保留原文和旧哈希；实际接受的五份论证与具名执行证据完整可读，不需原 ZIP。
 
 ## 重跑条件与未覆盖项
 
 check_and_replay.py 保存旧程序字节，但依赖 delivery、REPORT/HANDOFF 等旧输入，并写本 review/logs。不能直接用它覆盖当前冻结证据。后续具名执行者可在新时间戳输出目录运行所选独立小脚本，按 SOURCES.json 绑定其源码；命令入口见实验说明。本次只核对复制字节和新导航，没有进行数学重跑。
 
 大枚举及搜索仍是作者有限记录；UF、TC 和一般无界中心系统未证。没有 Lean、公理审计、人审或新颖性接受。下一步须计算实际周期并集与全部激活删除总量，不能只按单行密度收费。
+
+## 2026-10-06 功能与失败记录补充
+
+[整个尾的具体失败例](results/failure-notes.md) 摘录原 REPORT §5.1，避免把条件尾误换成整个尾。[执行修复记录](experiments/finite-systems/logs/experiment-repairs.md) 保留输出限制与超时补跑沿革；既有宽带修正已在保留论证中。
+
+两个独有诊断程序及各一份作者 JSON 已补入[实验说明](experiments/finite-systems/README.md)。它们不被当前已审论证依赖，不证明 UF；本次未运行，不扩展作者范围或数学接受。

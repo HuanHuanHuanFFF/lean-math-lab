@@ -18,7 +18,7 @@
 
 旧 delivery/originals/Erdos128-C/proofs/ 下所选文件现位于 results/proofs/，字节相同。旧 PROOFS.md 合订本的 A/B/C/D 节分别对应 GENERAL_BOUND、GENERAL_BOUND_REFINED、CLEBSCH_CERTIFICATE、LOCAL_ORACLE；合订本只是重复集成，故未复制，不能把分拆文件冒称原合订本哈希。GENERAL_BOUND_DRAFT 明确已废弃，也未采用。
 
-泛泛 REPORT/HANDOFF/ACCEPTANCE、会话状态、MANIFEST/INTAKE、任务提示词及重复输入、全包 replay、早期和重复 final 日志、作者构造/代数/Clebsch 重复输出、小图 C++ 全枚举均未复制。reviews 的固定源记录保留其旧哈希与历史对照事实。作者 FAILURE_BOUNDARIES 中 data/clebsch-exact-certificate.json 所指的具体失败例，现在可从上述独立 Clebsch 证书阅读；这是另次独立输出，不是原作者 JSON 的字节替身。
+泛泛 REPORT/HANDOFF/ACCEPTANCE、会话状态、MANIFEST/INTAKE、任务提示词及重复输入、全包 replay、早期和重复 final 日志、作者构造/代数/Clebsch 重复输出均未复制。reviews 的固定源记录保留其旧哈希与历史对照事实。作者 FAILURE_BOUNDARIES 中 data/clebsch-exact-certificate.json 所指的具体失败例，现在可从上述独立 Clebsch 证书阅读；这是另次独立输出，不是原作者 JSON 的字节替身。
 
 [共享固定题面](../../../../shared/20261005-target-survey-01a10b87/README.md) 提供原题阅读入口。所选完整论证和具名接受范围不依赖原 ZIP。
 
@@ -27,3 +27,9 @@
 所选三份审计脚本及 local_templates.py 使用显式 --out，可在新时间戳目录另存结果；不覆盖 reviews 或旧 data。见实验说明。本次没有执行脚本或验证重定位后的结果。冻结 commands.json 内 SOURCE 路径属于当时执行位置。
 
 外部 PSD/Maple 证书、R3 原证明、14 根轨道全重审、Lean、公理审计、人类同行评审与当前世界纪录核定仍未完成。四根新方案必须先对任意块质量证明候选合法；固定图成功不够。
+
+## 2026-10-06 补充记录
+
+[输入来源比对](results/input-provenance.json) 保留原上传资料包哈希和六份输入的作者历史比对记录；旧 source-map 中 data/input-provenance.json 对应此文件。它不是本次重新检查原 ZIP 的结果。
+
+小图 C++ 全枚举及单份作者输出已补入[实验入口](experiments/sparse-half/README.md)。原字节与来源见 SOURCES.json，当前接受论证不依赖它们；未新增数学执行、Lean 或独立接受。

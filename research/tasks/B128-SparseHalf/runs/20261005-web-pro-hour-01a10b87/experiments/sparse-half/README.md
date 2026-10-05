@@ -19,3 +19,7 @@ python code/local_templates.py --max-roots 4 --out NEW_OUTPUT/roots.json
 以上是按源码整理的调用方式，本次未实测新布局。旧环境：独立复跑 Python 3.14.0、SymPy 1.14.0，详细命令与版本见 [具名审读](../../reviews/20261005-b128-delivery/REVIEW.md)。下一轮应先检查实际资源和依赖，在新证据目录绑定源码哈希。
 
 固定 Clebsch 成功、46 图测试或有限根轨道都不能证明一般 1/50。当前完整邻域模板的无界障碍和任意块质量的下一义务见 [材料导航](../../MATERIALS.md)。
+
+## 作者小图全枚举诊断
+
+[audit_small.cpp](code/audit_small.cpp) 与[一份作者日志](logs/exhaustive-small-author.log) 保留 0≤n≤7 的完整带标号三角形自由图枚举。作者记录为 139730 图；这是有限查错功能，未独立复跑，不证明一般 1/50。历史编译条件为 g++ 14.2.0、C++17。源码输出到 stdout；后续执行者在新的输出目录编译并保存 stdout，不能覆盖本日志。本次未编译或执行。
