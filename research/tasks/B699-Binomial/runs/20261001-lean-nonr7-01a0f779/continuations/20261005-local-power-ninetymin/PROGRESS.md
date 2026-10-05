@@ -16,4 +16,10 @@
 
 - 08:28:48 UTC：S签 [DECOMPOSITION-INDEPENDENT-ACCEPTED.json](reviews/DECOMPOSITION-INDEPENDENT-ACCEPTED.json)，绑定SHA e118f4ae0fa13132f74cf99ce14734faccd5ab2c6041d2ce0745b6363fc48d9a。真实有限幂分解和区间计数4数学根接受，2fresh/8Std3/2normal、94原生成员全绑定；新增完整指标0。总LP、SmallLP、TailLP仍未接受。
 
-当前接受Decomposition前置；第二组执行中。该文件随重大检查点更新，最终签件与REPORT为准确验收入口。
+- 08:29:28 UTC：第二CI整体failure。C回报旧RootWidth第33行实幂/整数幂消去API失败，exit1、下游出现sorryAx，相关结果拒收；不是资源或数学复杂度失败。独立ThetaInterval/FiniteSums仍执行并产小原包，等待S签件。Master因前置未供未进Lean。
+- A收到精确日志后在本轮新文件修RootWidth，显式消幂后再改写倒数；Master改导入该新源。旧失败源及初版Master保留。C/S准备新合同与重试，同时继续Monotonic/Endpoint。
+
+- 08:36:02 UTC：S签 [THETA-FINITE-SUMS-INDEPENDENT-ACCEPTED.json](reviews/THETA-FINITE-SUMS-INDEPENDENT-ACCEPTED.json)，固定5d169109／run37283606716／artifact11333471905，143native完整绑定；Theta区间与有限和共4fresh/14Std3 AX/4normal通过。RootWidth和Master排除在该接受范围外，整体run仍failure。
+- 第三修订包119文件已推送 `a7096f3cc83b9d44cfb08180a701fc5211248c16` 并核远端一致，包含修订RootWidth、Master、Monotonic与Endpoint候选，各stage独立执行；等待C实际dispatch回执。
+
+当前接受Decomposition、ThetaInterval、FiniteSums前置；真正LP总界与专化尚待验。该文件随重大检查点更新，最终签件与REPORT为准确验收入口。

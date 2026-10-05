@@ -1,6 +1,6 @@
 # Erdős 699：累计研究总览与下一轮接续
 
-**本轮08:28:48 UTC首前置已独立接受。** [Decomposition签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/DECOMPOSITION-INDEPENDENT-ACCEPTED.json)：S接受真实ψ−θ完整有限幂和分解、局部化及区间整数card界，固定b3a4e16／CI37282736334，2fresh/8Std3 AX/2normal及94原生成员完整绑定。完整指标增量0；真正LP总界仍在后续测试，不能把前置当无界Gap供应。
+**本轮08:36 UTC已有三组前置独立接受。** [Decomposition签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/DECOMPOSITION-INDEPENDENT-ACCEPTED.json)接受真实ψ−θ完整有限幂和及整数card界（b3a4e16／CI37282736334，2fresh/8AX/2normal、94native）；[Theta/FiniteSums签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/THETA-FINITE-SUMS-INDEPENDENT-ACCEPTED.json)接受θ区间上界及倒数有限和/根上界（5d169109／CI37283606716，4fresh/14AX/4normal、143native）。均由S独立绑定；第二run整体失败来自旧RootWidth消幂API，相关根拒收、修订待验。完整指标增量0，真正LP总界仍在测试，不能把前置当无界Gap供应。
 
 **Oct5 90分钟Lean接续已授权执行（上海16:04:27–17:34:27）。** [本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/README.md)：从a0f9ff06固定基线接续，A实现真实局部素数幂误差LP，C先修CI重复准入检查并执行最小模块，S独立题面/AX/kernel/源对象绑定；三者均6.1-sol/xhigh，Root统一发布。本机不重Lean，D保≥10GiB，不重编已验大链。先Decomposition，再实根宽度/θ区间计数与总估计；前置成功不自动增加完整指标。现接受范围沿用下文，新增接受暂0；原题真无界供应、低23/R7保持未闭合。以下为已结束轮次快照。
 
