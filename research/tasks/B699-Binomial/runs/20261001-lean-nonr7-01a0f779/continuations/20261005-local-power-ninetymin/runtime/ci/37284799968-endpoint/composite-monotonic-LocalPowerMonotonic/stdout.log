@@ -1,0 +1,47 @@
+/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/supply/LocalPowerMonotonic.lean:33:48: error: linarith failed to find a contradiction
+A x : ℝ
+hA : 16 ≤ A
+hx : A ≤ x
+q : ℝ := 1 + 1 / 4095
+hq : 0 < q
+hq1 : 1 ≤ q
+hA0 : 0 < A
+hx0 : 0 < x
+hshift : ∀ (t : ℝ), t + t / 4095 = q * t
+hqA0 : 0 < q * A
+hqA : 2 ^ 4 ≤ q * A
+hLA : 4 * Real.log 2 ≤ Real.log (4096 / 4095 * A)
+a✝ : Real.log (q * A) < 2
+⊢ False
+failed
+/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/supply/LocalPowerMonotonic.lean:41:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √(q * x)
+in the target expression
+  (fun x => Real.log x / √x) (q * x) ≤ (fun x => Real.log x / √x) (q * A)
+
+A x : ℝ
+hA : 16 ≤ A
+hx : A ≤ x
+q : ℝ := 1 + 1 / 4095
+hq : 0 < q
+hq1 : 1 ≤ q
+hA0 : 0 < A
+hx0 : 0 < x
+hshift : ∀ (t : ℝ), t + t / 4095 = q * t
+hqA0 : 0 < q * A
+hqA : 2 ^ 4 ≤ q * A
+hLA : 4 * Real.log 2 ≤ Real.log (4096 / 4095 * A)
+hlogA : 2 ≤ Real.log (q * A)
+hdomainA : Real.exp 2 ≤ q * A
+hqAx : q * A ≤ q * x
+hdomainX : Real.exp 2 ≤ q * x
+hm : (fun x => Real.log x / √x) (q * x) ≤ (fun x => Real.log x / √x) (q * A)
+hsA : 0 < √A
+hsX : 0 < √x
+hsQ : 0 < √q
+⊢ Real.log (x + x / 4095) / √x ≤ Real.log (A + A / 4095) / √A
+'B699LocalPowerMonotonic20261005.log_ratio_le' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'B699LocalPowerMonotonic20261005.log_square_ratio_le' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]

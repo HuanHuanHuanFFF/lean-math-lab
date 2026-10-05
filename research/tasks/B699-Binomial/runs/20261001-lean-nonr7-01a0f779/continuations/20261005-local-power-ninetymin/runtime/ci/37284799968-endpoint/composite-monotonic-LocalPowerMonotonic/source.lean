@@ -30,15 +30,11 @@ theorem log_ratio_le {A x : ℝ} (hA : 16 ≤ A) (hx : A ≤ x) :
   have hLA := Real.log_le_log (by norm_num : (0 : ℝ) < 2 ^ 4) hqA
   rw [Real.log_pow] at hLA
   norm_num only at hLA
-  have hlogA : (2 : ℝ) ≤ Real.log (q * A) := by
-    norm_num [q] at hLA ⊢
-    linarith [Real.log_two_gt_d9]
+  have hlogA : (2 : ℝ) ≤ Real.log (q * A) := by linarith [Real.log_two_gt_d9]
   have hdomainA : Real.exp 2 ≤ q * A := (Real.le_log_iff_exp_le hqA0).mp hlogA
   have hqAx : q * A ≤ q * x := mul_le_mul_of_nonneg_left hx hq.le
   have hdomainX : Real.exp 2 ≤ q * x := hdomainA.trans hqAx
   have hm := Real.log_div_sqrt_antitoneOn hdomainA hdomainX hqAx
-  change Real.log (q * x) / Real.sqrt (q * x) ≤
-    Real.log (q * A) / Real.sqrt (q * A) at hm
   have hsA : 0 < Real.sqrt A := Real.sqrt_pos.mpr hA0
   have hsX : 0 < Real.sqrt x := Real.sqrt_pos.mpr hx0
   have hsQ : 0 < Real.sqrt q := Real.sqrt_pos.mpr hq

@@ -60,7 +60,8 @@ theorem local_power_increment_le_endpoint {A x S L : ℝ}
       _ ≤ (L / S) / 4095 + (L ^ 2 / A) / (2 * Real.log 2) :=
         add_le_add (div_le_div_of_nonneg_right hr (by norm_num))
           (div_le_div_of_nonneg_right hsq (by positivity))
-      _ ≤ (L / S) / 4095 + (L ^ 2 / A) / (4 / 3 : ℝ) := add_le_add_left hsecond _
+      _ ≤ (L / S) / 4095 + (L ^ 2 / A) / (4 / 3 : ℝ) :=
+        add_le_add (le_refl ((L / S) / 4095)) hsecond
       _ = _ := by ring
   have heq1 : x * (LX / Real.sqrt x / 4095) = Real.sqrt x * LX / 4095 := by
     calc

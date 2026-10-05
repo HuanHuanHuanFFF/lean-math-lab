@@ -37,7 +37,7 @@ theorem theta_root_increment_bound {x : ℝ} {k : Nat} (hx : 2 ≤ x) (hk : 2 �
         (Real.log (x + x / 4095) / (k : ℝ)) := ht
     _ ≤ (Real.sqrt x / (4095 * (k : ℝ)) + 1) *
         (Real.log (x + x / 4095) / (k : ℝ)) :=
-      mul_le_mul_of_nonneg_right (by linarith only [hwidth]) (div_nonneg hL hkR.le)
+      mul_le_mul_of_nonneg_right (add_le_add_right hwidth 1) (div_nonneg hL hkR.le)
     _ = _ := by
       field_simp [ne_of_gt hkR]
       <;> ring
@@ -82,8 +82,8 @@ theorem local_power_increment_bound_of_two {x : ℝ} (hx : 2 ≤ x) :
     _ ≤ Real.sqrt x * Real.log z / 4095 + Real.log z *
         (Real.log z / (2 * Real.log 2)) := by
       simpa only [mul_one] using
-        add_le_add (le_refl (Real.sqrt x * Real.log z / 4095))
-          (mul_le_mul_of_nonneg_left hhalf hL)
+        add_le_add_left (mul_le_mul_of_nonneg_left hhalf hL)
+          (Real.sqrt x * Real.log z / 4095)
     _ = _ := by ring
 
 theorem local_power_increment_bound {x : ℝ} (hx : 100000000 ≤ x) :
