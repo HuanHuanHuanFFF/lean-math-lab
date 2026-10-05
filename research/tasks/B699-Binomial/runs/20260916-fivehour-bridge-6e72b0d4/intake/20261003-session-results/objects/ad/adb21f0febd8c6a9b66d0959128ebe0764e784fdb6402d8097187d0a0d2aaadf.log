@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 348, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 347, in main
+    a=p.parse_args();make(a.root.resolve(),a.output.resolve(),a.check.resolve() if a.check else None)
+                     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 317, in make
+    cubics,residual,polys=certify_cubics(root)
+                          ~~~~~~~~~~~~~~^^^^^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 147, in certify_cubics
+    typ=r['proof']['type'];types[typ]+=1;pr=nonzero_proof(p,r['proof'])
+                                            ~~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/verify.py", line 115, in nonzero_proof
+    return bernstein_certificate(p,proof['sign'],proof['u_intervals'])
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/exact.py", line 56, in bernstein_certificate
+    need(all(v[0]>0 and v[1]>0 for _,_,v in co),'Bernstein positivity failed')
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/B699-C-R8-SOURCE01-CUBIC012-20261002/scripts/exact.py", line 6, in need
+    if not x: raise AssertionError(message)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Bernstein positivity failed

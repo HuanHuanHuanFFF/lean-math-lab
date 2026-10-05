@@ -1,0 +1,319 @@
+////////////////////////////////////////////////////////////////////
+version="version parallel.lib 4.4.1.1 Feb_2025 "; // $Id: a5e93aee5a9d3333810fc57b6fd047fa89e9f5b9 $
+category="General purpose";
+info="
+LIBRARY:   parallel.lib  An abstraction layer for parallel skeletons
+
+AUTHOR:    Andreas Steenpass, e-mail: steenpass@mathematik.uni-kl.de
+
+OVERVIEW:
+This library provides implementations of several parallel 'skeletons' (i.e.
+ways in which parallel tasks rely upon and interact with each other). It is
+based on the library tasks.lib and aims at both ordinary Singular users as well
+as authors of Singular libraries.
+
+KEYWORDS:  parallelization; parallel skeletons; distributed computing
+
+SEE ALSO:  resources_lib, tasks_lib, modstd_lib, normal_lib
+
+PROCEDURES:
+  parallelWaitN();      execute several jobs in parallel
+                        and wait for N of them to finish
+  parallelWaitFirst();  execute several jobs in parallel
+                        and wait for the first to finish
+  parallelWaitAll();    execute several jobs in parallel
+                        and wait for all of them to finish
+  parallelTestAND();    run several tests in parallel
+                        and determine if they all succeed
+  parallelTestOR();     run several tests in parallel
+                        and determine if any of them succeeds
+";
+
+LIB "tasks.lib";
+
+proc parallelWaitN(alias list commands, alias list args, int N, list #)
+"USAGE:   parallelWaitN(commands, arguments, N[, timeout]); commands list,
+          arguments list, N int, timeout int
+RETURN:   a list, containing the results of commands[i] applied to
+          arguments[i], i = 1, ..., size(arguments).
+       @* The procedure waits for N jobs to finish.
+       @* An optional timeout in ms can be provided. Default is 0 which
+          disables the timeout.
+NOTE:     The entries of the list commands must be strings. The entries of the
+          list arguments must be lists.
+       @* The type of any entry of the returned list whose corresponding task
+          did not finish (due to timeout or error) is \"none\".
+       @* The returned list may contain more than N results if several jobs
+          finished \"at the same time\". It may contain less than N results in
+          the case of timeout or errors occurring.
+SEE ALSO: parallelWaitAll, parallelWaitFirst, tasks_lib
+EXAMPLE:  example parallelWaitN; shows an example"
+{
+    // auxiliary variables
+    int i;
+
+    // read optional parameters
+    int timeout;
+    int ncores;   // obsolete, but kept for compatibility with old libraries
+    if (size(#) > 0) {
+        if (typeof(#[1]) != "int") {
+            ERROR("wrong optional parameters");
+        }
+        timeout = #[1];
+        if (size(#) > 1) {
+            if (size(#) > 2 || typeof(#[2]) != "int") {
+                ERROR("wrong optional parameters");
+            }
+            ncores = #[2];
+        }
+    }
+
+    // apply wrapper for obsolete optional parameter ncores
+    if (ncores) {
+        list semaphore_save = Resources::setcores_subtree(ncores);
+    }
+
+    // error checking
+    int njobs = size(commands);
+    if (njobs != size(args)) {
+        ERROR("The number of commands does not match the number of lists"
+            +newline+"of arguments.");
+    }
+    if (njobs == 0) {
+        ERROR("no commands specified");
+    }
+    for (i = 1; i <= njobs; i++) {
+        if (typeof(commands[i]) != "string") {
+            ERROR("The first argument is not a list of strings.");
+        }
+        if (typeof(args[i]) != "list") {
+            ERROR("The second argument is not a list of lists.");
+        }
+    }
+
+    list results;
+    if(system("cpu")<=1)
+    {
+      list tmp;
+      int tmp_s;
+      for(i=njobs;i>0;i--)
+      {
+        tmp=args[i];
+        tmp_s=size(tmp);
+        execute("results[i]="+commands[i]+"(tmp[1..tmp_s]);");
+      }
+    }
+    else
+    {
+      // compute the tasks
+      for (i = 1; i <= njobs; i++) {
+        task t(i) = commands[i], args[i];
+      }
+      startTasks(t(1..njobs));
+      list indices = waitTasks(list(t(1..njobs)), N, timeout);
+
+      // wrap back to saved semaphore
+      if (ncores) {
+        Resources::resetcores_subtree(semaphore_save);
+      }
+
+      // return results
+      for (i = size(indices); i > 0; i--) {
+        results[indices[i]] = getResult(t(indices[i]));
+      }
+      for (i = 1; i <= njobs; i++) {
+        killTask(t(i));
+      }
+    }
+    return(results);
+}
+example
+{
+    "EXAMPLE:";
+    echo = 2;
+    ring R = 0, (x,y,z), lp;
+    ideal I = 3x3y+x3+xy3+y2z2, 2x3z-xy-xz3-y4-z2, 2x2yz-2xy2+xz2-y4;
+    ideal J = x10+x9y2, x2y7-y8;
+    list commands = list("std", "std");
+    list arguments = list(list(I), list(J));
+    parallelWaitN(commands, arguments, 1);
+}
+
+proc parallelWaitFirst(alias list commands, alias list args, list #)
+"USAGE:   parallelWaitFirst(commands, args[, timeout]); commands list,
+          arguments list, timeout int
+RETURN:   a list, containing at least one (if no timeout occurs) of the results
+          of commands[i] applied to arguments[i], i = 1, ..., size(arguments).
+       @* The command @code{parallelWaitFirst(commands, arguments[, timeout])}
+          is synonymous to
+          @code{parallelWaitN(commands, arguments, 1[, timeout])}. See
+          @ref{parallelWaitN} for details on optional arguments and other
+          remarks.
+SEE ALSO: parallelWaitN, parallelWaitAll, tasks_lib
+EXAMPLE:  example parallelWaitFirst; shows an example"
+{
+    return(parallelWaitN(commands, args, 1, #));
+}
+example
+{
+    "EXAMPLE:";
+    echo = 2;
+    ring R = 0, (x,y,z), lp;
+    ideal I = 3x3y+x3+xy3+y2z2, 2x3z-xy-xz3-y4-z2, 2x2yz-2xy2+xz2-y4;
+    ideal J = x10+x9y2, x2y7-y8;
+    list commands = list("std", "std");
+    list arguments = list(list(I), list(J));
+    parallelWaitFirst(commands, arguments);
+}
+
+proc parallelWaitAll(alias def commands, alias list args, list #)
+"USAGE:   parallelWaitAll(commands, arguments[, timeout]); commands list or
+          string, arguments list, timeout int
+RETURN:   a list, containing the results of commands[i] applied to
+          arguments[i], i = 1, ..., size(arguments).
+       @* The command @code{parallelWaitAll(commands, arguments[, timeout])} is
+          synonymous to @code{parallelWaitN(commands, arguments,
+          size(arguments)[, timeout])}. See @ref{parallelWaitN} for details on
+          optional arguments and other remarks.
+NOTE:     As a shortcut, @code{commands} can be a string. This is synonymous to
+          providing a list of @code{size(arguments)} copies of this string.
+SEE ALSO: parallelWaitFirst, parallelWaitN, tasks_lib
+EXAMPLE:  example parallelWaitAll; shows an example"
+{
+    if (typeof(commands) != "list" && typeof(commands) != "string") {
+        ERROR("invalid type of first argument");
+    }
+    if (typeof(commands) == "list") {
+        return(parallelWaitN(commands, args, size(args), #));
+    }
+    else {
+        list cmds;
+        for (int i = size(args); i > 0; i--) {
+            cmds[i] = commands;
+        }
+        return(parallelWaitN(cmds, args, size(args), #));
+    }
+}
+example
+{
+    "EXAMPLE:";
+    echo = 2;
+    ring R = 0, (x,y,z), dp;
+    ideal I1 = z8+z6+4z5+4z3+4z2+4, -z2+y;
+    ideal I2 = x9y2+x10, x2y7-y8;
+    ideal I3 = x3-2xy, x2y-2y2+x;
+    string command = "std";
+    list arguments = list(list(I1), list(I2), list(I3));
+    parallelWaitAll(command, arguments);
+}
+
+proc parallelTestAND(alias def commands, alias list args, list #)
+"USAGE:   parallelTestAND(commands, arguments[, timeout]); commands list or
+          string, arguments list, timeout int
+RETURN:   1, if commands[i] applied to arguments[i] is not equal to zero for
+          all i = 1, ..., size(arguments);
+          0, otherwise.
+       @* An optional timeout in ms can be provided. Default is 0 which
+          disables the timeout. In case of timeout, -1 is returned.
+NOTE:     The entries of the list commands must be strings. The entries of the
+          list arguments must be lists.
+       @* commands[i] applied to arguments[i] must evaluate to an integer for
+          i = 1, ..., size(arguments).
+       @* As a shortcut, @code{commands} can be a string. This is synonymous to
+          providing a list of @code{size(arguments)} copies of this string.
+SEE ALSO: parallelTestOR, tasks_lib
+EXAMPLE:  example parallelTestAND; shows an example"
+{
+    // note: this can be improved
+    list results = parallelWaitAll(commands, args, #);
+    int i;
+    for (i = size(args); i > 0; i--) {
+        if (typeof(results[i]) != "int" && typeof(results[i]) != "none") {
+            ERROR("result no. "+string(i)+" not of type int");
+        }
+    }
+    for (i = size(args); i > 0; i--) {
+        if (typeof(results[i]) == "none") {   // timeout
+            return(-1);
+        }
+    }
+    for (i = size(results); i > 0; i--) {
+        if (!results[i]) {
+            return(0);
+        }
+    }
+    return(1);
+}
+example
+{
+    "EXAMPLE:";
+    echo = 2;
+    ring R = 0, (x,y,z), dp;
+    ideal I = x, y, z;
+    intvec v = 0:3;
+    list l = list(I, v);
+    module m1 = x*gen(1);
+    module m2;
+    string command = "size";
+    list arguments1 = list(list(I), list(v), list(l), list(m1));
+    list arguments2 = list(list(I), list(v), list(l), list(m2));
+    // test if all the arguments have non-zero size
+    parallelTestAND(command, arguments1);
+    parallelTestAND(command, arguments2);
+}
+
+proc parallelTestOR(alias def commands, alias list args, list #)
+"USAGE:   parallelTestOR(commands, arguments[, timeout]); commands list or
+          string, arguments list, timeout int
+RETURN:   1, if commands[i] applied to arguments[i] is not equal to zero for
+          any i = 1, ..., size(arguments);
+          0, otherwise.
+       @* An optional timeout in ms can be provided. Default is 0 which
+          disables the timeout. In case of timeout, -1 is returned.
+NOTE:     The entries of the list commands must be strings. The entries of the
+          list arguments must be lists.
+       @* commands[i] applied to arguments[i] must evaluate to an integer for
+          i = 1, ..., size(arguments).
+       @* As a shortcut, @code{commands} can be a string. This is synonymous to
+          providing a list of @code{size(arguments)} copies of this string.
+SEE ALSO: parallelTestAND, tasks_lib
+EXAMPLE:  example parallelTestAND; shows an example"
+{
+    // note: this can be improved
+    list results = parallelWaitAll(commands, args, #);
+    int i;
+    for (i = size(args); i > 0; i--) {
+        if (typeof(results[i]) != "int" && typeof(results[i]) != "none") {
+            ERROR("result no. "+string(i)+" not of type int");
+        }
+    }
+    for (i = size(args); i > 0; i--) {
+        if (typeof(results[i]) == "none") {   // timeout
+            return(-1);
+        }
+    }
+    for (i = size(results); i > 0; i--) {
+        if (results[i]) {
+            return(1);
+        }
+    }
+    return(0);
+}
+example
+{
+    "EXAMPLE:";
+    echo = 2;
+    ring R = 0, (x,y,z), dp;
+    ideal I;
+    string s;
+    list l;
+    module m1 = x*gen(1);
+    module m2;
+    string command = "size";
+    list arguments1 = list(list(I), list(s), list(l), list(m1));
+    list arguments2 = list(list(I), list(s), list(l), list(m2));
+    // test if any of the arguments has non-zero size
+    parallelTestOR(command, arguments1);
+    parallelTestOR(command, arguments2);
+}
+

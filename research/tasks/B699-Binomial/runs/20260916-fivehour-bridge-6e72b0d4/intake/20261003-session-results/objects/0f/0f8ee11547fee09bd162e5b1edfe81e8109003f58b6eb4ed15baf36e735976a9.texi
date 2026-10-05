@@ -1,0 +1,320 @@
+@comment -*-texinfo-*-
+@comment this file contains the copyright notice on Singular
+@ifclear VERSION
+@include version.texi
+@end ifclear
+
+@cindex copyright
+@cindex factory
+@cindex GMP
+@cindex NTL
+@cindex readline
+@cindex libfac
+@cindex surfex
+@cindex surfer
+@cindex gfanlib
+@cindex cdd
+@cindex cddlib
+@cindex libcdd
+@cindex graphviz
+@cindex normaliz
+
+@center @sc{Singular} version @value{VERSION}
+@center @uref{https://rptu.de/,,University of Kaiserslautern-Landau}
+@center @uref{https://mathrptu.de/,,Department of Mathematics} and  @uref{https://www.singular.uni-kl.de/zca/,,Centre for Computer Algebra}
+@center Authors: J. Boehm, W. Decker, G.-M. Greuel, G. Pfister, and H. Schoenemann
+
+@center Copyright @copyright{} 1986-@value{VERSION_DATE}
+@sp 2
+@center @strong{NOTICE}
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation (version 2 or version 3 of the License).
+
+Some single files have a copyright given within the file:
+Singular/links/ndbm.* (BSD)
+
+The following software modules shipped with @sc{Singular} have their own copyright:
+the omalloc library, the readline library,
+the GNU Multiple Precision Library (GMP),
+NTL: A Library for doing Number Theory (NTL),
+Flint: Fast Library for Number Theory, the Singular-Factory library, the
+Singular-Factory library, the Singular-libfac library,
+surfex, and,
+for the Windows distributions, the Cygwin DLL and the Cygwin tools (Cygwin), and the
+XEmacs editor (XEmacs).
+
+Their copyrights and licenses can be found in the accompanying files COPYING
+which are distributed along with these packages.
+(Since version 3-0-3 of @sc{Singular}, all parts have GPL or LGPL
+as (one of) their licences.)
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+(see @uref{http://www.gnu.org/copyleft/gpl.html,,GPL})
+
+Please send any comments or bug reports to
+@email{singular@@mathematik.uni-kl.de}.
+
+If you want to be informed of new releases,
+please register as a @sc{Singular} user by
+sending an email to
+              @email{singular@@mathematik.uni-kl.de}
+with subject line @code{register} and body containing the following data:
+     your name, email address, organisation, country and platform(s).
+
+
+For information on how to cite @sc{Singular} see
+@*@uref{https://www.singular.uni-kl.de/index.php/how-to-cite-singular}.
+
+You can also support @sc{Singular} by informing us about
+your result obtained by using @sc{Singular}.
+
+@heading Availability
+
+The latest information regarding the status of @sc{Singular} is always
+available from @uref{https://www.singular.uni-kl.de}.
+@ifset singularmanual
+The program @sc{Singular} and the above mentioned parts are available via
+anonymous ftp through the following addresses:
+@table @asis
+@item GMP, libreadline
+@copyright{} Free Software Foundation
+@* @uref{https://gmplib.org}
+@item NTL
+@copyright{} Victor Shoup
+@* @uref{http://www.shoup.net/ntl}
+@item cdd (C implementation of the Double Description Method of Motzkin et al)
+@copyright{} Komei Fukuda
+@* @uref{http://www-oldurls.inf.ethz.ch/personal/fukudak/cdd_home/}
+@item FLINT
+@copyright{} Bill Hart, Sebastian Pancratz, Fredrik Johansson
+@* @uref{http://www.flintlib.org}
+@item gfanlib
+@copyright{} Anders Jensen
+@* @uref{https://users-math.au.dk/~jensen/software/gfan/gfan.html}
+@item Singular-Factory
+@copyright{} Gert-Martin Greuel/R@"udiger Stobbe/Martin Lee, University of Kaiserslautern:
+@* @uref{https://www.singular.uni-kl.de/ftp/pub/Math/Singular/Factory}
+@item Singular-libfac
+@copyright{}  Messollen, University of Saarbr@"ucken:
+@* @uref{ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/Libfac/}
+@item @sc{Singular} binaries and sources
+@uref{ftp://jim.mathematik.uni-kl.de/pub/Math/Singular/} or via a
+WWW brow@-ser from
+@uref{https://www.singular.uni-kl.de/ftp/pub/Math/Singular/}
+@item Cygwin
+@uref{https://www.cygwin.com/}
+@item Xemacs
+@uref{https://www.xemacs.org}
+@end table
+Some external programs are optional:
+@table @asis
+@item 4ti2 (used by sing4ti2.lib, @pxref{sing4ti2_lib})
+@uref{https://4ti2.github.io}
+@item gfan (used by tropical.lib, @pxref{tropical_lib})
+@uref{https://users-math.au.dk/~jensen/software/gfan/gfan.html}
+@item graphviz (used by resgraph.lib, @pxref{resgraph_lib})
+@uref{https://www.graphviz.org/}
+@item normaliz (used by normaliz.lib, @pxref{normaliz_lib})
+@copyright{} Winfried Bruns and Bogdan Ichim
+@* @uref{https://www.normaliz.uni-osnabrueck.de}
+@item surf (used by surf.lib, @pxref{surf_lib})
+@copyright{} Stephan Endrass
+@* @uref{http://surf.sf.net}
+@item surfer (used by surf.lib, @pxref{surf_lib})
+@uref{https://imaginary.org/program/surfer}
+@item surfex (used by surfex.lib, @pxref{surfex_lib})
+@copyright{} Oliver Labs (2001-2008), Stephan Holzer (2004-2005)
+@* @uref{https://github.com/Singular/Singular/tree/spielwiese/Singular/LIB/surfex}
+@item TOPCOM (used by polymake.lib, @pxref{polymake_lib})
+@copyright{} J@"org Rambau
+@* @uref{http://www.rambau.wm.uni-bayreuth.de/TOPCOM/}
+@end table
+@end ifset
+
+@heading Acknowledgements
+
+The development of @sc{Singular} is directed and coordinated by
+Janko Boehm, Wolfram Decker, Gert-Martin Greuel, Gerhard Pfister,
+and Hans Sch@"onemann.
+
+@cindex Contributors
+@cindex Authors
+@cindex Boehm, Janko
+@cindex Decker, Wolfram
+@cindex Greuel, Gert-Martin
+@cindex Pfister, Gerhard
+@cindex Sch@"onemann, Hans
+
+Current devteams:
+Abdus Salam School of Mathematical Sciences in Lahore,
+BTU Cottbus,
+Center for Advanced Security Research Darmstadt (CASED),
+FU Berlin,
+Isfahan University of Technology,
+Mathematisches Forschunginstitut Oberwolfach,
+Oklahoma State University,
+RWTH Aachen,
+Universidad de Buenos Aires,
+Universit@'e de Versailles Saint-Quentin-en-Yvelines,
+University of G@"ottingen,
+University of Hannover,
+University of La Laguna
+and
+University of Valladolid.
+
+Current @sc{Singular} developers:
+J. Boehm,
+Wolfram Decker,
+Gert-Martin Greuel,
+Gerhard Pfister,
+Hans Sch@"onemann,
+
+Shawki Al-Rashed,
+Daniel Andres,
+Mohamed Barakat,
+Isabel Bermejo,
+Muhammad Asan Binyamin,
+Ren@'e Birkner,
+Rocio Blanco,
+Xenia Bogomolec,
+Michael Brickenstein,
+Stanislav Bulygin,
+Antonio Campillo,
+Raza Choudery,
+Alexander Dreyer,
+Christian Eder,
+Santiago Encinas,
+Jose Ignacio Farran,
+Anne Fr@"uhbis-Kr@"uger,
+Rosa de Frutos,
+Eva Garcia-Llorente,
+Ignacio Garcia-Marco,
+Christian Haase,
+Amir Hashemi,
+Fernando Hernando,
+Bradford Hovinen,
+Nazeran Idress,
+Anders Jensen,
+Lars Kastner,
+Junaid Alan Khan,
+Kai Kr@"uger,
+Santiago Laplagne,
+Gr@'egoire Lecerf,
+Martin Lee,
+Viktor Levandovskyy,
+Benjamin Lorenz,
+Christoph Lossen,
+Thomas Markwig,
+Hannah Markwig,
+Irene Marquez,
+Bernd Martin,
+Edgar Martinez,
+Martin Monerjan,
+Francisco Monserrat,
+Oleksandr Motsak,
+Andreas Paffenholz,
+Maria Jesus Pisabarro,
+Diego Ruano,
+Afshan Sadiq,
+Kristina Schindelar,
+Mathias Schulze,
+Frank Seelisch,
+Andreas Steenpa@ss{},
+Stefan Steidel,
+Grischa Studzinski,
+Katharina Werner
+and
+Eva Zerz.
+
+Further contributions to @sc{Singular} have been made by:
+Martin Albrecht,
+Olaf Bachmann,
+Muhammad Ahsan Banyamin,
+Thomas Bauer,
+Thomas Bayer,
+Markus Becker,
+Gergo Gyula Borus,
+Winfried Bruns,
+Fernando Hernando Carrillo,
+Victor Castellanos,
+Nadine Cremer,
+Michael Cuntz,
+Kai Dehmann,
+Christian Dingler,
+Marcin Dumnicki,
+Stephan Endra@ss{},
+Vladimir Gerdt,
+Philippe Gimenez,
+Christian Gorzel,
+Hubert Grassmann,
+Jan Hackfeld,
+Agnes Heydtmann,
+Dietmar Hillebrand,
+Tobias Hirsch,
+Markus Hochstetter,
+N. Idrees,
+Manuel Kauers,
+Simon King,
+Sebastian Jambor,
+Oliver Labs,
+Anen Lakhal,
+Martin Lamm,
+Francisco Javier Lobillo,
+Christoph Mang,
+Michael Me@ss{}ollen,
+Andrea Mindnich,
+Antonio Montes,
+Jorge Martin Morales,
+Thomas N@"u@ss{}ler,
+Wolfgang Neumann,
+Markus Perling,
+Wilfried Pohl,
+Adrian Popescu,
+Tetyana Povalyaeva,
+Carlos Rabelo,
+Philipp Renner,
+J.-J.Salazar-Gonzalez,
+Alfredo Sanchez-Navarro,
+Ivor Saynisch,
+Jens Schmidt,
+Thomas Siebert,
+Christof Soeger,
+Silke Spang,
+William Stein,
+R@"udiger Stobbe,
+Henrik Strohmayer,
+Christian Stussak,
+Imade Sulandra,
+Akira Suzuki,
+Christine Theis,
+Enrique Tobis,
+Alberto Vigneron-Tenorio,
+Moritz Wenk,
+Eric Westenberger,
+Tim Wichmann,
+Oliver Wienand,
+Denis Yanovich
+and
+Oleksandr Yena.
+
+The development of @sc{Singular} has been supported by
+    the Deutsche Forschungsgemeinschaft (DFG),
+    the Stiftung Rheinland-Pfalz f@"ur Innovation,
+    the Volkswagen Stiftung, and
+    the European Union.
+From 2010 to 2016, it was part of
+    the DFG Priority Project SPP 1489.
+It is currently funded by
+    the DFG transregional collaborative research centre (SFB-TRR) 195 Symbolic Tools in Mathematics and their Application
+and
+    the Europeans Unions Horizon 2020
+    research and innovation programme under grant agreement 676541.

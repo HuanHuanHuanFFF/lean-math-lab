@@ -1,0 +1,525 @@
+//////////////////////////////////////////////////////////////////////
+// arc.lib - Generalized arc space construction for Singular
+//////////////////////////////////////////////////////////////////////
+
+version = "version arc.lib 1.0.0 Sep_2025 ";
+category = "Algebraic geometry";
+
+info = "
+LIBRARY: arc.lib  - Construct generalized arc spaces in Singular
+AUTHOR:  Andrew R. Stout (astout@bmcc.cuny.edu)
+
+DESCRIPTION:
+  Computes the equations of a generalized arc space of a scheme defined by ideal I
+  relative to a fat point defined by ideal J. Optionally, a skip list of coefficients can be provided. 
+
+PROCEDURES:
+  arc(I, J, optList); creates ring containing the ideal arcideal in the variables of T (excluding the original variables), optList is optional argument.
+";
+
+////////////////////////////////////////////////////////////////////////
+// Main user-facing entry point with 2 or 3 parameters
+////////////////////////////////////////////////////////////////////////
+// Dispatcher with optional third argument: arc(I,J) or arc(I,J,optList)
+proc arc(list #)
+"USAGE:  arc(I, J);  arc(I, J, optList);  I: ideal defining the scheme,  J: ideal defining the fat point, optList: list of integers (optional) indices of coefficients to skip
+RETURN:  A ring containing the ideal arcideal in the variables of T.
+"
+{
+    int argc = size(#);
+    if (argc == 2)
+    {
+        ideal I = #[1];
+        ideal J = #[2];
+        list optList;                      // empty list
+        int useOptList_int = 0;
+        return( arc_internal(I, J, optList, useOptList_int) );
+    }
+    if (argc == 3)
+    {
+        ideal I = #[1];
+        ideal J = #[2];
+        list optList = #[3];
+        int useOptList_int = 0;
+        if (size(optList) > 0) { useOptList_int = 1; }
+        return( arc_internal(I, J, optList, useOptList_int) );
+    }
+    print("Usage: arc(I,J) or arc(I,J,optList)");
+}
+example
+{ "EXAMPLE:"; echo = 2;
+  ring R = 0, (x,y), dp;
+  ideal I = x^4 + y^3;
+  ideal J = x^2,y^2; // fat point at origin
+  list L; // optional skips
+  def S = arc(I, J, L); // same as def S = arc(I,J);
+  setring S;
+  ideal A = arcideal;
+  S;
+  A;
+}
+
+// Backward-compatible explicit arity entry point
+proc arc_with_options(ideal I, ideal J, list optList)
+"USAGE:
+  arc(I, J, optList);
+
+  I:       ideal defining the scheme
+  J:       ideal defining the fat point
+  optList: list of integers (optional), indices of coefficients to skip
+
+RETURN:
+  A ring containing the ideal arcideal in the variables of T (minus the original variables in Vars).
+
+RETURN: ring containing ideal arcideal in the variables of T"
+{
+    ///////////
+    // Determine whether to use the optional skip list
+    ///////////
+    int useOptList = 1;
+    if (size(optList) == 0)
+    {
+        useOptList = 0;
+    }
+    else
+    {
+        for (int optIndex = 1; optIndex <= size(optList); optIndex++)
+        {
+            if (optList[optIndex] < 1)
+            {
+                useOptList = 0;
+                break;
+            }
+        }
+    }
+    // Call arc_internal with explicit type conversion
+    int useOptList_int = int(useOptList);
+    return( arc_internal(I, J, optList, useOptList_int) );
+}
+
+////////////////////////////////////////////////////////////////////////
+// Core implementation 
+////////////////////////////////////////////////////////////////////////
+proc arc_internal(ideal I, ideal J, list optList, int useOptList)
+{
+    option(noredefine);
+    def sourceRing = basering;
+    int numbVars = nvars(sourceRing);
+    // Build comma-separated list of original variable names safely
+    string ambientVarsCSV = varstr(1);
+    for (int ambientIndex = 2; ambientIndex <= numbVars; ambientIndex++)
+    {
+        ambientVarsCSV = ambientVarsCSV + "," + varstr(ambientIndex);
+    }
+
+    // Create helper ring with identical names, then import
+    string command1 = "ring Rhelp = 0, ("+ambientVarsCSV+"), dp;";
+    execute(command1);
+    setring Rhelp;
+    ideal Ihelp = imap(sourceRing, I);
+    ideal Jhelp = imap(sourceRing, J);
+    
+    // Check fat point is not trivial
+    if (Jhelp == 0) { ERROR("The ideal Jhelp is the zero ideal. Terminating."); }
+     
+    ///////////
+    // Step 2: identify fat point variables
+    ///////////
+    ideal fatVars = (0);
+    int flag1 = 0;
+    poly currentVar;
+    int genIndexJ;
+    for (int ambientVarIndex = 1; ambientVarIndex <= numbVars; ambientVarIndex++)
+    {
+    flag1 = 0;
+    currentVar = var(ambientVarIndex);
+
+    for (genIndexJ = 1; genIndexJ <= size(Jhelp); genIndexJ++)
+    {
+            intvec w = 0:numbVars;
+            w[ambientVarIndex] = 1;
+            if (deg(Jhelp[genIndexJ], w) > 0)          //A stricter test is to use reduced
+            {
+                flag1 = 1; break;
+            }
+        }
+        if (flag1 == 1)
+        {
+            fatVars = fatVars + currentVar;
+        }
+    }
+
+    ///////////
+    // Step 3: store strings
+    ///////////
+    // Use original variable list captured from R0 when building Rhelp
+    string T_vars = ambientVarsCSV;
+
+    ///////////
+    // Step 4: new ring F
+    ///////////
+    if (size(fatVars) == 0) { ERROR("fatVars empty."); }
+    string varsString = string(fatVars[1]);
+    for (int fatVarIndex = 2; fatVarIndex <= size(fatVars); fatVarIndex++) {
+        varsString = varsString + "," + string(fatVars[fatVarIndex]);
+    }
+    string command2 = "ring F = 0, ("+varsString+"), dp;";
+    execute(command2);
+    setring F;
+    option(noredefine);
+    ideal J_F = imap(Rhelp, Jhelp);
+
+    ///////////
+    // Step 6: standard basis
+    ///////////
+    ideal G_F = std(J_F);
+
+    ///////////
+    // Step 7: use kbase
+    ///////////
+    ideal basis_JF_F = kbase(G_F);
+    int len_JF       = size(basis_JF_F);
+
+    ///////////
+    // Step 8: new ring T
+    ///////////
+    int totalCoeffCount = numbVars * len_JF;
+    if (totalCoeffCount <= 0) { ERROR("fat point length < 2."); }
+    for (int coeffIndex = 1; coeffIndex <= totalCoeffCount; coeffIndex++) {
+        T_vars = T_vars + ",a" + string(coeffIndex);
+    }
+    string command3 = "ring T = 0, ("+T_vars+"), dp;";
+    execute(command3);
+    setring T;
+
+    // map ideals to new, larger ring
+    ideal I_T        = imap(Rhelp, Ihelp);
+    ideal G_T        = std( imap(F, G_F) );
+    ideal basis_JF_T = imap(F, basis_JF_F);
+    if (basis_JF_T[len_JF] != 1)
+    {
+        ERROR("last basis_JF_T != 1.");
+    }
+
+    ///////////
+    // Step 9 build arcs
+    ///////////
+    list arcs;
+    poly expr;
+    int relIndex, global_idx, skip, temp, basisIndex;
+    for (int inputVarIndex = 1; inputVarIndex <= numbVars; inputVarIndex++)
+    {
+        expr = 0;
+        for (basisIndex = 1; basisIndex <= len_JF; basisIndex++)
+        {
+            relIndex = (basisIndex-1)*numbVars + inputVarIndex;
+            skip = 0;
+            if (useOptList == 1)
+            {
+                for (temp = 1; temp <= size(optList); temp++)
+                {
+                    if (optList[temp] == relIndex)
+                    {
+                        skip = 1; break;
+                    }
+                }
+            }
+            if (skip == 0)
+            {
+                global_idx = numbVars + relIndex;
+                expr = expr + var(global_idx)*basis_JF_T[len_JF - basisIndex + 1];
+            }
+        }
+        arcs = arcs + list(expr);
+    }
+
+    ///////////
+    // Step 10: substitute arcs 
+    ///////////
+    int substIndex;
+    ideal II;
+    for (substIndex = 1; substIndex <= numbVars; substIndex++)
+    {
+        II[substIndex] = arcs[substIndex];
+    }
+    map substMap = T, II;
+    ideal bigIdeal = substMap(I_T);
+
+    ///////////
+    // Step 11: reduce
+    ///////////
+    ideal reducedBigIdeal;
+    for (int bigGenIndex = 1; bigGenIndex <= size(bigIdeal); bigGenIndex++)
+    {
+        reducedBigIdeal = reducedBigIdeal + reduce(bigIdeal[bigGenIndex], G_T);
+    }
+
+    ///////////
+    // Step 12: extract coefficients
+    ///////////
+    ideal arcideal = 0;
+    poly currentPoly, term, basisElement;
+    poly old_f, old_term;
+    matrix coefMatrix;
+    int basisIdx, matrixColIndex, bigIdealIndex, optIdx, varIdx, shouldKeep, arcGenIndex;
+    string varToFind, termStr;
+    int originalVarScanIndex = 0;
+
+    for (bigIdealIndex = 1; bigIdealIndex <= size(reducedBigIdeal); bigIdealIndex++)
+    {
+        currentPoly = reducedBigIdeal[bigIdealIndex];
+        
+        for (basisIdx = 1; basisIdx < size(basis_JF_T); basisIdx++)
+        {
+            basisElement = basis_JF_T[basisIdx];
+            
+            coefMatrix = coef(currentPoly, basisElement);
+            
+            for (matrixColIndex = 1; matrixColIndex <= ncols(coefMatrix); matrixColIndex++)
+            {
+                if (reduce(coefMatrix[1,matrixColIndex], basisElement) == 0)
+                {
+                    if (nrows(coefMatrix) >= 2) {
+                        term = coefMatrix[2,matrixColIndex];
+                    } else {
+                        term = coefMatrix[1,matrixColIndex];
+                    }
+                    
+                    
+                    for (originalVarScanIndex = 1; originalVarScanIndex <= numbVars; originalVarScanIndex++) {
+                        intvec ww = 0:nvars(basering);
+                        ww[originalVarScanIndex] = 1;
+                        if (deg(term, ww) > 0) {
+                            // Extract all coefficients including constants
+                            coefMatrix = coeffs(term, var(originalVarScanIndex));
+                            poly result = 0;
+                            // Process all columns in the matrix to capture every coefficient
+                            for (int i = 1; i <= ncols(coefMatrix); i++) {
+                                result = result + coefMatrix[2,i];
+                            }
+                            term = result;
+                        }
+                    }
+                    
+                    shouldKeep = 1;
+                    if (useOptList == 1)
+                    {
+                        for (optIdx=1; optIdx<=size(optList); optIdx++)
+                        {
+                            varIdx = optList[optIdx];
+                            varToFind = "a"+string(varIdx)+"*";
+                            termStr   = string(term)+"*";
+                            if (find(termStr,varToFind)!=0)
+                            {
+                                shouldKeep = 0;
+                                break;
+                            }
+                        }
+                    }
+                    if (shouldKeep == 1)
+                    {
+                        arcideal = arcideal + term;
+                    }
+                }
+            }
+            
+            for (matrixColIndex=1; matrixColIndex<=ncols(coefMatrix); matrixColIndex++)
+            {
+                if (reduce(coefMatrix[1,matrixColIndex], basis_JF_T[basisIdx])==0 && nrows(coefMatrix)>=2)
+                {
+                    currentPoly = currentPoly - coefMatrix[2,matrixColIndex]*coefMatrix[1,matrixColIndex];
+                }
+            }
+        }
+        
+        if (currentPoly!=0 && currentPoly!=1)
+        {
+            
+            for (originalVarScanIndex = 1; originalVarScanIndex <= numbVars; originalVarScanIndex++) {
+                intvec ww2 = 0:nvars(basering);
+                ww2[originalVarScanIndex] = 1;
+                if (deg(currentPoly, ww2) > 0) {
+                    currentPoly = coef(currentPoly, var(originalVarScanIndex))[2,1];
+                }
+            }
+            
+            shouldKeep = 1;
+            if (useOptList==1)
+            {
+                for (optIdx=1; optIdx<=size(optList); optIdx++)
+                {
+                    varIdx = optList[optIdx];
+                    if (varIdx <= 0) { continue; }  // Skip invalid indices
+                    
+                    varToFind = "a"+string(varIdx)+"*";
+                    termStr   = string(currentPoly)+"*";
+                    if (find(termStr,varToFind)!=0)
+                    {
+                        shouldKeep = 0;
+                        break;
+                    }
+                }
+            }
+            if (shouldKeep == 1)
+            {
+                arcideal = arcideal + currentPoly;
+            }
+        }
+    }
+
+    ///////////
+    // cleanup
+    ///////////
+    poly currentGenerator;
+    ideal simplifiedFinal = 0;
+    // reuse existing variables: shouldKeep, arcGenIndex, varToFind, termStr
+
+    for (arcGenIndex = 1; arcGenIndex <= size(arcideal); arcGenIndex++)
+    {
+        currentGenerator = arcideal[arcGenIndex];
+        
+        shouldKeep = 1;
+        if (useOptList == 1)
+        {
+            for (optIdx=1; optIdx<=size(optList); optIdx++)
+            {
+                varToFind = "a" + string(optList[optIdx]) + "*";
+                termStr   = string(currentGenerator) + "*";
+                if (find(termStr, varToFind) != 0)
+                {
+                    shouldKeep = 0;
+                    break;
+                }
+            }
+        }
+
+        ///////////
+        // Skip terms that contain any of the original variables (first N variables)
+        ///////////
+        if (shouldKeep == 1)
+        {
+            string ctString = string(currentGenerator);
+            for (int varIdx = 1; varIdx <= numbVars; varIdx++)
+            {
+                string originalVar = varstr(varIdx);
+                if (find(ctString, originalVar) != 0)
+                {
+                    shouldKeep = 0;
+                    break;
+                }
+            }
+        }
+        
+        if (shouldKeep == 1)
+        {
+            simplifiedFinal = simplifiedFinal + currentGenerator;
+        }
+    }
+
+     ///////////
+    // Reverse order for better output
+    ///////////
+    arcideal = 0;
+    for (int reverseIndex = size(simplifiedFinal); reverseIndex >= 1; reverseIndex--) {
+    arcideal = arcideal + simplifiedFinal[reverseIndex];
+    }
+    arcideal = arcideal;
+
+    ///////////
+    // Create filtered variable list with effective variables used in arcideal
+    ///////////
+    string filtered_vars = "";
+    
+    ///////////
+    // First collect all variables from numbVars+1 to nvars(basering)
+    ///////////
+    list allVars;
+    for (int var_idx = numbVars+1; var_idx <= nvars(basering); var_idx++) {
+        // Skip variables mentioned in optList
+        int skip_var = 0;
+        if (useOptList == 1) {
+            for (optIdx = 1; optIdx <= size(optList); optIdx++) {
+                if (var_idx == numbVars + optList[optIdx]) {
+                    skip_var = 1;
+                    break;
+                }
+            }
+        }
+        
+        if (skip_var == 0) {
+            allVars = allVars + list(varstr(var_idx));
+        }
+    }
+    
+    ///////////
+    // Now check every generator of arcideal for each variable
+    ///////////
+    list usedVars;
+    for (int genIdx = 1; genIdx <= size(arcideal); genIdx++) {
+        string genStr = string(arcideal[genIdx]);
+        
+        for (int allVarIndex = 1; allVarIndex <= size(allVars); allVarIndex++) {
+            string varName = allVars[allVarIndex];
+            
+            // Check various ways the variable might appear in the polynomial
+            if (find(genStr, varName + "*") != 0 || // Middle of term
+                find(genStr, varName + "^") != 0 || // With power
+                find(genStr, "+" + varName) != 0 || // At start after +
+                find(genStr, "-" + varName) != 0 || // At start after -
+                find(genStr, "*" + varName) != 0 || // After multiplication
+                find(genStr, "(" + varName) != 0 || // After parenthesis
+                genStr == varName ||                // Entire generator is this variable
+                find(genStr + "+", varName + "+") != 0) { // At end before +
+                // Add to used vars if not already there
+                int found = 0;
+                for (int usedIndex = 1; usedIndex <= size(usedVars); usedIndex++) {
+                    if (usedVars[usedIndex] == varName) {
+                        found = 1;
+                        break;
+                    }
+                }
+                if (found == 0) {
+                    usedVars = usedVars + list(varName);
+                }
+            }
+        }
+    }
+    
+    ///////////
+    // Convert used variables list to comma-separated string
+    ///////////
+    if (size(usedVars) > 0) {
+        filtered_vars = usedVars[1];
+        for (int covIndex = 2; covIndex <= size(usedVars); covIndex++) {
+            filtered_vars = filtered_vars + "," + usedVars[covIndex];
+        }
+    } else {
+        // If no variables were found, just use a1 as a placeholder
+        filtered_vars = "a1";
+    }
+
+    // Build a result ring with ONLY the arc coefficient variables (remove first N)
+    string arcideal_str = string(arcideal);
+
+    // Build comma-separated list of coefficient variables (excluding optList)
+    string coeff_vars = "";
+    if (size(allVars) > 0) {
+        coeff_vars = allVars[1];
+        for (int excludeIndex = 2; excludeIndex <= size(allVars); excludeIndex++) {
+            coeff_vars = coeff_vars + "," + allVars[excludeIndex];
+        }
+    } else {
+        coeff_vars = "a1";
+    }
+    // output a ring with arcideal stored
+    setring sourceRing;
+    string command4 = "ring S_coeff = 0, ("+coeff_vars+"), dp;";
+    execute(command4);
+    setring S_coeff;
+    string cmdArcIdeal = sprintf("ideal arcideal = %s;", arcideal_str);
+    execute(cmdArcIdeal);
+    export arcideal;
+    def retRing = basering;
+    keepring retRing;
+    return(retRing);
+}

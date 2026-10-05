@@ -1,0 +1,18 @@
+/* emacs edit mode for this file is -*- C++ -*- */
+
+#ifndef INCL_CF_UTIL_H
+#define INCL_CF_UTIL_H
+
+#include "globaldefs.h"
+
+int ilog2 (int a);
+
+/*BEGINPUBLIC*/
+int igcd (int a, int b);
+int FACTORY_PUBLIC ipower ( int b, int n );
+void factoryError_intern(const char *s);
+EXTERN_VAR void (*factoryError)(const char *s);
+/*ENDPUBLIC*/
+
+
+#endif /* ! INCL_CF_UTIL_H */

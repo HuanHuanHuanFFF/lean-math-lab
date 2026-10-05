@@ -10,6 +10,10 @@
 
 **最新接续已收尾：** [Oct3真Gap40分钟](continuations/20261003-gap-finite-fortymin/README.md)，原上海02:40:45–03:20:45，按重要突破规则一次延10min至03:30:45已停止。真有限Gap `[10M,10146761)` 正式接受；相邻合数传递核心执行成功报告/独立绑定pending，具体4885–4888因递归深度限制未接受。完整集 `{1,2,11,29}∪[35,4884]` 不变，真无限Gap未供。[最新报告](continuations/20261003-gap-finite-fortymin/REPORT.md)与[核验交接](continuations/20261003-gap-finite-fortymin/reviews/HANDOFF.md)给下一项明确检查，以下旧轮状态保留。
 
+以下为 main 于 2026-10-04 接收材料时的历史状态；后续 Lean 验收与当前范围见本页上方记录及问题 OVERVIEW。
+
+2026-10-04新接收：[4884–4888非素性证书](intake/20261004-nonprime-results/README.md)及[效率与证据边界](intake/20261004-nonprime-results/SUMMARY.md)。本次仅接收与限定诊断，旧轮截止、历史接受和当前工作分支均保留。
+
 状态：已于15:42:09 UTC硬截止停止研究与验证，无延期。15:42:46最终停机回执确认本轮无遗留进程、编译锁已释放。Leader `/root` 只负责协调、来源与状态登记；技术接受由具名执行/核验任务交付。
 
 上述状态属于首次两小时。用户于上海2026-10-02另行授权同分支继续一小时，新轮入口见[一小时接续](continuations/20261002-onehour/README.md)，开始16:04:43 UTC，截止17:04:43 UTC；历史冻结源及证据保留。

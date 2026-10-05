@@ -1,0 +1,4162 @@
+////////////////////////////////////////////////////////////////
+version = "version chern.lib 4.3.1.3 Feb_2023 "; // $Id: f95aef23a676db1c4fd3e26c04c2a409dd381591 $
+category = "Chern classes";
+info="
+LIBRARY:  chern.lib    Symbolic Computations with Chern classes,
+                       Computation of Chern classes
+
+AUTHOR:  Oleksandr Iena,      o.g.yena@gmail.com
+
+OVERVIEW:
+  A toolbox for symbolic computations with Chern classes.
+  The Aluffi's algorithms for computation of characteristic classes of algebraic varieties
+  (Segre, Fulton, Chern-Schwartz-MacPherson classes) are implemented as well.
+
+
+REFERENCES:
+  [1] Aluffi, Paolo     Computing characteristic classes of projective schemes.
+                        Journal of Symbolic Computation, 35 (2003), 3-19.
+  [2] Iena, Oleksandr,  On symbolic computations with Chern classes:
+                        remarks on the library chern.lib for Singular,
+                        http://hdl.handle.net/10993/22395, 2015.
+  [3] Lascoux, Alain,   Classes de Chern d'un produit tensoriel.
+                        C. R. Acad. Sci., Paris, Ser. A 286, 385-387 (1978).
+  [4] Manivel, Laurent  Chern classes of tensor products, arXiv 1012.0014, 2010.
+
+PROCEDURES:
+  symm(l [,N]);             symmetric functions in the entries of l
+  symNsym(f, c);            symmetric and non-symmetric parts of a polynomial f
+  CompleteHomog(N, l);      complete homogeneous symmetric functions
+  segre(N, c);              Segre classes in terms of Chern classes
+  chern(N, s);              Chern classes in terms of Segre classes
+  chNum(N, c);              the non-zero Chern numbers in degree N in the entries of c
+  chNumbers(N, c);          the Chern numbers in degree N in the entries of c
+  sum_of_powers(k, l);      the sum of k-th powers of the entries of l
+  powSumSym(c [,N]);        the sums of powers [up to degree N] in terms
+                            of the elementary symmetric polynomials (entries of l)
+  chAll(c [,N]);            Chern character in terms of the Chern classes
+  chAllInv(c);              Chern classes in terms of the Chern character
+  chHE(c);                  the highest term of the Chern character
+  ChernRootsSum(a, b);      the Chern roots of a direct sum
+  chSum(c, C);              the Chern classes of a direct sum
+  ChernRootsDual(l);        the Chern roots of the dual vector bundle
+  chDual(c);                the Chern classes of the dual vector bundle
+  ChernRootsProd(l, L);     the Chern roots of a tensor product of vector bundles
+  chProd(r, c, R, C [,N]);  Chern classes of a tensor product of vector bundles
+  chProdE(c, C);            Chern classes of a tensor product of vector bundles
+  chProdL(r, c, R, C);      Chern classes of a tensor product of vector bundles
+  chProdLP(r, c, R, C);     total Chern class of a tensor product of vector bundles
+  chProdM(r, c, R, C);      Chern classes of a tensor product of vector bundles
+  chProdMP(r, c, R, C);     total Chern class of a tensor product of vector bundles
+  ChernRootsHom(l, L);      the Chern roots of a Hom vector bundle
+  chHom(r, c, R, C [,N]);   Chern classes of the Hom-vector bundle
+  ChernRootsSymm(n, l);     the Chern roots of the n-th symmetric power
+                            of a vector bundle with Chern roots from l
+  ChernRootsWedge(n, l);    the Chern roots of the n-th exterior power
+                            of a vector bundle with Chern roots from l
+  chSymm(k, r, c [,p]);     the rank and the Chern classes of the k-th symmetric power
+                            of a vector bundle of rank r with Chern classes c
+  chSymm2L(r, c);           the rank and the Chern classes of the second symmetric power
+                            of a vector bundle of rank r with Chern classes c
+  chSymm2LP(r, c);          the total Chern class of the second symmetric power
+                            of a vector bundle of rank r with Chern classes c
+  chWedge(k, r, c [,p]);    the rank and the Chern classes of the k-th exterior power
+                            of a vector bundle of rank r with Chern classes c
+  chWedge2L(r, c);          the rank and the Chern classes of the second exterior power
+                            of a vector bundle of rank r with Chern classes c
+  chWedge2LP(r, c);         the total Chern class of the second exterior power
+                            of a vector bundle of rank r with Chern classes c
+  todd(c [,n]);             the Todd class
+  toddE(c);                 the highest term of the Todd class
+  Bern(n);                  the second Bernoulli numbers
+  tdCf(n);                  the coefficients of the Todd class of a line bundle
+  tdTerms(n, f);            the terms of the Todd class of a line bundle
+                            corresponding to the Chern root t
+  tdFactor(n, t);           the Todd class of a line bundle corresponding
+                            to the Chern root t
+  cProj(n);                 the total Chern class of (the tangent bundle on)
+                            the projective space P_n
+  chProj(n);                the Chern character of (the tangent bundle on)
+                            the projective space P_n
+  tdProj(n);                the Todd class of (the tangent bundle on)
+                            the projective space P_n
+  eulerChProj(n, r, c);     Euler characteristic of a vector bundle on
+                            the projective space P_n
+                            via Hirzebruch-Riemann-Roch theorem
+  chNumbersProj(n);         the Chern numbers of the projective space P_n
+  classpoly(l, t);          polynomial in t with coefficients from l
+                            (without constant term)
+  chernPoly(l, t);          Chern polynomial (constant term 1)
+  chernCharPoly(r, l, t);   polynomial in t corresponding to the Chern character
+                            (constant term r)
+  toddPoly(td, t);          polynomial in t corresponding to the Todd class
+                            (constant term 1)
+  rHRR(N, ch, td);          the main ingredient of the right-hand side
+                            of the Hirzebruch-Riemann-Roch formula
+  SchurS(I, S);             the Schur polynomial corresponding to partition I
+                            in terms of the Segre classes S
+  SchurCh(I, C);            the Schur polynomial corresponding to partition I
+                            in terms of the Chern classes C
+  part(m, n);               partitions of integers not exceeding n
+                            into m non-negative summands
+  dualPart(I [,N]);         partition dual to I
+  PartC(I, m);              the complement of a partition with respect to m
+  partOver(n, J);           partitions over a given partition J with summands not exceeding n
+  partUnder(J);             partitions under a given partition J
+  SegreA(I);                Segre class of the projective subscheme defined by I
+  FultonA(I);               Fulton class of the projective subscheme defined by I
+  CSMA(I);                  Chern-Schwartz-MacPherson class of the
+                            projective subscheme defined by I
+  EulerAff(I);              Euler characteristic of the affine subvariety defined by I
+  EulerProj(I);             Euler characteristic of the projective subvariety defined by I
+";
+
+LIB "general.lib";
+LIB "lrcalc.lib"; // needed for chProdM(..) and chProdMP(..)
+//----------------------------------------------------------
+
+proc symm(list l, list #)
+"USAGE:   symm(l [,n]);  l a list of polynomials, n integer
+RETURN:   list of polynomials
+PURPOSE:  computes the list of elementary symmetric functions in the entries of l
+EXAMPLE:  example symm; shows an example
+NOTE:     makes sense only for a list of polynomials
+"
+{
+  int N=size(l);
+  int n=size(l);
+  if(size(#)!=0)
+  {
+    if( is_integer(#[1]) )
+    {
+      N = #[1];
+    }
+  }
+  if(n==0) // if the list is empty, return the empty list
+  {
+    return(list());
+  }
+  else
+  {
+    int i, j;
+    list rez=list(1, l[1]);
+    for(i=2; i<=n; i++)
+    {
+      if( i<=N )
+      {
+        rez=rez+list(0);
+      }
+      for(j = min(i, N); j>=1; j--)
+      {
+        rez[j+1] = rez[j+1] + rez[j]*l[i];
+      }
+    }
+    return(delete(rez, 1));
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // elementary symmetric functions in x, y, z:
+  ring r = 0, (x, y, z), dp;
+  list l=(x, y, z);
+  print(symm(l));
+
+  //now let us compute only the first two symmetric polynomials in a(1), ... , a(10)
+  ring q= 0,(a(1..10)), dp;
+  list l=a(1..10);
+  print(symm(l, 2));
+}
+//-----------------------------------------------------------------------
+
+proc symNsym(poly f, list c)
+"USAGE:   symNsym(f, c);  f polynomial; c list of polynomials
+RETURN:   list with 2 poly entries
+PURPOSE:  computes a symmetric and a non-symmetric part of f
+          in terms of the elementary symmetric functions from c
+          as well a non-symmetric remainder
+EXAMPLE:  example symNsym; shows an example
+NOTE:     constants are considered symmetric
+"
+{
+  ideal V=variables(f); // variables f depends on
+  int nV=size(V); // their number
+  if(nV==0)
+  {
+    return(list(f, 0));
+  }
+  // now f is non-constant and does depend on some variables
+  c=append_by_zeroes(nV, c); // append c by zeroes if it is too short
+  def br@=basering; // remember the base ring
+  // add additional variables to the base ring
+  int ii;
+  list l2 = ringlist(basering)[2];
+  for (ii = 1; ii <= nV; ii++)
+  {
+   l2[size(l2)+1] = "c@("+string(ii)+")";
+  }
+    for (ii = 1; ii <= nV; ii++)
+  {
+   l2[size(l2)+1] = "A@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l2, "dp", "no_minpoly");
+  ideal V=fetch(br@,V);
+  poly f=fetch(br@,f);
+  int i;
+  for(i=1; i<=nV; i++)
+  {
+    f=subst(f, V[i], A@(i) ); // rename the variables of f into A@(1..nV)
+  }
+  int N1=nvars(basering)-nV+1; // the number of variable A@(1)
+  poly rez1=0; // to be the expression in c@(i) of the symmetric part of f
+  poly rez2=0; // to be the remainder
+  poly mon; // monomial in c@(i)
+  poly monc; // the corresponding expression in A@(i)
+  list l=symm(list(A@(1..nV) )); // symmetric functions in A@(i)
+  intvec v=leadexp(f), 0; // the exponent of the leading monomial
+  int exponent;
+  // We proceed as if the initial polynomial were symmetric.
+  // Under this assumption the leading monomial will always be of the form
+  // A@(1)^n1 * A@(2)^n2 * ... * A@(nV)^nnV, n1 >= n2 >= ... >= nnV.
+  // Everything which contradicts this assumption is considered as a part of the remainder.
+  while(v[N1]!=0)
+  {
+    mon=leadcoef(f); // leading coefficient of f
+    monc=mon;
+    for(i=1; i<=nV && mon !=0 ;i++ )
+    {
+      exponent = v[N1+i-1]-v[N1+i];
+      if( exponent >=0 ) // symmetric case
+      {
+        mon = mon*c@(i)^exponent;
+        monc = monc*l[i]^exponent; // has the same leading coefficient as f
+      }
+      else // not the symmetric case
+      {
+        mon=0;
+        monc=0;
+      }
+    }
+    if(mon==0) // not the symmetric case
+    {
+      rez2=rez2+lead(f);
+      f=f-lead(f);
+    }
+    else // symmetric case
+    {
+      rez1=rez1+mon; // add a monomial
+      f=f-monc; // subtract the monomial
+    }
+    v=leadexp(f), 0;
+  }
+  while( leadexp(f)!=0 )
+  {
+    rez2=rez2+lead(f);
+    f=f-lead(f);
+  }
+  rez1=rez1+f;
+  setring br@; // come back to the initial base ring
+  // define the specialization homomorphism
+  map FF = r@,maxideal(1),c[1..nV], V[1..nV];
+  return( list( FF(rez1), FF(rez2) ) );
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r=0, (x,y,z, c(1..3)), dp;
+  list l=c(1..3);
+  // The symmetric part of f = 3x2 + 3y2 + 3z2 + 7xyz + y
+  // in terms of the elementary symmetric functions c(1), c(2), c(3)
+  // and the remainder
+  poly f = 3x2 + 3y2 + 3z2 + 7xyz + y;
+  print( symNsym(f, l) );
+  // Take a symmetric polynomial in variables x and z
+  f=x2+xz+z2;
+  // Express it in terms of the elementary the symmetric functions
+  print( symNsym(f, l)[1]);
+}
+//-------------------------------------------------------------------------------------------
+
+proc CompleteHomog(int N, list c)
+"USAGE:   CompleteHomog(N, c);  N integer, c list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the list of the complete homogeneous symmetric polynomials
+          in terms of the elementary symmetric polynomials (entries of c)
+EXAMPLE:  example CompleteHomog; shows an example
+NOTE:
+"
+{
+  c=append_by_zeroes(N, c);
+  if(N<0) // if N is negative, return the empty list
+  {
+    return(list());
+  }
+  list rez=list(1); // the result will be computed here
+  int i, j;
+  int sign;
+  poly f;
+  for(i=1; i<=N; i++) // use the recursive formula
+  {
+    f=0;
+    sign=1;
+    for(j=1;j<=i; j++) // compute the next complete homogeneous symmetric polynomial
+    {
+      f=f+sign*c[j]*rez[i-j+1];
+      sign=-sign;
+    }
+    rez=rez+( list(f)  );
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (x(1..3)), dp;
+  list l=x(1..3);
+  //Complete homogeneous symmetric polynomials up to degree 3 in variables x(1), x(2), x(3)
+  print( CompleteHomog(3, l) );
+}
+//-----------------------------------------------------------------------
+
+proc segre(list c, list #)
+"USAGE:   segre(c[, N]); c list of polynomials, N integer
+RETURN:   list of polynomials
+PURPOSE:  computes the list of the Segre classes up to degree N
+          in terms of the Chern classes from c
+EXAMPLE:  example segre; shows an example
+NOTE:
+"
+{
+  int N;
+  if(size(#)>0)
+  {
+    if( is_integer(#[1]) )
+    {
+      N=#[1];
+    }
+  }
+  else
+  {
+    N=size(c);
+  }
+  c=append_by_zeroes(N, c);
+  if(N<0) // if N is negative, return the empty list
+  {
+    return(list());
+  }
+  list rez=list(1); // the result will be computed here
+  int i, j;
+  poly f;
+  for(i=1; i<=N; i++) // use the recursive formula
+  {
+    f=0;
+    for(j=1;j<=i; j++) // compute the next Segre class
+    {
+      f=f-c[j]*rez[i-j+1];
+    }
+    rez=rez+( list(f)  );
+  }
+  return(delete(rez,1));
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (c(1..3)), dp;
+  list l=c(1..3);
+  //Segre classes up to degree 5 in Chern classes c(1), c(2), c(3)
+  print( segre(l, 5) );
+}
+//-----------------------------------------------------------------------
+
+proc chern(list s, list #)
+"USAGE:   chern(s);  s list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the list of the Chern classes up to degree N
+          in terms of the Segre classes from s
+EXAMPLE:  example chern; shows an example
+NOTE:
+"
+{
+  return( segre(s, #) );
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  ring r = 0, (s(1..3)), dp;
+  list l=s(1..3);
+  // Chern classes in Segre classes s(1), s(2), s(3)
+  print( chern(l) );
+  // This procedure is inverse to segre(...). Indeed:
+  print( segre(chern(l), 3) );
+}
+//-----------------------------------------------------------------------
+
+proc chNum(int N, list c)
+"USAGE:   chNum(N, c);  N integer, c list
+RETURN:   list
+PURPOSE:  computes the Chern numbers of a vector bundle with Chern classes c
+          on a complex manifold (variety) of dimension N,
+          the zeroes corresponding to the higher zero Chern classes are ignored
+EXAMPLE:  example chNumbers; shows an example
+NOTE:     computes basically the partitions of N
+          in summands not greater than the length of c
+"
+{
+  int n=size(c);
+  if(N<0)
+  {
+    print("");
+    return( list() );
+  }
+  if( (n==0) || (N==0)  )
+  {
+    return(list(1));
+  }
+  if(n==1) // if there is only one entry in the list
+  {
+    return(list(c[1]^N));
+  }
+  int i;
+  int j;
+  poly f; // the powers of the last variable will be stored here
+  list l=delete(c, n); // delete the last variable
+  list L;
+  list rez=chNum(N, l); // monomials not involving the last variable
+  for(i=1;i<=(N div n); i++) // add the monomials involving the last variable
+  {
+    f=c[n]^i; // the power of the last variable
+    // monomials without the last variable that,
+    // multiplied by the i-th power of the last variable,
+    // give a monomial of the required type
+    L=chNum(N-n*i, l);
+    for(j=1; j<=size(L) ;j++) // multiply every such monomial
+    {
+      L[j]=L[j]*f; // by the i-th power of the last variable
+    }
+    rez=rez+L; // add the monomials involving the i-th power of the last variable
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r = 0, (c(1..2)), dp;
+  list l=c(1..2);
+  // Let c(1) be a variable of degree 1, let c(2) be a variable of degree 2.
+  // The monomials in c(1) and c(2) of weighted degree 5 are:
+  print( chNum( 5, l ) );
+
+  // Compare the result to the output of chNumbers(...):
+  print( chNumbers(5, l) );
+}
+//----------------------------------------------------------------------------------------
+
+proc chNumbers(int r, list c)
+"USAGE:   chNumbers(r, c);  r integer,  c list
+RETURN:   list
+PURPOSE:  computes the Chern numbers of a vector bundle with Chern classes c
+          on a complex manifold (variety) of dimension r
+EXAMPLE:  example chNumbers; shows an example
+NOTE:     computes basically the partitions of r
+"
+{
+  if(r<0)
+  {
+    print("The dimension of a manifold must be a non-negative integer!");
+    return(list()); // return the empty list in this case
+  }
+  if(r==0)
+  {
+    return(list(1));
+  }
+  //-----------------
+  // from now on r>0
+  //----------------
+  int n=size(c);
+  c=append_by_zeroes(r, c);
+  c=c[1..r]; // throw away redundant data
+  return(chNum(r, c));
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r = 0, (c(1..3)), dp;
+  list l=c(1..3);
+  // The Chern numbers of a vector bundle with Chern classes c(1), c(2), c(3)
+  // on a 3-fold:
+  print( chNumbers( 3, l ) );
+
+  // If the highest Chern class is zero, the Chern numbers are:
+  l=c(1..2);
+  print( chNumbers( 3, l ) );
+
+  // Compare this to the output of chNum(...):
+  print( chNum( 3, l ) );
+}
+//---------------------------------------------------------------------------------------
+
+proc sum_of_powers(int k, list l)
+"USAGE:   sum_of_powers(k, l);  k non-negative integer, l list of polynomials
+RETURN:   polynomial
+PURPOSE:  computes the sum of k-th powers of the entries of l
+EXAMPLE:  example sum_of_powers; shows an example
+NOTE:     returns 0 if k is negative
+"
+{
+  if(k<0) // return 0 if k is negative
+  {
+    print("The exponent must be non-negative; 0 has been returned");
+    return(0);
+  }
+  int i;
+  int n=size(l);
+  poly rez; // the result will be computed here
+  for(i=1;i<=n;i++) // compute the sum of powers
+  {
+    rez=rez+l[i]^k;
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (x, y, z), dp;
+  list l=x, y, z;
+  //sum of 7-th powers of x, y, z
+  print( sum_of_powers(7, l) );
+}
+//-----------------------------------------------------------------------
+
+proc powSumSym(list c, list #)
+"USAGE:   powSumSym(l [,N]);  l a list of polynomials, N integer
+RETURN:   list of polynomials
+PURPOSE:  computes the expressions for the sums of powers [up to degree N]
+          in terms of the elementary symmetric polynomials (entries of l),
+EXAMPLE:  example powSumSym; shows an example
+NOTE:     returns the terms of the Chern character
+          multiplied by the corresponding factorials
+"
+{
+  int n;
+  if( size(#) == 0 ) // if there are no optional parameters
+  {
+    n = size(c); // set n to be the length of c
+  }
+  else // if there are optional parameters
+  {
+    if( is_integer(#[1])) // if the first optional parameter is an integer
+    {
+      n = max( #[1], 0 ); // if the parameter is negative, reset it to be zero
+      c = append_by_zeroes(n, c); // if n is greater than the length of c, append c by zeroes
+      if( n != 0 ) // if n is non-zero
+      {
+        c = c[1..n]; // take into account only the first n entries of c
+      }
+    }
+    else // if the optional parameter is not an integer, then
+    {
+      n=size(c); // ignore it and set n to be the length of c
+    }
+  }
+  list rez; // the result will be computed here
+  if(n==0) // return the empty list
+  {
+    return(rez)
+  }
+  else // otherwise proceed as follows:
+  {
+    // first compute the sums of powers of the Chern roots
+    // in terms of the Chern classes using the Newton's identities
+    int i, j, sign;
+    poly f;
+    // the first term of the Chern character coincides with the first Chern class,
+    // or equivalently with the sum of Chern roots
+    rez = rez + list(c[1]);
+    // compute the sums of powers of Chern roots recursively using the Newton's identities
+    for(j=2; j<=n; j++)
+    {
+      sign=1;
+      f=0;
+      for(i=1; i<j; i++)
+      {
+        f=f + c[i]*sign*rez[j-i];
+        sign = -sign;
+      }
+      f=f+sign*j*c[j];
+      rez=rez+list(f); // add the newly computed sum of powers of Chern roots to the list
+    }
+    return(rez); // return the result
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // the expressions of the first 3 sums of powers of 3 variables a(1), a(2), a(3)
+  // in terms of the elementary symmetric polynomials c(1), c(2), c(3):
+  ring r = 0, (c(1..3)), dp;
+  list l=(c(1..3));
+  print(powSumSym(l));
+  // The first 5 sums in the same situation
+  print(powSumSym(l, 5));
+}
+//---------------------------------------------------------------------------------
+
+proc chAll(list c, list #)
+"USAGE:   chAll(l [,N]);  l a list of polynomials, N integer
+RETURN:   list of polynomials
+PURPOSE:  computes the list of terms of positive degree [up to degree N] of
+          the Chern character, where the entries of l are considered as the Chern classes
+EXAMPLE:  example chAll; shows an example
+NOTE:     makes sense only for a list of polynomials
+"
+{
+    list rez; // to be the result
+    rez = powSumSym(c, #); // get the sums of powers of the Chern roots
+    int n = size(rez);
+    bigint fct=1;
+    int i;
+    for(i=1;i<=n;i++) // get the terms of the Chern character
+    {
+      fct=fct*i;
+      rez[i]=rez[i]/fct;
+    }
+    return(rez); // return the result
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // Chern character (terms of degree 1, 2, 3)
+  // corresponding to the Chern classes c(1), c(2), c(3):
+  ring r = 0, (c(1..3)), dp;
+  list l=(c(1..3));
+  print(chAll(l));
+  // terms up to degree 5 in the same situation
+  print(chAll(l, 5));
+}
+//---------------------------------------------------------------------------------
+
+proc chAllInv(list c)
+"USAGE:   chAllInv(l);  l a list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  procedure inverse to chAll(), computes the list of Chern classes
+          from the list of terms of positive degree of the Chern character
+EXAMPLE:  example chAllInv; shows an example
+NOTE:     makes sense only for a list of polynomials
+"
+{
+  int n = size(c);
+  list rez;
+  if(n==0) // if the list of terms of Chern character is empty, return the empty list
+  {
+    return(rez);
+  }
+  else // otherwise compute the result using the Newton's identities
+  {
+    int j, i, sign;
+    poly f;
+    // transform the list of terms of the Chern character
+    // to the list of sums of powers of Chern roots
+    //bigint fct=1;
+    for(i=1; i<=n; i++)
+    {
+      //fct=fct*i;
+      //c[i]=fct*c[i];
+      c[i]=factorial(i)*c[i];
+    }
+    // the first Chern class coincides with the first degree term of the Chern character
+    rez=rez+list(c[1]);
+    // compute the higher Chern classes recursively using the Newton's identities
+    for(j=2;j<=n;j++)
+    {
+      sign=1;f=0;
+      for(i=1;i<j;i++)
+      {
+        f=f+ c[i]*sign*rez[j-i];
+        sign=-sign;
+      }
+      f=f+sign*c[j];
+      rez=rez+list(f/j);
+    }
+    return(rez); // return the result
+  }
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  // first 3 Chern classes in terms of the first 3 terms
+  // of the Chern character Chern  ch(1), ch(2), ch(3):
+  ring r = 0, (ch(1..3)), dp;
+  list l=(ch(1..3));
+  print(chAllInv(l));
+  // let's see that chAllInv() is inverse to chAll()
+  print( chAll( chAllInv(l) ) );
+}
+//---------------------------------------------------------------------------------
+
+proc chHE(list c)
+"USAGE:   chHE(c);  c list of polynomials
+RETURN:   polynomial
+PURPOSE:  computes the highest relevant term of the Chern character
+EXAMPLE:  example chHE; shows an example
+NOTE:     uses the elimination and is extremely inefficient,
+          is included just for comparison with chAll(c)
+"
+{
+  int i;
+  // insure that the entries of c are polynomials
+  // in order to be able to apply maps
+  for(i=1;i<=size(c);i++)
+  {
+    c[i]=poly(c[i]);
+  }
+  int n=size(c);
+  if(n==0) // in this case return the empty list
+  {
+    return(list());
+  }
+  else // otherwise proceed as follows
+  {
+    def br@=basering; // remember the base ring
+    // add additional variables c@, a@(1..n) to the base ring
+    list l3 = "c@";
+    l3 = l3+ ringlist(basering)[2];
+    for (int ii = 1; ii <= n; ii++)
+    {
+     l3[size(l3)+1] = "a@("+string(ii)+")";
+    }
+    ring r@ = create_ring(ring_list(basering)[1], l3, "lp", "no_minpoly");
+    // define the corresponding inclusion of rings: imap
+    list c=imap(br@,c); // embed c in the bigger ring
+    poly rez;
+    list A=a@(1..n);
+    list sym=symm(A);
+    ideal I;
+    poly E=1; // to be the product of variables which should be eliminated
+    for(i=1;i<=n;i++)
+    {
+      E=E*a@(i); // compute the product of the variables that must be eliminated
+      I=I, c[i]-sym[i];
+    }
+    I=I, c@-sum_of_powers(n, A);
+    I=simplify(elim(I, E),1);
+    rez = -subst(I[1], c@, 0);
+    setring br@; // come back to the initial base ring
+    map FF= r@,0,maxideal(1); // define the specialization homomorphism
+    poly rez=FF(rez); // bring the result to the base ring
+    return( (1/factorial(n))*rez);
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (c(1..3)), dp;
+  list l=c(1..3);
+  //the third degree term of the Chern character
+  print( chHE(l) );
+}
+//----------------------------------------------------------------------
+
+proc ChernRootsSum(list a, list b)
+"USAGE:   ChernRootsSum(a, b); a, b lists of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern roots of the direct (Whitney) sum
+          of a vector bundle with Chern roots a and a vector bundle with Chern roots b
+EXAMPLE:  example ChernRootsSum; shows an example
+NOTE:
+"
+{
+  return(a+b);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (a(1..3), b(1..2)), dp;
+  // assume a(1), a(2), a(3) are the Chern roots of a vector bundle E
+  // assume b(1), b(2) are the Chern roots of a vector bundle F
+  list l=a(1..3);
+  list L=b(1..2);
+  // the Chern roots of their direct sum is
+  print( ChernRootsSum(l, L) );
+}
+//----------------------------------------------------------------------
+
+proc chSum(list c, list C)
+"USAGE:   chSum(c, C);  c, C lists of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern classes of a direct sum of two vector bundles
+EXAMPLE:  example chSum; shows an example
+NOTE:
+"
+{
+  int N=size(c)+size(C);
+  c=append_by_zeroes(N, c); // append by zeroes if necessary
+  C=append_by_zeroes(N, C); // append by zeroes if necessary
+  list rez; // to be the result
+  int i;
+  int j;
+  poly f;
+  for(i=1;i<=N;i++)
+  {
+    f=c[i]+C[i];
+    for(j=1;j<i;j++)
+    {
+      f=f+c[j]*C[i-j];
+    }
+    rez=rez+list(f);
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (c(1..3), C(1..2)), dp;
+  // Let E be a vector bundle with Chern classes c(1), c(2), c(3).
+  // Let F be a vector bundle with Chern classes C(1), C(2).
+  list l=c(1..3);
+  list L=C(1..2);
+  // Then the Chern classes of their direct sum are
+  print( chSum(l, L) );
+}
+//----------------------------------------------------------------------
+
+proc ChernRootsDual(list l)
+"USAGE:   ChernRootsDual(l); l a list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern roots of the dual vector bundle
+          of a vector bundle with Chern roots from l
+EXAMPLE:  example ChernRootsDual; shows an example
+NOTE:
+"
+{
+  int n=size(l);
+  int i;
+  for(i=1;i<=n;i++) // change the sign of the entries of a
+  {
+    l[i]=-l[i];
+  }
+  return(l);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (a(1..3)), dp;
+  // assume a(1), a(2), a(3) are the Chern roots of a vector bundle
+  list l=a(1..3);
+  // the Chern roots of the dual vector bundle
+  print( ChernRootsDual(l) );
+}
+//----------------------------------------------------------------------
+
+proc chDual(list c)
+"USAGE:   chDual(c);   c list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the list of Chern classes of the dual vector bundle
+EXAMPLE:  example chDual; shows an example
+NOTE:
+"
+{
+  int n=size(c);
+  int i;
+  for(i=1;i<=n;i=i+2)
+  {
+    c[i]=-c[i];
+  }
+  return(c);
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  // Chern classes of a vector bundle that is dual to a vector bundle
+  // with Chern classes c(1), c(2), c(3)
+  ring r=0, (c(1..3)), dp;
+  list l=c(1..3);
+  print(chDual(l));
+}
+//-----------------------------------------------------------------------------------------
+
+proc ChernRootsProd(list a, list b)
+"USAGE:   ChernRootsProd(a, b); a, b lists of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern roots of the tensor product of a vector bundle with Chern roots a
+          and a vector bundles with Chern roots b
+EXAMPLE:  example ChernRootsProd; shows an example
+NOTE:
+"
+{
+  int na=size(a);
+  int nb=size(b);
+  int i;
+  int j;
+  list rez; // the result will be computed here
+  for(i=1;i<=na;i++) // compute the result
+  {
+    for(j=1;j<=nb;j++)
+    {
+      rez=rez+list(a[i]+b[j]);
+    }
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  ring r=0, (a(1..2), b(1..3)), dp;
+  list l=a(1..2);
+  list L=b(1..3);
+  // Chern roots of the tensor product of a vector bundle with Chern roots a(1), a(2)
+  // and a vector bundle with Chern roots b(1), b(2), b(3)
+  print(ChernRootsProd(l, L));
+}
+//-----------------------------------------------------------------------------------------
+
+proc chProd(def r,  list c, def R, list C, list #)
+"USAGE:   chProd(r, c, R, C [, N]);  r, R polynomials (integers);
+          c, C lists of polynomials, N integer
+RETURN:   list of polynomials
+PURPOSE:  computes the list of Chern classes of the product of two vector bundles
+          in terms of their ranks and Chern clases [up to degree N]
+EXAMPLE:  example chProd; shows an example
+NOTE:
+"
+{
+  // check the input data
+  if( is_integer(r) ) // if r is an integer
+  {
+    if(r<=0) // if r is negative or zero return the empty list
+    {
+      return( list() );
+    }
+    //----------------------------
+    //now r is a positive integer
+    //----------------------------
+    c=append_by_zeroes(r, c); // append c by zeroes if r is greater than the length of c
+    c=c[1..r]; // make c shorter (of length r) if r is smaller than the length of c
+  }
+  if( is_integer(R) ) // if R is an integer
+  {
+    if(R<=0) // if R is negative or zero return the empty list
+    {
+      return( list() );
+    }
+    //----------------------------
+    //now R is a positive integer
+    //----------------------------
+    C=append_by_zeroes(R, C); // append C by zeroes if R is greater than the length of C
+    C=C[1..R]; // make C shorter (of length R) if R is smaller than the length of C
+  }
+  //----------------------------------------------------------
+  //now r > 0 if it is an integer; R > 0 if it is an integer
+  //----------------------------------------------------------
+  int n;
+  if( is_integer(r) && is_integer(R) ) // if both r and R are integers
+  {
+    n=r*R; // set n to be the rank of the product bundle
+  }
+  else // otherwise define the rank of the product vector bundle by
+  {
+    n=size(c)*size(C); // looking at the lengths of c and C
+  }
+  if( size(#) != 0 ) // if there is an optional parameter
+  {
+    if( is_integer( #[1] )  ) // if this parameter is an integer
+    {
+      if( #[1]<=0 ) // if it is negative or zero, return the empty list
+      {
+        return( list() );
+      }
+      // now #[1] is positive
+      // the product bundle can only have non-zero Chern classes up to degree n
+      // so ignore the optional parameter if it is greater than n
+      n = min(#[1], n);
+    }
+  }
+  if(n==0) // if n is zero, return the empty list
+  {
+    return( list() );
+  }
+  //-----------------------------------------------------------
+  //now n is positive, we can perform the relevant computations
+  //-----------------------------------------------------------
+  int i, j;
+  c=append_by_zeroes(n, c); // append c by zeroes up to degree n
+  C=append_by_zeroes(n, C); // append C by zeroes up to degree n
+  c=c[1..n]; // throw away the redundant data if needed
+  C=C[1..n]; // throw away the redundant data if needed
+  // build the list of all terms of the Chern characters: for rank r, and Chern classes c
+  list ch = list(r) + chAll(c);
+  list CH = list(R) + chAll(C); // do the same for rank R and Chern classes C
+  poly f;
+  list chP;
+  // compute the list of the non-zero degree terms of the Chern character
+  // of the tensor product of two vector bundles
+  for(i=1;i<=n;i++) // using the multiplicativity of the Chern character
+  {
+    f=0;
+    for(j=0;j<=i;j++)
+    {
+      f=f+ch[j+1]*CH[i-j+1];
+    }
+    chP=chP+list(f);
+  }
+  return( chAllInv(chP) ); // return the corresponding Chern classes
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  ring H = 0, ( r, R, c(1..3), C(1..2) ), dp;
+  list l=c(1..3);
+  list L=C(1..2);
+  // the Chern classes of the tensor product of a vector bundle E of rank 3
+  // with Chern classes c(1), c(2), c(3)
+  // and a vector bundle F of rank 2 with Chern classes C(1) and C(2):
+  print( chProd(3, l, 2, L) );
+  // the first two Chern classes of the tensor product
+  // of a vector bundle E of rank r with Chern classes c(1) and c(2)
+  // and a vector bundle G of rank R with Chern classes C(1) and C(2)
+  // this gives the Chern classes of a tensor product on a complex surface
+  l=c(1..2);
+  L=C(1..2);
+  print( chProd(r, l, R, L, 2 ) );
+}
+//---------------------------------------------------------------------------------
+
+proc chProdE(list c, list C)
+"USAGE:   chProdE(c, C);   c, C lists of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the list of Chern classes of the product
+          of two vector bundles in terms of their Chern clases
+EXAMPLE:  example chProdE; shows an example
+NOTE:     makes sense only for (lists of) polynomials;
+          uses elimination, hence very inefficient;
+          included only for comparison with chProd(...)
+"
+{
+  int r=size(c);
+  int R=size(C);
+  // insure that the entries of c and C are polynomials
+  // in order to be able to apply maps
+  int i,j;
+  for(i=1;i<=r;i++)
+  {
+    c[i]=poly(c[i]);
+  }
+  for(i=1;i<=R;i++)
+  {
+    C[i]=poly(C[i]);
+  }
+  if( (r==0) && (R==0) ) // if one of the ranks is 0,
+  {
+    return( list() ); // return the empty list (zero bundles have no Chern classes)
+  }
+  //------------------------------------
+  //now both r and R are greater than 0
+  //------------------------------------
+  int n=r*R; // the rank of the product of two vector bundles
+  def br@=basering; // remember the base ring
+  // add additional variables a@(1..r), b@(1..R), x@ to the base ring
+  int ii;
+  list l4 = "x@";
+  l4 = l4+ ringlist(basering)[2];
+  for (ii = 1; ii <= r; ii++)
+  {
+   l4[size(l4)+1] = "a@("+string(ii)+")";
+  }
+  for (ii = 1; ii <= R; ii++)
+  {
+   l4[size(l4)+1] = "b@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l4, "lp", "no_minpoly");
+  // define the corresponding inclusion of rings: imap
+  list c=imap(br@,c); // embed c in the bigger ring
+  list C=imap(br@,C); // embed C in the bigger ring
+  list A=a@(1..r); // list of Chern roots of the first vector bundle
+  list syma = symm(A); // symmetric functions in the Chern roots of the first vector bundles
+  list B=b@(1..R); // list of Chern roots of the second vector bundle
+  list symb=symm(B); // symmetric functions in the Chern roots of the second vector bundles
+  ideal I;
+  // the product of variables (all Chern roots) which should be eliminated
+  poly E=product(A)*product(B);
+  for(i=1; i<=r; i++)
+  {
+    for(j=1; j<=R; j++)
+    {
+      I=I, c[i]-syma[i], C[j]-symb[j]; // add the relations
+    }
+  }
+  // the Chern roots of the tensor product in terms of the Chern roots of the factors
+  list crt=ChernRootsProd(A, B);
+  list Cf=symm(crt); // Chern classes of the product in terms of the Chern roots of the factors
+  list rez; // the result will be computed here
+  ideal J;
+  for(i=1;i<=n;i++)
+  {
+    J = I, x@-Cf[i]; // add the equation for the i-th Chern class to the ideal of relations
+    J = simplify(elim(J, E), 1); // eliminate the Chern roots
+    // get the expression for the i-th Chern class of the product
+    // in terms of the Chern classes of the factors
+    rez = rez + list( -subst(J[1], x@, 0) );
+  }
+  setring br@; // come back to the initial base ring
+  map FF= r@, 0,maxideal(1); // define the specialization homomorphism t@=0
+  list rez=FF(rez); // bring the result to the base ring
+  return(rez); // return the corresponding Chern classes
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  ring H = 0, ( c(1..3), C(1..2) ), dp;
+  list l=c(1..3);
+  list L=C(1..2);
+  // the Chern classes of the tensor product of a vector bundle E of rank 3
+  // with Chern classes c(1), c(2), c(3)
+  // and a vector bundle F of rank 2 with Chern classes C(1) and C(2):
+  print( chProdE(l,  L) );
+}
+//------------------------------------------------------------------------------------
+
+proc chProdL(int r, list c, int R, list C)
+"USAGE:   chProdL(r, c, R, C);  r, R integers; c, C lists of polynomials
+RETURN:   list
+PURPOSE:  computes the list of Chern classes of the product of two vector bundles
+          in terms of their Chern clases
+EXAMPLE:  example chProdL; shows an example
+NOTE:     Implementation of the formula of Lascoux, the Schur polynomials are computed
+          using the second Jacobi-Trudi formula (in terms of the Chern classes)
+"
+{
+  // check the input data
+  if(r<=0) // if r is negative or zero return the empty list
+  {
+    return( list() );
+  }
+  //----------------------------
+  //now r is a positive integer
+  //----------------------------
+  c=append_by_zeroes(r, c); // append c by zeroes if r is greater than the length of c
+  c=c[1..r]; // make c shorter (of length r) if r is smaller than the length of c
+  if(R<=0) // if R is negative or zero return the empty list
+  {
+    return( list() );
+  }
+  //----------------------------
+  //now R is a positive integer
+  //----------------------------
+  C=append_by_zeroes(R, C); // append C by zeroes if R is greater than the length of C
+  C=C[1..R]; // make C shorter (of length R) if R is smaller than the length of C
+  //----------------------------------------------------------
+  // now r > 0 and R > 0
+  //----------------------------------------------------------
+  def br@=basering; // remember the base ring
+  // add  additional variables to the base ring
+  int ii;
+  list l5 = ringlist(basering)[2];
+  l5[size(l5)+1] = "t@";
+  for (ii = 1; ii <= r; ii++)
+  {
+   l5[size(l5)+1] = "c@("+string(ii)+")";
+  }
+  for (ii = 1; ii <= R; ii++)
+  {
+   l5[size(l5)+1] = "C@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l5, "dp", "no_minpoly");
+  list c, C;
+  int i;
+  for(i=1;i<=r;i++)
+  {
+    c[i]=c@(i)*t@^i;
+  }
+  for(i=1;i<=R;i++)
+  {
+    C[i]=C@(i)*t@^i;
+  }
+  poly f = chProdLP(r,c,R,C); // get the total Chern class using the Lascoux formula
+  matrix CF = coeffs(f, t@); // get its coefficients in front of the powers of t@
+  int N=r*R;
+  list rez; // write them in a list
+  for(i=1;i<=N;i++)
+  {
+    rez=rez+list(CF[i+1,1]);
+  }
+  setring br@; // come back to the initial base ring
+  // define the specialization homomorphism
+  map FF = r@,maxideal(1),0, c[1..r], C[1..R];
+  return( FF( rez ) ); // bring the result to the initial ring
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // The Chern classes of the tensor product of a vector bundle of rank 3
+  // with Chern classes c(1), c(2), c(3) and a vector bundle of rank 1 with
+  // Chern class C(1)
+  ring r = 0, ( c(1..3), C(1)), dp;
+  list c=c(1..3);
+  list C=C(1);
+  print( chProdL(3,c,1,C) );
+}
+//---------------------------------------------------------------------------------------
+
+proc chProdLP(int r, list c, int R, list C)
+"USAGE:   chProdLP(r, c, R, C);  r, R integers; c, C lists of polynomials
+RETURN:   polynomial
+PURPOSE:  computes the total Chern class of the product of two vector bundles
+          in terms of their ranks and Chern clases
+EXAMPLE:  example chProdLP; shows an example
+NOTE:     Implementation of the formula of Lascoux, the Schur polynomials are computed
+          using the second Jacobi-Trudi formula (in terms of the Chern classes)
+"
+{
+  if(r<=0) // if r is negative or zero, return 1
+  {
+    return( 1 );
+  }
+  if(R<=0) // if R is negative or zero, return 1
+  {
+    return( 1 );
+  }
+  //-------------------------------------------
+  // now r and R are positive
+  //-------------------------------------------
+  c=append_by_zeroes(r, c);
+  C=append_by_zeroes(R, C);
+  c=c[1..r];
+  C=C[1..R];
+  list P;
+  P=part(r, R); // compute the partitions of numbers up to R into r summands
+  int sz=size(P); // number of such partitions
+  int szu;
+  int i, j;
+  list T;
+  list PU;
+  list TU;
+  poly rez; // the result will be computed here
+  poly ST;
+  // implement the formula of Lascoux:
+  for(i=1;i<=sz;i++) // run through all the partitions from P
+  {
+    T=P[i]; // the current partition
+    ST= SchurS( PartC(T, R) , C ); // compute the corresponding Schur polynomial
+    PU=partUnder(T); // compute the partitions under T
+    szu=size(PU); // number of such partitions
+    for(j=1;j<=szu;j++) // run through all the partitions lying under T
+    {
+      TU=PU[j]; // for each of them
+      rez=rez+IJcoef(T, TU)* SchurCh(TU, c) *ST; // add the corresponding term to the result
+     }
+  }
+  return(rez); // return the result
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // The total Chern class of the tensor product of a vector bundle of rank 3
+  // with Chern classes c(1), c(2), c(3) and a vector bundle of rank 1 with
+  // Chern class C(1)
+  ring r = 0, ( c(1..3), C(1)), ws(1,2,3, 1);
+  list c=c(1..3);
+  list C=C(1);
+  print( chProdLP(3,c,1,C) );
+}
+//---------------------------------------------------------------------------------------
+
+proc chProdM(int r, list c, int R, list C)
+"USAGE:   chProdM(r, c, R, C);  r, R integers; c, C lists of polynomials
+RETURN:   list
+PURPOSE:  computes the list of Chern classes of the product of two vector bundles
+          in terms of their Chern clases
+EXAMPLE:  example chProdM; shows an example
+NOTE:     Implementation of the formula of Manivel
+"
+{
+  // check the input data
+  if(r<=0) // if r is negative or zero return the empty list
+  {
+    return( list() );
+  }
+  //----------------------------
+  //now r is a positive integer
+  //----------------------------
+  c=append_by_zeroes(r, c); // append c by zeroes if r is greater than the length of c
+  c=c[1..r]; // make c shorter (of length r) if r is smaller than the length of c
+  if(R<=0) // if R is negative or zero return the empty list
+  {
+    return( list() );
+  }
+  //----------------------------
+  //now R is a positive integer
+  //----------------------------
+  C=append_by_zeroes(R, C); // append C by zeroes if R is greater than the length of C
+  C=C[1..R]; // make C shorter (of length R) if R is smaller than the length of C
+  //----------------------------------------------------------
+  // now r > 0 and R > 0
+  //----------------------------------------------------------
+  def br@=basering; // remember the base ring
+  // add  additional variables to the base ring
+  int ii;
+  list l6 = ringlist(basering)[2];
+  l6[size(l6)+1] = "t@";
+  for (ii = 1; ii <= r; ii++)
+  {
+   l6[size(l6)+1] = "c@("+string(ii)+")";
+  }
+  for (ii = 1; ii <= R; ii++)
+  {
+   l6[size(l6)+1] = "C@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l6, "dp", "no_minpoly");
+  list c, C;
+  int i;
+  for(i=1;i<=r;i++)
+  {
+    c[i]=c@(i)*t@^i;
+  }
+  for(i=1;i<=R;i++)
+  {
+    C[i]=C@(i)*t@^i;
+  }
+  poly f = chProdMP(r,c,R,C); // get the total Chern class using the Manivel formula
+  matrix CF = coeffs(f, t@); // get its coefficients in front of the powers of t@
+  int N=r*R;
+  list rez; // write them in a list
+  for(i=1;i<=N;i++)
+  {
+    rez=rez+list(CF[i+1,1]);
+  }
+  setring br@; // come back to the initial base ring
+  // define the specialization homomorphism
+  map FF = r@,maxideal(1),0, c[1..r], C[1..R];
+  return( FF( rez ) ); // bring the result to the initial ring
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  // The Chern classes of the tensor product of a vector bundle of rank 3
+  // with Chern classes c(1), c(2), c(3) and a vector bundle of rank 1 with
+  // Chern class C(1)
+  ring r = 0, ( c(1..3), C(1)), dp;
+  list c=c(1..3);
+  list C=C(1);
+  print( chProdM(3,c,1,C) );
+}
+//---------------------------------------------------------------------------------------
+
+proc chProdMP(int r, list c, int R, list C)
+"USAGE:   chProdMP(r, c, R, C);  r, R integers; c, C lists of polynomials
+RETURN:   polynomial
+PURPOSE:  computes the total Chern class of the product of two vector bundles
+          in terms of their ranks and Chern clases
+EXAMPLE:  example chProdMP; shows an example
+NOTE:     Implementation of the formula of Lascoux, the Schur polynomials are computed
+          using the second Jacobi-Trudi formula (in terms of the Chern classes)
+"
+{
+  if(r<=0) // if r is negative or zero, return 1
+  {
+    return( 1 );
+  }
+  if(R<=0) // if R is negative or zero, return 1
+  {
+    return( 1 );
+  }
+  //-------------------------------------------
+  // now r and R are positive
+  //-------------------------------------------
+  c=append_by_zeroes(r, c);
+  C=append_by_zeroes(R, C);
+  c=c[1..r];
+  C=C[1..R];
+  list P;
+  P=part(r, R); // compute the partitions of numbers up to R into r summands
+  int sz=size(P); // number of such partitions
+  int szu;
+  int i, j;
+  list T;
+  list PU;
+  list TU;
+  poly rez; // the result will be computed here
+  poly ST;
+  // implement the formula of Manivel:
+  for(i=1;i<=sz;i++) // run through all the partitions from P
+  {
+    T=P[i]; // the current partition
+    ST= SchurS( PartC(T, R) , C ); // compute the corresponding Schur polynomial
+    PU=partUnder(T); // compute the partitions under T
+    szu=size(PU); // number of such partitions
+    for(j=1;j<=szu;j++) // run through all the partitions lying under T
+    {
+      TU=PU[j]; // for each of them
+      // add the corresponding term to the result
+      rez=rez+Pcoef( TU, PartC(dualPart(T, R), r), r, R )* SchurCh(TU, c) *ST;
+    }
+  }
+  return(rez); // return the result
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // The total Chern class of the tensor product of a vector bundle of rank 3
+  // with Chern classes c(1), c(2), c(3) and a vector bundle of rank 1 with
+  // Chern class C(1)
+  ring r = 0, ( c(1..3), C(1)), ws(1,2,3, 1);
+  list c=c(1..3);
+  list C=C(1);
+  print( chProdMP(3,c,1,C) );
+}
+//---------------------------------------------------------------------------------------
+
+proc ChernRootsHom(list a, list b)
+"USAGE:   ChernRootsHom(a, b); a, b lists of polynomials
+RETURN:   list of polynomials
+PURPOSE:  for a vector bundle E with Chern roots a and a vector bundle F
+          with Chern roots b, computes the Chern roots of Hom(E, F)
+EXAMPLE:  example ChernRootsHom; shows an example
+NOTE:
+"
+{
+  int na=size(a);
+  int nb=size(b);
+  int i;
+  int j;
+  list rez; // the result will be computed here
+  for(i=1;i<=na;i++) // compute the result
+  {
+    for(j=1;j<=nb;j++)
+    {
+      rez=rez+list(-a[i]+b[j]);
+    }
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  ring r=0, (a(1..2), b(1..3)), dp;
+  list l=a(1..2);
+  list L=b(1..3);
+  // Let E be a vector bundle with Chern roots a(1). a(2),
+  // let F be a vector bundle with CHern roots b(1), b(2), b(3).
+  // Then the Chern roots of Hom(E, F) are
+  print(ChernRootsHom(l, L));
+}
+//-----------------------------------------------------------------------------------------
+
+proc chHom(def r,  list c, def R, list C, list #)
+"USAGE:   chHom(r, c, R, C [, N]);  r, R polynomials (integers);
+          c, C lists of polynomials, N integer
+RETURN:   list of polynomials
+PURPOSE:  computes [up to degree N] the list of Chern classes of the vector bundle Hom(E, F)
+          in terms of the ranks and the Chern classes of E and F
+EXAMPLE:  example chHom; shows an example
+NOTE:
+"
+{
+  return( chProd(r, chDual(c), R, C, # ) );
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  ring H = 0, ( r, R, c(1..3), C(1..2) ), dp;
+  list l=c(1..3);
+  list L=C(1..2);
+  // the Chern classes of Hom(E, F) for a vector bundle E of rank 3
+  // with Chern classes c(1), c(2), c(3)
+  // and a vector bundle F of rank 2 with Chern classes C(1) and C(2):
+  print( chHom(3, l, 2, L) );
+  // the first two Chern classes of Hom(E, F) for a vector bundle E of rank r
+  // with Chern classes c(1) and c(2)
+  // and a vector bundle G of rank R with Chern classes C(1) and C(2)
+  // this gives the Chern classes of a tensor product on a complex surface
+  l=c(1..2);
+  L=C(1..2);
+  print( chHom(r, l, R, L, 2 ) );
+}
+//---------------------------------------------------------------------------------
+
+proc ChernRootsSymm(int n, list l)
+"USAGE:   ChernRootsSymm(m, l); m integer, l a list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern roots of m-th symmetric power
+          of a vector bundle with Chern roots from l
+EXAMPLE:  example ChernRootsSymm; shows an example
+NOTE:
+"
+{
+  if(n<0) // return the empty list if n is negative
+  {
+    return(list(0));
+  }
+  int r=size(l);
+  def br@=basering; // remember the base ring
+  ring r@=0, (a@(1..r)), dp;
+  ideal mon = a@(1..r);
+  mon=mon^n; // all monomials of degree n
+  list rez;
+  int i, j;
+  int N = size(mon);
+  intvec v;
+  for(i=1; i<=N; i++) // collect in rez the exponents of the monomials of degree n
+  {
+    v = leadexp(mon[i]);
+    rez = rez + list(v);
+  }
+  setring br@;
+  poly f;
+  list rez1;
+  // run over all exponents and construct the corresponding sums of the Chern roots
+  for(i=1; i<=N; i++)
+  {
+    f=0;
+    for(j=1;j<=r;j++)
+    {
+      f=f+rez[i][j]*l[j];
+    }
+    rez1=rez1+list(f);
+  }
+  return(rez1);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (a(1..3)), dp;
+  list l=a(1..3);
+  // the Chern roots of the second symmetric power of a vector bundle
+  // with Chern  roots a(1), a(2), a(3)
+  print( ChernRootsSymm(2, l) );
+}
+//------------------------------------------------------------
+
+proc ChernRootsWedge( int m, list l)
+"USAGE:   ChernRootsWedge(m, l); m integer, l a list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern roots of m-th exterior power
+          of a vector bundle with Chern roots from l
+EXAMPLE:  example ChernRootsWedge; shows an example
+NOTE:     makes sense only for list of polynomials
+"
+{
+  int n=size(l);
+  if((m>n)||(m<=0) ) // if m is bigger that n or non-positive
+  {
+    return( list(0) ); // return the list with one zero entry
+  }
+  else
+  {
+    if(m==n) // if m equals n, the only Chern root of the exterior power will be
+    {
+      return( list(sum(l)) ); // the sum of the initial Chern roots
+    }
+    else // otherwise proceed recursively
+    {
+      int i;
+      list rez;
+      list rez1;
+      list l1 = delete(l, 1); // throw away the first element from the list
+      poly f = l[1]; // remember the first entry of l
+      // compute the Chern roots of the (m-1)-th exterior power of the smaller list
+      rez1 = ChernRootsWedge(m-1, l1 );
+      int s = size( rez1 );
+      // add the first entry of the bigger list to every entry in the result,
+      // this will give all Chern roots involving f
+      for(i=1; i<=s; i++)
+      {
+        rez1[i] = f+rez1[i];
+      }
+      // return the union of those Chern roots with f and those without f
+      rez = ChernRootsWedge(m, l1) + rez1;
+      return( rez );
+    }
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (a(1..3)), dp;
+  list l=a(1..3);
+  // the Chern roots of the second exterior power of a vector bundle
+  // with Chern  roots a(1), a(2), a(3)
+  print( ChernRootsWedge(2, l) );
+}
+//---------------------------------------------------------------------------------
+
+proc chSymm(int k, int r, list c, list #)
+"USAGE:   chSymm(k, r, c[, pos]);  k, r integers, c list of polynomials, pos list of integers
+RETURN:   list with entries: int N, list of polynomials l
+PURPOSE:  computes the rank and the Chern classes of the symmetric power of a vector bundle
+EXAMPLE:  example chSymm; shows an example
+NOTE:     for the second symmetric power chSymm2L(...) could be faster
+"
+{
+  // insure that the entries of c are polynomials
+  // in order to be able to apply maps
+  int i;
+  for(i=1;i<=size(c);i++)
+  {
+    c[i]=poly(c[i]);
+  }
+  if(r<0) // if the rank is negative
+  {
+    print("The rank of a vector bundle can non be negative");
+    return(list()); // return the empty list in this case
+  }
+  if(r==0) // if we deal with the zero bundle
+  {
+    return( list( 0, list() ) ); // return the data corresponding to the zero bundle
+  }
+  //-----------------------------------
+  // from now on we are in the case r>0
+  //-----------------------------------
+  // if the length  n of the list of Chern classes is smaller
+  // than the rank of the vector bundle,
+  // the higher classes are assumed to be zero and the list is appended by zeroes up to length r
+  c=append_by_zeroes(r, c);
+  // if the length of the list of the Chern classes is greater than the rank
+    c=c[1..r]; // throw away the redundant data
+  //-----------------------------------
+  // from now on the length of c is r>0
+  //-----------------------------------
+  if(k<0)
+  {
+    print("You are trying to compute a negative symmetric power of a vector bundle");
+    return( list(0, list() ) ); // assume such a power to be just a zero bundle
+  }
+  if(k==0) // the zeroth symmetric power is the trivial line bundle
+  {
+    return( list(1, list(0)) );
+  }
+  if(k==1) // the first symmetric power is equal to the vector bundle itself
+  {
+    return(list(r, c));
+  }
+  //-----------------------------------
+  // from now on we are in the case k>2
+  //-----------------------------------
+  list LM = integer_list(#);
+  int M = LM[2]; // maximum among the optional parameters
+  # = LM[1]; // take into account only the first integer optional parameters that are positive
+  //-------------------------------
+  // Perform the computations now
+  //-------------------------------
+  def br@=basering; // remember the base ring
+  // add additional variables to the base ring
+  int ii;
+  list l7 = "x@";
+  l7 = l7+ ringlist(basering)[2];
+  for (ii = 1; ii <= r; ii++)
+  {
+   l7[size(l7)+1] = "a@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l7, "lp", "no_minpoly");
+  // define the corresponding inclusion of rings: imap
+  list c=imap(br@,c); // embed c into the bigger ring
+  list rez; // the Chern classes of the symmetric power are going to be written here
+  poly E = product( list( a@(1..r ) )  ); // product of the Chern roots
+  list ss=ChernRootsSymm(k, list( a@(1..r) ) ); // list of the Chern roots of the symmetric power
+  int N=size(ss); // number of such roots, it equals the rank of the symmetric power
+  // the entries in C will be the Chern classes of the symmetric power
+  // expressed in terms of the Chern roots of the initial vector bundle
+  list C;
+  ideal I, J;
+  // list of the Chern classes of the initial vector bundle expressed in its Chern roots
+  list sym=symm(list(a@(1..r)));
+  if(size(#)==0) // if there are no optional parameters, compute all Chern classes
+  {
+    // the entries here are the Chern classes of the symmetric power
+    // expressed in terms of Chern roots of the initial vector bundle
+    C=symm(ss);
+    for(i=1;i<=N;i++) // eliminate the Chern roots
+    {
+      if(i<= r) // first add all relevant  formulas for the Chern classes in terms of Chern roots
+      {
+        I=I, c[i]-sym[i];
+      }
+      J = I,  x@-C[i];
+      // Notice that elim(...) is from the library "elim.lib",
+      // it is loaded as a result of loading "general.lib"
+      J=simplify(elim(J, E), 1);
+      // get the expression of the next Chern class
+      // in terms of the Chern classes of the initial vector bundle
+      rez=rez+list( -subst(  J[1], x@, 0)  );
+    }
+  }
+  else // otherwise compute only the needed Chern classes
+  {
+    C=symm(ss, M); // only the needed Chern classes
+    int j;
+    i=1;
+    // the maximal number of optional parameters to be considered does not exceed N,
+    // i.e., the rank of the symmetric power
+    int NN = min( size(#), N);
+    for(j=1; j <= NN; j++) // process the optional parameters
+    {
+      // process the optional parameters only until they are not bigger than N;
+      // notice they are positive anyway after integer_list(...)
+      if( #[j]<=N  )
+      {
+        for( ; i<=#[j];i++)
+        {
+          if(i<=r)
+          {
+            // add the relevant formulas for the Chern classes in terms of the Chern roots
+            I=I, c[i]-sym[i];
+          }
+        }
+        J= I, x@-C[ #[j]];
+        // Notice that elim(...) is from the library "elim.lib",
+        // it is loaded as a result of loading "general.lib"
+        J=simplify(elim(J, E), 1);
+        // get the expression of the next Chern class
+        // in terms of the Chern classes of the initial vector bundle
+        rez=rez+list( -subst(  J[1], x@, 0)  );
+      }
+      else // get out from the loop
+      {
+        break;
+      }
+    }
+  }
+  // used because Singular seems not to be able to apply maps to empty lists (see below)
+  if(size(rez)==0)
+  {
+    return(list(N, list()));
+  }
+  setring br@; // come back to the initial base ring
+  // define the specialization homomorphism,
+  // evaluate the formulas for the Chern classes on their given values
+  map FF = r@,0,maxideal(1);
+  list rez=FF( rez ); // bring the result back to the initial ring
+  return( list( N, rez  ) ); // return the result together with the rank of the symmetric power
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (c(1..5)), dp;
+  list l=c(1..5);
+  // the rank and the Chern classes of the second symmetric power of a vector bundle of rank 3
+  print( chSymm(2, 3, l) );
+  // the rank and the first 3 Chern classes
+  // of the second symmetric power of a vector bundle of rank 5
+  print( chSymm(2, 5, l, 1, 2, 3) );
+}
+//----------------------------------------------------------------------------------
+
+proc chSymm2L(int r, list c)
+"USAGE:   chSymm2L(r, c); r integer, c list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern classes of the second symmetric power of a vector bundle
+EXAMPLE:  example chSymm2L; shows an example
+NOTE:     Implementation of the formula of Lascoux, the Schur polynomials are computed
+          using the second Jacobi-Trudi formula (in terms of the Chern classes)
+"
+{
+  // insure that the entries of c are polynomials
+  // in order to be able to apply maps
+  int i;
+  for(i=1;i<=size(c);i++)
+  {
+    c[i]=poly(c[i]);
+  }
+  if(r<0) // if the rank is negative
+  {
+    print("The rank of a vector bundle can non be negative");
+    return(list()); // return the empty list in this case
+  }
+  if(r==0) // if we deal with the zero bundle
+  {
+    return( list( 0, list() ) ); // return the data corresponding to the zero bundle
+  }
+  //-----------------------------------
+  // from now on we are in the case r>0
+  //-----------------------------------
+  c=append_by_zeroes(r, c);
+  c=c[1..r];
+  def br@=basering; // remember the base ring
+  // add  additional variables to the base ring
+  list l8 = ringlist(basering)[2];
+  l8[size(l8)+1] = "t@";
+  for (int ii = 1; ii <= r; ii++)
+  {
+   l8[size(l8)+1] = "c@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l8, "dp", "no_minpoly");
+  list c;
+  for(i=1;i<=r;i++)
+  {
+    c[i]=c@(i)*t@^i;
+  }
+  poly f = chSymm2LP(r,c); // get the total Chern class using the formula of Lascoux
+  matrix CF = coeffs(f, t@);
+  int N=r*(r+1) div 2;
+  list rez; // write the coefficients in front of the powers of t@ into a list
+  for(i=1;i<=N;i++)
+  {
+    rez=rez+list(CF[i+1,1]);
+  }
+  setring br@; // come back to the initial base ring
+  map FF = r@,maxideal(1),0, c[1..r]; // define the specialization homomorphism
+  return( list(N, FF( rez )) ); // bring the result to the initial ring
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (c(1..2)), dp;
+  list l=c(1..2);
+  // the Chern classes of the second symmetric power of a vector bundle of rank 2
+  print( chSymm2L(2, l));
+}
+//---------------------------------------------------------------------------------------
+
+proc chSymm2LP(int r, list c)
+"USAGE:   chSymm2LP(r, c); r integer, c list of polynomials
+RETURN:   poly
+PURPOSE:  computes the total Chern class of the second symmetric power of a vector bundle
+EXAMPLE:  example chSymm2LP; shows an example
+NOTE:     Implementation of the formula of Lascoux, the Schur polynomials are computed
+          using the second Jacobi-Trudi formula (in terms of the Chern classes)
+"
+{
+  if(r<0) // if the rank is negative
+  {
+    print("The rank of a vector bundle can non be negative");
+    return(1); // return 1 in this case
+  }
+  if(r==0) // if we deal with the zero bundle
+  {
+    return( 1 ); // return 1 in this case
+  }
+  //-------------------------------------------
+  // from now on we are in the case r > 0
+  //-------------------------------------------
+  c=append_by_zeroes(r, c);
+  c=c[1..r];
+  list I; // the partition (1,2,...,r) will be stored here
+  int i;
+  for(i=1;i<=r;i++)
+  {
+    I=I+list(i);
+  }
+  list PU = partUnder(I); // compute the partitions under I
+  int sz=size(PU); // get their number
+  poly rez; // the result will be computed here
+  list J;
+  poly cf;
+  int ex;
+  // implement the formula of Lascoux
+  for(i=1;i<=sz;i++)
+  {
+    J=PU[i];
+    ex=sum(J)- r*(r-1) div 2;
+    if(ex>=0)
+    {
+      cf=bigint(2)^ex*IJcoef(I, J);
+    }
+    else
+    {
+      cf=IJcoef(I, J)/bigint(2)^(-ex);
+    }
+    rez = rez + cf * SchurCh(J, c );
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (c(1..2)), ws(1, 2);
+  list l=c(1..2);
+  // the total Chern class of the second symmetric power of a vector bundle of rank 2
+  print( chSymm2LP(2, l));
+}
+//---------------------------------------------------------------------------------------
+
+proc chWedge(int k, int r, list c, list #)
+"USAGE:   chWedge(k, r, c [,pos]);  k, r integers, c list of polynomials, pos list of integers
+RETURN:   list with entries: int N, list of polynomials l
+PURPOSE:  computes the rank and the Chern classes of the exterior power of a vector bundle
+EXAMPLE:  example chWedge; shows an example
+NOTE:     for the second exterior power chWedge2L(...) could be faster
+"
+{
+  // insure that the entries of c are polynomials
+  // in order to be able to apply maps
+  int i;
+  for(i=1;i<=size(c);i++)
+  {
+    c[i]=poly(c[i]);
+  }
+  if(r<0) // if the rank is negative
+  {
+    print("The rank of a vector bundle can non be negative");
+    return(list()); // return the empty list in this case
+  }
+  if(r==0) // if we deal with the zero bundle
+  {
+    return( list( 0, list() ) ); // return the data corresponding to the zero bundle
+  }
+  //-------------------------------------------
+  // from now on we are in the case r > 0
+  //-------------------------------------------
+  if(k<0)
+  {
+    print("You are trying to compute a negative exterior power of a vector bundle");
+    return( list(0, list() ) ); // assume such a power to be just a zero bundle
+  }
+  if(k==0) // the zeroth exterior power is the trivial line bundle
+  {
+    return( list(1, list(0)) );
+  }
+  if(k==1) // the first exterior power is equal to the vector bundle itself
+  {
+    c=append_by_zeroes(r, c);
+    c=c[1..r];
+    return(list(r, c));
+  }
+  //---------------------------------------
+  // from now on we are in the case k > 2
+  //---------------------------------------
+  // if the length of the list of Chern classes is smaller than the rank of the vector bundle,
+  // the higher classes are assumed to be zero and the list is appended by zeroes up to length r
+  c=append_by_zeroes(r, c);
+  // if the length of the list of the Chern classes is greater than the rank
+    c=c[1..r]; // throw away the redundant data
+  //------------------------------------------
+  // from now on the length of c is r > 0
+  //------------------------------------------
+  if( k>r ) // if k>r, the exterior power is zero
+  {
+    return( list( int(0), list()  ) );
+  }
+  //-----------------------------------------------
+  // from now on we are in the case 0 < k <= r = n
+  //-----------------------------------------------
+  if(k==r)
+  {
+    return(list( int(1), list( c(1) ) ) );
+  }
+  //-----------------------------------------------
+  // from now on we are in the case 0 < k < r = n
+  //-----------------------------------------------
+  list LM = integer_list(#);
+  int M=LM[2]; // maximum among the optional parameters if there are any, zero otherwise
+  # = LM[1]; // take into account only the first integer optional parameters that are positive
+  //-----------------------------
+  // Let us compute now
+  //-----------------------------
+  def br@=basering; // remember the base ring
+  // add additional variables a@(1..r), x@ to the base ring
+  list l9 = "x@";
+  l9 = l9+ ringlist(basering)[2];
+  for (int ii = 1; ii <= r; ii++)
+  {
+   l9[size(l9)+1] = "a@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l9, "lp", "no_minpoly");
+  // define the corresponding inclusion of rings: imap
+  list c = imap(br@,c); // embed c into the bigger ring
+  list rez; // the result should be computed here
+  poly E = product( list( a@(1..r ) )  ); // product of the Chern roots to be eliminaned
+  list ss=ChernRootsWedge(k,  list( a@(1..r) )); // list of the Chern roots of the exterior product
+  int N=size(ss); // length of ss, equals the rank of the exterior product
+  // list of the Chern classes of the initial vector bundle in terms of their Chern roots
+  list sym=symm(list(a@(1..r)));
+  // the entries here will be the Chern classes we need
+  // expressed in  terms of the Chern roots of the initial vector bundle
+  list C;
+  ideal I, J;
+  if( size(#) == 0 ) // if there are no optional parameters, compute all Chern classes
+  {
+    // the entries here are the Chern classes we need
+    // expressed in  terms of the Chern roots of the initial vector bundle
+    C=symm(ss);
+    for(i=1;i<=N;i++) // eliminate the Chern roots
+    {
+      if(i<= r) // first add all relevant  formulas for the Chern classes in terms of Chern roots
+      {
+        I=I, c[i]-sym[i];
+      }
+      J = I,  x@-C[i];
+      // Notice that elim(...) is from the library "elim.lib",
+      // it is loaded as a result of loading "general.lib"
+      J=simplify(elim(J, E), 1);
+      // get the expression of the next Chern class
+      // in terms of the Chern classes of the initial vector bundle
+      rez=rez+list( -subst(  J[1], x@, 0)  );
+    }
+  }
+  else // otherwise compute only the needed Chern classes
+  {
+    // the entries here are the Chern classes we need
+    // expressed in  terms of the Chern roots of the initial vector bundle
+    C=symm(ss, M);
+    int j;
+    i=1;
+    // the maximal number of optional parameters to be considered
+    // does not exceed N, the rank of the exterior power
+    int NN = min( size(#), N);
+    for(j=1; j <= NN; j++) // process the optional parameters
+    {
+      // process the optional parameters only until they are not bigger than N;
+      // notice they are positive anyway after integer_list(...)
+      if( #[j]<=N  )
+      {
+        for( ; i<=#[j]; i++)
+        {
+          if( i<=r )
+          {
+            // add the relevant formulas for the Chern classes in terms of the Chern roots
+            I=I, c[i]-sym[i];
+          }
+        }
+        J= I, x@-C[ #[j]];
+        // Notice that elim(...) is from the library "elim.lib",
+        // it is loaded as a result of loading "general.lib"
+        J=simplify(elim(J, E), 1);
+        // get the expression of the next Chern class
+        // in terms of the Chern classes of the initial vector bundle
+        rez=rez+list( -subst(  J[1], x@, 0)  );
+      }
+      else // get out from the loop
+      {
+        break;
+      }
+    }
+  }
+  // used because Singular seems not to be able to apply maps to empty lists (see below)
+  if(size(rez)==0)
+  {
+    return(list(N, list()));
+  }
+  setring br@; // come back to the initial base ring
+  // define the specialization homomorphism,
+  // evaluate the formulas for the Chern classes on their given values
+  map FF = r@,0,maxideal(1);
+  list rez=FF( rez ); // bring the result back to the initial ring
+  return( list( N, rez  ) ); //return the rank and the Chern classes of the exterior product
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (c(1..5)), dp;
+  list l=c(1..5);
+  // the rank and the Chern classes of the second exterior power of a vector bundle of rank 3
+  print( chWedge(2, 3, l) );
+  // the rank and the first 3 Chern classes
+  // of the fourth exterior power of a vector bundle of rank 5
+  print( chWedge(4, 5, l, 1, 2, 3) );
+}
+//---------------------------------------------------------------------------------
+
+proc chWedge2L(int r, list c)
+"USAGE:   chWedge2L(r, c );  r integer, c list of polynomials
+RETURN:   list of polynomials
+PURPOSE:  computes the Chern classes of the second exterior power of a vector bundle
+EXAMPLE:  example chWedge2L; shows an example
+NOTE:     Implementation of the formula of Lascoux, the Schur polynomials are computed
+          using the second Jacobi-Trudi formula (in terms of the Chern classes)
+"
+{
+  // insure that the entries of c are polynomials
+  // in order to be able to apply maps
+  int i;
+  for(i=1;i<=size(c);i++)
+  {
+    c[i]=poly(c[i]);
+  }
+  if(r<0) // if the rank is negative
+  {
+    print("The rank of a vector bundle can non be negative");
+    return(list()); // return the empty list in this case
+  }
+  if(r==0) // if we deal with the zero bundle
+  {
+    return( list( 0, list() ) ); // return the data corresponding to the zero bundle
+  }
+  //-------------------------------------------
+  // from now on we are in the case r > 0
+  //-------------------------------------------
+  c=append_by_zeroes(r, c);
+  c=c[1..r];
+  def br@=basering; // remember the base ring
+  // add  additional variables to the base ring
+  list l10 = ringlist(basering)[2];
+  l10[size(l10)+1] = "t@";
+  for (int ii = 1; ii <= r; ii++)
+  {
+   l10[size(l10)+1] = "c@("+string(ii)+")";
+  }
+  ring r@ = create_ring(ring_list(basering)[1], l10, "dp", "no_minpoly");
+  list c;
+  for(i=1;i<=r;i++)
+  {
+    c[i]=c@(i)*t@^i;
+  }
+  poly f = chWedge2LP(r,c); // get the total Chern class using the formula of Lascoux
+  matrix CF = coeffs(f, t@);
+  int N=r*(r-1) div 2;
+  list rez; // write its coefficients in front of the powers of t@ to a list
+  for(i=1;i<=N;i++)
+  {
+    rez=rez+list(CF[i+1,1]);
+  }
+  setring br@; // come back to the initial base ring
+  map FF = r@,maxideal(1),0, c[1..r]; // define the specialization homomorphism
+  return( list(N, FF( rez )) ); // bring the result to the initial ring
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (c(1..3)), dp;
+  list l=c(1..3);
+  // the Chern classes of the second exterior power of a vector bundle of rank 3
+  print(chWedge2L(3, l));
+}
+//---------------------------------------------------------------------------------------
+
+proc chWedge2LP(int r, list c)
+"USAGE:   chWedge2LP(r, c );  r integer, c list of polynomials
+RETURN:   poly
+PURPOSE:  computes the total Chern class of the second exterior power of a vector bundle
+EXAMPLE:  example chWedge2LP; shows an example
+NOTE:     Implementation of the formula of Lascoux, the Schur polynomials are computed
+          using the second Jacobi-Trudi formula (in terms of the Chern classes)
+"
+{
+  if(r<0) // if the rank is negative
+  {
+    print("The rank of a vector bundle can non be negative");
+    return(1); // return 1 in this case
+  }
+  if(r==0) // if we deal with the zero bundle
+  {
+    return( 1 ); // return 1 in this case
+  }
+  //-------------------------------------------
+  // from now on we are in the case r > 0
+  //-------------------------------------------
+  c=append_by_zeroes(r, c);
+  c=c[1..r];
+  list I; // the partition (0,1,...,r-1) will be stored here
+  int i;
+  for(i=0;i<=r-1;i++)
+  {
+    I=I+list(i);
+  }
+  list PU = partUnder(I); // compute the partitions under I
+  int sz=size(PU); // get their number
+  poly rez; // the result will be computed here
+  list J;
+  poly cf;
+  // implement the Lascoux formula
+  for(i=1;i<=sz;i++)
+  {
+    J=PU[i];
+    cf = IJcoef(I,J)/bigint(2)^( r*(r-1) div 2-sum(J)  );
+    rez = rez + cf * SchurCh(J, c );
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (c(1..3)), ws(1,2,3);
+  list l=c(1..3);
+  // the total Chern class of the second exterior power of a vector bundle of rank 3
+  print(chWedge2LP(3, l));
+}
+//---------------------------------------------------------------------------------------
+
+proc todd(list c, list #)
+"USAGE:   todd(l [, n] );  l a list of polynomials, n integer
+RETURN:   list of polynomials
+PURPOSE:  computes [the first n] terms of the Todd class
+EXAMPLE:  example todd; shows an example
+NOTE:     returns an empty list if l is empty
+"
+{
+  int i, j, k;
+  // insure that the entries of c are polynomials
+  // in order to be able to apply maps
+  for(i=1;i<=size(c); i++)
+  {
+    c[i]=poly(c[i]);
+  }
+  int n;
+  # = integer_list(#)[1]; // take into account only the first integer entries that are positive
+  if( size(#) == 0 ) // if there are no  optional parameters
+  {
+    n = size(c);
+  }
+  else
+  {
+    // set n to be 0, if the parameter is non-positive,
+    // set n to the value of the parameter otherwise
+    n = max( #[1], 0 );
+    c = append_by_zeroes(n, c); // append c by zeroes if the length of c  is smaller than n
+    if(n!=0) // throw away the redundant data if n is positive and smaller than the length of c
+    {
+      c = c[1..n];
+    }
+  }
+  if(n==0) // return the empty list
+  {
+    return(list());
+  }
+  else // otherwise proceed as follows
+  {
+    def br@=basering; // remember the base ring
+    // add  additional variables to the base ring
+    list l11 = ringlist(basering)[2];
+    l11[size(l11)+1] = "a@";
+    for (int ii = 1; ii <= n; ii++)
+    {
+     l11[size(l11)+1] = "c@("+string(ii)+")";
+    }
+    ring r@ = create_ring(ring_list(basering)[1], l11, "dp", "no_minpoly");
+    // define the corresponding inclusion of rings: imap
+    list c=imap(br@,c); // embed c into the bigger ring
+    list prev;
+    list next;
+    next=tdTerms(n, c@(1)); // the Todd class terms of a line budle
+    list step = tdTerms(n, a@);
+    poly f;
+    list hC=c@(1)-a@; // "old" first Chern class
+    for(k=2;k<=n;k++) // do n-1 iterations
+    {
+      prev=next;
+      next=list();
+      hC=hC+list( c@(k)-a@*hC[k-1] ); // "old" k-th Chern class
+      for(i=0;i<k;i++) // these terms have already been computed in the previous iterations
+      {
+        next = next + list(prev[i+1]);
+      }
+      for(i=k;i<=n;i++) // new values in terms of "old" Chern classes and the Chern root a
+      {
+        f=0;
+        for(j=0; j<=i; j++)
+        {
+          f=f + step[j+1]*prev[i-j+1];
+        }
+        // substitute the old values of Chern classes
+        // by their expressions in the new ones and the Chern root a
+        for(j=1;j<k;j++)
+        {
+          f=subst(f, c@(j), hC[j] );
+        }
+        f=reduce(f, std(hC[k]) ); // eliminate the Chern root
+        next = next + list(f);
+      }
+    }
+    next = delete(next, 1); // throw away the zeroth term which is always equal to 1
+    setring br@; // come back to the initial base ring
+    map FF = r@,maxideal(1),0, c[1..n]; // define the specialization homomorphism
+    return( FF( next ) ); // bring the result to the initial ring
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // the terms of the Todd class up to degree 5
+  // in terms of the Chern classes c(1), c(2), c(3), c(4), c(5)
+  ring r=0, (c(1..5)), dp;
+  list l=c(1..5);
+  print( todd( l ) );
+
+  // in the same situation compute only first two terms
+  print( todd(l, 2) );
+
+  // compute the first 5 terms corresponding to the Chern classes c(1), c(2)
+  l=c(1..2);
+  print( todd(l, 5) );
+}
+//------------------------------------------------------------------------------------------
+
+proc toddE(list c)
+"USAGE:   toddE(l);  l a list of polynomials
+RETURN:   polynomial
+PURPOSE:  computes the highest relevant term of the Todd class
+EXAMPLE:  example toddE; shows an example
+NOTE:     returns an empty list if l is empty,
+          very inefficient because the elimination is used, included for comparison with todd(c)
+"
+{
+  int i;
+  for(i=1;i<=size(c);i++)
+  {
+    c[i]=poly( c[i] );
+  }
+  int n=size(c);
+  if(n==0) // return the empty list if c is empty
+  {
+    return(list());
+  }
+  else
+  {
+    def br@=basering; // remember the base ring
+    // add additional variables a@(1..n), x@ to the base ring
+    list l12 = "x@";
+    l12 = l12+ ringlist(basering)[2];
+    for (int ii = 1; ii <= n; ii++)
+    {
+     l12[size(l12)+1] = "a@("+string(ii)+")";
+    }
+    ring r@ = create_ring(ring_list(basering)[1], l12, "lp", "no_minpoly");
+    // define the corresponding inclusion of rings: imap
+    list c=imap(br@,c); // embed c into the bigger ring
+    int j;
+    int k;
+    poly E = a@(1); // to be the product of the Chern roots that will be eliminated later
+    list ss=tdTerms( n, a@(1) );
+    list next; // to be the terms of the Todd class corresponding to the next Chern root
+    for(i=2;i<=n;i++) // compute the terms of the Todd class in terms of the Chern roots
+    {
+      E=E*a@(i); // to compute the product of variables to be eliminated
+      next=tdTerms( n, a@(i) );
+      for(j=n;j>=1;j--)
+      {
+        for(k=0;k<j;k++)
+        {
+          ss[j+1]=ss[j+1]+ss[k+1]*next[j-k+1];
+        }
+      }
+    }
+    ideal I=x@ - ss[n+1]; // formula for the highest degree term of the Todd class
+    list sym=symm(list(a@(1..n))); // expressions for the Chern classes in terms of the Chern roots
+    for(i=1;i<=n;i++)
+    {
+      I=I, c[i]-sym[i]; // add the relations
+    }
+    I=simplify(elim(I, E), 1); // eliminate the Chern roots
+    poly rez=-subst(I[1],x@, 0); // get the required formula
+    setring br@; // come back to the initial base ring
+    // define the specialization homomorphism (all added variables are set to zero)
+    map FF = r@,0,maxideal(1);
+    poly rez=FF( rez ); // bring the result back to the initial base ring
+    return(rez);
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // first  3 terms of the Todd class in terms of the Chern classes c(1), c(2), c(3)
+  ring r=0, (c(1..3)), dp;
+  list l;
+  //first term
+  l=c(1);
+  print( toddE( l ) );
+  // second term
+  l=c(1..2);
+  print( toddE( l ) );
+  // third term
+  l=c(1..3);
+  print( toddE( l ) );
+}
+//---------------------------------------------------------------------------------
+
+proc  Bern(int n)
+"USAGE:   Bern(n);  n non-negative integer
+RETURN:   list of numbers
+PURPOSE:  computes the list of (second) Bernoulli numbers from B(0) to B(n)
+EXAMPLE:  example Bern; shows an example
+NOTE:     needs a base ring to be defined, returns an empty list if n is negative,
+          uses the Akiyama-Tanigawa algorithm
+"
+{
+  // the Akiyama-Tanigawa algorithm
+  //could be replaced by a more efficient one
+  list rez, steprez;
+  int i, j;
+  if(n<0) // if n is negative, return the empty list
+  {
+    return(list());
+  }
+  for(i=0;i<=n;i++)
+  {
+    steprez=steprez+list( 1/number(i+1) );
+    for(j=i;j>=1;j--)
+    {
+      steprez[j]=j*(steprez[j]-steprez[j+1]);
+    }
+    rez=rez+list(steprez[1]);
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // first 10 Bernoulli numbers: B(0), ..., B(9)
+  ring r=0,(t), dp;
+  print( Bern(9) );
+}
+//---------------------------------------------------------------------------------
+
+proc tdCf(int n)
+"USAGE:   tdCf(n);  n integer
+RETURN:   list of rational numbers
+PURPOSE:  computes up to degree n the coefficients of the Todd class of a line bundle
+EXAMPLE:  example tdCf; shows an example
+NOTE:
+"
+{
+  list rez=Bern(n); // notice that Bern(n) is able to take care of negative n
+  int i;
+  for(i=1;i<=n+1;i++)
+  {
+  rez[i]=rez[i]/factorial(i-1);
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // first 5 coefficients
+  ring r=0,(t), dp;
+  print( tdCf(4) );
+}
+//---------------------------------------------------------------------------------
+
+proc tdTerms(int n, poly f)
+"USAGE:   tdTerms(n, f);  n integer, f polynomial
+RETURN:   list of polynomials
+PURPOSE:  computes the terms of the Todd class of the line bundle with the Chern root f
+EXAMPLE:  example tdTerms; shows an example
+NOTE:
+"
+{
+  list rez=Bern(n); // notice that Bern(n) takes care of negative n
+  int i;
+  for(i=1;i<=n+1;i++)
+  {
+  rez[i]=( rez[i]/factorial(i-1) )* f^(i-1);
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (t), ls;;
+  // the terms of the Todd class of a line bundle with Chern root t up to degree 4
+  print( tdTerms(4, t) );
+}
+//---------------------------------------------------------------------------------
+
+proc tdFactor(int n, poly t)
+"USAGE:   tdFactor(n, a);  n integer, a polynomial
+RETURN:   polynomial
+PURPOSE:  computes up to degree n the Todd class
+          of the line bundle corresponding to the Chern root t
+EXAMPLE:  example tdFactor; shows an example
+NOTE:     returns 0 if n is negative
+"
+{
+  int i;
+  poly rez=0;
+  list l=Bern(n); // get the coefficients
+  for(i=0; i<=n; i++) // form the polynomial
+  {
+    rez=rez+(l[i+1]/factorial(i))*t^i;
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // the Todd class up do degree 4
+  ring r=0,(t), ls;
+  print( tdFactor(4, t) );
+}
+//---------------------------------------------------------------------------------
+
+proc cProj(int n)
+"USAGE:   cProj(n);  n  integer
+RETURN:   list of integers
+PURPOSE:  computes the terms of positive degree of the total Chern class
+          of the tangent bundle on the complex projective space
+EXAMPLE:  example cProj; shows an example
+NOTE:
+"
+{
+  if(n<0)
+  {
+    print("The dimension of the projective space must be non-negative!");
+    return(list()); // return the empty list in this case
+  }
+  else
+  {
+    list rez;
+    int i;
+    for(i=1;i<=n;i++)
+    {
+      rez=rez+list( binomial(n+1, i) );
+    }
+    return(rez);
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (t), dp;
+  // the coefficients of the total Chern class of the complex projective line
+  print( cProj(1) );
+
+  // the coefficients of the total Chern class of the complex projective plane
+  print( cProj(2) );
+
+  // the coefficients of the total Chern class of the complex projective space
+  // of dimension three
+  print( cProj(3) );
+}
+//------------------------------------------------------------------------------------------
+
+proc chProj(int n)
+"USAGE:   chProj(n);  n  integer
+RETURN:   list of (rational) numbers
+PURPOSE:  computes the terms of the Chern character of the tangent bundle
+          on the complex projective space
+EXAMPLE:  example chProj; shows an example
+NOTE:
+"
+{
+  if(n<0)
+  {
+    print("The dimension of the projective space must be non-negative!");
+    return( list() ); // return the empty list in this case
+  }
+  else
+  {
+    list rez=list(number(n));
+    int i;
+    for(i=1;i<=n;i++)
+    {
+      rez=rez+list( (n+1)/factorial(i) );
+    }
+    return(rez);
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (t), dp;
+  // the coefficients of the Chern character of the complex projective line
+  print( chProj(1) );
+
+  // the coefficients of the Chern character of the complex projective plane
+  print( chProj(2) );
+
+  // the coefficients of the Chern character of the complex 3-dimensional projective space
+  print( chProj(3) );
+}
+//------------------------------------------------------------------------------------------
+
+proc tdProj(int n)
+"USAGE:   tdProj(n);  n  integer
+RETURN:   list of (rational) numbers
+PURPOSE:  computes the terms of the Todd class
+          of the (tangent bundle of the) complex projective space
+EXAMPLE:  example tdProj; shows an example
+NOTE:
+"
+{
+  if(n<0)
+  {
+    print("The dimension of the projective space must be non-negative!");
+    return( list() ); // return the empty list in this case
+  }
+  else
+  {
+    def br@=basering; // remember the base ring
+    ring r@= 0, t@, lp; // ring with one variable t@
+    ideal T=std( t@^(n+1) );
+    poly f= tdFactor(n, t@);
+    f=reduce( f^(n+1), T);
+    matrix C = coeffs(f, t@);
+    list rez;
+    int i;
+    for(i=0;i<=n;i++)
+    {
+     rez=rez+list(C[i+1, 1]);
+    }
+    setring br@; // come back to the initial base ring
+    map FF= r@, 0 ; // define the specialization homomorphism t@=0
+    return(FF(rez)); // bring the result to the base ring
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r=0, (t), dp;
+
+  // the coefficients of the Todd class of the complex projective line
+  print( tdProj(1) );
+
+  // the coefficients of the Todd class of the complex projective line
+  print( tdProj(2) );
+
+  // the coefficients of the Todd class of the complex projective line
+  print( tdProj(3) );
+}
+//------------------------------------------------------------------------------------------
+
+proc eulerChProj(int n, def r, list c)
+"USAGE:   eulerChProj(n, r, c);  n  integer, r polynomial (or integer), c list of polynomials
+RETURN:   polynomial
+PURPOSE:  computes the Euler characteristic of a vector bundle on P_n
+          in terms of its rank and Chern classes
+EXAMPLE:  example eulerChProj; shows an example
+NOTE:
+"
+{
+  if(n<0)
+  {
+    print("The dimension of the projective space must be non-negative!");
+    return(0); // return zero in this case
+  }
+  else
+  {
+    if(n==0)
+    {
+      return(r);
+    }
+    // now n is at least 1
+    c=append_by_zeroes(n, c); // append c by zeroes if its size is smaller than n
+    c=c[1..n]; // throw away the redundant data
+    // now the size of c is n
+    list td = tdProj(n); // terms of the Todd class of P_n
+    list ch = list(r) + chAll(c); // terms of the Chern character of the vector bundle
+    return( rHRR(n, ch, td) );
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring h=0, (r, c(1..3)),  ws(0,1,2,3);
+  list l=c(1..3);
+  // the Euler characteristic of a vector bundle on the projective line
+  print( eulerChProj(1, r, l) );
+
+  // the Euler characteristic of a vector bundle on the projective plane
+  print( eulerChProj(2, r, l) );
+
+  // the Euler characteristic of a vector bundle on P_3
+  print( eulerChProj(3, r, l) );
+
+  // assume now that we have a bundle framed at a subplane of P_3
+  // this implies c(1)=c(2)=0
+  l= 0, 0, c(3);
+
+  // the Euler characteristic is
+  print( eulerChProj(3, r, l) );
+  // which implies that c(3) must be even in this case
+}
+//-------------------------------------------------------
+
+proc chNumbersProj(int n)
+"USAGE:   chNumbersProj(n);  n  integer
+RETURN:   list of integers
+PURPOSE:  computes the Chern numbers of the projective space P_n
+EXAMPLE:  example chNumbersProj; shows an example
+NOTE:
+"
+{
+  return( chNumbers( n, cProj(n) ) );
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring h=0, (t), dp;
+  // The Chern numbers of the projective plane P_2:
+  print( chNumbersProj(2) );
+
+  // The Chern numbers of P_3:
+  print( chNumbersProj(3) );
+}
+//-------------------------------------------------------
+
+proc classpoly(list l, poly t)
+"USAGE:   classpoly(l, t);   l list of polynomials, t polynomial
+RETURN:   polynomial
+PURPOSE:  computes the polynomial in t with coefficients being the entries of l
+EXAMPLE:  example classpoly; shows an example
+NOTE:
+"
+{
+  int n=size(l);
+  poly pow=1; // powers of t will be compured here
+  poly rez=0; // result will be computed here
+  int i;
+  for(i=1; i<=n; i++)
+  {
+    pow=pow*t; // compute the required power of t
+    // add the i-th entry of l multiplied by the corresponding power of t to the result
+    rez=rez + l[i]*pow;
+  }
+  return( rez );
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r=0, (c(1..5), t), ds;
+  list l=c(1..5);
+  // get the polynomial c(1)*t + c(2)*t^2 + ... + c(5)*t^5
+  print( classpoly(l, t) );
+}
+//----------------------------------------------------------------------------------------
+
+proc chernPoly(list c, poly t)
+"USAGE:   chernPoly(c, t);   c list of polynomials, t polynomial
+RETURN:   polynomial
+PURPOSE:  computes the Chern polynomial in t
+EXAMPLE:  example chernPoly; shows an example
+NOTE: does the same as toddPoly(...)
+"
+{
+  return( 1+classpoly(c, t) );
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring r=0, (c(1..5), t), ds;
+  list l=c(1..5);
+  // get the Chern polynomial 1 + c(1)*t + c(2)*t^2 + ... + c(5)*t^5
+  print( chernPoly(l, t) );
+}
+//----------------------------------------------------------------------------------------
+
+proc chernCharPoly(poly r, list ch, poly t)
+"USAGE:   chernCharPoly(r, ch, t);   r polynomial, ch list of polynomials, t polynomial
+RETURN:   polynomial
+PURPOSE:  computes the polynomial in t corresponding to the Chern character
+EXAMPLE:  example chernpoly; shows an example
+NOTE:
+"
+{
+  return( r+classpoly(ch, t) );
+}
+example
+{
+  "EXAMPLE:";echo=2;
+  ring h=0, (r, ch(1..5), t), ds;
+  list l=ch(1..5);
+  // get the polynomial r + ch(1)*t + ch(2)*t^2 + ... + ch(5)*t^5
+  print( chernCharPoly(r, l, t) );
+}
+//----------------------------------------------------------------------------------------
+
+proc toddPoly(list td, poly t)
+"USAGE:   toddPoly(td, t);   td list of polynomials, t polynomial
+RETURN:   polynomial
+PURPOSE:  computes the polynomial in t corresponding to the Todd class
+EXAMPLE:  example toddPoly; shows an example
+NOTE:     does the same as chernPoly(...)
+"
+{
+  return( 1+classpoly(td, t) );
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  ring r=0, (td(1..5), c(1..5), t), ds;
+  list l=td(1..5);
+  // get the polynomial 1 + td(1)*t + td(2)*t^2 + ... + td(5)*t^5
+  print( toddPoly(l, t) );
+}
+//---------------------------------------------------------------------------------------
+
+proc rHRR(int N, list ch, list td)
+"USAGE:   rHRR( N, ch, td);  N integer, ch, td  lists of polynomials
+RETURN:   polynomial
+PURPOSE:  computes the the main ingredient of the right-hand side
+          of the Hirzebruch-Riemann-Roch formula
+EXAMPLE:  example rHRR; shows an example
+NOTE:     in order to get the right-hand side of the HRR formula
+          one needs to be able to compute the degree of the output of this procedure
+"
+{
+  poly rez; // to be the result
+  int i;
+  int nch=size(ch); // length of ch
+  int ntd=size(td); // length of td
+  for(i=1; i<=N+1; i++) // compute the highest degree term of ch.td
+  {
+    if( (i<=nch) && (N-i+2 <= ntd) )
+    {
+      rez = rez + ch[i]*td[N-i+2];
+    }
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  ring r=0, (td(0..3), ch(0..3)), dp;
+  // Let ch(0), ch(1), ch(2), ch(3) be the terms of the Chern character
+  // of a vector bundle E on a 3-fold X.
+  list c = ch(0..3);
+  // Let td(0), td(1), td(2), td(3) be the terms of the Todd class of X.
+  list t = td(0..3);
+  // Then the highest term of the product ch(E).td(X) is:
+  print( rHRR(3, c, t) );
+}
+//---------------------------------------------------------------------------------------
+
+proc SchurS(list I, list S)
+"USAGE:   SchurS(I, S);  I list of integers representing a partition, S list of polynomials
+RETURN:   poly
+PURPOSE:  computes the Schur polynomial in the Segre classes S (of the dual vector bundle),
+          i.e., in the  complete homogeneous symmetric polynomials, with respect to the partition I
+EXAMPLE:  example SchurS; shows an example
+NOTE:     if S are the Segre classes of the tautological bundle on a grassmanian,
+          this gives the cohomology class of a Schubert cycle
+"
+{
+  int m=size(I); // size of I
+  S=list(1)+S; // add the zeroth Segre class
+  int szS=size(S); // size of S
+  int h,k;
+  int in; // variable for the index of the required Segre class
+  // construct the required m x m matrix from the first determinantal (Jacobi-Trudi) formula
+  matrix M[m][m];
+  for(h=1;h<=m;h++)
+  {
+    for(k=1;k<=m;k++)
+    {
+      in=I[k]+k-h; // compute the index
+      if(in<0) // if it is negative, assume the corresponding Segre class to be zero
+      {
+        M[h,k]=0;
+      }
+      else
+      {
+        if(in>=szS) // if it is bigger than the number of the highest available Segre class in S
+        {
+          M[h, k]=0; // assume the corresponding Segre class is zero
+        }
+        else // otherwise
+        {
+          M[h, k]= S[in+1]; // use a value from S for the corresponding Segre class
+        }
+      }
+    }
+  }
+  return(det(M)); // return the determinant of the computed matrix
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  // The Schur polynomial corresponding to the partition 1,2,4
+  // and the Segre classes 1, s(1), s(2),..., s(6)
+  ring r=0,(s(1..6)), dp;
+  list I=1,2,4;
+  list S=s(1..6);
+  print( SchurS(I, S) );
+  // compare this with the Schur polynomial computed using Chern classes
+  list C=chDual(chern(S));
+  print( SchurCh(I, C) );
+}
+//---------------------------------------------------------------------------------------
+
+proc SchurCh(list I, list C)
+"USAGE:   SchurCh(I, C);  I list of integers representing a partition, C list of polynomials
+RETURN:   poly
+PURPOSE:  computes the Schur polynomial in the Chern classes C,
+          i.e., in the elementary symmetric polynomials, with respect to the partition I
+EXAMPLE:  example SchurCh; shows an example
+NOTE:     if C are the Chern classes of the tautological bundle on a grassmanian,
+          this gives the cohomology class of a Schubert cycle
+"
+{
+  I=dualPart(I); // dual partition to I
+  int m=size(I); // size of I
+  C=list(1)+C; // add the zeroth Chern class
+  int szC=size(C); // size of C
+  int h,k;
+  int in; // variable for the index of the required Chern class
+  // construct the required m x m matrix from the second determinantal (Jacobi-Trudi) formula
+  matrix M[m][m];
+  for(h=1;h<=m;h++)
+  {
+    for(k=1;k<=m;k++)
+    {
+      in=I[k]+k-h; // compute the index
+      if(in<0) // if it is negative, assume the corresponding Chern class to be zero
+      {
+        M[h,k]=0;
+      }
+      else
+      {
+        if(in>=szC) // if it is bigger than the number of the highest available Chern class in C
+        {
+          M[h, k]=0; // assume the corresponding Chern class is zero
+        }
+        else // otherwise
+        {
+          M[h, k]= C[in+1]; // use a value from C for the corresponding Chern class
+        }
+      }
+    }
+  }
+  return(det(M)); // return the determinant of the computed matrix
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  // The Schur polynomial corresponding to the partition 1,2,4
+  // and the Chern classes c(1), c(2), c(3)
+  ring r=0,(c(1..3)), dp;
+  list I=1,2,4;
+  list C=c(1..3);
+  print( SchurCh(I, C) );
+  // Compare this with the Schur polynomial computed using Segre classes
+  list S=segre( chDual( list(c(1..3)) ), 6 );
+  print(SchurS(I,S));
+}
+//---------------------------------------------------------------------------------------
+
+proc part(int m, int n)
+"USAGE:   part( m, n );  m positive integer, n non-negative integer
+RETURN:   list of lists
+PURPOSE:  computes all partitions of integers not exceeding n into m non-negative summands
+EXAMPLE:  example part; shows an example
+NOTE:     if n is negative or m is non-positive, the list with one empty entry is returned
+"
+{
+  if( n<0 ) // if n is negative
+  {
+    return(list(list())); // return the list with one empty entry
+  }
+  if(n==0) // if n equals 0, there is only one partition of 0 into m non-negative summands
+  {
+    return(list(listSame(0,m))); // return the list with one entry consistion of m zeroes
+  }
+  // otherwise proceed recursively
+  list rez=part(m, n-1); // get all partitions for n-1
+  int i;
+  for(i=1;i<=m;i++) // for every i between 1 and m, add the partitions with exactly
+  {
+    rez=rez + appendToAll( part(m-i, n-1), listSame(n, i) ); // i summands equal to n
+  }
+  return(rez); // return the result
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  // partitions into 3 summands of numbers not exceeding 1
+  print( part(3, 1) );
+}
+//---------------------------------------------------------------------------------------
+
+proc dualPart(list I, list #)
+"USAGE:   dualPart( I [,N] );  I list of integers, N integer
+RETURN:   list of integers
+PURPOSE:  computes the partition dual (conjugate) to I
+EXAMPLE:  example dualPart; shows an example
+NOTE:     the result is extended by zeroes to length N if an optional integer
+          parameter N is given and the length of the computed  dual partition
+          is smaller than N
+"
+{
+  int m= size(I); // size of I
+  if(m==0) // if I is the empty list
+  {
+    print("You are trying to compute the dual of the empty partition!");
+    print("The partition with one zero is returned.");
+    return(list(0));
+  }
+  // compute the dual partition
+  list J; // the result will be computed here
+  int i;
+  int j=I[1];
+  int k;
+  for(k=1;k<=j;k++)
+  {
+    J=list(m)+J;
+  }
+  for(i=2;i<=m;i++)
+  {
+    j=I[i]-I[i-1];
+    for(k=1;k<=j;k++)
+    {
+      J=list(m-i+1)+J;
+    }
+  }
+  if(size(J)==0) // if the dual partition J is empty (if I consists of zeroes)
+  {
+    J = list(0); // add zero to the result
+  }
+  if(size(#)>0) // if there is an optional parameter N
+  {
+    if( is_integer( #[1] ) ) // if the parameter is an integer,
+    {
+      if( size(J) < #[1] ) // if N  is bigger than the length of J,
+      {
+        J=listSame(0, #[1]-size(J))+J; // extend J by zeroes to length N
+      }
+    }
+  }
+  return(J); // return the result
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // dual partition to (1, 3, 4):
+  list I = 1, 3, 4;
+  print( dualPart(I) );
+}
+//---------------------------------------------------------------------------------------
+
+proc PartC(list I, int m)
+"USAGE:   PartC( I, m);  I list of integers, m integer
+RETURN:   list of integers
+PURPOSE:  computes the complement of a partition with respect to m
+EXAMPLE:  example PartC; shows an example
+NOTE:     returns the zero partition if the maximal element of the partition is smaller than m
+"
+{
+  int n=size(I); // size of I
+  if( m<I[n] ) // if m is smaller than the last term of I,
+  {
+    // give a warning
+    print("You are trying to compute a complement of a partition with respect");
+    print("to a number that is smaller than the maximal summand of the partition!");
+    print("The zero partition is returned.");
+    return(list(0)); // and return the zero partition
+  }
+  list J; // the result will be computed here
+  int i;
+  for(i=n;i>=1;i--) // invert the order of numbers
+  {
+    J=J+list(m-I[i]); // and substitute them by their complemenst to m
+  }
+  return(J); // return the result
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // Complement of the partition (1, 3, 4) with respect to 5
+  list I = 1, 3, 4;
+  print( PartC(I, 5) );
+}
+//---------------------------------------------------------------------------------------
+
+proc partOver(int n, list J)
+"USAGE:   partOver( n, J);  n integer, J list of integers (partition)
+RETURN:   list of lists
+PURPOSE:  computes the partitions over a given one  with summands not exceeding n
+EXAMPLE:  example partOver; shows an example
+NOTE:
+"
+{
+  int m=size(J); // size of J
+  if( m==0 ) // if J is an empty list
+  {
+    // give a warning
+    print("You are trying to compute partitions over an empty partition!");
+    return( list() ); // and return the empty list
+  }
+  if( J[m] > n ) // if the biggest summand of the partition is bigger than n
+  {
+    return( list( ) ); // return the empty list
+  }
+  if( J[m] == 0 ) // if J consists of zeroes
+  {
+    return( part(m,n) ); // return all partitions of n into m summands
+  }
+  // now J is non-empty, contains con-zero summands, has partitions over it
+  list rez1; // the result will be computed here
+  int i,j;
+  if(m==1) // if J has only one element
+  {
+    for(j=J[1]; j<=n; j++) // run through the integers from J[1] to n
+    {
+      rez1=rez1 + list(j); // add the corresponding one element lists to the result
+    }
+    return(rez1); // return the result
+  }
+  // now J has at least two elements
+  // get the partitions over the partition without the last summand
+  list rez = partOver(n, delete(J, m));
+  int sz=size(rez); // number of such partitions
+  list P;
+  int last;
+  for(i=1; i<=sz; i++) // run trough all such partitions
+  {
+    P=rez[i]; // for each partition P of this type
+    last = max( P[size(P)], J[m] );
+    for(j = last;j<= n;j++) // run through the integers exceeding the last summands of P and J
+    {
+      // append them to P at the end and add the resulting partition to the result
+      rez1=rez1 + list(P+list(j));
+    }
+  }
+  return(rez1); // return the result
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // Partitions over the partition (3, 3, 4) with summands not exceeding 4
+  list I = 3, 3, 4;
+  print( partOver(4, I) );
+}
+//---------------------------------------------------------------------------------------
+
+proc partUnder(list J)
+"USAGE:   partUnder(J);  J list of integers (partition)
+RETURN:   list of lists
+PURPOSE:  computes the partitions under a given one
+EXAMPLE:  example partUnder; shows an example
+NOTE:
+"
+{
+  int m=size(J); // size of J
+  if(m==0) // if J is empty
+  {
+    return(list()); // return an empty list
+  }
+  list rez1; // the result will be computed here
+  int i;
+  if(m==1) // if J contains only one element
+  {
+    for(i=0; i<=J[1]; i++)
+    {
+      rez1=rez1+list(list(i));
+    }
+  }
+  // now J contains at least two elements
+  list rez;
+  int Jlast=J[m]; // last element of J
+  rez = partUnder(delete(J, m)); // partitions under J without the last element
+  int j;
+  int sz=size(rez); // their number
+  list P;
+  int last;
+  for(i=1; i<=sz; i++) // for every such partition
+  {
+    P = rez[i];
+    last = P[size(P)];
+    for(j = last;j<=Jlast ;j++) // for every number between its last entry and the last entry of J
+    {
+      // append that number to the end of the partition
+      // and append the resulting partition to the final result
+      rez1 = rez1 + list(P+list(j));
+    }
+  }
+  return(rez1);
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // Partitions under the partition (0, 1, 1)
+  list I = 0, 1, 1;
+  print( partUnder(I) );
+}
+//-------------------------------------------------------------------------------------------
+
+proc SegreA(ideal I)
+"USAGE:   SegreA(I);  I an ideal
+RETURN:   list of integers
+PURPOSE:  computes the Segre classes of the subscheme defined by I
+EXAMPLE:  example SegreA; shows an example
+NOTE:
+"
+{
+  if( !homog(I) ) // if the ideal is not homogeneous
+  {
+    print("You are trying to compute the Segre class of a non-homogeneous ideal!");
+    print("The ideal must be homogeneous, an empty list is returned.");
+    return( list() );
+  }
+  // modify the generators of the ideal so that all of them are of the same degree
+  I=equal_deg(I);
+  int degGen=deg(I[1]); // this degree d is stored in this variable
+  int i;
+  list rez; // define the variable for the result
+  int n=nvars(basering)-1; // the dimension of the projective space
+  if(degGen==-1) // if the ideal is zero
+  {
+    for(i=0;i<=n;i++)
+    {
+      rez=rez+ list( int((-1)^i*binomial(n+i, i)) );
+    }
+    return(rez);
+  }
+  int sz=ncols(I); // the number of new generators is stored here
+  def br@=basering; // remember the base ring
+  // add additional variables t@(1), ... , t@(sz) and u@ to the base ring
+  list l13 = ringlist(basering)[2];
+  for (int ii = 1; ii <= sz; ii++)
+  {
+   l13[size(l13)+1] = "t@("+string(ii)+")";
+  }
+  l13[size(l13)+1] = "u@";
+  ring r@ = create_ring(ring_list(basering)[1], l13, "dp", "no_minpoly");
+  ideal I=fetch(br@,I); // the ideal generated by I in the new ring
+  ideal J(0..n); // define n+1 ideals J(0), ... , J(n)
+  // compute the ideal of the Rees algebra of the ideal I:
+  for(i=1; i<=sz; i++) // consider the ideal generated by t@(i)-u@*I[i]
+  {
+    J(0)=J(0) + ideal( t@(i)-u@*I[i] );
+  }
+  J(0)=eliminate(J(0), u@); // and eliminate the variable u@
+  ideal T=t@(1..sz); // define the ideal generated by the additional variables t@(1), ... , t@(sz)
+  for(i=1;i<=n;i++)// for all i=1, ... n define J(j) as in 3.6 of the Aluffi's paper
+  {
+    // add a random general linear form in variables t@(1), ... , t@(n) to J(i-1)
+    J(i)=sat( random_hypersurf(J(i-1), T)   , T); // and saturate with respect to T
+  }
+  poly prd=product(T); // compute the product of t@(i)
+  poly cl;
+  poly mlt;
+  for(i=0;i<=n;i++)
+  {
+    // eliminate all t@(i) from J(i)
+    // compute the degree of the scheme defined by this ideal
+    // and use it to compute the class corresponding to c(O(d))^n * G\otimes O(d)
+    cl=cl+mult(std(eliminate(J(i), prd)))*u@^i*(1+degGen*u@)^(n-i);
+    // the (n+1)-st power of the inverse of the Chern class of O(d)
+    mlt=mlt+binomial(n+i, i)*(-degGen*u@)^i;
+  }
+  poly resPoly;
+  // compute the Segre class by the Aluffi's formula from Proposition 3.1 as polynomial in u@
+  resPoly= NF( 1-cl*mlt, u@^(n+1));
+  matrix cf=coeffs(resPoly, u@); // coefficients of the Segre class
+  rez=list(); // empty the list
+  for(i=0;i<=n;i++) // fill the list with the the Segre classes in positive degrees
+  {
+    if( i < nrows(cf) ) // if i is not bigger than the maximal degree of non-zero Segre classes
+    {
+      rez=rez+list(int(cf[i+1,1]));
+    }
+    else // otherwise fill the list with zeroes
+    {
+      rez=rez+list( int(0) );
+    }
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // Consider a 3-dimensional projective space
+  ring r = 0, (x, y, z, w), dp;
+  // Consider 3 non-coplanar lines trough one point and compute the Segre class
+  ideal I=xy, xz, yz;
+  I;
+  SegreA(I);
+  // Now consider 3 coplanar lines trough one point and its Segre class
+  ideal J=w, x*y*(x+y);
+  J;
+  SegreA(J);
+}
+//-------------------------------------------------------------------------------------------
+
+proc FultonA(ideal I)
+"USAGE:   FultonA(I);  I an ideal
+RETURN:   list of integers
+PURPOSE:  computes the Fulton classes of the subscheme defined by I
+EXAMPLE:  example FultonA; shows an example
+NOTE:
+"
+{
+  if( !homog(I) ) // if the ideal is not homogeneous
+  {
+    print("You are trying to compute the Segre class of a non-homogeneous ideal!");
+    print("The ideal must be homogeneous, an empty list is returned.");
+    return( list() );
+  }
+  // modify the generators of the ideal so that all of them are of the same degree
+  I=equal_deg(I);
+  int degGen=deg(I[1]); // this degree d is stored in this variable
+  int i;
+  list rez; // define the variable for the result
+  int n=nvars(basering)-1; // the dimension of the projective space
+  if(degGen==-1) // if the ideal is zero
+  {
+    rez=rez+list(int(1));
+    for(i=1;i<=n;i++)
+    {
+      rez=rez+ list( int(0) );
+    }
+    return(rez);
+  }
+  int sz=ncols(I); // the number of new generators is stored here
+  def br@=basering; // remember the base ring
+  // add additional variables t@(1), ... , t@(sz) and u@ to the base ring
+  list l14 = ringlist(basering)[2];
+  for (int ii = 1; ii <= sz; ii++)
+  {
+   l14[size(l14)+1] = "t@("+string(ii)+")";
+  }
+  l14[size(l14)+1] = "u@";
+  ring r@ = create_ring(ring_list(basering)[1], l14, "dp", "no_minpoly");
+  ideal I=fetch(br@,I); // the ideal generated by I in the new ring
+  ideal J(0..n); // define n+1 ideals J(0), ... , J(n)
+  // compute the ideal of the Rees algebra of the ideal I:
+  for(i=1; i<=sz; i++) // consider the ideal generated by t@(i)-u@*I[i]
+  {
+    J(0)=J(0) + ideal( t@(i)-u@*I[i] );
+  }
+  J(0)=eliminate(J(0), u@); // and eliminate the variable u@
+  ideal T=t@(1..sz); // define the ideal generated by the additional variables t@(1), ... , t@(sz)
+  for(i=1;i<=n;i++)// for all i=1, ... n define J(j) as in 3.6 of the Aluffi's paper
+  {
+    // add a random general linear form in variables t@(1), ... , t@(n) to J(i-1)
+    J(i)=sat(   random_hypersurf(J(i-1), T)  , T); // and saturate with respect to T
+  }
+  poly prd=product(T); // compute the product of t@(i)
+  poly cl;
+  poly mlt;
+  for(i=0;i<=n;i++)
+  {
+    // eliminate all t@(i) from J(i)
+    // compute the degree of the scheme defined by this ideal
+    // the class corresponding to c(O(d))^n * G\otimes O(d)
+    cl=cl+ mult(std( eliminate( J(i),  prd) ))*u@^i*(1+degGen*u@)^(n-i);
+    // the (n+1)-st power of the inverse of the Chern class of O(d)
+    mlt=mlt+binomial(n+i, i)*(-degGen*u@)^i;
+  }
+  poly resPoly;
+  // compute the Fulton class using the Aluffi's formula for the Segre class and
+  // multiplying it by the Chern class of the projective space (1+u@)^(n+1)
+  resPoly= NF( (1+u@)^(n+1)*(1-cl*mlt), u@^(n+1) );
+  matrix cf=coeffs(resPoly, u@); // coefficients of the Fulton class
+  rez=list(); // empty the list
+  for(i=0;i<=n;i++) // fill the list with the the Fulton classes in positive degrees
+  {
+    if( i < nrows(cf) ) // if i is not bigger than the maximal degree of non-zero Fulton classes
+    {
+      rez=rez+list(int(cf[i+1,1]));
+    }
+    else // otherwise fill the list with zeroes
+    {
+      rez=rez+list( int(0) );
+    }
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // Consider a 3-dimensional projective space
+  ring r = 0, (x, y, z, w), dp;
+  // Consider 3 non-coplanar lines trough one point and compute the Fulton class
+  ideal I=xy, xz, yz;
+  I;
+  FultonA(I);
+  // Now consider 3 coplanar lines trough one point and its Fulton class
+  ideal J=w, x*y*(x+y);
+  J;
+  FultonA(J);
+}
+//-------------------------------------------------------------------------------------------
+
+proc CSMA(ideal I)
+"USAGE:   CSMA(I);  I an ideal
+RETURN:   list of integers
+PURPOSE:  computes the Chern-Schwartz-MacPherson classes of the variety defined by I
+EXAMPLE:  example CSMA; shows an example
+NOTE:
+"
+{
+  if( !homog(I) ) // if the ideal is not homogeneous
+  {
+    print("You are trying to compute the Chern-Schwartz-MacPherson class.");
+    print("However the input ideal is not homogeneous!");
+    print("The ideal must be homogeneous, an empty list is returned.");
+    return( list() );
+  }
+  int sz=ncols(I);
+  int i;
+  int n=nvars(basering)-1;
+  bigintmat REZ[1][n+1];
+  int j;
+  int szpr;
+  list pr;
+  int sgn=-1;
+  for(i=1;i<=sz;i++)
+  {
+    sgn=-sgn;
+    pr=prds(i,I);
+    szpr=size(pr);
+    for(j=1;j<=szpr;j++)
+    {
+      REZ=REZ+sgn*CSM_hypersurf(pr[j]);
+    }
+  }
+  list rez;
+  for(i=0;i<=n;i++)
+  {
+    rez=rez+list(REZ[1,i+1]);
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // consider the projective plane with homogeneous coordinates x, y, z
+  ring r = 0, (x, y, z), dp;
+  // the Chern-Schwartz-MacPherson class of a smooth cubic:
+  ideal I=x3+y3+z3;
+  I;
+  CSMA(I);
+  // the Chern-Schwartz-MacPherson class of singular cubic
+  // that is a union of 3 non-collinear lines:
+  ideal J=x*y*z;
+  J;
+  CSMA(J);
+  // the Chern-Schwartz-MacPherson class of singular cubic
+  // that is a union of 3 lines passing through one point
+  ideal K=x*y*(x+y);
+  K;
+  CSMA(K);
+}
+//-------------------------------------------------------------------------------------------
+
+proc EulerAff(ideal I)
+"USAGE:   EulerAff(I);  I an ideal
+RETURN:   integer
+PURPOSE:  computes the Euler characteristic of the affine variety defined by I
+EXAMPLE:  example EulerAff; shows an example
+NOTE:
+"
+{
+  int n=nvars(basering);
+  def br@=basering; // remember the base ring
+  ring r@ = create_ring(ring_list(basering)[1],"("+varstr(basering)+",homvar@)","dp","no_minpoly");
+  ideal I=fetch(br@,I);
+  ideal J=homog(I, homvar@);
+  ideal JJ=J, homvar@;
+  return( CSMA(J)[n+1]-CSMA(JJ)[n+1] );
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (x, y), dp;
+  // compute the Euler characteristic of the affine elliptic curve y^2=x^3+x+1;
+  ideal I=y2-x3-x-1;
+  EulerAff(I);
+}
+//-------------------------------------------------------------------------------------------
+
+proc EulerProj(ideal I)
+"USAGE:   EulerProj(I);  I an ideal
+RETURN:   integer
+PURPOSE:  computes the highest degree term of the Chern-Schwartz-MacPherson class
+          of the variety defined by I, which equals the Euler characteristic
+EXAMPLE:  example EulerProj; shows an example
+NOTE:     uses CSMA(...)
+"
+{
+  if( !homog(I) ) // if the ideal is not homogeneous
+  {
+    print("The ideal must be homogeneous, zero is returned.");
+    return( int(0) );
+  }
+  int n=nvars(basering);
+  return( CSMA(I)[n] );
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // consider the projective plane with homogeneous coordinates x, y, z
+  ring r = 0, (x, y, z), dp;
+  // Euler characteristic of a smooth cubic:
+  ideal I=x3+y3+z3;
+  I;
+  EulerProj(I);
+  // Euler characteristic of 3 non-collinear lines:
+  ideal J=x*y*z;
+  J;
+  EulerProj(J);
+  // Euler characteristic of 3 lines passing through one point
+  ideal K=x*y*(x+y);
+  K;
+  EulerProj(K);
+}
+//----------------------------------------------------------------------------------------
+// The procedures below are for the internal usage only
+//----------------------------------------------------------------------------------------
+
+static proc append_by_zeroes(int N, list c)
+"USAGE:   append_by_zeroes( N, c);  N integer, c a list
+RETURN:   list
+PURPOSE:  appends by zeroes up to the length N
+EXAMPLE:  example append_by_zeroes; shows an example
+NOTE:
+"
+{
+  int n=size(c);
+  if(N>n) // if N is greater than the length of c, append c by zeroes up to the length N
+  {
+    int i;
+    for(i=n+1;i<=N;i++)
+    {
+      c=c+list( poly(0) );
+    }
+  }
+  return(c);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (x, y, z), dp;
+  list l=(x, y, z);
+  //append the list by two zeroes and get a list of length 5
+  print( append_by_zeroes(5, l) );
+}
+//-----------------------------------------------------------------------
+
+static proc is_integer(def r)
+"USAGE:   is_integer(r);  r any type
+RETURN:   1 or 0
+PURPOSE:  checks whether r is of type int or bigint
+EXAMPLE:  example is_integer; shows an example
+NOTE: returns 1 if r is of type int or bigint, otherwise returns 0
+"
+{
+  if( (typeof(r)=="int") || (typeof(r)=="bigint") )
+  {
+    return(1);
+  }
+  else
+  {
+    return(0);
+  }
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // test on int, bigint, poly
+  ring r;
+  int i=12;
+  bigint j=16;
+  poly f=x;
+  print( is_integer(i) );
+  print( is_integer(j) );
+  print( is_integer(f) );
+}
+//------------------------------------------------------------------------------------
+
+static proc integer_list(list l)
+"USAGE:   integer_list(l);  l list
+RETURN:   list
+PURPOSE:  gets the first positive ingerer entries of l, computes their maximum;
+          used for adjusting the lists of optional parameters that are supposed to be integers
+EXAMPLE:  example integer_list; shows an example
+NOTE:     used in chWedge(...) and chSymm(...)
+"
+{
+  int M=0;
+  int n=size(l);
+  if(n==0)
+  {
+    return(list(l, M));
+  }
+  // now n>0
+  list rez; // the result will be computed here
+  int i=1;
+  while( is_integer( l[i] ) ) // take only the first integer entries of l
+  {
+    if(l[i]>0) // if they are positive
+    {
+      rez=rez+list( l[i] );
+      if(l[i]>M) // adjust the maximum if necessary
+      {
+        M=l[i];
+      }
+      i++;
+    }
+    else // otherwise get out from the loop
+    {
+      break;
+    }
+  }
+  return( list( rez, M)   );
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // the first integer entries of 1,2,3,t are 1,2,3
+  ring r=0,(t), ls;
+  list l=1,2,3, t;
+  print( integer_list(l) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc appendToAll(list L, list A)
+"USAGE:   appendToAll( L, A );  L list of lists, A list
+RETURN:   list
+PURPOSE:  appends A to every entry of L
+EXAMPLE:  example appendToAll; shows an example
+NOTE:
+"
+{
+  int n=size(L);
+  int i;
+  for(i=1;i<=n;i++) // run through all elements of L
+  {
+    L[i]=L[i]+A; // and append A to each of them
+  }
+  return(L);
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  // Consider two lists
+  list l1, l2;
+  l1=1,2;
+  l2=3,4;
+  // The first one is
+  print(l1);
+  // The second one is
+  print(l2);
+  // Now consider the list with entries l1 and l2
+  list L= l1, l2;
+  print(L);
+  // and consider a list A
+  list A = 7,9;
+  print(A);
+  // append A to all entries of L
+  print( appendToAll(L, A) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc listSame(int n, int k)
+"USAGE:   listSame( n, k );  n integer, k non-negative integer
+RETURN:   list
+PURPOSE:  list with k entries each equal to n
+EXAMPLE:  example listSame; shows an example
+NOTE:     if k is negative or zero, the empty list is returned
+"
+{
+  list rez;
+  int i;
+  for(i=1;i<=k;i++) // create a list with k entries, each equal to n
+  {
+    rez=rez+list(n);
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  // list of 5 zeroes
+  print( listSame(0, 5) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc IJcoef(list I, list J)
+"USAGE:   IJcoef( I, J);  J, J lists of integers
+RETURN:   bigint
+PURPOSE:  computes the coefficient used in the formula of Lascoux
+EXAMPLE:  example IJcoef; shows an example
+NOTE:     these coefficients are denoted (I, J) in the paper of Lascoux
+"
+{
+  int m = size(I);
+  if(m != size(J)) // if the sizes of I and J are different
+  {
+    // give a warning
+    print("The sizes of the partitions are different!");
+    print("Zero is returned.");
+    return( bigint(0) ); // and return zero
+  }
+  // now the sizes of I and J are equal m
+  int h, k;
+  bigintmat M[m][m]; // construct the required matrix
+  for(h=1; h<=m; h++)
+  {
+    for(k=1; k<=m; k++)
+    {
+      M[h,k] = binomial( I[k]+k-1, J[h]+h-1 );
+    }
+  }
+  return( det(M) ); // and return its determinant
+}
+example
+{
+  "EXAMPLE:"; echo =2;
+  // The coefficient corresponding to the partitions (1, 3, 4) and (0, 3, 3)
+  list I = 1, 3, 4;
+  list J = 1, 3, 3;
+  print( IJcoef(I, J) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc invertPart(list l)
+"USAGE:   invertPart(I);  I list of integers (partition),
+RETURN:   list of integers
+PURPOSE:  inverts the ordering of the elements in the list
+EXAMPLE:  example invertPart; shows an example
+NOTE:
+"
+{
+  list L;
+  int sz=size(l);
+  int i;
+  for(i=sz;i>=1;i--)
+  {
+    L=L+list(l[i]);
+  }
+  return(L);
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  // Invert the ordering of elements in (3, 2, 1)
+  list l = 3, 2, 1;
+  print( invertPart(l) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc LRmul(list I, list J)
+"USAGE:   LRmul(x, y);  x, y lists of integers (partitions)
+RETURN:   list of lists
+PURPOSE:  computes the partitions z for which the Littlewood-Richardson
+          coefficient c^z_{x,y} is non-zero together with that coefficient;
+          partitions up to length r
+EXAMPLE:  example LRmul; shows an example
+NOTE:     uses LRmult(..) from lrcalc.lib, does the same,
+          only uses the inverted ordering of the elements in the partition
+"
+{
+  list rez=LRmult(invertPart(I), invertPart(J));
+  int sz=size(rez);
+  int i;
+  for(i=1;i<=sz;i++)
+  {
+    rez[i][2]=invertPart(rez[i][2]);
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  // Compute the partitions z for which the Littlewood-Richardson coefficient
+  // c^z_{x,y} is non-zero together with that coefficient
+  // for x= (1, 2), y=(1, 2)
+  list x = 1, 2;
+  list y = 1, 2;
+  print( LRmul(x, y) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc hook(list I)
+"USAGE:   hook(I);  I list of integers (partition),
+RETURN:   bigint
+PURPOSE:  computes the product of the hook lenhths of the partition I
+EXAMPLE:  example hook; shows an example
+NOTE:
+"
+{
+  bigint rez=1;
+  list dI= invertPart( dualPart(I) );
+  I=invertPart( I );
+  int szI=size(I);
+  int szdI=size(dI);
+  int i, j;
+  for(i=1;i<=szI;i++)
+  {
+    for(j=1;j<=I[i];j++)
+    {
+      rez=rez*(I[i]+dI[j]-i-j+1);
+    }
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  // compute the product of all hook lengths of the partition (1, 1, 3)
+  list I = 1, 1, 3;
+  print( hook(I) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc apn0_int(int N, list c)
+"USAGE:   apn0_int( N, c);  N integer, c list of integers (partition)
+RETURN:   list of integers
+PURPOSE:  appends by integer zeroes up to the length N
+EXAMPLE:  example apn0_int; shows an example
+NOTE:
+"
+{
+  int n=size(c);
+  if(N>n) // if N is greater than the length of c, append c by zeroes up to the length N
+  {
+    int i;
+    for(i=n+1;i<=N;i++)
+    {
+      c=c+list( int(0) );
+    }
+  }
+  return(c);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (x, y, z), dp;
+  list l=(1, 2, 3);
+  //append the list by two zeroes and get a list of length 5
+  print( apn0_int(5, l) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc contentPoly(list I, list J, poly e)
+"USAGE:   contentPoly(I, J, e);  L, M lists of integers (partitions),
+          e polynomial
+RETURN:   poly
+PURPOSE:  computes the content polynomial of the skew partition corresponding to I>J
+EXAMPLE:  example contentPoly; shows an example
+NOTE:
+"
+{
+  int i, j;
+  int szI=size(I);
+  I=invertPart(I);
+  J=invertPart(J);
+  J=apn0_int(szI, J);
+  poly rez=1;
+  for(i=1; i<=szI; i++)
+  {
+    for(j=J[i]+1; j<=I[i]; j++)
+    {
+      rez = rez*(e- i+j);
+    }
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  // compute the content Polynomial of the skew partition
+  // corresponding to  (1,2) > (0, 1) with respect to the variable x
+  ring r = 0, (x), dp;
+  list L=1,2;
+  list M=0,1;
+  print( contentPoly(L, M, x) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc Pcoef(list L, list M, poly e, poly f)
+"USAGE:   Pcoef(L, M, e, f);  L, M lists of integers (partitions),
+          e, f polynomials
+RETURN:   poly
+PURPOSE:  computes the polynomial P_{L, M}(e, f) from the paper of Manivel
+EXAMPLE:  example Pcoef; shows an example
+NOTE:
+"
+{
+  list P = LRmul(dualPart(L), M);
+  int  sz=size(P);
+  poly rez;
+  //poly h;
+  list T, DT;
+  //bigint lrc;
+  int i;
+  for(i=1;i<=sz;i++)
+  {
+    T=P[i][2];
+    DT=dualPart(T);
+    //lrc=P[i][1];
+    //h=contentPolyM(DT, L, e)*contentPoly(T, M, f);
+    rez=rez+P[i][1]* contentPoly(DT, L, e)*contentPoly(T, M, f)/hook(DT);
+  }
+ return(rez);
+}
+example
+{
+  "EXAMPLE:"; echo = 2;
+  // compute P_{L, M}(e, f) from the paper of Manivel
+  // for L = (0,1) and M = (1, 1)
+  ring r = 0, (e, f), dp;
+  list L=1,2,3;
+  list M=1,2;
+  print( Pcoef(L, M, e, f) );
+}
+//---------------------------------------------------------------------------------------
+
+static proc max_deg(ideal I)
+"USAGE:   max_deg(I);  I an ideal
+RETURN:   integer
+PURPOSE:  computes the maximal degree of the generators of I
+EXAMPLE:  example max_deg; shows an example
+NOTE:
+"
+{
+  int rez=0;
+  int i;
+  int sz = ncols(I);
+  for(i=1;i<=sz;i++)
+  {
+    rez=max(rez, deg(I[i]) );
+  }
+  return(rez);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // the maximal degree of the ideal in k[x, y]:
+  ring r = 0, (x, y), dp;
+  ideal I= x4, y7, x2y3;
+  print(max_deg(I));
+}
+//-------------------------------------------------------------------------------------------
+
+static proc var_pow(int n)
+"USAGE:   var_pow(n);  n an integer
+RETURN:   ideal
+PURPOSE:  computes the ideal generated by the n-th powers of the variables of the base ring
+EXAMPLE:  example var_pow; shows an example
+NOTE:
+"
+{
+  ideal I=maxideal(1);
+  int sz=ncols(I);
+  int i;
+  ideal J;
+  for(i=1; i<=sz; i++)
+  {
+    J=J+ideal(I[i]^n);
+  }
+  return(J);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // the 3-rd powers of the variables in k[x, y]:
+  ring r = 0, (x, y), dp;
+  print(var_pow(3));
+}
+//-------------------------------------------------------------------------------------------
+
+static proc equal_deg(ideal I)
+"USAGE:   equal_deg(I);  I an ideal
+RETURN:   ideal
+PURPOSE:  computes an ideal generated by elements of the same degree
+          that defines the same projective subscheme as I
+EXAMPLE:  example equal_deg; shows an example
+NOTE:
+"
+{
+  I=simplify(I, 8+2);
+  int sz=ncols(I);
+  int mxd=max_deg(I);
+  int i;
+  ideal J;
+  for(i=1;i<=sz;i++)
+  {
+    J=J+I[i]*var_pow( mxd-deg(I[i]) );
+  }
+
+  return(sort( simplify(J, 8+2) )[1]);
+}
+example
+{
+  "EXAMPLE:"; echo=2;
+  // change the ideal (x, y^2) in k[x, y, z]:
+  ring r = 0, (x, y, z), dp;
+  ideal I=x, y*z;
+  // the ideal defines a two points subscheme in the projective plane
+  // and is generated by elements of different degrees
+  print(I);
+  ideal J=equal_deg(I);
+  // now the ideal is generated by elements of degree 2
+  // and defines the same subscheme in the projective plane
+  J;
+  // notice that both ideals have the same saturation
+  // with respect to the irrelevant ideal (x, y, z)
+  // the saturation of the initial ideal coincides with the ideal itself
+  sat(I, maxideal(1));
+  // the saturation of the modified ideal
+  sat(J, maxideal(1));
+}
+//-------------------------------------------------------------------------------------------
+
+static proc CSM_hypersurf(poly f)
+"USAGE:   CSM_hypersurf(f);  f a polynomial
+RETURN:   list of integers
+PURPOSE:  computes the Chern-Schwartz-MacPherson classes of the hypersurface defined by f
+EXAMPLE:  example CSM_hypersurf; shows an example
+NOTE:
+"
+{
+  ideal I=jacob(f);
+  I=simplify(I, 8+2); // ignore repetitions and zero generators
+  I=sort(I)[1]; // sort the generators, it speeds up the computations
+  int degGen=deg(I[1]); // the degree of the generators of the Jacobian ideal
+  int i;
+  int n=nvars(basering)-1; // the dimension of the projective space
+  bigintmat REZ[1][n+1];
+  if(degGen==-1) // if the Jacobian ideal is zero
+  {
+    for(i=0;i<=n;i++)
+    {
+      REZ[1,i+1]=binomial(n+1,i);
+    }
+    return(REZ);
+  }
+  //TODO need to check the zero ideal and I==1;
+  int sz=ncols(I);
+  def br@=basering; // remember the base ring
+  list l15 = ringlist(basering)[2];
+  for (int ii = 1; ii <= sz; ii++)
+  {
+   l15[size(l15)+1] = "t@("+string(ii)+")";
+  }
+  l15[size(l15)+1] = "u@";
+  ring r@ = create_ring(ring_list(basering)[1], l15, "dp", "no_minpoly");
+  ideal I=fetch(br@,I);
+  ideal J(0..n);
+  for(i=1; i<=sz; i++)
+  {
+    J(0)=J(0) + ideal( t@(i)-u@*I[i] );
+  }
+  J(0)=eliminate(J(0), u@);
+  ideal T=t@(1..sz);
+  for(i=1;i<=n;i++)
+  {
+    J(i) = sat( random_hypersurf(J(i-1), T), T );
+  }
+  poly prd=product(T);
+  poly cl;
+  poly mlt;
+  for(i=0;i<=n;i++)
+  {
+    cl=cl+  mult( std(eliminate( J(i),  prd)) ) *(-u@)^i*(1+u@)^(n-i);
+  }
+  cl=(1+u@)^(n+1)-cl;
+  poly resPoly=NF( cl, u@^(n+1) );
+  matrix cf=coeffs(resPoly, u@);
+  for(i=0;i<=n;i++)
+  {
+    if( i < nrows(cf) )
+    {
+      REZ[1,i+1]=int(cf[i+1,1]);
+    }
+    else
+    {
+      REZ[1,i+1]=int(0);
+    }
+  }
+  return(REZ);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // consider the projective plane with homogeneous coordinates x, y, z
+  ring r = 0, (x, y, z), dp;
+  // the Chern-Schwartz-MacPherson class of a smooth cubic:
+  poly f=x3+y3+z3;
+  f;
+  CSM_hypersurf(f);
+  // the Chern-Schwartz-MacPherson class of singular cubic
+  // that is a union of 3 non-collinear lines:
+  poly g=x*y*z;
+  g;
+  CSM_hypersurf(g);
+  // the Chern-Schwartz-MacPherson class of singular cubic
+  // that is a union of 3 lines passing through one point
+  poly h=x*y*(x+y);
+  h;
+  CSM_hypersurf(h);
+}
+//-------------------------------------------------------------------------------------------
+
+static proc random_hypersurf(ideal I, ideal V)
+"USAGE:   random_hypersurf(I, V);  I, V ideals
+RETURN:   ideal
+PURPOSE:  computes the sum of I with the ideal generated by a random
+          linear combination of the generators of V such that the dimension decreases
+EXAMPLE:  example random_hypersurf; shows an example
+NOTE:     if the ideal I=1 (the whole ring), then I is returned
+"
+{
+  ideal H;
+  ideal J;
+ // if(isSubModule(ideal(1), I)) // if I equals 1 (the whole ring);
+  if( is_zero(I) )
+  {
+    return(I);
+  }
+  // otherwise
+  int ok=0;
+  int ntries; // number of tries
+  while( !ok ) // give two tries for every b in randomid(V, 1, b)
+  {
+    H=randomid(V, 1, ntries div 2 +1);
+    ntries++; // increase by 1
+    if( isSubModule( quotient(I, ideal(H) ), I) )
+    {
+      J=I + H;
+      ok=1;
+    }
+  }
+  return(J);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  // Consider an ideal in  k[x, y, z, s, t] and find its intersection with a general hyperplane
+  // given by as+bt=0
+  ring r = 0, (x, y, z, s, t), dp;
+  ideal I=x2, yz, s+t;
+  I;
+  ideal V= s, t;
+  V;
+  // the ideal of the intersection with the random general hyperplane
+  random_hypersurf(I, V);
+}
+//-------------------------------------------------------------------------------------------
+
+static proc prds(int n, def l)
+"USAGE:   prds(n, l);  n an integer, l list of polynomials or ideal
+RETURN:   list of polynomials
+PURPOSE:  computes all possible products of length n (without repetitions) of the entries of l
+EXAMPLE:  example prds; shows an example
+NOTE:
+"
+{
+  int sz;
+  if(typeof(l)=="ideal")
+  {
+    sz=ncols(l);
+  }
+  else
+  {
+    sz=size(l);
+  }
+  if( (n>sz)||(sz==0)||(n<0) )
+  {
+    return( list() );
+  }
+  // otherwise
+  if(n==0)
+  {
+    return( list(int(1)) );
+  }
+  if(sz==n)
+  {
+    return(product(l));
+  }
+  list L, LL, ll;
+  ll=l[2..sz];
+  poly f=l[1];
+  L=prds(n, ll );
+  LL=prds(n-1,ll);
+  int i;
+  sz=size(LL);
+  for(i=1;i<=sz;i++)
+  {
+    LL[i]=f*LL[i];
+  }
+  return(L+LL);
+}
+example
+{
+  "EXAMPLE:";echo =2;
+  ring r = 0, (x, y, z, w), dp;
+  // compute all possible 2-products between the variables x,y,z,w
+  list l=x,y,z,w;
+  prds(2, l);
+  // compute all possible 3-products between the variables x,y,z,w
+  ideal I=x,y,z,w;
+  prds(3, l);
+}
+//-------------------------------------------------------------------------------------------

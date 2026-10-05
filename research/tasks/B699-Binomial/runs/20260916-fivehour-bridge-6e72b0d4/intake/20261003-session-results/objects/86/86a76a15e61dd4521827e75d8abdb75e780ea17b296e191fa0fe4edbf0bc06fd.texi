@@ -1,0 +1,694 @@
+@comment -*-texinfo-*-
+@comment this file contains the News about Singular versions
+@comment Unix
+@ifclear VERSION
+@include version.texi
+@end ifclear
+
+@majorheading NEWS in SINGULAR @value{VERSION}
+
+@ifclear singularmanual
+@macro nref{what}
+\what\
+@end macro
+@end ifclear
+
+@ifset singularmanual
+@macro nref{what}
+@ref{\what\}
+@end macro
+@end ifset
+
+@macro commit{hash}
+@uref{https://github.com/Singular/Singular/commit/\hash\,\hash\}
+@end macro
+
+@heading News for version 4-5-0
+
+New libraries:
+@itemize
+@item @code{enumnf.lib}: enumeration of normal-form series with
+non-degenerate Newton boundary [@commit{f8e2789a1}]
+@item @code{conway.lib}: computation of Conway polynomials over finite fields
+[@commit{31b8169ef}]
+@item @code{arc.lib}: construction of generalized arc spaces
+[@commit{d87861767}]
+@item @code{sresext.lib}: Schreyer resolutions over the exterior algebra
+[@commit{e35fab845}]
+@end itemize
+
+New type:
+@itemize
+@item @code{htable}: hash tables with string keys and values of mixed types
+and SSI serialization support (@nref{htable})
+[@commit{00cf393bf}, @commit{7cb24c691}]
+@end itemize
+
+Changed libraries:
+@itemize
+@item @code{integralbasis.lib}: fix Puiseux class handling in integral basis
+computations (@nref{integralbasis_lib}) [@commit{6cc919fbe}]
+@item @code{realrad.lib}: fix general-position normalization
+(@nref{realrad_lib}) [@commit{1b221306e}]
+@item @code{dmod.lib}, @code{dmodapp.lib}: removed obsolete
+@code{annfspecialOld}; @code{annRat} and @code{deRhamCohom} now use
+@code{annfspecial} (@nref{annfspecial}, @nref{annRat}, @nref{deRhamCohom})
+[@commit{41c1d6bfa}]
+@item @code{primdecint.lib}: fixes for integer overflow and bigint handling
+in primary decomposition over the integers (@nref{primdecint_lib})
+[@commit{4b94dd619}]
+@item @code{sheafcoh.lib}: new weighted routines @code{dimH_w} and
+@code{dimGradedPart_w}; fixes for weighted sheaf cohomology
+(@nref{sheafcoh_lib}) [@commit{30799bcc0}]
+@item @code{hodge.lib}: fixes in the computation of Hodge ideals
+(@nref{hodge_lib}) [@commit{81b1217cc}]
+@item @code{polymake.lib}: new version for topcom 1.1 (@nref{polymake_lib})
+[@commit{7df8b077a}]
+@item @code{primdec.lib}, @code{modprimdec.lib}: fixes and improvements for
+primary decomposition defaults and edge cases
+(@nref{primdec_lib}, @nref{modprimdec_lib}) [@commit{c1dd834e4}]
+@item @code{sagbiNormaliz.lib}: new version for normaliz 3.10.5
+(@nref{sagbiNormaliz_lib}) [@commit{2e0ef719a}]
+@item @code{sagbiNormaliz0.lib}: version for normaliz <=3.10.1
+(@nref{sagbiNormaliz0_lib}) [@commit{03476c2f0}]
+@item @code{normaliz.lib}: new version (@nref{normaliz_lib})
+[@commit{bfe491d07}]
+@item @code{homolog.lib}: handling of module weights (@nref{Ext_R})
+[@commit{dade9c380}]
+@item @code{ehv.lib}: fix a wrong variable name in
+@code{annihilatorBM} [@commit{9a32d6e4e}]
+@item @code{triang.lib}: improve @code{triangL} output
+(@nref{triang_lib}) [@commit{4ead8b67a}]
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item fix silent overflow in the number of ring variables
+[@commit{11befc1bb}]
+@item new algorithmic @code{option(stdhilb)} for @code{std}; it is also
+activated by @code{option(probabilistic)}. This shortcut is unchecked and an
+unlucky prime may lead to an incorrect result over @code{QQ}
+[@commit{b1c797710}]
+@item new global @code{option(probabilistic)}. It enables probabilistic
+Groebner-basis shortcuts and omits final exact verification, but not
+stabilization, in modular algorithms [@commit{b1c797710}]
+@item the modular Hilbert-driven block-ordering shortcut for @code{std} is now
+disabled by default and enabled by @code{option(probabilistic)}
+[@commit{b1c797710}]
+@item verify the colength used by the modular highest-corner shortcut for local
+standard bases and fall back to an untruncated computation if it differs
+[@commit{b1c797710}]
+@item fix normalization in factorization, @code{resultant}, @code{pdivide},
+and related computations over transcendental extensions [@commit{fea562cea}]
+@item improve @code{preimage} and elimination for weighted homogeneous input
+[@commit{af1d0f474}]
+@item add and extend GitHub Actions workflows for release tarballs,
+Singular.jl downstream testing, Oscar downstream testing, Sage testing, and
+full regression testing [@commit{74ba9e1bf}, @commit{ae06fdaaf},
+@commit{d27c6a409}, @commit{723704d80}]
+@item fix interruption handling in @code{std}/@code{groebner} computations
+[@commit{84b7b1f76}]
+@item improve Hilbert-driven standard-basis computations for weighted and
+mixed orderings [@commit{b91bc1953}, @commit{614931fcb}]
+@item regression tests now support compressed @code{.res.gz} reference files
+[@commit{a66f22c13}]
+@item @code{nres},@code{mres},@code{prune_map}: allow ring elements as coefficients
+(@nref{nres},@nref{mres},@nref{prune_map}) [@commit{3f7bc6f89}]
+@item build and CI updates for newer macOS runners [@commit{bdb25263f}]
+@item fix buffer-size handling in expression parsing [@commit{7a2ec83c4}]
+@item fix and tune standard-basis, high-corner, FGLM, and monomial-ordering
+computations [@commit{743bfd6ff}, @commit{709497400},
+@commit{17d9e982c}]
+@item update coefficient maps from GAP GMP integer representations
+[@commit{0f28b8731}]
+@item fix short-real precision selection by using the configured
+@code{SIZEOF_DOUBLE} value [@commit{759846af9}]
+@item @code{simplex}: support real coefficient fields in addition to long real
+coefficient fields [@commit{7a234259f}]
+@item fix @code{gcd(0,0)} over fields @code{ZZ/n} to return @code{0}
+[@commit{91dd89953}, @commit{abc73b691}]
+@item require FLINT 3.0 or newer when FLINT support is enabled; configure now
+fails if FLINT was explicitly requested but could not be found
+[@commit{557b265c2}]
+@item support @code{tropicalVariety} over coefficient fields other than
+@code{QQ} [@commit{c791b8806}]
+@item improve runtime error handling, resource lookup, link handling, and
+build-time robustness [@commit{4c5e9e075}]
+@item changes for gcc 15 [@commit{b9ee893d1}]
+@item documentation, test-reference, dependency, and release-maintenance
+updates [@commit{7df8b077a}]
+@item @code{read},@code{write} support a link (@code{"ssi:string"}) to
+read/write data encoded as strings (@nref{read},@nref{write})
+[@commit{0e082ef0b}]
+@item fix @code{quotient} for qring case (@nref{quotient})
+[@commit{e3bf4a15e}]
+@item fix parser and procedure-expression handling [@commit{186a1fd7c}]
+@item improve syzygy and resolution computations, including
+@code{sres}/@code{fres}/@code{mres}/@code{nres} edge cases
+[@commit{bc70778de}]
+@item changes for FLINT 3.3 [@commit{22ffc1b6f}, @commit{05f5116e1}]
+@item changes for normaliz 3.10.5 [@commit{bfe491d07}]
+@item fix polynomial, ideal, map, and coefficient arithmetic edge cases
+[@commit{0a4bc0e28}]
+@item improve CPU/fork handling for modular, parallel, and link-based
+computations [@commit{1103844a9}]
+@end itemize
+
+@heading News for version 4-4-1
+
+New libraries:
+@itemize
+@item @code{arnold.lib}: Classification of isolated singularities with a nondegenerate Newton Boundary (@nref{arnold_lib})
+@item @code{modprimdec.lib}: primary decompisition by modular methods (@nref{modprimdec_lib})
+@item @code{modquotient.lib}: ideal quotient and saturation by modular methods (@nref{modquotient_lib})
+@item @code{sagbiNormaliz.lib}: interface for the computation of Sagbi bases
+(@nref{sagbiNormaliz_lib})
+@item @code{transformation.lib}: The image of a transformation given up to a specified degree (@nref{transformation_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item @code{polyclass.lib}: extended (@nref{polyclass_lib})
+@item @code{primdec.lib}: choice of random values, irreducibility test
+(@nref{primdec_lib})
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item use new algorithm for weighted Hilbert function @nref{hilb}
+@item use new algorithm for @nref{std} in the case of ordering @code{ds/Ds}
+      and zero dimensional ideal over @code{QQ}
+      (can be switched off by @code{option(pure_gb;})
+@item use new algorithm for @nref{std} in the case of a block ordering
+      and ideal over @code{QQ}
+      (can be switched off by @code{option(pure_gb;})
+@item changed reduction routine for local orderings
+@end itemize
+
+@heading News for version 4-4-0
+
+New libraries:
+@itemize
+@item @code{modfinduni.lib}: parallel computation of finduni (@nref{modfinduni_lib} @nref{finduni})
+@item @code{sagbiNormaliz.lib}: computation of Sagbi bases via normaliz (@nref{sagbiNormaliz_lib})
+@item @code{stdmodule.lib}: Compute Standard Bases of submodule of free module
+over polynomial subalgebra (@nref{stdmodule_lib})
+@item @code{tropicalEllipticCovers.lib}: Gromov-Witten numbers of tropical elliptic curves and their covers (@nref{tropicalEllipticCovers_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item @code{normal.lib}: optimized, integrated @code{locnorma.lib} and @code{modnormal.lib} (@nref{normal_lib})
+@item @code{normaliz.lib}: update to normaliz 3.10 (@nref{normaliz_lib})
+@item @code{hess.lib}: fixes (@nref{hess_lib})
+@item @code{sheafcoh.lib}: new routines @nref{sheafCohBGGregul}, @nref{sheafCohBGGregul_w}, @nref{sheafCoh_w}, (@nref{sheafcoh_lib})
+@item @code{sheafcoh.lib}: display of the tables is moved to @nref{displayCohom} (@nref{sheafcoh_lib})
+@item @code{elim.lib}: rename @code{sat} to @code{sat_with_exp}, @code{sat} now return the saturation i9deal (only).
+@item @code{primdec.lib}: fixed a bug in absolute primary decomposition (@nref{primdec_lib})
+@end itemize
+
+New type:
+@itemize
+@item @code{bigintvec}: @nref{bigintvec}
+@end itemize
+
+New commands:
+@itemize
+@item new command @nref{prune_map}
+@item new command @nref{mres_map}
+@end itemize
+
+New/renamed monomial orderings:
+
+To avoid confusion (with the degree reverse lexicographic ordering)
+the orderings @code{rp} and @code{rs} are renamed:
+@itemize
+@item renamed orderings
+@code{rp} -> @code{ip}
+@code{rs} -> @code{is}
+@item new ordering
+@code{Ip}
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item new algorithm for @nref{std} in the case of ordering @code{ds}
+      and zero dimensional ideal over @code{QQ}
+@item new algorithm for lift function (@nref{lift})
+@item mstd for local rings (@nref{mstd})
+@item use the new Hilbert function algorithm for @nref{hilb}.
+(Different output format/ different return type)
+@item renamed orderings
+@code{ringorder_rp} -> @code{ringorder_ip}
+@code{ringorder_rs} -> @code{ringorder_is}
+@item new ordering
+@code{ringorder_Ip}
+@item changes for FLINT 3.0.x/3.1.x
+@end itemize
+
+@heading News for version 4-3-2
+
+Changed libraries:
+@itemize
+@item many: call std in many places only if attribute @code{isSB} is not set
+@item many: change many calls to @code{execute} by better variants
+@end itemize
+
+New commands:
+@itemize
+@item @code{coeffs} for @code{ring} (@nref{coeffs})
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item new algorithm for Hilbert function (@nref{hilb})
+@end itemize
+
+@c New commands:
+@c @itemize
+@c @end itemize
+@c
+@c New libraries:
+@c
+@c @itemize
+@c @end itemize
+
+@heading News for version 4-3-1
+
+New libraries:
+@itemize
+@item @code{normal.lib}: new command @code{isNormal}, option @code{normalCheck} for @code{normal} (@nref{normal_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item chern.lib: fixed @code{symNsym} (@nref{chern_lib})
+@item homolog.lib: fixed corner cases for @code{depth} (@nref{homolog_lib})
+@end itemize
+
+New commands:
+@itemize
+@item @code{chinrem}, @code{farey} for @code{smatrix} (@nref{smatrix})
+@end itemize
+
+Changed commands:
+@itemize
+@item overflow check for @nref{vdim}
+@item Hilbert function (@nref{hilb}) cannot overflow (different return type)
+@item @code{delete} accepts @code{intvec} for the indices to delete (@nref{delete})
+@item several GB based commands accept the choice of the algorithm:
+@code{"std","slimgb","sba","modstd","singmatic","groebner","ffmod","nfmod"} (@nref{syz}, @nref{eliminate}, @nref{intersect}, @nref{modulo}, @nref{liftstd}, @nref{lift})
+@item @code{reduce} for non-field coefficients: search best reduction
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item changes for gcc 12
+@item new option @code{--log LOGFILE}
+@item configure can change the path to hml documentation (@code{--htmldir=...})
+@item different format for @code{doc.tbz2}
+@item new algorithm for Hilbert function (@nref{hilb})
+@end itemize
+
+@heading News for version 4-3-0
+
+New libraries:
+@itemize
+@item enumpoints.lib: enumerating rational points (@nref{enumpoints_lib})
+@item sagbigrob.lib: Sagbi-Groebner basis of an ideal of a subalgebra (@nref{sagbigrob_lib})
+@item puiseuxexpansion.lib: Puiseux expansions over algebraic extensions (@nref{puiseuxexpansions_lib})
+@item integralbasis_lib: Integral basis in algebraic function fields: new version (@nref{integralbasis_lib})
+@end itemize
+
+
+Changes in the kernel/build system:
+@itemize
+@item input history is stored by default in @code{.singularhistory} (@nref{Editing input}).
+@item ABI change: all number routines (@code{n_...}) have only @code{coeffs} as last argument,
+     functions with @code{ring} as last argument are removed
+@item PATH is not changed for @code{system("sh",..)} (use @nref{system, SingularBin})
+@item @code{hilb} avoids int overflow (also in @code{degree, stdhilb})
+@item @code{liftstd} (with 2 arguments) improved (@nref{liftstd})
+@item @code{noether} improved (@nref{noether}), use in @code{groebner(I,"HC")}
+for faster results for local orderings, 0-dimensional ideals (@nref{groebner}).
+@item letterplace routines improved (@nref{LETTERPLACE})
+@item info file is now @code{singular.info} instead of @code{singular.hlp}
+@item update for using FLINT 2.8.x
+@end itemize
+
+@heading News for version 4-2-1
+
+New commands:
+@itemize
+@item Letterplace: dim, rightStd for qrings (@nref{LETTERPLACE})
+@item Letterplace: map, fetch, imap (@nref{map}, @nref{fetch}, @nref{imap})
+@end itemize
+
+New libraries:
+
+@itemize
+@item decomp.lib: functional decomposition of polynomials (@nref{decomp_lib})
+@item hodge.lib: algorithms for Hodge ideals (@nref{hodge_lib})
+@item tateProdCplxNegGrad.lib: sheaf cohomology on product of projective spaces (@nref{tateProdCplxNegGrad_lib})
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item @code{liftstd} (with 2 arguments) improved (@nref{liftstd})
+@item building on Cygwin with shared libraries
+@item building the manual via @code{--enable-doc-build}
+@end itemize
+
+@heading News for version 4-2-0
+
+Syntax changes:
+@itemize
+@item renamed poly.lib to polylib.lib (@nref{polylib_lib})
+@end itemize
+
+New libraries:
+
+@itemize
+@item interval.lib: interval arithmetic (@nref{interval_lib})
+@item maxlike.lib: algebraic statistics (@nref{maxlike_lib})
+@item nchilbert.lib: Hilbert series for LetterPlace algebras (@nref{nchilbert_lib})
+@item polyclass.lib: class of polynomials (@nref{polyclass_lib})
+@item recover.lib: Hybrid numerical/symbolical algorithms (@nref{recover_lib})
+@item redcgs.lib: Reduced Comprehensive Groebner Systems (@nref{redcgs_lib})
+@item ringgb.lib: coefficient rings (@nref{ringgb_lib})
+@item sets.lib: Sets (@nref{sets_lib})
+@item stanleyreisner.lib: T1 and T2 for a general Stanley-Reiser ring (@nref{stanleyreisner_lib}
+@item systhreads.lib: multi-threaded objects (@nref{systhreads_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item classify_aeq.lib: new procedure @code{classSpaceCurve} (@nref{classify_aeq_lib})
+@item grobcov.lib: new version (@nref{grobcov_lib})
+@item modular.lib: parallel version for verification via @code{system("verifyGB",I)}
+@end itemize
+
+New commands:
+@itemize
+@item @code{system("verifyGB",I)}: test, if I is a Groebner basis (using parallel processes)
+@item Letterplace: modulo,syz,lift,liftstd, rightStd (@nref{LETTERPLACE})
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item update for using FLINT 2.6.x and for FLINT 2.7.0
+@item Singular can be build with NTL or FLINT or both
+(if none is available, @code{factorize} and @code{gcd} will not work.)
+@end itemize
+
+@heading News for version 4-1-3
+New libraries:
+@itemize
+@item invar.lib: Invariant theory @nref{invar_lib}
+@item moddiq.lib: ideal quotient and saturation
+@item ncModslimgb.lib: modular Groebner bases for G-algebras @nref{ncModslimgb_lib}
+@end itemize
+
+Changed libraries:
+@itemize
+@item chern.lib:  new version (@nref{chern_lib})
+@item grobcov.lib: new version (@nref{grobcov_lib}),
+      new functions @nref{ConsLevels}, @nref{Levels}, @nref{Grob1Levels},
+      @nref{DifConsLCSets}
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item improved gcd and multiplication via FLINT
+@item improved lift (and related)
+@item port to polymake 3.5.x
+@item rational functions via flint (@nref{flintQ})
+@item free algebra over Z (@nref{LETTERPLACE})
+@item adaptions/functions for @code{Singular.jl}(@uref{https://github.com/oscar-system/Singular.jl})
+@end itemize
+
+@heading News for version 4-1-2
+New libraries:
+@itemize
+@item arnoldclassify.lib: Arnol'd Classifier of Singularities (@nref{arnoldclassify_lib})
+@item difform.lib: Procedures for differential forms (@nref{difform_lib})
+@item dmodideal.lib: Algorithms for Bernstein-Sato ideals of morphisms (@nref{dmodideal_lib})
+@item fpalgebras.lib: Generation of various algebras in the letterplace case (@nref{fpalgebras_lib})
+@item ncrat.lib: non-commutatie rational functions
+(@nref{ncrat_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item freegb.lib: lpDivision, lpPrint (@nref{freegb_lib})
+@item fpadim.lib (@nref{fpadim_lib})
+@item schreyer.lib: deprecated
+@item goettsche.lib: new, extended version (The Nakajima-Yoshioka formula up to n-th degree,Poincare Polynomial of the punctual Quot-scheme of rank r on n planar points Betti numbers of the punctual Quot-scheme of rank r on n planar points)(@nref{goettsche_lib})
+@item grobcov.lib: small bug fix (@nref{grobcov_lib})
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item integrated xalloc into omalloc: (@code{./configure --disable-omalloc})
+@item improved heuristic for @code{det} (@nref{det})
+@item improved reading of long polynomials
+@item improved groebner bases over Z coefficients
+@item code for free algebras (letterplace rings) rewritten
+(using now the standrad @code{+,-,*,^,std},...) (@nref{LETTERPLACE})
+@item new commands @code{rightstd} (@nref{rightstd (letterplace)})
+@item extended @code{twostd} to @sc{Letterplace} (@nref{twostd (letterplace)}, @nref{twostd (plural)})
+@item pseudo type @code{polyBucket}
+@item new type @code{smatrix}: sparse matrix (experimental) (@nref{smatrix}).
+@item extended @code{coef} to ideals (@nref{coef}).
+@item error and signal handling in @code{libSingular} (@nref{libSingular}).
+@item updated gfanlib to version 0.6.2
+@item port to NTL 11 (needs C++11: gcc6 or -std=c++11), which does not conflict with polymake (needs C++14)
+@end itemize
+
+@heading News for version 4-1-1
+
+New syntax:
+@itemize
+@item @code{alias}: may be used as a prefix to a variable declaration.
+Can only be used in procedure headings. (@nref{General command syntax}).
+@end itemize
+
+New command:
+@itemize
+@item @code{fres}: improved version of @code{sres}: computes a (not necessarily minimal) free resolution of the input ideal/module, using Schreyer's algorithm.
+(@nref{fres},@nref{sres}).
+@end itemize
+
+
+Extended commands:
+@itemize
+@item pseudo ordering @code{L} allows setting of limits for exponents in polynomials (@nref{Pseudo ordering L},@nref{attrib} for @code{maxExp})
+@item @code{%},@code{mod}: also for poly operands (@nref{poly operations}).
+@item @code{delete}: extended to intvec, ideal, module (@nref{delete}).
+@item syz (@nref{syz}), lift (@nref{lift}), liftstd (@nref{liftstd}), intersect(@nref{intersect}): with a specified GB algorithm
+@end itemize
+
+New libraries:
+@itemize
+@item classify2.lib: Classification of isolated singularities of corank <=2 and modality <= wrt. right equivalence over the complex numbers according to Arnold's list. (@nref{classify2_lib})
+@item goettsche.lib: Goettsche's formula for the Betti numbers of the Hilbert scheme
+of points on a surface, Macdonald's formula for the symmetric product (@nref{goettsche_lib})
+@item combinat.lib, modules.lib, methods,lib, nets.lib: a more mathematical view of modules (@nref{combinat_lib}: combinatorics),
+(@nref{methods_lib}: construct procedures),
+(@nref{modules_lib}: free resolutions),
+(@nref{nets_lib}: pretty printing)
+@item ncHilb.lib: Hilbert series of non-commutative monomial algebras (@nref{ncHilb_lib})
+@item realclassify.lib: Classification of real singularities(@nref{realclassify_lib})
+@item rootisolation.lib: real root isolation using interval arithmetic(@nref{rootisolation_lib})
+@item rstandard.lib: Janet bases and border bases for ideals (@nref{rstandard_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item chern.lib:  new version (@nref{chern_lib})
+@item gitfan.lib:  new (incompatible) version (@nref{gitfan_lib})
+@item grobcov.lib:  new version (@nref{grobcov_lib})
+@end itemize
+
+Changes in the kernel/build system:
+@itemize
+@item port to polymake 3.x.x
+@item port to NTL 10 with threads (needs also C++11: gcc6 or -std=c++11)
+@item p_Invers is only a helper for p_Series: now static
+@item p_Divide is now p_MDivide, pDivide/p_Divide is a new routine
+@end itemize
+
+@heading News for version 4-1-0
+
+Syntax changes:
+@itemize
+@item new (additional) form of ring definitions: (for example @code{ring R=QQ[x,y,z];})
+      (@nref{General syntax of a ring declaration})
+@item new (additional) form of multi-indicies: (for example @code{i(1,2,3,4,5)})
+      (@nref{Names})
+@item changed behaviour of @code{charstr} (@nref{charstr})
+@item new data type @code{cring} to describe the coefficient rings, to be used
+      for the new definitions for (polynomial) rings (@nref{General syntax of a ring declaration})
+@item new command @code{ring_list} to access the parts used to construct polynomial rings (@nref{ring_list},@nref{ringlist})
+@item extended polynomial ring construction: also from lists produced by @code{ring_list}
+@item new attribute @code{ring_cf} for @code{ring} (@nref{attrib})
+@item printing of rings changed to match @code{cring} names (@nref{charstr})
+@end itemize
+
+New libraries:
+@itemize
+@item new library: classifyMapGerms.lib: standard basis of the tangent space at the orbit of an algebraic group action (@nref{classifyMapGerms_lib})
+@item new library: ffmodstd.lib:  Groebner bases of ideals in polynomial rings over algebraic function fields(@nref{ffmodstd_lib})
+@item new library: nfmodsyz.lib: syzygy modules of submodules of free modules
+      over algebraic number fields(@nref{nfmodsyz_lib})
+@item new library: curveInv.lib: invariants of curves (@nref{curveInv_lib})
+@item new library: gfan.lib: interface to gfanlib (@nref{gfan_lib})
+@item extended library: interface to polymake merged into @nref{polymake_lib}
+@item new library: tropicalNewton.lib: Newton polygon methods in tropical geometry (@nref{tropicalNewton_lib})
+@item new library: schubert.lib: some procedures for intersction theory (@nref{schubert_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item classify_aeq.lib: new procedures (@nref{classify_aeq_lib})
+@item grobcov.lib: new version (@nref{grobcov_lib})
+@item ncfactor.lib: factorization in some noncommuative algebras (@nref{ncfactor_lib}) with new routine ncfactor (@nref{ncfactor})
+@item primdec.lib: new option "subsystem" (@nref{primdec_lib})
+@end itemize
+
+Changes in the kernel:
+@itemize
+@item improved mapping of polynomials/ideals/...
+@item port to gcc 6
+@item port to gfanlib 0.6 (requires C++11, i.e. gcc >=4.3)
+@item port to NTL 10
+@item port to polymake 3.0
+@item port to readline 7
+@item @nref{sba} works for global orderings, also for coefficient types Z and Z/m
+@item @nref{std} works for all orderings, also for coefficient types Z and Z/m with local/mixed orderings
+@item @nref{factorize} works for polynomial rings over ZZ
+@end itemize
+
+Experimental stuff:
+@itemize
+@item module @nref{customstd_lib}: modify @code{std} (@nref{satstd})
+@end itemize
+
+@heading News for version 4-0-3
+
+New libraries:
+@itemize
+@item new library: brillnoether.lib: Riemann-Roch spaces of divisors on curves (@nref{brillnoether_lib})
+@item new library: chern.lib: Chern classes (@nref{chern_lib})
+@item new library: ffmodstd.lib:  Groebner bases of ideals in polynomial rings over algebraic function fields(@nref{ffmodstd_lib})
+@item new library: GND.lib: General Neron Desingularization (@nref{GND_lib})
+@item new library: graal.lib: localization at prime ideals (@nref{graal_lib})
+@item new library: hess.lib: Riemann-Roch space of divisors (@nref{hess_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item renamed algemodstd_lib to @nref{nfmodstd_lib}, extended to @code{module}
+@item renamed derham_lib to @nref{deRham_lib}
+@item grobcov.lib (grobcovK): Groebner Cover for parametric ideals (@nref{grobcov_lib}) with new routine
+   ConsLevels (@nref{ConsLevels}), removed AddCons  AddConsP.
+@end itemize
+
+@heading News for version 4-0-2
+New commands:
+@itemize
+@item align (@nref{align})
+@item branchTo (@nref{procs with different argument types})
+@item @code{->} (@nref{proc expression})
+@end itemize
+
+Change in ring handling:
+@itemize
+@item @code{typeof(} qring @code{)} returns @code{"ring"}
+@end itemize
+
+New libraries:
+@itemize
+@item algemodstd.lib:  Groebner bases of ideals in polynomial rings
+      over algebraic number fields(renamed to @nref{nfmodstd_lib})
+@item arr.lib: arrangements of hyperplanes (@nref{arr_lib})
+@item brillnoether.lib: Riemann-Roch spaces of divisors on curve (@nref{brillnoether_lib})
+@item hess.lib: Riemann-Roch space of divisors
+      on function fields and curves (@nref{hess_lib})
+@item gradedModules.lib: graded modules/matrices/resolutions (@nref{gradedModules_lib})
+@end itemize
+
+Changed libraries:
+@itemize
+@item revised polymake interface (polymake.so)
+@item revised gfanlib interface (gfanlib.so)
+@item Presolve::findvars (@nref{findvars}, @nref{variables})
+@item Ring::addvarsTo (@nref{addvarsTo})
+@item Ring::addNvarsTo (@nref{addNvarsTo})
+@item Ring::hasAlgExtensionCoefficient (@nref{hasAlgExtensionCoefficient})
+@item Schreyer::s_res (@code{s_res})
+@item grobcov.lib (grobcovK) (@nref{grobcov_lib}) with new routines
+   AddCons  AddConsP.
+@item normaliz.lib (for normaliz >=2.8) (@nref{normaliz_lib})
+@item renamed groebnerFan to groebnerFanP in polymake.lib (@nref{polymake_lib})
+@item renamed fVector to fVectorP in polymake.lib (@nref{polymake_lib},@code{polymakeInterface_lib})
+@end itemize
+
+@heading News for version 4-0-1
+
+Version 4-0-1 is a bug fix release.
+
+New feature: attribute @code{ring_cf} for @code{ring} (@nref{attrib})
+
+@heading News for version 4-0-0
+
+Version 4-0-0 is a milestone release of Singular.
+The new release series 4 aims for an entirely modularized architecture
+simplifying connectivity with other systems and paving the way
+for parallel computations.
+As  a first step in modularization, the new  release features an internal
+structural separation of coefficient rings and polynomial rings.
+This allows for a flexible integration of new coefficient rings.
+
+@sc{Singular} 4-0-0's list of new functionality and significant
+improvements further extends that of the 3-1-6/7 prerelease series.
+
+New functionality
+
+@itemize
+@item de Rham cohomology of complements of algebraic varieties (@nref{deRham_lib})
+@item Gromov-Witten numbers of elliptic curves (@nref{ellipticcovers_lib})
+@item classification of isolated complete intersection singularities in characteristic 0 (@nref{classifyci_lib})
+@item parametrization of orbits of unipotent actions (@nref{orbitparam_lib})
+@item F5-like Groebner basis algorithm (@nref{sba})
+@item element-wise application of functions to data structures (@nref{apply})
+@item support for debugging libraries (@nref{ASSUME})
+@end itemize
+
+Improved functionality
+
+@itemize
+@item
+Groebner cover for parametric ideals (@nref{grobcov_lib})
+@item
+normalization of affine rings (@nref{normal_lib})
+@item
+classification of real singularities (@nref{realclassify_lib})
+@item
+GIT-fans (@nref{gitfan_lib})
+@item
+algebraic/transcendental field extensions
+@item
+@nref{Non-commutative subsystem}
+@item
+an abstraction layer for parallel computations (@nref{parallel_lib})
+@item
+run-time loading of supplementary kernel code (@nref{Dynamic modules})
+@item
+interpreter language support for name spaces (@nref{package})
+@end itemize
+
+Availability
+
+@sc{Singular} is available as source code and for Linux, Mac OS X, Windows, FreeBSD and
+SunOS-5.

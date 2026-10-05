@@ -1,0 +1,64 @@
+{
+  "archive": "/mnt/data/B699-C-gcd-normalized-midpoint-r12-20261002.zip",
+  "archive_bytes": 94142,
+  "archive_sha256": "6b4f2d7135e655e6584bed27c96d7868781dccd60312c1a68489b20b62842725",
+  "clean_extraction_performed": true,
+  "clean_replay": {
+    "certificate_count": 4,
+    "certificates_sha256": {
+      "endpoint.json": "251361b2d5cae2554bbd0e470ad1485caa6e76c00951275cd82420e93b5583bd",
+      "regression.json": "6b0e6f5d0f2eb13a417e56317dceb7f17dd8f3fb338faeb2307b26e522334a73",
+      "rows.json": "241d2fb76320675023659b5e07f17efa5a9b8991b50d7fa852da06ac2c2ef5dc",
+      "witnesses.json": "bbfd5ce2aa57cdeefdc7e3df2563d3fcb97f955b6801541917719287808b4c58"
+    },
+    "commands": [
+      {
+        "returncode": 0,
+        "script": "scripts/discover.py",
+        "seconds": 2.338442,
+        "stderr": "",
+        "stdout": "WROTE rows.json\nWROTE endpoint.json\nWROTE witnesses.json\nWROTE regression.json\n"
+      },
+      {
+        "returncode": 0,
+        "script": "scripts/accept.py",
+        "seconds": 4.402439,
+        "stderr": "",
+        "stdout": "ACCEPT rows.json\nACCEPT endpoint.json\nACCEPT witnesses.json\nACCEPT regression.json\n{\"certificates\": 4, \"endpoint_counts\": {\"all_sources_passed\": 0, \"alpha_delta_pairs\": 82805, \"h_slots\": 8772912, \"integer_g_before_row_filter\": 273, \"target_recoveries\": 2}, \"mutation_rejections\": 10, \"mutations\": [{\"name\": \"replace_normalized_distance_by_d\", \"rejected\": true}, {\"name\": \"claim_global_finiteness\", \"rejected\": true}, {\"name\": \"claim_historical_net_gain\", \"rejected\": true}, {\"name\": \"delete_a_terminal\", \"rejected\": true}, {\"name\": \"wrong_actual_g\", \"rejected\": true}, {\"name\": \"inflate_source_exponent\", \"rejected\": true}, {\"name\": \"replace_prime_threshold\", \"rejected\": true}, {\"name\": \"wrong_cold_cost\", \"rejected\": true}, {\"name\": \"alpha_equal_small_part\", \"rejected\": true}, {\"name\": \"false_bounded_limit\", \"rejected\": true}], \"status\": \"PASS\"}\n"
+      }
+    ],
+    "discovery_and_separate_acceptance_byte_equal": true,
+    "endpoint_counts": {
+      "all_sources_passed": 0,
+      "alpha_delta_pairs": 82805,
+      "h_slots": 8772912,
+      "integer_g_before_row_filter": 273,
+      "target_recoveries": 2
+    },
+    "input_root": "/tmp/b699-c-r12-clean-unzip-3qyfsph6/B699-C-gcd-normalized-midpoint-r12-20261002",
+    "interpretation": "Deterministic same-author replay, not Lean or external independent mathematical review.",
+    "manifest_checks": [
+      {
+        "file": "SHA256SUMS.payload",
+        "status": "PASS",
+        "verified_files": 29
+      },
+      {
+        "file": "SHA256SUMS.txt",
+        "status": "PASS",
+        "verified_files": 32
+      }
+    ],
+    "mutation_rejections": 10,
+    "python": "3.13.5",
+    "round": "C Round 12",
+    "seconds": 6.745332,
+    "status": "PASS"
+  },
+  "core_manifest_file_count": 29,
+  "explanation": "The final ZIP hash is recorded outside the ZIP to avoid self-reference. Payload replay is also archived inside.",
+  "final_manifest_file_count": 32,
+  "status": "PASS",
+  "zip_crc_test": "PASS",
+  "zip_file_count": 33
+}

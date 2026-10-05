@@ -1,0 +1,115 @@
+{
+  "round": "E Round 6",
+  "user_batch_ordinal": 26,
+  "current_message_run_confirmed": true,
+  "other_messages_count_verified": false,
+  "date": "2026-10-02",
+  "status": "new mathematical payload completed; receipt records actual replay",
+  "baseline": {
+    "overview_sha256": "96f92ba7061e8facb774bdf2d42c5d445f3f1a63564ca0e2b71ceaca08d44066",
+    "section": 9,
+    "active_prior_round": "E Round5",
+    "prior_route": "I151 / FH157"
+  },
+  "preview_audit": {
+    "uploaded_preview_is": "E Round4",
+    "R5_handoff_and_state_updated": true,
+    "bytes_compared_locally": true,
+    "UI_cache_cause_not_asserted": true
+  },
+  "direct_dependencies": [
+    {
+      "name": "R5-THETA",
+      "statement": "theta(x)<=10769*x/10000 for all real x>=1",
+      "grade": "adopted prior author proof; old math not rerun"
+    },
+    {
+      "name": "R4-SOURCE32-ALL",
+      "statement": "all legal i>=4883,n<=32i are Common",
+      "grade": "adopted prior author proof and old certificates; chain not rerun"
+    },
+    {
+      "name": "OV9-HIGH",
+      "statement": "all legal i>=1000,n>=4096i are Common",
+      "grade": "acceptance recorded in pinned Overview; no new Lean"
+    }
+  ],
+  "new_band": {
+    "i_min": 4883,
+    "ratio_closed_interval": [
+      32,
+      4096
+    ],
+    "same_original_n_i_j": true,
+    "proof": "complete small-prime part + exact three-window constant + uniform i bounds + concavity in log(n/i)",
+    "claimed_uniform_mass_gap": "strictly >1/100",
+    "stronger_comparison": "log(Cw*P^lambda/n^D)>lambda*i/100 for the complete real large-prime part P"
+  },
+  "proof_components": {
+    "window_s": "floor(4*i/5)",
+    "window_ell": "floor(2*i/3)",
+    "theta_c": "10769/10000",
+    "small_prime_exponents": "all actual exponents",
+    "positive_high_prime_exponents": "derived <=1 from n<i^2; p=i explicitly checked",
+    "finite_high_power_head": [
+      2,
+      8
+    ],
+    "unbounded_high_power_tail": "log_2(n)*n^(1/9)",
+    "endpoints": [
+      32,
+      4096
+    ],
+    "log_enclosures": [
+      "atanh with explicit remainder",
+      "independent left/right integral rectangles"
+    ]
+  },
+  "new_route_paper_coverage": "all legal i>=4883",
+  "route_remainder": {
+    "previous": "4883<=i<2^151,32*i<n<2^157",
+    "current": "empty under declared author/adopted dependency chain",
+    "finite_terminal_completed_by_structural_proof": true,
+    "remaining_unbounded_counterexample_parameters_in_this_high_tail_route": []
+  },
+  "SOURCE64_ALL_proved": false,
+  "general_gcd1_source_graph_proved": false,
+  "single_prime_for_all_j_in_new_band_proved": false,
+  "quantifier": "for every original legal n,i,j, there exists the same prime for its two binomial coefficients; prime may depend on j",
+  "p_equals_i_retained_in_definition": true,
+  "complete_prime_powers_retained": true,
+  "new_complete_accepted_indices": 0,
+  "new_Lean_acceptance": 0,
+  "external_independent_mathematical_review": 0,
+  "original_counterexamples": 0,
+  "R7": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "historical_net_gain": {
+    "new_full_indices": 0,
+    "no_publication_union_difference": "not audited / not certified",
+    "relative_to_R5": "all of already bounded pending rectangle removed in author chain"
+  },
+  "repository_modified": false,
+  "Lean_executed": false,
+  "committed": false,
+  "pushed": false,
+  "published_to_repository": false,
+  "old_replay_status": "archive hashes and all listed member hashes locally verified; prior mathematical receipts remain page/archive reports, not this run",
+  "new_replay_status": "see actual CLEAN_REPLAY_RECEIPT and package-external delivery receipt",
+  "not_claimed": [
+    "new project acceptance",
+    "new independent kernel",
+    "external mathematical review",
+    "full B699",
+    "new SOURCE64",
+    "same prime for every j in the new band"
+  ],
+  "witness_extraction": "choose an actual p|P with v_p(W)<lambda for the same original j; such p must divide both binomial coefficients"
+}

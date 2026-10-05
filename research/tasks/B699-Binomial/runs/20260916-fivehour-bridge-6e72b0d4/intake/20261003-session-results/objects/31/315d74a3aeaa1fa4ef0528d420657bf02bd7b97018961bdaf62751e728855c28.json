@@ -1,0 +1,355 @@
+{
+  "status": "PASS",
+  "started_utc": "2026-10-02T09:08:57.878462+00:00",
+  "source_root": "/mnt/data/round2_clean_replay/B699-ProA-FOUR-FAMILY-9STATES-H137-FRONTIER17-20261002-evidence",
+  "Lean_run": false,
+  "repository_writes": false,
+  "network_used": false,
+  "external_independent_review": false,
+  "steps": [
+    {
+      "name": "00_input_byte_bindings_no_old_mathematics",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/source_bindings.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7764857240001675,
+      "log": "verification/fresh_replay/00_input_byte_bindings_no_old_mathematics.log"
+    },
+    {
+      "name": "compile_root_gates",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "<fresh-workspace>/code/root_gates.cpp",
+        "-o",
+        "<fresh-workspace>/code/root_gates"
+      ],
+      "exit_code": 0,
+      "seconds": 2.01110702699998,
+      "log": "verification/fresh_replay/compile_root_gates.log"
+    },
+    {
+      "name": "compile_root_gates_alt",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DALT",
+        "<fresh-workspace>/code/root_gates.cpp",
+        "-o",
+        "<fresh-workspace>/code/root_gates_alt"
+      ],
+      "exit_code": 0,
+      "seconds": 1.981454388999964,
+      "log": "verification/fresh_replay/compile_root_gates_alt.log"
+    },
+    {
+      "name": "compile_six_jets",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "<fresh-workspace>/code/six_jets_adopted.cpp",
+        "-o",
+        "<fresh-workspace>/code/six_jets"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0778479299999617,
+      "log": "verification/fresh_replay/compile_six_jets.log"
+    },
+    {
+      "name": "compile_six_jets_32719",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "-DMODULUS=32719",
+        "<fresh-workspace>/code/six_jets_adopted.cpp",
+        "-o",
+        "<fresh-workspace>/code/six_jets_32719"
+      ],
+      "exit_code": 0,
+      "seconds": 1.089548738000076,
+      "log": "verification/fresh_replay/compile_six_jets_32719.log"
+    },
+    {
+      "name": "compile_receive_geometry_r2",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "<fresh-workspace>/code/receive_geometry_r2.cpp",
+        "-o",
+        "<fresh-workspace>/code/receive_geometry_r2"
+      ],
+      "exit_code": 0,
+      "seconds": 2.1307473100000607,
+      "log": "verification/fresh_replay/compile_receive_geometry_r2.log"
+    },
+    {
+      "name": "compile_module_kernel",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "<fresh-workspace>/code/module_kernel.cpp",
+        "-o",
+        "<fresh-workspace>/code/module_kernel"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0171729619999041,
+      "log": "verification/fresh_replay/compile_module_kernel.log"
+    },
+    {
+      "name": "compile_check_trace",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "<fresh-workspace>/code/check_trace.cpp",
+        "-o",
+        "<fresh-workspace>/code/check_trace"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7288058350000028,
+      "log": "verification/fresh_replay/compile_check_trace.log"
+    },
+    {
+      "name": "compile_ledger_exact_receiver",
+      "command": [
+        "g++",
+        "-std=c++17",
+        "-O3",
+        "<fresh-workspace>/code/ledger_exact_receiver.cpp",
+        "-o",
+        "<fresh-workspace>/code/ledger_exact_receiver"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6389565290000974,
+      "log": "verification/fresh_replay/compile_ledger_exact_receiver.log"
+    },
+    {
+      "name": "01_old_M7_and1874_preimages",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/ledger_probe.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0646497370000816,
+      "log": "verification/fresh_replay/01_old_M7_and1874_preimages.log"
+    },
+    {
+      "name": "02_main_root_configs",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/geometry_generate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 72.05791736600008,
+      "log": "verification/fresh_replay/02_main_root_configs.log"
+    },
+    {
+      "name": "03_main_double_prime_minors",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/minors_generate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.704395541000167,
+      "log": "verification/fresh_replay/03_main_double_prime_minors.log"
+    },
+    {
+      "name": "04_main_other_receiver",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/geometry_receive_all.py"
+      ],
+      "exit_code": 0,
+      "seconds": 5.416978357999824,
+      "log": "verification/fresh_replay/04_main_other_receiver.log"
+    },
+    {
+      "name": "05_extra_configs_and_minors",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/extra_generate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 129.86620709099998,
+      "log": "verification/fresh_replay/05_extra_configs_and_minors.log"
+    },
+    {
+      "name": "06_extra_other_receiver",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/geometry_receive_all.py",
+        "--extra"
+      ],
+      "exit_code": 0,
+      "seconds": 6.243235283000104,
+      "log": "verification/fresh_replay/06_extra_other_receiver.log"
+    },
+    {
+      "name": "07_all_Q_exception_kernels",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/rational_all.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.9266230639998412,
+      "log": "verification/fresh_replay/07_all_Q_exception_kernels.log"
+    },
+    {
+      "name": "08_all_parameter_source_bounds",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/factor_sources.py"
+      ],
+      "exit_code": 0,
+      "seconds": 2.6332176969999637,
+      "log": "verification/fresh_replay/08_all_parameter_source_bounds.log"
+    },
+    {
+      "name": "09_own_state_quotient_inputs",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/multi_kernel_inputs.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.656573999000102,
+      "log": "verification/fresh_replay/09_own_state_quotient_inputs.log"
+    },
+    {
+      "name": "10_25_fresh_modules_and_other_receivers",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/replay_kernels.py"
+      ],
+      "exit_code": 0,
+      "seconds": 466.0152299619999,
+      "log": "verification/fresh_replay/10_25_fresh_modules_and_other_receivers.log"
+    },
+    {
+      "name": "11_all_true_fee_preimages_and_DP",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/final_ledger.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.4117326289997436,
+      "log": "verification/fresh_replay/11_all_true_fee_preimages_and_DP.log"
+    },
+    {
+      "name": "12_exact_26_to17_difference",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/frontier_audit.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6851235159997486,
+      "log": "verification/fresh_replay/12_exact_26_to17_difference.log"
+    },
+    {
+      "name": "13_next_frontier_noT_diagnostic",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/next_frontier_probe.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.145023381000101,
+      "log": "verification/fresh_replay/13_next_frontier_noT_diagnostic.log"
+    },
+    {
+      "name": "14_four_negative_controls",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/negative_controls.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6861215419999098,
+      "log": "verification/fresh_replay/14_four_negative_controls.log"
+    },
+    {
+      "name": "15_aggregate_scope_acceptance",
+      "command": [
+        "/opt/pyvenv/bin/python",
+        "<fresh-workspace>/code/aggregate_accept.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6800887180002064,
+      "log": "verification/fresh_replay/15_aggregate_scope_acceptance.log"
+    }
+  ],
+  "frozen_payload_files": 720,
+  "payload_manifest_sha256": "b1fc571d269bac5de783487b4960c52ef3ac468c22def3e8dd4f0c48b293b7ab",
+  "payload_hash_check_passed": true,
+  "clean_extraction": {
+    "input_archive_name": "B699-ProA-FOUR-FAMILY-9STATES-H137-FRONTIER17-20261002-evidence-PRE_REPLAY.zip",
+    "input_archive_sha256": "c433ec1f537f31045e0ca3461691c462d836e245fe2a1d762aa1dcdba527af13",
+    "input_archive_bytes": 5203654,
+    "members": 795,
+    "new_empty_directory": true,
+    "zip_test_passed": true,
+    "extraction_root": "/mnt/data/round2_clean_replay/B699-ProA-FOUR-FAMILY-9STATES-H137-FRONTIER17-20261002-evidence",
+    "extracted_utc": "2026-10-02T09:08:57.249066+00:00",
+    "note": "This pre-replay container freezes the mathematical payload; final container adds this replay receipt and final documentation."
+  },
+  "fresh_workspace_initially_empty": true,
+  "ordinary_binaries_built_from_sources": 8,
+  "fresh_module_jobs": 25,
+  "deterministic_files_compared": 517,
+  "structured_files_compared": 27,
+  "all_fresh_expected_equal": true,
+  "acceptance": {
+    "status": "AUTHOR_PAPER_PLUS_EXACT_CERTIFICATES",
+    "accepted_for_round": true,
+    "historical_mathematics_reaccepted": false,
+    "new_removed_states": [
+      1874,
+      1899,
+      1946,
+      1982,
+      2001,
+      2020,
+      2025,
+      2030,
+      2032
+    ],
+    "net_current_necessary_state_difference": 9,
+    "frontier_before": 26,
+    "frontier_after": 17,
+    "h_min": 137,
+    "V_max": 31,
+    "COVER8_unchanged": true,
+    "R7_unchanged": true,
+    "new_geometric_domains": 31,
+    "new_profiles": 51,
+    "new_root_configurations": 5503,
+    "including_Fstar_recovery_profiles": 53,
+    "including_Fstar_recovery_configurations": 5514,
+    "double_prime_full_augmented_minors": 11012,
+    "rational_exception_configurations": 8,
+    "rational_exception_prime_occurrences": 16,
+    "geometry_receiver_runs": 106,
+    "own_state_quotient_systems": 13,
+    "module_generator_and_receiver_jobs": 25,
+    "tagged_low_preimages": 310,
+    "ledger_cells_compared": 386586,
+    "negative_controls": 4,
+    "Lean": false,
+    "external_independent_review": false,
+    "actual_G_recovered": false,
+    "actual_NC_point_elimination_claimed": false,
+    "repository_modified": false
+  },
+  "finished_utc": "2026-10-02T09:19:22.449136+00:00",
+  "elapsed_seconds": 624.5707568480002,
+  "all_steps_exit_zero": true,
+  "versions": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "g++": "g++ (Debian 14.2.0-19) 14.2.0"
+  }
+}

@@ -1,0 +1,31 @@
+[
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "PACKAGE/scripts/build_certificate.py",
+      "--output",
+      "PACKAGE/certificates/certificate.json"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"status\": \"PASS\", \"root_grid_pairs\": 10000, \"identities\": 7, \"actual_NC3_count_computed\": false}\n"
+  },
+  {
+    "command": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "PACKAGE/scripts/verify_certificate.py",
+      "--certificate",
+      "PACKAGE/certificates/certificate.json",
+      "--output",
+      "PACKAGE/logs/VERIFY.json",
+      "--negative-tests"
+    ],
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\"status\": \"PASS\", \"negative_tests_rejected\": 16, \"actual_NC3_count_computed\": false}\n"
+  }
+]

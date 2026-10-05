@@ -1,0 +1,241 @@
+
+
+  --- This `README' file corresponds to Singular-Factory version 4.1 ---
+
+
+		  README file for Singular-Factory
+		  ================================
+
+NOTE: The copyright of Singular-Factory is described in the
+      file COPYING
+
+Overview
+========
+1.  What is Factory?
+2.  Comments, Questions, Bug Reports
+3.  Installation
+4.  Distribution
+5.  Prerequisites
+6.  Stream IO
+7.  Diagnostic Messages
+8.  GF(q) Tables
+9.  A Note on Singular
+10. Factory Template Instantiation
+11. Documentation
+12. Examples and Tests
+13. Remark on Characteristic Sets
+14. Adding new code
+15. Nomenclature
+16. Limitations
+
+1. What is Factory?
+===================
+  Factory is a C++ class library that implements a recursive representation
+of multivariate polynomial data.  It was developed by Ruediger Stobbe
+and Jens Schmidt at the University of Kaiserslautern as an independent and
+self-contained part of the computer algebra system Singular (developed by
+G.-M. Greuel, G. Pfister and H. Schoenemann) and is now developed by Martin Lee.
+
+  Factory handles sparse multivariate polynomials over different
+coefficient domains, such as Z, Q and GF(q), as well as algebraic
+extensions over Q and GF(q) in an efficient way.  Factory includes
+algorithms for computing univariate and multivariate gcds, resultants,
+chinese remainders, and algorithms to factorize multivariate polynomials
+and to compute the absolute factorization of multivariate polynomials with integer
+coefficients.
+
+  The interface to the polynomial system of Factory is provided by a single
+class `CanonicalForm' which can deal with elements of the coefficient
+domain as well as polynomials.  Using operator overloading, you can handle
+polynomial data similarly to built-in types such as the machine integers.
+For example, to add two polynomials one simply uses the `+' operator.
+Because of this, Factory is easy to use even if you are not familiar with
+C++ programming.
+
+  There are a couple of utility classes provided by Factory such as lists,
+arrays, polynomial maps, etc.  These make the usage more comfortable.
+
+2. Comments, Questions, Bug Reports
+====================================
+  Factory is a project in evolution.  That means there is no guarantee that
+Factory is bug free.  I am sure that there are bugs or at least features.
+If you find bugs or if you find a strange behavior of the library, please
+let me know (e-mail: singular@mathematik.uni-kl.de>).
+Comments and questions are welcome, too.
+
+  Factory version 1.2c and newer define an string
+`FACTORYVERSION' describing the version of the library.  The external
+variable `factoryConfiguration' (not present in versions 1.2c and 1.3a)
+describes the options Factory has been configured with.  Please include the
+version number and the configuration options in your bug reports.  You may
+either use the UNIX utility `what' to get this information (`what libcf.a')
+or compile and run something similar to this:
+
+  #include "factory.h"
+  main() { cout << FACTORYVERSION << "; " << factoryConfiguration << endl; }
+
+3. Installation
+===============
+NOTE: If you have received this Factory distribution together with Singular
+you do not have to worry about compilation or installation at all.  The
+installation procedure for Singular should do everything for you.  For more
+information, see the section "A Note on Singular".
+
+  For further information on factory's configure options see also ./configure --help.
+
+  The installation procedure on UNIX platforms conforms more or less to the GNU
+standard:
+
+  ./configure --without-Singular; make; make check; make install;
+
+  In general, this `README' as well as the `INSTALL' file are written for
+UNIX platforms.  However, you may find less specific information on the
+configuration and installation process which is useful for other platforms,
+too.
+
+4. Distribution
+===============
+  The latest stable version of Factory is always available from
+
+		www.singular.uni-kl.de
+
+  For the latest development version visit
+
+               www.github.com/Singular
+
+5. Prerequisites
+================
+  You need GNU make to build and install Factory.  Furthermore, I strongly
+recommend to build Factory with GNU CC.  To build
+Factory and to link your programs with Factory you need the GNU Multiple
+Precision Library (GMP).
+
+Configure options:
+------------------
+  --with-gmp=<path to GMP> enabled by default
+
+  For full functionality NTL (www.shoup.net/ntl) is required.
+
+Configure options:
+------------------
+  --with-ntl=<path to NTL> enabled by default
+
+  For optimal preformance we recommend to use FLINT (www.flintlib.org) and to use
+  Singular's memory manager omalloc
+
+Configure options:
+------------------
+  --with-flint=<path to FLINT> enabled by default
+  --with-omalloc               disabled by default
+  --with-omalloc-dir=<path to omalloc>
+
+6. Stream IO
+============
+  For use with other systems which have their own IO routines to print
+polynomials it is possible to switch off Factory's stream IO.
+
+Configure options:
+------------------
+  --disable-streamio      build Factory without stream IO
+
+
+7. Diagnostic Messages
+======================
+Factory has three types of diagnostic messages:
+o Assertions (implemented by the "ASSERT macros" in `cf_assert.h') are used to
+  ensure preconditions before running some algorithm.  A typical example is
+  to test f != 0 before dividing by f.
+o Debug output (implemented by the "DEBOUT macros" in `debug.h'/`debug.cc')
+  is used to trace complex algorithms, e.g. factorization.
+o Timing information may be accumulated and printed using the "TIMING macros"
+  in `timing.h'.
+
+  Since all diagnostic messages are implemented using preprocessor macros,
+they will completely cease when disabled, thus avoiding any impact on
+speed.  By default, all diagnostic messages are disabled.
+
+Configure options:
+------------------
+  --enable-assertions     build Factory with assertions activated
+  --enable-timing         build Factory so it will print timing information
+  --enable-debugoutput    build Factory so it will print debugging information
+
+8. GF(q) Tables
+===============
+
+  Factory uses addition tables to calculate in GF(p^n) in an efficient way.
+
+  They can be created with `make gengftables'.  Building the tables takes quite
+   a while!
+
+9. A Note on Singular
+=====================
+  If you have received this Factory distribution together with Singular you
+do not have to worry about compilation or installation at all.  The
+installation procedure for Singular should do everything for you.
+
+10. Factory Template Instantiation
+==================================
+  There are a couple of classes provided by Factory such as lists, arrays,
+etc, which may be used to derive new abstract data types from already
+existing ones.  Factory uses them itself, e.g. to return the result of a
+factorization (a list of factors), and you may use them to create new
+derived abstract data types.  These classes are realized using C++
+templates, which are instantiated in one single file namely ftmpl_inst.cc .
+
+11. Documentation
+=================
+  So far there are only preliminary versions of a user/reference manual and
+a tutorial ("A quick start into Factory").  Please do not expect them to
+be error-free or even complete.  For this reason, the documentation is not
+included in the source code archive (`factory-<version>.tgz').  Instead, the
+sources and compiled DVI files reside in `factory-doc-prelim.tgz'. They will
+unpack into a directory `factory-doc-prelim/'.
+
+
+12. Examples and Tests
+======================
+  The directory `examples/' in the Factory source directory contains some
+example applications for Factory.
+
+  'make check' will run some simple test as well.
+
+13. Remark on Characteristic Sets
+=================================
+Algorithms for manipulation of polynomial ideals via the characteristic set
+methods (e.g., calculating the characteristic set and the irreducible
+characteristic series) are now incorporated into factory.
+If you want to learn about characteristic sets, the next is a good point
+to start with:
+    Dongming Wang:
+    An Implementation of the Characteristic Set Method in Maple.
+    In: Automated Practical Reasoning: Algebraic Approaches
+    (J. Pfalzgraf and D. Wang, eds.), Springer-Verlag,
+    Wien-New York, 1995, pp. 187-201.
+
+14. Adding new code
+===================
+  If you like to add new code 'foo.cc/foo.h' add 'foo.cc' to 'Makefile.am' under
+'SOURCES' and 'foo.h' under 'factory_headers'. If your new functions should be
+available via factory's global interface 'factory.h' add
+
+/*MAKEHEADER PUBLIC ONLY*/
+foo.h
+
+to 'factory.template' and enclose the functions in 'foo.h', that you like to
+add, by '/*BEGINPUBLIC*/' and '/*ENDPUBLIC*/'.
+
+15. Nomenclature
+================
+  Factorization related functions are contained in files with the prefix 'fac'.
+Functions operating on CanonicalForm's are contained in files with the prefix
+'cf'. Functions operating on the internal structures of a CanonicalForm are
+contained in files with the prefix 'int'. Exceptions are gfops.cc/.h,
+ffops.cc/.h, imm.cc/.h as they use intrinsic data types.
+
+16. Limitations
+===============
+  The largest characteristic of a finite field is limited to 536870909. The
+number of elements of a finite fields represented by Conway polynomials has to
+be < 2^16 (see gfops.cc).
+

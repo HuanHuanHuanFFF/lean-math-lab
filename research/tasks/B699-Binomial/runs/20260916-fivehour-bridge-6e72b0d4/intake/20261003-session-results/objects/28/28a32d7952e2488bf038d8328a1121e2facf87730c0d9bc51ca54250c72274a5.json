@@ -1,0 +1,21 @@
+{
+  "Lean_executed": false,
+  "commands": [
+    {
+      "actual_exit_code": 0,
+      "ancestor_math_executed_by_parent_replay": false,
+      "command": "python -I -B <extracted R05>/replay.py --output <outside-parent>/R06_PARENT_R05_REPLAY.json"
+    },
+    {
+      "actual_exit_code": 0,
+      "command": "python -I -B scripts/build_certificate.py --output certificates/certificate.json"
+    },
+    {
+      "actual_exit_code": 0,
+      "command": "python -I -B scripts/verify_certificate.py --certificate certificates/certificate.json --output logs/VERIFY.json --negative-tests"
+    }
+  ],
+  "final_archive_replay": "see logs/CLEAN_REPLAY_RECEIPT.json and separately delivered final receipt",
+  "q6_executed": false,
+  "repository_actions": false
+}

@@ -1,0 +1,74 @@
+L001: import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».terminal.FiniteConsumerLegacy
+L002: 
+L003: /-! Transfers a same-prime witness across two adjacent nonprime indices.
+L004: The original complete 4884 provider is already accepted; no prime-gap estimate
+L005: or newly generated finite chain is a mathematical input to the four corollaries.
+L006: -/
+L007: set_option autoImplicit false
+L008: set_option relaxedAutoImplicit false
+L009: set_option Elab.async false
+L010: 
+L011: namespace B699CompositeTransfer20261003
+L012: 
+L013: theorem common_succ_of_nonprime {n i j : Nat}
+L014:     (hi : ¬ Nat.Prime i) (his : ¬ Nat.Prime (i + 1))
+L015:     (hcommon : ∃ p : Nat, p.Prime ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) :
+L016:     ∃ p : Nat, p.Prime ∧ i + 1 ≤ p ∧ p ∣ n.choose (i + 1) ∧ p ∣ n.choose j := by
+L017:   obtain ⟨p, hp, hpi, hdiv, hdivj⟩ := hcommon
+L018:   have hne : p ≠ i := by
+L019:     intro heq
+L020:     apply hi
+L021:     simpa only [heq] using hp
+L022:   have hpis : i + 1 ≤ p := by omega
+L023:   have hndiv : ¬ p ∣ i + 1 := by
+L024:     intro hd
+L025:     have hle : p ≤ i + 1 := Nat.le_of_dvd (Nat.succ_pos i) hd
+L026:     have heq : p = i + 1 := by omega
+L027:     apply his
+L028:     simpa only [heq] using hp
+L029:   have hprod : p ∣ n.choose (i + 1) * (i + 1) := by
+L030:     rw [Nat.choose_succ_right_eq]
+L031:     exact dvd_mul_of_dvd_left hdiv (n - i)
+L032:   have hnew : p ∣ n.choose (i + 1) :=
+L033:     (hp.dvd_or_dvd hprod).resolve_right hndiv
+L034:   exact ⟨p, hp, hpis, hnew, hdivj⟩
+L035: 
+L036: theorem complete_4885 {n j : Nat} (hij : 4885 < j) (hjn : j ≤ n / 2) :
+L037:     ∃ p : Nat, p.Prime ∧ 4885 ≤ p ∧ p ∣ n.choose 4885 ∧ p ∣ n.choose j := by
+L038:   exact common_succ_of_nonprime (i := 4884) (by decide) (by decide)
+L039:     (B699FiniteFull20261002.common_indices_4883_4884 (i := 4884)
+L040:       (by decide) (by decide) (by omega) hjn)
+L041: 
+L042: theorem complete_4886 {n j : Nat} (hij : 4886 < j) (hjn : j ≤ n / 2) :
+L043:     ∃ p : Nat, p.Prime ∧ 4886 ≤ p ∧ p ∣ n.choose 4886 ∧ p ∣ n.choose j := by
+L044:   exact common_succ_of_nonprime (i := 4885) (by decide) (by decide)
+L045:     (complete_4885 (by omega) hjn)
+L046: 
+L047: theorem complete_4887 {n j : Nat} (hij : 4887 < j) (hjn : j ≤ n / 2) :
+L048:     ∃ p : Nat, p.Prime ∧ 4887 ≤ p ∧ p ∣ n.choose 4887 ∧ p ∣ n.choose j := by
+L049:   exact common_succ_of_nonprime (i := 4886) (by decide) (by decide)
+L050:     (complete_4886 (by omega) hjn)
+L051: 
+L052: theorem complete_4888 {n j : Nat} (hij : 4888 < j) (hjn : j ≤ n / 2) :
+L053:     ∃ p : Nat, p.Prime ∧ 4888 ≤ p ∧ p ∣ n.choose 4888 ∧ p ∣ n.choose j := by
+L054:   exact common_succ_of_nonprime (i := 4887) (by decide) (by decide)
+L055:     (complete_4887 (by omega) hjn)
+L056: 
+L057: theorem complete_4885_through_4888 {n i j : Nat}
+L058:     (hi : 4885 ≤ i) (hiu : i ≤ 4888) (hij : i < j) (hjn : j ≤ n / 2) :
+L059:     ∃ p : Nat, p.Prime ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j := by
+L060:   have hcases : i = 4885 ∨ i = 4886 ∨ i = 4887 ∨ i = 4888 := by omega
+L061:   rcases hcases with rfl | rfl | rfl | rfl
+L062:   · exact complete_4885 hij hjn
+L063:   · exact complete_4886 hij hjn
+L064:   · exact complete_4887 hij hjn
+L065:   · exact complete_4888 hij hjn
+L066: 
+L067: end B699CompositeTransfer20261003
+L068: 
+L069: #print axioms B699CompositeTransfer20261003.common_succ_of_nonprime
+L070: #print axioms B699CompositeTransfer20261003.complete_4885
+L071: #print axioms B699CompositeTransfer20261003.complete_4886
+L072: #print axioms B699CompositeTransfer20261003.complete_4887
+L073: #print axioms B699CompositeTransfer20261003.complete_4888
+L074: #print axioms B699CompositeTransfer20261003.complete_4885_through_4888

@@ -1,0 +1,65 @@
+@comment -*-texinfo-*-
+@comment this file contains the News about Singular versions
+@comment Unix
+
+@majorheading Parallel computing in SINGULAR
+
+The available ressources are given by the number of cpus
+(set by the command line parameter @code{--cpus=..},
+or the environment variable @code{SINGULAR_CPUS}, defaults to the
+number of processors currently online) and the number of threads
+(set by the command line parameter @code{--threads=..}, defaults to 1).
+Threads are currently used with FLINT and NTL.@*
+If @sc{Singular} is uses as a libary, the default are 1 in botrh cases.@*
+Setting @code{--cpus} to 0 disables the creation of new processes and
+chooses a sequentiell algorithm if possible.@*
+Setting @code{--cpus} to 1 chooses a sequentiell algorithm in many cases.@*
+Using parallel algorithms can reduce the overall computing time,
+by can also increase the memory usage by a factor given by the
+number of used cpu cores.
+
+Via modular methods, requires QQ as coefficient field:
+@itemize
+@item assPrimes: @ref{assPrimes}
+@item chinrem: @ref{chinrem}
+@item farey: @ref{farey}
+@item locNormal: @ref{locNormal}
+@item modNormal: @ref{modNormal}
+@item modPrimdecGTZ: @ref{modPrimdecGTZ}, see also: @ref{primdecGTZ}
+@item modQuotient: @ref{modQuotient}, see also: @ref{quotient}
+@item modSat: @ref{modSat}, see also: @ref{sat}
+@item modStd: @ref{modStd}, see also: @ref{std}, @ref{groebner}
+@item pdf: @ref{pfd}
+@item syModStd: @ref{syModStd}
+@item system("verifyGB",I): @ref{system}
+@item zeroRadical: @ref{zeroRadical}
+@end itemize
+
+Via modular methods, requires ZZ as coefficient domain:
+@itemize
+@item primdecZ: @ref{primdecZ}
+@end itemize
+
+Via modular methods, requires a function field over QQ as coefficient field:
+@itemize
+@item ffmodStd: @ref{ffmodStd}
+@end itemize
+
+Via modular methods, requires a algebraic field over QQ as coefficient field:
+@itemize
+@item nfmodStd: @ref{nfmodStd}
+@item nfmodSyz: @ref{nfmodSyz}
+@end itemize
+
+Via different algorithms:
+@itemize
+@item primdec: @ref{primdec}
+@item minAss: @ref{minAss}
+@item signatureNemethi: @ref{signatureNemethi}
+@end itemize
+
+Frameworks for parallel algorithms:
+@itemize
+@item for modular methods: @ref{modular_lib}
+@item for different algorithms at once: @ref{watchdog}
+@end itemize

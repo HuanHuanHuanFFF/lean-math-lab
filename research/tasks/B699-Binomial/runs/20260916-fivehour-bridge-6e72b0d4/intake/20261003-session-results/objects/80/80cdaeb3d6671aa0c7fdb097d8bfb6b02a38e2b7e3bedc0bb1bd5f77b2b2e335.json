@@ -1,0 +1,54 @@
+[
+  {
+    "argv": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "/mnt/data/B699-D-R10-GLOBAL-INTEGER-PHASE-20261002/scripts/build_certificate.py",
+      "--output",
+      "/mnt/data/B699-D-R10-GLOBAL-INTEGER-PHASE-20261002/certificates/certificate.json"
+    ],
+    "elapsed_seconds": 0.6105210350001471,
+    "exit_code": 0,
+    "started_utc": "2026-10-02T15:35:07.262114+00:00",
+    "stderr": "",
+    "stdout": "{\"status\": \"BUILT\", \"phase_records\": 120, \"central_records\": 21, \"real_root_diagnostics\": 27, \"quadratic_tests\": 77, \"one_power_tests\": 40, \"is_original_NC_count\": false}\n"
+  },
+  {
+    "argv": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "/mnt/data/B699-D-R10-GLOBAL-INTEGER-PHASE-20261002/scripts/verify_certificate.py",
+      "--certificate",
+      "/mnt/data/B699-D-R10-GLOBAL-INTEGER-PHASE-20261002/certificates/certificate.json",
+      "--output",
+      "/mnt/data/B699-D-R10-GLOBAL-INTEGER-PHASE-20261002/logs/VERIFY.json",
+      "--negative-tests"
+    ],
+    "elapsed_seconds": 0.6405964349999067,
+    "exit_code": 0,
+    "started_utc": "2026-10-02T15:35:07.872842+00:00",
+    "stderr": "",
+    "stdout": "{\"status\": \"PASS\", \"negative_tests_rejected\": 16, \"interpolation_points\": 28, \"actual_NC3_instances_counted\": false}\n"
+  },
+  {
+    "argv": [
+      "/opt/pyvenv/bin/python",
+      "-I",
+      "-B",
+      "/mnt/data/B699-D-R10-GLOBAL-INTEGER-PHASE-20261002/scripts/recover_guarded.py",
+      "--h",
+      "78721257",
+      "--Q",
+      "1000003",
+      "--output",
+      "/mnt/data/d_r10_work/recovery_demo.json"
+    ],
+    "elapsed_seconds": 0.571140769999829,
+    "exit_code": 0,
+    "started_utc": "2026-10-02T15:35:08.513442+00:00",
+    "stderr": "",
+    "stdout": "{\"status\": \"REJECTED_NECESSARY_CONDITION\", \"is_NC3\": false, \"primality_tested\": false}\n"
+  }
+]
