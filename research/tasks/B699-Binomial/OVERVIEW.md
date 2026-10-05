@@ -1,5 +1,72 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+**Oct5 ψ前置80分钟轮数学验收已完成并封存。** [本轮报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/REPORT.md)：真实ψ通用平滑4根、η级数5根、具体η核9根、归一权及实际ψ实例11根、原题Legacy4根全部具名S独立接受，5pair/33producer根/66unique AX/10source/10normal。原c18、ε1/16384 strictIoo η具体化，w=exp(-s/2)η/actual integral λ的非负/可积/质量1已供，genericψ权条件消去；λ≠已证closedLogan身份，ηmass1/λ≥1/Fourier仍未供。
+
+[原题接线签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/reviews/ORIGINAL-LEGACY-INDEPENDENT-ACCEPTED.json)：fixedcf13536c／CI37301049852，旧I0/原题对象363只继承已验绑定、不重编；两路真实DB+finiteψ[T0,C]或DB+Nat middleGap[T0,B)，已无LP/I0输入，所有合法Nat n/i/j i≥4883同Prime p≥i双完整choose，仍条件。无条件完整集保持{1,2,11,29}∪[35,30000]，finiteGap/有限高度保持，原题完整指标增0，真DB/新middle证书、低23/R7与剩余无界参数仍缺。
+
+最后Beta/对称矩/积分换序3probe旧6301在job-start门拒绝，未Lean；24:30/27:00两新内部窗口候选准备后过门亦未dispatch，ηmass1/λ≥1链14根仍candidate。原上海18:17:11–19:37:11未延。下轮开头直接首发这3probe，保旧cacheRoots全集∪新依赖，按实际执行+核验+pub成本一次留足时间；不再重证已验ψ/η/LP。未发现已运行分析证明的大计算/内存瓶颈，工程缓存/内部早门失败与数学失败分开。无关target-survey目录保留。本机重Lean0，执行入口随末次push关闭。下列为此前检查点。
+
+**Oct5有限Gap接线30分钟轮已收尾。** [本轮报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-gap-bridge-halfhour/REPORT.md)：Thin两数学根已独立接受，固定11147592／CI37292900036，2fresh/4Std3 AX/2normal和110native全绑定。真正ψ预算+Nat middleGap[T0,B)+I0可接Gap10M，消去Real有限ψ/C跨窗要求；实际中段证书和ψ预算仍缺。原题完整指标增0，保持{1,2,11,29}∪[35,30000]。Legacy和真实ψ正权平滑4根都保未编候选：第二大包准备/发布错过过窄启动门，转小包也未留足准备/核验时间，均未dispatch，属于执行安排失误而非数学失败。原上海17:44:48–18:14:48不延。下一窗口先直接验纯ψ小包，再按实际对象恢复和验收成本接Legacy；详见本轮supply/PSI-DEPENDENCIES.md。
+
+**Oct5 90分钟Lean轮已在预算内收尾。** [本轮报告与下一步](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/REPORT.md)：实际E=ψ−θ、r=4096/4095，已验全部Real x≥2的通界 `ΔE≤sqrt(x)*log(rx)/4095+log(rx)^2/(2*log 2)`，并供应 `x≥10^8 → ΔE≤x/300000`、`x≥14400000000 → ΔE≤x/10^7`，均无LP/P/素数分布供应参数。[总界签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LP-MASTER-INDEPENDENT-ACCEPTED.json)与[端点签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LP-ENDPOINTS-INDEPENDENT-ACCEPTED.json)由S独立绑定；完整前置/供应24数学根另加RD2条件消费者6根，去重60AX/16normal，全Std3，无sorry。
+
+[RD2接线](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/ROUND2-INDEPENDENT-ACCEPTED.json)已消去SmallLP/TailLP，固定98e7d513／CI37288340935成功；真实ψ增量预算、Real有限ψ[T0,14403516484]仍未供，I0已有旧接受但未接入这份consumer。更弱Nat finiteGap[T0,14400000000)替代接口与原题Legacy均保候选未编，最后Thin在最小准备预算修正时错过09:20启动门，未dispatch，非数学失败。原90min窗口上海16:04:27–17:34:27不延；本机Lean0，旧大链不重编，C关闭执行入口后完成交接。
+
+**本轮完整指标增量0。** 累计仍 `{1,2,11,29}∪[35,30000]`，finiteGap `[10000000,122568684)`及原题有限高度 `i≥4883,n-i<122568684` 保持。真无界ψ/Gap、新有限中段、低23/R7和剩余无界i/n/j仍缺。下一新预算先验薄FiniteBridge与literal，按需要接旧I0/原题对象；数学主缺口是真ψ供应和中段证书，已验LP不再重证。下列为此前轮次快照。
+
+**Oct5两份Round2无界供应优化结果已审读，未新增Lean验收。** [评估与原件](runs/20261001-lean-nonr7-01a0f779/intake/20261005-uniform-gap-round2-results/SUMMARY.md)：Astra逐式数学审读及60项独立标量检查、Sol作者68/52项复跑和40/43/24字节覆盖均完成。RD2局部ψ增量尾由50bn降至14.4bn、RH高度589824→294912，删除小倒数和/单端常数分支；S6由S8尾800bn降至16bn、6重7项、RH高度800000，改真素数质量。RD2原F2需ψ[T0,ceil(rB)]，亦可改直接Nat Gap[T0,B)后与已验F0/高尾拼合；任何新中段或零点证书均未交付。两主推导未发现致命错误，RD2一处log调用域措辞修正已补核、不改原字节；总工程成本下降未测。完整集、已验有限高度与Gap保持，旧20个LP候选根仍未编。本次不续开Lean/CI/研究轮；下一新窗口先修准入、验证LP前置与真正供应，源状态以具体签件为准。以下为先前检查点。
+
+**Oct5 30分钟Lean轮已收尾（上海02:31:34–03:01:34原预算，不延）。** [最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/REPORT.md)：S于UTC18:43:56独立接受真实原题区域i≥4883、n−i<122568684及推论n≤122568684，全部合法Nat n/i/j、同Prime p≥i双完整choose、额外数学输入=[]；fixed7f576／CI37225133204，347源/对象、fresh2/4Std3/2normal与109native全绑定。完整i上限增量0，仍{1,2,11,29}∪[35,30000]；finiteGap保持，真无界供应/R7/低23未供。
+
+第二409827／CI37225855901在checkout后重复启动时间门拒绝：首18:48:41门已通过，27s checkout后18:49:08又测18:49同截止，Lean尚未启动。准备/发布与排查耗时过长，工程retry未在本轮完成，是流程安排失误，不能叫数学复杂度失败。新局部条件接口/Uweak/LP有限和、区间计数、实根宽度/θ权和都留source-ready未编候选；下一新预算先修job-admission合同，再仅测Decomposition+独立literal，复用首accepted对象不重大链。原hard19:01:34不暗延，末段只归档/push，自动push已关闭，重Lean全部CI、本机0，D约14.58GiB。下文为此前检查点。
+
+**Oct5两份无界供应优化材料已审读，未新增Lean验收。** [接收评估与证据](runs/20261001-lean-nonr7-01a0f779/intake/20261005-uniform-gap-paper-results/SUMMARY.md)：具名Astra数学审读和Sol接口/轻量证书复跑确认有纸面简化。优先保留局部新增素数幂LP及1/12000上误差松弛；第二包按所列已发表输入的纸面供应链完整，但有限ψ、显式公式、零点前缀及小零点倒数和仍未有无参数Lean闭包。八重平滑主线另需[122568684,8×10¹¹)有限Gap，成本未测。旧F0 pending与全正实数U比较属于旧输入快照，当前F0/局部化/Generic接受保持；完整指标仍{1,2,11,29}∪[35,30000]，R7/低23及真Gap的Lean供应未闭合。本次只审材料和轻量算术，不续开研究轮/Lean/CI，原件及30成员精确保留。
+
+**Oct5 75分钟Lean形式化接续已收尾：完整集合 `{1,2,11,29}∪[35,30000]`，本轮净新增15000。** 整个有限Gap初段 `10000000≤y<122568684` 也已独立接受。S在新授权窗口完成原d265/b1de父104+tiny4的source/object/raw/AX/checker及完整成员绑定，恢复923MB父原件与tiny原件，旧90块与四消费者没有重编。[本轮最终报告与接续入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/REPORT.md) · [最终独立范围](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-formal-seventyfive/reviews/CURRENT-SCOPE.json)。
+
+两个新小CI均success并独立接受：原两θ桥/局部化桥（3f037／37218764276）和通用相对θ/高cutoff消费者（7a1bb／37219682143），合计8新模块、20AX、8正常kernel重放、10个精确目标。局部化上误差只需Real x>122568683；高cutoff原题域为i≥max(4883,Y)。每个消费者仍保留未供的无界θ或Gap数学输入，**无条件完整指标增量来自30000旧成功证据闭合，不能把条件接口当全尾供应。**
+
+第三个有限高度消费者拟覆盖i≥4883、n-i<122568684（含n≤122568684），**仅源码及独立literal就绪，未启动CI（源码随封存推送）、没有新增验收**。原CI前置stage误写tinytail30000，真实为tail30000；保原spec/READY及诊断，修正版只做静态门控。准备和受控发布未赶上本轮17:28启动截止，属于配置/时间，不是数学复杂度失败。下一新预算只需恢复345个已接受源对象、验这两个新模块和完整独立绑定，避免重跑大链。
+
+本轮上海00:35:50–01:50:50原75分钟、不延期；末段仅独立封存和push，主体材料3b836fa已推并于UTC17:42:28核对远端一致，最后新kernel重放child实际UTC17:17:17.945252结束，第二新CI17:17:26 completed，自动push已关闭。本机Lean0，重Lean在CI串行两CPU/nice19，UTC17:33:11 D余约14.71GiB，C-owned传输/CI0，未动其他进程或删原件。真正无界两θ/Gap、低23及R7仍缺；i>30000低比例未覆盖域的i/n/j仍无界，原题未闭合。下文为各轮历史快照，不替代本段前沿。
+
+用户报告两条无界θ估计的纸面优化正在云端进行，本轮没有重复该研究或向外部会话发消息。现成[云端提示词与证据包](runs/20261001-lean-nonr7-01a0f779/dispatch/20261004-uniform-gap-paper-1c862c44/README.md)在Oct4建立、跨Oct5交付，原固定来源6c42ea72保留；材料包装和用户报告启动不代表新的数学验收。
+
+**Oct4两小时接续已停止：正式完整集合 `{1,2,11,29} ∪ [35,15000]`，本轮净增5000；真实有限Gap `[19995885,61439401)`，净增20969256个y。** 30000和整个theta有限初段编译/严格AX/normalchecker已实际通过，独立字节绑定因TLS断流仍pending；父原包689766400/923266078B，缺233499678B，tiny原件也未齐，断点与原件保留，下轮只恢复/绑定，不重跑90块。唯一15min收尾延时截止上海23:31:38，C下载actual15:31:39停、S未补签；Root最终行政封存/push在停止后完成、超时如实登记。全部重Lean在CI、本机Lean0、三CI均completed、D余18.84GiB、自动push关闭。R7/低23与真无界Gap/两无界theta供应仍缺。固定数学源3a8/d265/b1de和四正式签件完整保留，[最终报告与下一恢复入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-twohour-finish/REPORT.md)。以下为历史阶段快照。
+
+**Oct4继续至20:20已收束，本段新增完整指标0，正式集仍 `{1,2,11,29} ∪ [35,10000]`。** 10001编译2.541s和AX通过，但normalchecker只运行0.868s即被12:15:55预算保护线终止，独立literal未运行，完整验收pending；13000/15000仅未运行候选。失败来自Leader调度/窗口与准备时间，未观察数学复杂度或资源故障，不需要因此重写纸面。固定fc85dd733 / CI37201341681，partial原包与实际receipt保留；更早37201084291因过期launch在checkout前拒绝。旧10000与有限Gap接受保持，R7未动。下一新预算先用已过producer对象补normalchecker与独立literal，再扩候选范围，旧195source不重编。[本段报告与准确断点](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-until2020/REPORT.md)。原用户20:20 hard不延，全部重Lean在CI；以下为上一成功轮正式验收。
+**Oct4 90分钟Lean轮已收束，正式完整集为 `{1,2,11,29} ∪ [35,10000]`。** 相对旧5000净增5000个完整指标，全部合法Nat n/j、同实际Prime p≥i双完整choose、无额外数学输入；R7未动。S于UTC11:21:42签[完整10000](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/TAIL10000-INDEPENDENT-ACCEPTED.json)，固定source e47faa4ff2cf11e2b125c7e0e0a890c4b990a61e / CI37197120772 / 原ZIP e906e2fb，864native成员、三复用origin/147source闭包、48fresh源/2818AX/48normalchecker/两准确literal全绑定。S于11:30:24另签[真实有限Gap](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/GAP-FORWARD-INDEPENDENT-ACCEPTED.json)：全Nat y∈[20482069,40956329)，实际Prime p>y、4095*(p-y)≤y、额外输入为空，937native/累计53fresh/2824AX/53normalchecker及两Gap literal全绑定。较小6000子段与上段取并集，有限Gap不增加原题完整i计数。[最终报告与五正确接受入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/REPORT.md)。
+
+**本轮成本、失败与发布边界：** 上海18:22:50–19:52:50原90分钟预算未延期；实际最后proof/checker child于UTC11:15:59结束，最后S签11:30:24。三CI success，一次f39冻结清单漏纳五源码的预检failure，Lean未启动、已e47补齐并全source/hash核对；无新的递归/OOM/超时/证明复杂度故障。主CI peak3.48GiB，全部重Lean在CI，本机Lean0；最终D约22GiB。五ZIP及binary在仓库外，1812普通文件及完整成员映射在本轮runtime，重复对象按bytes核对复用，原件未删。自动push已关闭，保原过期手动守卫，收尾不新CI；6001/10001额外端点只保存未执行候选。
+
+**下一步与剩余全局未知：** 完整大指标尚有i≥10001的低比例未覆盖域，i/n/j仍全局无界；旧n≥4096i比例及n≤20M有限供应继续保留。低23 `{10}∪[12,28]∪[30,34]`、R7及真∀y≥10M Gap/有效θψ供应仍缺。新预算下可零新增prime先验Extra10001，再按已验relative chain扩K；更多固定K不能代替无限尾。真正统一供应的精确接口、现有消费者、已发表Dusart依赖与未取得证书见[源依赖核对](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/supply/DUSART-DEPENDENCIES.md)、[统一供应需求](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/supply/UNIFORM-ROUTE-GAP.md)和[S最终范围](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-tail-ninetymin/reviews/CURRENT-SCOPE.json)。这是已知数学前置尚未形式化/来源闭包缺口，本轮不要求因运行复杂度重写已通过纸面消费者；不声称全题、原创性或赏金资格。
+
+下文保留各历史轮快照；段中当时的current/pending不替代本段最终状态。
+
+**当前正式Lean前沿（Oct4一小时轮已停止，未延期）：** 完整集 `{1,2,11,29} ∪ [35,5000]`；本轮从4884新增116个完整指标，全部合法Nat n/j、同实际Prime p≥i双完整choose，无额外数学假设。S最后UTC18:27:45签[ba064f6f完整5000](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/reviews/TAIL5000-INDEPENDENT-ACCEPTED.json)，固定source5b42228/run37143741098/217e原包；11fresh阶段/116AX根/11normalchecker/四准确literal/1728oldexternal全绑定。[最终报告与全部接受索引](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/REPORT.md)。三步短证书→旧generic绑定→四完整4885–4888已全部通过，继而复用旧PrimeChain右端增99个prime，统一接至5000；没有重编129供应器或重造整个Gap初段。三个CI全部成功，数学实际最后UTC18:23:23，证明与签件均在原一小时内；最终行政push/远端核对18:36:39完成、超截止26秒，已如实记录；D余24.604GiB，本机未启动Lean。原递归故障已实测解决，当前无该卡点纸面重写需求。
+
+**下一可执行项与剩余缺口：** 新授权预算可复用本轮已验tail_chain/common_of_tail_chain及当前新objects，向右延长至新K后重新检准确原题消费者；旧链不重算。完整大指标尚有i≥5001的低比例i/n/j无界，真无限Gap的y及有效θ/ψ供应、低23与R7仍开。若要完整所有i≥4883，仍需真无界Gap或其他统一论证，更多固定K不能代替它。以下Oct4描述是本轮历史阶段快照，以本段与签件为当前状态。
+
+**Oct4 短证书接合已接受到4888：** 一小时轮先完成五非素性叶子、旧generic独立绑定及四完整消费者；S于UTC18:15:23签62b404，固定0690/run37142647213，86新成员+1728旧external、source/object/raw/全AX/两normalchecker及五literal全绑定。完整集已为 `{1,2,11,29} ∪ [35,4888]`，新增4，全部合法Nat n/j、同实际Prime p≥i双完整choose，无额外数学输入。[当前报告与签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/REPORT.md)。原by decide递归深度故障由短因子证书实测修复，暂无纸面改写需求；继续同预算验证右端延长候选至4889/5000，尚不计新范围。最终上海02:36:13不变，R7/低23/真无限Gap仍开。
+
+**Oct4 一小时 Lean 接续已授权执行：** 上海01:36:13–02:36:13（UTC Oct3 17:36:13–18:36:13），沿用原任务分支，先验五条短非素性证书、补旧generic独立绑定、接四完整4885–4888；三步通过后继续同预算，未通过须给精确故障及优化需求。[本轮入口与分工](runs/20261001-lean-nonr7-01a0f779/continuations/20261004-nonprime-onehour/README.md)。采用材料固定提交b675203a；仅已授权运行，不提升原题接受。当前完整集仍 `{1,2,11,29} ∪ [35,4884]`，重Lean全部CI；R7/真无限Gap缺口保持。八分钟收尾，未预先延时。
+
+**用户最新下次优先项：** 先修复、优化CI及4884–4888的数值非素数小证明，必要数学改写须给用户明确需求供其他agent处理。[精确优化需求与流程清单](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/CI-OPTIMIZATION-NEXT.md)。本次仅记录，未恢复Lean/改工作流；先独立小证书和generic绑定，再完整消费者，避免大环境反复试错。以下原轮结果与验收边界保持。
+
+**最新40分钟轮已停止（上海03:30:45）：** UTC18:40:45起、原19:20:45截止，19:09:30依用户AGENTS重要突破¼规则[一次10min延时](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/EXTENSION.md)，final19:30:45，未再延；截止后只行政封存。首真实Gap64点由S18:56:36正式签4483，sourcee0eadc/run37049873609/70Std3/两normalchecker/89原包成员全绑定，覆盖全部Nat y∈[10M,10146761)，146761个y，无额外数学输入。完整指标新增0、全集 `{1,2,11,29}∪[35,4884]` 不变。复合相邻指标转移核心C报告compiler/checker0，但原包19:30:28交付后S实际入口19:30:53已过cap而拒绝，独立绑定pending；四完整4885–4888主源实际遇最大递归深度限制(exit1、无resource stop)，不称OOM/数学反例，源审不升格。下一预算先绑定54k generic包、不重kernel，再修数值求证/递归配置并真正验四case完整n/j。旧prefix扩大pack未跑，无界Gap/有效θψ、剩i≥4885低比例i/n/j/低23与R7不动。[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/REPORT.md) · [验收边界](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/FINAL-SCOPE.json)。C行政观察owned/live0、D27.888GiB，所有重Lean在CI。
+
+**最新半小时已收尾（Oct3上海02:08:36–02:38:36，无延期）：** 四源/13根Gap前置窄CI37046323083/source6191c5f1c成功，S于UTC18:23:22正式[独立接受](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/reviews/GAP-PREREQUISITES-INDEPENDENT-ACCEPTED.json)：实际θ有限和到真实prime严格区间、系数条件、两无条件ψ−θ界与明确条件后果；115原包成员/25对象parts/13Std3/3normalchecker全绑定。真uniform θ/ψ误差与完整prime-gap初段仍缺，完整指标新增0、全集 `{1,2,11,29}∪[35,4884]` 不变；i≥4885低比例i/n/j及Gap y仍无界，R7不动。A另交64点/66根未编候选与实际0.66秒精确计算，拟覆盖10M≤y<10146761；S源审端点通过，但没有新kernel接受。下一最小检查只ChainCore+NormNum.Prime+Pilot64的66根及实际成本，再决定扩完整122568684初段；不重129终端/已验13根。[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/REPORT.md) · [下一入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/HANDOFF.md)。所有重Lean在CI，D28.046GiB、owned/activeCI0，workflow手动/过期守卫。
+
+**最新正式Lean前沿（Oct3）：** 完整4883/4884已于UTC17:34:37（上海01:34:37）由S独立接受，全集 `{1,2,11,29}∪[35,4884]`，本轮增2；[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/REPORT.md) · [正式签件8fda4799](runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/reviews/TERMINAL-ORIGINAL-INDEPENDENT-ACCEPTED.json)。固定sourcebe6b2df9b/run37037647747/原ZIP29a3，真实1728成员、129source/229compile/621parts/15752Std3/2normalchecker全绑定；四实际原型/正常kernel17:15:32通过，无额外数学输入的两指标涵盖所有Nat n/合法j。onlyGap统一消费者也正式接受，但真∀Nat y≥10M的Prime p>y及4095*(p−y)≤y供应未供，未把条件消费者当完整大尾。EC3计数/Chebyshev前置先独立签41cf，旧fullfinite/比例域保留。原40min start16:48:54，原17:28:54前Root按userAGENTS具体突破近完成¼规则记录唯一延10min至17:38:54，仅原包标准客户端下载和严格schema别名绑定；签后停止Math。剩大指标i≥4885的未覆盖低比例i/n/j、Gap y无界，低非R723与R7不动；下轮不重四root/129或EC，先Gap四源候选实际probe/深θψ供应。原历史pending快照不改。
+
+**最新00:30轮已停止（2026-10-03）：** 上海Oct2 23:48:19–Oct3 00:30（UTC15:48:19–16:30）同分支/input82bfbe888，不延期；[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-until0030/REPORT.md)。直接原日志明确-M3132的Lean interpreter memory_exception，与tree4096/systemOOM不同；EC3最小闭包在M4096/tree5120后实际compile/完整Std3/normalchecker0、16:26:32结束，600s成本门控保partial、不启动33或四主终端/Gap。S独立source/objectparts/raw绑定未在16:30闭合，仍pending，16:30:57后解析结果排除不补签；完整指标增0，旧fullfinite及无条件比例保留。下一新预算先固定成功capsule绑定，不重跑代表，再用Legacy四根与129parts目录核验继续。真实行政stop16:31:32 owned0/lockfree/activeCI0，D29.397GiB/RAM2.171GiB；只有截止后行政归档，所有Lean重执行在CI，版本v4.33.1。
+
+**当前Lean接续终点（2026-10-02）：** 上海21:45:10–23:45:10新两小时、同分支，23:35起停止新重任务、不延期；[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/REPORT.md)。上海21:52:08，S正式补完全finite固定fd7f7ec/ZIP65a3独立绑定接受：全部n≤20M、i≥4883、合法j的原题有限供应，无额外数学输入；[具名原件](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/reviews/FULL-FINITE-INDEPENDENT-ACCEPTED.json)。审计modern/legacy模式已实证修复，完整v2到了第87前置ElementaryCount后观测3079.51MiB/exit−9；四终端根及3Gap源13根未执行到，完整指标新增0。远端4096配置仅批准未实测，原stopReason JSON未取得，不称OOM或数学反例。下一新预算先CI最小ElementaryCount闭包测峰、再接Legacy终端和同标准目录核验；真无界Gap仍缺有效θ/ψ供应，低比例i/n/j/y无界、R7不动。历史纸面覆盖与当前Lean覆盖分开。
+
+资料归档更新至2026-09-27。本次新增五个外包、45个直接交付阶段包，按 A/B/C/D 和 A 独立补充分开整理；[最新接收摘要](runs/20260916-fivehour-bridge-6e72b0d4/intake/20260927-session-results/SUMMARY.md)、[逐包原件](runs/20260916-fivehour-bridge-6e72b0d4/intake/20260927-session-results/ROUND_INDEX.md)和[来源/恢复入口](runs/20260916-fivehour-bridge-6e72b0d4/intake/20260927-session-results/README.md)可直接阅读。新增材料的作者摘要见§3F；下文截至9月24日的数学汇总保留为历史快照，整理不提升独立数学接受状态。下轮预算、工具、并发与发布权限按新授权；归档验收不替代数学验收。
+
+以下为 main 于 2026-10-04 接收材料时的历史状态；后续 Lean 验收与当前范围见本页上方记录及问题 OVERVIEW。
+
 2026-10-04接收：[两会话4884–4888非素性证书](runs/20261001-lean-nonr7-01a0f779/intake/20261004-nonprime-results/SUMMARY.md)。昨日四个消费者的`by decide`触发maximum recursion depth；新包统一为五个乘积证书并校准模块/命名空间接线，但附件没有真实编译、公理/checker或性能数据。当前只能说有针对性的候选修复；本次本机预检因缺固定运行时/导入对象而阻塞，未运行Lean，详情见[核验状态](runs/20261001-lean-nonr7-01a0f779/intake/20261004-nonprime-results/VERIFICATION_STATUS.md)，与原题完整4885–4888接受分开。本接收不恢复大尾研究，不改变已登记完整集/R7/真无限Gap缺口；A七分量和B饱和终端仍为§4下一研究重点。
 
 资料归档更新至2026-10-03：五个新会话总包47个正式研究阶段见§3H，[摘要](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/SUMMARY.md)、[逐轮原件](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/ROUND_INDEX.md)与[来源/恢复入口](runs/20260916-fivehour-bridge-6e72b0d4/intake/20261003-session-results/README.md)。上批11包及历史作者链继续保留；同名轮次、不同坐标域和证据账本分别登记。已有Lean状态按固定验收记录引用，新材料不自动升级为项目接受。
@@ -686,3 +753,39 @@ R8定位23个非R7指标的九组源而不新增整指标采用；R9 G7={17,23,2
 - **有限供应另记。** 旧n≤20M/i≥185入口固定源/历史接受可定位，270对象未全恢复；本轮只验旧19999909/20000093两prime及19999909≤n≤20M/i≥4883实际Common，与旧区域重叠。完整稀疏prime链未生成，未编候选明确保留。单NormNum.Prime缺叶源构建恢复，没有下载整库。
 
 完整指标新增0，累计仍{1,2,11,29}∪[35,4882]。统一终端最终接受，大比例区域由i≥131072推广至i≥1000，全部合法j；完整i≥4883仍有2≤n/i<4096未知域，i/n/j绝对值及Gap的y仍无界。低非R7的23指标及R7也未全验。下一可执行检查：恢复或抽稀真实有限链、接消费者，再供应无限Gap。成果属于既有纸面推演的形式化，不作原创/人审主张。新modern/source/receipts均独占，不改旧接受字节；重检查单锁、低优先级≤2CPU、D保20GiB、物理余量900MiB。截止后只行政保存/push。
+
+## 10. 2026-10-02 有限供应一小时接续：中断检查点
+
+新分支huan/b699-lean-next-20261002-01a0f779，模型委派更新d094fd1e54a27d45f1c38b8897e67486ab2a8ad6已push并核远端；main数学来源b17ee9f。授权上海17:25:29–18:25:29，运行于17:46:42停止检查，未跑满且无新增数学接受。[接续入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/README.md)、[停止回执](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/runtime/STOP-CHECKPOINT.md)。
+
+两路Sol/xhigh准备finite供应及独立语义，一路Luna/max负责机械入口/资源，均已停止。已明确最短消费者只需已验比例反例高度、全域Gap4095/10M、原题finite≤20M供应；恢复旧common_le_twenty_million(i≥185)即可消finite，不必额外供更强FiniteTopSupply。候选源码尚未编，runtime新入口/环境/缓存哈希审计未完成；低RAM且两资源接口观测冲突尚未诊断，没有启动Lean/checker/远端CI。所有旧冻结数学证据保留，§9的接受范围仍为当前数学前沿。完整指标新增0，低比例i/n/j与Gap的y仍无界。
+
+下次先取得明确推进时限，以可靠实时资源观测完成受控入口和固定缓存绑定，再比较旧270源恢复与32–64旧prime节点实测成本，继续有限供应/原题连接。中断与环境阻塞不作为数学失败，不自动恢复旧预算。
+
+用户09:49:02 UTC明确恢复§10任务：中断仅切fast，原10:25:29截止不变。复杂runtime恢复交Sol/xhigh，原Luna停止记录保留；可靠原生采样低于900MiB，尚无新kernel结果。固定32旧prime/原题pilot与独立typed最小闭包待窄CI验证，旧270历史编译42.9分钟不预承诺全恢复，∞Gap与全原题缺口不变。
+
+§10最终技术检查点：两次窄CI均未编新数学。首run cache guardstop，重试cache614份实际成功后被NormNum源rawhash守卫拒绝；查明Windows CRLF vs pinnedGit blob LF跨平台基准，修复经独立静态审，仅nextcheck-ready-not-run。新primality/Common/完整finite/∞Gap接受全部0、完整指标增0；固定32原题候选与27源primorial/GCD替代已源审/冻结，未继承旧kernel。最新[报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/REPORT.md)是本轮接续入口；保持原10:25:29停止，下一轮先新预算+实际验修复入口/32原题根，再扩finite，原∞参数不变。
+
+## 11. 2026-10-02 固定小块实跑与有限供应新一小时
+
+用户新授权上海18:59:22–19:59:22（UTC10:59:22–11:59:22），不恢复旧预算。输入88f17f5，沿用huan/b699-lean-next-20261002-01a0f779，新执行检查点15f929eb146bba482cc1d3a560f2283b45aa9c90已经push；[接续入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/README.md)。
+
+初probe仍取§10固定10源/50公开根/两个typed及32旧prime原字节，先实际验pinnedGitblob平台映射与kernel闭环；原源码/旧失败/报告不修改。新Math/Typed尚未接受，缓存/CI排队不当证明。原enforcement单锁、低CPU、900余量保留；当前本机384MiB不足，立即用限时Linux窄probe，而非整轮等待RAM。
+
+有实际32成本/接受后继续4473小基底+primorial/GCD同32路线，扩分批全finite20M及原题仅余Gap消费者。历史源对应可复用，但新imports/kernel不可继承；不生成未实测全4k表，不重建已知42.9min旧270。完整集与已验比例域仍同§9，∞Gap和未覆盖i/n/j/y不变；每完成并验证阶段普通commit/push，原11:59:22硬截止不延期。
+
+§11阶段独立接受（11:25:15）：run37000189936、source521d1fd06，32prime及原题slice[19662301,19811023)/i≥4883/alllegalj，无额外数学前提，50roots实际编译/Std3拒绝、独立literaltyped、normalchecker均通过。小块与历史finite20M重叠，完整指标增0；原finite全域/∞Gap仍未供。真实Pilot32 4.61s为后续128/fullchain成本依据，不当全题百分比。详见新轮REPORT/reviews/PILOT-ORIGINAL-ACCEPTED.json；继续有限供应及端点指标消费者，原11:59:22截止不变。
+
+§11最终冻结：32原题闭环正式独立接受；完整finite/onlyGap/4883与4884完整指标只完成候选源和独立typed准备。三个后续作业均因晚启动门禁在checkout前拒绝，128与full未生成或编译，不是数学方法失败。原上海19:59:22停止，不延期；最终workflow manual-only且门禁过期，停止和资源实际回执见本轮runtime/REPORT.md。新完整指标0，累计{1,2,11,29}∪[35,4882]，无条件比例i≥1000且n≥4096i保留；未接受低比例及∞Gap的i/n/j/y仍相应无界，R7未推进。新预算下一执行为实际高端128成本/AX/checker门控→完整链→最小finite-only独立接受→高度闭包与各终端；复用已接受32不重初始化。[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/REPORT.md)、[固定源交接](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/finite/HANDOFF.md)、[独立范围封存](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-retry-onehour/reviews/HANDOFF.md)。
+
+停止实测12:00:08.469 UTC（截止后仅行政观测）：自有进程0/检查锁空闲/远端active0，D余30.841GiB、Native物理余0.413GiB，未关闭他人程序；详见本轮runtime/stop-receipt.json。固定proof/checker均在预算内结束，截止后没有新数学执行。
+
+## 12. 2026-10-02 完整有限链再一小时
+
+用户明确新授权，上海20:04:45–21:04:45（UTC12:04:45–13:04:45），同分支huan/b699-lean-next-20261002-01a0f779，输入29e4bf59b527515af8b1d761df03a6f61121d3ff，不恢复旧预算、不延期、不R7。[本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-full-onehour/README.md)。三个正确档位Sol/xhigh任务已实际followup：finite实现、独立语义、受控运行，独占新continuation文件，旧源/签件冻结。
+
+采用§9无条件比例原题及§11固定32真实接受，从已准备高端128实际成本/AX/checker继续→共享端点全链→最小finite-only→高度闭包及4883/4884或onlyGap消费者。预期消除指定≤20M有限供应依赖，不把阶段模板或重叠小块计完整指标；当前完整集与所有∞参数仍同§11。12:06:21本机实测Native余0.695GiB/D30.816GiB，低于物理门槛，直接受控串行CI，48分钟job/latest12:15:45且所有阶段原hard13:04:45。新owned生成器/源码12:06:30 READY，旧过期守卫不直接重跑；优先尽早发布运行，不等待材料美化。
+
+§12最终停止：v3/sourcefd7f7ec、run37007287888真实完成4171节点/33分块/FullChain及finite-only独立typed，原題型∀Nat n/i/j、4883≤i、i<j≤n/2、n≤20M、同一实际Prime p≥i同除完整两choose，无数学供应输入；4418Std3原始根输出与三个normalchecker0已由独立核验读到。128实际15.99秒/compiler与9.88秒/checker，最大分块1473.84MiB、最终checker1558.11MiB。两次先前失败为输出根捕获与deferred消费者提前调度，原件保留；不作为数学反例。
+
+**正式fullfinite接受pending：** 完整source/objectparts/raw独立绑定脚本未在原截止前闭合，临时accepted草稿已废止；不从GREEN或草稿补签。下一新预算先核同ZIP65a3…绑定、不重跑kernel，然后复用实际source/objects接94已知高度源及onlyGap/完整4883、4884。终端未执行、完整指标增0，累计完整集及既有无条件比例不变，∞Gap与未接受低比例i/n/j/y仍相应无界，R7不动。详见[最终报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-full-onehour/REPORT.md)、[独立结论](runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-full-onehour/reviews/HANDOFF.md)。原上海21:04:45停止不延期，之后只行政保存/push；13:06:14.242实测owned0/lockfree/CIactive0，D30.497GiB/物理0.388GiB，workflow manual-only、临时transport URL已清，无新账号权限。原323MB ZIP与225compiledparts在Git外，343普通成员及精确来源映射留本轮。

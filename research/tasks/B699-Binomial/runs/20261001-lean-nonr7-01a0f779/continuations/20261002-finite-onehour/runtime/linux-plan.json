@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-02T09:59:52.0311914Z",
+  "status": "prepared-not-triggered",
+  "ownedFiles": [
+    ".github/workflows/b699-finite-onehour.yml",
+    "research\\tasks\\B699-Binomial\\runs\\20261001-lean-nonr7-01a0f779\\continuations\\20261002-finite-onehour\\runtime/linux-runner.py",
+    "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/runtime/linux-source-manifest.json"
+  ],
+  "triggerBranch": "huan/b699-lean-next-20261002-01a0f779",
+  "permission": "contents:read",
+  "firstStepBeforeCheckout": "job start UTC <= 2026-10-02T10:16:29Z, else exit124",
+  "jobTimeoutMinutes": 8,
+  "hardDeadline": "2026-10-02T10:25:29Z",
+  "sourceCount": 10,
+  "allTheoremRootCount": 50,
+  "minimalImports": [
+    "Mathlib.Data.Nat.Choose.Dvd",
+    "Mathlib.Data.Nat.Prime.Defs",
+    "Mathlib.Tactic.NormNum.Prime"
+  ],
+  "profile": "serial 2allowedCPUs, nice19, -j1/M3132/async=false, effective physical startup3072/tree1792/reserve900MiB, disk reserve2GiB",
+  "notes": [
+    "Linux disk reserve is explicit 2GiB for hosted runner; local D>=20GiB unchanged.",
+    "Runtime source/env/argv/exit/rawlog/object/sidecars/hash receipt.",
+    "Only fixed three import closures cache get; if NormNum.Prime leaf absent then single exact hash-bound leaf sourcebuild; no full mathlib build.",
+    "All50 roots including final2 require complete output and actual axioms subset Std3; exact actual lists recorded.",
+    "Normal leanchecker same pinned kernel replay of independent original literal root.",
+    "Twelve-minute actual completion cannot be guaranteed: setup/cache or resource may fail; retain actual evidence.",
+    "No workflow_dispatch, PR, merge, auth change, Git operation or trigger performed by runtime worker.",
+    "2026-10-02T10:12:57Z Root adjusted only checkout-before deadline window to 10:16:29Z and job timeout to eight minutes; absolute 10:25:29Z remains.",
+    "The original source manifest lastJobStart field is a historical planning value; executable checkout-before cutoff is the workflow 10:16:29Z.",
+    "Cache-only retry profile: startup5120/tree3072MiB with LEAN_NUM_THREADS1; proof default startup3072/tree1792MiB and reserve900MiB unchanged."
+  ],
+  "artifactPattern": "b699-finite-onehour-${github.sha}-${github.run_id}",
+  "ordinarySourceManifest": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/runtime/linux-source-manifest.json"
+}

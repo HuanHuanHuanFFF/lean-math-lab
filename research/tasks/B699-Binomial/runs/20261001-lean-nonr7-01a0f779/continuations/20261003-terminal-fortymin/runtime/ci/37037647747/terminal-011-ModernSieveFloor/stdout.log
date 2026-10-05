@@ -1,0 +1,6 @@
+B699ModernSieve.survivors_card_floor_formula : ∀ (P : Finset ℕ),
+  (∀ q ∈ P, Nat.Prime q) →
+    ∀ (b : ℕ), ↑(B699ModernSieve.survivors P b).card = ∑ t ∈ P.powerset, (-1) ^ t.card * ↑(b / t.prod id)
+'B699ModernSieve.prime_prod_dvd_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699ModernSieve.intersections_card_floor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699ModernSieve.survivors_card_floor_formula' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,70 @@
+name: B699 controlled local power conditional original Legacy and real PSI smoothing
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: b699-controlled-proof
+  cancel-in-progress: false
+jobs:
+  scoped:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-gap-bridge-halfhour/runtime
+    steps:
+      - name: Admit this run and source before checkout
+        run: |
+          task_job_start=$(date -u +%s)
+          test "$task_job_start" -ge "$(date -u -d '2026-10-05 09:44:48 UTC' +%s)" || exit 124
+          test "$task_job_start" -le "$(date -u -d '2026-10-05 10:03:00 UTC' +%s)" || exit 124
+          echo "B699_ADMITTED_JOB_START_EPOCH=$task_job_start" >> "$GITHUB_ENV"
+          echo "B699_ADMITTED_JOB_RUN_ID=$GITHUB_RUN_ID" >> "$GITHUB_ENV"
+          echo "B699_ADMITTED_JOB_SOURCE_SHA=$GITHUB_SHA" >> "$GITHUB_ENV"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Actual resource and fixed source preflight
+        id: plan
+        run: python3 "$B699_RUNTIME/legacy-stage.py" preflight
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Common Mathlib preparation and pure PSI import
+        id: common
+        run: python3 "$B699_RUNTIME/legacy-stage.py" prepare-common
+      - name: Fresh psismoothing producer and independent raw literal
+        if: always() && steps.common.outcome == 'success'
+        run: python3 "$B699_RUNTIME/legacy-stage.py" psismoothing
+      - name: Preserve psismoothing complete or failed checkpoint
+        if: always()
+        run: python3 "$B699_RUNTIME/legacy-stage.py" package-psismoothing
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-gapbridge-psismoothing-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-gap-bridge-halfhour/legacy-runtime/psismoothing-delivery/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Restore accepted old345 plus current18 objects without recompile
+        id: legacy
+        if: always() && steps.common.outcome == 'success'
+        env:
+          B699_ARTIFACT_TOKEN: ${{ github.token }}
+        run: python3 "$B699_RUNTIME/legacy-stage.py" prepare
+      - name: Fresh originallegacy producer and independent raw literal
+        if: always() && steps.legacy.outcome == 'success'
+        run: python3 "$B699_RUNTIME/legacy-stage.py" originallegacy
+      - name: Preserve originallegacy complete or failed checkpoint
+        if: always()
+        run: python3 "$B699_RUNTIME/legacy-stage.py" package-originallegacy
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: b699-gapbridge-originallegacy-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-gap-bridge-halfhour/legacy-runtime/originallegacy-delivery/
+          if-no-files-found: warn
+          retention-days: 30

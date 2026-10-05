@@ -1,5 +1,17 @@
 # B699：R7 之外的两小时 Lean 验证
 
+**Oct4九十分钟轮已收束：** 正式完整集 `{1,2,11,29} ∪ [35,10000]`，本轮净增5000、全部合法n/j且无额外数学输入；真实有限Gap [20482069,40956329)亦独立接受。所有重Lean在CI，无证明复杂度故障，原预算未延期，R7未动。单点6001/10001未启动。当前总览以[问题OVERVIEW](../../OVERVIEW.md)为准；[本轮最终报告](continuations/20261004-tail-ninetymin/REPORT.md)及五具名签件可冷读恢复。以下段落保留历史状态。
+
+**Oct4一小时轮最终已停止，未延期：** 三步闭环及延长链后续全部通过，累计完整集 `{1,2,11,29} ∪ [35,5000]`，本轮新增116，全部合法Nat n/j、同实际Prime p≥i双完整choose、无额外数学输入。S最后签ba064f6f/source5b42228/run37143741098；三个CI全成功。[最终报告](continuations/20261004-nonprime-onehour/REPORT.md) · [签件](continuations/20261004-nonprime-onehour/reviews/TAIL5000-INDEPENDENT-ACCEPTED.json) · [下一可执行入口](continuations/20261004-nonprime-onehour/README.md)。R7/低23/真无限Gap保持，i≥5001仍有未覆盖域。以下为历史阶段状态。
+
+**Oct4 三步闭环全部通过：** 本轮S正式接受完整4885–4888，累计完整上界4888，无额外数学输入；[当前报告](continuations/20261004-nonprime-onehour/REPORT.md)。正在同一小时预算接有限链右端延长的4889/5000候选，尚未接受；上海02:36:13最终截止保持。
+
+**Oct4 新一小时接续：** [短非素性证书与四完整消费者](continuations/20261004-nonprime-onehour/README.md)，上海01:36:13–02:36:13，先三个验收闭环，通过后在剩余预算继续。材料固定b675203a，原输入0315fa51；未接受新结果前完整上界仍4884。
+
+**最新接续已收尾：** [Oct3真Gap40分钟](continuations/20261003-gap-finite-fortymin/README.md)，原上海02:40:45–03:20:45，按重要突破规则一次延10min至03:30:45已停止。真有限Gap `[10M,10146761)` 正式接受；相邻合数传递核心执行成功报告/独立绑定pending，具体4885–4888因递归深度限制未接受。完整集 `{1,2,11,29}∪[35,4884]` 不变，真无限Gap未供。[最新报告](continuations/20261003-gap-finite-fortymin/REPORT.md)与[核验交接](continuations/20261003-gap-finite-fortymin/reviews/HANDOFF.md)给下一项明确检查，以下旧轮状态保留。
+
+以下为 main 于 2026-10-04 接收材料时的历史状态；后续 Lean 验收与当前范围见本页上方记录及问题 OVERVIEW。
+
 2026-10-04新接收：[4884–4888非素性证书](intake/20261004-nonprime-results/README.md)及[效率与证据边界](intake/20261004-nonprime-results/SUMMARY.md)。本次仅接收与限定诊断，旧轮截止、历史接受和当前工作分支均保留。
 
 状态：已于15:42:09 UTC硬截止停止研究与验证，无延期。15:42:46最终停机回执确认本轮无遗留进程、编译锁已释放。Leader `/root` 只负责协调、来源与状态登记；技术接受由具名执行/核验任务交付。

@@ -1,0 +1,9 @@
+import research.tasks.«B699-Binomial».runs.«20260909-large-prime-structure-cb4764f0».lean.PrimePowerTransfer
+#print axioms B699LargePrimeStructure.prime_power_numerator_mod_lt
+#print axioms B699LargePrimeStructure.dvd_descFactorial_of_interval
+#print axioms B699LargePrimeStructure.prime_power_gap_dvd
+#print axioms B699LargePrimeStructure.prime_power_finset_prod_dvd
+#print axioms B699LargePrimeStructure.actual_avoiding_part_gap_transfer
+#print axioms B699LargePrimeStructure.avoidingPart_eq_primePart_of_noCommon
+#print axioms B699LargePrimeStructure.actual_prime_part_gap_transfer
+#print axioms B699LargePrimeStructure.common_of_gap_product_not_dvd

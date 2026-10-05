@@ -1,0 +1,24 @@
+theorem B699CompositeCore20261003.common_succ_of_nonprime : ∀ {n i j : ℕ},
+  ¬Nat.Prime i →
+    ¬Nat.Prime (i + 1) →
+      (∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j) →
+        ∃ p, Nat.Prime p ∧ i + 1 ≤ p ∧ p ∣ n.choose (i + 1) ∧ p ∣ n.choose j :=
+fun {n i j} hi his hcommon =>
+  Exists.casesOn hcommon fun p h =>
+    And.casesOn h fun hp right =>
+      And.casesOn right fun hpi right =>
+        And.casesOn right fun hdiv hdivj =>
+          have hne := fun heq => hi (Eq.mp (congrArg Nat.Prime heq) hp);
+          have hpis :=
+            Decidable.byContradiction fun a => B699CompositeCore20261003.common_succ_of_nonprime._proof_1 p hpi hne a;
+          have hndiv := fun hd =>
+            have hle := Nat.le_of_dvd (Nat.succ_pos i) hd;
+            have heq :=
+              Decidable.byContradiction fun a =>
+                B699CompositeCore20261003.common_succ_of_nonprime._proof_2 p hpis hle a;
+            his (Eq.mp (congrArg Nat.Prime heq) hp);
+          have hprod :=
+            Eq.mpr (id (congrArg (fun _a => p ∣ _a) (Nat.choose_succ_right_eq n i))) (dvd_mul_of_dvd_left hdiv (n - i));
+          have hnew := Or.resolve_right (Nat.Prime.dvd_or_dvd hp hprod) hndiv;
+          Exists.intro p ⟨hp, ⟨hpis, ⟨hnew, hdivj⟩⟩⟩
+'B699CompositeCore20261003.common_succ_of_nonprime' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,0 +1,11 @@
+theorem B699FiniteFullSemantic.all_tail_only_gap_exact : (∀ (y : ℕ),
+    10000000 ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y) →
+  ∀ (n i j : ℕ), 4883 ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun gap => B699FiniteFull20261002.original_tail_of_gap gap
+theorem B699FiniteFullSemantic.complete_indices_4883_4884_exact : ∀ (n i j : ℕ),
+  4883 ≤ i → i ≤ 4884 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun n i j hi hiUpper hij hjn => B699FiniteFull20261002.common_indices_4883_4884 hi hiUpper hij hjn
+'B699FiniteFull20261002.original_tail_of_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFull20261002.common_indices_4883_4884' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFullSemantic.all_tail_only_gap_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699FiniteFullSemantic.complete_indices_4883_4884_exact' depends on axioms: [propext, Classical.choice, Quot.sound]

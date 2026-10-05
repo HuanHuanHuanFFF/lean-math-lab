@@ -1,0 +1,809 @@
+﻿2026-10-02T16:59:21.7435419Z Current runner version: '2.337.0'
+2026-10-02T16:59:21.7471232Z ##[group]Runner Image Provisioner
+2026-10-02T16:59:21.7472970Z Hosted Compute Agent
+2026-10-02T16:59:21.7474635Z Version: 20260901.588
+2026-10-02T16:59:21.7475870Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-02T16:59:21.7477232Z Build Date: 2026-09-01T19:56:44Z
+2026-10-02T16:59:21.7478672Z Worker ID: {fcb4fa82-0493-444c-824f-483b48288619}
+2026-10-02T16:59:21.7480007Z Azure Region: eastus2
+2026-10-02T16:59:21.7481153Z ##[endgroup]
+2026-10-02T16:59:21.7483834Z ##[group]Operating System
+2026-10-02T16:59:21.7485008Z Ubuntu
+2026-10-02T16:59:21.7486156Z 24.04.5
+2026-10-02T16:59:21.7487031Z LTS
+2026-10-02T16:59:21.7488002Z ##[endgroup]
+2026-10-02T16:59:21.7489043Z ##[group]Runner Image
+2026-10-02T16:59:21.7490234Z Image: ubuntu-24.04
+2026-10-02T16:59:21.7491281Z Version: 20260927.320.1
+2026-10-02T16:59:21.7494035Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-02T16:59:21.7496916Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-02T16:59:21.7498905Z ##[endgroup]
+2026-10-02T16:59:21.7500916Z ##[group]GITHUB_TOKEN Permissions
+2026-10-02T16:59:21.7504318Z Contents: read
+2026-10-02T16:59:21.7505293Z Metadata: read
+2026-10-02T16:59:21.7506376Z ##[endgroup]
+2026-10-02T16:59:21.7509345Z Secret source: Actions
+2026-10-02T16:59:21.7511067Z Cache mode: write
+2026-10-02T16:59:21.7512778Z Prepare workflow directory
+2026-10-02T16:59:21.8004708Z Prepare all required actions
+2026-10-02T16:59:21.8052408Z Getting action download info
+2026-10-02T16:59:22.0022781Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-02T16:59:22.1277567Z Download action repository 'leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596' (SHA:50fcf42d2e460296f1a34b402e990d1b24f8b596)
+2026-10-02T16:59:22.2751762Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-02T16:59:22.4986263Z Getting action download info
+2026-10-02T16:59:22.5900062Z Download action repository 'actions/cache@v5' (SHA:caa296126883cff596d87d8935842f9db880ef25)
+2026-10-02T16:59:22.9243286Z Complete job name: scoped
+2026-10-02T16:59:22.9926803Z ##[group]Run echo "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"
+2026-10-02T16:59:22.9928028Z [36;1mecho "B699_JOB_START_EPOCH=$(date -u +%s)" >> "$GITHUB_ENV"[0m
+2026-10-02T16:59:22.9929701Z [36;1mtest "$(date -u +%s)" -le "$(date -u -d '2026-10-02 17:06:00 UTC' +%s)" || { echo 'Late start: no checkout, install, or proof work permitted'; exit 124; }[0m
+2026-10-02T16:59:23.0240483Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T16:59:23.0241921Z env:
+2026-10-02T16:59:23.0243254Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T16:59:23.0244817Z ##[endgroup]
+2026-10-02T16:59:23.0752909Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-10-02T16:59:23.0753858Z with:
+2026-10-02T16:59:23.0754363Z   repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:59:23.0759059Z   token: ***
+2026-10-02T16:59:23.0759537Z   ssh-strict: true
+2026-10-02T16:59:23.0760023Z   ssh-user: git
+2026-10-02T16:59:23.0760532Z   persist-credentials: true
+2026-10-02T16:59:23.0761085Z   clean: true
+2026-10-02T16:59:23.0761744Z   sparse-checkout-cone-mode: true
+2026-10-02T16:59:23.0762359Z   fetch-depth: 1
+2026-10-02T16:59:23.0762831Z   fetch-tags: false
+2026-10-02T16:59:23.0763315Z   show-progress: true
+2026-10-02T16:59:23.0763806Z   lfs: false
+2026-10-02T16:59:23.0764250Z   submodules: false
+2026-10-02T16:59:23.0764730Z   set-safe-directory: true
+2026-10-02T16:59:23.0765292Z   allow-unsafe-pr-checkout: false
+2026-10-02T16:59:23.0765859Z env:
+2026-10-02T16:59:23.0767022Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T16:59:23.0768590Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T16:59:23.0769174Z ##[endgroup]
+2026-10-02T16:59:23.1763359Z Syncing repository: HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:59:23.1767862Z ##[group]Getting Git version info
+2026-10-02T16:59:23.1769350Z Working directory is '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T16:59:23.1771322Z [command]/usr/bin/git version
+2026-10-02T16:59:23.1869117Z git version 2.55.0
+2026-10-02T16:59:23.1899865Z ##[endgroup]
+2026-10-02T16:59:23.1912767Z Temporarily overriding HOME='/home/runner/work/_temp/a017a8d2-c22d-4deb-8d54-13cb01c4c003' before making global git config changes
+2026-10-02T16:59:23.1924234Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T16:59:23.1927250Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T16:59:23.1976859Z Deleting the contents of '/home/runner/work/lean-math-lab/lean-math-lab'
+2026-10-02T16:59:23.1981846Z ##[group]Determining repository object format
+2026-10-02T16:59:23.1983663Z ##[endgroup]
+2026-10-02T16:59:23.1985041Z ##[group]Initializing the repository
+2026-10-02T16:59:23.1987841Z [command]/usr/bin/git init /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T16:59:23.2140382Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-02T16:59:23.2143501Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-02T16:59:23.2145828Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-02T16:59:23.2147774Z hint: call:
+2026-10-02T16:59:23.2150132Z hint:
+2026-10-02T16:59:23.2161189Z hint: 	git config --global init.defaultBranch <name>
+2026-10-02T16:59:23.2163372Z hint:
+2026-10-02T16:59:23.2164745Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-02T16:59:23.2166295Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-02T16:59:23.2167281Z hint:
+2026-10-02T16:59:23.2167780Z hint: 	git branch -m <name>
+2026-10-02T16:59:23.2168321Z hint:
+2026-10-02T16:59:23.2169064Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-02T16:59:23.2171283Z Initialized empty Git repository in /home/runner/work/lean-math-lab/lean-math-lab/.git/
+2026-10-02T16:59:23.2175112Z [command]/usr/bin/git remote add origin https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:59:23.2223932Z ##[endgroup]
+2026-10-02T16:59:23.2226113Z ##[group]Disabling automatic garbage collection
+2026-10-02T16:59:23.2228185Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-02T16:59:23.2265311Z ##[endgroup]
+2026-10-02T16:59:23.2266614Z ##[group]Setting up auth
+2026-10-02T16:59:23.2267576Z Removing SSH command configuration
+2026-10-02T16:59:23.2272948Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T16:59:23.2311969Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T16:59:23.2756397Z Removing HTTP extra header
+2026-10-02T16:59:23.2762851Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T16:59:23.2799822Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T16:59:23.3020410Z Removing includeIf entries pointing to credentials config files
+2026-10-02T16:59:23.3026091Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T16:59:23.3062710Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T16:59:23.3298272Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-02T16:59:23.3338364Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path /home/runner/work/_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T16:59:23.3372955Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T16:59:23.3412048Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T16:59:23.3450460Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T16:59:23.3483539Z ##[endgroup]
+2026-10-02T16:59:23.3485155Z ##[group]Fetching the repository
+2026-10-02T16:59:23.3492961Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +be6b2df9b58b4f732564dc882945ec5415c81f1a:refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:59:40.7177549Z From https://github.com/HuanHuanHuanFFF/lean-math-lab
+2026-10-02T16:59:40.7178837Z  * [new ref]             be6b2df9b58b4f732564dc882945ec5415c81f1a -> origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:59:40.7188495Z [command]/usr/bin/git branch --list --remote origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:59:40.7219689Z   origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:59:40.7228613Z [command]/usr/bin/git rev-parse refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:59:40.7254686Z be6b2df9b58b4f732564dc882945ec5415c81f1a
+2026-10-02T16:59:40.7259432Z ##[endgroup]
+2026-10-02T16:59:40.7260334Z ##[group]Determining the checkout info
+2026-10-02T16:59:40.7261370Z ##[endgroup]
+2026-10-02T16:59:40.7265356Z [command]/usr/bin/git sparse-checkout disable
+2026-10-02T16:59:40.7330678Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-02T16:59:40.7365160Z ##[group]Checking out the ref
+2026-10-02T16:59:40.7369857Z [command]/usr/bin/git checkout --progress --force -B huan/b699-lean-next-20261002-01a0f779 refs/remotes/origin/huan/b699-lean-next-20261002-01a0f779
+2026-10-02T16:59:41.9387645Z Updating files:   4% (3592/89115)
+2026-10-02T16:59:41.9970958Z Updating files:   5% (4456/89115)
+2026-10-02T16:59:42.0680845Z Updating files:   6% (5347/89115)
+2026-10-02T16:59:42.2160942Z Updating files:   7% (6239/89115)
+2026-10-02T16:59:42.2699519Z Updating files:   8% (7130/89115)
+2026-10-02T16:59:42.3365373Z Updating files:   9% (8021/89115)
+2026-10-02T16:59:42.3933186Z Updating files:  10% (8912/89115)
+2026-10-02T16:59:42.4953598Z Updating files:  11% (9803/89115)
+2026-10-02T16:59:42.5557169Z Updating files:  12% (10694/89115)
+2026-10-02T16:59:42.5977025Z Updating files:  13% (11585/89115)
+2026-10-02T16:59:42.6646832Z Updating files:  14% (12477/89115)
+2026-10-02T16:59:42.7554740Z Updating files:  15% (13368/89115)
+2026-10-02T16:59:42.8146684Z Updating files:  16% (14259/89115)
+2026-10-02T16:59:42.8280252Z Updating files:  17% (15150/89115)
+2026-10-02T16:59:42.9099419Z Updating files:  17% (15369/89115)
+2026-10-02T16:59:42.9545524Z Updating files:  18% (16041/89115)
+2026-10-02T16:59:43.0050739Z Updating files:  19% (16932/89115)
+2026-10-02T16:59:43.0421123Z Updating files:  20% (17823/89115)
+2026-10-02T16:59:43.0790537Z Updating files:  21% (18715/89115)
+2026-10-02T16:59:43.1312389Z Updating files:  22% (19606/89115)
+2026-10-02T16:59:43.1654630Z Updating files:  23% (20497/89115)
+2026-10-02T16:59:43.2044290Z Updating files:  24% (21388/89115)
+2026-10-02T16:59:43.2454279Z Updating files:  25% (22279/89115)
+2026-10-02T16:59:43.2808741Z Updating files:  26% (23170/89115)
+2026-10-02T16:59:43.3153855Z Updating files:  27% (24062/89115)
+2026-10-02T16:59:43.3510146Z Updating files:  28% (24953/89115)
+2026-10-02T16:59:43.3866535Z Updating files:  29% (25844/89115)
+2026-10-02T16:59:43.4279589Z Updating files:  30% (26735/89115)
+2026-10-02T16:59:43.4649493Z Updating files:  31% (27626/89115)
+2026-10-02T16:59:43.5021847Z Updating files:  32% (28517/89115)
+2026-10-02T16:59:43.5430073Z Updating files:  33% (29408/89115)
+2026-10-02T16:59:43.5840101Z Updating files:  34% (30300/89115)
+2026-10-02T16:59:43.6237903Z Updating files:  35% (31191/89115)
+2026-10-02T16:59:43.6627904Z Updating files:  36% (32082/89115)
+2026-10-02T16:59:43.7005491Z Updating files:  37% (32973/89115)
+2026-10-02T16:59:43.7418507Z Updating files:  38% (33864/89115)
+2026-10-02T16:59:43.7817984Z Updating files:  39% (34755/89115)
+2026-10-02T16:59:43.8242489Z Updating files:  40% (35646/89115)
+2026-10-02T16:59:43.8279407Z Updating files:  41% (36538/89115)
+2026-10-02T16:59:43.8643742Z Updating files:  41% (36626/89115)
+2026-10-02T16:59:43.9111640Z Updating files:  42% (37429/89115)
+2026-10-02T16:59:43.9984947Z Updating files:  43% (38320/89115)
+2026-10-02T16:59:44.0830704Z Updating files:  44% (39211/89115)
+2026-10-02T16:59:44.1148129Z Updating files:  45% (40102/89115)
+2026-10-02T16:59:44.1665393Z Updating files:  46% (40993/89115)
+2026-10-02T16:59:44.2123223Z Updating files:  47% (41885/89115)
+2026-10-02T16:59:44.2457112Z Updating files:  48% (42776/89115)
+2026-10-02T16:59:44.2967197Z Updating files:  49% (43667/89115)
+2026-10-02T16:59:44.3372761Z Updating files:  50% (44558/89115)
+2026-10-02T16:59:44.3796422Z Updating files:  51% (45449/89115)
+2026-10-02T16:59:44.4206692Z Updating files:  52% (46340/89115)
+2026-10-02T16:59:44.4600070Z Updating files:  53% (47231/89115)
+2026-10-02T16:59:44.4946014Z Updating files:  54% (48123/89115)
+2026-10-02T16:59:44.5299269Z Updating files:  55% (49014/89115)
+2026-10-02T16:59:44.6599932Z Updating files:  56% (49905/89115)
+2026-10-02T16:59:44.6931614Z Updating files:  57% (50796/89115)
+2026-10-02T16:59:44.7304511Z Updating files:  58% (51687/89115)
+2026-10-02T16:59:44.7697103Z Updating files:  59% (52578/89115)
+2026-10-02T16:59:44.8045811Z Updating files:  60% (53469/89115)
+2026-10-02T16:59:44.8279518Z Updating files:  61% (54361/89115)
+2026-10-02T16:59:44.8391590Z Updating files:  61% (54959/89115)
+2026-10-02T16:59:44.8755606Z Updating files:  62% (55252/89115)
+2026-10-02T16:59:44.9127642Z Updating files:  63% (56143/89115)
+2026-10-02T16:59:44.9525306Z Updating files:  64% (57034/89115)
+2026-10-02T16:59:44.9969729Z Updating files:  65% (57925/89115)
+2026-10-02T16:59:45.0391713Z Updating files:  66% (58816/89115)
+2026-10-02T16:59:45.1071799Z Updating files:  67% (59708/89115)
+2026-10-02T16:59:45.1546867Z Updating files:  68% (60599/89115)
+2026-10-02T16:59:45.2896583Z Updating files:  69% (61490/89115)
+2026-10-02T16:59:45.3412757Z Updating files:  70% (62381/89115)
+2026-10-02T16:59:45.3944187Z Updating files:  71% (63272/89115)
+2026-10-02T16:59:45.4626855Z Updating files:  72% (64163/89115)
+2026-10-02T16:59:45.5259831Z Updating files:  73% (65054/89115)
+2026-10-02T16:59:45.5727759Z Updating files:  74% (65946/89115)
+2026-10-02T16:59:45.6718533Z Updating files:  75% (66837/89115)
+2026-10-02T16:59:45.7340791Z Updating files:  76% (67728/89115)
+2026-10-02T16:59:45.8305248Z Updating files:  77% (68619/89115)
+2026-10-02T16:59:46.1565364Z Updating files:  77% (69119/89115)
+2026-10-02T16:59:46.3391859Z Updating files:  78% (69510/89115)
+2026-10-02T16:59:46.4467331Z Updating files:  79% (70401/89115)
+2026-10-02T16:59:46.5449625Z Updating files:  80% (71292/89115)
+2026-10-02T16:59:46.7255374Z Updating files:  81% (72184/89115)
+2026-10-02T16:59:46.8348222Z Updating files:  82% (73075/89115)
+2026-10-02T16:59:47.2511280Z Updating files:  82% (73767/89115)
+2026-10-02T16:59:47.4428883Z Updating files:  83% (73966/89115)
+2026-10-02T16:59:47.5071806Z Updating files:  84% (74857/89115)
+2026-10-02T16:59:47.7067460Z Updating files:  85% (75748/89115)
+2026-10-02T16:59:47.7717219Z Updating files:  86% (76639/89115)
+2026-10-02T16:59:47.8283992Z Updating files:  87% (77531/89115)
+2026-10-02T16:59:47.9700957Z Updating files:  87% (77838/89115)
+2026-10-02T16:59:48.2111235Z Updating files:  88% (78422/89115)
+2026-10-02T16:59:48.3975656Z Updating files:  89% (79313/89115)
+2026-10-02T16:59:48.5965663Z Updating files:  90% (80204/89115)
+2026-10-02T16:59:48.8292562Z Updating files:  91% (81095/89115)
+2026-10-02T16:59:49.0520690Z Updating files:  91% (81459/89115)
+2026-10-02T16:59:49.3762632Z Updating files:  92% (81986/89115)
+2026-10-02T16:59:49.6840568Z Updating files:  93% (82877/89115)
+2026-10-02T16:59:49.8280360Z Updating files:  94% (83769/89115)
+2026-10-02T16:59:50.0161070Z Updating files:  94% (84147/89115)
+2026-10-02T16:59:50.1650233Z Updating files:  95% (84660/89115)
+2026-10-02T16:59:50.2784652Z Updating files:  96% (85551/89115)
+2026-10-02T16:59:50.3299442Z Updating files:  97% (86442/89115)
+2026-10-02T16:59:50.3854249Z Updating files:  98% (87333/89115)
+2026-10-02T16:59:50.4323764Z Updating files:  99% (88224/89115)
+2026-10-02T16:59:50.4324237Z Updating files: 100% (89115/89115)
+2026-10-02T16:59:50.4324705Z Updating files: 100% (89115/89115), done.
+2026-10-02T16:59:50.5521864Z Switched to a new branch 'huan/b699-lean-next-20261002-01a0f779'
+2026-10-02T16:59:50.5565031Z branch 'huan/b699-lean-next-20261002-01a0f779' set up to track 'origin/huan/b699-lean-next-20261002-01a0f779'.
+2026-10-02T16:59:50.5675640Z ##[endgroup]
+2026-10-02T16:59:50.5731019Z [command]/usr/bin/git log -1 --format=%H
+2026-10-02T16:59:50.5763752Z be6b2df9b58b4f732564dc882945ec5415c81f1a
+2026-10-02T16:59:50.5935458Z ##[group]Run python3 "$B699_RUNTIME/cold-stage-v2.py" preflight
+2026-10-02T16:59:50.5936257Z [36;1mpython3 "$B699_RUNTIME/cold-stage-v2.py" preflight[0m
+2026-10-02T16:59:50.6012014Z shell: /usr/bin/bash -e {0}
+2026-10-02T16:59:50.6012285Z env:
+2026-10-02T16:59:50.6012831Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T16:59:50.6013458Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T16:59:50.6013732Z ##[endgroup]
+2026-10-02T16:59:50.7420272Z ##[group]Run leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+2026-10-02T16:59:50.7420725Z with:
+2026-10-02T16:59:50.7420935Z   auto-config: false
+2026-10-02T16:59:50.7421163Z   build: false
+2026-10-02T16:59:50.7421366Z   test: false
+2026-10-02T16:59:50.7421786Z   lint: false
+2026-10-02T16:59:50.7421998Z   use-mathlib-cache: false
+2026-10-02T16:59:50.7422253Z   use-github-cache: false
+2026-10-02T16:59:50.7422491Z   mk_all-check: false
+2026-10-02T16:59:50.7422741Z   check-reservoir-eligibility: false
+2026-10-02T16:59:50.7423023Z   leanchecker: false
+2026-10-02T16:59:50.7423246Z   lean4checker: false
+2026-10-02T16:59:50.7423475Z   nanoda: false
+2026-10-02T16:59:50.7423694Z   nanoda-allow-sorry: true
+2026-10-02T16:59:50.7423934Z   axiom-audit: false
+2026-10-02T16:59:50.7424228Z   axiom-audit-allow: propext,Classical.choice,Quot.sound
+2026-10-02T16:59:50.7424594Z   lake-package-directory: .
+2026-10-02T16:59:50.7424877Z   reinstall-transient-toolchain: false
+2026-10-02T16:59:50.7425236Z env:
+2026-10-02T16:59:50.7425750Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T16:59:50.7426361Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T16:59:50.7426624Z ##[endgroup]
+2026-10-02T16:59:50.7524180Z ##[start-action display=install elan;id=__leanprover_lean-action.__run]
+2026-10-02T16:59:50.7553722Z ##[group]Run : Install Elan
+2026-10-02T16:59:50.7554012Z [36;1m: Install Elan[0m
+2026-10-02T16:59:50.7554318Z [36;1m${GITHUB_ACTION_PATH}/scripts/install_elan.sh[0m
+2026-10-02T16:59:50.7621294Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T16:59:50.7621904Z env:
+2026-10-02T16:59:50.7622435Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T16:59:50.7623049Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T16:59:50.7623319Z ##[endgroup]
+2026-10-02T16:59:50.7738383Z ##[group]Elan Installation Output
+2026-10-02T16:59:50.8280915Z info: downloading installer
+2026-10-02T16:59:51.6198974Z info: downloading https://releases.lean-lang.org/lean4/v4.33.1/lean-4.33.1-linux.tar.zst
+2026-10-02T16:59:56.3589611Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.33.1
+2026-10-02T17:00:03.1731040Z Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)
+2026-10-02T17:00:03.2202543Z Lake version 5.0.0-src+819816b (Lean version 4.33.1)
+2026-10-02T17:00:03.2210777Z ##[endgroup]
+2026-10-02T17:00:03.2210994Z 
+2026-10-02T17:00:03.2229804Z ##[end-action id=__leanprover_lean-action.__run;outcome=success;conclusion=success;duration_ms=12470]
+2026-10-02T17:00:03.2234849Z ##[start-action display=configure `lean-action`;id=__leanprover_lean-action.config]
+2026-10-02T17:00:03.2253370Z ##[group]Run : Configure Lean Action
+2026-10-02T17:00:03.2253696Z [36;1m: Configure Lean Action[0m
+2026-10-02T17:00:03.2254024Z [36;1m${GITHUB_ACTION_PATH}/scripts/config.sh[0m
+2026-10-02T17:00:03.2318458Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-02T17:00:03.2318822Z env:
+2026-10-02T17:00:03.2319350Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T17:00:03.2319972Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T17:00:03.2320241Z   AUTO_CONFIG: false
+2026-10-02T17:00:03.2320465Z   BUILD: false
+2026-10-02T17:00:03.2320668Z   TEST: false
+2026-10-02T17:00:03.2320864Z   LINT: false
+2026-10-02T17:00:03.2321072Z ##[endgroup]
+2026-10-02T17:00:03.2554233Z ##[group]Configure lean-action
+2026-10-02T17:00:03.2605057Z ##[end-action id=__leanprover_lean-action.config;outcome=success;conclusion=success;duration_ms=36]
+2026-10-02T17:00:03.2609877Z ##[start-action display=reinstall transient toolchain;id=__leanprover_lean-action.__run_2]
+2026-10-02T17:00:03.2628138Z ##[end-action id=__leanprover_lean-action.__run_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2631333Z ##[start-action display=ensure all files are imported;id=__leanprover_lean-action.mk_all]
+2026-10-02T17:00:03.2635810Z ##[end-action id=__leanprover_lean-action.mk_all;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2637862Z ##[start-action display=Run actions/cache/restore@v5;id=__leanprover_lean-action.__actions_cache]
+2026-10-02T17:00:03.2641349Z ##[end-action id=__leanprover_lean-action.__actions_cache;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2643678Z ##[start-action display=detect mathlib;id=__leanprover_lean-action.detect-mathlib]
+2026-10-02T17:00:03.2647155Z ##[end-action id=__leanprover_lean-action.detect-mathlib;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2649011Z ##[start-action display=get mathlib cache;id=__leanprover_lean-action.__run_3]
+2026-10-02T17:00:03.2670479Z ##[end-action id=__leanprover_lean-action.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2697942Z ##[start-action display=build HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.build]
+2026-10-02T17:00:03.2702860Z ##[end-action id=__leanprover_lean-action.build;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2704888Z ##[start-action display=Run actions/cache/save@v5;id=__leanprover_lean-action.__actions_cache_2]
+2026-10-02T17:00:03.2708423Z ##[end-action id=__leanprover_lean-action.__actions_cache_2;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2712174Z ##[start-action display=test HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.test]
+2026-10-02T17:00:03.2716585Z ##[end-action id=__leanprover_lean-action.test;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2719472Z ##[start-action display=lint HuanHuanHuanFFF/lean-math-lab;id=__leanprover_lean-action.lint]
+2026-10-02T17:00:03.2724175Z ##[end-action id=__leanprover_lean-action.lint;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2726112Z ##[start-action display=check reservoir eligibility;id=__leanprover_lean-action.__run_4]
+2026-10-02T17:00:03.2729730Z ##[end-action id=__leanprover_lean-action.__run_4;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2732782Z ##[start-action display=check environment with leanchecker;id=__leanprover_lean-action.__run_5]
+2026-10-02T17:00:03.2737632Z ##[end-action id=__leanprover_lean-action.__run_5;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2740002Z ##[start-action display=check environment with nanoda;id=__leanprover_lean-action.nanoda]
+2026-10-02T17:00:03.2743718Z ##[end-action id=__leanprover_lean-action.nanoda;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2746245Z ##[start-action display=audit axioms with axiom-audit;id=__leanprover_lean-action.axiom-audit]
+2026-10-02T17:00:03.2749623Z ##[end-action id=__leanprover_lean-action.axiom-audit;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-02T17:00:03.2802419Z ##[group]Run python3 "$B699_RUNTIME/cold-stage-v2.py"
+2026-10-02T17:00:03.2802895Z [36;1mpython3 "$B699_RUNTIME/cold-stage-v2.py"[0m
+2026-10-02T17:00:03.2864029Z shell: /usr/bin/bash -e {0}
+2026-10-02T17:00:03.2864293Z env:
+2026-10-02T17:00:03.2864815Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T17:00:03.2865426Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T17:00:03.2865690Z ##[endgroup]
+2026-10-02T17:00:03.6506871Z {"label": "toolchain-prefix", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:00:03.8615607Z {"label": "toolchain-version", "status": "success", "exitCode": 0, "peakMiB": 40.61}
+2026-10-02T17:01:41.7013268Z {"label": "focused-cache", "status": "success", "exitCode": 0, "peakMiB": 1755.38}
+2026-10-02T17:01:41.7081782Z {"label": "pin-mathlib", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7146945Z {"label": "pin-plausible", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7210559Z {"label": "pin-LeanSearchClient", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7273972Z {"label": "pin-importGraph", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7336682Z {"label": "pin-proofwidgets", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7399256Z {"label": "pin-aesop", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7462988Z {"label": "pin-Qq", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7525386Z {"label": "pin-batteries", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7587984Z {"label": "pin-Cli", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:41.7650968Z {"label": "normnum-prime-canonical-git-blob", "status": "success", "exitCode": 0, "peakMiB": 0.0}
+2026-10-02T17:01:42.6260693Z {"label": "lean-path-1790960501765590189", "status": "success", "exitCode": 0, "peakMiB": 820.84}
+2026-10-02T17:01:43.4772323Z {"label": "bootstrap-00-ChainCore", "status": "success", "exitCode": 0, "peakMiB": 775.02}
+2026-10-02T17:01:43.9937518Z {"label": "bootstrap-01-IntegerInterval", "status": "success", "exitCode": 0, "peakMiB": 419.68}
+2026-10-02T17:01:44.3417318Z {"label": "bootstrap-02-NatSplice", "status": "success", "exitCode": 0, "peakMiB": 268.76}
+2026-10-02T17:01:44.8533632Z {"label": "bootstrap-03-CoreSplice", "status": "success", "exitCode": 0, "peakMiB": 415.79}
+2026-10-02T17:01:45.7007134Z {"label": "bootstrap-04-GapDefinitions", "status": "success", "exitCode": 0, "peakMiB": 774.97}
+2026-10-02T17:01:46.8841802Z {"label": "bootstrap-05-GapAdapter", "status": "success", "exitCode": 0, "peakMiB": 820.38}
+2026-10-02T17:01:47.9039241Z {"label": "bootstrap-06-FiniteSupply", "status": "success", "exitCode": 0, "peakMiB": 809.62}
+2026-10-02T17:01:50.9370118Z {"label": "accepted-full-00-NormNumBlock000", "status": "success", "exitCode": 0, "peakMiB": 905.26}
+2026-10-02T17:01:51.9588954Z {"label": "accepted-full-00-NormNumBlock000-audit", "status": "success", "exitCode": 0, "peakMiB": 848.19}
+2026-10-02T17:01:56.2585098Z {"label": "accepted-full-01-NormNumBlock001", "status": "success", "exitCode": 0, "peakMiB": 983.71}
+2026-10-02T17:01:57.2860568Z {"label": "accepted-full-01-NormNumBlock001-audit", "status": "success", "exitCode": 0, "peakMiB": 851.29}
+2026-10-02T17:02:02.4948317Z {"label": "accepted-full-02-NormNumBlock002", "status": "success", "exitCode": 0, "peakMiB": 1042.23}
+2026-10-02T17:02:03.5241300Z {"label": "accepted-full-02-NormNumBlock002-audit", "status": "success", "exitCode": 0, "peakMiB": 851.16}
+2026-10-02T17:02:09.4266536Z {"label": "accepted-full-03-NormNumBlock003", "status": "success", "exitCode": 0, "peakMiB": 1065.38}
+2026-10-02T17:02:10.4568733Z {"label": "accepted-full-03-NormNumBlock003-audit", "status": "success", "exitCode": 0, "peakMiB": 850.91}
+2026-10-02T17:02:16.8567396Z {"label": "accepted-full-04-NormNumBlock004", "status": "success", "exitCode": 0, "peakMiB": 1081.12}
+2026-10-02T17:02:17.8888570Z {"label": "accepted-full-04-NormNumBlock004-audit", "status": "success", "exitCode": 0, "peakMiB": 851.14}
+2026-10-02T17:02:24.6153789Z {"label": "accepted-full-05-NormNumBlock005", "status": "success", "exitCode": 0, "peakMiB": 1106.86}
+2026-10-02T17:02:25.6494829Z {"label": "accepted-full-05-NormNumBlock005-audit", "status": "success", "exitCode": 0, "peakMiB": 851.1}
+2026-10-02T17:02:32.8728596Z {"label": "accepted-full-06-NormNumBlock006", "status": "success", "exitCode": 0, "peakMiB": 1141.77}
+2026-10-02T17:02:33.9089740Z {"label": "accepted-full-06-NormNumBlock006-audit", "status": "success", "exitCode": 0, "peakMiB": 851.12}
+2026-10-02T17:02:41.8046588Z {"label": "accepted-full-07-NormNumBlock007", "status": "success", "exitCode": 0, "peakMiB": 1186.33}
+2026-10-02T17:02:42.8416848Z {"label": "accepted-full-07-NormNumBlock007-audit", "status": "success", "exitCode": 0, "peakMiB": 851.01}
+2026-10-02T17:02:51.2544783Z {"label": "accepted-full-08-NormNumBlock008", "status": "success", "exitCode": 0, "peakMiB": 1193.18}
+2026-10-02T17:02:52.2916891Z {"label": "accepted-full-08-NormNumBlock008-audit", "status": "success", "exitCode": 0, "peakMiB": 851.03}
+2026-10-02T17:03:01.3953676Z {"label": "accepted-full-09-NormNumBlock009", "status": "success", "exitCode": 0, "peakMiB": 1201.63}
+2026-10-02T17:03:02.4331350Z {"label": "accepted-full-09-NormNumBlock009-audit", "status": "success", "exitCode": 0, "peakMiB": 851.14}
+2026-10-02T17:03:11.7047222Z {"label": "accepted-full-10-NormNumBlock010", "status": "success", "exitCode": 0, "peakMiB": 1212.02}
+2026-10-02T17:03:12.7447089Z {"label": "accepted-full-10-NormNumBlock010-audit", "status": "success", "exitCode": 0, "peakMiB": 851.02}
+2026-10-02T17:03:22.1518715Z {"label": "accepted-full-11-NormNumBlock011", "status": "success", "exitCode": 0, "peakMiB": 1232.2}
+2026-10-02T17:03:23.1879313Z {"label": "accepted-full-11-NormNumBlock011-audit", "status": "success", "exitCode": 0, "peakMiB": 851.12}
+2026-10-02T17:03:32.8814556Z {"label": "accepted-full-12-NormNumBlock012", "status": "success", "exitCode": 0, "peakMiB": 1237.47}
+2026-10-02T17:03:33.9243000Z {"label": "accepted-full-12-NormNumBlock012-audit", "status": "success", "exitCode": 0, "peakMiB": 850.98}
+2026-10-02T17:03:44.1249606Z {"label": "accepted-full-13-NormNumBlock013", "status": "success", "exitCode": 0, "peakMiB": 1244.67}
+2026-10-02T17:03:45.1582907Z {"label": "accepted-full-13-NormNumBlock013-audit", "status": "success", "exitCode": 0, "peakMiB": 851.15}
+2026-10-02T17:03:55.5442309Z {"label": "accepted-full-14-NormNumBlock014", "status": "success", "exitCode": 0, "peakMiB": 1251.98}
+2026-10-02T17:03:56.5779985Z {"label": "accepted-full-14-NormNumBlock014-audit", "status": "success", "exitCode": 0, "peakMiB": 851.17}
+2026-10-02T17:04:07.4470462Z {"label": "accepted-full-15-NormNumBlock015", "status": "success", "exitCode": 0, "peakMiB": 1264.82}
+2026-10-02T17:04:08.4847802Z {"label": "accepted-full-15-NormNumBlock015-audit", "status": "success", "exitCode": 0, "peakMiB": 851.15}
+2026-10-02T17:04:19.5382586Z {"label": "accepted-full-16-NormNumBlock016", "status": "success", "exitCode": 0, "peakMiB": 1277.38}
+2026-10-02T17:04:20.5787457Z {"label": "accepted-full-16-NormNumBlock016-audit", "status": "success", "exitCode": 0, "peakMiB": 851.01}
+2026-10-02T17:04:32.1238227Z {"label": "accepted-full-17-NormNumBlock017", "status": "success", "exitCode": 0, "peakMiB": 1307.95}
+2026-10-02T17:04:33.1605352Z {"label": "accepted-full-17-NormNumBlock017-audit", "status": "success", "exitCode": 0, "peakMiB": 851.05}
+2026-10-02T17:04:45.0381287Z {"label": "accepted-full-18-NormNumBlock018", "status": "success", "exitCode": 0, "peakMiB": 1302.0}
+2026-10-02T17:04:46.0786554Z {"label": "accepted-full-18-NormNumBlock018-audit", "status": "success", "exitCode": 0, "peakMiB": 851.06}
+2026-10-02T17:04:57.9532683Z {"label": "accepted-full-19-NormNumBlock019", "status": "success", "exitCode": 0, "peakMiB": 1331.01}
+2026-10-02T17:04:58.9939546Z {"label": "accepted-full-19-NormNumBlock019-audit", "status": "success", "exitCode": 0, "peakMiB": 851.11}
+2026-10-02T17:05:11.1908506Z {"label": "accepted-full-20-NormNumBlock020", "status": "success", "exitCode": 0, "peakMiB": 1341.18}
+2026-10-02T17:05:12.2332182Z {"label": "accepted-full-20-NormNumBlock020-audit", "status": "success", "exitCode": 0, "peakMiB": 851.1}
+2026-10-02T17:05:24.7832366Z {"label": "accepted-full-21-NormNumBlock021", "status": "success", "exitCode": 0, "peakMiB": 1340.71}
+2026-10-02T17:05:25.8240074Z {"label": "accepted-full-21-NormNumBlock021-audit", "status": "success", "exitCode": 0, "peakMiB": 851.06}
+2026-10-02T17:05:38.5301735Z {"label": "accepted-full-22-NormNumBlock022", "status": "success", "exitCode": 0, "peakMiB": 1348.41}
+2026-10-02T17:05:39.5719065Z {"label": "accepted-full-22-NormNumBlock022-audit", "status": "success", "exitCode": 0, "peakMiB": 851.04}
+2026-10-02T17:05:52.6047580Z {"label": "accepted-full-23-NormNumBlock023", "status": "success", "exitCode": 0, "peakMiB": 1358.81}
+2026-10-02T17:05:53.6549498Z {"label": "accepted-full-23-NormNumBlock023-audit", "status": "success", "exitCode": 0, "peakMiB": 851.57}
+2026-10-02T17:06:07.0248425Z {"label": "accepted-full-24-NormNumBlock024", "status": "success", "exitCode": 0, "peakMiB": 1368.18}
+2026-10-02T17:06:08.0662302Z {"label": "accepted-full-24-NormNumBlock024-audit", "status": "success", "exitCode": 0, "peakMiB": 851.07}
+2026-10-02T17:06:21.6118565Z {"label": "accepted-full-25-NormNumBlock025", "status": "success", "exitCode": 0, "peakMiB": 1383.42}
+2026-10-02T17:06:22.6558757Z {"label": "accepted-full-25-NormNumBlock025-audit", "status": "success", "exitCode": 0, "peakMiB": 850.99}
+2026-10-02T17:06:36.5360590Z {"label": "accepted-full-26-NormNumBlock026", "status": "success", "exitCode": 0, "peakMiB": 1382.55}
+2026-10-02T17:06:37.5820808Z {"label": "accepted-full-26-NormNumBlock026-audit", "status": "success", "exitCode": 0, "peakMiB": 851.07}
+2026-10-02T17:06:52.1289958Z {"label": "accepted-full-27-NormNumBlock027", "status": "success", "exitCode": 0, "peakMiB": 1451.96}
+2026-10-02T17:06:53.1756986Z {"label": "accepted-full-27-NormNumBlock027-audit", "status": "success", "exitCode": 0, "peakMiB": 851.12}
+2026-10-02T17:07:07.8937565Z {"label": "accepted-full-28-NormNumBlock028", "status": "success", "exitCode": 0, "peakMiB": 1458.88}
+2026-10-02T17:07:08.9429455Z {"label": "accepted-full-28-NormNumBlock028-audit", "status": "success", "exitCode": 0, "peakMiB": 850.98}
+2026-10-02T17:07:24.3257286Z {"label": "accepted-full-29-NormNumBlock029", "status": "success", "exitCode": 0, "peakMiB": 1462.23}
+2026-10-02T17:07:25.3743582Z {"label": "accepted-full-29-NormNumBlock029-audit", "status": "success", "exitCode": 0, "peakMiB": 851.02}
+2026-10-02T17:07:40.7541185Z {"label": "accepted-full-30-NormNumBlock030", "status": "success", "exitCode": 0, "peakMiB": 1470.61}
+2026-10-02T17:07:41.8022139Z {"label": "accepted-full-30-NormNumBlock030-audit", "status": "success", "exitCode": 0, "peakMiB": 851.12}
+2026-10-02T17:07:57.3572593Z {"label": "accepted-full-31-NormNumBlock031", "status": "success", "exitCode": 0, "peakMiB": 1474.94}
+2026-10-02T17:07:58.4049032Z {"label": "accepted-full-31-NormNumBlock031-audit", "status": "success", "exitCode": 0, "peakMiB": 851.06}
+2026-10-02T17:08:11.7809049Z {"label": "accepted-full-32-NormNumBlock032", "status": "success", "exitCode": 0, "peakMiB": 1356.42}
+2026-10-02T17:08:12.8255940Z {"label": "accepted-full-32-NormNumBlock032-audit", "status": "success", "exitCode": 0, "peakMiB": 849.79}
+2026-10-02T17:08:13.8370530Z {"label": "accepted-full-33-CompleteChain", "status": "success", "exitCode": 0, "peakMiB": 858.19}
+2026-10-02T17:08:14.6849914Z {"label": "accepted-full-33-CompleteChain-audit", "status": "success", "exitCode": 0, "peakMiB": 842.94}
+2026-10-02T17:08:18.8655307Z {"label": "recompiled-fixed-full-normal-checker", "status": "success", "exitCode": 0, "peakMiB": 1559.73}
+2026-10-02T17:08:19.7131125Z {"label": "representative-finite-supplier", "status": "success", "exitCode": 0, "peakMiB": 846.78}
+2026-10-02T17:08:20.5636731Z {"label": "representative-accepted-finite-import", "status": "success", "exitCode": 0, "peakMiB": 844.81}
+2026-10-02T17:08:21.4122420Z {"label": "terminal-008-ChainTerminal", "status": "success", "exitCode": 0, "peakMiB": 776.36}
+2026-10-02T17:08:22.7621199Z {"label": "terminal-009-ModernSieveBound", "status": "success", "exitCode": 0, "peakMiB": 1070.76}
+2026-10-02T17:08:24.4448355Z {"label": "terminal-010-ModernSieveInclusionExclusion", "status": "success", "exitCode": 0, "peakMiB": 1085.06}
+2026-10-02T17:08:25.6259102Z {"label": "terminal-011-ModernSieveFloor", "status": "success", "exitCode": 0, "peakMiB": 1073.87}
+2026-10-02T17:08:25.9688121Z {"label": "terminal-012-ModernPrunedCount", "status": "success", "exitCode": 0, "peakMiB": 252.57}
+2026-10-02T17:08:27.1496273Z {"label": "terminal-013-ModernPrunedCorrectness", "status": "success", "exitCode": 0, "peakMiB": 864.49}
+2026-10-02T17:08:27.9979712Z {"label": "terminal-013-ModernPrunedCorrectness-audit", "status": "success", "exitCode": 0, "peakMiB": 843.41}
+2026-10-02T17:08:28.3448059Z {"label": "terminal-014-CorePrunedCount", "status": "success", "exitCode": 0, "peakMiB": 438.84}
+2026-10-02T17:08:28.6927573Z {"label": "terminal-015-ModernCoreTransfer", "status": "success", "exitCode": 0, "peakMiB": 437.82}
+2026-10-02T17:08:31.8744800Z {"label": "terminal-016-CoreDagBatch01", "status": "success", "exitCode": 0, "peakMiB": 523.32}
+2026-10-02T17:08:32.2237204Z {"label": "terminal-016-CoreDagBatch01-audit", "status": "success", "exitCode": 0, "peakMiB": 437.99}
+2026-10-02T17:08:35.7413580Z {"label": "terminal-017-CoreDagBatch02", "status": "success", "exitCode": 0, "peakMiB": 543.25}
+2026-10-02T17:08:36.0898135Z {"label": "terminal-017-CoreDagBatch02-audit", "status": "success", "exitCode": 0, "peakMiB": 438.08}
+2026-10-02T17:08:40.1085485Z {"label": "terminal-018-CoreDagBatch03", "status": "success", "exitCode": 0, "peakMiB": 554.25}
+2026-10-02T17:08:40.4587174Z {"label": "terminal-018-CoreDagBatch03-audit", "status": "success", "exitCode": 0, "peakMiB": 440.19}
+2026-10-02T17:08:44.4799042Z {"label": "terminal-019-CoreDagBatch04", "status": "success", "exitCode": 0, "peakMiB": 554.18}
+2026-10-02T17:08:44.8311771Z {"label": "terminal-019-CoreDagBatch04-audit", "status": "success", "exitCode": 0, "peakMiB": 441.2}
+2026-10-02T17:08:49.8488335Z {"label": "terminal-020-CoreDagBatch05", "status": "success", "exitCode": 0, "peakMiB": 568.47}
+2026-10-02T17:08:50.1989077Z {"label": "terminal-020-CoreDagBatch05-audit", "status": "success", "exitCode": 0, "peakMiB": 439.85}
+2026-10-02T17:08:55.8864442Z {"label": "terminal-021-CoreDagBatch06", "status": "success", "exitCode": 0, "peakMiB": 580.39}
+2026-10-02T17:08:56.2371155Z {"label": "terminal-021-CoreDagBatch06-audit", "status": "success", "exitCode": 0, "peakMiB": 439.05}
+2026-10-02T17:09:02.4209589Z {"label": "terminal-022-CoreDagBatch07", "status": "success", "exitCode": 0, "peakMiB": 594.45}
+2026-10-02T17:09:02.7690448Z {"label": "terminal-022-CoreDagBatch07-audit", "status": "success", "exitCode": 0, "peakMiB": 412.98}
+2026-10-02T17:09:06.6214881Z {"label": "terminal-023-CoreRest01", "status": "success", "exitCode": 0, "peakMiB": 539.28}
+2026-10-02T17:09:06.9710420Z {"label": "terminal-023-CoreRest01-audit", "status": "success", "exitCode": 0, "peakMiB": 438.07}
+2026-10-02T17:09:11.1666988Z {"label": "terminal-024-CoreRest02", "status": "success", "exitCode": 0, "peakMiB": 560.7}
+2026-10-02T17:09:11.5157482Z {"label": "terminal-024-CoreRest02-audit", "status": "success", "exitCode": 0, "peakMiB": 438.03}
+2026-10-02T17:09:15.8625875Z {"label": "terminal-025-CoreRest03", "status": "success", "exitCode": 0, "peakMiB": 562.76}
+2026-10-02T17:09:16.2148377Z {"label": "terminal-025-CoreRest03-audit", "status": "success", "exitCode": 0, "peakMiB": 438.89}
+2026-10-02T17:09:20.9069173Z {"label": "terminal-026-CoreRest04", "status": "success", "exitCode": 0, "peakMiB": 539.38}
+2026-10-02T17:09:21.2572713Z {"label": "terminal-026-CoreRest04-audit", "status": "success", "exitCode": 0, "peakMiB": 438.07}
+2026-10-02T17:09:26.1146973Z {"label": "terminal-027-CoreRest05", "status": "success", "exitCode": 0, "peakMiB": 539.33}
+2026-10-02T17:09:26.4649840Z {"label": "terminal-027-CoreRest05-audit", "status": "success", "exitCode": 0, "peakMiB": 438.0}
+2026-10-02T17:09:31.4864486Z {"label": "terminal-028-CoreRest06", "status": "success", "exitCode": 0, "peakMiB": 559.69}
+2026-10-02T17:09:31.8325727Z {"label": "terminal-028-CoreRest06-audit", "status": "success", "exitCode": 0, "peakMiB": 351.43}
+2026-10-02T17:09:36.8510587Z {"label": "terminal-029-CoreRest07", "status": "success", "exitCode": 0, "peakMiB": 559.27}
+2026-10-02T17:09:37.2020661Z {"label": "terminal-029-CoreRest07-audit", "status": "success", "exitCode": 0, "peakMiB": 440.09}
+2026-10-02T17:09:42.3905663Z {"label": "terminal-030-CoreRest08", "status": "success", "exitCode": 0, "peakMiB": 562.62}
+2026-10-02T17:09:42.7378323Z {"label": "terminal-030-CoreRest08-audit", "status": "success", "exitCode": 0, "peakMiB": 415.94}
+2026-10-02T17:09:47.9247191Z {"label": "terminal-031-CoreRest09", "status": "success", "exitCode": 0, "peakMiB": 549.09}
+2026-10-02T17:09:48.2745171Z {"label": "terminal-031-CoreRest09-audit", "status": "success", "exitCode": 0, "peakMiB": 439.34}
+2026-10-02T17:09:53.7986493Z {"label": "terminal-032-CoreRest10", "status": "success", "exitCode": 0, "peakMiB": 568.29}
+2026-10-02T17:09:54.1500741Z {"label": "terminal-032-CoreRest10-audit", "status": "success", "exitCode": 0, "peakMiB": 441.26}
+2026-10-02T17:09:59.5012210Z {"label": "terminal-033-CoreRest11", "status": "success", "exitCode": 0, "peakMiB": 564.29}
+2026-10-02T17:09:59.8521884Z {"label": "terminal-033-CoreRest11-audit", "status": "success", "exitCode": 0, "peakMiB": 438.17}
+2026-10-02T17:10:05.2047283Z {"label": "terminal-034-CoreRest12", "status": "success", "exitCode": 0, "peakMiB": 543.4}
+2026-10-02T17:10:05.5517411Z {"label": "terminal-034-CoreRest12-audit", "status": "success", "exitCode": 0, "peakMiB": 392.21}
+2026-10-02T17:10:11.0781042Z {"label": "terminal-035-CoreRest13", "status": "success", "exitCode": 0, "peakMiB": 566.62}
+2026-10-02T17:10:11.4289855Z {"label": "terminal-035-CoreRest13-audit", "status": "success", "exitCode": 0, "peakMiB": 440.06}
+2026-10-02T17:10:16.9490916Z {"label": "terminal-036-CoreRest14", "status": "success", "exitCode": 0, "peakMiB": 563.34}
+2026-10-02T17:10:17.2980128Z {"label": "terminal-036-CoreRest14-audit", "status": "success", "exitCode": 0, "peakMiB": 379.03}
+2026-10-02T17:10:22.6583566Z {"label": "terminal-037-CoreRest15", "status": "success", "exitCode": 0, "peakMiB": 555.28}
+2026-10-02T17:10:23.0052720Z {"label": "terminal-037-CoreRest15-audit", "status": "success", "exitCode": 0, "peakMiB": 392.8}
+2026-10-02T17:10:28.6897318Z {"label": "terminal-038-CoreRest16", "status": "success", "exitCode": 0, "peakMiB": 567.25}
+2026-10-02T17:10:29.0372142Z {"label": "terminal-038-CoreRest16-audit", "status": "success", "exitCode": 0, "peakMiB": 397.25}
+2026-10-02T17:10:34.8950960Z {"label": "terminal-039-CoreRest17", "status": "success", "exitCode": 0, "peakMiB": 553.37}
+2026-10-02T17:10:35.2463251Z {"label": "terminal-039-CoreRest17-audit", "status": "success", "exitCode": 0, "peakMiB": 438.15}
+2026-10-02T17:10:40.7692138Z {"label": "terminal-040-CoreRest18", "status": "success", "exitCode": 0, "peakMiB": 545.4}
+2026-10-02T17:10:41.1198486Z {"label": "terminal-040-CoreRest18-audit", "status": "success", "exitCode": 0, "peakMiB": 435.99}
+2026-10-02T17:10:46.8111216Z {"label": "terminal-041-CoreRest19", "status": "success", "exitCode": 0, "peakMiB": 549.41}
+2026-10-02T17:10:47.1624196Z {"label": "terminal-041-CoreRest19-audit", "status": "success", "exitCode": 0, "peakMiB": 438.53}
+2026-10-02T17:10:52.6896195Z {"label": "terminal-042-CoreRest20", "status": "success", "exitCode": 0, "peakMiB": 555.27}
+2026-10-02T17:10:53.0404303Z {"label": "terminal-042-CoreRest20-audit", "status": "success", "exitCode": 0, "peakMiB": 440.27}
+2026-10-02T17:10:58.7432857Z {"label": "terminal-043-CoreRest21", "status": "success", "exitCode": 0, "peakMiB": 568.04}
+2026-10-02T17:10:59.0897632Z {"label": "terminal-043-CoreRest21-audit", "status": "success", "exitCode": 0, "peakMiB": 378.8}
+2026-10-02T17:11:04.7785006Z {"label": "terminal-044-CoreRest22", "status": "success", "exitCode": 0, "peakMiB": 567.7}
+2026-10-02T17:11:05.1353432Z {"label": "terminal-044-CoreRest22-audit", "status": "success", "exitCode": 0, "peakMiB": 440.26}
+2026-10-02T17:11:10.6607171Z {"label": "terminal-045-CoreRest23", "status": "success", "exitCode": 0, "peakMiB": 563.28}
+2026-10-02T17:11:11.0119923Z {"label": "terminal-045-CoreRest23-audit", "status": "success", "exitCode": 0, "peakMiB": 438.18}
+2026-10-02T17:11:16.5394969Z {"label": "terminal-046-CoreRest24", "status": "success", "exitCode": 0, "peakMiB": 563.75}
+2026-10-02T17:11:16.8901126Z {"label": "terminal-046-CoreRest24-audit", "status": "success", "exitCode": 0, "peakMiB": 438.11}
+2026-10-02T17:11:22.5892239Z {"label": "terminal-047-CoreRest25", "status": "success", "exitCode": 0, "peakMiB": 567.81}
+2026-10-02T17:11:22.9370505Z {"label": "terminal-047-CoreRest25-audit", "status": "success", "exitCode": 0, "peakMiB": 405.18}
+2026-10-02T17:11:28.9602130Z {"label": "terminal-048-CoreRest26", "status": "success", "exitCode": 0, "peakMiB": 553.25}
+2026-10-02T17:11:29.3119926Z {"label": "terminal-048-CoreRest26-audit", "status": "success", "exitCode": 0, "peakMiB": 438.93}
+2026-10-02T17:11:35.0065453Z {"label": "terminal-049-CoreRest27", "status": "success", "exitCode": 0, "peakMiB": 557.23}
+2026-10-02T17:11:35.3590707Z {"label": "terminal-049-CoreRest27-audit", "status": "success", "exitCode": 0, "peakMiB": 438.6}
+2026-10-02T17:11:41.3937224Z {"label": "terminal-050-CoreRest28", "status": "success", "exitCode": 0, "peakMiB": 553.35}
+2026-10-02T17:11:41.7448751Z {"label": "terminal-050-CoreRest28-audit", "status": "success", "exitCode": 0, "peakMiB": 424.07}
+2026-10-02T17:11:47.6079606Z {"label": "terminal-051-CoreRest29", "status": "success", "exitCode": 0, "peakMiB": 549.42}
+2026-10-02T17:11:47.9594329Z {"label": "terminal-051-CoreRest29-audit", "status": "success", "exitCode": 0, "peakMiB": 440.29}
+2026-10-02T17:11:54.3231041Z {"label": "terminal-052-CoreRest30", "status": "success", "exitCode": 0, "peakMiB": 560.92}
+2026-10-02T17:11:54.6739356Z {"label": "terminal-052-CoreRest30-audit", "status": "success", "exitCode": 0, "peakMiB": 440.3}
+2026-10-02T17:12:01.0372912Z {"label": "terminal-053-CoreRest31", "status": "success", "exitCode": 0, "peakMiB": 559.38}
+2026-10-02T17:12:01.3894146Z {"label": "terminal-053-CoreRest31-audit", "status": "success", "exitCode": 0, "peakMiB": 440.31}
+2026-10-02T17:12:07.4155497Z {"label": "terminal-054-CoreRest32", "status": "success", "exitCode": 0, "peakMiB": 571.3}
+2026-10-02T17:12:07.7675850Z {"label": "terminal-054-CoreRest32-audit", "status": "success", "exitCode": 0, "peakMiB": 439.2}
+2026-10-02T17:12:13.9615106Z {"label": "terminal-055-CoreRest33", "status": "success", "exitCode": 0, "peakMiB": 553.41}
+2026-10-02T17:12:14.3089775Z {"label": "terminal-055-CoreRest33-audit", "status": "success", "exitCode": 0, "peakMiB": 406.09}
+2026-10-02T17:12:20.1656835Z {"label": "terminal-056-CoreRest34", "status": "success", "exitCode": 0, "peakMiB": 568.25}
+2026-10-02T17:12:20.5131329Z {"label": "terminal-056-CoreRest34-audit", "status": "success", "exitCode": 0, "peakMiB": 398.7}
+2026-10-02T17:12:26.7040228Z {"label": "terminal-057-CoreRest35", "status": "success", "exitCode": 0, "peakMiB": 555.3}
+2026-10-02T17:12:27.0557491Z {"label": "terminal-057-CoreRest35-audit", "status": "success", "exitCode": 0, "peakMiB": 440.3}
+2026-10-02T17:12:33.0798861Z {"label": "terminal-058-CoreRest36", "status": "success", "exitCode": 0, "peakMiB": 571.36}
+2026-10-02T17:12:33.4271309Z {"label": "terminal-058-CoreRest36-audit", "status": "success", "exitCode": 0, "peakMiB": 413.28}
+2026-10-02T17:12:39.6507656Z {"label": "terminal-059-CoreRest37", "status": "success", "exitCode": 0, "peakMiB": 555.36}
+2026-10-02T17:12:40.0019230Z {"label": "terminal-059-CoreRest37-audit", "status": "success", "exitCode": 0, "peakMiB": 440.29}
+2026-10-02T17:12:46.1947940Z {"label": "terminal-060-CoreRest38", "status": "success", "exitCode": 0, "peakMiB": 575.37}
+2026-10-02T17:12:46.5462113Z {"label": "terminal-060-CoreRest38-audit", "status": "success", "exitCode": 0, "peakMiB": 438.22}
+2026-10-02T17:12:52.9109492Z {"label": "terminal-061-CoreRest39", "status": "success", "exitCode": 0, "peakMiB": 578.49}
+2026-10-02T17:12:53.2624435Z {"label": "terminal-061-CoreRest39-audit", "status": "success", "exitCode": 0, "peakMiB": 440.31}
+2026-10-02T17:12:59.3064281Z {"label": "terminal-062-CoreRest40", "status": "success", "exitCode": 0, "peakMiB": 565.35}
+2026-10-02T17:12:59.6539256Z {"label": "terminal-062-CoreRest40-audit", "status": "success", "exitCode": 0, "peakMiB": 381.42}
+2026-10-02T17:13:03.6754339Z {"label": "terminal-063-ModernSingle108", "status": "success", "exitCode": 0, "peakMiB": 352.48}
+2026-10-02T17:13:04.0255138Z {"label": "terminal-063-ModernSingle108-audit", "status": "success", "exitCode": 0, "peakMiB": 269.14}
+2026-10-02T17:13:08.0439707Z {"label": "terminal-064-ModernSingle109", "status": "success", "exitCode": 0, "peakMiB": 377.97}
+2026-10-02T17:13:08.3932490Z {"label": "terminal-064-ModernSingle109-audit", "status": "success", "exitCode": 0, "peakMiB": 269.14}
+2026-10-02T17:13:12.4172219Z {"label": "terminal-065-ModernSingle110", "status": "success", "exitCode": 0, "peakMiB": 367.13}
+2026-10-02T17:13:12.7638014Z {"label": "terminal-065-ModernSingle110-audit", "status": "success", "exitCode": 0, "peakMiB": 249.58}
+2026-10-02T17:13:16.7840246Z {"label": "terminal-066-ModernSingle111", "status": "success", "exitCode": 0, "peakMiB": 367.55}
+2026-10-02T17:13:17.1305094Z {"label": "terminal-066-ModernSingle111-audit", "status": "success", "exitCode": 0, "peakMiB": 245.64}
+2026-10-02T17:13:21.1490606Z {"label": "terminal-067-ModernSingle112", "status": "success", "exitCode": 0, "peakMiB": 367.19}
+2026-10-02T17:13:21.4955329Z {"label": "terminal-067-ModernSingle112-audit", "status": "success", "exitCode": 0, "peakMiB": 253.02}
+2026-10-02T17:13:25.5176299Z {"label": "terminal-068-ModernSingle113", "status": "success", "exitCode": 0, "peakMiB": 367.57}
+2026-10-02T17:13:25.8635898Z {"label": "terminal-068-ModernSingle113-audit", "status": "success", "exitCode": 0, "peakMiB": 259.26}
+2026-10-02T17:13:29.8795520Z {"label": "terminal-069-ModernSingle114", "status": "success", "exitCode": 0, "peakMiB": 369.04}
+2026-10-02T17:13:30.2250734Z {"label": "terminal-069-ModernSingle114-audit", "status": "success", "exitCode": 0, "peakMiB": 243.08}
+2026-10-02T17:13:31.2364104Z {"label": "terminal-070-AllNumericFinal", "status": "success", "exitCode": 0, "peakMiB": 503.9}
+2026-10-02T17:13:33.2486756Z {"label": "terminal-071-ActualPiLegacy", "status": "success", "exitCode": 0, "peakMiB": 1947.94}
+2026-10-02T17:13:35.4339022Z {"label": "terminal-072-CofactorCriterion", "status": "success", "exitCode": 0, "peakMiB": 1839.61}
+2026-10-02T17:13:36.7825566Z {"label": "terminal-072-CofactorCriterion-audit", "status": "success", "exitCode": 0, "peakMiB": 1781.33}
+2026-10-02T17:13:39.1332706Z {"label": "terminal-073-GapBridge", "status": "success", "exitCode": 0, "peakMiB": 1817.75}
+2026-10-02T17:13:40.4809311Z {"label": "terminal-074-DivisorTransfer", "status": "success", "exitCode": 0, "peakMiB": 1722.74}
+2026-10-02T17:13:42.9937102Z {"label": "terminal-075-PrimePowerTransfer", "status": "success", "exitCode": 0, "peakMiB": 1839.82}
+2026-10-02T17:13:44.3436669Z {"label": "terminal-075-PrimePowerTransfer-audit", "status": "success", "exitCode": 0, "peakMiB": 1787.83}
+2026-10-02T17:13:45.8605950Z {"label": "terminal-076-SmallPartBound", "status": "success", "exitCode": 0, "peakMiB": 1817.63}
+2026-10-02T17:13:48.7185704Z {"label": "terminal-077-ThreeWindowWeights", "status": "success", "exitCode": 0, "peakMiB": 1839.42}
+2026-10-02T17:13:50.0692484Z {"label": "terminal-077-ThreeWindowWeights-audit", "status": "success", "exitCode": 0, "peakMiB": 1790.87}
+2026-10-02T17:13:52.4550245Z {"label": "terminal-078-ThreeWindowSize", "status": "success", "exitCode": 0, "peakMiB": 1835.61}
+2026-10-02T17:13:53.8108203Z {"label": "terminal-078-ThreeWindowSize-audit", "status": "success", "exitCode": 0, "peakMiB": 1767.91}
+2026-10-02T17:13:57.3264814Z {"label": "terminal-079-FactorialLogBounds", "status": "success", "exitCode": 0, "peakMiB": 2420.02}
+2026-10-02T17:13:59.0098758Z {"label": "terminal-079-FactorialLogBounds-audit", "status": "success", "exitCode": 0, "peakMiB": 2377.48}
+2026-10-02T17:14:03.3689090Z {"label": "terminal-080-ICAlgebra", "status": "success", "exitCode": 0, "peakMiB": 1671.72}
+2026-10-02T17:14:05.3870574Z {"label": "terminal-081-IntegerCountBridge", "status": "success", "exitCode": 0, "peakMiB": 2409.76}
+2026-10-02T17:14:21.4339719Z {"label": "terminal-082-NormalizationConstants", "status": "success", "exitCode": 0, "peakMiB": 2454.71}
+2026-10-02T17:14:22.6193563Z {"label": "terminal-083-WindowParameters", "status": "success", "exitCode": 0, "peakMiB": 818.84}
+2026-10-02T17:14:42.1477573Z {"label": "terminal-084-NormalizationFromWindows", "status": "success", "exitCode": 0, "peakMiB": 2458.86}
+2026-10-02T17:14:43.8713534Z {"label": "terminal-084-NormalizationFromWindows-audit", "status": "success", "exitCode": 0, "peakMiB": 2395.67}
+2026-10-02T17:14:48.2320544Z {"label": "terminal-085-ECBase", "status": "success", "exitCode": 0, "peakMiB": 2112.58}
+2026-10-02T17:14:51.9160601Z {"label": "terminal-086-SlimChebyshev", "status": "success", "exitCode": 0, "peakMiB": 3073.69}
+2026-10-02T17:14:53.9417299Z {"label": "terminal-086-SlimChebyshev-audit", "status": "success", "exitCode": 0, "peakMiB": 3019.2}
+2026-10-02T17:15:01.4706321Z {"label": "terminal-087-ElementaryCount", "status": "success", "exitCode": 0, "peakMiB": 3140.87}
+2026-10-02T17:15:03.4867475Z {"label": "terminal-087-ElementaryCount-audit", "status": "success", "exitCode": 0, "peakMiB": 3030.1}
+2026-10-02T17:15:07.8446549Z {"label": "terminal-088-ICConsumer", "status": "success", "exitCode": 0, "peakMiB": 3065.89}
+2026-10-02T17:15:08.8555519Z {"label": "terminal-089-RowsNumeric", "status": "success", "exitCode": 0, "peakMiB": 809.7}
+2026-10-02T17:15:09.3702838Z {"label": "terminal-089-RowsNumeric-audit", "status": "success", "exitCode": 0, "peakMiB": 750.47}
+2026-10-02T17:15:16.4028927Z {"label": "terminal-090-UniformCountTail", "status": "success", "exitCode": 0, "peakMiB": 3070.51}
+2026-10-02T17:15:18.4228997Z {"label": "terminal-090-UniformCountTail-audit", "status": "success", "exitCode": 0, "peakMiB": 3021.18}
+2026-10-02T17:15:20.6049450Z {"label": "terminal-091-Consumers", "status": "success", "exitCode": 0, "peakMiB": 3039.05}
+2026-10-02T17:15:22.9690397Z {"label": "terminal-092-ActualUniformConsumers", "status": "success", "exitCode": 0, "peakMiB": 3072.81}
+2026-10-02T17:15:25.1511260Z {"label": "terminal-093-FiniteConsumerLegacy", "status": "success", "exitCode": 0, "peakMiB": 3336.98}
+2026-10-02T17:15:27.3323807Z {"label": "terminal-094-FinalConsumersTypedLegacy", "status": "success", "exitCode": 0, "peakMiB": 3329.02}
+2026-10-02T17:15:32.1814993Z {"label": "terminal-original-normal-checker", "status": "success", "exitCode": 0, "peakMiB": 2998.77}
+2026-10-02T17:15:32.1817810Z MAIN_ACTUAL_TYPE_RAW theorem B699FiniteFullSemantic.all_tail_only_gap_exact : (∀ (y : ℕ),
+2026-10-02T17:15:32.1819340Z     10000000 ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y) →
+2026-10-02T17:15:32.1820323Z   ∀ (n i j : ℕ), 4883 ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+2026-10-02T17:15:32.1821030Z fun gap => B699FiniteFull20261002.original_tail_of_gap gap
+2026-10-02T17:15:32.1822106Z theorem B699FiniteFullSemantic.complete_indices_4883_4884_exact : ∀ (n i j : ℕ),
+2026-10-02T17:15:32.1823002Z   4883 ≤ i → i ≤ 4884 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+2026-10-02T17:15:32.1823784Z fun n i j hi hiUpper hij hjn => B699FiniteFull20261002.common_indices_4883_4884 hi hiUpper hij hjn
+2026-10-02T17:15:32.1824701Z 'B699FiniteFull20261002.original_tail_of_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T17:15:32.1825908Z 'B699FiniteFull20261002.common_indices_4883_4884' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T17:15:32.1826917Z 'B699FiniteFullSemantic.all_tail_only_gap_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T17:15:32.1827959Z 'B699FiniteFullSemantic.complete_indices_4883_4884_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-02T17:15:32.1828572Z 
+2026-10-02T17:15:32.1830412Z MAIN_FINAL_AX_JSON {"B699FiniteFull20261002.original_tail_of_gap": ["propext", "Classical.choice", "Quot.sound"], "B699FiniteFull20261002.common_indices_4883_4884": ["propext", "Classical.choice", "Quot.sound"], "B699FiniteFullSemantic.all_tail_only_gap_exact": ["propext", "Classical.choice", "Quot.sound"], "B699FiniteFullSemantic.complete_indices_4883_4884_exact": ["propext", "Classical.choice", "Quot.sound"]}
+2026-10-02T17:15:32.1832903Z MAIN_CHECKER_JSON {
+2026-10-02T17:15:32.1852370Z   "utc": "2026-10-02T17:15:27.336379+00:00",
+2026-10-02T17:15:32.1852863Z   "startUtc": "2026-10-02T17:15:27.336391+00:00",
+2026-10-02T17:15:32.1853438Z   "arguments": [
+2026-10-02T17:15:32.1854080Z     "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+2026-10-02T17:15:32.1854807Z     "-v",
+2026-10-02T17:15:32.1856244Z     "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».reviews.FinalConsumersTypedLegacy"
+2026-10-02T17:15:32.1857461Z   ],
+2026-10-02T17:15:32.1857660Z   "pid": 4256,
+2026-10-02T17:15:32.1857943Z   "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+2026-10-02T17:15:32.1858276Z   "cpus": [
+2026-10-02T17:15:32.1858471Z     0,
+2026-10-02T17:15:32.1858651Z     1
+2026-10-02T17:15:32.1858831Z   ],
+2026-10-02T17:15:32.1859011Z   "nice": 19,
+2026-10-02T17:15:32.1859217Z   "resourceBefore": {
+2026-10-02T17:15:32.1859456Z     "utc": "2026-10-02T17:15:27.334388+00:00",
+2026-10-02T17:15:32.1863407Z     "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+2026-10-02T17:15:32.1863841Z     "cgroupAncestorLimits": [
+2026-10-02T17:15:32.1864117Z       {
+2026-10-02T17:15:32.1864460Z         "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+2026-10-02T17:15:32.1864872Z         "memoryMax": "max",
+2026-10-02T17:15:32.1865121Z         "memoryCurrent": "12317888512",
+2026-10-02T17:15:32.1865391Z         "cpuMax": "max 100000"
+2026-10-02T17:15:32.1865625Z       },
+2026-10-02T17:15:32.1865805Z       {
+2026-10-02T17:15:32.1866020Z         "path": "/sys/fs/cgroup/system.slice",
+2026-10-02T17:15:32.1866305Z         "memoryMax": "max",
+2026-10-02T17:15:32.1866553Z         "memoryCurrent": "14883782656",
+2026-10-02T17:15:32.1866817Z         "cpuMax": "max 100000"
+2026-10-02T17:15:32.1867044Z       },
+2026-10-02T17:15:32.1867223Z       {
+2026-10-02T17:15:32.1867421Z         "path": "/sys/fs/cgroup",
+2026-10-02T17:15:32.1867676Z         "memoryMax": null,
+2026-10-02T17:15:32.1867913Z         "memoryCurrent": null,
+2026-10-02T17:15:32.1868151Z         "cpuMax": null
+2026-10-02T17:15:32.1868359Z       }
+2026-10-02T17:15:32.1868534Z     ],
+2026-10-02T17:15:32.1868747Z     "hostMemAvailableBytes": 15554080768,
+2026-10-02T17:15:32.1869356Z     "effectiveAvailableBytes": 15554080768,
+2026-10-02T17:15:32.1869642Z     "allowedCpuIds": [
+2026-10-02T17:15:32.1869857Z       0,
+2026-10-02T17:15:32.1870037Z       1,
+2026-10-02T17:15:32.1870215Z       2,
+2026-10-02T17:15:32.1870392Z       3
+2026-10-02T17:15:32.1870567Z     ],
+2026-10-02T17:15:32.1870765Z     "diskFreeBytes": 81123946496
+2026-10-02T17:15:32.1871006Z   },
+2026-10-02T17:15:32.1871223Z   "hardDeadlineUtc": "2026-10-02T17:28:54Z",
+2026-10-02T17:15:32.1871745Z   "childStarted": true,
+2026-10-02T17:15:32.1872004Z   "peakTreeWorkingSetBytes": 3144441856,
+2026-10-02T17:15:32.1872316Z   "minimumAvailableBytes": 15341232128,
+2026-10-02T17:15:32.1872696Z   "startupMemoryMiB": 6144,
+2026-10-02T17:15:32.1872982Z   "treeMemoryMiB": 5120,
+2026-10-02T17:15:32.1877180Z   "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+2026-10-02T17:15:32.1881839Z   "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+2026-10-02T17:15:32.1882493Z   "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0",
+2026-10-02T17:15:32.1882959Z   "status": "success",
+2026-10-02T17:15:32.1883181Z   "exitCode": 0,
+2026-10-02T17:15:32.1883392Z   "stopReason": null,
+2026-10-02T17:15:32.1883634Z   "endUtc": "2026-10-02T17:15:32.180643+00:00",
+2026-10-02T17:15:32.1883929Z   "wallSeconds": 4.846181154251099,
+2026-10-02T17:15:32.1884730Z   "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/evidence/terminal-original-normal-checker/stdout.log",
+2026-10-02T17:15:32.1886059Z   "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/evidence/terminal-original-normal-checker/stderr.log",
+2026-10-02T17:15:32.1887005Z   "stdoutSha256": "473d2563ac7a811df6fd5623707788157c1065e8ac4ba834ee5a063eed50cb12",
+2026-10-02T17:15:32.1887582Z   "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+2026-10-02T17:15:32.1888011Z }
+2026-10-02T17:15:32.1888133Z 
+2026-10-02T17:15:34.8354092Z {"label": "independent-directory-reader", "status": "failed", "exitCode": 1, "peakMiB": 21.27}
+2026-10-02T17:15:34.8433105Z FAILED_CHILD_RECEIPT {"utc": "2026-10-02T17:15:33.155218+00:00", "startUtc": "2026-10-02T17:15:33.155230+00:00", "arguments": ["python3", "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/reviews/check_terminal_legacy_directory.py", "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/evidence", "c7887b15ef401af52f155ddfc8d27e85953e9b2965c6b3d3cad4fd06a5dab5e6", "be6b2df9b58b4f732564dc882945ec5415c81f1a", "37037647747", "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/validation/independent-procedure.json"], "pid": 4267, "cwd": "/home/runner/work/lean-math-lab/lean-math-lab", "cpus": [0, 1], "nice": 19, "resourceBefore": {"utc": "2026-10-02T17:15:33.152757+00:00", "selfCgroup": "0::/system.slice/hosted-compute-agent.service", "cgroupAncestorLimits": [{"path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service", "memoryMax": "max", "memoryCurrent": "12316327936", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup/system.slice", "memoryMax": "max", "memoryCurrent": "14881804288", "cpuMax": "max 100000"}, {"path": "/sys/fs/cgroup", "memoryMax": null, "memoryCurrent": null, "cpuMax": null}], "hostMemAvailableBytes": 15410176000, "effectiveAvailableBytes": 15410176000, "allowedCpuIds": [0, 1, 2, 3], "diskFreeBytes": 81123205120}, "hardDeadlineUtc": "2026-10-02T17:28:54Z", "childStarted": true, "peakTreeWorkingSetBytes": 22298624, "minimumAvailableBytes": 15410176000, "startupMemoryMiB": 5120, "treeMemoryMiB": 4096, "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean", "executable": "/usr/bin/python3.12", "executableSha256": "e50d468e8b0adfb05733f5b87b3cff34829c4a8c1aea50c865aa8bdfe4bb150f", "status": "failed", "exitCode": 1, "stopReason": null, "endUtc": "2026-10-02T17:15:34.834501+00:00", "wallSeconds": 1.6816797256469727, "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/validation/independent-directory-reader/stdout.log", "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/validation/independent-directory-reader/stderr.log", "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderrSha256": "299cb38e553735e10e85249ef2109d860064ead3e669fbaebc6f658431706cb1"}
+2026-10-02T17:15:34.8450061Z Controlled child failed: independent-directory-reader
+2026-10-02T17:15:34.8450429Z stdout first2048bytes 
+2026-10-02T17:15:34.8450739Z stderr first2048bytes Traceback (most recent call last):
+2026-10-02T17:15:34.8452284Z   File "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/reviews/check_terminal_legacy_directory.py", line 127, in <module>
+2026-10-02T17:15:34.8453371Z     main(Path(sys.argv[1]),sys.argv[2],sys.argv[3],sys.argv[4],Path(sys.argv[5]))
+2026-10-02T17:15:34.8454421Z   File "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/reviews/check_terminal_legacy_directory.py", line 94, in main
+2026-10-02T17:15:34.8455495Z     m.run(EvidenceHandle(directory), expected_manifest_sha, commit, run_id)
+2026-10-02T17:15:34.8456528Z   File "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/reviews/check_terminal_bindings.py", line 64, in run
+2026-10-02T17:15:34.8457604Z     require(str(manifest.get('run')) == str(expected_run), 'Actual run binding missing/different')
+2026-10-02T17:15:34.8458926Z   File "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/reviews/check_terminal_bindings.py", line 15, in require
+2026-10-02T17:15:34.8459883Z     if not p: raise RuntimeError(message)
+2026-10-02T17:15:34.8460172Z               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-02T17:15:34.8460480Z RuntimeError: Actual run binding missing/different
+2026-10-02T17:15:34.8460722Z 
+2026-10-02T17:15:34.8535965Z ##[error]Process completed with exit code 1.
+2026-10-02T17:15:34.8638630Z ##[group]Run python3 "$B699_RUNTIME/cold-stage-v2.py" manifest
+2026-10-02T17:15:34.8639115Z [36;1mpython3 "$B699_RUNTIME/cold-stage-v2.py" manifest[0m
+2026-10-02T17:15:34.8700763Z shell: /usr/bin/bash -e {0}
+2026-10-02T17:15:34.8701021Z env:
+2026-10-02T17:15:34.8701806Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T17:15:34.8702448Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T17:15:34.8702710Z ##[endgroup]
+2026-10-02T17:15:35.9240217Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-02T17:15:35.9240930Z with:
+2026-10-02T17:15:35.9241802Z   name: b699-terminal-legacy-be6b2df9b58b4f732564dc882945ec5415c81f1a-37037647747
+2026-10-02T17:15:35.9242883Z   path: .tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/evidence/
+2026-10-02T17:15:35.9243686Z   if-no-files-found: warn
+2026-10-02T17:15:35.9244092Z   retention-days: 30
+2026-10-02T17:15:35.9244467Z   compression-level: 6
+2026-10-02T17:15:35.9244850Z   overwrite: false
+2026-10-02T17:15:35.9245221Z   include-hidden-files: false
+2026-10-02T17:15:35.9245640Z env:
+2026-10-02T17:15:35.9246513Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T17:15:35.9247594Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T17:15:35.9248067Z ##[endgroup]
+2026-10-02T17:15:36.0902690Z (node:4270) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-02T17:15:36.0903551Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-02T17:15:36.4103446Z With the provided path, there will be 1728 files uploaded
+2026-10-02T17:15:36.4131605Z Artifact name is valid!
+2026-10-02T17:15:36.4132116Z Root directory input is valid!
+2026-10-02T17:15:36.6222824Z Beginning upload of artifact content to blob storage
+2026-10-02T17:15:37.9372321Z (node:4270) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-02T17:15:38.0707366Z Uploaded bytes 8388608
+2026-10-02T17:15:39.1502716Z Uploaded bytes 16777216
+2026-10-02T17:15:40.1965184Z Uploaded bytes 25165824
+2026-10-02T17:15:41.3392483Z Uploaded bytes 33554432
+2026-10-02T17:15:42.3778538Z Uploaded bytes 41943040
+2026-10-02T17:15:43.4249927Z Uploaded bytes 50331648
+2026-10-02T17:15:44.4096177Z Uploaded bytes 58720256
+2026-10-02T17:15:45.4834127Z Uploaded bytes 67108864
+2026-10-02T17:15:46.5746152Z Uploaded bytes 75497472
+2026-10-02T17:15:47.5918769Z Uploaded bytes 83886080
+2026-10-02T17:15:48.5598038Z Uploaded bytes 92274688
+2026-10-02T17:15:49.6147232Z Uploaded bytes 100663296
+2026-10-02T17:15:50.6129478Z Uploaded bytes 109051904
+2026-10-02T17:15:51.6464118Z Uploaded bytes 117440512
+2026-10-02T17:15:52.7118833Z Uploaded bytes 125829120
+2026-10-02T17:15:53.6846022Z Uploaded bytes 134217728
+2026-10-02T17:15:54.7007095Z Uploaded bytes 142606336
+2026-10-02T17:15:55.7773882Z Uploaded bytes 150994944
+2026-10-02T17:15:56.7695146Z Uploaded bytes 159383552
+2026-10-02T17:15:57.8409776Z Uploaded bytes 167772160
+2026-10-02T17:15:58.8265218Z Uploaded bytes 176160768
+2026-10-02T17:15:59.8641232Z Uploaded bytes 184549376
+2026-10-02T17:16:00.9183645Z Uploaded bytes 192937984
+2026-10-02T17:16:01.9515153Z Uploaded bytes 201326592
+2026-10-02T17:16:02.9320457Z Uploaded bytes 209715200
+2026-10-02T17:16:03.9552816Z Uploaded bytes 218103808
+2026-10-02T17:16:05.0250268Z Uploaded bytes 226492416
+2026-10-02T17:16:06.1494774Z Uploaded bytes 234881024
+2026-10-02T17:16:07.0618032Z Uploaded bytes 243269632
+2026-10-02T17:16:08.0896605Z Uploaded bytes 251658240
+2026-10-02T17:16:09.1416314Z Uploaded bytes 260046848
+2026-10-02T17:16:10.1151071Z Uploaded bytes 268435456
+2026-10-02T17:16:11.1672760Z Uploaded bytes 276824064
+2026-10-02T17:16:12.2196427Z Uploaded bytes 285212672
+2026-10-02T17:16:13.1916144Z Uploaded bytes 293601280
+2026-10-02T17:16:14.2314110Z Uploaded bytes 301989888
+2026-10-02T17:16:15.2482819Z Uploaded bytes 310378496
+2026-10-02T17:16:16.2511083Z Uploaded bytes 318767104
+2026-10-02T17:16:16.6780875Z Uploaded bytes 320392657
+2026-10-02T17:16:16.6938735Z Finished uploading artifact content to blob storage!
+2026-10-02T17:16:16.6942665Z SHA256 digest of uploaded artifact zip is 29a3d9f21851cfa9c7b61ee05f601e81303d71732f202fae3d69a1b65e78da13
+2026-10-02T17:16:16.6945575Z Finalizing artifact upload
+2026-10-02T17:16:16.9528584Z Artifact b699-terminal-legacy-be6b2df9b58b4f732564dc882945ec5415c81f1a-37037647747.zip successfully finalized. Artifact ID 11241224835
+2026-10-02T17:16:16.9532931Z Artifact b699-terminal-legacy-be6b2df9b58b4f732564dc882945ec5415c81f1a-37037647747 has been successfully uploaded! Final size is 320392657 bytes. Artifact ID is 11241224835
+2026-10-02T17:16:16.9538283Z Artifact download URL: https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37037647747/artifacts/11241224835
+2026-10-02T17:16:16.9781032Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-10-02T17:16:16.9782136Z with:
+2026-10-02T17:16:16.9782859Z   name: b699-terminal-independent-be6b2df9b58b4f732564dc882945ec5415c81f1a-37037647747
+2026-10-02T17:16:16.9784034Z   path: .tools/b699-lean-20261001-01a0f779/20261003-terminal-fortymin/runtime/main/validation/
+2026-10-02T17:16:16.9784908Z   if-no-files-found: warn
+2026-10-02T17:16:16.9785332Z   retention-days: 30
+2026-10-02T17:16:16.9785739Z   compression-level: 6
+2026-10-02T17:16:16.9786135Z   overwrite: false
+2026-10-02T17:16:16.9786525Z   include-hidden-files: false
+2026-10-02T17:16:16.9786962Z env:
+2026-10-02T17:16:16.9787866Z   B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-terminal-fortymin/runtime
+2026-10-02T17:16:16.9788941Z   B699_JOB_START_EPOCH: 1790960363
+2026-10-02T17:16:16.9789427Z ##[endgroup]
+2026-10-02T17:16:17.1409974Z (node:4287) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-02T17:16:17.1411118Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-02T17:16:17.1482424Z With the provided path, there will be 4 files uploaded
+2026-10-02T17:16:17.1483630Z Artifact name is valid!
+2026-10-02T17:16:17.1484064Z Root directory input is valid!
+2026-10-02T17:16:17.3679556Z Beginning upload of artifact content to blob storage
+2026-10-02T17:16:17.3985382Z (node:4287) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-02T17:16:17.4286268Z Uploaded bytes 73537
+2026-10-02T17:16:17.4421489Z Finished uploading artifact content to blob storage!
+2026-10-02T17:16:17.4422714Z SHA256 digest of uploaded artifact zip is 123c9fcf80eee65fd82e83563bf2a2a638d82b759d611c5179a69fa65c0b8381
+2026-10-02T17:16:17.4424686Z Finalizing artifact upload
+2026-10-02T17:16:17.6630317Z Artifact b699-terminal-independent-be6b2df9b58b4f732564dc882945ec5415c81f1a-37037647747.zip successfully finalized. Artifact ID 11240799985
+2026-10-02T17:16:17.6633093Z Artifact b699-terminal-independent-be6b2df9b58b4f732564dc882945ec5415c81f1a-37037647747 has been successfully uploaded! Final size is 73537 bytes. Artifact ID is 11240799985
+2026-10-02T17:16:17.6636945Z Artifact download URL: https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37037647747/artifacts/11240799985
+2026-10-02T17:16:17.6834910Z Post job cleanup.
+2026-10-02T17:16:17.7655004Z [command]/usr/bin/git version
+2026-10-02T17:16:17.7707284Z git version 2.55.0
+2026-10-02T17:16:17.7776629Z Temporarily overriding HOME='/home/runner/work/_temp/109a92ef-73f6-40e4-9c25-68e6150746da' before making global git config changes
+2026-10-02T17:16:17.7777994Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-02T17:16:17.7782322Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lean-math-lab/lean-math-lab
+2026-10-02T17:16:17.7817340Z Removing SSH command configuration
+2026-10-02T17:16:17.7824052Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-02T17:16:17.7866295Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-02T17:16:17.8193326Z Removing HTTP extra header
+2026-10-02T17:16:17.8199062Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-02T17:16:17.8242286Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-02T17:16:17.8579851Z Removing includeIf entries pointing to credentials config files
+2026-10-02T17:16:17.8589509Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-02T17:16:17.8622839Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T17:16:17.8623976Z includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T17:16:17.8624918Z includeif.gitdir:/github/workspace/.git.path
+2026-10-02T17:16:17.8625676Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T17:16:17.8632786Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path
+2026-10-02T17:16:17.8662686Z /home/runner/work/_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T17:16:17.8672300Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-83885c0c\-b61c\-46b5\-add3\-7d23b2f058d2\.config
+2026-10-02T17:16:17.8711886Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path
+2026-10-02T17:16:17.8737725Z /home/runner/work/_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T17:16:17.8753683Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/lean-math-lab/lean-math-lab/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-83885c0c\-b61c\-46b5\-add3\-7d23b2f058d2\.config
+2026-10-02T17:16:17.8794159Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-02T17:16:17.8820575Z /github/runner_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T17:16:17.8830393Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-83885c0c\-b61c\-46b5\-add3\-7d23b2f058d2\.config
+2026-10-02T17:16:17.8872335Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-02T17:16:17.8900455Z /github/runner_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config
+2026-10-02T17:16:17.8910904Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-83885c0c\-b61c\-46b5\-add3\-7d23b2f058d2\.config
+2026-10-02T17:16:17.8955917Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-02T17:16:17.9277801Z Removing credentials config '/home/runner/work/_temp/git-credentials-83885c0c-b61c-46b5-add3-7d23b2f058d2.config'
+2026-10-02T17:16:17.9424911Z Cleaning up orphan processes
+2026-10-02T17:16:17.9727556Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

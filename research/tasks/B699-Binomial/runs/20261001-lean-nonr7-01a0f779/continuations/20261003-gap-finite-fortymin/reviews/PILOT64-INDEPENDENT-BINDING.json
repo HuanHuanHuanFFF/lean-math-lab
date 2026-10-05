@@ -1,0 +1,700 @@
+{
+  "utc": "2026-10-02T18:55:56.657786+00:00",
+  "verifier": "/root/semantic_verify_sol",
+  "kind": "completed independent byte/receipt binding; signature separately records semantic acceptance",
+  "fixedSourceCommit": "e0eadc9395457d7da81aee7b8a3e49e264c5024e",
+  "actualRunId": "37049873609",
+  "archive": "D:\\ResearchArtifacts\\b699-gap-finite-fortymin\\b699-gap-pilot64-37049873609.zip",
+  "archiveSha256": "a6078693cf9757ea6effa469d653cc72362abc8b782044e39e5d54ece5b75374",
+  "archiveBytes": 5169253,
+  "originalMemberCount": 89,
+  "allMembersActualSizeShaBound": true,
+  "sourceCount": 3,
+  "originalRoots": 66,
+  "literalRoots": 2,
+  "prerequisiteRoots": 2,
+  "sources": [
+    {
+      "phase": "pilot64-00-ChainCore",
+      "sourcePath": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.lean",
+      "sourceSha256": "2a604dbaa835880ddadbc128960315903a5c837c8cb53c6eef056349845ed692",
+      "compilerReceiptSha256": "bb9b4c547914fd06a27abfa480e0cba4ecf101effb30d94b3bf64b80675e49fb",
+      "compilerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M3132",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.lean"
+      ],
+      "compilerExit": 0,
+      "objectSha256": "cadec0d63491abf865bbad84947fdc75f763119fc57d59498726ec6c7f13717f",
+      "objectParts": [
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean.server",
+          "bytes": 2216,
+          "sha256": "b7280a5386025470534d488acb77aebdcddf7cb8f31b619686753a1808388c9f"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.ir",
+          "bytes": 1576,
+          "sha256": "9bd82f241760e72de9b73c0f0da5a570df0d5c84575d2f62a4bca597444371e9"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean.private",
+          "bytes": 48600,
+          "sha256": "84a9777561f078143a3b89e8dc2b6743e0fe58e578bedcb3362d5b18f047bad6"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.ir.sig",
+          "bytes": 176,
+          "sha256": "353c195156eb4f020ee43fc5c1e0c123a5373f78f6d8330303953b97b386b99c"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-finite-onehour/finite/ChainCore.olean",
+          "bytes": 39664,
+          "sha256": "cadec0d63491abf865bbad84947fdc75f763119fc57d59498726ec6c7f13717f"
+        }
+      ],
+      "actualAxioms": {
+        "B699Finite20261002.PrimeChain.trans": [
+          "propext"
+        ],
+        "B699Finite20261002.PrimeChain.near_top": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "checker": null,
+      "actualSourceText": "module\npublic import Mathlib.Data.Nat.Prime.Defs\n\n/-! Modern finite-chain API, following the fixed old PrimeChain construction.\nNo primality or chain witness is assumed by a definition. -/\nset_option autoImplicit false\nset_option relaxedAutoImplicit false\nset_option Elab.async false\n\n@[expose] public section\nnamespace B699Finite20261002\n\ninductive PrimeChain (gap : Nat) : Nat → Nat → Prop where\n  | singleton {p : Nat} (hp : p.Prime) : PrimeChain gap p p\n  | step {p q r : Nat} (hp : p.Prime) (hpq : p < q)\n      (hgap : q ≤ p + gap) (htail : PrimeChain gap q r) : PrimeChain gap p r\n\ntheorem PrimeChain.trans {gap lo mid hi : Nat}\n    (hleft : PrimeChain gap lo mid) (hright : PrimeChain gap mid hi) :\n    PrimeChain gap lo hi := by\n  revert hright\n  induction hleft with\n  | singleton _ =>\n      intro hright\n      exact hright\n  | step hp hpq hgap _ ih =>\n      intro hright\n      exact .step hp hpq hgap (ih hright)\n\ntheorem PrimeChain.near_top {gap lo hi : Nat} (hchain : PrimeChain gap lo hi)\n    {n : Nat} (hlo : lo ≤ n) (hhi : n < hi) :\n    ∃ p : Nat, p.Prime ∧ p ≤ n ∧ n < p + gap := by\n  induction hchain generalizing n with\n  | singleton _ => omega\n  | @step p q r hp _ hgap _ ih =>\n      by_cases hnq : n < q\n      · exact ⟨p, hp, hlo, by omega⟩\n      · exact ih (by omega) hhi\n\nend B699Finite20261002\n\n#print axioms B699Finite20261002.PrimeChain.trans\n#print axioms B699Finite20261002.PrimeChain.near_top\n",
+      "actualRawStdout": "'B699Finite20261002.PrimeChain.trans' depends on axioms: [propext]\n'B699Finite20261002.PrimeChain.near_top' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "phase": "pilot64-01-Pilot64",
+      "sourcePath": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.lean",
+      "sourceSha256": "d8df5d3bc6063fe4f7b847917b503fe038dda904ab9cd44706ec47bf8794e048",
+      "compilerReceiptSha256": "0973f3198c9f1abd7c83492d499bafa0d45ff873080f78adf0082d7571d0d008",
+      "compilerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M3132",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.lean"
+      ],
+      "compilerExit": 0,
+      "objectSha256": "46471422f6e972f367a4007ec63f2052eed5082006aaede35feca1081beb0e4b",
+      "objectParts": [
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean.server",
+          "bytes": 15680,
+          "sha256": "fe0f30f8ec22ffb3546ec2a72ba290034dcd6d24a5ea9d61452b7db6f90bc9e7"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.ir.sig",
+          "bytes": 176,
+          "sha256": "578d5ea820e43f14b6ecd070667ba4e0fbf55de59d657afcdeb6e8f03d33cba6"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean",
+          "bytes": 37896,
+          "sha256": "46471422f6e972f367a4007ec63f2052eed5082006aaede35feca1081beb0e4b"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.olean.private",
+          "bytes": 16786344,
+          "sha256": "8646249f5b8852e00c2ce13ac3983adf8a6603164f0268dc2d6ec7f1ef69c6da"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-halfhour/supply/Pilot64.ir",
+          "bytes": 2256,
+          "sha256": "e5c673007db453cf62bf4554246e3d5503e36f04bed3207aac71464ce40bf73c"
+        }
+      ],
+      "actualAxioms": {
+        "B699GapSlice20261003.prime0": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime1": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime2": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime3": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime4": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime5": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime6": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime7": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime8": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime9": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime10": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime11": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime12": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime13": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime14": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime15": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime16": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime17": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime18": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime19": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime20": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime21": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime22": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime23": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime24": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime25": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime26": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime27": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime28": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime29": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime30": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime31": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime32": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime33": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime34": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime35": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime36": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime37": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime38": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime39": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime40": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime41": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime42": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime43": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime44": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime45": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime46": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime47": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime48": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime49": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime50": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime51": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime52": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime53": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime54": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime55": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime56": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime57": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime58": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime59": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime60": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime61": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime62": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.prime63": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.chain": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapSlice20261003.initial_slice": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "checker": {
+        "utc": "2026-10-02T18:51:26.387099+00:00",
+        "startUtc": "2026-10-02T18:51:26.387111+00:00",
+        "arguments": [
+          "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+          "-v",
+          "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261003-gap-halfhour».supply.Pilot64"
+        ],
+        "pid": 2873,
+        "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+        "cpus": [
+          0,
+          1
+        ],
+        "nice": 19,
+        "resourceBefore": {
+          "utc": "2026-10-02T18:51:26.384669+00:00",
+          "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+          "cgroupAncestorLimits": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+              "memoryMax": "max",
+              "memoryCurrent": "9183244288",
+              "cpuMax": "max 100000"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice",
+              "memoryMax": "max",
+              "memoryCurrent": "11746488320",
+              "cpuMax": "max 100000"
+            },
+            {
+              "path": "/sys/fs/cgroup",
+              "memoryMax": null,
+              "memoryCurrent": null,
+              "cpuMax": null
+            }
+          ],
+          "hostMemAvailableBytes": 15487852544,
+          "effectiveAvailableBytes": 15487852544,
+          "allowedCpuIds": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "diskFreeBytes": 84088639488
+        },
+        "hardDeadlineUtc": "2026-10-02T19:20:45Z",
+        "childStarted": true,
+        "peakTreeWorkingSetBytes": 1367404544,
+        "minimumAvailableBytes": 15377846272,
+        "startupMemoryMiB": 3072,
+        "treeMemoryMiB": 3072,
+        "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+        "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0",
+        "status": "success",
+        "exitCode": 0,
+        "stopReason": null,
+        "endUtc": "2026-10-02T18:51:31.981043+00:00",
+        "wallSeconds": 5.596283197402954,
+        "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-normal-checker/stdout.log",
+        "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-01-normal-checker/stderr.log",
+        "stdoutSha256": "bece298795b80ad86a4d233cde07b5a139774493cede2ae4c86e46e2b28aa4e3",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "actualSourceText": "module\npublic import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-finite-onehour».finite.ChainCore\npublic import Mathlib.Tactic.NormNum.Prime\nset_option autoImplicit false\nset_option relaxedAutoImplicit false\nset_option Elab.async false\nset_option maxRecDepth 8192\nset_option maxHeartbeats 4000000\n@[expose] public section\nnamespace B699GapSlice20261003\ntheorem prime0 : Nat.Prime 9999889 := by norm_num\ntheorem prime1 : Nat.Prime 10002287 := by norm_num\ntheorem prime2 : Nat.Prime 10004719 := by norm_num\ntheorem prime3 : Nat.Prime 10007051 := by norm_num\ntheorem prime4 : Nat.Prime 10009487 := by norm_num\ntheorem prime5 : Nat.Prime 10011871 := by norm_num\ntheorem prime6 : Nat.Prime 10014163 := by norm_num\ntheorem prime7 : Nat.Prime 10016563 := by norm_num\ntheorem prime8 : Nat.Prime 10018973 := by norm_num\ntheorem prime9 : Nat.Prime 10021331 := by norm_num\ntheorem prime10 : Nat.Prime 10023701 := by norm_num\ntheorem prime11 : Nat.Prime 10026011 := by norm_num\ntheorem prime12 : Nat.Prime 10028353 := by norm_num\ntheorem prime13 : Nat.Prime 10030703 := by norm_num\ntheorem prime14 : Nat.Prime 10033117 := by norm_num\ntheorem prime15 : Nat.Prime 10035533 := by norm_num\ntheorem prime16 : Nat.Prime 10037843 := by norm_num\ntheorem prime17 : Nat.Prime 10040137 := by norm_num\ntheorem prime18 : Nat.Prime 10042553 := by norm_num\ntheorem prime19 : Nat.Prime 10044847 := by norm_num\ntheorem prime20 : Nat.Prime 10047277 := by norm_num\ntheorem prime21 : Nat.Prime 10049563 := by norm_num\ntheorem prime22 : Nat.Prime 10051861 := by norm_num\ntheorem prime23 : Nat.Prime 10054267 := by norm_num\ntheorem prime24 : Nat.Prime 10056623 := by norm_num\ntheorem prime25 : Nat.Prime 10059011 := by norm_num\ntheorem prime26 : Nat.Prime 10061383 := by norm_num\ntheorem prime27 : Nat.Prime 10063793 := by norm_num\ntheorem prime28 : Nat.Prime 10066093 := by norm_num\ntheorem prime29 : Nat.Prime 10068523 := by norm_num\ntheorem prime30 : Nat.Prime 10070869 := by norm_num\ntheorem prime31 : Nat.Prime 10073251 := by norm_num\ntheorem prime32 : Nat.Prime 10075621 := by norm_num\ntheorem prime33 : Nat.Prime 10077983 := by norm_num\ntheorem prime34 : Nat.Prime 10080403 := by norm_num\ntheorem prime35 : Nat.Prime 10082803 := by norm_num\ntheorem prime36 : Nat.Prime 10085149 := by norm_num\ntheorem prime37 : Nat.Prime 10087591 := by norm_num\ntheorem prime38 : Nat.Prime 10089979 := by norm_num\ntheorem prime39 : Nat.Prime 10092349 := by norm_num\ntheorem prime40 : Nat.Prime 10094633 := by norm_num\ntheorem prime41 : Nat.Prime 10096991 := by norm_num\ntheorem prime42 : Nat.Prime 10099351 := by norm_num\ntheorem prime43 : Nat.Prime 10101739 := by norm_num\ntheorem prime44 : Nat.Prime 10104089 := by norm_num\ntheorem prime45 : Nat.Prime 10106387 := by norm_num\ntheorem prime46 : Nat.Prime 10108823 := by norm_num\ntheorem prime47 : Nat.Prime 10111187 := by norm_num\ntheorem prime48 : Nat.Prime 10113599 := by norm_num\ntheorem prime49 : Nat.Prime 10115953 := by norm_num\ntheorem prime50 : Nat.Prime 10118243 := by norm_num\ntheorem prime51 : Nat.Prime 10120639 := by norm_num\ntheorem prime52 : Nat.Prime 10123063 := by norm_num\ntheorem prime53 : Nat.Prime 10125503 := by norm_num\ntheorem prime54 : Nat.Prime 10127941 := by norm_num\ntheorem prime55 : Nat.Prime 10130339 := by norm_num\ntheorem prime56 : Nat.Prime 10132721 := by norm_num\ntheorem prime57 : Nat.Prime 10135133 := by norm_num\ntheorem prime58 : Nat.Prime 10137461 := by norm_num\ntheorem prime59 : Nat.Prime 10139881 := by norm_num\ntheorem prime60 : Nat.Prime 10142309 := by norm_num\ntheorem prime61 : Nat.Prime 10144579 := by norm_num\ntheorem prime62 : Nat.Prime 10146863 := by norm_num\ntheorem prime63 : Nat.Prime 10149203 := by norm_num\ntheorem chain : B699Finite20261002.PrimeChain 2442 9999889 10149203 := by\n  refine .step (q := 10002287) prime0 (by decide) (by decide) ?_\n  refine .step (q := 10004719) prime1 (by decide) (by decide) ?_\n  refine .step (q := 10007051) prime2 (by decide) (by decide) ?_\n  refine .step (q := 10009487) prime3 (by decide) (by decide) ?_\n  refine .step (q := 10011871) prime4 (by decide) (by decide) ?_\n  refine .step (q := 10014163) prime5 (by decide) (by decide) ?_\n  refine .step (q := 10016563) prime6 (by decide) (by decide) ?_\n  refine .step (q := 10018973) prime7 (by decide) (by decide) ?_\n  refine .step (q := 10021331) prime8 (by decide) (by decide) ?_\n  refine .step (q := 10023701) prime9 (by decide) (by decide) ?_\n  refine .step (q := 10026011) prime10 (by decide) (by decide) ?_\n  refine .step (q := 10028353) prime11 (by decide) (by decide) ?_\n  refine .step (q := 10030703) prime12 (by decide) (by decide) ?_\n  refine .step (q := 10033117) prime13 (by decide) (by decide) ?_\n  refine .step (q := 10035533) prime14 (by decide) (by decide) ?_\n  refine .step (q := 10037843) prime15 (by decide) (by decide) ?_\n  refine .step (q := 10040137) prime16 (by decide) (by decide) ?_\n  refine .step (q := 10042553) prime17 (by decide) (by decide) ?_\n  refine .step (q := 10044847) prime18 (by decide) (by decide) ?_\n  refine .step (q := 10047277) prime19 (by decide) (by decide) ?_\n  refine .step (q := 10049563) prime20 (by decide) (by decide) ?_\n  refine .step (q := 10051861) prime21 (by decide) (by decide) ?_\n  refine .step (q := 10054267) prime22 (by decide) (by decide) ?_\n  refine .step (q := 10056623) prime23 (by decide) (by decide) ?_\n  refine .step (q := 10059011) prime24 (by decide) (by decide) ?_\n  refine .step (q := 10061383) prime25 (by decide) (by decide) ?_\n  refine .step (q := 10063793) prime26 (by decide) (by decide) ?_\n  refine .step (q := 10066093) prime27 (by decide) (by decide) ?_\n  refine .step (q := 10068523) prime28 (by decide) (by decide) ?_\n  refine .step (q := 10070869) prime29 (by decide) (by decide) ?_\n  refine .step (q := 10073251) prime30 (by decide) (by decide) ?_\n  refine .step (q := 10075621) prime31 (by decide) (by decide) ?_\n  refine .step (q := 10077983) prime32 (by decide) (by decide) ?_\n  refine .step (q := 10080403) prime33 (by decide) (by decide) ?_\n  refine .step (q := 10082803) prime34 (by decide) (by decide) ?_\n  refine .step (q := 10085149) prime35 (by decide) (by decide) ?_\n  refine .step (q := 10087591) prime36 (by decide) (by decide) ?_\n  refine .step (q := 10089979) prime37 (by decide) (by decide) ?_\n  refine .step (q := 10092349) prime38 (by decide) (by decide) ?_\n  refine .step (q := 10094633) prime39 (by decide) (by decide) ?_\n  refine .step (q := 10096991) prime40 (by decide) (by decide) ?_\n  refine .step (q := 10099351) prime41 (by decide) (by decide) ?_\n  refine .step (q := 10101739) prime42 (by decide) (by decide) ?_\n  refine .step (q := 10104089) prime43 (by decide) (by decide) ?_\n  refine .step (q := 10106387) prime44 (by decide) (by decide) ?_\n  refine .step (q := 10108823) prime45 (by decide) (by decide) ?_\n  refine .step (q := 10111187) prime46 (by decide) (by decide) ?_\n  refine .step (q := 10113599) prime47 (by decide) (by decide) ?_\n  refine .step (q := 10115953) prime48 (by decide) (by decide) ?_\n  refine .step (q := 10118243) prime49 (by decide) (by decide) ?_\n  refine .step (q := 10120639) prime50 (by decide) (by decide) ?_\n  refine .step (q := 10123063) prime51 (by decide) (by decide) ?_\n  refine .step (q := 10125503) prime52 (by decide) (by decide) ?_\n  refine .step (q := 10127941) prime53 (by decide) (by decide) ?_\n  refine .step (q := 10130339) prime54 (by decide) (by decide) ?_\n  refine .step (q := 10132721) prime55 (by decide) (by decide) ?_\n  refine .step (q := 10135133) prime56 (by decide) (by decide) ?_\n  refine .step (q := 10137461) prime57 (by decide) (by decide) ?_\n  refine .step (q := 10139881) prime58 (by decide) (by decide) ?_\n  refine .step (q := 10142309) prime59 (by decide) (by decide) ?_\n  refine .step (q := 10144579) prime60 (by decide) (by decide) ?_\n  refine .step (q := 10146863) prime61 (by decide) (by decide) ?_\n  refine .step (q := 10149203) prime62 (by decide) (by decide) ?_\n  exact .singleton prime63\n\ntheorem initial_slice {y : Nat} (hy : 10000000 ≤ y) (hyhi : y < 10146761) :\n    ∃ p : Nat, p.Prime ∧ y < p ∧ 4095 * (p - y) ≤ y := by\n  obtain ⟨p, hp, hpn, hnp⟩ := chain.near_top (n := y + 2442) (by omega) (by omega)\n  have hyp : y < p := by omega\n  have hwidth : p - y ≤ 2442 := by omega\n  refine ⟨p, hp, hyp, ?_⟩\n  exact Nat.le_trans (Nat.mul_le_mul_left 4095 hwidth) (by omega)\nend B699GapSlice20261003\n\n#print axioms B699GapSlice20261003.prime0\n#print axioms B699GapSlice20261003.prime1\n#print axioms B699GapSlice20261003.prime2\n#print axioms B699GapSlice20261003.prime3\n#print axioms B699GapSlice20261003.prime4\n#print axioms B699GapSlice20261003.prime5\n#print axioms B699GapSlice20261003.prime6\n#print axioms B699GapSlice20261003.prime7\n#print axioms B699GapSlice20261003.prime8\n#print axioms B699GapSlice20261003.prime9\n#print axioms B699GapSlice20261003.prime10\n#print axioms B699GapSlice20261003.prime11\n#print axioms B699GapSlice20261003.prime12\n#print axioms B699GapSlice20261003.prime13\n#print axioms B699GapSlice20261003.prime14\n#print axioms B699GapSlice20261003.prime15\n#print axioms B699GapSlice20261003.prime16\n#print axioms B699GapSlice20261003.prime17\n#print axioms B699GapSlice20261003.prime18\n#print axioms B699GapSlice20261003.prime19\n#print axioms B699GapSlice20261003.prime20\n#print axioms B699GapSlice20261003.prime21\n#print axioms B699GapSlice20261003.prime22\n#print axioms B699GapSlice20261003.prime23\n#print axioms B699GapSlice20261003.prime24\n#print axioms B699GapSlice20261003.prime25\n#print axioms B699GapSlice20261003.prime26\n#print axioms B699GapSlice20261003.prime27\n#print axioms B699GapSlice20261003.prime28\n#print axioms B699GapSlice20261003.prime29\n#print axioms B699GapSlice20261003.prime30\n#print axioms B699GapSlice20261003.prime31\n#print axioms B699GapSlice20261003.prime32\n#print axioms B699GapSlice20261003.prime33\n#print axioms B699GapSlice20261003.prime34\n#print axioms B699GapSlice20261003.prime35\n#print axioms B699GapSlice20261003.prime36\n#print axioms B699GapSlice20261003.prime37\n#print axioms B699GapSlice20261003.prime38\n#print axioms B699GapSlice20261003.prime39\n#print axioms B699GapSlice20261003.prime40\n#print axioms B699GapSlice20261003.prime41\n#print axioms B699GapSlice20261003.prime42\n#print axioms B699GapSlice20261003.prime43\n#print axioms B699GapSlice20261003.prime44\n#print axioms B699GapSlice20261003.prime45\n#print axioms B699GapSlice20261003.prime46\n#print axioms B699GapSlice20261003.prime47\n#print axioms B699GapSlice20261003.prime48\n#print axioms B699GapSlice20261003.prime49\n#print axioms B699GapSlice20261003.prime50\n#print axioms B699GapSlice20261003.prime51\n#print axioms B699GapSlice20261003.prime52\n#print axioms B699GapSlice20261003.prime53\n#print axioms B699GapSlice20261003.prime54\n#print axioms B699GapSlice20261003.prime55\n#print axioms B699GapSlice20261003.prime56\n#print axioms B699GapSlice20261003.prime57\n#print axioms B699GapSlice20261003.prime58\n#print axioms B699GapSlice20261003.prime59\n#print axioms B699GapSlice20261003.prime60\n#print axioms B699GapSlice20261003.prime61\n#print axioms B699GapSlice20261003.prime62\n#print axioms B699GapSlice20261003.prime63\n#print axioms B699GapSlice20261003.chain\n#print axioms B699GapSlice20261003.initial_slice\n",
+      "actualRawStdout": "'B699GapSlice20261003.prime0' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime1' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime2' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime3' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime4' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime5' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime6' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime7' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime8' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime9' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime10' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime11' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime12' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime13' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime14' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime15' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime16' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime17' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime18' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime19' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime20' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime21' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime22' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime23' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime24' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime25' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime26' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime27' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime28' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime29' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime30' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime31' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime32' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime33' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime34' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime35' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime36' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime37' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime38' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime39' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime40' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime41' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime42' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime43' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime44' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime45' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime46' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime47' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime48' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime49' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime50' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime51' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime52' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime53' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime54' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime55' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime56' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime57' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime58' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime59' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime60' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime61' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime62' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.prime63' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.chain' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapSlice20261003.initial_slice' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    },
+    {
+      "phase": "pilot64-02-Pilot64Exact",
+      "sourcePath": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean",
+      "sourceSha256": "49129904be72e644f4efcbde9451f9d46b9cd0a9c05271474572267c53ac1ae8",
+      "compilerReceiptSha256": "2e5e5dc45453bdf11b22b530ac00f37ac2500733602d2cb0a17bf4e3dc1f8b65",
+      "compilerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M3132",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.lean"
+      ],
+      "compilerExit": 0,
+      "objectSha256": "521cbd39e3e5e32fae150e789014fee28eed833a8d6d8cd4ae4c180eb5ffdcd2",
+      "objectParts": [
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.ir.sig",
+          "bytes": 176,
+          "sha256": "caf0f882a7b2a02d916717f6002ed6490a4a81b3e4b97d9d9e8ab273e3650e7c"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.ir",
+          "bytes": 1928,
+          "sha256": "bc38cc010e490e0d99ea91448333ce84a51ff02ce17c1d2e423848c248b5dc99"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean",
+          "bytes": 9760,
+          "sha256": "521cbd39e3e5e32fae150e789014fee28eed833a8d6d8cd4ae4c180eb5ffdcd2"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean.server",
+          "bytes": 832,
+          "sha256": "41a08a1a315a90145dec93fb088194a43cd78ef4a535a25ce72d01d131053a2a"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/Pilot64Exact.olean.private",
+          "bytes": 1600,
+          "sha256": "60f9c7906d2a0a30e0e827ccff840af45d89129429e87845537555a0414aea34"
+        }
+      ],
+      "actualAxioms": {
+        "B699GapFiniteVerify20261003.pilot64_chain_exact": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699GapFiniteVerify20261003.pilot64_initial_slice_exact": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "checker": {
+        "utc": "2026-10-02T18:51:33.021610+00:00",
+        "startUtc": "2026-10-02T18:51:33.021627+00:00",
+        "arguments": [
+          "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+          "-v",
+          "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261003-gap-finite-fortymin».reviews.Pilot64Exact"
+        ],
+        "pid": 2892,
+        "cwd": "/home/runner/work/lean-math-lab/lean-math-lab",
+        "cpus": [
+          0,
+          1
+        ],
+        "nice": 19,
+        "resourceBefore": {
+          "utc": "2026-10-02T18:51:33.019105+00:00",
+          "selfCgroup": "0::/system.slice/hosted-compute-agent.service",
+          "cgroupAncestorLimits": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/hosted-compute-agent.service",
+              "memoryMax": "max",
+              "memoryCurrent": "9198559232",
+              "cpuMax": "max 100000"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice",
+              "memoryMax": "max",
+              "memoryCurrent": "11762393088",
+              "cpuMax": "max 100000"
+            },
+            {
+              "path": "/sys/fs/cgroup",
+              "memoryMax": null,
+              "memoryCurrent": null,
+              "cpuMax": null
+            }
+          ],
+          "hostMemAvailableBytes": 15521153024,
+          "effectiveAvailableBytes": 15521153024,
+          "allowedCpuIds": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "diskFreeBytes": 84088381440
+        },
+        "hardDeadlineUtc": "2026-10-02T19:20:45Z",
+        "childStarted": true,
+        "peakTreeWorkingSetBytes": 1362726912,
+        "minimumAvailableBytes": 15451877376,
+        "startupMemoryMiB": 3072,
+        "treeMemoryMiB": 3072,
+        "effectiveLeanPath": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/objects:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/lean-math-lab/lean-math-lab/.lake/build/lib/lean:/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/lib/lean",
+        "executable": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "executableSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0",
+        "status": "success",
+        "exitCode": 0,
+        "stopReason": null,
+        "endUtc": "2026-10-02T18:51:36.232905+00:00",
+        "wallSeconds": 3.213709831237793,
+        "stdout": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-normal-checker/stdout.log",
+        "stderr": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/pilot64-02-normal-checker/stderr.log",
+        "stdoutSha256": "73ccf3778e96ddad9c70335c9333f19937dd4ad09826bc20f8ade84b04b06dce",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "actualSourceText": "module\npublic import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261003-gap-halfhour».supply.Pilot64\n\nset_option autoImplicit false\nset_option relaxedAutoImplicit false\nset_option Elab.async false\n\n@[expose] public section\nnamespace B699GapFiniteVerify20261003\n\ntheorem pilot64_chain_exact :\n    B699Finite20261002.PrimeChain 2442 9999889 10149203 :=\n  B699GapSlice20261003.chain\n\ntheorem pilot64_initial_slice_exact (y : Nat)\n    (hy : 10000000 ≤ y) (hyhi : y < 10146761) :\n    ∃ p : Nat, p.Prime ∧ y < p ∧ 4095 * (p - y) ≤ y :=\n  B699GapSlice20261003.initial_slice hy hyhi\n\nend B699GapFiniteVerify20261003\n\n#print B699GapFiniteVerify20261003.pilot64_chain_exact\n#print B699GapFiniteVerify20261003.pilot64_initial_slice_exact\n#print axioms B699GapFiniteVerify20261003.pilot64_chain_exact\n#print axioms B699GapFiniteVerify20261003.pilot64_initial_slice_exact\n",
+      "actualRawStdout": "theorem B699GapFiniteVerify20261003.pilot64_chain_exact : B699Finite20261002.PrimeChain 2442 9999889 10149203 :=\nB699GapSlice20261003.chain\ntheorem B699GapFiniteVerify20261003.pilot64_initial_slice_exact : ∀ (y : ℕ),\n  10000000 ≤ y → y < 10146761 → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y :=\nfun y hy hyhi => B699GapSlice20261003.initial_slice hy hyhi\n'B699GapFiniteVerify20261003.pilot64_chain_exact' depends on axioms: [propext, Classical.choice, Quot.sound]\n'B699GapFiniteVerify20261003.pilot64_initial_slice_exact' depends on axioms: [propext, Classical.choice, Quot.sound]\n"
+    }
+  ],
+  "normalCheckerExits": [
+    0,
+    0
+  ],
+  "toolchain": {
+    "utc": "2026-10-02T18:49:45.803823+00:00",
+    "lean": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+    "leanchecker": "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+    "version": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "leanSha256": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "leancheckerSha256": "84bc3e7cd6efa5bfecd1e7c37571fed9428fb2b3e16da0ddf62f2163573486d0"
+  },
+  "normNumPrimeBinding": {
+    "utc": "2026-10-02T18:51:18.227365+00:00",
+    "packageCommit": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "actualSource": "/home/runner/work/lean-math-lab/lean-math-lab/.lake/packages/mathlib/Mathlib/Tactic/NormNum/Prime.lean",
+    "actualRawSourceSha256": "3d326681e08ba979f2102e6196c5fb4b9b0f01bbb1db3e21aed54190d1ae00f6",
+    "actualRawBytes": 8719,
+    "canonicalGitBlobLog": "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-finite-fortymin/runtime/pilot64/evidence/normnum-prime-canonical-git-blob/stdout.log",
+    "canonicalGitBlobSha256": "3d326681e08ba979f2102e6196c5fb4b9b0f01bbb1db3e21aed54190d1ae00f6",
+    "actualEqualsPinnedGitBlob": true,
+    "historicalWindowsMaterialization": {
+      "packageCommit": "0df444a360eaa60ab8c11dca51a86af692955474",
+      "path": "Mathlib/Tactic/NormNum/Prime.lean",
+      "canonicalGitBlobSha256": "3d326681e08ba979f2102e6196c5fb4b9b0f01bbb1db3e21aed54190d1ae00f6",
+      "canonicalBytes": 8719,
+      "historicalWindowsRawSourceSha256": "d49b3419be815ca4eb4cc35a38a6ca9f56769daf54fb7fcb1a0cb554ff6d4460",
+      "historicalWindowsBytes": 8926,
+      "byteTransformation": "CRLF to LF only; raw historical artifact hashes unchanged",
+      "historicalLeafMap": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-tail-twohour/gap/normnum-prime-leaf-object-map.json"
+    },
+    "scope": "raw-byte source correspondence only; no mathematical acceptance"
+  },
+  "actualPinnedPackages": {
+    "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "plausible": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb",
+    "LeanSearchClient": "5f4d51b81cbd3f6b32b156bfad9056621a040404",
+    "importGraph": "16f02aa7642864af59f1ff0e384a015994db9118",
+    "proofwidgets": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957",
+    "aesop": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e",
+    "Qq": "92c15be17b7caf78c2ad767ec40f89052d908d81",
+    "batteries": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d",
+    "Cli": "6130a47896ce867c6a4a55373441e59e565bad0f"
+  },
+  "oldUtilsSha256": "1b6d9a3eaea155b9a62a7b66ac58bf47c6bf479979c1ba91f71984ee4867efb1",
+  "reviewScriptSha256": "b76cda22e0773064b2f936adc0668feb33d3f6fe8f868173296ebadde7eac84e",
+  "kernelRerunByVerifier": false,
+  "genuineInfiniteGapAccepted": false,
+  "newCompleteOriginalIndexIncrement": 0
+}

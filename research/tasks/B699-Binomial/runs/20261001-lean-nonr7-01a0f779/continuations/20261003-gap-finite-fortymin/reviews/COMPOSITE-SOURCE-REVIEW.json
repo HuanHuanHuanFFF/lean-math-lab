@@ -1,0 +1,36 @@
+{
+  "utc": "2026-10-02T19:09:38.547351+00:00",
+  "verifier": "/root/semantic_verify_sol",
+  "grade": "independent semantic source review and exact literal targets; kernel pending",
+  "producerSource": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/supply/CompositeTransferLegacy.lean",
+  "producerSha256": "31ca5aaa79f1286caef8794e33cdf09da6528ff4b756aec9a2aeefc06175e747",
+  "literalSource": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261003-gap-finite-fortymin/reviews/CompositeExactLegacy.lean",
+  "literalSha256": "0dc0ee880e3f88a1c611b2b61555f09a04e89345075a9a1fa217c21c0fb55fc3",
+  "abi": "both new files legacy plain import; producer adopts immutable FiniteConsumerLegacy4638 and its accepted complete4884, no newGap/finite assumptions",
+  "generalLemma": "Given nonPrime i and nonPrime(i+1) and an actualsamePrime witness for choose(n,i),choose(n,j) at p>=i, the samep works for indexi+1. No legalrange premise is needed for this stronger local lemma; its binomial identity is valid for allNatn/i.",
+  "checkedDirections": [
+    "nonPrimei and Primep implyp!=i; p>=i impliesp>=i+1",
+    "p|(i+1) and positivei+1 implyp<=i+1; togetherforcep=i+1 contradictnonPrime(i+1)",
+    "fullNatchoose successor multiplication identity transports olddivisibility to product choose(n,i+1)*(i+1)",
+    "prime dvd_or_dvd and nondivisibility ofi+1 give divisor ofnew completechoose",
+    "samep retained withunchanged divisor ofchoose(n,j)",
+    "originalnewlegalj impliesoldlegalj; allNatn/j retained in each successorroot"
+  ],
+  "producerRootCount": 6,
+  "literalRootCount": 5,
+  "candidateOriginalIndices": [
+    4885,
+    4886,
+    4887,
+    4888
+  ],
+  "candidateFormalScope": "forall n i j:Nat,4885<=i -> i<=4888 -> i<j -> j<=n/2 -> exists p:Nat,Nat.Primep andi<=p andp|n.choosei andp|n.choosej",
+  "externalMathematicalInputsOfFourCorollaries": [],
+  "boundaryLimit": "This route requires both adjacentindices nonprime; no claim of crossing nextprime4889 from this argument.",
+  "falsifiableAcceptance": "actual fixedsource snapshots andobjects/alltransitiveStd3/5literal printedtypes/normalchecker/fullsource andmember bindings; sourcecorrectness never substitutes compilation",
+  "kernelAccepted": false,
+  "actualOriginalIncrement": 0,
+  "expectedFrontierIfKernelAccepted": "fourfixed indices gain allNatn/j scope; otherunboundedindices and genuineGap remain open",
+  "originalHardDeadline": "2026-10-02T19:20:45Z",
+  "extensionAuthorizedByVerifier": false
+}

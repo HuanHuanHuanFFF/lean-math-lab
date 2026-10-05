@@ -1,0 +1,8 @@
+theorem B699TailVerify20261004.complete_4889_exact : ∀ (n j : ℕ),
+  4889 < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ 4889 ≤ p ∧ p ∣ n.choose 4889 ∧ p ∣ n.choose j :=
+fun n j hij hjn => B699TailExtension20261004.complete_4889 hij hjn
+'B699TailVerify20261004.complete_4889_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+theorem B699TailVerify20261004.all_upto_4889_exact : ∀ (n i j : ℕ),
+  4883 ≤ i → i ≤ 4889 → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun n i j hi hiu hij hjn => B699TailExtension20261004.common_upto_4889 hi hiu hij hjn
+'B699TailVerify20261004.all_upto_4889_exact' depends on axioms: [propext, Classical.choice, Quot.sound]

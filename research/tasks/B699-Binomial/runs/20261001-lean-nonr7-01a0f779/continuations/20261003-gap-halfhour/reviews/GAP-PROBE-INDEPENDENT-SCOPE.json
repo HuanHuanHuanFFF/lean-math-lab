@@ -1,0 +1,256 @@
+{
+  "utc": "2026-10-02T18:22:22.553377+00:00",
+  "verifier": "/root/semantic_verify_sol",
+  "fixedSourceCommit": "6191c5f1c6348aee803e7e446d7750bf14cce2bb",
+  "run": "37046323083",
+  "archive": "D:\\ResearchArtifacts\\b699-gap-halfhour\\b699-gap-37046323083.zip",
+  "archiveSha256": "54826001c1d5189cd71a5a23f3c63a30442afbb68b800154b8df6ecb15a90258",
+  "modules": [
+    {
+      "module": "ThetaInterval",
+      "status": "accepted-fixed-module-scope",
+      "scope": "actual theta increment/bounds extraction interfaces and numeric coefficients; no uniform distribution estimate supplied",
+      "sourceSha256": "22af1bd91d6252dcdf093726c408ae4d1449e372e1dbe2936aa2661692f783a7",
+      "actualAxioms": {
+        "B699ThetaSupply.exists_prime_of_theta_lt": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.exists_prime_of_theta_bounds": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.prime_of_theta_relative_bounds": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.coefficient_4095_asymmetric": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.coefficient_4095_symmetric": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "compilerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M3132",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-halfhour/runtime/gap-only/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaInterval.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaInterval.lean"
+      ],
+      "compilerExit": 0,
+      "objectSha256": "344e7c9c3c7968e141daf7cef0d323f3961fbe03524d98e8ef953c90389c7e0e",
+      "objectParts": [
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaInterval.olean.private",
+          "bytes": 241824,
+          "sha256": "92ea58768ce9c84d94c598f66aeaf9cbbd1f8e266e2fb8cda6ea17bbc512bd87"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaInterval.olean",
+          "bytes": 20800,
+          "sha256": "344e7c9c3c7968e141daf7cef0d323f3961fbe03524d98e8ef953c90389c7e0e"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaInterval.ir.sig",
+          "bytes": 176,
+          "sha256": "eee03427fbc945d57f5920233d636e7358cf892fedca3f9061e9c226c5f4dc69"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaInterval.olean.server",
+          "bytes": 2824,
+          "sha256": "6e3da410a4c5246f6ad3d52cc7092bdf03652f66086d08739182c9bd87001333"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaInterval.ir",
+          "bytes": 1952,
+          "sha256": "b9f703de8a7ad034990b05ae36852d97b718c3a9d8c7f25c44b171c26dbabe5c"
+        }
+      ],
+      "checkerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "-v",
+        "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».gap.ThetaInterval"
+      ],
+      "checkerExit": 0,
+      "actualStatementSource": "module\npublic import Mathlib.NumberTheory.Chebyshev\npublic import Mathlib.Tactic.Linarith\npublic import Mathlib.Tactic.NormNum\npublic import Mathlib.Tactic.Ring\npublic import Mathlib.Tactic.FieldSimp\n\n/-!\nActual Chebyshev-theta increments produce actual natural prime witnesses.\nThe finite-sum argument is independent of any prime-distribution estimate.\nReference strategy: PrimeNumberTheoremAnd/IEANTN/PrimeInInterval.lean,\nfixed source c39a751132c88b6e8080b74c74023fd95b3d8be0 (Apache-2.0).\nThis implementation uses the pinned Mathlib theta and primesLE definitions;\nno foreign project, literature axiom, or new prime predicate is imported.\n-/\nset_option autoImplicit false\nset_option relaxedAutoImplicit false\nset_option Elab.async false\n\n@[expose] public section\n\nnamespace B699ThetaSupply\n\nopen Finset Nat\n\ntheorem exists_prime_of_theta_lt {x z : ℝ}\n    (hθ : Chebyshev.theta x < Chebyshev.theta z) :\n    ∃ p : ℕ, p.Prime ∧ x < (p : ℝ) ∧ (p : ℝ) ≤ z := by\n  classical\n  have hz : 0 ≤ z := by\n    by_contra hn\n    have hz0 : z < 0 := lt_of_not_ge hn\n    have hzero := Chebyshev.theta_eq_zero_of_lt_two\n      (lt_trans hz0 (by norm_num : (0 : ℝ) < 2))\n    rw [hzero] at hθ\n    exact (not_lt_of_ge (Chebyshev.theta_nonneg x)) hθ\n  by_contra hn\n  have hsub : Nat.primesLE ⌊z⌋₊ ⊆ Nat.primesLE ⌊x⌋₊ := by\n    intro p hp\n    obtain ⟨hpz, hprime⟩ := Nat.mem_primesLE.mp hp\n    have hpzR : (p : ℝ) ≤ z := (Nat.cast_le.mpr hpz).trans (Nat.floor_le hz)\n    have hpxR : (p : ℝ) ≤ x := by\n      exact le_of_not_gt (fun hxp => hn ⟨p, hprime, hxp, hpzR⟩)\n    exact Nat.mem_primesLE.mpr ⟨Nat.le_floor hpxR, hprime⟩\n  have hle : Chebyshev.theta z ≤ Chebyshev.theta x := by\n    rw [Chebyshev.theta_eq_sum_primesLE, Chebyshev.theta_eq_sum_primesLE]\n    exact Finset.sum_le_sum_of_subset_of_nonneg hsub\n      (fun p _ _ => Real.log_natCast_nonneg p)\n  exact (not_le_of_gt hθ) hle\n\ntheorem exists_prime_of_theta_bounds {x z a b : ℝ}\n    (hupper : Chebyshev.theta x ≤ x + a)\n    (hlower : z - b ≤ Chebyshev.theta z)\n    (hwidth : a + b < z - x) :\n    ∃ p : ℕ, p.Prime ∧ x < (p : ℝ) ∧ (p : ℝ) ≤ z := by\n  apply exists_prime_of_theta_lt\n  linarith\n\n/-- Unequal upper and lower relative errors suffice. The exact condition is\n`D*u + (D+1)*l < 1`; the strict lower endpoint is preserved. -/\ntheorem prime_of_theta_relative_bounds {D x u l : ℝ}\n    (hD : 0 < D) (hx : 0 < x)\n    (hupper : Chebyshev.theta x ≤ (1 + u) * x)\n    (hlower : (1 - l) * (x + x / D) ≤ Chebyshev.theta (x + x / D))\n    (hcoeff : D * u + (D + 1) * l < 1) :\n    ∃ p : ℕ, p.Prime ∧ x < (p : ℝ) ∧ D * ((p : ℝ) - x) ≤ x := by\n  have hbalance : D * ((1 - l) * (x + x / D) - (1 + u) * x) =\n      x * (1 - (D * u + (D + 1) * l)) := by\n    field_simp [ne_of_gt hD]\n    <;> ring\n  have hpos : 0 < x * (1 - (D * u + (D + 1) * l)) :=\n    mul_pos hx (by linarith)\n  have hdiff : 0 < (1 - l) * (x + x / D) - (1 + u) * x :=\n    (mul_pos_iff_of_pos_left hD).mp (hbalance.symm ▸ hpos)\n  have hθ : Chebyshev.theta x < Chebyshev.theta (x + x / D) := by\n    linarith\n  obtain ⟨p, hp, hxp, hpz⟩ := exists_prime_of_theta_lt hθ\n  refine ⟨p, hp, hxp, ?_⟩\n  calc\n    D * ((p : ℝ) - x) ≤ D * ((x + x / D) - x) :=\n      mul_le_mul_of_nonneg_left (sub_le_sub_right hpz x) hD.le\n    _ = x := by field_simp [ne_of_gt hD]; ring\n\ntheorem coefficient_4095_asymmetric :\n    (4095 : ℝ) * (1 / 36260) + (4095 + 1) * (1 / 6000) < 1 := by\n  norm_num\n\ntheorem coefficient_4095_symmetric :\n    (4095 : ℝ) * (1 / 8192) + (4095 + 1) * (1 / 8192) < 1 := by\n  norm_num\n\nend B699ThetaSupply\n\n#print axioms B699ThetaSupply.exists_prime_of_theta_lt\n#print axioms B699ThetaSupply.exists_prime_of_theta_bounds\n#print axioms B699ThetaSupply.prime_of_theta_relative_bounds\n#print axioms B699ThetaSupply.coefficient_4095_asymmetric\n#print axioms B699ThetaSupply.coefficient_4095_symmetric\n",
+      "compilerReceiptSha256": "ff4883a0c7f1afcf64848ba02b3d98437f8ee0b628905fb0a5b1b9b8d9906519",
+      "checkerReceiptSha256": "b120cdc4b8a46a4d1607549fa1cf955aaf74b3a67f25fe11f2dd283e8020bbd9"
+    },
+    {
+      "module": "ThetaTail",
+      "status": "accepted-fixed-module-scope",
+      "scope": "log prerequisite and conditional Gap122568684/Gap10000000; two uniform theta estimates and initial y segment remain parameters",
+      "sourceSha256": "a56752ab3dde8be228178fa8803b72ec9dd4e9d607d34b0f500f3513ac0d2a0d",
+      "actualAxioms": {
+        "B699ThetaSupply.log_gt_eighteen": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.theta_lower_of_log_error": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.gap_4095_above_theta_threshold": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.gap_4095_of_theta_estimates_and_initial_segment": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "compilerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M3132",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-halfhour/runtime/gap-only/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaTail.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaTail.lean"
+      ],
+      "compilerExit": 0,
+      "objectSha256": "77a14fb6920e2cb4016292ab27bc9de5ea23419bd24ab37930678c70a17dca02",
+      "objectParts": [
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaTail.ir",
+          "bytes": 2776,
+          "sha256": "c3ffe97c39e5190070f73179ea15c199b96786decbc4bd07ea592ade73156a62"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaTail.olean",
+          "bytes": 20768,
+          "sha256": "77a14fb6920e2cb4016292ab27bc9de5ea23419bd24ab37930678c70a17dca02"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaTail.olean.private",
+          "bytes": 324480,
+          "sha256": "65f098bda92ba0643e127ed4ef9d5c3b2f90a315149c85deae04e3b65c6e5d26"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaTail.olean.server",
+          "bytes": 2792,
+          "sha256": "626f29775e4f73083ecae4a3cbbfc2773ed38f4a1ac0fbaef3087c6f30461994"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/ThetaTail.ir.sig",
+          "bytes": 176,
+          "sha256": "b6bb0607a74542dfa1c285e1771986736a0f1e84717822c0ce3e1dee255e1686"
+        }
+      ],
+      "checkerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "-v",
+        "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».gap.ThetaTail"
+      ],
+      "checkerExit": 0,
+      "actualStatementSource": "module\npublic import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».gap.ThetaInterval\npublic import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-tail-twohour».gap.GapDefinitions\npublic import Mathlib.Analysis.Complex.ExponentialBounds\npublic import Lean.Elab.Tactic.NormCast\n\n/-!\nAn explicit unbounded consumer of two analytical estimates from Dusart 2010:\nProposition 5.1 (upper theta error) and Theorem 5.2, row k=2, eta=0.05,\nx_k=122568683 (lower theta error). Both estimates remain explicit parameters.\nThis file proves their numerical and prime-extraction consequences, NOT the\ntwo analytical estimates, and NOT an unconditional Gap(4095, 10^7).\nThe integer cutoff is one above x_k, so either printed endpoint convention is safe.\n-/\nset_option autoImplicit false\nset_option relaxedAutoImplicit false\nset_option Elab.async false\n\n@[expose] public section\n\nnamespace B699ThetaSupply\n\ntheorem log_gt_eighteen {x : ℝ} (hx : 122568683 < x) :\n    (18 : ℝ) < Real.log x := by\n  have hpower : (2 : ℝ) ^ 26 ≤ x := by norm_num at *; linarith\n  have hlog := Real.log_le_log (by norm_num : (0 : ℝ) < 2 ^ 26) hpower\n  rw [Real.log_pow] at hlog\n  norm_num only at hlog\n  linarith [Real.log_two_gt_d9]\n\ntheorem theta_lower_of_log_error {x : ℝ} (hx : 122568683 < x)\n    (herr : x - Chebyshev.theta x ≤ x / (20 * (Real.log x) ^ 2)) :\n    (1 - 1 / 6000 : ℝ) * x ≤ Chebyshev.theta x := by\n  have hx0 : 0 ≤ x := by linarith\n  have hlog := log_gt_eighteen hx\n  have hden : (6000 : ℝ) < 20 * (Real.log x) ^ 2 := by\n    nlinarith [sq_nonneg (Real.log x - 18)]\n  have hquot : x / (20 * (Real.log x) ^ 2) ≤ x / 6000 :=\n    div_le_div_of_nonneg_left hx0 (by norm_num) hden.le\n  linarith [le_trans herr hquot]\n\n/-- The analytical input is explicit and unbounded in `x`.\nNo claim is made here that either input has been supplied in Lean. -/\ntheorem gap_4095_above_theta_threshold\n    (hupper : ∀ x : ℝ, 0 < x →\n      Chebyshev.theta x - x ≤ x / 36260)\n    (hlower : ∀ x : ℝ, 122568683 < x →\n      x - Chebyshev.theta x ≤ x / (20 * (Real.log x) ^ 2)) :\n    B699TailGap.Gap 4095 122568684 := by\n  intro y hy\n  have hyR : (122568684 : ℝ) ≤ (y : ℝ) := by exact_mod_cast hy\n  have hy0 : (0 : ℝ) < (y : ℝ) := by linarith\n  have hz : (122568683 : ℝ) < (y : ℝ) + (y : ℝ) / 4095 := by\n    have hdiv : (0 : ℝ) ≤ (y : ℝ) / 4095 := div_nonneg hy0.le (by norm_num)\n    linarith\n  have hu : Chebyshev.theta (y : ℝ) ≤ (1 + 1 / 36260 : ℝ) * (y : ℝ) := by\n    have := hupper y hy0\n    linarith\n  have hl := theta_lower_of_log_error hz (hlower _ hz)\n  obtain ⟨p, hp, hyp, hshort⟩ := prime_of_theta_relative_bounds\n    (D := (4095 : ℝ)) (u := (1 / 36260 : ℝ)) (l := (1 / 6000 : ℝ))\n    (by norm_num) hy0 hu hl coefficient_4095_asymmetric\n  have hypN : y < p := by exact_mod_cast hyp\n  refine ⟨p, hp, hypN, ?_⟩\n  have hcast : ((4095 * (p - y) : ℕ) : ℝ) ≤ (y : ℝ) := by\n    simpa only [Nat.cast_mul, Nat.cast_ofNat, Nat.cast_sub hypN.le] using hshort\n  exact_mod_cast hcast\n\n/-- The remaining initial segment is an actual prime-gap obligation in y,\nnot the already established finite original-binomial theorem in n. -/\ntheorem gap_4095_of_theta_estimates_and_initial_segment\n    (hupper : ∀ x : ℝ, 0 < x →\n      Chebyshev.theta x - x ≤ x / 36260)\n    (hlower : ∀ x : ℝ, 122568683 < x →\n      x - Chebyshev.theta x ≤ x / (20 * (Real.log x) ^ 2))\n    (hinitial : ∀ y : ℕ, 10000000 ≤ y → y < 122568684 →\n      ∃ p : ℕ, p.Prime ∧ y < p ∧ 4095 * (p - y) ≤ y) :\n    B699TailGap.Gap 4095 10000000 := by\n  intro y hy\n  by_cases htail : 122568684 ≤ y\n  · exact gap_4095_above_theta_threshold hupper hlower y htail\n  · exact hinitial y hy (lt_of_not_ge htail)\n\nend B699ThetaSupply\n\n#print axioms B699ThetaSupply.log_gt_eighteen\n#print axioms B699ThetaSupply.theta_lower_of_log_error\n#print axioms B699ThetaSupply.gap_4095_above_theta_threshold\n#print axioms B699ThetaSupply.gap_4095_of_theta_estimates_and_initial_segment\n",
+      "compilerReceiptSha256": "b127f508298f1ae4806e2f87470dd1aa854e2b755ef2a166e88bb98e1b33720e",
+      "checkerReceiptSha256": "91fccc01e824e40a096ef1bbaa4d6560c67b946c18fd083900ed05c80c556d40"
+    },
+    {
+      "module": "PsiTheta",
+      "status": "accepted-fixed-module-scope",
+      "scope": "first two psi-theta bounds unconditional on stated x domains; final two need psi errors and uniform threshold is 10^12",
+      "sourceSha256": "1dcca6cb1871f0886cedf8cc87d81e9630cc9c60d2e2c0664092fc9df8ee64cd",
+      "actualAxioms": {
+        "B699ThetaSupply.psi_sub_theta_le_twentyone_sqrt": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.psi_sub_theta_le_div_40000": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.prime_of_psi_relative_error": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ],
+        "B699ThetaSupply.gap_4095_of_psi_error": [
+          "propext",
+          "Classical.choice",
+          "Quot.sound"
+        ]
+      },
+      "compilerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/lean",
+        "-j1",
+        "-M3132",
+        "-DElab.async=false",
+        "-R",
+        "/home/runner/work/lean-math-lab/lean-math-lab",
+        "-o",
+        "/home/runner/work/lean-math-lab/lean-math-lab/.tools/b699-lean-20261001-01a0f779/20261003-gap-halfhour/runtime/gap-only/evidence/objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/PsiTheta.olean",
+        "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/PsiTheta.lean"
+      ],
+      "compilerExit": 0,
+      "objectSha256": "5236feb7d454d53868dcd1ee12cdcb79842ae63c212e0b779aef33cdef856ba8",
+      "objectParts": [
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/PsiTheta.olean.server",
+          "bytes": 2032,
+          "sha256": "7915048e1eeeec3dd457782a819b46caaded4d59097070f12cdc14fb8fe2d4a0"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/PsiTheta.ir.sig",
+          "bytes": 176,
+          "sha256": "ea67f808b198850580f298b3b5a7a03ac3aed999bc7a8ffede97edb49da4b773"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/PsiTheta.olean",
+          "bytes": 18568,
+          "sha256": "5236feb7d454d53868dcd1ee12cdcb79842ae63c212e0b779aef33cdef856ba8"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/PsiTheta.ir",
+          "bytes": 2432,
+          "sha256": "2d9632195cc51d542422f29673683fc33e21c29ffb37dd96020297650bc4a8b6"
+        },
+        {
+          "member": "objects/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261002-terminal-gap-twohour/gap/PsiTheta.olean.private",
+          "bytes": 367784,
+          "sha256": "15ec0881841467ef8afc14bbadf2fb59974b0a7cc159dc47ba0beb20cbf193ca"
+        }
+      ],
+      "checkerArguments": [
+        "/home/runner/.elan/toolchains/leanprover--lean4---v4.33.1/bin/leanchecker",
+        "-v",
+        "research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».gap.PsiTheta"
+      ],
+      "checkerExit": 0,
+      "actualStatementSource": "module\npublic import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-terminal-gap-twohour».gap.ThetaInterval\npublic import research.tasks.«B699-Binomial».runs.«20261001-lean-nonr7-01a0f779».continuations.«20261002-tail-twohour».gap.GapDefinitions\npublic import Lean.Elab.Tactic.NormCast\n\n/-!\nAn explicit psi-to-theta error bound from already proved Mathlib inequalities.\nThe two first theorems have no external prime-distribution input.\nThe final two theorems keep the effective psi estimate as an explicit hypothesis.\n-/\nset_option autoImplicit false\nset_option relaxedAutoImplicit false\nset_option Elab.async false\n\n@[expose] public section\n\nnamespace B699ThetaSupply\n\ntheorem psi_sub_theta_le_twentyone_sqrt {x : ℝ} (hx : 1 ≤ x) :\n    Chebyshev.psi x - Chebyshev.theta x ≤ 21 * Real.sqrt x := by\n  have hx0 : 0 ≤ x := by linarith\n  have hc : Real.log 4 + 4 ≤ (7 : ℝ) := by\n    have := Real.log_le_sub_one_of_pos (by norm_num : (0 : ℝ) < 4)\n    linarith\n  have hterm (a : ℝ) (ha : a ≤ 1 / 2) :\n      Chebyshev.psi (x ^ a) ≤ 7 * Real.sqrt x := by\n    have hpow0 := Real.rpow_nonneg hx0 a\n    have hpow : x ^ a ≤ Real.sqrt x := by\n      rw [Real.sqrt_eq_rpow]\n      exact Real.rpow_le_rpow_of_exponent_le hx ha\n    calc\n      Chebyshev.psi (x ^ a) ≤ (Real.log 4 + 4) * x ^ a :=\n        Chebyshev.psi_le_const_mul_self hpow0\n      _ ≤ 7 * x ^ a := mul_le_mul_of_nonneg_right hc hpow0\n      _ ≤ 7 * Real.sqrt x := mul_le_mul_of_nonneg_left hpow (by norm_num)\n  have h2 := hterm ((2 : ℝ)⁻¹) (by norm_num)\n  have h3 := hterm ((3 : ℝ)⁻¹) (by norm_num)\n  have h5 := hterm ((5 : ℝ)⁻¹) (by norm_num)\n  have hcp := Chebyshev.psi_sub_theta_le_psi_add_psi_add_psi x\n  linarith\n\ntheorem psi_sub_theta_le_div_40000 {x : ℝ} (hx : 1000000000000 ≤ x) :\n    Chebyshev.psi x - Chebyshev.theta x ≤ x / 40000 := by\n  have hx0 : 0 ≤ x := by linarith\n  have hsqrt : (1000000 : ℝ) ≤ Real.sqrt x :=\n    Real.le_sqrt_of_sq_le (by norm_num at *; linarith)\n  have hmul : 0 ≤ Real.sqrt x * (Real.sqrt x - 840000) :=\n    mul_nonneg (Real.sqrt_nonneg x) (by linarith)\n  have hbound : 21 * Real.sqrt x ≤ x / 40000 := by\n    nlinarith [Real.sq_sqrt hx0]\n  exact (psi_sub_theta_le_twentyone_sqrt (by linarith : (1 : ℝ) ≤ x)).trans hbound\n\ntheorem prime_of_psi_relative_error {x : ℝ} (hx : 1000000000000 ≤ x)\n    (hψx : |Chebyshev.psi x - x| ≤ x / 10000)\n    (hψz : |Chebyshev.psi (x + x / 4095) - (x + x / 4095)| ≤\n      (x + x / 4095) / 10000) :\n    ∃ p : ℕ, p.Prime ∧ x < (p : ℝ) ∧\n      (4095 : ℝ) * ((p : ℝ) - x) ≤ x := by\n  have hx0 : 0 < x := by linarith\n  have hdiv : (0 : ℝ) ≤ x / 4095 := div_nonneg hx0.le (by norm_num)\n  have hz : (1000000000000 : ℝ) ≤ x + x / 4095 := by linarith\n  have hu : Chebyshev.theta x ≤ (1 + 1 / 10000 : ℝ) * x := by\n    have := (abs_le.mp hψx).2\n    have := Chebyshev.theta_le_psi x\n    linarith\n  have hl : (1 - 1 / 8000 : ℝ) * (x + x / 4095) ≤\n      Chebyshev.theta (x + x / 4095) := by\n    have := (abs_le.mp hψz).1\n    have := psi_sub_theta_le_div_40000 hz\n    linarith\n  exact prime_of_theta_relative_bounds\n    (D := (4095 : ℝ)) (u := (1 / 10000 : ℝ)) (l := (1 / 8000 : ℝ))\n    (by norm_num) hx0 hu hl (by norm_num)\n\ntheorem gap_4095_of_psi_error\n    (hψ : ∀ x : ℝ, 1000000000000 ≤ x →\n      |Chebyshev.psi x - x| ≤ x / 10000) :\n    B699TailGap.Gap 4095 1000000000000 := by\n  intro y hy\n  have hyR : (1000000000000 : ℝ) ≤ (y : ℝ) := by exact_mod_cast hy\n  have hy0 : (0 : ℝ) ≤ (y : ℝ) := Nat.cast_nonneg y\n  have hz : (1000000000000 : ℝ) ≤ (y : ℝ) + (y : ℝ) / 4095 := by\n    have := div_nonneg hy0 (by norm_num : (0 : ℝ) ≤ 4095)\n    linarith\n  obtain ⟨p, hp, hyp, hshort⟩ := prime_of_psi_relative_error hyR (hψ y hyR) (hψ _ hz)\n  have hypN : y < p := by exact_mod_cast hyp\n  refine ⟨p, hp, hypN, ?_⟩\n  have hcast : ((4095 * (p - y) : ℕ) : ℝ) ≤ (y : ℝ) := by\n    simpa only [Nat.cast_mul, Nat.cast_ofNat, Nat.cast_sub hypN.le] using hshort\n  exact_mod_cast hcast\n\nend B699ThetaSupply\n\n#print axioms B699ThetaSupply.psi_sub_theta_le_twentyone_sqrt\n#print axioms B699ThetaSupply.psi_sub_theta_le_div_40000\n#print axioms B699ThetaSupply.prime_of_psi_relative_error\n#print axioms B699ThetaSupply.gap_4095_of_psi_error\n",
+      "compilerReceiptSha256": "8c22e52658166888d88990e6bc4ffee97db8025384200d3cd9ee341335cdbc26",
+      "checkerReceiptSha256": "cdc6a92c197c6fffa02ab45b10e540456d0f669d4b0e14ee9597dfe9dd0f2902"
+    }
+  ],
+  "genuineGap4095At10MAccepted": false,
+  "newCompleteOriginalIndexIncrement": 0,
+  "unprovidedSupplies": [
+    "uniform theta upper/lower errors",
+    "initial actual prime-gap y segment 10M..122568684",
+    "uniform psi error above 10^12"
+  ],
+  "terminalAcceptanceSeparate": true,
+  "kernelRerunByVerifier": false,
+  "reviewScriptSha256": "fb65e8dcf7653e68c818fab0ba8b48b7089bf509576491c10304ffef96951632"
+}

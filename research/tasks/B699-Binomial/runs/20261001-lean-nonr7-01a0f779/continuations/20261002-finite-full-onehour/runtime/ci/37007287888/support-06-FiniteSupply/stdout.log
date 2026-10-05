@@ -1,0 +1,8 @@
+@[expose] def B699TailGap.FiniteTopSupply : ℕ → ℕ → Prop :=
+fun gap upper => ∀ (n : ℕ), 2 ≤ n → n ≤ upper → ∃ p, Nat.Prime p ∧ p ≤ n ∧ n < p + gap
+B699TailGap.original_tail_of_prime_supplies : B699TailGap.CounterexampleHeight 4883 4096 →
+  B699TailGap.Gap 4095 10000000 →
+    B699TailGap.FiniteTopSupply 4883 20000000 →
+      ∀ (n i j : ℕ), 4883 ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j
+'B699TailGap.common_of_finite_top_supply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'B699TailGap.original_tail_of_prime_supplies' depends on axioms: [propext, Classical.choice, Quot.sound]

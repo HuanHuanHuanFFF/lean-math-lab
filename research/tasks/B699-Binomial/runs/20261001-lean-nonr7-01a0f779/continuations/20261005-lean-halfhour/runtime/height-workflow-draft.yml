@@ -1,0 +1,52 @@
+name: B699 controlled finite original height verification
+on:
+  workflow_dispatch:
+  push:
+    branches: ['huan/b699-lean-next-20261002-01a0f779']
+    paths:
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/runtime/height-stage-spec.json'
+      - 'research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/runtime/height-stage.py'
+permissions:
+  contents: read
+concurrency:
+  group: b699-controlled-proof
+  cancel-in-progress: false
+jobs:
+  scoped:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      B699_RUNTIME: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/continuations/20261005-lean-halfhour/runtime
+    steps:
+      - name: Reject expired new round launch window
+        run: |
+          test "$(date -u +%s)" -le "$(date -u -d '2026-10-04 18:42:00 UTC' +%s)" || { echo 'Late start rejected'; exit 124; }
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - name: Actual resources and both frozen finite height sources
+        id: plan
+        run: python3 "$B699_RUNTIME/height-stage.py" preflight
+      - uses: leanprover/lean-action@50fcf42d2e460296f1a34b402e990d1b24f8b596
+        with:
+          auto-config: 'false'
+          build: 'false'
+          test: 'false'
+          lint: 'false'
+          use-mathlib-cache: 'false'
+          use-github-cache: 'false'
+      - name: Restore ten exact origins and345source objects
+        env:
+          B699_ARTIFACT_TOKEN: ${{ github.token }}
+        run: python3 "$B699_RUNTIME/height-stage.py" prepare
+      - name: Complete unconditional finite original height consumer
+        if: success() && steps.plan.outputs.finiteheight_enabled == 'true'
+        run: python3 "$B699_RUNTIME/height-stage.py" finiteheight
+      - name: Preserve finite height proof evidence
+        if: always() && steps.plan.outputs.finiteheight_enabled == 'true'
+        run: python3 "$B699_RUNTIME/height-stage.py" package-finiteheight
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always() && steps.plan.outputs.finiteheight_enabled == 'true'
+        with:
+          name: b699-halfhour-finiteheight-${{ github.sha }}-${{ github.run_id }}
+          path: .tools/b699-lean-20261001-01a0f779/20261005-lean-halfhour/height-runtime/finiteheight-delivery/
+          if-no-files-found: warn
+          retention-days: 30

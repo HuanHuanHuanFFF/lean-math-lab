@@ -1,0 +1,15 @@
+import research.tasks.«B699-Binomial».runs.«20260909-low-index-structure-b41a5a63».lean.ThreeWindowWeights
+#print axioms B699LowIndex.split_remainders
+#print axioms B699LowIndex.prime_power_three_positions
+#print axioms B699LowIndex.prime_power_dvd_choose_of_position
+#print axioms B699LowIndex.prime_power_child_windows
+#print axioms B699LowIndex.prime_power_mother_windows
+#print axioms B699LowIndex.three_window_weight_cover
+#print axioms B699LowIndex.prime_power_three_window_dvd
+#print axioms B699LowIndex.actual_avoiding_part_three_window_transfer
+#print axioms B699LowIndex.actual_prime_part_three_window_transfer
+#print axioms B699LowIndex.common_of_three_window_not_dvd
+#print axioms B699LowIndex.child_windows_pos
+#print axioms B699LowIndex.mother_windows_pos
+#print axioms B699LowIndex.noCommon_three_window_size
+#print axioms B699LowIndex.common_of_three_window_comparison

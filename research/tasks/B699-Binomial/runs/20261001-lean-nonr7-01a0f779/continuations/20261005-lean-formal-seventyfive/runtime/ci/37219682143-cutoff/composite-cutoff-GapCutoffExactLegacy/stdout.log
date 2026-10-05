@@ -1,0 +1,20 @@
+theorem B699ThetaVerify20261005.original_tail_of_gap_at_cutoff_exact : ∀ {Y : ℕ},
+  (∀ (y : ℕ), Y ≤ y → ∃ p, Nat.Prime p ∧ y < p ∧ 4095 * (p - y) ≤ y) →
+    ∀ (n i j : ℕ), 4883 ≤ i → Y ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun {Y} hgap => B699GapCutoff20261005.original_tail_of_gap_at_cutoff hgap
+theorem B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_at_cutoff_exact : ∀ {D Y : ℕ} {u l : ℝ},
+  4095 ≤ D →
+    0 < Y →
+      ↑D * u + (↑D + 1) * l < 1 →
+        (∀ (x : ℝ), ↑Y ≤ x → Chebyshev.theta x ≤ (1 + u) * x) →
+          (∀ (x : ℝ), ↑Y ≤ x → (1 - l) * x ≤ Chebyshev.theta x) →
+            ∀ (n i j : ℕ),
+              4883 ≤ i → Y ≤ i → i < j → j ≤ n / 2 → ∃ p, Nat.Prime p ∧ i ≤ p ∧ p ∣ n.choose i ∧ p ∣ n.choose j :=
+fun {D Y} {u l} hD hY hcoeff hupper hlower =>
+  B699GapCutoff20261005.original_tail_of_uniform_relative_theta_at_cutoff hD hY hcoeff hupper hlower
+'B699ThetaVerify20261005.original_tail_of_gap_at_cutoff_exact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'B699ThetaVerify20261005.original_tail_of_uniform_relative_theta_at_cutoff_exact' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
