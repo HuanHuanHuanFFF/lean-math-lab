@@ -2,6 +2,8 @@
 
 **Oct5继续80分钟Lean已授权（上海18:17:11–19:37:11）。** [本轮入口](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/README.md)：基线16d97c601，首发已备纯ψ平滑2source/8AX，不等待Legacy生成；原题接线另行准备，通过后继续具体η核前置。已验LP/Thin全部复用，完整指标暂无变化。原hard包含核验/推送，三具名任务6.1-sol/xhigh；本机不重Lean，保D≥10GiB及无关target-survey资料。
 
+本轮首[ψ平滑签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-psi-eightymin/reviews/PSI-SMOOTHING-INDEPENDENT-ACCEPTED.json)已独立接受：fixedf084aa／CI37296215678，2source/8AX/2normal、94native；实际ψ正权夹逼与向内差分，不假设DifferenceBudget，仍需标准核条件。η级数及Legacy第二包继续实测，尚无无条件完整指标新增。
+
 **Oct5有限Gap接线30分钟轮已收尾。** [本轮报告](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-gap-bridge-halfhour/REPORT.md)：Thin两数学根已独立接受，固定11147592／CI37292900036，2fresh/4Std3 AX/2normal和110native全绑定。真正ψ预算+Nat middleGap[T0,B)+I0可接Gap10M，消去Real有限ψ/C跨窗要求；实际中段证书和ψ预算仍缺。原题完整指标增0，保持{1,2,11,29}∪[35,30000]。Legacy和真实ψ正权平滑4根都保未编候选：第二大包准备/发布错过过窄启动门，转小包也未留足准备/核验时间，均未dispatch，属于执行安排失误而非数学失败。原上海17:44:48–18:14:48不延。下一窗口先直接验纯ψ小包，再按实际对象恢复和验收成本接Legacy；详见本轮supply/PSI-DEPENDENCIES.md。
 
 **Oct5 90分钟Lean轮已在预算内收尾。** [本轮报告与下一步](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/REPORT.md)：实际E=ψ−θ、r=4096/4095，已验全部Real x≥2的通界 `ΔE≤sqrt(x)*log(rx)/4095+log(rx)^2/(2*log 2)`，并供应 `x≥10^8 → ΔE≤x/300000`、`x≥14400000000 → ΔE≤x/10^7`，均无LP/P/素数分布供应参数。[总界签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LP-MASTER-INDEPENDENT-ACCEPTED.json)与[端点签件](runs/20261001-lean-nonr7-01a0f779/continuations/20261005-local-power-ninetymin/reviews/LP-ENDPOINTS-INDEPENDENT-ACCEPTED.json)由S独立绑定；完整前置/供应24数学根另加RD2条件消费者6根，去重60AX/16normal，全Std3，无sorry。

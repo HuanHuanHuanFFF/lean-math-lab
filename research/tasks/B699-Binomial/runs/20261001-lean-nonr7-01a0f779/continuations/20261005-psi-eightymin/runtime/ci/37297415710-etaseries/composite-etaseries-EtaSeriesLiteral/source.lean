@@ -26,12 +26,8 @@ theorem series_ge_one_literal {q : ℝ} (hq : q ∈ Set.Icc (0 : ℝ) 81) :
 theorem series_continuousOn_literal :
     ContinuousOn (fun q : ℝ => ∑' n : Nat, q ^ n / (n.factorial : ℝ) ^ 2)
       (Set.Icc (0 : ℝ) 81) := by
-  have hfun : B699EtaSeries20261005.kernelSeries =
-      fun q : ℝ => ∑' n : Nat, q ^ n / (n.factorial : ℝ) ^ 2 := by
-    funext q
-    simp only [B699EtaSeries20261005.kernelSeries, B699EtaSeries20261005.seriesTerm]
-  rw [← hfun]
-  exact B699EtaSeries20261005.series_continuousOn
+  simpa only [B699EtaSeries20261005.kernelSeries, B699EtaSeries20261005.seriesTerm] using
+    B699EtaSeries20261005.series_continuousOn
 
 end B699PsiEightyVerify20261005
 
