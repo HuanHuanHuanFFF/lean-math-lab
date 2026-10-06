@@ -53,6 +53,8 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 ## 当前继续入口（取代上述历史检查点）
 
+正式第八轮输入正在绑定：Root按具名核验清单 `reviews/FINAL-SEVEN-CANDIDATE-INPUTS.json` 精确复制七源，总3,081,419字节、最大832,915字节，全部仍待第八轮fresh replay。Above916保留原多态moment_sum为global并将前100闭合义务global化；Belowff460保原完整数据且修结构/Bool/局部化；A33d845保151/37313/3919全部原字段并用普通结构递归；Middle86bde/b1cba保116667/10992原节点，采用有普通归纳soundness的factorial/fuel证书和小组；High992c只删除非消费者必需的匿名example；Small451f字节未变，原完整{1,2}接受保持。当前BUNDLE是唯一待执行输入；独立核验任务更新AUDIT/literal/fullcombine，Root将在完整tuple source-ready后触发，不沿用旧六叶的拒收版本或旧对象。
+
 最新实测检查点：数值五项全部编译成功，具名回验见 `reviews/PROFILE-4-NUMERIC-INDEPENDENT-DIAGNOSIS.json`；仅隔离范围接受，未运行完整消费者的独立kernel/literal/AX。编码四项见 `reviews/PROFILE-5-CODEC-INDEPENDENT-DIAGNOSIS.json`：Bool桥0/19.297秒，旧Char单条0/2.029秒；Nat显式List.rec由于代码生成器不支持而exit1，Above256/1M为180秒timeout而不是heartbeat错误，均无物理OOM。完整A151旧Nat首版c47因此不直接重跑。改成普通结构递归的Packed354和三个Middle成本隔离检查已合并并在 [run37522782892](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37522782892) 执行（source ad824755e，元数据 `DIAGNOSTIC-BATCH6-MANIFEST.json`）。正式入口截止清理已获独立源码/纯模拟签件 `reviews/FORMAL-HARD-DEADLINE-RUNNER-READY.json`，不等于任何新完整数学源接受。
 
 用户新增硬预算：2026-10-07北京时间02:40:25起最多再尝试5小时，截止07:40:25（UTC 2026-10-06T23:40:25Z）；不使用默认延期。预算包括修复、诊断、独立验收和交接，详见 [TIME-BUDGET](TIME-BUDGET-20261007.json)。截至UTC19:08，完整新包仍未接受；只有新Small源的完整 `{1,2}` 已独立接受，原题新增覆盖0。

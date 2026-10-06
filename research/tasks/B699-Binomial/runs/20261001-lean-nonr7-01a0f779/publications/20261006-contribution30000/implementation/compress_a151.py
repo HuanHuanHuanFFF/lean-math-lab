@@ -1,7 +1,7 @@
 """Lossless source-data re-encoding of the 151 accepted low-index rows.
 All resulting Lean sources are candidates until fresh elaboration and audits.
 """
-import collections, hashlib, json, pickle, re
+import collections, hashlib, json, pickle, re, os
 from extract import REPO, OUT, LOW, TARGETS, Tree
 from compress_i11 import add, override, emit, SCRATCH
 
@@ -16,29 +16,26 @@ def pack(n,width):
  for _ in range(width):result=ALPHABET[n%37]+result;n//=37
  return result
 
-DECODER='''def digit37 (c : Char) : ℕ :=
-  let n := c.toNat
-  if n ≤ 44 then n - 35 else if n = 46 then 10 else if n ≤ 64 then n - 37
-    else if n = 91 then 28 else if n ≤ 96 then n - 64 else n - 90
+DECODER='''def decodeGoods (divisors : List ℕ) (previous : ℕ) (codes : List ℕ) : List GoodSegment :=
+  match codes with
+  | [] => []
+  | code :: rest =>
+      let payload := code / 2
+      let index := payload % 1369
+      let width := (payload / 1369) % 1369
+      let lo := previous + payload / 1874161
+      let witness := if code % 2 = 0 then RowWitness.topPrime (lo - index)
+        else RowWitness.largeDivisor (divisors[index]?.getD 0)
+      ⟨lo, lo + width, witness⟩ :: decodeGoods divisors lo rest
+termination_by structural codes
 
-def quadruple37 (a b c d : Char) : ℕ :=
-  37 * (37 * (37 * digit37 a + digit37 b) + digit37 c) + digit37 d
-
-def double37 (a b : Char) : ℕ := 37 * digit37 a + digit37 b
-
-def decodeGoods (divisors : List ℕ) : ℕ → List Char → List GoodSegment
-  | previous, k :: a :: b :: c :: d :: e :: f :: g :: h :: rest =>
-    let lo := previous + quadruple37 a b c d
-    let witness := if k.toNat = 35 then RowWitness.topPrime (lo - double37 g h)
-      else RowWitness.largeDivisor (divisors[double37 g h]?.getD 0)
-    ⟨lo, lo + double37 e f, witness⟩ :: decodeGoods divisors lo rest
-  | _, _ => []
-
-def decodeLayers (stop : ℕ) : ℕ → List Char → List CoverLayer
-  | lower, a :: b :: cs =>
-    let upper := min (2 * lower) stop
-    ⟨lower, upper, double37 a b⟩ :: decodeLayers stop upper cs
-  | _, _ => []
+def decodeLayers (stop lower : ℕ) (indices : List ℕ) : List CoverLayer :=
+  match indices with
+  | [] => []
+  | index :: rest =>
+      let upper := min (2 * lower) stop
+      ⟨lower, upper, index⟩ :: decodeLayers stop upper rest
+termination_by structural indices
 
 def fastGoodSegmentCheck (i r s : ℕ) (g : GoodSegment) : Bool :=
   match g.witness with
@@ -50,7 +47,7 @@ theorem fastGoodSegmentCheck_spec {i r s : ℕ} {g : GoodSegment}
   cases hw : g.witness with
   | largeDivisor D => simpa only [fastGoodSegmentCheck, hw] using h
   | topPrime p =>
-    have hc : decide (g.lower ≤ g.upper ∧ p ≤ g.lower ∧ g.upper < p + i) && trialPrimeCheck p = true := by
+    have hc : (decide (g.lower ≤ g.upper ∧ p ≤ g.lower ∧ g.upper < p + i) && trialPrimeCheck p) = true := by
       simpa only [fastGoodSegmentCheck, hw] using h
     obtain ⟨hb, hp⟩ := Bool.and_eq_true_iff.mp hc
     obtain ⟨hlo, hplower, hupper⟩ := of_decide_eq_true hb
@@ -92,24 +89,26 @@ def compress_row(tree,i):
  d=tree.decls[tree.byname[ns+'.'+row+'_goods'][0]]
  records=[(int(lo),int(hi),kind,int(v)) for lo,hi,kind,v in re.findall(r'lower := (\d+), upper := (\d+), witness := RowWitness\.(topPrime|largeDivisor) (\d+)',d['text'])]
  assert records,(i,d['text'][:100])
- previous=0;encoded='';divisors=[]
+ previous=0;encoded=[];divisors=[]
  for lo,hi,kind,v in records:
-  if kind=='topPrime':mark=ALPHABET[0];index=lo-v
+  if kind=='topPrime':mark=0;index=lo-v
   else:
-   mark=ALPHABET[1]
+   mark=1
    if v not in divisors:divisors.append(v)
    index=divisors.index(v)
-  encoded+=mark+pack(lo-previous,4)+pack(hi-lo,2)+pack(index,2);previous=lo
- # Independently decode generated characters back to every original record.
- def number(chars):
-  n=0
-  for c in chars:n=37*n+ALPHABET.index(c)
-  return n
+  delta,width=lo-previous,hi-lo
+  assert 0<=delta<37**4 and 0<=width<1369 and 0<=index<1369
+  encoded.append(2*((delta*1369+width)*1369+index)+mark);previous=lo
+ # Independently decode the one-Nat representation back to every original field.
  reconstructed=[];previous=0
- for k in range(0,len(encoded),9):
-  s=encoded[k:k+9];lo=previous+number(s[1:5]);hi=lo+number(s[5:7]);value=number(s[7:9]);kind='topPrime' if s[0]==ALPHABET[0] else 'largeDivisor';value=lo-value if kind=='topPrime' else divisors[value];reconstructed.append((lo,hi,kind,value));previous=lo
+ for code in encoded:
+  payload=code//2;lo=previous+payload//1874161;hi=lo+(payload//1369)%1369
+  value=payload%1369;kind='topPrime' if code%2==0 else 'largeDivisor'
+  value=lo-value if kind=='topPrime' else divisors[value]
+  reconstructed.append((lo,hi,kind,value));previous=lo
  assert reconstructed==records
- goods_body=f'def {row}_goods : List GoodSegment :=\n  B699LowIndex.decodeGoods [{",".join(map(str,divisors))}] 0 "{encoded}".toList\n'
+ encoded_text='['+','.join(map(str,encoded))+']'
+ goods_body=f'def {row}_goods : List GoodSegment :=\n  B699LowIndex.decodeGoods [{",".join(map(str,divisors))}] 0 {encoded_text}\n'
  override(tree,ns+'.'+row+'_goods',goods_body)
  ld=tree.decls[tree.byname[ns+'.'+row+'_layers'][0]]
  layers=[tuple(map(int,x)) for x in re.findall(r'lower := (\d+), upper := (\d+), M := (\d+)',ld['text'])]
@@ -118,11 +117,15 @@ def compress_row(tree,i):
  assert layers and layers[0][0]==i*(i-1)
  assert all(hi==min(2*lo,stop) for lo,hi,m in layers)
  assert all(layers[k][1]==layers[k+1][0] for k in range(len(layers)-1)) and layers[-1][1]==stop
- mstring=''.join(pack(m,2) for lo,hi,m in layers)
- layers_body=f'def {row}_layers : List CoverLayer :=\n  B699LowIndex.decodeLayers {row}_height.n0 {i*(i-1)} "{mstring}".toList\n'
+ indices=[m for lo,hi,m in layers];lower=i*(i-1);reconstructed_layers=[]
+ for m in indices:
+  upper=min(2*lower,stop);reconstructed_layers.append((lower,upper,m));lower=upper
+ assert reconstructed_layers==layers
+ mtext='['+','.join(map(str,indices))+']'
+ layers_body=f'def {row}_layers : List CoverLayer :=\n  B699LowIndex.decodeLayers {row}_height.n0 {i*(i-1)} {mtext}\n'
  override(tree,ns+'.'+row+'_layers',layers_body)
  override(tree,ns+'.'+row+'_checked',f'theorem {row}_checked : finiteCoverRowCheck {row} = true := by\n  exact B699LowIndex.fastFiniteCoverRowCheck_spec (by decide +kernel)\n')
- return {'i':i,'goodsCount':len(records),'layerCount':len(layers),'goodsSource':d['module'],'goodsSourceSHA256':tree.mods[d['module']]['sha256'],'encodedGoodsSHA256':hashlib.sha256(encoded.encode('ascii')).hexdigest(),'encodedGoodsBytes':len(encoded),'largeDivisors':len(divisors),'roundTrip':'all original record fields equal','layersRoundTrip':'all original lo/hi/M fields equal'}
+ return {'i':i,'goodsCount':len(records),'layerCount':len(layers),'goodsSource':d['module'],'goodsSourceSHA256':tree.mods[d['module']]['sha256'],'encodingKind':'oneNatpergood/oneNatperlayer; explicitList.rec','encodedGoodsSHA256':hashlib.sha256(encoded_text.encode('ascii')).hexdigest(),'encodedGoodsBytes':len(encoded_text),'largeDivisors':len(divisors),'originalGoodsRecordsSHA256':hashlib.sha256(json.dumps(records,separators=(',',':')).encode()).hexdigest(),'originalLayerRecordsSHA256':hashlib.sha256(json.dumps(layers,separators=(',',':')).encode()).hexdigest(),'roundTrip':'all original record fields equal','layersRoundTrip':'all original lo/hi/M fields equal'}
 
 def main():
  with (SCRATCH/'a151-slice.pickle').open('rb') as f:tree,_,_=pickle.load(f)
@@ -133,7 +136,7 @@ def main():
  override(tree,'B699LowIndex.heightCertificateDataValidBool',hd['text'].split(':= by')[0]+':= by\n  decide +kernel\n')
  groups=[rows, [29,*range(35,85)], list(range(85,135)),list(range(135,185))]
  reports=[]
- for ix,indices in enumerate(groups):
+ for ix,indices in enumerate([] if os.getenv('B699_A151_PACKED_ONLY')=='1' else groups):
   targets=['B699LowIndex.LowIndexLean513dc7cc.HuanAllA.original_i'+str(i).zfill(3) for i in indices]
   selected,_=tree.slice(targets)
   name='A151' if ix==0 else 'A'+str(indices[0])+'_'+str(indices[-1])
@@ -150,7 +153,7 @@ def main():
  module=LOW+'HuanAllA.lean'
  tree.mods[module]['external'].append('Mathlib.Tactic.IntervalCases')
  packed=[]
- for ix,indices in enumerate(groups):
+ for ix,indices in enumerate(groups[:1] if os.getenv('B699_A151_PACKED_ONLY')=='1' else groups):
   entries=[]
   for i in indices:
    base='B699LowIndex.LowIndexLean513dc7cc.row'+str(i).zfill(3)

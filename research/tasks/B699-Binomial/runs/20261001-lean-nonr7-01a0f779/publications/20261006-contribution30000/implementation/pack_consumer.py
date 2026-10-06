@@ -4,16 +4,32 @@ global. Every moved declaration is a local have/let with a source mapping.
 This is candidate proof engineering, never proof acceptance by inspection.
 """
 import argparse, collections, json, pickle, re, textwrap
-from extract import REPO, OUT, LOW, Tree
+from extract import REPO, OUT, LOW, Tree, ID
 from compress_i11 import SCRATCH, add, override, emit
 from pack_i11_growth import rewrite
 
-def pack(tree,target,dest):
+def pack(tree,target,dest,global_prefix=0):
  selected,edges=tree.slice([target]);root=tree.byname[target][0]
  keep=set()
+ rewrite_defs=set()
+ # `rw [globalDef]` unfolds a declaration name. Replacing that name by a local
+ # let turns the rewrite argument into a value, which the rw elaborator rejects.
+ for k in selected:
+  d=tree.decls[k]
+  for bracket in re.finditer(r'\b(?:rw|erw|rwa)\s*\[([^\]]*)\]',d['text']):
+   for token in re.findall(ID,bracket.group(1)):
+    dep=tree.resolve(token,d)
+    if dep in selected and tree.decls[dep]['kind'] in ('def','abbrev'):
+     rewrite_defs.add(dep)
+ keep.update(rewrite_defs)
  for k in selected:
   d=tree.decls[k];s=d['text']
-  if d['kind'] in ('structure','inductive','class','instance') or d['attributes'] or d['variables']:
+  if d['full']=='Math.B699.PadeMomentIdentity.moment_sum':
+   # Its implicit universe is independently instantiated at each global use.
+   # A local have fixes that universe and failed to rewrite Nat-indexed sums in
+   # actual profile37524508470. Preserve the original polymorphic declaration.
+   keep.add(k)
+  elif d['kind'] in ('structure','inductive','class','instance') or d['attributes'] or d['variables']:
    keep.add(k)
   elif d['kind'] in ('def','abbrev') and (re.search(r'^\s*\|',s,re.M) or re.search(r'^\s*(?:local )?instance\b',s,re.M)):
    keep.add(k)
@@ -33,6 +49,13 @@ def pack(tree,target,dest):
    if dep in localset:visit(dep)
   visiting.remove(k);done.add(k);order.append(k)
  for k in sorted(localset):visit(k)
+ hoisted=[]
+ if global_prefix:
+  hoisted=order[:global_prefix]
+  keep.update(hoisted)
+  localset-=set(hoisted)
+  locals={k:'u'+str(i) for i,k in enumerate(sorted(localset))}
+  order=order[global_prefix:]
  steps=[];mapping=[]
  for k in order:
   d=tree.decls[k];body=d['text']
@@ -56,7 +79,7 @@ def pack(tree,target,dest):
     {name for m in source_modules for name in tree.mods[m]['external']})
  override(tree,target,packed)
  chosen,_=tree.slice([target]);report=emit(tree,chosen,dest)
- report.update(status='uncompiled_source_candidate',target=target,localProofSteps=len(mapping),keptGlobalDeclarations=len(keep),localSourceMap=mapping)
+ report.update(status='uncompiled_source_candidate',target=target,localProofSteps=len(mapping),keptGlobalDeclarations=len(keep),localSourceMap=mapping,rewriteDefinitionsKeptGlobal=[tree.decls[k]['full'] for k in sorted(rewrite_defs)],additionalTypedPrefixHoistedGlobal=[tree.decls[k]['full'] for k in hoisted])
  return report
 
 def main():

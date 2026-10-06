@@ -37,7 +37,7 @@ theorem fastWitnessCheck_spec {w : Witness} (h : fastWitnessCheck w = true) :
     cases hw : g.witness with
     | largeDivisor D => simpa only [fastWitnessCheck, hw] using h
     | topPrime p =>
-      have hc : decide (g.lower ≤ g.upper ∧ p ≤ g.lower ∧ g.upper < p + 11) && trialPrimeCheck p = true := by
+      have hc : (decide (g.lower ≤ g.upper ∧ p ≤ g.lower ∧ g.upper < p + 11) && trialPrimeCheck p) = true := by
         simpa only [fastWitnessCheck, hw] using h
       obtain ⟨hb, hp⟩ := Bool.and_eq_true_iff.mp hc
       obtain ⟨hlo, hplower, hupper⟩ := of_decide_eq_true hb
@@ -261,7 +261,15 @@ def emit(tree,selected,dest,shorten=True):
  if 'Mathlib.Data.Int.GCD' not in external:external.append('Mathlib.Data.Int.GCD')
  # Mathlib umbrella remains forbidden here: retain source-focused imports.
  own_namespace='Contribution.B699'+dest.stem
- text='\n'.join('import '+e for e in external)+'\n\nnamespace '+own_namespace+'\n'+''.join(pieces)+'\nend '+own_namespace+'\n'
+ # Namespace availability is independent of declaration availability. An open
+ # can mention a selected namespace whose only retained declaration is emitted
+ # later; its previous unknown-namespace error invalidated the complete open
+ # command, including Polynomial and the already-defined BernsteinCone. Declare
+ # project namespace headers up front, without introducing any mathematical fact.
+ external_ns_roots={'Nat','Int','List','Finset','Set','Polynomial','Real','Rat','NNReal','ENNReal','Function','Lean','Array','Prod','Bool','Option','Classical','Fintype','Fin','Equiv','ZMod','BigOperators','Mathlib','Std','Batteries'}
+ predeclared=sorted(n for n in kept_ns if n.split('.')[0] not in external_ns_roots)
+ namespace_headers=''.join(f'namespace {n}\nend {n}\n' for n in predeclared)
+ text='\n'.join('import '+e for e in external)+'\n\nnamespace '+own_namespace+'\n'+namespace_headers+''.join(pieces)+'\nend '+own_namespace+'\n'
  text=re.sub(r'^set_option (?:maxHeartbeats|maxRecDepth|exponentiation.threshold|autoImplicit|relaxedAutoImplicit|Elab.async) [^\n]*?(?<! in)$','',text,flags=re.M)
  text=text.replace('namespace '+own_namespace+'\n','namespace '+own_namespace+'\nset_option autoImplicit false\nset_option relaxedAutoImplicit false\nset_option Elab.async false\nset_option maxRecDepth 100000\nset_option maxHeartbeats 10000000\nset_option exponentiation.threshold 1000000\n',1)
  ns_segments=sorted({x for k in selected for x in tree.decls[k]['namespace'].split('.') if x})
@@ -289,7 +297,7 @@ def emit(tree,selected,dest,shorten=True):
  text,orphan_depth_groups=re.subn(r'(?m)^(?:set_option maxRecDepth 100000 in\n)+(?=end [^\n]+$)','',text)
  text=re.sub(r' *([,:]) *',r'\1',text)
  dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(text,encoding='utf-8',newline='\n')
- return {'path':str(dest.relative_to(REPO).as_posix()),'bytes':dest.stat().st_size,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'selectedDeclarations':len(selected),'modules':len(mods),'imports':external,'namespaceSegmentMap':mapping,'declarationNameMap':name_map,'ownNamespace':own_namespace,'removedOrphanDepthPrefixGroups':orphan_depth_groups}
+ return {'path':str(dest.relative_to(REPO).as_posix()),'bytes':dest.stat().st_size,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'selectedDeclarations':len(selected),'modules':len(mods),'imports':external,'namespaceSegmentMap':mapping,'declarationNameMap':name_map,'ownNamespace':own_namespace,'removedOrphanDepthPrefixGroups':orphan_depth_groups,'predeclaredProjectNamespaces':predeclared}
 
 def main():
  with (SCRATCH/'i11-slice.pickle').open('rb') as f:tree,_,_=pickle.load(f)

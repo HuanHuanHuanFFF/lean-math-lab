@@ -1,0 +1,76 @@
+{
+  "owner": "/root/b699_contribution_environment",
+  "scope": "fixed original coverage 185..30000, all legal Nat n/j, actual Prime p>=i, both complete choose coefficients; no oracle",
+  "hardDeadlineUtc": "2026-10-06T23:40:25Z",
+  "sourceOnlyOfficialErrors": 0,
+  "sourceOnlyOfficialReviews": 0,
+  "totalSourceBytes": 1143564,
+  "fullLeanCompiled": false,
+  "fullKernelReplayed": false,
+  "independentLiteralsAndStd3Accepted": false,
+  "proofAccepted": false,
+  "records": [
+    {
+      "id": "Middle185_322",
+      "pathRelativeToRepairDirectory": "full-factorial/Middle185_322.lean",
+      "sha256": "86bde0c265cf2a66f2fc8d821aa6f0401bcb585cfc61aa8f94f58eb3e11a1e48",
+      "bytes": 654763,
+      "sourceDeclarations": 161,
+      "indices": [185, 322],
+      "root": "Contribution.Middle185.common_185_322",
+      "producerLiteral": "forall (n i j : Nat), 185 <= i -> i <= 322 -> i < j -> j <= n / 2 -> exists p : Nat, p.Prime /\\ i <= p /\\ p divides (n.choose i).gcd (n.choose j)",
+      "pairedLiteralConsumer": "same hypotheses; exists actual Nat Prime p >= i dividing Nat.choose n i and Nat.choose n j",
+      "segments": 7292,
+      "nodes": 116667,
+      "heightRows": 138
+    },
+    {
+      "id": "Middle323_999",
+      "pathRelativeToRepairDirectory": "full-factorial/Middle323_999.lean",
+      "sha256": "b1cba5457a990d216667b64f24be16aa67cb41f17faa9d2e095d71f1fbd13aa8",
+      "bytes": 188245,
+      "sourceDeclarations": 144,
+      "indices": [323, 999],
+      "root": "Contribution.Middle323.common_323_999",
+      "producerLiteral": "forall (n i j : Nat), 323 <= i -> i <= 999 -> i < j -> j <= n / 2 -> exists p : Nat, p.Prime /\\ i <= p /\\ p divides (n.choose i).gcd (n.choose j)",
+      "pairedLiteralConsumer": "same hypotheses; exists actual Nat Prime p >= i dividing Nat.choose n i and Nat.choose n j",
+      "segments": 687,
+      "nodes": 10992,
+      "heightRows": 677
+    },
+    {
+      "id": "High1000_30000",
+      "pathRelativeToRepairDirectory": "numeric/High1000_30000.lean",
+      "sha256": "992c467eacbb421c7a453ffbe8873d11d28adb957c56b6a24ee60778e6244ea2",
+      "bytes": 300556,
+      "indices": [1000, 30000],
+      "root": "Contribution.Range.common_1000_30000",
+      "additionalRoot": "Contribution.Range.common_gcd_1000_30000",
+      "producerLiteral": "forall (n i j : Nat), 1000 <= i -> i <= 30000 -> i < j -> j <= n / 2 -> exists p : Nat, p.Prime /\\ i <= p /\\ p divides n.choose i /\\ p divides n.choose j",
+      "change": "remove precisely 202 bytes of an unconsumed anonymous example; all other bytes identical to the fixed front-end repair source"
+    }
+  ],
+  "workloadChoice": {
+    "evidenceRunId": 37522782892,
+    "sameTailFactorialCarrierCompileExit": 0,
+    "sameTailFactorialCarrierWallSeconds": 3.091664850000001,
+    "sameTailFactorialCarrierSampledPeakBytes": 106639360,
+    "earlierSingleSegmentCarrierOOMRunId": 37510369566,
+    "causeOfEarlierCombinedCarrierOOM": "unresolved; both the isolated old plain checker and isolated old product passed",
+    "nextAcceptance": "fresh full-source compile, genuine leanchecker kernel replay, independent root literals and Std3, then unchanged full S composition"
+  },
+  "minimalStageRelativeToRepairDirectory": [
+    "full-factorial/Middle185_322.lean",
+    "full-factorial/Middle323_999.lean",
+    "numeric/High1000_30000.lean",
+    "full-factorial/generate.py",
+    "full-factorial/check_fields.py",
+    "full-factorial/SOURCE-FREEZE.json",
+    "full-factorial/FIELD-COMPARISON.json",
+    "full-factorial/FINAL3-SOURCE-POLICY.json",
+    "full-factorial/FINAL3-ADOPTION.json",
+    "numeric/HIGH-LEXICAL-REPAIR.json"
+  ],
+  "stageBoundary": "Root may update the seven mirrors and independent bindings after source review; no old unselected probe or draft is required in this delivery",
+  "supersedesStaleCheckpoint": "SOURCE-FREEZE await tinycarrier actual is now complete for the tiny probe only; full range acceptance remains pending"
+}
