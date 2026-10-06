@@ -1,0 +1,53 @@
+--- official-pinned-sandbox
++++ sandbox-checker-Frozen.small12.sh
+@@ -35,7 +35,7 @@
+ [[ "$lean_path" != *$'\n'* ]] || fail "LEAN_PATH contains a newline"
+ 
+ docker_args=(
+-  run --rm --pull never
++  run --rm --pull never --name "b699-d6433f3e7d1d4f1392d3cf5c7249ed88"
+   --network none
+   --read-only
+   --cap-drop ALL
+@@ -49,12 +49,17 @@
+   --user "$(id -u):$(id -g)"
+   --tmpfs "/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777"
+   --workdir "$workspace"
+-  --env "LEAN_PATH=$lean_path"
++  --env "LEAN_PATH=/contrib-evidence:$lean_path"
++  --env "PATH=$toolchain/bin:/usr/local/bin:/usr/bin:/bin"
++  --env "B699_HARD_DEADLINE_EPOCH=1791329425"
+   --env HOME=/tmp
+   --env NO_COLOR=1
+   --mount "type=bind,src=$workspace,dst=$workspace,readonly"
+   --mount "type=bind,src=$toolchain,dst=$toolchain,readonly"
+-  --mount "type=bind,src=$source_file,dst=/contribution/Main.lean,readonly"
++  --mount "type=bind,src=$source_file,dst=/contribution/Frozen/small12.lean,readonly"
++  --mount "type=bind,src=/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/container-probe-entry.sh,dst=/contrib-resource/entry.sh,readonly"
++  --mount "type=bind,src=/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/container-resource-guard.sh,dst=/contrib-resource/guard.sh,readonly"
++  --mount "type=bind,src=/home/runner/work/_temp/b699-platform-work/raw-SmallIndices,dst=/contrib-evidence,readonly"
+ )
+ 
+ # A Lake workspace normally contains every dependency below its own .lake tree.
+@@ -69,12 +74,12 @@
+ done
+ 
+ runtime_dir="$(mktemp -d)"
+-cidfile="$runtime_dir/container-id"
++cidfile="/home/runner/work/_temp/b699-platform-work/b699-d6433f3e7d1d4f1392d3cf5c7249ed88.cid"
+ cleanup() {
+   if [[ -s "$cidfile" ]]; then
+     docker rm -f "$(<"$cidfile")" >/dev/null 2>&1 || true
+   fi
+-  rm -f "$cidfile"
++  : # Host retains trusted formal cidfile until strict cleanup
+   rmdir "$runtime_dir" 2>/dev/null || true
+ }
+ trap cleanup EXIT INT TERM
+@@ -82,5 +87,4 @@
+ docker_args+=(--cidfile "$cidfile" "$image")
+ timeout --kill-after=15 "$timeout_seconds" \
+   docker "${docker_args[@]}" \
+-  "$lean_binary" --json "--memory=$memory_mb" "--timeout=$heartbeats" \
+-  /contribution/Main.lean
++  /bin/sh /contrib-resource/guard.sh "$memory_mb" /bin/sh /contrib-resource/entry.sh "$timeout_seconds" "$(dirname "$lean_binary")/leanchecker" -v Frozen.small12

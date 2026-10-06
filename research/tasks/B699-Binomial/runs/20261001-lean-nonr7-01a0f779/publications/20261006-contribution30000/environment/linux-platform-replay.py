@@ -211,6 +211,24 @@ def collect_groups(groups: list[dict], execute) -> list[dict]:
     return results
 
 
+def select_verification_groups(groups: list[dict], request_data: dict) -> tuple[list[dict], bool]:
+    """Select whole leaf checks; the full combination requires all seven leaves."""
+    leaves = [group for group in groups if "sourcePath" in group]
+    combined = [group for group in groups if "sourcePath" not in group]
+    by_id = {group["id"]: group for group in leaves}
+    if len(leaves) != 7 or len(by_id) != 7 or len(combined) != 1 or combined[0]["id"] != "FullCoverageExact":
+        raise RuntimeError("selection requires the fixed seven unique leaves and FullCoverageExact")
+    if "selectedGroupIds" not in request_data:
+        return groups, True
+    identifiers = request_data["selectedGroupIds"]
+    if (type(identifiers) is not list or not identifiers or
+            any(type(identifier) is not str for identifier in identifiers) or
+            len(set(identifiers)) != len(identifiers) or any(identifier not in by_id for identifier in identifiers)):
+        raise RuntimeError("selectedGroupIds must be nonempty, unique, known whole-leaf IDs")
+    all_seven = set(identifiers) == set(by_id)
+    return [by_id[identifier] for identifier in identifiers] + (combined if all_seven else []), all_seven
+
+
 def sandbox_adapter(base: str, module: str, output_dir: Path,
                     imports_dir: Path | None = None, checker: bool = False) -> Path:
     if not re.fullmatch(r"(?:Frozen|Audit)\.[A-Za-z_][A-Za-z0-9_]*", module):
@@ -310,13 +328,16 @@ def main() -> None:
     if len(groups) != 8 or len(raw_sources) != 7 or set(raw_sources) != set(actual_sources):
         raise RuntimeError("only the seven exact prepared artifacts may be checked")
     review_sources = {group["id"]: bound(group["auditPath"], group["auditSha256"]) for group in groups}
+    selected_groups, full_s = select_verification_groups(groups, request)
     baseline = subprocess.check_output(["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True).strip()
     checkpoint = {"sourceCommit": baseline, "requestSha256": digest(REQUEST_PATH),
                   "bundleSnapshotSha256": digest(bundle), "auditContractSha256": digest(contract_path),
                   "axiomAuditorSha256": digest(auditor), "owner": contract["verifier"],
                   "contributionCommit": CONTRIBUTION, "taskPoolCommit": TASKS,
                   "productionSourceCommit": DERIVED, "fullConjectureSolved": False,
-                  "productionIdentityRewardMetadataChecked": False, "groups": groups}
+                  "productionIdentityRewardMetadataChecked": False, "groups": groups,
+                  "selectedGroupIds": [group["id"] for group in selected_groups if "sourcePath" in group],
+                  "fullS": full_s, "allSevenSourcesRemainBoundAndSourceChecked": True}
     (EVIDENCE / "INPUT-BINDING.json").write_text(json.dumps(checkpoint, indent=2) + "\n")
     before = resources("admission")
     if before["availableBudgetBytes"] < 2 * 1024**3 or before["freeDiskBytes"] < 14 * 1024**3:
@@ -442,9 +463,12 @@ def main() -> None:
                         "literalSourceSha256": digest(source), "literalExpectedType": group.get("literalExpectedType"),
                         "objects": {str(path.relative_to(output)): digest(path) for path in output.rglob("*") if path.is_file()},
                         "producerPrintsUsedForAxiomAcceptance": False}
-    results = collect_groups(groups, execute_group)
+    results = collect_groups(selected_groups, execute_group)
     (EVIDENCE / "SUCCESS.json").write_text(json.dumps({"groups": len(results), "completeOriginalProblem": False,
-        "formalizedPartialSet": contract["expectedWholeSet"], "productionIdentityRewardMetadataChecked": False,
+        "formalizedPartialSet": contract["expectedWholeSet"] if full_s else None,
+        "selectedGroupIds": [group["id"] for group in selected_groups if "sourcePath" in group],
+        "fullS": full_s, "fullSetCombinationExecuted": full_s,
+        "productionIdentityRewardMetadataChecked": False,
         "kernelReplay": "built-in leanchecker, same pinned Lean kernel; not an independent kernel implementation"}, indent=2) + "\n")
 
 
