@@ -1,0 +1,42 @@
+name: B699 fixed platform verification
+
+on:
+  push:
+    branches: [huan/b699-partial-plan-20261006-01a0e34b]
+    paths:
+      - research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/VERIFICATION-REQUEST.json
+
+permissions:
+  contents: read
+
+concurrency:
+  group: b699-fixed-platform-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  replay:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/huan/b699-partial-plan-20261006-01a0e34b'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      PUB: research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78
+      - name: Replay exact frozen artifacts and independent contracts
+        shell: bash
+        run: |
+          python3 "$PUB/environment/linux-platform-replay.py" \
+            "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/$PUB/environment/VERIFICATION-REQUEST.json" \
+            "$RUNNER_TEMP/b699-platform-work" "$RUNNER_TEMP/b699-platform-evidence"
+      - name: Retain source bindings, resources, logs, and objects
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: b699-fixed-platform-${{ github.sha }}
+          path: ${{ runner.temp }}/b699-platform-evidence
+          if-no-files-found: error
+          retention-days: 14
