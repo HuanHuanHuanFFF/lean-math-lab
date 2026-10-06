@@ -25,6 +25,10 @@ jobs:
         with:
           ref: ${{ github.sha }}
           persist-credentials: false
+          sparse-checkout: |
+            research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000
+            .github/workflows
+          sparse-checkout-cone-mode: true
       - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78
       - name: Replay exact frozen artifacts and independent contracts
         shell: bash

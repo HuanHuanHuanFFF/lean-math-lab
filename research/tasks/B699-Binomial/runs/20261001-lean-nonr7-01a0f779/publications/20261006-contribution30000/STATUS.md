@@ -47,6 +47,8 @@
 
 独立核验任务 `/root/b699_contribution_scope`（Sol/xhigh）拥有 `reviews/`。它已独立核对七SHA、全S分区与i11边界，实际source-only重跑0hard/6review；[AUDIT-CONTRACT](reviews/AUDIT-CONTRACT.json) 固定 `_root_.Nat.Prime`/两个 `_root_.Nat.choose` 的字面适配、公理拒绝规则和内部全S组合消费者。原生编译暂停，当前 `proofAccepted=false`；fixtures和预检不代替真实Lean。验收伴侣可在内部导入Frozen对象，七平台artifact本身仍必须独立且无兄弟导入。
 
-Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `linux-verification-workflow.yml`，固定源码/官方Docker沙箱并补受控对象导出，按每文件900秒、真实cgroup/内存观测运行。Leader只做限定分支、请求SHA、选取文件和触发状态的行政整合；runner的真实保护和技术验收由独立核验任务审查。尚未触发首CI，尚无七候选完整编译或平台受理。
+Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `linux-verification-workflow.yml`，固定源码/官方Docker沙箱并补受控对象导出，按每文件900秒、真实cgroup/内存观测运行。Leader只做限定分支、请求SHA、选取文件和触发状态的行政整合；runner的真实保护和技术验收由独立核验任务审查。
+
+首CI已触发并完成：source `d4d51abf`、run37469892848，源码政策与fixed FC source分别exit0，随后Lean release metadata匿名API403限流；还未执行Lean/Docker证明。见 [首轮诊断](reviews/CI-37469892848.md)。环境任务正在修获取方式，独立核验任务审核网络边界；候选完整编译/公理/组合验收及平台受理均pending。
 
 下一检查：环境任务给出准确固定入口；实现任务给出真实切片大小、证书压缩候选和第一编译对象。若从既定移植跨到尚未证明的数学义务，先记录重分类和依赖，再按 AGENTS 调整执行者，不暗中降低覆盖目标。

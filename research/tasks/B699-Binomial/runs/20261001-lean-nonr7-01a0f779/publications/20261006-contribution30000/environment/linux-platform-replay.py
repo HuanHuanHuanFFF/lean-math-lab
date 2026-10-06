@@ -199,17 +199,16 @@ def main() -> None:
     run("fixed-fc-source", [sys.executable, str(SCRIPT / "bootstrap-platform.py"), str(WORK),
                             str(EVIDENCE / "FIXED-SOURCE.json")])
     fc = WORK / "formal-conjectures"
-    metadata_url = "https://api.github.com/repos/leanprover/lean4/releases/tags/v4.33.1"
-    with urllib.request.urlopen(urllib.request.Request(metadata_url, headers={"User-Agent": "B699-fixed-replay"})) as response:
-        release = json.load(response)
-    asset = next(asset for asset in release["assets"] if asset["name"] == "lean-4.33.1-linux.tar.zst")
-    expected_digest = asset.get("digest")
-    if not expected_digest or not expected_digest.startswith("sha256:"):
-        raise RuntimeError("official Linux release asset does not provide a byte digest")
+    asset = json.loads((SCRIPT / "LEAN-LINUX-ASSET-PIN.json").read_text())
+    if (asset["name"], asset["assetId"], asset["sha256"], asset["bytes"], asset["url"]) != (
+        "lean-4.33.1-linux.tar.zst", 523687465,
+        "890afd185370f85666025b883914ab4f4b339136f8c96167b69cfb62aecaf235", 570405234,
+        "https://github.com/leanprover/lean4/releases/download/v4.33.1/lean-4.33.1-linux.tar.zst"):
+        raise RuntimeError("fixed official Linux asset pin drift")
     archive = WORK / asset["name"]
-    with urllib.request.urlopen(asset["browser_download_url"]) as response, archive.open("wb") as stream:
+    with urllib.request.urlopen(asset["url"]) as response, archive.open("wb") as stream:
         shutil.copyfileobj(response, stream, 1024 * 1024)
-    if digest(archive) != expected_digest.split(":", 1)[1]:
+    if archive.stat().st_size != asset["bytes"] or digest(archive) != asset["sha256"]:
         raise RuntimeError("official toolchain archive digest mismatch")
     (EVIDENCE / "TOOLCHAIN-ASSET.json").write_text(json.dumps(asset, indent=2) + "\n")
     run("toolchain-extract", ["tar", "--zstd", "-xf", str(archive), "-C", str(WORK)])
