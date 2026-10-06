@@ -14,6 +14,8 @@ def digest(raw):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--repo", type=Path, required=True)
+parser.add_argument("--candidate-plan", type=Path,
+                    help="Explicit independently reviewed seven-source plan; verify all bytes before adopting")
 args = parser.parse_args()
 repo = args.repo.resolve()
 pub = repo / "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000"
@@ -46,6 +48,36 @@ if repair_path.exists():
     records["A151Packed"] = item
     bindings.append({"path": repair_path.relative_to(repo).as_posix(), "sha256": digest(repair_raw)})
 
+# A new source version never inherits historical acceptance. This explicit plan
+# only selects source bytes and public roots for fresh literal/kernel/AX checks.
+candidate_modules = {}
+if args.candidate_plan is not None:
+    candidate_path = args.candidate_plan.resolve()
+    candidate_raw = candidate_path.read_bytes()
+    candidate = json.loads(candidate_raw)
+    expected_ids = {"SmallIndices", "A151Packed", "I11AboveFinalCandidate",
+                    "I11BelowFinalCandidate", "Middle185_322", "Middle323_999", "High1000_30000"}
+    entries = candidate["candidates"]
+    if len(entries) != 7 or {entry["id"] for entry in entries} != expected_ids:
+        raise SystemExit("candidate plan must retain all seven intended consumers")
+    if candidate["expectedS"] != "{1,2,11,29}union[35,30000]" or candidate["wholeSAccepted"] is not False:
+        raise SystemExit("candidate scope or pending acceptance status changed")
+    if sum(entry["sourceBytes"] for entry in entries) != candidate["sourceBytes"]:
+        raise SystemExit("candidate source byte total changed")
+    for entry in entries:
+        source = repo / entry["producerPath"]
+        raw = source.read_bytes()
+        if len(raw) != entry["sourceBytes"] or digest(raw) != entry["sourceSha256"]:
+            raise SystemExit(f"reviewed candidate source changed: {source}")
+        if not entry["publicRoots"] or any(not root.startswith("Contribution.") for root in entry["publicRoots"]):
+            raise SystemExit("candidate public root must stay in Contribution namespace")
+        records[entry["id"]] = {"path": entry["producerPath"], "bytes": entry["sourceBytes"],
+                                  "sha256": entry["sourceSha256"], "publicRoots": entry["publicRoots"]}
+        if entry["artifactStem"] in candidate_modules:
+            raise SystemExit("duplicate artifact module in candidate plan")
+        candidate_modules[entry["artifactStem"]] = entry["id"]
+    bindings.append({"path": candidate_path.relative_to(repo).as_posix(), "sha256": digest(candidate_raw)})
+
 # Compile the final intended lower-case artifact module names. Keep the exact
 # producer path as provenance, and reject any byte difference in the copy.
 bundle_path = pub / "BUNDLE-SNAPSHOT.json"
@@ -54,7 +86,8 @@ bundle = json.loads(bundle_raw)
 bindings.append({"path": bundle_path.relative_to(repo).as_posix(), "sha256": digest(bundle_raw)})
 for bundled in bundle["artifacts"]:
     producer_stem = Path(bundled["sourcePath"]).stem
-    item = records[producer_stem]
+    artifact_stem = Path(bundled["artifactPath"]).stem
+    item = records[candidate_modules[artifact_stem] if candidate_modules else producer_stem]
     artifact = repo / bundled["artifactPath"]
     raw = artifact.read_bytes()
     if (len(raw) != item["bytes"] or digest(raw) != item["sha256"] or

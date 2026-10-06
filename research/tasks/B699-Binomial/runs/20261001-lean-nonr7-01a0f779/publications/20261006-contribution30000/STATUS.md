@@ -53,6 +53,10 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 ## 当前继续入口（取代上述历史检查点）
 
+**本轮技术尝试已停止，预算内收尾，完整新S未实现。** 最终入口为 [FINAL-REPORT](FINAL-REPORT-20261007.md) 和具名 [FINAL-INDEPENDENT-HANDOFF](reviews/FINAL-INDEPENDENT-HANDOFF.json)。七源3,083,914字节、policy0hard6review，只有新Small完整 `{1,2}` 已接受；六叶均未通过完整链，原研究完整S覆盖保持，原题新增覆盖0。没有外部提交/PR/签名/钱包操作。
+
+R10实际三raw均137，未生成对象、未进入normal/literal/Std3，旧现场没有State，具体原因仍未知。唯一最后同源Middle323资源诊断 [run37544809565](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37544809565) 固定ba2b/sourcea484明确State.OOMKilled=true，13.25GiB硬cap、70.657秒、supervisorKilled=false、ownCID清理确认；采样peak不是最终值，采样oom事件0因末次采样未覆盖停止事件，不伪造counter。见 `reviews/PROFILE-11-LAST-RESOURCE-INDEPENDENT-DIAGNOSIS.json`。此复现不追认其他137，亦不是数学反例。最后实际在UTC23:10:43结束，核验交接UTC23:15:11完成，随后只文档保存；不再发起候选修改、数学检查或CI重试。下列为本轮历史检查点。
+
 最后完整择叶验收已启动：[run37542899049](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37542899049)，fixed `cfc0642132cd3c158a7f9d349c6229c0a5141de8`。选择Middle185、Middle323、High，逐叶全部五阶段；七源仍全部绑定并作源码门检查，完整S组合不执行/wholeSet=null。Middle用typed列表及显式起点的新全源，High用普通fuel/soundness及空列表末尾证明修补；总七源3,083,914字节，BUNDLE117aebe、AUDIT91c41、全tuple `reviews/R10-FINAL-SELECTED-TUPLE-READY.json`。证明进程UTC23:30:25停止，会话UTC23:40:25停止，不延期；此启动不等于接受。
 
 最后五项实测见 `reviews/PROFILE-9-LAST-FIVE-INDEPENDENT-DIAGNOSIS.json`：Middle首128段修复0/21.431秒，高度835..850的16行0/35.835秒，A真实354goods0/23.825秒；High在空列表末尾证明类型处1/59.952秒，已定点修补但完整fresh检待验；A全行1/103.748秒是Decidable归约停住，未算得isTrue/isFalse，不能当数学反例。其采样峰值约12.853GB，物理OOM为false，具体内层原因仍未知。A的同一完整Bool目标分合取/16层块路线只记录未试，不加新源或用辅助检查替代完整S。

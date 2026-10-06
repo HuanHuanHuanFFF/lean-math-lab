@@ -1,5 +1,7 @@
 # Erdős 699：累计研究总览与下一轮接续
 
+**Oct7部分贡献移植预算内收尾，完整新包未接受。** 用户最多5小时02:40:25–07:40:25，本轮最后实际07:10:43结束、独立技术交接07:15完成、不延期。七自包含源3,083,914字节已提取/压缩/源码门预检；新便携证明仅 `{1,2}` 完整五阶段接受，A/i11两域/Middle两段/High六叶没有完整新链，原已验完整S `{1,2,11,29}∪[35,30000]` 保持，原题新增覆盖0，R7与剩余无界参数不变。Middle的起点/typed列表问题局部已修，完整同源323..999明确13.25GiB硬限OOM；A完整Row归约停住并非已算False，i11两域900秒超时、High137现场原因未知。无平台提交。[最终报告与下一执行检查](runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/FINAL-REPORT-20261007.md)及[具名独立交接](runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/reviews/FINAL-INDEPENDENT-HANDOFF.json)为当前入口。下列为历史检查点。
+
 Oct7部分贡献正式复验已启动：[第八轮run37529174035](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37529174035)，固定source ffcc7fd84，新七源3,081,419字节，原完整S范围不变。证明进程截止北京时间07:30:25，会话07:40:25，不延期；仅新Small `{1,2}` 已独立接受，其余六叶及全S等待实际fresh compiler/literal/kernel/Std3，原题覆盖增0。详见[当前状态](runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/STATUS.md)。
 
 Oct7移植继续的用户硬预算：北京时间02:40:25–07:40:25，最多5小时、不延期，含验收与交接。三批短诊断已定位Above源码拼接错误、A151 Bool桥接问题，以及Middle实际容器硬限OOM；修复Above短前缀和全部151行高度检查已编译通过，但都不是新原题接受。下一检查隔离解码、basis扫描和两种有证明依据的gcd计算，详见[当前状态](runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/STATUS.md)；全新包S仍pending，新Small仅 `{1,2}` 已独立接受，原题覆盖不变。

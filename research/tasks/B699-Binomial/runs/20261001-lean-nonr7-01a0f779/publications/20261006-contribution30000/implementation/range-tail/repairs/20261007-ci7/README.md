@@ -19,3 +19,7 @@ High 退出137、日志截在warning中，无完整error；cleanupConfirmed=true
 下一步固定Linux小探针分离通用前缀、1/16/128段join、单高度/16行、High前缀/sieve、F_eq/1个gcd。仅诊断用独立180秒请求，不替代完整900秒验收。若join为热点，比较明确首尾的小组proof-carrying链，避免整体解码7292/687段；若高度组累计开销为热点，比较16行组。负载修订先测代表峰值，保每源≤200声明/1MiB、整包4MiB，不能把方案当已修好。
 
 独立环境 profiling runner 已交 scope 审读，使用同固定 bootstrap、官方 sandbox/guard/硬cap，只对自有UUID取实际State与采样peak/CPU，清理确认后下一探针，所有结果 proofAccepted=false。触发、最终freeze与artifact替换归Leader。完整接受仍需三个新完整源fresh exit0、真正kernel、独立原题literal/Std3，后接七叶完整S；不能省略失败叶。
+
+2026-10-07 后续检查点：上文三个899007B副本是历史前端修复输入，最终采用源以 `full-factorial/FINAL3-ADOPTION.json` 为准。两份 Middle 使用一次普通 kernel 核验的4472!常量、耗尽返回false的结构fuel gcd、每段显式端点与小组proof-carrying链；保留7292/687段、116667/10992节点、138/677高度行和最终消费者。High采用 `numeric/High1000_30000.lean`，只删除未被消费者引用的202B匿名example，全部其他字段保持原样。三源1143564B，固定官方 source-only 门0hard/0review；独立核验者已对完整三源做静态绑定。
+
+实际 run37522782892 的同尾段 factorial 载体3.092秒编译0、采样峰106639360B；旧plain检查与旧product也各自通过，因此旧组合载体OOM的具体原因仍未锁定。这里只支持采用改变后的载体做完整复验，不代表完整链已经通过。普通证据聚合在 environment/ACTUAL-PROFILING-37522782892.json；真实容器硬限制、GNU timer、源/对象绑定与自有清理均已核。三份完整新源的 Lean、标准 kernel、独立 literal/Std3及完整S仍全部 pending。共享硬截止 UTC2026-10-06T23:40:25Z，无native Windows Lean。

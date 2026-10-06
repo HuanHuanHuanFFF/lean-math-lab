@@ -1,37 +1,47 @@
 # 全范围新源码独立验收
 
-核验者 `/root/b699_contribution_scope`，Sol/xhigh；本目录由该核验任务独占。当前 **SmallIndices 新源码独立接受，范围仅 `{1,2}`；其余六叶与完整S仍pending**。接受依据为CI6的固定源、独立literal、两次正常内核重放与Std3审计，见 [SMALL12-INDEPENDENT-ACCEPTED.json](SMALL12-INDEPENDENT-ACCEPTED.json)。旧数学签件不能自动接受其余压缩改写。
+核验者 `/root/b699_contribution_scope`，Sol/xhigh；本目录由该核验任务独占。当前新可移植源码独立接受的范围仅 **`{1,2}`**。其余六叶和完整目标 `S={1,2,11,29}∪[35,30000]` 尚未接受。原研究签件覆盖 S 的数学结果与本次自包含移植的验收分开记录；失败编译不构成原题反例。
 
-当前实际七镜像已采用 [FINAL-SEVEN-CANDIDATE-INPUTS.json](FINAL-SEVEN-CANDIDATE-INPUTS.json)：Small保持原已接受字节，其余为A151 structural33d845、Above moment全局916461、Below runtimeff460、Middle两factorial86bde/b1cba和High删除非消费者匿名example992c。七源总3,081,419字节，最大832,915字节，完整S29970不变。逐原数据/完整源码/字面接口绑定见 [FINAL-SEVEN-ADOPTION-BINDING.json](FINAL-SEVEN-ADOPTION-BINDING.json)，新 [AUDIT-CONTRACT.json](AUDIT-CONTRACT.json) SHA `d1d48fbdca6aff5d4ec96c8802e96717003ec5cc9d78f70a3d5aa77b2d924b37`。八个内部审计模块均已生成，但全七新源实际Lean、normalkernel、literal、拒绝式Std3及whole组合尚未完成。Small历史接受合同/原字节另存；后续源静态修复不能自动接受。
+完整目标保留全部合法 Nat n/i/j：`i∈S`、`i<j`、`j≤n/2`，存在同一实际 `_root_.Nat.Prime p` 且 `i≤p`，分别整除两份完整 `_root_.Nat.choose n i` 和 `_root_.Nat.choose n j`。S 共29,970个指标；i11 在 `n<2^15360` 和 `2^15360≤n` 两边精确互补，不遗漏等号。未缩成诊断点或成功子集。
 
+## 当前固定源码和验收
 
+最终七文件、原研究来源和静态绑定见 [FINAL-SEVEN-CANDIDATE-INPUTS.json](FINAL-SEVEN-CANDIDATE-INPUTS.json)，当前行政采用见 [R10-SELECTED-THREE-ADOPTION-BINDING.json](R10-SELECTED-THREE-ADOPTION-BINDING.json)。七源总3,083,914字节，最大832,915字节，均小于单文件1MiB，整份小于4MiB。容量通过不等于编译通过。
 
-正式复验固定tuple见 [R8-FINAL-TUPLE-READY.json](R8-FINAL-TUPLE-READY.json)。proof job更早截止UTC23:30:25，round硬截止UTC23:40:25不延，预留600秒独立证据/交接。Host watchdog、每个cache/raw/literal/checker guest均取request实际更早epoch，不以roundMax延长执行。此签仅说明固定源和协议准备完成，不是actual proof验收。
+| 文件 / 覆盖 | 当前 SHA 前缀 | 实际验收状态 |
+|---|---|---|
+| small12 / {1,2} | 451fea0fb657 | CI6/7/R8完整raw、kernel、literal、kernel、Std3通过，接受仅2例 |
+| a151 / {29}∪[35,184] | 33d845cdfb72 | R8完整源900秒超时；真实i44 goods354诊断通过，完整row decide未化简，原因未定 |
+| i11_above / i11且2^15360≤n | 916461c9fa53 | R8完整源900秒超时，未进入后续接受阶段 |
+| i11_below / i11且n<2^15360 | ff460f668a6c | R8完整源900秒超时，未进入后续接受阶段 |
+| middle185_322 / [185,322] | b60565db1d3e | R10完整源137，无对象；正常runner未保留OOM State，原因未定 |
+| middle323_999 / [323,999] | a484ee28492d | R10完整源137，无对象；正常runner未保留OOM State，原因未定 |
+| high1000_30000 / [1000,30000] | c72b506fee4c | R10完整源137，无对象；正常runner未保留OOM State，原因未定 |
 
-CI7 run `37488807936` / source `ef2a9a163cb461a6502b798326458ea54dc17d82` 已实际收集全七叶。Small五项检查0，重复接受范围仍仅`{1,2}`，见 [SMALL12-CI7-REPLAY-ACCEPTED.json](SMALL12-CI7-REPLAY-ACCEPTED.json)。其余六叶raw均失败，没有对象和后续literal/kernel/owner Std3；FullCoverage跳过，见 [CI7-SIX-LEAVES-NOT-ACCEPTED.json](CI7-SIX-LEAVES-NOT-ACCEPTED.json)。原字节保留 [ci7/README.md](ci7/README.md)；全部实际适配脚本和10个自有容器清理状态均已独立绑定。完整S仍未接受。
+Small的固定源、真实对象、独立字面类型、两次正常内核重放及拒绝式Std3依据见 [SMALL12-R8-REPLAY-ACCEPTED.json](SMALL12-R8-REPLAY-ACCEPTED.json)。其余六叶拒收依据见 [R8-SIX-LEAVES-NOT-ACCEPTED.json](R8-SIX-LEAVES-NOT-ACCEPTED.json) 和 [R10-SELECTED-THREE-NOT-ACCEPTED.json](R10-SELECTED-THREE-NOT-ACCEPTED.json)。R10固定Git源 `cfc0642132cd3c158a7f9d349c6229c0a5141de8`，41项关键输入逐字节核对，所选三叶的真实memory guard和自有容器清理均通过；三叶均无对象、未运行literal/kernel/Std3。R10在22:52:55 UTC结束，绝对23:30截止没有触发。该runner不保留停止容器State，不能把137解释为物理OOM。
 
-当前继续入口为 [CURRENT-CHECKPOINT.json](CURRENT-CHECKPOINT.json)。实际诊断与原字节分别见 [numeric5](PROFILE-4-NUMERIC-INDEPENDENT-DIAGNOSIS.json) / [profile-4-numeric](profile-4-numeric/README.md)、[codec4](PROFILE-5-CODEC-INDEPENDENT-DIAGNOSIS.json) / [profile-5-codec](profile-5-codec/README.md)：numeric5全部源编译通过；codec4 Bool桥/Char1通过，primitive List.rec代码生成失败，Above1M前缀180秒超时，均无物理OOM，仍没有任何完整S新接受。下一批 [PROFILE6-COMBINED-SOURCE-READY.json](PROFILE6-COMBINED-SOURCE-READY.json) 固定four changed workloads：原basisproduct、原15edge plainBool、4472!+fuel carrier、支持codegen的structuralPacked354。它们仍仅诊断。
+[AUDIT-CONTRACT.json](AUDIT-CONTRACT.json) 固定当前七源及公共根，SHA `91c41dc98aa05a12f69811480545a6183cf23e8084f7848fc1b06537db6316cb`。物理源模块为lowercase `Frozen.small12/a151/i11_above/i11_below/middle185_322/middle323_999/high1000_30000`；独立审计模块为 `Audit.<组ID>`，runner对象路径和imports已逐项对应。内部 [FullCoverageExact.lean](FullCoverageExact.lean) 保留精确 S 与 i11拼接义务，但没有实际编译接受；它导入兄弟审计模块，仅供核验，不能作为符合单文件独立导入规则的官方贡献文件。
 
-完整A151 structural候选与Below runtime候选的静态绑定分别在 [A151](repairs/20261007-a151-structural/BINDING-DRAFT.json)、[Below](repairs/20261007-below-runtime/BINDING-DRAFT.json)。A151全部151原Row数据height、37313goods和3919layers逐字段独立比对通过；Below完整源码在明确名称/hoist/四处proof前端变换后逐字节等于b67。两者都需要新的实际全源编译、literal/kernel/Std3，旧Math签件不代替该验收。
+## 源对照与有限诊断边界
 
-用户硬截止为UTC2026-10-06T23:40:25Z（上海07:40:25），不延长。新诊断入口的Host成对UTC/monotonic watchdog、guest实际启动再按绝对UTC夹限、缓存和数学容器受验证的自有CID清理已独立源审读，并重跑三套纯fixture，见 [PROFILING-HARD-DEADLINE-RUNNER-READY.json](PROFILING-HARD-DEADLINE-RUNNER-READY.json)。原签绑定旧profiling头；新增 [FORMAL-HARD-DEADLINE-RUNNER-READY.json](FORMAL-HARD-DEADLINE-RUNNER-READY.json) 已独立复核normal SIGTERM、3秒Docker RPC和trusted CID fallback，完整执行tuple仍须再绑定。实际最后一分钟截止/资源不能仅由源审推定。诊断可明确按source/manifest转发400k或1M heartbeat，最终10M/900s合同不变。
+A151全部151原Row、37,313 goods、3,919 layers逐字段对照，结构递归解码变换另见 [A151静态绑定](repairs/20261007-a151-structural/BINDING-DRAFT.json)。Above保持81数值数组和18,483显式数值literal，原moment_sum泛型义务移到全局，见 [Above绑定](repairs/20261007-above-polyglobal100/BINDING-DRAFT.json)。Below保持1,111 bundles、4,041 witnesses和1,055 intervals，全部源码变换的逆映射精确恢复旧源，见 [Below绑定](repairs/20261007-below-runtime/BINDING-DRAFT.json)。
 
-CI7的Below源还发现证明块内结构声明的位置缺陷，见 [I11BELOW-CI7-STATIC-PRECHECK.json](I11BELOW-CI7-STATIC-PRECHECK.json)。实现任务已另交 `implementation/repairs/20261007-i11-below-kind` 的分离修复：源SHA `29156e9c165f4970d62136d8a68083c2ad9c830d10bda27254ac757e6ee5ae7a`、root `Contribution.B699I11BelowFinalCandidate.Math.B699.N8.d15`。独立静态绑定和未来literal草稿保存在 [repairs/20261007-i11-below-kind/BINDING-DRAFT.json](repairs/20261007-i11-below-kind/BINDING-DRAFT.json)；结构已在顶层，31份数据列表初始化共445,412字节与旧源相同。该草稿未编译、未采用到当前合同，也未修改CI7输入；仍需未来固定来源复验。
+Middle两叶保留全部7,292/687 segments、116,667/10,992节点和138/677高度六字段/原证明，显式p/typed segment修复的逆补丁精确恢复已审查源，见 [Middle绑定](repairs/20261007-middle-fixedp/BINDING-DRAFT.json)。High替换普通fuel检查和空列表membership证明后，其余完整源/F/consumer尾部不变，见 [High绑定](repairs/20261007-high-nil/BINDING-DRAFT.json)。fuel耗尽返回false，只有实际checker=true才能经普通归纳得到真实gcd=1/Prime；没有假设fuel64对所有数据足够。
 
-`PREFLIGHT-RESULT.json` 记录原题字段和集合检查：小指标1/2，A151={29}∪[35,184]，i11在n<2^15360和2^15360≤n两边精确互补，另[185,322]、[323,999]、[1000,30000]，并集恰为{1,2,11,29}∪[35,30000]（29970）。所有n/j合法域保留；实际_root_.Nat.Prime、p≥i、完整_root_.Nat.choose双整除通过独立literal锁定。该句描述待编译的检查目标，不是已经通过Lean。
+有限诊断通过不接受对应指标族，也不外推完整叶性能。最后五项实际结论见 [PROFILE-9-LAST-FIVE-INDEPENDENT-DIAGNOSIS.json](PROFILE-9-LAST-FIVE-INDEPENDENT-DIAGNOSIS.json)：Middle首128段和16行高度通过；High首Part在checker之前出现空列表证明类型错误；A151 i44 goods354通过，而完整row出现decide stuck。完整row输出既未化简为True也未化简为False，普通内核auxLemma错误可能由官方decide诊断fallback遮蔽，原因仍未知。5项真实OOMKilled均false，采样峰值不是最终峰值。
 
-已直接读取固定平台 `FormalConjectures/ErdosProblems/699.lean`：`Erdos699.erdos_699` 右侧是Nat n/i/j、1≤i、i<j≤n/2及实际素数≥i整除两完整choose的gcd。本贡献对应该右侧在S的限制域，formalized mode；没有证明整个带answer的目标。source_type_hash `f5eee958e682d353b94818dd365b7f9a090f1cb6d7361dfe754876412168b217` 来自固定manifest，本轮没有重算该类型哈希。
+较早MiddleJoin1/16诊断曾保留真实OOMKilled=true，见 [PROFILE2-RANGE-INDEPENDENT-DIAGNOSIS.json](PROFILE2-RANGE-INDEPENDENT-DIAGNOSIS.json)。这是该旧诊断负载的真实物理OOM；不能反推R10三个不同完整源的137均为OOM。
 
-`INDEPENDENT-SOURCE-POLICY.json` 使用实际固定be220ff、clean的官方C019/C020/C021重新检查全部七叶及容量、UTF8/LF/BOM；0硬错误、6人工审读提示。另静态扫描没有控制或双向字符。提示均为v2三大叶的Lean.Elab.Tactic.Omega导入和10,000,000 heartbeats。没有运行完整contrib check；元数据、签名、奖励、谱系和受理状态未接受。
+## 最后一次资源证据与硬截止
 
-## Linux执行接口
+用户给定全轮UTC18:40:25至23:40:25，不延期；proof job更早截止UTC23:30:25，预留600秒核验与交接。预算包含协调、源码、验证和记录。Root明确批准的最后一次 **完整Middle323原字节** 180秒资源诊断已经完成，见 [LAST-WHOLE-RESOURCE-PROBE-READY.json](LAST-WHOLE-RESOURCE-PROBE-READY.json)。source+CLI唯一1M heartbeat，j1，无新增profiler或#check；实际ad4 main前17个admission语句已独立执行通过，21个helper哈希保持。新增officialProductionCommit字段的包装修正不改数学源码。
 
-1. 对七源再次验SHA，将最终artifact原字节复制为独立 `Frozen/<lowercase-stem>.lean`，各自用固定官方环境编译到 `objects/Frozen/<lowercase-stem>.olean`；不能给原源添加兄弟导入或用旧项目对象填空。真实对应为small12、a151、i11_above、i11_below、middle185_322、middle323_999、high1000_30000，精确映射以当前contract为准。
-2. 将 `literals/<stem>.lean` 复制为审计树 `Audit/<stem>.lean`，依次编成 `objects/Audit/<stem>.olean`。literal中所有Nat/Prime/choose明确指向_root_，Middle两叶先核gcd型再给双整除适配。仅审计目录可以导入固定Frozen对象。
-3. `FullCoverageExact.lean` 映射 `Audit.FullCoverageExact`，在独立对象上验证i11_all和全S的all_S。它导入七个Audit模块，**只供内部验收，不能作为平台artifact上传**。
-4. 每份独立审计日志使用 `audit-axioms.py --contract AUDIT-CONTRACT.json --group <id> --log <actual-audit.log> --output <result.json>`。每个指定声明必须恰好实际打印一次；未打印、重复、额外声明、sorryAx、Lean.ofReduceBool或其他非Std3公理，以及Lean错误标记均拒绝。raw候选自印AX没有作为该脚本输入。
-5. 审计日志通过仅表示日志检查通过；还须审真实exit码、官方源码/包pins、Lean二进制、固定源/对象哈希、正常标准内核重放与OS真实硬资源限制。所有检查完成前 `proofAccepted=false`。
+该诊断只为取得停止容器State.OOMKilled、cgroup采样peak/events和自有CID清理证据；没有独立literal、kernel replay或Std3阶段，任何结果均不接受原题。此后本轮不新增数学、候选、框架或重试。Host watchdog与guest绝对UTC期限同时约束，所有缓存/数学容器通过受验证的自有CID清理，不能靠杀Docker client代替清理guest。实际结果见 [PROFILE-11-LAST-RESOURCE-INDEPENDENT-DIAGNOSIS.json](PROFILE-11-LAST-RESOURCE-INDEPENDENT-DIAGNOSIS.json)：同源a484在13.25GiB硬限下70.6569秒退出137，真实停止State.OOMKilled=true，supervisorKilled=false，自有CID清理确认。末次采样peak约13.1987GiB并非最终，采样oom_kill=0没有覆盖末尾OOM。该新run没有对象或原题接受；不能追认旧R10三失败原因，也不能据此推定最高16GiB必败。原字节见 [profile-11-last-resource/README.md](profile-11-last-resource/README.md)。本轮技术尝试已停止，最终接收与剩余义务见 [FINAL-INDEPENDENT-HANDOFF.json](FINAL-INDEPENDENT-HANDOFF.json)。
 
-`prepare-independent-audits.py --repo <repo>` 只检查冻结源并生成literal和contract，不调用Lean。`audit-axioms.py` 的10个正/负fixture已按预期通过，含官方--json转义多行列表和JSON error severity；记录在仓库外的ignored `.tools/b699-contribution-review-20261006/axiom-fixture-tests.json`；fixture不是Lean结果。
+继续入口为 [CURRENT-CHECKPOINT.json](CURRENT-CHECKPOINT.json)。本核验任务没有触发CI或运行新本机Lean；Root负责Git/推送/状态和普通artifact接收。本轮停止后，完整S的新移植仍需针对失败负载重新设计/定位，并完整通过实际源码、独立literal、正常kernel和拒绝式Std3；这属于下一次明确授权的工作。
 
-本机可用物理内存不足1GiB，已知旧CodecProbe约6.36GB峰值且仅观察没有OS硬cap。这里没有运行native Lean、安装运行时、杀其他进程、触发CI或修改冻结候选。Linux runner须分别记录实际cgroup memory.max/memory.current和CPU配额；每文件timeout≤900秒、硬内存上限≤16GiB且Lean -M与实际cap一致，host较小则明确较小cap。资源或工具失败须保留准确分类，不提升为数学失败或验收成功。
+## 官方贡献边界
+
+固定官方平台为贡献repo `be220ff2519ecfd61b28ba9e477321e4287ef6b4`、FC derived `6a786f997e18e8f095762a2830d191b7e25e505e`（base+patch重建）、Lean4.33.1 commit `819816b2e0a3bf405af45ae5c7af2491d8f5bee6`。每个官方提交文件须独立againstMathlib/FormalConjectures编译、namespace Contribution.*，不能导入本项目或兄弟文件；每文件1MiB、整份4MiB/32文件，默认900秒/≤16GiB。只允许Std3 `propext/Classical.choice/Quot.sound`。
+
+[R10-SEVEN-SOURCE-POLICY.json](R10-SEVEN-SOURCE-POLICY.json) 当前0hard、6项人工C020审阅，不能代替完整CLI签名、身份、奖励或贡献合同G6判定。没有创建官方PR、签署合同、钱包或付款操作。历史数学覆盖、移植源码接受、原题全解、人工同行审查、新颖性与奖励资格分别保留。
