@@ -53,6 +53,10 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 ## 当前继续入口（取代上述历史检查点）
 
+R8已完成拒收：Small五阶段再次通过且独立拒绝式Std3回验接受，见 `reviews/SMALL12-R8-REPLAY-ACCEPTED.json`；只完整 `{1,2}`。其余六叶见 `reviews/R8-SIX-LEAVES-NOT-ACCEPTED.json`：A/Above/Below/中段323各900秒退出124，中段185有大量未确定起点/记录proof的metavariable错误后退出1，High约92秒退出137但缺OOM状态证据。不得把Above截断输出或High警告截断当完整编译错误/物理OOM，完整S组合未执行，原题新增覆盖0。
+
+最后定点阶段：[run37541019143](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37541019143)，固定5b53bd1df；五项为Middle首128段typed列表/显式起点、高度835..850原16行、High首段有条件fuel计算、A151 i44的354goods及354goods/209layers整行语义。仍是400k/180秒串行诊断，不是新原题接受。前一启动37540580833在任何数学前因合并清单漏officialProductionCommit字段拒绝；Root补固定6a786版本，独立核验补跑真实全部admission门后重启，五source不变。正式验收入口新增严格择叶选项，保持每选叶全部五检查及所有七源源码门，部分选择一律fullS=false，目标完整S不缩。
+
 正式第八轮输入正在绑定：Root按具名核验清单 `reviews/FINAL-SEVEN-CANDIDATE-INPUTS.json` 精确复制七源，总3,081,419字节、最大832,915字节，全部仍待第八轮fresh replay。Above916保留原多态moment_sum为global并将前100闭合义务global化；Belowff460保原完整数据且修结构/Bool/局部化；A33d845保151/37313/3919全部原字段并用普通结构递归；Middle86bde/b1cba保116667/10992原节点，采用有普通归纳soundness的factorial/fuel证书和小组；High992c只删除非消费者必需的匿名example；Small451f字节未变，原完整{1,2}接受保持。当前BUNDLE是唯一待执行输入；独立核验任务更新AUDIT/literal/fullcombine，Root将在完整tuple source-ready后触发，不沿用旧六叶的拒收版本或旧对象。
 
 第八轮已执行启动：[run37529174035](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37529174035)，固定提交 `ffcc7fd84953934bb29b835dc2b56ba3971a6092`（本地/远端已核同）。`reviews/R8-FINAL-TUPLE-READY.json` 绑定BUNDLE93b395、AUDITd1d48、全部七源/八组声明核验、工作流和保护脚本；激活仅变更enabled/triggeredAt。证明进程更早在UTC23:30:25停止，整个会话UTC23:40:25硬截止，预留600秒提取/独立回验/交接；来源预审不等于实际通过。完整新S仍pending，无平台提交，原题新增覆盖0。
