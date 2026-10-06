@@ -53,6 +53,8 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 ## 当前继续入口（取代上述历史检查点）
 
+最新实测检查点：数值五项全部编译成功，具名回验见 `reviews/PROFILE-4-NUMERIC-INDEPENDENT-DIAGNOSIS.json`；仅隔离范围接受，未运行完整消费者的独立kernel/literal/AX。编码四项见 `reviews/PROFILE-5-CODEC-INDEPENDENT-DIAGNOSIS.json`：Bool桥0/19.297秒，旧Char单条0/2.029秒；Nat显式List.rec由于代码生成器不支持而exit1，Above256/1M为180秒timeout而不是heartbeat错误，均无物理OOM。完整A151旧Nat首版c47因此不直接重跑。改成普通结构递归的Packed354和三个Middle成本隔离检查已合并并在 [run37522782892](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37522782892) 执行（source ad824755e，元数据 `DIAGNOSTIC-BATCH6-MANIFEST.json`）。正式入口截止清理已获独立源码/纯模拟签件 `reviews/FORMAL-HARD-DEADLINE-RUNNER-READY.json`，不等于任何新完整数学源接受。
+
 用户新增硬预算：2026-10-07北京时间02:40:25起最多再尝试5小时，截止07:40:25（UTC 2026-10-06T23:40:25Z）；不使用默认延期。预算包括修复、诊断、独立验收和交接，详见 [TIME-BUDGET](TIME-BUDGET-20261007.json)。截至UTC19:08，完整新包仍未接受；只有新Small源的完整 `{1,2}` 已独立接受，原题新增覆盖0。
 
 UTC19:35后的执行检查点：固定数值五项已在 [run37519780288](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37519780288) 启动（source d126bc580），四项Bool/Char/Nat编码/Above诊断在 [run37519914813](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37519914813) 串行排队（source ebe71db91）。来源签件分别为 `reviews/PROFILE4-NUMERIC-SOURCE-READY.json` 和 `reviews/PROFILE5-CODEC-SOURCE-READY.json`，共用 `reviews/PROFILING-HARD-DEADLINE-RUNNER-READY.json`；全阶段绝对UTC截止不延。完整A151的Nat重编码首版已冻结于 `implementation/repairs/20261007-a151-natrec/FREEZE.json`，488425字节、151指标/37313goods/3919layers输入字段保持，实际编译与900秒性能仍pending。正式七叶入口还需独立核验SIGTERM清理修复，不能用诊断护栏签件直接批准全S验收。
