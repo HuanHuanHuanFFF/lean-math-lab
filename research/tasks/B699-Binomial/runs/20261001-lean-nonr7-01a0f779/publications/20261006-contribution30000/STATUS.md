@@ -53,6 +53,10 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 ## 当前继续入口（取代上述历史检查点）
 
+最后完整择叶验收已启动：[run37542899049](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37542899049)，fixed `cfc0642132cd3c158a7f9d349c6229c0a5141de8`。选择Middle185、Middle323、High，逐叶全部五阶段；七源仍全部绑定并作源码门检查，完整S组合不执行/wholeSet=null。Middle用typed列表及显式起点的新全源，High用普通fuel/soundness及空列表末尾证明修补；总七源3,083,914字节，BUNDLE117aebe、AUDIT91c41、全tuple `reviews/R10-FINAL-SELECTED-TUPLE-READY.json`。证明进程UTC23:30:25停止，会话UTC23:40:25停止，不延期；此启动不等于接受。
+
+最后五项实测见 `reviews/PROFILE-9-LAST-FIVE-INDEPENDENT-DIAGNOSIS.json`：Middle首128段修复0/21.431秒，高度835..850的16行0/35.835秒，A真实354goods0/23.825秒；High在空列表末尾证明类型处1/59.952秒，已定点修补但完整fresh检待验；A全行1/103.748秒是Decidable归约停住，未算得isTrue/isFalse，不能当数学反例。其采样峰值约12.853GB，物理OOM为false，具体内层原因仍未知。A的同一完整Bool目标分合取/16层块路线只记录未试，不加新源或用辅助检查替代完整S。
+
 R8已完成拒收：Small五阶段再次通过且独立拒绝式Std3回验接受，见 `reviews/SMALL12-R8-REPLAY-ACCEPTED.json`；只完整 `{1,2}`。其余六叶见 `reviews/R8-SIX-LEAVES-NOT-ACCEPTED.json`：A/Above/Below/中段323各900秒退出124，中段185有大量未确定起点/记录proof的metavariable错误后退出1，High约92秒退出137但缺OOM状态证据。不得把Above截断输出或High警告截断当完整编译错误/物理OOM，完整S组合未执行，原题新增覆盖0。
 
 最后定点阶段：[run37541019143](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37541019143)，固定5b53bd1df；五项为Middle首128段typed列表/显式起点、高度835..850原16行、High首段有条件fuel计算、A151 i44的354goods及354goods/209layers整行语义。仍是400k/180秒串行诊断，不是新原题接受。前一启动37540580833在任何数学前因合并清单漏officialProductionCommit字段拒绝；Root补固定6a786版本，独立核验补跑真实全部admission门后重启，五source不变。正式验收入口新增严格择叶选项，保持每选叶全部五检查及所有七源源码门，部分选择一律fullS=false，目标完整S不缩。
