@@ -12,13 +12,22 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from datetime import datetime,timezone
+import math
+import signal
+import uuid
 
 
 def docker_command(command: list[str], workspace: Path, toolchain: Path,
                    outputs: dict[Path, Path], lean_path: str) -> list[str]:
     image = os.environ['B699_CACHE_SANDBOX_IMAGE']
     guard = Path(__file__).resolve().parent / 'container-resource-guard.sh'
-    arguments = ['docker', 'run', '--rm', '--pull', 'never', '--network', 'none',
+    entry = Path(__file__).resolve().parent / 'container-probe-entry.sh'
+    name='b699-cache-'+uuid.uuid4().hex
+    cidfile=workspace/(name+'.cid')
+    if cidfile.exists():
+        raise RuntimeError('owned cache cidfile already exists')
+    arguments = ['docker', 'run', '--rm', '--pull', 'never','--name',name,'--cidfile',str(cidfile),'--network', 'none',
                  '--read-only', '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges',
                  '--pids-limit', '256', '--cpus', '1', '--memory', '2048m', '--memory-swap', '2048m',
                  '--ulimit', 'core=0', '--user', f'{os.getuid()}:{os.getgid()}',
@@ -33,7 +42,55 @@ def docker_command(command: list[str], workspace: Path, toolchain: Path,
         output.mkdir(parents=True, exist_ok=True)
         arguments += ['--mount', f'type=bind,src={output},dst={output}']
     # No RLIMIT_AS: virtual mappings/reservations are not committed/RSS memory.
-    return arguments + [image, '/bin/sh', '/b699-resource-guard.sh', '2048', *command]
+    timer=[]
+    if os.environ.get('B699_HARD_DEADLINE_UTC'):
+        deadline=datetime.fromisoformat(os.environ['B699_HARD_DEADLINE_UTC'])
+        seconds=math.floor((deadline-datetime.now(timezone.utc)).total_seconds()-45)
+        if seconds<1:
+            raise RuntimeError('hard UTC lease cannot admit another cache module')
+        arguments+=['--env','B699_HARD_DEADLINE_EPOCH='+str(int(deadline.timestamp())),
+                    '--mount',f'type=bind,src={entry},dst=/b699-round-entry.sh,readonly']
+        timer=['/bin/sh','/b699-round-entry.sh',str(seconds)]
+    return arguments + [image, '/bin/sh', '/b699-resource-guard.sh', '2048', *timer, *command]
+
+
+def run_cache_owned(command,record,cwd,environment):
+    name=command[command.index('--name')+1]
+    cidfile=Path(command[command.index('--cidfile')+1])
+    if not re.fullmatch('b699-cache-[0-9a-f]{32}',name) or cidfile.exists():
+        raise RuntimeError('untrusted cache launch identity')
+    query=['docker','container','ls','--all','--no-trunc','--filter','name=^/'+name+'$','--format','{{.ID}}']
+    if subprocess.check_output(query,text=True,env=environment,timeout=3).strip():
+        raise RuntimeError('owned cache name exists before launch')
+    record['ownedContainerName']=name
+    record['cleanupConfirmed']=False
+    process=None
+    try:
+        process=subprocess.Popen(command,cwd=cwd,env=environment)
+        return process.wait()
+    finally:
+        identifier=cidfile.read_text().strip() if cidfile.is_file() else None
+        record['cleanupTarget']=identifier
+        if identifier:
+            if not re.fullmatch('[0-9a-f]{64}',identifier):
+                raise RuntimeError('invalid trusted cache cidfile')
+            subprocess.run(['docker','container','rm','--force',identifier],env=environment,
+                           stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=False,timeout=3)
+        remaining=subprocess.check_output(query,text=True,env=environment,timeout=3).strip()
+        record['cleanupConfirmed']=not remaining
+        if process is not None and process.poll() is None:
+            try:
+                process.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                process.terminate()
+                try:
+                    process.wait(timeout=3)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.wait()
+        if not record['cleanupConfirmed']:
+            raise RuntimeError('owned cache container cleanup cannot be confirmed')
+        cidfile.unlink(missing_ok=True)
 
 
 def main() -> None:
@@ -81,14 +138,17 @@ def main() -> None:
         built.append(record)
         save()
         print(f'CACHE_MODULE_BEGIN {module} threads=1 Elab.async=false managed=1536MiB sandboxed={sandboxed}', flush=True)
-        result = subprocess.run(actual_command, cwd=root, env=environment, check=False)
-        record['exitCode'] = result.returncode
-        record['status'] = 'compiled' if result.returncode == 0 else 'failed'
-        if result.returncode == 0:
+        try:
+            code=run_cache_owned(actual_command,record,root,environment) if sandboxed else subprocess.run(actual_command,cwd=root,env=environment,check=False).returncode
+        finally:
+            save()
+        record['exitCode'] = code
+        record['status'] = 'compiled' if code == 0 else 'failed'
+        if code == 0:
             record['objectSha256'] = hashlib.sha256(output.read_bytes()).hexdigest()
         save()
-        if result.returncode:
-            raise RuntimeError(f"{module}: exit {result.returncode}")
+        if code:
+            raise RuntimeError(f"{module}: exit {code}")
         print(f"built {module}", flush=True)
 
     build("Cache.Main")
@@ -97,4 +157,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    if os.name!='nt':
+        def interrupt_owned(signum,frame):
+            raise KeyboardInterrupt('cache build interrupted; owned CID cleanup')
+        signal.signal(signal.SIGTERM,interrupt_owned)
     main()

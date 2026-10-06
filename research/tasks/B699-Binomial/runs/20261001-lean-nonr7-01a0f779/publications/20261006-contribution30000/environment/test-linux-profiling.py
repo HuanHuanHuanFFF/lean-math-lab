@@ -16,9 +16,10 @@ work,evidence = root/'work',root/'evidence'
 work.mkdir(exist_ok=True)
 evidence.mkdir(exist_ok=True)
 core = SimpleNamespace(WORK=work,EVIDENCE=evidence,SCRIPT=directory,REPO=Path.cwd(),
-                       environment={},stages=[],shutil=shutil)
+                       environment={'B699_HARD_DEADLINE_UTC':'2026-10-06T23:40:25+00:00','B699_HARD_DEADLINE_EPOCH':'1791330025'},stages=[],shutil=shutil)
 ctx = {'Path':Path,'re':re,'uuid':uuid,'WORK':work,'EVIDENCE':evidence,'SCRIPT':directory,
-       'shutil':shutil,'json':json,'hashlib':hashlib,'REPO':Path.cwd(),'stages':core.stages}
+       'shutil':shutil,'json':json,'hashlib':hashlib,'REPO':Path.cwd(),'stages':core.stages,
+       'environment':core.environment,'request':{'diagnosisOnly':True}}
 regular_source=(directory/'linux-platform-replay.py').read_text()
 regular = ast.parse(regular_source)
 nodes = [node for node in regular.body if isinstance(node,ast.FunctionDef) and node.name in ('sandbox_adapter','digest','preserve_objects')]
@@ -31,8 +32,10 @@ source=(directory/'linux-profiling-replay.py').read_text()
 tree=ast.parse(source)
 funcs=[node for node in tree.body if isinstance(node,ast.FunctionDef) and node.name in
        ('profiling_adapter','snapshot_state','inspect_owned','execute_probe','owned_containers','trusted_cid','query_timeout')]
+real_datetime=__import__('datetime').datetime
+fake_datetime=SimpleNamespace(now=lambda tz:real_datetime.fromisoformat('2026-10-06T19:00:00+00:00'),fromisoformat=real_datetime.fromisoformat)
 test_context={'core':core,'SCRIPT':directory,'json':json,'subprocess':None,
-              'math':__import__('math'),'datetime':__import__('datetime').datetime,
+              'math':__import__('math'),'datetime':fake_datetime,
               'timezone':__import__('datetime').timezone,'re':re,'KNOWN_OWNED_IDS':{},'CURRENT_DEADLINE':None,'Path':Path,
               'time':SimpleNamespace(monotonic=lambda:2.0,sleep=lambda _:None)}
 exec(compile(ast.Module(body=funcs,type_ignores=[]),'profiling-pure-functions','exec'),test_context)
@@ -66,9 +69,9 @@ for stage in ('admission','source-policy','fixed-fc-source','toolchain-extract',
               'official-workspace-validate','official-cli-frozen','official-cli-version'):
     assert stage in bootstrap
 assert "!= core.request['fixedReplaySha256']" in source
-assert "'180',str(memory_mb),'400000'" in source and 'signal.SIGTERM' in source
+assert "str(seconds),str(memory_mb),str(probe['heartbeatLimit'])" in source and 'signal.SIGTERM' in source
 assert 'selected!=[identifier for identifier in manifest' in source
-assert 'clock_start+195' in source and 'timeout=3' in source
+assert 'clock_start+seconds+15' in source and 'timeout=3' in source
 
 class FakeDocker:
     def __init__(self,code=0,cleanup_fail=False,still_running=False,telemetry_fault=False):
@@ -134,7 +137,7 @@ class FakeDocker:
 
 dummy=work/'probe.lean'
 dummy.write_text('-- pure fixture\n')
-probe={'id':'Test','root':'Fixture.True'}
+probe={'id':'Test','root':'Fixture.True','heartbeatLimit':400000}
 for code,still_running in ((0,False),(137,False),(137,True)):
     fake=FakeDocker(code,still_running=still_running)
     core.owned_containers=lambda name: ['a'*64] if fake.owned else []

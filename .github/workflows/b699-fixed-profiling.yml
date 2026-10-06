@@ -33,7 +33,8 @@ jobs:
       - name: Profile explicit frozen diagnosis probes (not S acceptance)
         shell: bash
         run: |
-          python3 "$PUB/environment/linux-profiling-replay.py" \
+          python3 "$PUB/environment/linux-deadline-run.py" "$GITHUB_WORKSPACE/$PUB/environment/PROFILING-REQUEST.json" -- \
+            python3 "$PUB/environment/linux-profiling-replay.py" \
             "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/$PUB/environment/PROFILING-REQUEST.json" \
             "$RUNNER_TEMP/b699-profile-work" "$RUNNER_TEMP/b699-profile-evidence"
       - name: Retain source bindings, resources, logs, and objects

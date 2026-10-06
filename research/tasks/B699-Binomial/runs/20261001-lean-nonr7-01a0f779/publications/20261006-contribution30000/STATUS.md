@@ -53,6 +53,12 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 ## 当前继续入口（取代上述历史检查点）
 
+用户新增硬预算：2026-10-07北京时间02:40:25起最多再尝试5小时，截止07:40:25（UTC 2026-10-06T23:40:25Z）；不使用默认延期。预算包括修复、诊断、独立验收和交接，详见 [TIME-BUDGET](TIME-BUDGET-20261007.json)。截至UTC19:08，完整新包仍未接受；只有新Small源的完整 `{1,2}` 已独立接受，原题新增覆盖0。
+
+短诊断已完成三批，保留具名签件而不把探针当原题接受：第一批 [PROFILE1](reviews/PROFILE1-INDEPENDENT-DIAGNOSIS.json) 的A151前置/高度1/16通过，并定位Above命名空间、局部定义重写及多余rfl错误；第二批 [PROFILE2](reviews/PROFILE2-RANGE-INDEPENDENT-DIAGNOSIS.json) 的Middle前置通过，两个带共同数值前置的segment探针发生实际容器硬限OOM，High前置缺失引用来自非消费者必需的匿名example，孤立factorial检查通过；第三批 [PROFILE3](reviews/PROFILE3-INDEPENDENT-DIAGNOSIS.json) 的修复Above短前缀及全部151行高度检查通过，长前缀只在诊断400k heartbeat处失败，A151后段暴露Bool/命题衔接错误及Lean内核内存限制。第三批没有物理OOM，不能把它与第二批原因混同。
+
+下一固定诊断组选择 MiddleDecodeTail、MiddleBasisScan4473、MiddleBareGcd、MiddleFuelGcd、HighPreludeNoExample，分别隔离解码、原范围扫描、原Nat.gcd与带普通归纳soundness的燃料式计算，以及High去除匿名example后的前置。新护栏须把启动准备和每项检查夹在上述硬截止内，经独立审读后Root触发。实现者另修复A151/Below的Bool桥接并比较新的紧凑行表示；所有新源仍待实际编译、字面型、内核与公理验收，CI7 artifact镜像保持原字节。
+
 七份候选已提取和压缩，当前固定字节总量2,781,438，完整范围不变，精确文件与SHA见 `BUNDLE-SNAPSHOT.json`。A151仅修复规范断言的连接关联形式，其编码数据和151指标未改；新绑定见 `reviews/A151-REPAIR-BINDING.json`。这属于待编译候选，尚不能称为通过步骤3。
 
 Linux第二轮 run37471585643（417c4bd94）通过固定源和运行时准备，但缓存工具因线程创建失败停止。第三轮 run37475085494（8b8bc3bed）改用真正2 GiB物理硬限、无额外swap、单线程容器；Cache.Cli、Cache.Lean、Batteries.Tactic.OpenPrivate实际编译成功，随后Cache.IO触发768 MiB Lean内部预算。此时七个数学artifact尚未开始编译；这些失败是环境准备失败，不是数学反例。

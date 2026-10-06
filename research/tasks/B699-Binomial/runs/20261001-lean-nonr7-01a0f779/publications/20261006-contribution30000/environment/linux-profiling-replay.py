@@ -96,6 +96,10 @@ def profiling_adapter(base, module, output, memory_mb):
     assert text.count(anchor)==1
     text = text.replace(anchor,anchor+'\n  --mount "type=bind,src='+str(SCRIPT/'container-probe-metrics.sh')+',dst=/contrib-resource/metrics.sh,readonly"')
     text = text.replace(anchor,anchor+'\n  --mount "type=bind,src='+str(SCRIPT/'container-probe-entry.sh')+',dst=/contrib-resource/entry.sh,readonly"')
+    epoch=core.environment['B699_HARD_DEADLINE_EPOCH']
+    if not epoch.isdigit():
+        raise RuntimeError('invalid absolute guest deadline epoch')
+    text=text.replace('  --env HOME=/tmp','  --env "B699_HARD_DEADLINE_EPOCH='+epoch+'"\n  --env HOME=/tmp')
     ownership = json.loads((core.EVIDENCE/(adapter.name+'.container.json')).read_text())
     cidfile=core.WORK/(ownership['name']+'.cid')
     assert text.count('cidfile="$runtime_dir/container-id"')==1
@@ -154,24 +158,31 @@ def execute_probe(probe,source,fc,base):
         raise RuntimeError('owned nonce cidfile already exists before launch')
     if owned_containers(name):
         raise RuntimeError('owned profiling UUID already exists before launch')
-    command = ['bash',str(adapter),str(fc),str(source),'180',str(memory_mb),'400000']
+    lease=datetime.fromisoformat(core.environment['B699_HARD_DEADLINE_UTC'])
+    remaining=(lease-datetime.now(timezone.utc)).total_seconds()
+    seconds=min(180,math.floor(remaining-45))
+    if seconds<1:
+        raise RuntimeError('remaining UTC lease does not admit another probe')
+    command = ['bash',str(adapter),str(fc),str(source),str(seconds),str(memory_mb),str(probe['heartbeatLimit'])]
     receipt = {**ownership,'probeId':probe['id'],'sourceSha256':core.digest(source),'command':command,
-        'prelaunchAbsent':True,'cleanupConfirmed':False,'memoryMiB':memory_mb,'timeoutSeconds':180,
+        'prelaunchAbsent':True,'cleanupConfirmed':False,'memoryMiB':memory_mb,'timeoutSeconds':seconds,
         'proofAccepted':False,'diagnosisOnly':True,'memoryPeakIsFinal':False,'samples':[],
-        'innerTimeoutSeconds':180,'innerKillAfterSeconds':15,'hostSupervisorDeadlineSeconds':195}
+        'innerTimeoutSeconds':seconds,'innerKillAfterSeconds':15,'hostSupervisorDeadlineSeconds':seconds+15,
+        'hardDeadlineUtc':lease.isoformat(),'remainingLeaseAtAdmissionSeconds':remaining,'budgetClipped':seconds<180,
+        'heartbeatLimit':probe['heartbeatLimit']}
     receipt_path = core.EVIDENCE/(label+'-CONTAINER-LIFECYCLE.json')
     receipt_path.write_text(json.dumps(receipt,indent=2)+'\n')
     log = core.EVIDENCE/(label+'.log')
     started = datetime.now(timezone.utc)
     clock_start = time.monotonic()
-    CURRENT_DEADLINE=clock_start+195
+    CURRENT_DEADLINE=clock_start+seconds+15
     process = None
     try:
         with log.open('wb') as stream:
             process = subprocess.Popen(command,cwd=core.WORK,env=core.environment,stdout=stream,stderr=subprocess.STDOUT)
             while process.poll() is None:
                 trusted_cid(ownership)
-                if time.monotonic()>=clock_start+195:
+                if time.monotonic()>=clock_start+seconds+15:
                     raise RuntimeError('profiling Host supervisor reached independent 180+15 deadline')
                 value = inspect_owned(name)
                 if value and value['State']['Running']:
@@ -265,7 +276,7 @@ def execute_probe(probe,source,fc,base):
     errors = []
     for line in log.read_text(errors='replace').splitlines():
         guard_seen |= line.startswith('B699_RESOURCE_CONTRACT path=')
-        environment_error |= 'B699_RESOURCE_CONTRACT:' in line or 'B699_DIAGNOSTIC_ENVIRONMENT:' in line or any(marker in line.lower() for marker in (
+        environment_error |= 'B699_RESOURCE_CONTRACT:' in line or 'B699_DIAGNOSTIC_ENVIRONMENT:' in line or 'B699_HARD_DEADLINE_EXPIRED:' in line or any(marker in line.lower() for marker in (
             'could not execute external process','command not found','unknown module prefix','no such file or directory'))
         try:
             message = json.loads(line)
@@ -287,6 +298,11 @@ def main():
     if sys.platform!='linux' or core.os.environ.get('GITHUB_REF')!='refs/heads/'+core.BRANCH:
         raise RuntimeError('Linux and authorized branch required')
     request = core.request
+    if core.environment.get('B699_DEADLINE_WRAPPED')!='1':
+        raise RuntimeError('new jobs require the owned UTC deadline supervisor')
+    lease=datetime.fromisoformat(request['hardDeadlineUtc'].replace('Z','+00:00'))
+    if lease.isoformat()!=core.environment.get('B699_HARD_DEADLINE_UTC') or (lease-datetime.now(timezone.utc)).total_seconds()<=45:
+        raise RuntimeError('expired or mismatched hard UTC lease')
     if request.get('enabled') is not True or request.get('diagnosisOnly') is not True or request.get('branch')!=core.BRANCH:
         raise RuntimeError('profiling request disabled or wrong purpose/branch')
     if request.get('fileTimeoutSeconds')!=180 or request.get('maxMemoryMiB')!=16384:
@@ -306,7 +322,7 @@ def main():
     for probe in probes:
         if not re.fullmatch('[A-Za-z][A-Za-z0-9_]*',probe['id']):
             raise RuntimeError('unsafe probe id')
-        if (probe['wallTimeoutSeconds'],probe['heartbeatLimit'],probe['threads'])!=(180,400000,1):
+        if probe['wallTimeoutSeconds']!=180 or probe['heartbeatLimit'] not in (400000,1000000) or probe['threads']!=1:
             raise RuntimeError('probe execution limits changed')
         source = core.bound(probe['path'],probe['sha256'])
         if source.stat().st_size != probe['bytes']:

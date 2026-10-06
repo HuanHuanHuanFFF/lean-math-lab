@@ -213,6 +213,14 @@ def sandbox_adapter(base: str, module: str, output_dir: Path,
         text = text.replace('LEAN_PATH=/contrib-evidence:$lean_path', 'LEAN_PATH=/contrib-evidence:/review-imports:$lean_path')
     text = text.replace('  "$lean_binary" --json', '  /bin/sh /contrib-resource/guard.sh "$memory_mb" "$lean_binary" --json')
     text = text.replace('  "$(dirname "$lean_binary")/leanchecker"', '  /bin/sh /contrib-resource/guard.sh "$memory_mb" "$(dirname "$lean_binary")/leanchecker"')
+    if environment.get('B699_HARD_DEADLINE_EPOCH') and request.get('diagnosisOnly') is not True:
+        epoch=environment['B699_HARD_DEADLINE_EPOCH']
+        if not epoch.isdigit():
+            raise RuntimeError('invalid absolute guest deadline epoch')
+        text=text.replace('  --env HOME=/tmp','  --env "B699_HARD_DEADLINE_EPOCH='+epoch+'"\n  --env HOME=/tmp')
+        text=text.replace(mount,mount+'\n  --mount "type=bind,src='+str(SCRIPT/'container-probe-entry.sh')+',dst=/contrib-resource/entry.sh,readonly"')
+        text=text.replace('/contrib-resource/guard.sh "$memory_mb" ',
+                          '/contrib-resource/guard.sh "$memory_mb" /bin/sh /contrib-resource/entry.sh "$timeout_seconds" ')
     path = WORK / f"sandbox-{'checker' if checker else 'object'}-{module}.sh"
     path.write_text(text)
     path.chmod(0o700)
@@ -241,6 +249,11 @@ def main() -> None:
         raise RuntimeError("Linux and the explicitly authorized branch are required")
     if request.get("enabled") is not True or request.get("branch") != BRANCH:
         raise RuntimeError("verification request is disabled or branch mismatch")
+    if environment.get('B699_DEADLINE_WRAPPED')!='1':
+        raise RuntimeError('new verification jobs require the owned UTC deadline supervisor')
+    lease=datetime.fromisoformat(request['hardDeadlineUtc'].replace('Z','+00:00'))
+    if lease.isoformat()!=environment.get('B699_HARD_DEADLINE_UTC') or (lease-datetime.now(timezone.utc)).total_seconds()<=45:
+        raise RuntimeError('expired or mismatched hard UTC lease')
     if request.get("fileTimeoutSeconds") != 900 or request.get("maxMemoryMiB") != 16384:
         raise RuntimeError("request must retain the 900-second / maximum-16GiB contract")
     artifact_dir = (REPO / request["artifactDirectory"]).resolve()
@@ -350,28 +363,31 @@ def main() -> None:
         memory_mb = min(16384, math.floor((measured["availableBudgetBytes"] - 1024**3) / (256 * 1024**2)) * 256)
         if memory_mb < 1024:
             raise RuntimeError("no safe measured Docker proof budget")
+        seconds=min(900,math.floor((lease-datetime.now(timezone.utc)).total_seconds()-45))
+        if seconds<1:
+            raise RuntimeError('remaining UTC lease cannot admit another verification group')
         if "sourcePath" in group:
             source = bound(group["sourcePath"], group["sourceSha256"])
             output = WORK / ("raw-" + group["id"])
             adapter = sandbox_adapter(base, group["frozenModule"], output)
             try:
-                run_sandbox("raw-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), "900", str(memory_mb), "400000"])
+                run_sandbox("raw-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), str(seconds), str(memory_mb), "400000"])
             finally:
                 preserve_objects("raw-" + group["id"], output, source, group["frozenModule"])
             checker = sandbox_adapter(base, group["frozenModule"], output, checker=True)
             run_sandbox("kernel-raw-" + group["id"], checker, ["bash", str(checker),
-                        str(fc), str(source), "900", str(memory_mb), "400000"])
+                        str(fc), str(source), str(seconds), str(memory_mb), "400000"])
             shutil.copytree(output, object_imports, dirs_exist_ok=True)
         source = review_sources[group["id"]]
         output = WORK / ("audit-" + group["id"])
         adapter = sandbox_adapter(base, group["auditModule"], output, object_imports)
         try:
-            run_sandbox("literal-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), "900", str(memory_mb), "400000"])
+            run_sandbox("literal-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), str(seconds), str(memory_mb), "400000"])
         finally:
             preserve_objects("literal-" + group["id"], output, source, group["auditModule"])
         # Checker needs the raw/review import closure as well as its own object.
         checker = sandbox_adapter(base, group["auditModule"], output, object_imports, checker=True)
-        run_sandbox("kernel-literal-" + group["id"], checker, ["bash", str(checker), str(fc), str(source), "900", str(memory_mb), "400000"])
+        run_sandbox("kernel-literal-" + group["id"], checker, ["bash", str(checker), str(fc), str(source), str(seconds), str(memory_mb), "400000"])
         code = run("std3-" + group["id"], [sys.executable, str(auditor), "--contract", str(contract_path), "--group", group["id"],
                                    "--log", str(EVIDENCE / ("literal-" + group["id"] + ".log")),
                                    "--output", str(EVIDENCE / ("STD3-" + group["id"] + ".json"))], allow_failure=True)
@@ -381,7 +397,8 @@ def main() -> None:
         if code:
             raise LeafStageFailure("std3-" + group["id"], code)
         shutil.copytree(output, object_imports, dirs_exist_ok=True)
-        return {"id": group["id"], "memoryMiB": memory_mb, "fileTimeoutSeconds": 900,
+        return {"id": group["id"], "memoryMiB": memory_mb, "fileTimeoutSeconds": seconds,"platformTimeoutCeilingSeconds":900,
+                        "hardDeadlineUtc":lease.isoformat(),"budgetClipped":seconds<900,
                         "literalSourceSha256": digest(source), "literalExpectedType": group.get("literalExpectedType"),
                         "objects": {str(path.relative_to(output)): digest(path) for path in output.rglob("*") if path.is_file()},
                         "producerPrintsUsedForAxiomAcceptance": False}

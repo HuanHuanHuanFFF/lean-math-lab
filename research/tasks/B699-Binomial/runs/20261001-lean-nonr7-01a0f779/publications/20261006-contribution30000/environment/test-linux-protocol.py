@@ -83,7 +83,7 @@ evidence.mkdir(exist_ok=True)
 context = {'Path': Path, 're': __import__('re'), 'WORK': work, 'EVIDENCE': evidence,
            'SCRIPT': directory, 'shutil': shutil, 'json': json, 'subprocess': __import__('subprocess'),
            'REPO': Path.cwd(), 'digest': lambda p: hashlib.sha256(p.read_bytes()).hexdigest(),
-           'uuid': uuid, 'stages': [], 'environment': {}}
+           'uuid': uuid, 'stages': [], 'environment': {},'request':{}}
 exec(compile(ast.Module(body=functions, type_ignores=[]), 'adapter-test', 'exec'), context)
 official = Path(sys.argv[2]).read_text()
 raw = context['sandbox_adapter'](official, 'Frozen.small12', work/'raw')
