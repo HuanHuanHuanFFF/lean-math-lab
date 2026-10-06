@@ -53,7 +53,7 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 ## 当前继续入口（取代上述历史检查点）
 
-七份候选已提取和压缩，当前固定字节总量2,781,370，完整范围不变，精确文件与SHA见 `BUNDLE-SNAPSHOT.json`。A151仅修复规范断言的连接关联形式，其编码数据和151指标未改；新绑定见 `reviews/A151-REPAIR-BINDING.json`。这属于待编译候选，尚不能称为通过步骤3。
+七份候选已提取和压缩，当前固定字节总量2,781,438，完整范围不变，精确文件与SHA见 `BUNDLE-SNAPSHOT.json`。A151仅修复规范断言的连接关联形式，其编码数据和151指标未改；新绑定见 `reviews/A151-REPAIR-BINDING.json`。这属于待编译候选，尚不能称为通过步骤3。
 
 Linux第二轮 run37471585643（417c4bd94）通过固定源和运行时准备，但缓存工具因线程创建失败停止。第三轮 run37475085494（8b8bc3bed）改用真正2 GiB物理硬限、无额外swap、单线程容器；Cache.Cli、Cache.Lean、Batteries.Tactic.OpenPrivate实际编译成功，随后Cache.IO触发768 MiB Lean内部预算。此时七个数学artifact尚未开始编译；这些失败是环境准备失败，不是数学反例。
 
@@ -61,4 +61,8 @@ Linux第二轮 run37471585643（417c4bd94）通过固定源和运行时准备，
 
 第五轮 [run37479887681](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37479887681)，source `e905cedd00e9ffdfb86846dc4aa74bcf9900d6e9`，已通过所需缓存下载/解压、官方环境与CLI准备。七叶中首个 `small12.lean` 实际编译exit0，生成对象并绑定原源SHA；随后内核回放exit1，日志显示checker无法启动子进程 `lean`（255）。环境任务修复精确启动环境，独立核验者复核。尚未得到SmallIndices完整验收，其他六叶未执行；不把编译通过当作步骤3完成。
 
-下一步修复内核回放入口，再由具名独立核验任务完成七候选原题字面型、完整S组合、传递公理和内核回放。完整S不得因某叶困难而缩减；外部提交仍未执行。第四、第五轮证据ZIP分别按GitHub摘要 `bfc53084f5b8ccdb97800212131656950455214058d141b9016ffd337adedaaa`、`c5b8044a7caec25147b2ce06f4b0edd39cdeb723b9c2b71e77661d8bbb417307` 核对并安全提取，临时ZIP已删除。第四轮最小原字节记录已由核验者保留在 `reviews/ci4/`。日志保留不表示证明接受。
+第六轮 [run37481761068](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37481761068)，source `b05fc08e625f894f68873d8995ee41d349403986`，固定PATH修复后SmallIndices的raw、literal、两次kernel和Std3阶段全部exit0。具名核验者已签 [SMALL12-INDEPENDENT-ACCEPTED](reviews/SMALL12-INDEPENDENT-ACCEPTED.json)：新自包含 `small12.lean` 固定SHA `451fea0fb657af458a4176971641b1c4a486e5fbc0199c22d7430f4b91df85f0`，仅接受完整指标 `{1,2}`，全部合法Nat n/j、同实际Prime p≥i整除两个完整choose、无额外输入。原题新增覆盖0，完整新包S仍未接受。随后raw-A151Packed出现字段 `d6.n0` 和定理 `d102/d103` 未解析、decide卡住等实际编译错误，约917秒后退出137；日志末尾为timeout kill，尚无物理OOM结论。实现任务修复字段/命名及计算，原151指标和编码输入不缩减。其余五叶未执行，完整S组合pending。
+
+CI7输入已重新绑定：A151仅补原计算getter和依赖顺序，源SHA `b24753cd36ceb3a69ddd35dbf09a855b39d3317728cb2e0df709f5845a73d841`，root d33；独立修复绑定见 `reviews/A151-CI6-REPAIR-BINDING.json`，151指标、37,313goods、3919layers及编码字符串保持，其他六源和另外七个核验伴侣源不变。新AUDIT-CONTRACT SHA `5c3edadd4d4a514eccda713cb618ac4b7c88c4976598b377eac36e92ba07de8d`，源规则实际复跑0hard/6review。新A151编译/900秒性能仍pending；Small原签有效，完整新包仍pending。
+
+下一步运行七叶复验；独立审读的runner c2b8b30采用安全的独立叶失败收集，失败保留证据、自有容器退出后重新资源检查，最终有任一失败仍拒收，完整S组合仅在所有叶成功后运行。环境/保护/清理故障立停，审查见 `reviews/RUNNER-COLLECTION-READY.json`。完整S不得因某叶困难而缩减；外部提交仍未执行。第四至第六轮证据ZIP均已按GitHub摘要核对并安全提取、删除临时ZIP，普通决定性证据已选留 `reviews/ci4/`、`reviews/ci5/`、`reviews/ci6/`；第六轮摘要 `d8956a6bb799b0773ce902a1a373ab8d74d5c8b16f02d510a25cd24d02c893ee`。日志保留和阶段exit0不代替具名独立验收。

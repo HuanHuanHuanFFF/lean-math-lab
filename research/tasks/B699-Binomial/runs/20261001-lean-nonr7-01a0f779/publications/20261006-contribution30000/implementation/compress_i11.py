@@ -220,7 +220,7 @@ def emit(tree,selected,dest,shorten=True):
   project=any(n==name or n.startswith(name+'.') or n.endswith('.'+name) for n in known_ns)
   if not project:return True
   return any(n==name or n.startswith(name+'.') or n.endswith('.'+name) for n in kept_ns)
- for mod in tree.order:
+ for mod in tree.module_order():
   if mod not in mods:continue
   s=tree.mods[mod]['text']
   for key in tree.mods[mod]['decls']:

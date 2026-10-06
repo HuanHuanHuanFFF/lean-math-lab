@@ -33,6 +33,19 @@ for manifest in manifests:
             raise SystemExit(f"frozen source changed: {source}")
         records[source.stem] = item
 
+# Adopt a specifically frozen, source-aligned A151 repair without overwriting
+# the historical V2 snapshot or the CI6 small12 acceptance contract.
+repair_path = pub / "implementation/repairs/20261006-ci6-a151/FREEZE.json"
+if repair_path.exists():
+    repair_raw = repair_path.read_bytes()
+    repair = json.loads(repair_raw)
+    item = repair["newArtifact"]
+    raw = (repo / item["path"]).read_bytes()
+    if len(raw) != item["bytes"] or digest(raw) != item["sha256"]:
+        raise SystemExit("fixed A151 repair source changed")
+    records["A151Packed"] = item
+    bindings.append({"path": repair_path.relative_to(repo).as_posix(), "sha256": digest(repair_raw)})
+
 # Compile the final intended lower-case artifact module names. Keep the exact
 # producer path as provenance, and reject any byte difference in the copy.
 bundle_path = pub / "BUNDLE-SNAPSHOT.json"

@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 import shutil
 import sys
+import uuid
+from types import SimpleNamespace
 
 directory = Path(__file__).resolve().parent
 test_root = Path(sys.argv[1]).resolve()
@@ -72,14 +74,16 @@ assert cache_args[cache_args.index('--network')+1] == 'none'
 assert cache_args[-len(cache_command):] == cache_command
 assert any(str(test_root/'fixed-source') in arg and arg.endswith(',readonly') for arg in cache_args)
 tree = ast.parse(source)
-functions = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name in {'sandbox_adapter', 'preserve_objects'}]
+functions = [node for node in tree.body if isinstance(node, (ast.FunctionDef, ast.ClassDef)) and node.name in {
+    'sandbox_adapter', 'preserve_objects', 'LeafStageFailure', 'collect_groups', 'owned_containers', 'run_sandbox'}]
 work = test_root / 'adapters'
 evidence = test_root / 'evidence'
 work.mkdir(exist_ok=True)
 evidence.mkdir(exist_ok=True)
 context = {'Path': Path, 're': __import__('re'), 'WORK': work, 'EVIDENCE': evidence,
            'SCRIPT': directory, 'shutil': shutil, 'json': json, 'subprocess': __import__('subprocess'),
-           'REPO': Path.cwd(), 'digest': lambda p: hashlib.sha256(p.read_bytes()).hexdigest()}
+           'REPO': Path.cwd(), 'digest': lambda p: hashlib.sha256(p.read_bytes()).hexdigest(),
+           'uuid': uuid, 'stages': [], 'environment': {}}
 exec(compile(ast.Module(body=functions, type_ignores=[]), 'adapter-test', 'exec'), context)
 official = Path(sys.argv[2]).read_text()
 raw = context['sandbox_adapter'](official, 'Frozen.small12', work/'raw')
@@ -90,6 +94,9 @@ for adapter in (raw, audit, checker):
     assert '--network none' in text and '--read-only' in text and '--cap-drop ALL' in text
     assert '/bin/sh /contrib-resource/guard.sh "$memory_mb"' in text
     assert '--env "PATH=$toolchain/bin:/usr/local/bin:/usr/bin:/bin"' in text
+    ownership = json.loads((evidence/(adapter.name+'.container.json')).read_text())
+    assert '--name "' + ownership['name'] + '"' in text
+    assert ownership['adapterSha256'] == hashlib.sha256(adapter.read_bytes()).hexdigest()
     assert (evidence/adapter.name).read_text() == text
     assert (evidence/(adapter.name+'.diff')).exists()
 assert 'LEAN_PATH=/contrib-evidence:/review-imports:$lean_path' in checker.read_text()
@@ -103,9 +110,92 @@ context['preserve_objects']('first-leaf', dummy_output, dummy_source, 'Frozen.sm
 assert (evidence/'objects/first-leaf/Frozen/small12.olean').exists()
 binding = json.loads((evidence/'first-leaf-OBJECT-BINDING.json').read_text())
 assert binding['objects'][str(Path('Frozen')/'small12.olean')] == hashlib.sha256(b'fixture object; no Lean execution').hexdigest()
+assert binding['compileExitCode'] is None and binding['proofAccepted'] is False
+
+# Exercise the production collector with fake stages only: one rejected leaf
+# cannot stop later independent leaves, nor permit the all-leaf combination.
+groups = [{'id': str(i), 'sourcePath': str(i)+'.lean', 'sourceSha256': 'fixture', 'auditSha256': 'fixture'} for i in range(7)]
+groups.append({'id': 'FullCoverageExact', 'auditSha256': 'fixture'})
+seen = []
+def reject_first(group):
+    seen.append(group['id'])  # Each callback is where production re-admits resources.
+    if group['id'] == '0':
+        raise context['LeafStageFailure']('raw-0', 137)
+    return {'id': group['id']}
+try:
+    context['collect_groups'](groups, reject_first)
+    raise AssertionError('a rejected required leaf was accepted')
+except RuntimeError as error:
+    assert 'required independent leaves failed: 0' == str(error)
+assert seen == [str(i) for i in range(7)]
+collection = json.loads((evidence/'COLLECTION.json').read_text())
+assert collection['proofAccepted'] is False and collection['allRequiredStagesPassed'] is False
+assert collection['results'][-1]['status'] == 'skipped' and collection['failedGroups'] == ['0']
+seen.clear()
+def pass_group(group):
+    seen.append(group['id'])
+    return {'id': group['id']}
+context['collect_groups'](groups, pass_group)
+assert seen == [str(i) for i in range(7)] + ['FullCoverageExact']
+seen.clear()
+def environment_fault(group):
+    seen.append(group['id'])
+    raise RuntimeError('fixture global protection failure')
+try:
+    context['collect_groups'](groups, environment_fault)
+    raise AssertionError('environment/protection failure was ignored')
+except RuntimeError as error:
+    assert str(error) == 'fixture global protection failure'
+assert seen == ['0']
+
+# Fake Docker command responses, without executing Docker, test owned cleanup
+# after a timeout and prove that startup/cleanup faults remain fatal.
+cid = 'a'*64
+commands = []
+responses = iter(['', cid+'\n', ''])
+def fake_query(command, **kwargs):
+    commands.append(command)
+    return next(responses)
+context['subprocess'] = SimpleNamespace(check_output=fake_query, PIPE=-1,
+    run=lambda command, **kwargs: commands.append(command))
+def failed_stage(label, command, **kwargs):
+    (evidence/(label+'.log')).write_text('B699_RESOURCE_CONTRACT path=/sys/fs/cgroup memory.max=2147483648\n')
+    return 137
+context['run'] = failed_stage
+try:
+    context['run_sandbox']('timeout-fixture', raw, ['fake'])
+    raise AssertionError('timeout was accepted')
+except context['LeafStageFailure'] as error:
+    assert error.code == 137
+assert ['docker', 'container', 'rm', '--force', cid] in commands
+assert json.loads((evidence/'timeout-fixture-CONTAINER-LIFECYCLE.json').read_text())['cleanupConfirmed'] is True
+responses = iter(['', '', ''])
+def guard_fault(label, command, **kwargs):
+    (evidence/(label+'.log')).write_text('B699_RESOURCE_CONTRACT: no finite memory.max\n')
+    return 125
+context['run'] = guard_fault
+try:
+    context['run_sandbox']('guard-fixture', raw, ['fake'])
+    raise AssertionError('a guard fault was accepted')
+except RuntimeError as error:
+    assert not isinstance(error, context['LeafStageFailure'])
+    assert 'environment/protection failure' in str(error)
+responses = iter(['', cid+'\n', cid+'\n'])
+context['run'] = failed_stage
+try:
+    context['run_sandbox']('cleanup-fixture', raw, ['fake'])
+    raise AssertionError('a cleanup fault was accepted')
+except RuntimeError as error:
+    assert not isinstance(error, context['LeafStageFailure'])
+    assert 'cleanup could not be confirmed' in str(error)
+assert json.loads((evidence/'cleanup-fixture-CONTAINER-LIFECYCLE.json').read_text())['cleanupConfirmed'] is False
+assert 'def execute_group(group: dict)' in source and 'resources("before-" + group["id"])' in source
 result = {'v2AncestorBudget': 'pass', 'v1SelfBudget': 'pass', 'rawAuditCheckerAdapters': 'pass',
           'finalExecutedScriptAndDiff': 'pass', 'firstLeafEvidenceImmediateRetention': 'pass',
           'fixedLinuxAssetWithoutRuntimeApiLookup': 'pass', 'cacheDockerMemoryCpuPidAndReadonlySources': 'pass',
+          'failedLeafContinuesAllSevenThenRejects': 'pass', 'fullCoverageOnlyOnAllPass': 'pass',
+          'globalProtectionFailureStops': 'pass', 'ownedTimeoutCleanupConfirmed': 'pass',
+          'guardAndCleanupFaultsStop': 'pass',
           'LeanExecuted': False, 'DockerExecuted': False}
 (directory/'LINUX-PROTOCOL-PURE-TEST.json').write_text(json.dumps(result, indent=2)+'\n')
 print(json.dumps(result))

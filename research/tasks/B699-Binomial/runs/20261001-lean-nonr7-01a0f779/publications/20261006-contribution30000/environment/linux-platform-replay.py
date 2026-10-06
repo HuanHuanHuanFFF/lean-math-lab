@@ -19,6 +19,7 @@ import shutil
 import subprocess
 import sys
 import urllib.request
+import uuid
 
 BRANCH = "huan/b699-partial-plan-20261006-01a0e34b"
 CONTRIBUTION = "be220ff2519ecfd61b28ba9e477321e4287ef6b4"
@@ -96,6 +97,88 @@ def run(label: str, command: list[str], cwd: Path = WORK, *, allow_failure: bool
     return result.returncode
 
 
+class LeafStageFailure(RuntimeError):
+    """A rejected isolated leaf; environment/protection failures never use this class."""
+    def __init__(self, label: str, code: int):
+        super().__init__(f"{label}: exit {code}; see retained stage log")
+        self.label = label
+        self.code = code
+
+
+def owned_containers(name: str) -> list[str]:
+    if not re.fullmatch(r"b699-[0-9a-f]{32}", name):
+        raise RuntimeError("invalid owned container name")
+    output = subprocess.check_output(["docker", "container", "ls", "--all", "--no-trunc",
+                                      "--filter", f"name=^/{name}$", "--format", "{{.ID}}"],
+                                     text=True, env=environment)
+    identifiers = output.splitlines()
+    if len(identifiers) > 1 or any(not re.fullmatch(r"[0-9a-f]{64}", cid) for cid in identifiers):
+        raise RuntimeError("ambiguous owned container identity")
+    return identifiers
+
+
+def run_sandbox(label: str, adapter: Path, command: list[str]) -> None:
+    ownership = json.loads((EVIDENCE / (adapter.name + ".container.json")).read_text())
+    if ownership["adapterSha256"] != digest(adapter):
+        raise RuntimeError("owned container adapter changed")
+    name = ownership["name"]
+    if owned_containers(name):
+        raise RuntimeError("owned container name already exists before launch")
+    lifecycle = {**ownership, "label": label, "prelaunchAbsent": True, "cleanupConfirmed": False}
+    receipt = EVIDENCE / (label + "-CONTAINER-LIFECYCLE.json")
+    receipt.write_text(json.dumps(lifecycle, indent=2) + "\n")
+    try:
+        code = run(label, command, allow_failure=True)
+    finally:
+        # The pinned sandbox already traps its cidfile; verify it, and remove only
+        # this freshly named container if timeout killed the Docker client first.
+        identifiers = owned_containers(name)
+        lifecycle["remainingOwnedIdsAfterScript"] = identifiers
+        for cid in identifiers:
+            subprocess.run(["docker", "container", "rm", "--force", cid],
+                           env=environment, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+        if owned_containers(name):
+            raise RuntimeError("owned proof container cleanup could not be confirmed")
+        lifecycle["cleanupConfirmed"] = True
+        receipt.write_text(json.dumps(lifecycle, indent=2) + "\n")
+    guard_seen = False
+    environment_error = False
+    with (EVIDENCE / (label + ".log")).open(errors="replace") as stream:
+        for line in stream:
+            guard_seen |= line.startswith("B699_RESOURCE_CONTRACT path=")
+            environment_error |= "B699_RESOURCE_CONTRACT:" in line or any(marker in line.lower() for marker in (
+                "could not execute external process", "command not found", "unknown module prefix",
+                "no such file or directory"))
+    if code in (125, 126, 127) or not guard_seen or environment_error:
+        raise RuntimeError(f"{label}: environment/protection failure; collection stopped")
+    if code:
+        raise LeafStageFailure(label, code)
+
+
+def collect_groups(groups: list[dict], execute) -> list[dict]:
+    """Keep all seven required leaves, then run the combination only on all-pass."""
+    results = []
+    for group in [g for g in groups if "sourcePath" in g] + [g for g in groups if "sourcePath" not in g]:
+        if "sourcePath" not in group and any(result["status"] == "failed" for result in results):
+            result = {"id": group["id"], "status": "skipped", "reason": "required independent leaf failed",
+                      "proofAccepted": False}
+        else:
+            try:
+                result = {**execute(group), "status": "passed"}
+            except LeafStageFailure as error:
+                result = {"id": group["id"], "status": "failed", "failedStage": error.label,
+                          "exitCode": error.code, "sourceSha256": group.get("sourceSha256"),
+                          "auditSha256": group["auditSha256"], "proofAccepted": False}
+        results.append(result)
+        (EVIDENCE / "RESULTS.json").write_text(json.dumps(results, indent=2) + "\n")
+    failed = [result["id"] for result in results if result["status"] == "failed"]
+    (EVIDENCE / "COLLECTION.json").write_text(json.dumps({"results": results, "failedGroups": failed,
+        "allRequiredStagesPassed": not failed, "proofAccepted": False}, indent=2) + "\n")
+    if failed:
+        raise RuntimeError("required independent leaves failed: " + ", ".join(failed))
+    return results
+
+
 def sandbox_adapter(base: str, module: str, output_dir: Path,
                     imports_dir: Path | None = None, checker: bool = False) -> Path:
     if not re.fullmatch(r"(?:Frozen|Audit)\.[A-Za-z_][A-Za-z0-9_]*", module):
@@ -105,6 +188,9 @@ def sandbox_adapter(base: str, module: str, output_dir: Path,
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / relative).parent.mkdir(parents=True, exist_ok=True)
     text = base.replace("/contribution/Main.lean", target)
+    name = "b699-" + uuid.uuid4().hex
+    assert text.count("  run --rm --pull never") == 1
+    text = text.replace("  run --rm --pull never", '  run --rm --pull never --name "' + name + '"')
     text = text.replace('  --env HOME=/tmp', '  --env "PATH=$toolchain/bin:/usr/local/bin:/usr/bin:/bin"\n  --env HOME=/tmp')
     mount = '  --mount "type=bind,src=$source_file,dst=' + target + ',readonly"'
     assert text.count(mount) == 1
@@ -131,6 +217,8 @@ def sandbox_adapter(base: str, module: str, output_dir: Path,
     path.write_text(text)
     path.chmod(0o700)
     shutil.copy2(path, EVIDENCE / path.name)
+    (EVIDENCE / (path.name + ".container.json")).write_text(json.dumps(
+        {"name": name, "adapterSha256": digest(path)}, indent=2) + "\n")
     (EVIDENCE / (path.name + ".diff")).write_text("".join(__import__("difflib").unified_diff(
         base.splitlines(True), text.splitlines(True), fromfile="official-pinned-sandbox", tofile=path.name)))
     return path
@@ -143,7 +231,8 @@ def preserve_objects(label: str, output: Path, source: Path, module: str) -> Non
               "sourceSha256": digest(source), "sourceCommit": subprocess.check_output(
                   ["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True).strip(),
               "objects": {str(path.relative_to(target)): digest(path) for path in target.rglob('*') if path.is_file()},
-              "kernelReplayPending": True}
+              "compileExitCode": next((stage["exitCode"] for stage in reversed(stages) if stage["label"] == label), None),
+              "kernelReplayPending": True, "proofAccepted": False}
     (EVIDENCE / (label + "-OBJECT-BINDING.json")).write_text(json.dumps(record, indent=2) + "\n")
 
 
@@ -165,7 +254,7 @@ def main() -> None:
     raw_groups = [group for group in groups if "sourcePath" in group]
     raw_sources = [bound(group["sourcePath"], group["sourceSha256"]) for group in raw_groups]
     actual_sources = sorted(artifact_dir.glob("*.lean"))
-    if len(raw_sources) != 7 or set(raw_sources) != set(actual_sources):
+    if len(groups) != 8 or len(raw_sources) != 7 or set(raw_sources) != set(actual_sources):
         raise RuntimeError("only the seven exact prepared artifacts may be checked")
     review_sources = {group["id"]: bound(group["auditPath"], group["auditSha256"]) for group in groups}
     baseline = subprocess.check_output(["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True).strip()
@@ -255,8 +344,7 @@ def main() -> None:
         raise RuntimeError("official sandbox source changed")
     object_imports = WORK / "review-objects"
     object_imports.mkdir()
-    results = []
-    for group in groups:
+    def execute_group(group: dict) -> dict:
         measured = resources("before-" + group["id"])
         # Leave 1 GiB for the runner; retain <= the platform's 16 GiB ceiling.
         memory_mb = min(16384, math.floor((measured["availableBudgetBytes"] - 1024**3) / (256 * 1024**2)) * 256)
@@ -266,28 +354,38 @@ def main() -> None:
             source = bound(group["sourcePath"], group["sourceSha256"])
             output = WORK / ("raw-" + group["id"])
             adapter = sandbox_adapter(base, group["frozenModule"], output)
-            run("raw-" + group["id"], ["bash", str(adapter), str(fc), str(source), "900", str(memory_mb), "400000"])
-            preserve_objects("raw-" + group["id"], output, source, group["frozenModule"])
-            run("kernel-raw-" + group["id"], ["bash", str(sandbox_adapter(base, group["frozenModule"], output, checker=True)),
-                                              str(fc), str(source), "900", str(memory_mb), "400000"])
+            try:
+                run_sandbox("raw-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), "900", str(memory_mb), "400000"])
+            finally:
+                preserve_objects("raw-" + group["id"], output, source, group["frozenModule"])
+            checker = sandbox_adapter(base, group["frozenModule"], output, checker=True)
+            run_sandbox("kernel-raw-" + group["id"], checker, ["bash", str(checker),
+                        str(fc), str(source), "900", str(memory_mb), "400000"])
             shutil.copytree(output, object_imports, dirs_exist_ok=True)
         source = review_sources[group["id"]]
         output = WORK / ("audit-" + group["id"])
         adapter = sandbox_adapter(base, group["auditModule"], output, object_imports)
-        run("literal-" + group["id"], ["bash", str(adapter), str(fc), str(source), "900", str(memory_mb), "400000"])
-        preserve_objects("literal-" + group["id"], output, source, group["auditModule"])
+        try:
+            run_sandbox("literal-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), "900", str(memory_mb), "400000"])
+        finally:
+            preserve_objects("literal-" + group["id"], output, source, group["auditModule"])
         # Checker needs the raw/review import closure as well as its own object.
         checker = sandbox_adapter(base, group["auditModule"], output, object_imports, checker=True)
-        run("kernel-literal-" + group["id"], ["bash", str(checker), str(fc), str(source), "900", str(memory_mb), "400000"])
-        run("std3-" + group["id"], [sys.executable, str(auditor), "--contract", str(contract_path), "--group", group["id"],
+        run_sandbox("kernel-literal-" + group["id"], checker, ["bash", str(checker), str(fc), str(source), "900", str(memory_mb), "400000"])
+        code = run("std3-" + group["id"], [sys.executable, str(auditor), "--contract", str(contract_path), "--group", group["id"],
                                    "--log", str(EVIDENCE / ("literal-" + group["id"] + ".log")),
-                                   "--output", str(EVIDENCE / ("STD3-" + group["id"] + ".json"))])
+                                   "--output", str(EVIDENCE / ("STD3-" + group["id"] + ".json"))], allow_failure=True)
+        std3 = json.loads((EVIDENCE / ("STD3-" + group["id"] + ".json")).read_text())
+        if code not in (0, 1) or std3["group"] != group["id"] or std3["passed"] != (code == 0):
+            raise RuntimeError("independent Std3 audit execution failed")
+        if code:
+            raise LeafStageFailure("std3-" + group["id"], code)
         shutil.copytree(output, object_imports, dirs_exist_ok=True)
-        results.append({"id": group["id"], "memoryMiB": memory_mb, "fileTimeoutSeconds": 900,
+        return {"id": group["id"], "memoryMiB": memory_mb, "fileTimeoutSeconds": 900,
                         "literalSourceSha256": digest(source), "literalExpectedType": group.get("literalExpectedType"),
                         "objects": {str(path.relative_to(output)): digest(path) for path in output.rglob("*") if path.is_file()},
-                        "producerPrintsUsedForAxiomAcceptance": False})
-        (EVIDENCE / "RESULTS.json").write_text(json.dumps(results, indent=2) + "\n")
+                        "producerPrintsUsedForAxiomAcceptance": False}
+    results = collect_groups(groups, execute_group)
     (EVIDENCE / "SUCCESS.json").write_text(json.dumps({"groups": len(results), "completeOriginalProblem": False,
         "formalizedPartialSet": contract["expectedWholeSet"], "productionIdentityRewardMetadataChecked": False,
         "kernelReplay": "built-in leanchecker, same pinned Lean kernel; not an independent kernel implementation"}, indent=2) + "\n")

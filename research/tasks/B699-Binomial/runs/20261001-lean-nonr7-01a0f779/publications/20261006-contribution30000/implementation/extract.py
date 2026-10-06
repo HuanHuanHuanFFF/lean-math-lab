@@ -111,6 +111,17 @@ class Tree:
   result={path}
   for q in self.mods[path]['imports']:result.update(self.visible(q))
   self.vis[path]=result;return result
+ def module_order(self):
+  """Imports can be extended by a generated checker after initial parsing."""
+  result=[];done=set();visiting=set()
+  def visit(path):
+   if path in done:return
+   if path in visiting:raise ValueError('module dependency cycle '+path)
+   visiting.add(path)
+   for child in self.mods[path]['imports']:visit(child)
+   visiting.remove(path);done.add(path);result.append(path)
+  for path in self.order:visit(path)
+  return result
  def resolve(self,token,d):
   ns=d['namespace'].split('.') if d['namespace'] else []
   tries=['.'.join(ns[:n]+[token]) for n in range(len(ns),-1,-1)]
@@ -124,6 +135,10 @@ class Tree:
   return None
  def deps(self,key):
   d=self.decls[key];body=d['text'];found=set()
+  if not hasattr(self,'method_index'):
+   self.method_index=collections.defaultdict(list)
+   for mk,md in self.decls.items():
+    if '.' in md['name']:self.method_index[md['name'].rsplit('.',1)[1]].append(mk)
   for token in re.findall(ID,body):
    k=self.resolve(token,d)
    if k and k!=key:found.add(k)
@@ -131,6 +146,16 @@ class Tree:
    while len(parts)>1:
     parts.pop();k=self.resolve('.'.join(parts),d)
     if k and k!=key:found.add(k)
+   # Dot notation such as row.n0 is resolved by Lean from the receiver type.
+   # A lexical scan cannot infer that type. Retain visible named extension
+   # methods with the same final component instead of dropping the method.
+   if '.' in token:
+    suffix=token.rsplit('.',1)[1]
+    visible=self.visible(d['module'])
+    for method_key in self.method_index.get(suffix,[]):
+     method=self.decls[method_key]
+     if method['module'] in visible and method_key!=key:
+      found.add(method_key)
   return found
  def slice(self,targets):
   pending=[]

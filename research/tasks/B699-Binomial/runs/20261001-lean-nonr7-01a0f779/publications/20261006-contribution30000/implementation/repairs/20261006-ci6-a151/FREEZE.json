@@ -1,0 +1,72 @@
+{
+  "status": "source repair and exact input representation comparison; not Lean acceptance",
+  "timeUTC": "2026-10-06T15:18:11.786196+00:00",
+  "fixedOldSource": {
+    "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/v2/candidates/A151Packed.lean",
+    "bytes": 444707,
+    "sha256": "1d57cb5a740f71644b3055459b0a909c239d2079d44ffa19ffd5e4cda8a46958",
+    "root": "Contribution.B699A151Packed.N5.N8.N7.d32",
+    "literalExpectedType": "∀ {n i j : Nat}, (i = 29 ∨ (35 ≤ i ∧ i ≤ 184)) → i < j → j ≤ n / 2 → ∃ p : Nat, Nat.Prime p ∧ i ≤ p ∧ p ∣ Nat.choose n i ∧ p ∣ Nat.choose n j",
+    "auditsEmbedded": true,
+    "compilerStatus": "pending",
+    "transitiveAxiomStatus": "pending",
+    "independentVerifierStatus": "pending",
+    "selectedDeclarations": 114,
+    "localProofSteps": null
+  },
+  "newArtifact": {
+    "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/repairs/20261006-ci6-a151/A151Packed.lean",
+    "bytes": 444775,
+    "sha256": "b24753cd36ceb3a69ddd35dbf09a855b39d3317728cb2e0df709f5845a73d841",
+    "root": "Contribution.B699A151Packed.N5.N8.N7.d33",
+    "literalExpectedType": "∀ {n i j : Nat}, (i = 29 ∨ (35 ≤ i ∧ i ≤ 184)) → i < j → j ≤ n / 2 → ∃ p : Nat, Nat.Prime p ∧ i ≤ p ∧ p ∣ Nat.choose n i ∧ p ∣ Nat.choose n j",
+    "auditsEmbedded": true,
+    "compilerStatus": "pending",
+    "transitiveAxiomStatus": "pending",
+    "independentVerifierStatus": "pending"
+  },
+  "diagnosis": {
+    "getter": "HeightCertificateDatum.n0 is a computed extension method; lexical slice did not infer it from row.n0 and omitted the actual definition. Restored original definition 10^datum.n0Power10 as a real dependency.",
+    "order": "TrialPrimeCheck was added to the generated checker module imports after initial module order creation; definitions appeared after their uses. Emit now uses the current import DAG.",
+    "line802": "HeightRowValid/Decidable/heightRowValidBool were invalid after missing n0; reduction-stuck is downstream of that elaboration error, not a false numeric certificate.",
+    "performance": "CI6 exit137 at about917s remains a real timeout; the repaired decision workload has not been timed and may need further proof engineering."
+  },
+  "changes": [
+    "retain visible computed dot methods as dependencies",
+    "recompute module topological order after generated imports",
+    "preserve original getter/proofs and all data/domain conditions"
+  ],
+  "exactInputComparison": {
+    "indices": 151,
+    "goods": 37313,
+    "layers": 3919,
+    "allRowsAndProvenanceEqualToV2": true,
+    "encodedDataStringsEqualToV2": true,
+    "thresholdAndScopeUnchanged": "{29} union [35,184], every legal Nat n/j, actual same Prime p>=i dividing both complete choose"
+  },
+  "oldEvidenceUntouched": true,
+  "actualCI6Inputs": [
+    {
+      "path": "D:\\ResearchArtifacts\\b699-contribution-validation-20261006\\37481761068\\raw-A151Packed.log",
+      "bytes": 8731,
+      "sha256": "a57c18884a68496ac7d93d17336f4ed984492ccd9475aeb3d0744756f5dfb490"
+    },
+    {
+      "path": "D:\\ResearchArtifacts\\b699-contribution-validation-20261006\\37481761068\\resource-raw-A151Packed.json",
+      "bytes": 8430,
+      "sha256": "bf129454425749172ca720bb2bde0c1b6061b852b7ed815d2544ba3046d938c3"
+    },
+    {
+      "path": "D:\\ResearchArtifacts\\b699-contribution-validation-20261006\\37481761068\\sandbox-object-Frozen.a151.sh",
+      "bytes": 4386,
+      "sha256": "20a952dd7235dfd2bdf7b54863b06c1432fa0d1b5c30f8ca214bd19610506bc0"
+    },
+    {
+      "path": "D:\\ResearchArtifacts\\b699-contribution-validation-20261006\\37481761068\\sandbox-object-Frozen.a151.sh.diff",
+      "bytes": 1502,
+      "sha256": "6ff521d4083e16269467df9687b69dc92bd1daaa0f5dcec6d30376cedb9aa1d0"
+    }
+  ],
+  "policy": "analysis/source-policy.json",
+  "fullContract": "S={1,2,11,29} union [35,30000] unchanged; replace only A151 artifact after this fixed source passes"
+}
