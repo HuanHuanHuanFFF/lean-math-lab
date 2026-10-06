@@ -14,7 +14,6 @@ import math
 import os
 from pathlib import Path
 import re
-import resource
 import shlex
 import shutil
 import subprocess
@@ -82,13 +81,9 @@ def run(label: str, command: list[str], cwd: Path = WORK, *, allow_failure: bool
     resources(label)
     log = EVIDENCE / f"{label}.log"
     start = datetime.now(timezone.utc)
-    def restrict_bootstrap() -> None:
-        # Trusted tool preparation only; proofs instead get Docker cgroup caps.
-        resource.setrlimit(resource.RLIMIT_AS, (3 * 1024**3, 3 * 1024**3))
     with log.open("wb") as stream:
         result = subprocess.run(command, cwd=cwd, env=environment, stdout=stream,
-                                stderr=subprocess.STDOUT, check=False,
-                                preexec_fn=restrict_bootstrap if trusted_bootstrap else None)
+                                stderr=subprocess.STDOUT, check=False)
     stages.append({"label": label, "command": command, "cwd": str(cwd),
                    "startedAt": start.isoformat(), "exitCode": result.returncode,
                    "log": log.name, "logSha256": digest(log),
@@ -228,6 +223,8 @@ def main() -> None:
             raise RuntimeError("package pin mismatch")
         actual_packages.append({"name": package["name"], "rev": actual})
     (EVIDENCE / "PACKAGES.json").write_text(json.dumps(actual_packages, indent=2) + "\n")
+    run("docker-image", ["docker", "pull", IMAGE])
+    environment['B699_CACHE_SANDBOX_IMAGE'] = IMAGE
     run("cache-tool-serial", [sys.executable, str(SCRIPT / "build-cache-interpreter.py"), str(fc),
                               str(toolchain), str(EVIDENCE / "CACHE-TOOL.json")], trusted_bootstrap=True)
     modules = sorted({match.group(1) for source in raw_sources for match in
@@ -252,7 +249,6 @@ def main() -> None:
     (EVIDENCE / "CLI-BOUNDARY.json").write_text(json.dumps({"fixedCliLoads": True,
         "sourceRulesExecuted": ["C019", "C020", "C021"], "fullContribCheck": False,
         "productionIdentityRewardMetadataChecked": False, "walletOperations": False}, indent=2) + "\n")
-    run("docker-image", ["docker", "pull", IMAGE])
     base = (trusted / "scripts/lean_sandbox.sh").read_text()
     if digest(trusted / "scripts/lean_sandbox.sh") != SANDBOX_SHA:
         raise RuntimeError("official sandbox source changed")

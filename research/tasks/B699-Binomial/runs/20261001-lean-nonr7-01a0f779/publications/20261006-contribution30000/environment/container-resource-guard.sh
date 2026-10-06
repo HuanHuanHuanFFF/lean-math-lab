@@ -34,7 +34,9 @@ while :; do
   limit="$(cat "$current/memory.max")"
   usage="$(cat "$current/memory.current")"
   cpu="$(cat "$current/cpu.max")"
-  echo "B699_RESOURCE_CONTRACT path=$current memory.max=$limit memory.current=$usage cpu.max=$cpu"
+  pids_max="$(cat "$current/pids.max" 2>/dev/null || echo unavailable)"
+  pids_current="$(cat "$current/pids.current" 2>/dev/null || echo unavailable)"
+  echo "B699_RESOURCE_CONTRACT path=$current memory.max=$limit memory.current=$usage cpu.max=$cpu pids.max=$pids_max pids.current=$pids_current"
   case "$limit" in
     max) : ;;
     ''|*[!0-9]*) echo 'B699_RESOURCE_CONTRACT: invalid ancestor memory cap' >&2; exit 125;;
