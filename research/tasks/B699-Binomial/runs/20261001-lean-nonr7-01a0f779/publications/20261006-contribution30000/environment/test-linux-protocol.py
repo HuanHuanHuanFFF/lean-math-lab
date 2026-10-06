@@ -83,7 +83,7 @@ evidence.mkdir(exist_ok=True)
 context = {'Path': Path, 're': __import__('re'), 'WORK': work, 'EVIDENCE': evidence,
            'SCRIPT': directory, 'shutil': shutil, 'json': json, 'subprocess': __import__('subprocess'),
            'REPO': Path.cwd(), 'digest': lambda p: hashlib.sha256(p.read_bytes()).hexdigest(),
-           'uuid': uuid, 'stages': [], 'environment': {},'request':{}}
+           'uuid': uuid, 'stages': [], 'environment': {},'request':{},'VERIFIED_OWNED_IDS':{}}
 exec(compile(ast.Module(body=functions, type_ignores=[]), 'adapter-test', 'exec'), context)
 official = Path(sys.argv[2]).read_text()
 raw = context['sandbox_adapter'](official, 'Frozen.small12', work/'raw')
@@ -157,7 +157,7 @@ def fake_query(command, **kwargs):
     commands.append(command)
     return next(responses)
 context['subprocess'] = SimpleNamespace(check_output=fake_query, PIPE=-1,
-    run=lambda command, **kwargs: commands.append(command))
+    run=lambda command, **kwargs: (commands.append(command) or SimpleNamespace(returncode=0)))
 def failed_stage(label, command, **kwargs):
     (evidence/(label+'.log')).write_text('B699_RESOURCE_CONTRACT path=/sys/fs/cgroup memory.max=2147483648\n')
     return 137
@@ -189,6 +189,39 @@ except RuntimeError as error:
     assert not isinstance(error, context['LeafStageFailure'])
     assert 'cleanup could not be confirmed' in str(error)
 assert json.loads((evidence/'cleanup-fixture-CONTAINER-LIFECYCLE.json').read_text())['cleanupConfirmed'] is False
+responses = iter(['',cid+'\n',''])
+def interrupted_stage(label,command,**kwargs):
+    raise KeyboardInterrupt('fixture SIGTERM')
+context['run']=interrupted_stage
+try:
+    context['run_sandbox']('sigterm-fixture',raw,['fake'])
+    raise AssertionError('verification SIGTERM ignored')
+except KeyboardInterrupt:
+    pass
+assert json.loads((evidence/'sigterm-fixture-CONTAINER-LIFECYCLE.json').read_text())['cleanupConfirmed'] is True
+assert 'signal.signal(signal.SIGTERM,stop_owned)' in source and 'except BaseException as error:' in source
+responses=iter(['',RuntimeError('fixture Docker query unavailable')])
+def fault_query(command,**kwargs):
+    value=next(responses)
+    if isinstance(value,BaseException):raise value
+    return value
+context['subprocess'].check_output=fault_query
+ownership=json.loads((evidence/(raw.name+'.container.json')).read_text())
+def cid_stage(label,command,**kwargs):
+    Path(ownership['cidFilePath']).write_text(cid)
+    (evidence/(label+'.log')).write_text('B699_RESOURCE_CONTRACT path=/sys/fs/cgroup memory.max=2147483648\n')
+    return 137
+context['run']=cid_stage
+before_commands=len(commands)
+try:
+    context['run_sandbox']('trusted-cid-queryfault',raw,['fake'])
+    raise AssertionError('unconfirmed absence accepted')
+except RuntimeError as error:
+    assert 'cleanup could not be confirmed' in str(error)
+assert ['docker','container','rm','--force',cid] in commands[before_commands:]
+fault=json.loads((evidence/'trusted-cid-queryfault-CONTAINER-LIFECYCLE.json').read_text())
+assert fault['cleanupConfirmed'] is False and 'absenceCheckError' in fault
+assert fault['cleanupTarget']==cid
 assert 'def execute_group(group: dict)' in source and 'resources("before-" + group["id"])' in source
 result = {'v2AncestorBudget': 'pass', 'v1SelfBudget': 'pass', 'rawAuditCheckerAdapters': 'pass',
           'finalExecutedScriptAndDiff': 'pass', 'firstLeafEvidenceImmediateRetention': 'pass',
@@ -196,6 +229,8 @@ result = {'v2AncestorBudget': 'pass', 'v1SelfBudget': 'pass', 'rawAuditCheckerAd
           'failedLeafContinuesAllSevenThenRejects': 'pass', 'fullCoverageOnlyOnAllPass': 'pass',
           'globalProtectionFailureStops': 'pass', 'ownedTimeoutCleanupConfirmed': 'pass',
           'guardAndCleanupFaultsStop': 'pass',
+          'formalSigtermOwnedCleanupAndFailureBoundary': 'pass',
+          'formalTrustedCidQueryFaultStillRemovesAndRejects': 'pass',
           'LeanExecuted': False, 'DockerExecuted': False}
 (directory/'LINUX-PROTOCOL-PURE-TEST.json').write_text(json.dumps(result, indent=2)+'\n')
 print(json.dumps(result))

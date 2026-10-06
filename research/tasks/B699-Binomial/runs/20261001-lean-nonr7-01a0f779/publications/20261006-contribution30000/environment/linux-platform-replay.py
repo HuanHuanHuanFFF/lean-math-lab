@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 import re
 import shlex
+import signal
 import shutil
 import subprocess
 import sys
@@ -45,6 +46,7 @@ environment.update({"UV_CACHE_DIR": str(WORK / "cache/uv"),
                     "CONTRIB_LEAN_IMAGE": IMAGE})
 Path(environment["TMPDIR"]).mkdir(parents=True, exist_ok=True)
 stages: list[dict] = []
+VERIFIED_OWNED_IDS = {}
 cg_spec = importlib.util.spec_from_file_location("cgroup_budget", SCRIPT / "cgroup-budget.py")
 cg_budget = importlib.util.module_from_spec(cg_spec)
 cg_spec.loader.exec_module(cg_budget)
@@ -110,10 +112,12 @@ def owned_containers(name: str) -> list[str]:
         raise RuntimeError("invalid owned container name")
     output = subprocess.check_output(["docker", "container", "ls", "--all", "--no-trunc",
                                       "--filter", f"name=^/{name}$", "--format", "{{.ID}}"],
-                                     text=True, env=environment)
+                                     text=True, env=environment, timeout=3)
     identifiers = output.splitlines()
     if len(identifiers) > 1 or any(not re.fullmatch(r"[0-9a-f]{64}", cid) for cid in identifiers):
         raise RuntimeError("ambiguous owned container identity")
+    if identifiers:
+        VERIFIED_OWNED_IDS[name]=identifiers[0]
     return identifiers
 
 
@@ -122,6 +126,10 @@ def run_sandbox(label: str, adapter: Path, command: list[str]) -> None:
     if ownership["adapterSha256"] != digest(adapter):
         raise RuntimeError("owned container adapter changed")
     name = ownership["name"]
+    VERIFIED_OWNED_IDS.pop(name,None)
+    cidfile=Path(ownership['cidFilePath']) if ownership.get('cidFilePath') else None
+    if cidfile is not None and (cidfile.parent!=WORK or cidfile.name!=name+'.cid' or cidfile.exists()):
+        raise RuntimeError('untrusted or existing formal cidfile')
     if owned_containers(name):
         raise RuntimeError("owned container name already exists before launch")
     lifecycle = {**ownership, "label": label, "prelaunchAbsent": True, "cleanupConfirmed": False}
@@ -132,21 +140,45 @@ def run_sandbox(label: str, adapter: Path, command: list[str]) -> None:
     finally:
         # The pinned sandbox already traps its cidfile; verify it, and remove only
         # this freshly named container if timeout killed the Docker client first.
-        identifiers = owned_containers(name)
-        lifecycle["remainingOwnedIdsAfterScript"] = identifiers
-        for cid in identifiers:
-            subprocess.run(["docker", "container", "rm", "--force", cid],
-                           env=environment, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
-        if owned_containers(name):
-            raise RuntimeError("owned proof container cleanup could not be confirmed")
-        lifecycle["cleanupConfirmed"] = True
+        try:
+            if cidfile is not None and cidfile.is_file():
+                identifier=cidfile.read_text().strip()
+                if identifier:
+                    if not re.fullmatch('[0-9a-f]{64}',identifier):
+                        raise RuntimeError('invalid trusted formal cidfile')
+                    previous=VERIFIED_OWNED_IDS.get(name)
+                    if previous is not None and previous!=identifier:
+                        raise RuntimeError('formal owned identity changed')
+                    VERIFIED_OWNED_IDS[name]=identifier
+            if name not in VERIFIED_OWNED_IDS:
+                owned_containers(name)
+        except BaseException as error:
+            lifecycle['identityQueryError']=repr(error)
+        target=VERIFIED_OWNED_IDS.get(name)
+        lifecycle['cleanupTarget']=target
+        if target:
+            try:
+                result=subprocess.run(['docker','container','rm','--force',target],
+                    env=environment,stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=False,timeout=3)
+                lifecycle['cleanupExitCode']=result.returncode
+            except BaseException as error:
+                lifecycle['cleanupError']=repr(error)
+        try:
+            lifecycle['cleanupConfirmed']=not owned_containers(name)
+        except BaseException as error:
+            lifecycle['absenceCheckError']=repr(error)
+            lifecycle['cleanupConfirmed']=False
         receipt.write_text(json.dumps(lifecycle, indent=2) + "\n")
+        if not lifecycle['cleanupConfirmed']:
+            raise RuntimeError('owned proof container cleanup could not be confirmed')
+        if cidfile is not None:
+            cidfile.unlink(missing_ok=True)
     guard_seen = False
     environment_error = False
     with (EVIDENCE / (label + ".log")).open(errors="replace") as stream:
         for line in stream:
             guard_seen |= line.startswith("B699_RESOURCE_CONTRACT path=")
-            environment_error |= "B699_RESOURCE_CONTRACT:" in line or any(marker in line.lower() for marker in (
+            environment_error |= "B699_RESOURCE_CONTRACT:" in line or 'B699_HARD_DEADLINE_EXPIRED:' in line or 'B699_DIAGNOSTIC_ENVIRONMENT:' in line or any(marker in line.lower() for marker in (
                 "could not execute external process", "command not found", "unknown module prefix",
                 "no such file or directory"))
     if code in (125, 126, 127) or not guard_seen or environment_error:
@@ -191,6 +223,14 @@ def sandbox_adapter(base: str, module: str, output_dir: Path,
     name = "b699-" + uuid.uuid4().hex
     assert text.count("  run --rm --pull never") == 1
     text = text.replace("  run --rm --pull never", '  run --rm --pull never --name "' + name + '"')
+    ownership={"name":name}
+    if request.get('diagnosisOnly') is not True:
+        cidfile=WORK/(name+'.cid')
+        assert text.count('cidfile="$runtime_dir/container-id"')==1
+        text=text.replace('cidfile="$runtime_dir/container-id"','cidfile="'+str(cidfile)+'"')
+        assert text.count('  rm -f "$cidfile"')==1
+        text=text.replace('  rm -f "$cidfile"','  : # Host retains trusted formal cidfile until strict cleanup')
+        ownership['cidFilePath']=str(cidfile)
     text = text.replace('  --env HOME=/tmp', '  --env "PATH=$toolchain/bin:/usr/local/bin:/usr/bin:/bin"\n  --env HOME=/tmp')
     mount = '  --mount "type=bind,src=$source_file,dst=' + target + ',readonly"'
     assert text.count(mount) == 1
@@ -226,7 +266,7 @@ def sandbox_adapter(base: str, module: str, output_dir: Path,
     path.chmod(0o700)
     shutil.copy2(path, EVIDENCE / path.name)
     (EVIDENCE / (path.name + ".container.json")).write_text(json.dumps(
-        {"name": name, "adapterSha256": digest(path)}, indent=2) + "\n")
+        {**ownership, "adapterSha256": digest(path)}, indent=2) + "\n")
     (EVIDENCE / (path.name + ".diff")).write_text("".join(__import__("difflib").unified_diff(
         base.splitlines(True), text.splitlines(True), fromfile="official-pinned-sandbox", tofile=path.name)))
     return path
@@ -409,9 +449,12 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    def stop_owned(signum,frame):
+        raise KeyboardInterrupt('verification interrupted; owned container cleanup')
+    signal.signal(signal.SIGTERM,stop_owned)
     try:
         main()
-    except Exception as error:
+    except BaseException as error:
         (EVIDENCE / "FAILURE.json").write_text(json.dumps({"error": str(error), "proofAccepted": False,
                                                           "stagesCompleted": len(stages)}, indent=2) + "\n")
         print(json.dumps({"status": "failed", "error": str(error)}), flush=True)
