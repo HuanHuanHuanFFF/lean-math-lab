@@ -72,7 +72,7 @@ def main() -> None:
                     build(dependency)
         output = outputs[root] / relative.with_suffix(".olean")
         output.parent.mkdir(parents=True, exist_ok=True)
-        command = [str(toolchain / "bin" / ("lean.exe" if os.name == "nt" else "lean")), "--memory=768", "--threads=1", '-DElab.async=false',
+        command = [str(toolchain / "bin" / ("lean.exe" if os.name == "nt" else "lean")), "--memory=1536", "--threads=1", '-DElab.async=false',
                    "-R", str(root), "-o", str(output), str(source)]
         actual_command = docker_command(command, workspace, toolchain, outputs, lean_path) if sandboxed else command
         record = {'module': module, 'source': str(source),
@@ -80,7 +80,7 @@ def main() -> None:
                   'output': str(output), 'command': actual_command, 'status': 'starting'}
         built.append(record)
         save()
-        print(f'CACHE_MODULE_BEGIN {module} threads=1 Elab.async=false managed=768MiB sandboxed={sandboxed}', flush=True)
+        print(f'CACHE_MODULE_BEGIN {module} threads=1 Elab.async=false managed=1536MiB sandboxed={sandboxed}', flush=True)
         result = subprocess.run(actual_command, cwd=root, env=environment, check=False)
         record['exitCode'] = result.returncode
         record['status'] = 'compiled' if result.returncode == 0 else 'failed'
