@@ -59,4 +59,6 @@ Linux第二轮 run37471585643（417c4bd94）通过固定源和运行时准备，
 
 第四轮 [run37477294773](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37477294773)，source `526a06cbcc03b2578d61681ab449148502ffd6c4`，已完成。缓存工具内部预算改为1536 MiB，2 GiB容器硬限和其余保护不变；独立审查见 `reviews/RUNNER-MANAGED-MEMORY-READY.json`。全部缓存工具前置编译通过（cache-tool-serial exit0）；随后focused-cache-download exit134，实际日志为解释器memory_exception，尚未开始数学候选编译。环境执行者继续检查该阶段真实参数并修复，独立核验任务审读；本机Lean仍暂停。
 
-下一步恢复必要缓存，再由具名独立核验任务完成七候选原题字面型、完整S组合、传递公理和内核回放。完整S不得因某叶困难而缩减；外部提交仍未执行。第四轮证据ZIP已按GitHub摘要 `bfc53084f5b8ccdb97800212131656950455214058d141b9016ffd337adedaaa` 核对并安全提取，临时ZIP已删除，普通日志位于D盘本批验证目录。日志保留不表示证明接受。
+第五轮 [run37479887681](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37479887681)，source `e905cedd00e9ffdfb86846dc4aa74bcf9900d6e9`，已通过所需缓存下载/解压、官方环境与CLI准备。七叶中首个 `small12.lean` 实际编译exit0，生成对象并绑定原源SHA；随后内核回放exit1，日志显示checker无法启动子进程 `lean`（255）。环境任务修复精确启动环境，独立核验者复核。尚未得到SmallIndices完整验收，其他六叶未执行；不把编译通过当作步骤3完成。
+
+下一步修复内核回放入口，再由具名独立核验任务完成七候选原题字面型、完整S组合、传递公理和内核回放。完整S不得因某叶困难而缩减；外部提交仍未执行。第四、第五轮证据ZIP分别按GitHub摘要 `bfc53084f5b8ccdb97800212131656950455214058d141b9016ffd337adedaaa`、`c5b8044a7caec25147b2ce06f4b0edd39cdeb723b9c2b71e77661d8bbb417307` 核对并安全提取，临时ZIP已删除。第四轮最小原字节记录已由核验者保留在 `reviews/ci4/`。日志保留不表示证明接受。

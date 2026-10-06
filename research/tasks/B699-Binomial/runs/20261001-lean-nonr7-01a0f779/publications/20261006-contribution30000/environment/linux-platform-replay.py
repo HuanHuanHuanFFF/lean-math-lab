@@ -105,6 +105,7 @@ def sandbox_adapter(base: str, module: str, output_dir: Path,
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / relative).parent.mkdir(parents=True, exist_ok=True)
     text = base.replace("/contribution/Main.lean", target)
+    text = text.replace('  --env HOME=/tmp', '  --env "PATH=$toolchain/bin:/usr/local/bin:/usr/bin:/bin"\n  --env HOME=/tmp')
     mount = '  --mount "type=bind,src=$source_file,dst=' + target + ',readonly"'
     assert text.count(mount) == 1
     extra = '\n  --mount "type=bind,src=' + str(output_dir) + ',dst=/contrib-evidence' + (',readonly"' if checker else '"')

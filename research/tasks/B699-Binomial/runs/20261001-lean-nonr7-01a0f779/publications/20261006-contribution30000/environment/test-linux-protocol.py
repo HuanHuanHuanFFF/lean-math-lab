@@ -89,6 +89,7 @@ for adapter in (raw, audit, checker):
     text = adapter.read_text()
     assert '--network none' in text and '--read-only' in text and '--cap-drop ALL' in text
     assert '/bin/sh /contrib-resource/guard.sh "$memory_mb"' in text
+    assert '--env "PATH=$toolchain/bin:/usr/local/bin:/usr/bin:/bin"' in text
     assert (evidence/adapter.name).read_text() == text
     assert (evidence/(adapter.name+'.diff')).exists()
 assert 'LEAN_PATH=/contrib-evidence:/review-imports:$lean_path' in checker.read_text()
