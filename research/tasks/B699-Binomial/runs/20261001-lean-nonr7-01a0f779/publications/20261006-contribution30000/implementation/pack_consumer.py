@@ -36,6 +36,10 @@ def pack(tree,target,dest):
  steps=[];mapping=[]
  for k in order:
   d=tree.decls[k];body=d['text']
+  if d['kind'] not in ('theorem','lemma','def','abbrev'):
+   raise ValueError('cannot localize declaration kind '+d['kind']+': '+d['full'])
+  if re.match(r'^\s*(?:(?:private|protected|noncomputable)\s+)*(structure|inductive|class|instance)\b',body):
+   raise ValueError('datatype/instance must remain a global declaration: '+d['full'])
   body=re.sub(r'^(?:(?:private|protected|noncomputable)\s+)*(theorem|lemma|def|abbrev)\s+'+re.escape(d['name'])+r'\b',lambda m:('have ' if d['kind'] in ('theorem','lemma') else 'let ')+locals[k],body,count=1)
   body=rewrite(tree,body,d,locals)
   steps.append('\n'.join('  '+line for line in body.strip().splitlines()))

@@ -1,8 +1,12 @@
 # 全范围新源码独立验收
 
-核验者 `/root/b699_contribution_scope`，Sol/xhigh；本目录由该核验任务独占。当前为 **独立源预检通过、实际Lean验收pending**，不能采用旧数学签件接受七个压缩改写。
+核验者 `/root/b699_contribution_scope`，Sol/xhigh；本目录由该核验任务独占。当前 **SmallIndices 新源码独立接受，范围仅 `{1,2}`；其余六叶与完整S仍pending**。接受依据为CI6的固定源、独立literal、两次正常内核重放与Std3审计，见 [SMALL12-INDEPENDENT-ACCEPTED.json](SMALL12-INDEPENDENT-ACCEPTED.json)。旧数学签件不能自动接受其余压缩改写。
 
-采用 `implementation/v2/FIRST-COMPILE-SNAPSHOT.json` 的四叶及 `implementation/range-tail/FROZEN-DELIVERY-STRUCTURAL.json` 的三叶，并与 `BUNDLE-SNAPSHOT.json` 的最终小写 `artifacts/*.lean` 逐字节比对。实际编译应采用这些最终文件的物理module名；七源当前SHA和尺寸全部匹配producer。唯一A151布尔spec修复已重绑定，见 `A151-REPAIR-BINDING.json`：其他六源、全部八audit源、literal型/根及A151显式151指标列表不变；仍未编译。合计2,781,370字节，单文件均小于1MiB。`AUDIT-CONTRACT.json` 绑定三个manifest、七源、八个审计模块的哈希和所需AX声明；旧producer名预检及A151修复前合同另保历史，尚无旧名或旧A151的已编对象。
+采用 `implementation/v2/FIRST-COMPILE-SNAPSHOT.json` 的四叶及 `implementation/range-tail/FROZEN-DELIVERY-STRUCTURAL.json` 的三叶，并与 `BUNDLE-SNAPSHOT.json` 的最终小写 `artifacts/*.lean` 逐字节比对。A151在CI6出现getter遗漏和声明顺序错误，拒绝记录见 [A151-CI6-REJECTED.json](A151-CI6-REJECTED.json)。当前只采用 `implementation/repairs/20261006-ci6-a151/FREEZE.json` 的修复源，SHA `b24753cd36ceb3a69ddd35dbf09a855b39d3317728cb2e0df709f5845a73d841`、public root `Contribution.B699A151Packed.N5.N8.N7.d33`；静态绑定见 [A151-CI6-REPAIR-BINDING.json](A151-CI6-REPAIR-BINDING.json)，该修复尚无Lean接受。其余六源、完整字面类型及A151的编码数据不变。七源合计2,781,438字节，单文件均小于1MiB。当前 `AUDIT-CONTRACT.json` SHA `5c3edadd4d4a514eccda713cb618ac4b7c88c4976598b377eac36e92ba07de8d` 绑定七源及八个审计模块；Small的CI6合同另存 `AUDIT-CONTRACT-CI6-SMALL12-ACCEPTED.json`。
+
+CI7由Leader启动：run `37488807936`，source `ef2a9a163cb461a6502b798326458ea54dc17d82`。使用修复A151和已审 `c2b8b30a272dd115cfeed4f5440b79cef7464cbcdbbbb6ed6d945d56c974a14c` runner，实际结果待接收。该runner将每份独立叶的真实失败保留并继续其余叶；任何叶失败时不运行FullCoverage、最终拒收。保护、环境或自有容器清理失败则立即停。协议源审读与纯fixture结果见 [RUNNER-COLLECTION-READY.json](RUNNER-COLLECTION-READY.json)。
+
+CI7的Below源还发现证明块内结构声明的位置缺陷，见 [I11BELOW-CI7-STATIC-PRECHECK.json](I11BELOW-CI7-STATIC-PRECHECK.json)。实现任务已另交 `implementation/repairs/20261007-i11-below-kind` 的分离修复：源SHA `29156e9c165f4970d62136d8a68083c2ad9c830d10bda27254ac757e6ee5ae7a`、root `Contribution.B699I11BelowFinalCandidate.Math.B699.N8.d15`。独立静态绑定和未来literal草稿保存在 [repairs/20261007-i11-below-kind/BINDING-DRAFT.json](repairs/20261007-i11-below-kind/BINDING-DRAFT.json)；结构已在顶层，31份数据列表初始化共445,412字节与旧源相同。该草稿未编译、未采用到当前合同，也未修改CI7输入；仍需未来固定来源复验。
 
 `PREFLIGHT-RESULT.json` 记录原题字段和集合检查：小指标1/2，A151={29}∪[35,184]，i11在n<2^15360和2^15360≤n两边精确互补，另[185,322]、[323,999]、[1000,30000]，并集恰为{1,2,11,29}∪[35,30000]（29970）。所有n/j合法域保留；实际_root_.Nat.Prime、p≥i、完整_root_.Nat.choose双整除通过独立literal锁定。该句描述待编译的检查目标，不是已经通过Lean。
 

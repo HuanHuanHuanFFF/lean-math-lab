@@ -65,4 +65,10 @@ Linux第二轮 run37471585643（417c4bd94）通过固定源和运行时准备，
 
 CI7输入已重新绑定：A151仅补原计算getter和依赖顺序，源SHA `b24753cd36ceb3a69ddd35dbf09a855b39d3317728cb2e0df709f5845a73d841`，root d33；独立修复绑定见 `reviews/A151-CI6-REPAIR-BINDING.json`，151指标、37,313goods、3919layers及编码字符串保持，其他六源和另外七个核验伴侣源不变。新AUDIT-CONTRACT SHA `5c3edadd4d4a514eccda713cb618ac4b7c88c4976598b377eac36e92ba07de8d`，源规则实际复跑0hard/6review。新A151编译/900秒性能仍pending；Small原签有效，完整新包仍pending。
 
-下一步运行七叶复验；独立审读的runner c2b8b30采用安全的独立叶失败收集，失败保留证据、自有容器退出后重新资源检查，最终有任一失败仍拒收，完整S组合仅在所有叶成功后运行。环境/保护/清理故障立停，审查见 `reviews/RUNNER-COLLECTION-READY.json`。完整S不得因某叶困难而缩减；外部提交仍未执行。第四至第六轮证据ZIP均已按GitHub摘要核对并安全提取、删除临时ZIP，普通决定性证据已选留 `reviews/ci4/`、`reviews/ci5/`、`reviews/ci6/`；第六轮摘要 `d8956a6bb799b0773ce902a1a373ab8d74d5c8b16f02d510a25cd24d02c893ee`。日志保留和阶段exit0不代替具名独立验收。
+第七轮 [run37488807936](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37488807936)，source `ef2a9a163cb461a6502b798326458ea54dc17d82`，已检查全部七叶并最终拒收。Small五阶段再次exit0，独立重放签件 `reviews/SMALL12-CI7-REPLAY-ACCEPTED.json` 仍仅接受完整 `{1,2}`。A151、Above、Below各约917..919秒被timeout终止；日志没有新的JSON编译错误，峰值与热点未记录，不能推物理OOM。两个Middle实际编译exit1：缺PrimeChain.near_top、hb合取未拆就subst，随后出现kernel内存限制；323另有整组height证明1M heartbeat及下游错误。High约67秒exit137，日志截在半条消息，没有OOMKilled/peak证据，原因未知。六拒收签件见 `reviews/CI7-SIX-LEAVES-NOT-ACCEPTED.json`；完整S组合未运行。原题新增覆盖0。
+
+逐叶收集的真实10个自有容器均核对pre-absent与清理后remaining=[]，固定源、运行脚本及日志绑定见 `reviews/CI7-INDEPENDENT-INTAKE.json`，原字节决定性证据在 `reviews/ci7/`。不能用整体CI失败否定Small齐全的已验链，也不能用Small成功接受其余六叶。
+
+后续技术分工：`b699_contribution_implementation` 继续i11/A151修复和180秒诊断prefix/subset；Below的synthetic structure误局部化及孤立scoped option已有分离修复，现CI7镜像仍不动。原range-tail执行者不在live tree后，由同为Sol/xhigh复杂既定目标的 `b699_contribution_environment` 接续 `implementation/range-tail/repairs/20261007-ci7/` 与相应生成器，按原源补near_top/trans、拆hb并测证书资源成本；同时维护独立诊断入口。`b699_contribution_scope` 独立审读全部新固定源、护栏和最终字面型/AX/内核。共享顶层入口、artifact镜像、BUNDLE与触发仍由Root负责。
+
+下一检查是独立冻结的短诊断入口：A151 prelude/height1/height16及Above prefix64/256，真实180秒与OS硬cap，明确diagnosis-only/不是S交付；软heartbeat与源选项必须一致后才激活。不要重复旧wholeleaf或直接扩大最终900秒/16GiB门槛。High源码本已有显式F常量及一次F=11085!校验，重复factorial展开的提议未成立，不把它说成新优化。完整S不得缩减；外部提交仍未执行。每轮证据ZIP已按GitHub摘要核对并安全提取后删除临时包，第七轮摘要 `44dd68b4d49f1a33c5f0e91bf7712991cac5a440d90b55683d140d2738ecbb1f`；日志和静态修复均不替代新Lean接受。

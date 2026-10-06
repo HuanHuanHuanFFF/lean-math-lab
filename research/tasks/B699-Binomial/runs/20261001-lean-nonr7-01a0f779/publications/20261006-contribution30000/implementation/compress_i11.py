@@ -4,7 +4,7 @@ This does not claim kernel acceptance. Original source files remain unchanged.
 from pathlib import Path
 import collections, hashlib, json, pickle, re, math
 from fractions import Fraction
-from extract import REPO, OUT, LOW, ROOTS, TARGETS, Tree, strip_comments, ID
+from extract import REPO, OUT, LOW, ROOTS, TARGETS, Tree, strip_comments, ID, DECL
 
 SCRATCH=REPO/'.tools/b699-contribution-implementation-20261006'
 PAIRS=[(2,3),(2,5),(2,7),(3,5),(3,7),(5,7)]
@@ -120,7 +120,10 @@ def terminal_override(tree):
 
 def add(tree, module, ns, name, body, opens, position='after'):
  key=module+':new:'+ns+'.'+name
- d={'key':key,'module':module,'line':0,'name':name,'full':ns+'.'+name,'namespace':ns,'opens':opens,'variables':[],'attributes':[],'kind':'def' if body.startswith(('def ','noncomputable def ')) else 'theorem','private':False,'text':body,'bytes':len(body.encode()),'position':position}
+ command=DECL.match(body.lstrip())
+ if command is None or command.group(2)!=name:
+  raise ValueError('synthetic declaration must preserve its actual kind/name: '+ns+'.'+name)
+ d={'key':key,'module':module,'line':0,'name':name,'full':ns+'.'+name,'namespace':ns,'opens':opens,'variables':[],'attributes':[],'kind':command.group(1),'private':False,'text':body,'bytes':len(body.encode()),'position':position}
  tree.decls[key]=d;tree.byname[d['full']].append(key);tree.mods[module]['decls'].append(key)
  return key
 
@@ -279,9 +282,14 @@ def emit(tree,selected,dest,shorten=True):
  else:name_map={}
  # Avoid indentation-sensitive formatting changes. Empty lines and trailing spaces only.
  text='\n'.join(line.rstrip() for line in text.splitlines() if line.strip())+'\n'
+ # A removed global declaration may leave its command-scoped depth prefix
+ # directly before a named namespace end. That prefix would open an anonymous
+ # section around `end`, rather than scope a consumer. The same finite depth is
+ # already installed at the file header, so remove only this known orphan.
+ text,orphan_depth_groups=re.subn(r'(?m)^(?:set_option maxRecDepth 100000 in\n)+(?=end [^\n]+$)','',text)
  text=re.sub(r' *([,:]) *',r'\1',text)
  dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(text,encoding='utf-8',newline='\n')
- return {'path':str(dest.relative_to(REPO).as_posix()),'bytes':dest.stat().st_size,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'selectedDeclarations':len(selected),'modules':len(mods),'imports':external,'namespaceSegmentMap':mapping,'declarationNameMap':name_map,'ownNamespace':own_namespace}
+ return {'path':str(dest.relative_to(REPO).as_posix()),'bytes':dest.stat().st_size,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'selectedDeclarations':len(selected),'modules':len(mods),'imports':external,'namespaceSegmentMap':mapping,'declarationNameMap':name_map,'ownNamespace':own_namespace,'removedOrphanDepthPrefixGroups':orphan_depth_groups}
 
 def main():
  with (SCRATCH/'i11-slice.pickle').open('rb') as f:tree,_,_=pickle.load(f)
