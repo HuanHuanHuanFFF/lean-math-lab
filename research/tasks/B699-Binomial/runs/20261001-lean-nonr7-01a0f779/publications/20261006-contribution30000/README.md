@@ -32,6 +32,7 @@
 - 目标 `erdos-699`，种类拟用 `partial-proof`、模式 `formalized`。向 `conjectures-io/conjectures-contribution` 提交一个新增贡献目录的 PR，不走收费完整解答验证器。
 - 每个 Lean 文件独立编译，不能导入同目录其他文件或本仓库的 `Math.B699`、`research`。只使用允许的库与自包含源码。
 - 每个文件最多1 MiB、整份贡献最多4 MiB、最多32个文件，目录扁平。不能机械拆分以绕过闭包要求或重复计算奖励。
+- 实施时执行官方固定源码检查器发现 C021 的额外硬门：每个 Lean artifact 最多200个源码声明。尺寸合格不表示此门已过；必须用集中数据、通用证明和适当局部证明步骤得到实际合规源，而不是绕过检查器。
 - 禁止 `sorry`、`admit`、`axiom`、`native_decide`、`Lean.ofReduceBool`、`unsafe`、`IO` 等。现有内核接受记录不能替代移植源码的政策检查。
 - 声明使用 `Contribution.<自有命名空间>`；文件为 UTF-8、LF、无BOM、末尾换行。`sources.md` 说明原始贡献、已发表输入、生成证书和复用来源。
 - 平台编译默认每文件900秒、16 GiB，实际配置可变。这不是本机资源，也不能用完整解答 manifest 的10 MiB/3600秒替代部分贡献规则。
