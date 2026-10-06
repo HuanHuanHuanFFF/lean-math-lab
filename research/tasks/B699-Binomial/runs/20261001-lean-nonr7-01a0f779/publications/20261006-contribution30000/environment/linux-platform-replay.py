@@ -232,10 +232,10 @@ def main() -> None:
                       if match.group(1).split(".")[0] not in {"Init", "Std", "Lean"}})
     if any(module in {"Mathlib", "Mathlib.Tactic"} or not module.startswith("Mathlib.") for module in modules):
         raise RuntimeError("this bounded replay expects focused Mathlib imports only")
-    run("focused-cache-download", [str(toolchain / "bin/lake"), "env", "lean", "--memory=768", "--threads=1",
+    run("focused-cache-download", [str(toolchain / "bin/lake"), "env", "lean", "--memory=1536", "--threads=1",
                                    "--run", str(SCRIPT / "FocusedCacheGet.lean"), *modules], fc, trusted_bootstrap=True)
     plan = WORK / "focused-extract.json"
-    run("focused-cache-plan", [str(toolchain / "bin/lake"), "env", "lean", "--memory=768", "--threads=1",
+    run("focused-cache-plan", [str(toolchain / "bin/lake"), "env", "lean", "--memory=1536", "--threads=1",
                                "--run", str(SCRIPT / "CacheExtractPlan.lean"), str(plan), *modules], fc, trusted_bootstrap=True)
     run("focused-cache-extract", [sys.executable, str(SCRIPT / "extract-cache.py"),
                                   str(toolchain / "bin/leantar"), str(plan)], fc, trusted_bootstrap=True)

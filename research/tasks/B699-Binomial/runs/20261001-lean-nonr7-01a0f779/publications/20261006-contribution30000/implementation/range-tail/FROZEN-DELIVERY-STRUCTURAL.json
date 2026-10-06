@@ -1,0 +1,116 @@
+{
+  "frozenAt": "2026-10-06T12:25:54.202789+00:00",
+  "owner": "/root/b699_contribution_range_tail",
+  "freezeReason": "Leader requested immutable leaf sources for first fixed-SHA Linux compilation; revise only after concrete compiler feedback",
+  "sourceBaseline": "a5f7afff0766bf5fee2d72aa9e8ee6a5eb7bda99",
+  "artifactFiles": [
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/Middle185_322.lean",
+      "bytes": 442023,
+      "sha256": "c185cc411e60f421469edbfeaa45f33cb2f818feb4eb5721675810199d7b1e52",
+      "scope": [
+        185,
+        322
+      ],
+      "publicRoots": [
+        "Contribution.Middle185.common_185_322"
+      ],
+      "literalGcd": "\u2200 n i j : Nat, 185 \u2264 i \u2192 i \u2264 322 \u2192 i < j \u2192 j \u2264 n / 2 \u2192 \u2203 p : Nat, p.Prime \u2227 i \u2264 p \u2227 p \u2223 (n.choose i).gcd (n.choose j)",
+      "extraMathematicalInputs": [],
+      "allNaturalNAndJ": true,
+      "inclusivePrimeThreshold": true,
+      "completeBinomialCoefficients": true
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/Middle323_999.lean",
+      "bytes": 154700,
+      "sha256": "59c9101c5e78bf0795b0de14fe78135ca81c044f356b5a96723baf4923d7897c",
+      "scope": [
+        323,
+        999
+      ],
+      "publicRoots": [
+        "Contribution.Middle323.common_323_999"
+      ],
+      "literalGcd": "\u2200 n i j : Nat, 323 \u2264 i \u2192 i \u2264 999 \u2192 i < j \u2192 j \u2264 n / 2 \u2192 \u2203 p : Nat, p.Prime \u2227 i \u2264 p \u2227 p \u2223 (n.choose i).gcd (n.choose j)",
+      "extraMathematicalInputs": [],
+      "allNaturalNAndJ": true,
+      "inclusivePrimeThreshold": true,
+      "completeBinomialCoefficients": true
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/High1000_30000.lean",
+      "bytes": 300717,
+      "sha256": "4d524efcf5afeab55b6c7d0d3e94be4b860dc744009fbd944e3d6590ad3a46a3",
+      "scope": [
+        1000,
+        30000
+      ],
+      "publicRoots": [
+        "Contribution.Range.common_1000_30000",
+        "Contribution.Range.common_gcd_1000_30000"
+      ],
+      "literalGcd": "\u2200 n i j : Nat, 1000 \u2264 i \u2192 i \u2264 30000 \u2192 i < j \u2192 j \u2264 n / 2 \u2192 \u2203 p : Nat, p.Prime \u2227 i \u2264 p \u2227 p \u2223 (n.choose i).gcd (n.choose j)",
+      "extraMathematicalInputs": [],
+      "allNaturalNAndJ": true,
+      "inclusivePrimeThreshold": true,
+      "completeBinomialCoefficients": true
+    }
+  ],
+  "selectedArtifactBytes": 897440,
+  "notArtifacts": [
+    "*-core.lean",
+    "*Probe.lean",
+    "reproducer scripts",
+    "JSON reports",
+    "README"
+  ],
+  "sourceOnlyPolicy": {
+    "path": "SOURCE-POLICY-STRUCTURAL.json",
+    "sha256": "4ecbc3991b337f102439cc0a007148fbd27cef72c681a7a2c0e1ceff588a6374",
+    "errors": 0,
+    "reviewFindings": 0,
+    "sourceDeclarationCounts": [
+      148,
+      101,
+      168
+    ],
+    "officialRules": [
+      "C019",
+      "C020",
+      "C021"
+    ],
+    "fullContribCheck": false
+  },
+  "compileState": "No complete candidate has compiled; old mathematical signatures do not cover these rewrites",
+  "acceptedProbe": {
+    "file": "SieveProbe.lean",
+    "nativeExitCode": 0,
+    "axioms": [],
+    "elapsedSeconds": 2.0559703999970225
+  },
+  "failedProbe": {
+    "file": "PrimeProbe.lean",
+    "diagnosis": "1024MiB memory exception in large-prime norm_num; replaced by factorial gcd certificate"
+  },
+  "supersededFrozenRecord": "FROZEN-DELIVERY.json",
+  "decoderProbe": {
+    "file": "CodecProbe.lean",
+    "receipt": "verification/codec-init-01.json",
+    "ownerStopped": true,
+    "peakObservedProcessTreeWorkingSetBytes": 6362652672,
+    "elapsedSeconds": 196.79958270000134,
+    "minimumAvailablePhysicalBytes": 6172672,
+    "diagnosis": "No stage output; own process exceeded expected memory budget despite --memory=256. Automatic termination/elaboration vs kernel reduction remains unknown",
+    "correction": "Leader authorized replacing combined decoder with two explicitly structural list recursors; new source requires Linux hard-limit test"
+  },
+  "nativeBlock": "Fresh physical memory varied544MB..943MB; Mathlib baseline previously810MB plus system reserve does not fit. No task process killed, no cap increased",
+  "requiredChecks": [
+    "independent exact literal type",
+    "all three complete source files against fixed official production and dependencies",
+    "Std3-only transitive axioms",
+    "standard kernel replay and fixed source/object binding",
+    "per-file900s/16GiB observations"
+  ],
+  "modelTaskClass": "gpt-6.1-sol/xhigh; complex established proof representation migration"
+}

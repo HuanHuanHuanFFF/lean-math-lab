@@ -46,6 +46,31 @@ for suffix, limit, usage in [('', 8*1024**3, 1024**3), ('/slice', 1024**3, 256*1
 assert budget.observe(v1)['availableBudgetBytes'] == 160 * 1024**2
 
 source = (directory / 'linux-platform-replay.py').read_text()
+asset_pin = json.loads((directory/'LEAN-LINUX-ASSET-PIN.json').read_text())
+assert asset_pin['assetId'] == 523687465
+assert asset_pin['sha256'] == '890afd185370f85666025b883914ab4f4b339136f8c96167b69cfb62aecaf235'
+assert 'metadata_url' not in source and 'api.github.com' not in source
+assert 'archive.stat().st_size != asset["bytes"]' in source
+assert 'run("focused-cache-download", [str(toolchain / "bin/lake"), "env", "lean", "--memory=1536", "--threads=1"' in source
+assert 'run("focused-cache-plan", [str(toolchain / "bin/lake"), "env", "lean", "--memory=1536", "--threads=1"' in source
+assert 'resource.setrlimit' not in source
+cache_spec = importlib.util.spec_from_file_location('cache_builder', directory/'build-cache-interpreter.py')
+cache_builder = importlib.util.module_from_spec(cache_spec)
+cache_spec.loader.exec_module(cache_builder)
+import os
+cache_builder.os.environ['B699_CACHE_SANDBOX_IMAGE'] = 'test-image'
+cache_builder.os.getuid = lambda: 1001
+cache_builder.os.getgid = lambda: 1001
+cache_command = ['lean', '--memory=1536', '--threads=1', '-DElab.async=false', '-R', '/fixed/pkg',
+                 '-o', '/objects/Cache/Cli.olean', '/fixed/pkg/Cache/Cli.lean']
+cache_args = cache_builder.docker_command(cache_command, test_root/'fixed-source', test_root/'toolchain',
+                                         {test_root/'fixed-source/pkg': test_root/'objects'}, '/objects')
+assert ['--memory', '2048m', '--memory-swap', '2048m'] == cache_args[cache_args.index('--memory'):cache_args.index('--memory')+4]
+assert cache_args[cache_args.index('--pids-limit')+1] == '256'
+assert cache_args[cache_args.index('--cpus')+1] == '1'
+assert cache_args[cache_args.index('--network')+1] == 'none'
+assert cache_args[-len(cache_command):] == cache_command
+assert any(str(test_root/'fixed-source') in arg and arg.endswith(',readonly') for arg in cache_args)
 tree = ast.parse(source)
 functions = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name in {'sandbox_adapter', 'preserve_objects'}]
 work = test_root / 'adapters'
@@ -79,6 +104,7 @@ binding = json.loads((evidence/'first-leaf-OBJECT-BINDING.json').read_text())
 assert binding['objects'][str(Path('Frozen')/'small12.olean')] == hashlib.sha256(b'fixture object; no Lean execution').hexdigest()
 result = {'v2AncestorBudget': 'pass', 'v1SelfBudget': 'pass', 'rawAuditCheckerAdapters': 'pass',
           'finalExecutedScriptAndDiff': 'pass', 'firstLeafEvidenceImmediateRetention': 'pass',
+          'fixedLinuxAssetWithoutRuntimeApiLookup': 'pass', 'cacheDockerMemoryCpuPidAndReadonlySources': 'pass',
           'LeanExecuted': False, 'DockerExecuted': False}
 (directory/'LINUX-PROTOCOL-PURE-TEST.json').write_text(json.dumps(result, indent=2)+'\n')
 print(json.dumps(result))

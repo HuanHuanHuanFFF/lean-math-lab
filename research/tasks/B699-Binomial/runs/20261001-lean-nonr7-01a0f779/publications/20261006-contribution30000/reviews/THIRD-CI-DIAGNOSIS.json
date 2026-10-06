@@ -1,0 +1,42 @@
+{
+  "verifier": "/root/b699_contribution_scope",
+  "observedAtUtc": "2026-10-06T14:09:26.184075+00:00",
+  "runId": 37475085494,
+  "sourceCommit": "8b8bc3bed82e9e471437456f5f2e72400fd323c8",
+  "classification": "trusted Cache.IO interpreter managed-memory exception at768MiB; candidates not started",
+  "passedCacheModules": [
+    "Cache.Cli",
+    "Cache.Lean",
+    "Batteries.Tactic.OpenPrivate"
+  ],
+  "failedCacheModule": "Cache.IO",
+  "failedDockerExitCode": 139,
+  "memoryExceptionText": "excessive memory consumption detected at interpreter",
+  "actualCacheContainerLimits": {
+    "memoryMaxBytes": 2147483648,
+    "cpuMax": "100000 100000",
+    "pidsMax": 256
+  },
+  "sourceThreadFlags": [
+    "--threads=1",
+    "-DElab.async=false"
+  ],
+  "oldThreadCreationFailureNoLongerObserved": true,
+  "physicalOOMProved": false,
+  "OOMBoundary": "no retained DockerOOMKilled/memory.events; managed memory exception andexit139 do not prove physical exhaustion",
+  "recommendedMinimalCorrection": "keepDocker2GiB,sameSwapTotal,pids256,cpu1; managed768->1536 leaves512MiB withinhardcap; same11fixedsources; no candidate or literal changes",
+  "candidateCompileCount": 0,
+  "proofAccepted": false,
+  "evidence": {
+    "cache-tool-serial.log": {
+      "path": "D:\\ResearchArtifacts\\b699-contribution-validation-20261006\\37475085494\\cache-tool-serial.log",
+      "bytes": 2709,
+      "sha256": "cec473bae48022f4d3d25a493cb3579d9ec1165d4ad1a151705ec4a4e4492629"
+    },
+    "CACHE-TOOL.json": {
+      "path": "D:\\ResearchArtifacts\\b699-contribution-validation-20261006\\37475085494\\CACHE-TOOL.json",
+      "bytes": 25683,
+      "sha256": "ec47c9640de909cd8895eda8aaec849e0e06a398bcb23e46ea46e208cdae8952"
+    }
+  }
+}

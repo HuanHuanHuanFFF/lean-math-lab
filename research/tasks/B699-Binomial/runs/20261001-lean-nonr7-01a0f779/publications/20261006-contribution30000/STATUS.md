@@ -51,4 +51,12 @@ Linux复验执行入口由环境任务准备：`linux-platform-replay.py` 与 `l
 
 首CI已触发并完成：source `d4d51abf`、run37469892848，源码政策与fixed FC source分别exit0，随后Lean release metadata匿名API403限流；还未执行Lean/Docker证明。见 [首轮诊断](reviews/CI-37469892848.md)。环境任务正在修获取方式，独立核验任务审核网络边界；候选完整编译/公理/组合验收及平台受理均pending。
 
-下一检查：环境任务给出准确固定入口；实现任务给出真实切片大小、证书压缩候选和第一编译对象。若从既定移植跨到尚未证明的数学义务，先记录重分类和依赖，再按 AGENTS 调整执行者，不暗中降低覆盖目标。
+## 当前继续入口（取代上述历史检查点）
+
+七份候选已提取和压缩，当前固定字节总量2,781,370，完整范围不变，精确文件与SHA见 `BUNDLE-SNAPSHOT.json`。A151仅修复规范断言的连接关联形式，其编码数据和151指标未改；新绑定见 `reviews/A151-REPAIR-BINDING.json`。这属于待编译候选，尚不能称为通过步骤3。
+
+Linux第二轮 run37471585643（417c4bd94）通过固定源和运行时准备，但缓存工具因线程创建失败停止。第三轮 run37475085494（8b8bc3bed）改用真正2 GiB物理硬限、无额外swap、单线程容器；Cache.Cli、Cache.Lean、Batteries.Tactic.OpenPrivate实际编译成功，随后Cache.IO触发768 MiB Lean内部预算。此时七个数学artifact尚未开始编译；这些失败是环境准备失败，不是数学反例。
+
+第四轮 [run37477294773](https://github.com/HuanHuanHuanFFF/lean-math-lab/actions/runs/37477294773)，source `526a06cbcc03b2578d61681ab449148502ffd6c4`，已完成。缓存工具内部预算改为1536 MiB，2 GiB容器硬限和其余保护不变；独立审查见 `reviews/RUNNER-MANAGED-MEMORY-READY.json`。全部缓存工具前置编译通过（cache-tool-serial exit0）；随后focused-cache-download exit134，实际日志为解释器memory_exception，尚未开始数学候选编译。环境执行者继续检查该阶段真实参数并修复，独立核验任务审读；本机Lean仍暂停。
+
+下一步恢复必要缓存，再由具名独立核验任务完成七候选原题字面型、完整S组合、传递公理和内核回放。完整S不得因某叶困难而缩减；外部提交仍未执行。第四轮证据ZIP已按GitHub摘要 `bfc53084f5b8ccdb97800212131656950455214058d141b9016ffd337adedaaa` 核对并安全提取，临时ZIP已删除，普通日志位于D盘本批验证目录。日志保留不表示证明接受。
