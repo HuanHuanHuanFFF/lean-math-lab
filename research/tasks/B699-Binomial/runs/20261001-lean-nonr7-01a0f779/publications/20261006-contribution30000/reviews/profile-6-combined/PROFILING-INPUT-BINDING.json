@@ -1,0 +1,103 @@
+{
+  "requestSha256": "79eaf84e51d2f0f68daea7b28a7d4c28eeb71c44c285e4f7eedfd61d6faa7752",
+  "probeManifestSha256": "5accd3181fada21c903a5d2e1e25fd52db04d4f37329595b09c0217917db3161",
+  "sourceCommit": "ad824755e653fea7f13f4e56037854aa656d0e5b",
+  "diagnosisOnly": true,
+  "proofAccepted": false,
+  "probes": [
+    {
+      "id": "MiddleBasisProduct",
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/combined/probes/MiddleBasisProduct.lean",
+      "bytes": 5228,
+      "sha256": "8380602ec5b03b3448886a7779c3feb6e5f6d86e77c6a552fcfb05f6f2cec259",
+      "root": "Contribution.NumericMiddleBasisProduct.product_eq",
+      "wallTimeoutSeconds": 180,
+      "heartbeatLimit": 400000,
+      "threads": 1,
+      "purpose": "only original P product; shared numeric prelude not yet tested",
+      "details": {
+        "original607BasisExactlyCopied": true
+      },
+      "proofAccepted": false
+    },
+    {
+      "id": "MiddleTailPlainBool",
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/combined/probes/MiddleTailPlainBool.lean",
+      "bytes": 3109,
+      "sha256": "f94d2dedcd57d3cebba678313afdcf29659359830098d8fe0eb19e6629887a69",
+      "root": "Contribution.CombinedMiddlePlain.checked",
+      "wallTimeoutSeconds": 180,
+      "heartbeatLimit": 400000,
+      "threads": 1,
+      "purpose": "exact15 original edges with old checker/P; no basis/prod/Segment/soundness",
+      "details": {
+        "lo": 1997351,
+        "hi": 2000003,
+        "copiedEdges": 15
+      },
+      "proofAccepted": false
+    },
+    {
+      "id": "MiddleFactorialCarrier",
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/combined/probes/MiddleFactorialCarrier.lean",
+      "bytes": 18129,
+      "sha256": "9575b8ebd417bf6c433865c51a311a9577adcc3df67461ada11abfc1f8ac1a0d",
+      "root": "Contribution.CombinedMiddleCarrier.carrier_chain",
+      "wallTimeoutSeconds": 180,
+      "heartbeatLimit": 400000,
+      "threads": 1,
+      "purpose": "factorial4472 once+fuel64, same15 encoded edges, actualPrime chain carrier with explicit endpoint; no legacybasis/product",
+      "details": {
+        "lo": 1997351,
+        "hi": 2000003,
+        "copiedEdges": 15,
+        "fuel": 64,
+        "exhaustedFuelFalse": true,
+        "uniform64SufficiencyAssumed": false,
+        "F_eqOnce": true
+      },
+      "proofAccepted": false
+    },
+    {
+      "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/profiling/20261007-packed-structural/probes/A151PackedStructural354.lean",
+      "bytes": 35375,
+      "sha256": "adbba51f0c6cb0e8374ab81d5816e8344a620b189e402ab239a4184a10ecc1f6",
+      "id": "A151PackedStructural354",
+      "root": "Contribution.B699ProfilingA151PackedStructural354.codecExact",
+      "originalSource": {
+        "path": "research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/repairs/20261006-ci6-a151/A151Packed.lean",
+        "bytes": 444775,
+        "sha256": "b24753cd36ceb3a69ddd35dbf09a855b39d3317728cb2e0df709f5845a73d841"
+      },
+      "wallTimeoutSeconds": 180,
+      "heartbeatLimit": 400000,
+      "effectiveSourceHeartbeatLimit": 400000,
+      "threads": 1,
+      "memoryPolicy": "same available cgroup budget and official guard; no more16GiB",
+      "purpose": "decoder representation diagnosis only; no S coverage/primality claim",
+      "details": {
+        "claim": "exact original decoded data equality only; no primality/coverage/fullS claim",
+        "i": 44,
+        "sourceExpressionSHA256": "13afc4bd718d3c9e76c2aeae0674f019dcd0027ca23cbbded6b3ca1666c710f4",
+        "heightGenericPreludeExcluded": true,
+        "originalDataRoundtrip": "every lo/hi/witness kind/value and layer lo/hi/M equal to original source values",
+        "explicitListRec": false,
+        "goods": 354,
+        "layers": 209,
+        "encoding": "same oneNat pergood/layer, ordinary one-cons match and explicitstructural codes/indices",
+        "ordinaryStructuralRecursion": true,
+        "previousUnsupportedCodegenSHA256": "d0f890e994d0ac4cc59ba856e38cae7d27e32304f70d0e7fe18aa8bbed0b3c27",
+        "sameAllInputAndExpectedDataBytes": true
+      }
+    }
+  ],
+  "helpers": {
+    "linux-profiling-replay.py": "ad4b976eab56f3a9d17b505891a8e131881b7b9dd2dd2cb1061a478e0159f0f2",
+    "linux-platform-replay.py": "acfb762d230a9bcb9f0dd2bc74af786b1e8ae431efb6fad5bd6f0a4cf8fdc823",
+    "container-resource-guard.sh": "c4be7a947911ab4cac3f2ea8503eb6def6659d208ec0a6492762cdc2473a85fc",
+    "container-probe-metrics.sh": "3d51f594848f0837f0bae73dc144ce4996017d77b97a6829e78c041c5feac3d6",
+    "container-probe-entry.sh": "42cfafc1d24f5c43b00687076653afcfc8fbbb5fe76ec8174e7cfe919f595b19",
+    "cgroup-budget.py": "c299aeb88b7da2ebcd11959854c865a9814eacb7d6d334828a3c50702e1512c2",
+    "build-cache-interpreter.py": "1e1aaa9931096ef200c8a531bccc960adb0fc8da43dc70bf863505829e69bb0a"
+  }
+}

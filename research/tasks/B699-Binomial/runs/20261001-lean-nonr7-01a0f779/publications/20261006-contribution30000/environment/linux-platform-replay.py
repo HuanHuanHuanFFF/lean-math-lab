@@ -1,0 +1,485 @@
+"""Prepared Linux-only replay; no production identity, metadata or wallet operations.
+
+Uses the fixed official sandbox, plus a recorded minimal output/module adapter
+for Frozen/Audit oleans, and the toolchain's genuine leanchecker. The named
+independent review contract owns literal correspondence and axiom acceptance.
+"""
+from __future__ import annotations
+
+from datetime import datetime, timezone
+import hashlib
+import importlib.util
+import json
+import math
+import os
+from pathlib import Path
+import re
+import shlex
+import signal
+import shutil
+import subprocess
+import sys
+import urllib.request
+import uuid
+
+BRANCH = "huan/b699-partial-plan-20261006-01a0e34b"
+CONTRIBUTION = "be220ff2519ecfd61b28ba9e477321e4287ef6b4"
+TASKS = "2a58149e6edb0f1dc15b32391f8c29fdd85e9db3"
+DERIVED = "6a786f997e18e8f095762a2830d191b7e25e505e"
+SANDBOX_SHA = "7709d1dc692a59b11da707187e1dae256862d1c10a2b9157dec36a724c9c1d34"
+IMAGE = "debian:bookworm-slim@sha256:88200866dfff7ea7f5cbcb6ec7c8a701889efe6fe859fe64d6990e4b07ea4171"
+SCRIPT = Path(__file__).resolve().parent
+REPO = Path(sys.argv[1]).resolve()
+REQUEST_PATH = Path(sys.argv[2]).resolve()
+WORK = Path(sys.argv[3]).resolve()
+EVIDENCE = Path(sys.argv[4]).resolve()
+WORK.mkdir(parents=True, exist_ok=True)
+EVIDENCE.mkdir(parents=True, exist_ok=True)
+request = json.loads(REQUEST_PATH.read_text())
+environment = os.environ.copy()
+environment.update({"UV_CACHE_DIR": str(WORK / "cache/uv"),
+                    "UV_PYTHON_INSTALL_DIR": str(WORK / "runtime/python"),
+                    "UV_PROJECT_ENVIRONMENT": str(WORK / "runtime/contrib-venv"),
+                    "UV_CONCURRENT_DOWNLOADS": "1", "UV_CONCURRENT_BUILDS": "1",
+                    "UV_CONCURRENT_INSTALLS": "1", "TMPDIR": str(WORK / "tmp"),
+                    "MATHLIB_CACHE_DIR": str(WORK / "cache/mathlib"),
+                    "CONTRIB_LEAN_IMAGE": IMAGE})
+Path(environment["TMPDIR"]).mkdir(parents=True, exist_ok=True)
+stages: list[dict] = []
+VERIFIED_OWNED_IDS = {}
+cg_spec = importlib.util.spec_from_file_location("cgroup_budget", SCRIPT / "cgroup-budget.py")
+cg_budget = importlib.util.module_from_spec(cg_spec)
+cg_spec.loader.exec_module(cg_budget)
+
+
+def digest(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as stream:
+        while chunk := stream.read(1024 * 1024):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def bound(path: str, expected: str) -> Path:
+    candidate = (REPO / path).resolve()
+    if not candidate.is_relative_to(REPO) or not candidate.is_file() or candidate.is_symlink():
+        raise RuntimeError(f"invalid repository input: {path}")
+    if digest(candidate) != expected:
+        raise RuntimeError(f"input hash changed: {path}")
+    return candidate
+
+
+def resources(label: str) -> dict:
+    observation = {**cg_budget.observe(), "at": datetime.now(timezone.utc).isoformat(), "label": label,
+                   "cpuAffinityCount": len(os.sched_getaffinity(0)),
+                   "freeDiskBytes": shutil.disk_usage(WORK).free,
+                   "relevantJobs": subprocess.check_output(
+                       ["ps", "-eo", "pid,ppid,comm,rss"], text=True).splitlines()}
+    (EVIDENCE / f"resource-{label}.json").write_text(json.dumps(observation, indent=2) + "\n")
+    return observation
+
+
+def run(label: str, command: list[str], cwd: Path = WORK, *, allow_failure: bool = False,
+        trusted_bootstrap: bool = False) -> int:
+    resources(label)
+    log = EVIDENCE / f"{label}.log"
+    start = datetime.now(timezone.utc)
+    with log.open("wb") as stream:
+        result = subprocess.run(command, cwd=cwd, env=environment, stdout=stream,
+                                stderr=subprocess.STDOUT, check=False)
+    stages.append({"label": label, "command": command, "cwd": str(cwd),
+                   "startedAt": start.isoformat(), "exitCode": result.returncode,
+                   "log": log.name, "logSha256": digest(log),
+                   "executedScriptSha256": {str(Path(arg)): digest(Path(arg)) for arg in command
+                                             if arg.endswith(('.sh', '.py')) and Path(arg).is_file()}})
+    (EVIDENCE / "STAGES.json").write_text(json.dumps(stages, indent=2) + "\n")
+    print(json.dumps({"stage": label, "exitCode": result.returncode}), flush=True)
+    if result.returncode and not allow_failure:
+        raise RuntimeError(f"{label}: exit {result.returncode}; see artifact log")
+    return result.returncode
+
+
+class LeafStageFailure(RuntimeError):
+    """A rejected isolated leaf; environment/protection failures never use this class."""
+    def __init__(self, label: str, code: int):
+        super().__init__(f"{label}: exit {code}; see retained stage log")
+        self.label = label
+        self.code = code
+
+
+def owned_containers(name: str) -> list[str]:
+    if not re.fullmatch(r"b699-[0-9a-f]{32}", name):
+        raise RuntimeError("invalid owned container name")
+    output = subprocess.check_output(["docker", "container", "ls", "--all", "--no-trunc",
+                                      "--filter", f"name=^/{name}$", "--format", "{{.ID}}"],
+                                     text=True, env=environment, timeout=3)
+    identifiers = output.splitlines()
+    if len(identifiers) > 1 or any(not re.fullmatch(r"[0-9a-f]{64}", cid) for cid in identifiers):
+        raise RuntimeError("ambiguous owned container identity")
+    if identifiers:
+        VERIFIED_OWNED_IDS[name]=identifiers[0]
+    return identifiers
+
+
+def run_sandbox(label: str, adapter: Path, command: list[str]) -> None:
+    ownership = json.loads((EVIDENCE / (adapter.name + ".container.json")).read_text())
+    if ownership["adapterSha256"] != digest(adapter):
+        raise RuntimeError("owned container adapter changed")
+    name = ownership["name"]
+    VERIFIED_OWNED_IDS.pop(name,None)
+    cidfile=Path(ownership['cidFilePath']) if ownership.get('cidFilePath') else None
+    if cidfile is not None and (cidfile.parent!=WORK or cidfile.name!=name+'.cid' or cidfile.exists()):
+        raise RuntimeError('untrusted or existing formal cidfile')
+    if owned_containers(name):
+        raise RuntimeError("owned container name already exists before launch")
+    lifecycle = {**ownership, "label": label, "prelaunchAbsent": True, "cleanupConfirmed": False}
+    receipt = EVIDENCE / (label + "-CONTAINER-LIFECYCLE.json")
+    receipt.write_text(json.dumps(lifecycle, indent=2) + "\n")
+    try:
+        code = run(label, command, allow_failure=True)
+    finally:
+        # The pinned sandbox already traps its cidfile; verify it, and remove only
+        # this freshly named container if timeout killed the Docker client first.
+        try:
+            if cidfile is not None and cidfile.is_file():
+                identifier=cidfile.read_text().strip()
+                if identifier:
+                    if not re.fullmatch('[0-9a-f]{64}',identifier):
+                        raise RuntimeError('invalid trusted formal cidfile')
+                    previous=VERIFIED_OWNED_IDS.get(name)
+                    if previous is not None and previous!=identifier:
+                        raise RuntimeError('formal owned identity changed')
+                    VERIFIED_OWNED_IDS[name]=identifier
+            if name not in VERIFIED_OWNED_IDS:
+                owned_containers(name)
+        except BaseException as error:
+            lifecycle['identityQueryError']=repr(error)
+        target=VERIFIED_OWNED_IDS.get(name)
+        lifecycle['cleanupTarget']=target
+        if target:
+            try:
+                result=subprocess.run(['docker','container','rm','--force',target],
+                    env=environment,stdout=subprocess.PIPE,stderr=subprocess.PIPE,check=False,timeout=3)
+                lifecycle['cleanupExitCode']=result.returncode
+            except BaseException as error:
+                lifecycle['cleanupError']=repr(error)
+        try:
+            lifecycle['cleanupConfirmed']=not owned_containers(name)
+        except BaseException as error:
+            lifecycle['absenceCheckError']=repr(error)
+            lifecycle['cleanupConfirmed']=False
+        receipt.write_text(json.dumps(lifecycle, indent=2) + "\n")
+        if not lifecycle['cleanupConfirmed']:
+            raise RuntimeError('owned proof container cleanup could not be confirmed')
+        if cidfile is not None:
+            cidfile.unlink(missing_ok=True)
+    guard_seen = False
+    environment_error = False
+    with (EVIDENCE / (label + ".log")).open(errors="replace") as stream:
+        for line in stream:
+            guard_seen |= line.startswith("B699_RESOURCE_CONTRACT path=")
+            environment_error |= "B699_RESOURCE_CONTRACT:" in line or 'B699_HARD_DEADLINE_EXPIRED:' in line or 'B699_DIAGNOSTIC_ENVIRONMENT:' in line or any(marker in line.lower() for marker in (
+                "could not execute external process", "command not found", "unknown module prefix",
+                "no such file or directory"))
+    if code in (125, 126, 127) or not guard_seen or environment_error:
+        raise RuntimeError(f"{label}: environment/protection failure; collection stopped")
+    if code:
+        raise LeafStageFailure(label, code)
+
+
+def collect_groups(groups: list[dict], execute) -> list[dict]:
+    """Keep all seven required leaves, then run the combination only on all-pass."""
+    results = []
+    for group in [g for g in groups if "sourcePath" in g] + [g for g in groups if "sourcePath" not in g]:
+        if "sourcePath" not in group and any(result["status"] == "failed" for result in results):
+            result = {"id": group["id"], "status": "skipped", "reason": "required independent leaf failed",
+                      "proofAccepted": False}
+        else:
+            try:
+                result = {**execute(group), "status": "passed"}
+            except LeafStageFailure as error:
+                result = {"id": group["id"], "status": "failed", "failedStage": error.label,
+                          "exitCode": error.code, "sourceSha256": group.get("sourceSha256"),
+                          "auditSha256": group["auditSha256"], "proofAccepted": False}
+        results.append(result)
+        (EVIDENCE / "RESULTS.json").write_text(json.dumps(results, indent=2) + "\n")
+    failed = [result["id"] for result in results if result["status"] == "failed"]
+    (EVIDENCE / "COLLECTION.json").write_text(json.dumps({"results": results, "failedGroups": failed,
+        "allRequiredStagesPassed": not failed, "proofAccepted": False}, indent=2) + "\n")
+    if failed:
+        raise RuntimeError("required independent leaves failed: " + ", ".join(failed))
+    return results
+
+
+def select_verification_groups(groups: list[dict], request_data: dict) -> tuple[list[dict], bool]:
+    """Select whole leaf checks; the full combination requires all seven leaves."""
+    leaves = [group for group in groups if "sourcePath" in group]
+    combined = [group for group in groups if "sourcePath" not in group]
+    by_id = {group["id"]: group for group in leaves}
+    if len(leaves) != 7 or len(by_id) != 7 or len(combined) != 1 or combined[0]["id"] != "FullCoverageExact":
+        raise RuntimeError("selection requires the fixed seven unique leaves and FullCoverageExact")
+    if "selectedGroupIds" not in request_data:
+        return groups, True
+    identifiers = request_data["selectedGroupIds"]
+    if (type(identifiers) is not list or not identifiers or
+            any(type(identifier) is not str for identifier in identifiers) or
+            len(set(identifiers)) != len(identifiers) or any(identifier not in by_id for identifier in identifiers)):
+        raise RuntimeError("selectedGroupIds must be nonempty, unique, known whole-leaf IDs")
+    all_seven = set(identifiers) == set(by_id)
+    return [by_id[identifier] for identifier in identifiers] + (combined if all_seven else []), all_seven
+
+
+def sandbox_adapter(base: str, module: str, output_dir: Path,
+                    imports_dir: Path | None = None, checker: bool = False) -> Path:
+    if not re.fullmatch(r"(?:Frozen|Audit)\.[A-Za-z_][A-Za-z0-9_]*", module):
+        raise RuntimeError(f"unsafe module name: {module}")
+    relative = module.replace(".", "/")
+    target = f"/contribution/{relative}.lean"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / relative).parent.mkdir(parents=True, exist_ok=True)
+    text = base.replace("/contribution/Main.lean", target)
+    name = "b699-" + uuid.uuid4().hex
+    assert text.count("  run --rm --pull never") == 1
+    text = text.replace("  run --rm --pull never", '  run --rm --pull never --name "' + name + '"')
+    ownership={"name":name}
+    if request.get('diagnosisOnly') is not True:
+        cidfile=WORK/(name+'.cid')
+        assert text.count('cidfile="$runtime_dir/container-id"')==1
+        text=text.replace('cidfile="$runtime_dir/container-id"','cidfile="'+str(cidfile)+'"')
+        assert text.count('  rm -f "$cidfile"')==1
+        text=text.replace('  rm -f "$cidfile"','  : # Host retains trusted formal cidfile until strict cleanup')
+        ownership['cidFilePath']=str(cidfile)
+    text = text.replace('  --env HOME=/tmp', '  --env "PATH=$toolchain/bin:/usr/local/bin:/usr/bin:/bin"\n  --env HOME=/tmp')
+    mount = '  --mount "type=bind,src=$source_file,dst=' + target + ',readonly"'
+    assert text.count(mount) == 1
+    extra = '\n  --mount "type=bind,src=' + str(output_dir) + ',dst=/contrib-evidence' + (',readonly"' if checker else '"')
+    text = text.replace(mount, mount + extra)
+    resource_guard = SCRIPT / "container-resource-guard.sh"
+    text = text.replace(mount, mount + '\n  --mount "type=bind,src=' + str(resource_guard) + ',dst=/contrib-resource/guard.sh,readonly"')
+    if imports_dir is not None:
+        text = text.replace(mount, mount + '\n  --mount "type=bind,src=' + str(imports_dir) + ',dst=/review-imports,readonly"')
+    original = '  "$lean_binary" --json "--memory=$memory_mb" "--timeout=$heartbeats" \\\n  ' + target
+    assert text.count(original) == 1
+    if checker:
+        text = text.replace('--env "LEAN_PATH=$lean_path"', '--env "LEAN_PATH=/contrib-evidence:$lean_path"')
+        text = text.replace(original, '  "$(dirname "$lean_binary")/leanchecker" -v ' + module)
+    else:
+        if imports_dir is not None:
+            text = text.replace('--env "LEAN_PATH=$lean_path"', '--env "LEAN_PATH=/review-imports:$lean_path"')
+        text = text.replace(original, '  "$lean_binary" --json "--memory=$memory_mb" "--timeout=$heartbeats" --threads=1 --root=/contribution -o /contrib-evidence/' + relative + '.olean \\\n  ' + target)
+    if checker and imports_dir is not None:
+        text = text.replace('LEAN_PATH=/contrib-evidence:$lean_path', 'LEAN_PATH=/contrib-evidence:/review-imports:$lean_path')
+    text = text.replace('  "$lean_binary" --json', '  /bin/sh /contrib-resource/guard.sh "$memory_mb" "$lean_binary" --json')
+    text = text.replace('  "$(dirname "$lean_binary")/leanchecker"', '  /bin/sh /contrib-resource/guard.sh "$memory_mb" "$(dirname "$lean_binary")/leanchecker"')
+    if environment.get('B699_HARD_DEADLINE_EPOCH') and request.get('diagnosisOnly') is not True:
+        epoch=environment['B699_HARD_DEADLINE_EPOCH']
+        if not epoch.isdigit():
+            raise RuntimeError('invalid absolute guest deadline epoch')
+        text=text.replace('  --env HOME=/tmp','  --env "B699_HARD_DEADLINE_EPOCH='+epoch+'"\n  --env HOME=/tmp')
+        text=text.replace(mount,mount+'\n  --mount "type=bind,src='+str(SCRIPT/'container-probe-entry.sh')+',dst=/contrib-resource/entry.sh,readonly"')
+        text=text.replace('/contrib-resource/guard.sh "$memory_mb" ',
+                          '/contrib-resource/guard.sh "$memory_mb" /bin/sh /contrib-resource/entry.sh "$timeout_seconds" ')
+    path = WORK / f"sandbox-{'checker' if checker else 'object'}-{module}.sh"
+    path.write_text(text)
+    path.chmod(0o700)
+    shutil.copy2(path, EVIDENCE / path.name)
+    (EVIDENCE / (path.name + ".container.json")).write_text(json.dumps(
+        {**ownership, "adapterSha256": digest(path)}, indent=2) + "\n")
+    (EVIDENCE / (path.name + ".diff")).write_text("".join(__import__("difflib").unified_diff(
+        base.splitlines(True), text.splitlines(True), fromfile="official-pinned-sandbox", tofile=path.name)))
+    return path
+
+
+def preserve_objects(label: str, output: Path, source: Path, module: str) -> None:
+    target = EVIDENCE / "objects" / label
+    shutil.copytree(output, target, dirs_exist_ok=True)
+    record = {"module": module, "sourcePath": str(source.relative_to(REPO)),
+              "sourceSha256": digest(source), "sourceCommit": subprocess.check_output(
+                  ["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True).strip(),
+              "objects": {str(path.relative_to(target)): digest(path) for path in target.rglob('*') if path.is_file()},
+              "compileExitCode": next((stage["exitCode"] for stage in reversed(stages) if stage["label"] == label), None),
+              "kernelReplayPending": True, "proofAccepted": False}
+    (EVIDENCE / (label + "-OBJECT-BINDING.json")).write_text(json.dumps(record, indent=2) + "\n")
+
+
+def main() -> None:
+    if sys.platform != "linux" or os.environ.get("GITHUB_REF") != "refs/heads/" + BRANCH:
+        raise RuntimeError("Linux and the explicitly authorized branch are required")
+    if request.get("enabled") is not True or request.get("branch") != BRANCH:
+        raise RuntimeError("verification request is disabled or branch mismatch")
+    if environment.get('B699_DEADLINE_WRAPPED')!='1':
+        raise RuntimeError('new verification jobs require the owned UTC deadline supervisor')
+    lease=datetime.fromisoformat(request['hardDeadlineUtc'].replace('Z','+00:00'))
+    if lease.isoformat()!=environment.get('B699_HARD_DEADLINE_UTC') or (lease-datetime.now(timezone.utc)).total_seconds()<=45:
+        raise RuntimeError('expired or mismatched hard UTC lease')
+    if request.get("fileTimeoutSeconds") != 900 or request.get("maxMemoryMiB") != 16384:
+        raise RuntimeError("request must retain the 900-second / maximum-16GiB contract")
+    artifact_dir = (REPO / request["artifactDirectory"]).resolve()
+    if not artifact_dir.is_relative_to(REPO):
+        raise RuntimeError("artifact directory outside checkout")
+    bundle = bound(request["bundleSnapshotPath"], request["bundleSnapshotSha256"])
+    contract_path = bound(request["auditContractPath"], request["auditContractSha256"])
+    auditor = bound(request["axiomAuditorPath"], request["axiomAuditorSha256"])
+    contract = json.loads(contract_path.read_text())
+    groups = contract["groups"]
+    raw_groups = [group for group in groups if "sourcePath" in group]
+    raw_sources = [bound(group["sourcePath"], group["sourceSha256"]) for group in raw_groups]
+    actual_sources = sorted(artifact_dir.glob("*.lean"))
+    if len(groups) != 8 or len(raw_sources) != 7 or set(raw_sources) != set(actual_sources):
+        raise RuntimeError("only the seven exact prepared artifacts may be checked")
+    review_sources = {group["id"]: bound(group["auditPath"], group["auditSha256"]) for group in groups}
+    selected_groups, full_s = select_verification_groups(groups, request)
+    baseline = subprocess.check_output(["git", "-C", str(REPO), "rev-parse", "HEAD"], text=True).strip()
+    checkpoint = {"sourceCommit": baseline, "requestSha256": digest(REQUEST_PATH),
+                  "bundleSnapshotSha256": digest(bundle), "auditContractSha256": digest(contract_path),
+                  "axiomAuditorSha256": digest(auditor), "owner": contract["verifier"],
+                  "contributionCommit": CONTRIBUTION, "taskPoolCommit": TASKS,
+                  "productionSourceCommit": DERIVED, "fullConjectureSolved": False,
+                  "productionIdentityRewardMetadataChecked": False, "groups": groups,
+                  "selectedGroupIds": [group["id"] for group in selected_groups if "sourcePath" in group],
+                  "fullS": full_s, "allSevenSourcesRemainBoundAndSourceChecked": True}
+    (EVIDENCE / "INPUT-BINDING.json").write_text(json.dumps(checkpoint, indent=2) + "\n")
+    before = resources("admission")
+    if before["availableBudgetBytes"] < 2 * 1024**3 or before["freeDiskBytes"] < 14 * 1024**3:
+        raise RuntimeError("insufficient measured resources even for serial preparation")
+    spec = importlib.util.spec_from_file_location("source_bootstrap", SCRIPT / "bootstrap-platform.py")
+    bootstrap = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bootstrap)
+    trusted = WORK / "contribution"
+    bootstrap.checkout(trusted, "https://github.com/conjectures-io/conjectures-contribution.git", CONTRIBUTION)
+    bootstrap.checkout(trusted / "conjectures", "https://github.com/conjectures-io/conjectures-tasks.git", TASKS)
+    run("source-policy", [sys.executable, str(SCRIPT / "check-source-policy.py"), str(trusted),
+                          str(EVIDENCE / "SOURCE-POLICY.json"), *map(str, raw_sources)])
+    policy = json.loads((EVIDENCE / "SOURCE-POLICY.json").read_text())
+    if not policy["selectedWithinHypotheticalBundleLimits"]:
+        raise RuntimeError("selected source byte/count limits fail")
+    if policy["reviewFindings"] and not request.get("sourceRuleReviewAcknowledged"):
+        raise RuntimeError("official source-review findings need recorded acknowledgement before execution")
+    run("fixed-fc-source", [sys.executable, str(SCRIPT / "bootstrap-platform.py"), str(WORK),
+                            str(EVIDENCE / "FIXED-SOURCE.json")])
+    fc = WORK / "formal-conjectures"
+    asset = json.loads((SCRIPT / "LEAN-LINUX-ASSET-PIN.json").read_text())
+    if (asset["name"], asset["assetId"], asset["sha256"], asset["bytes"], asset["url"]) != (
+        "lean-4.33.1-linux.tar.zst", 523687465,
+        "890afd185370f85666025b883914ab4f4b339136f8c96167b69cfb62aecaf235", 570405234,
+        "https://github.com/leanprover/lean4/releases/download/v4.33.1/lean-4.33.1-linux.tar.zst"):
+        raise RuntimeError("fixed official Linux asset pin drift")
+    archive = WORK / asset["name"]
+    with urllib.request.urlopen(asset["url"]) as response, archive.open("wb") as stream:
+        shutil.copyfileobj(response, stream, 1024 * 1024)
+    if archive.stat().st_size != asset["bytes"] or digest(archive) != asset["sha256"]:
+        raise RuntimeError("official toolchain archive digest mismatch")
+    (EVIDENCE / "TOOLCHAIN-ASSET.json").write_text(json.dumps(asset, indent=2) + "\n")
+    run("toolchain-extract", ["tar", "--zstd", "-xf", str(archive), "-C", str(WORK)])
+    toolchain = WORK / "lean-4.33.1-linux"
+    environment["PATH"] = str(toolchain / "bin") + os.pathsep + environment["PATH"]
+    compiler_version = subprocess.check_output([str(toolchain / "bin/lean"), "--version"], text=True).strip()
+    if "version 4.33.1" not in compiler_version or "819816b2e0a3bf405af45ae5c7af2491d8f5bee6" not in compiler_version:
+        raise RuntimeError("Lean version/source fingerprint mismatch")
+    (EVIDENCE / "BINARIES.json").write_text(json.dumps({"version": compiler_version,
+        "executables": {name: digest(toolchain / "bin" / name) for name in ("lean", "lake", "leanchecker", "leantar")}}, indent=2) + "\n")
+    run("lake-fixed-environment", [str(toolchain / "bin/lake"), "env", "lean", "--version"], fc)
+    manifest = json.loads((fc / "lake-manifest.json").read_text())
+    actual_packages = []
+    for package in manifest["packages"]:
+        actual = subprocess.check_output(["git", "-C", str(fc / ".lake/packages" / package["name"]), "rev-parse", "HEAD"], text=True).strip()
+        if actual != package["rev"]:
+            raise RuntimeError("package pin mismatch")
+        actual_packages.append({"name": package["name"], "rev": actual})
+    (EVIDENCE / "PACKAGES.json").write_text(json.dumps(actual_packages, indent=2) + "\n")
+    run("docker-image", ["docker", "pull", IMAGE])
+    environment['B699_CACHE_SANDBOX_IMAGE'] = IMAGE
+    run("cache-tool-serial", [sys.executable, str(SCRIPT / "build-cache-interpreter.py"), str(fc),
+                              str(toolchain), str(EVIDENCE / "CACHE-TOOL.json")], trusted_bootstrap=True)
+    modules = sorted({match.group(1) for source in raw_sources for match in
+                      re.finditer(r"^\s*import\s+([A-Za-z_][A-Za-z0-9_.]*)", source.read_text(), re.M)
+                      if match.group(1).split(".")[0] not in {"Init", "Std", "Lean"}})
+    if any(module in {"Mathlib", "Mathlib.Tactic"} or not module.startswith("Mathlib.") for module in modules):
+        raise RuntimeError("this bounded replay expects focused Mathlib imports only")
+    run("focused-cache-download", [str(toolchain / "bin/lake"), "env", "lean", "--memory=1536", "--threads=1",
+                                   "--run", str(SCRIPT / "FocusedCacheGet.lean"), *modules], fc, trusted_bootstrap=True)
+    plan = WORK / "focused-extract.json"
+    run("focused-cache-plan", [str(toolchain / "bin/lake"), "env", "lean", "--memory=1536", "--threads=1",
+                               "--run", str(SCRIPT / "CacheExtractPlan.lean"), str(plan), *modules], fc, trusted_bootstrap=True)
+    run("focused-cache-extract", [sys.executable, str(SCRIPT / "extract-cache.py"),
+                                  str(toolchain / "bin/leantar"), str(plan)], fc, trusted_bootstrap=True)
+    environment["CONTRIB_LEAN_WORKSPACE"] = str(fc)
+    run("official-workspace-validate", ["bash", str(trusted / "scripts/lean_workspace.sh"), DERIVED])
+    run("official-cli-frozen", ["uv", "sync", "--project", str(trusted), "--frozen", "--no-dev",
+                                "--no-editable", "--python", "3.11", "--managed-python",
+                                "--no-build-package", "bittensor-core", "--no-build-package", "cryptography",
+                                "--no-build-package", "cffi"])
+    run("official-cli-version", ["uv", "run", "--project", str(trusted), "--frozen", "contrib", "--version"], trusted)
+    (EVIDENCE / "CLI-BOUNDARY.json").write_text(json.dumps({"fixedCliLoads": True,
+        "sourceRulesExecuted": ["C019", "C020", "C021"], "fullContribCheck": False,
+        "productionIdentityRewardMetadataChecked": False, "walletOperations": False}, indent=2) + "\n")
+    base = (trusted / "scripts/lean_sandbox.sh").read_text()
+    if digest(trusted / "scripts/lean_sandbox.sh") != SANDBOX_SHA:
+        raise RuntimeError("official sandbox source changed")
+    object_imports = WORK / "review-objects"
+    object_imports.mkdir()
+    def execute_group(group: dict) -> dict:
+        measured = resources("before-" + group["id"])
+        # Leave 1 GiB for the runner; retain <= the platform's 16 GiB ceiling.
+        memory_mb = min(16384, math.floor((measured["availableBudgetBytes"] - 1024**3) / (256 * 1024**2)) * 256)
+        if memory_mb < 1024:
+            raise RuntimeError("no safe measured Docker proof budget")
+        seconds=min(900,math.floor((lease-datetime.now(timezone.utc)).total_seconds()-45))
+        if seconds<1:
+            raise RuntimeError('remaining UTC lease cannot admit another verification group')
+        if "sourcePath" in group:
+            source = bound(group["sourcePath"], group["sourceSha256"])
+            output = WORK / ("raw-" + group["id"])
+            adapter = sandbox_adapter(base, group["frozenModule"], output)
+            try:
+                run_sandbox("raw-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), str(seconds), str(memory_mb), "400000"])
+            finally:
+                preserve_objects("raw-" + group["id"], output, source, group["frozenModule"])
+            checker = sandbox_adapter(base, group["frozenModule"], output, checker=True)
+            run_sandbox("kernel-raw-" + group["id"], checker, ["bash", str(checker),
+                        str(fc), str(source), str(seconds), str(memory_mb), "400000"])
+            shutil.copytree(output, object_imports, dirs_exist_ok=True)
+        source = review_sources[group["id"]]
+        output = WORK / ("audit-" + group["id"])
+        adapter = sandbox_adapter(base, group["auditModule"], output, object_imports)
+        try:
+            run_sandbox("literal-" + group["id"], adapter, ["bash", str(adapter), str(fc), str(source), str(seconds), str(memory_mb), "400000"])
+        finally:
+            preserve_objects("literal-" + group["id"], output, source, group["auditModule"])
+        # Checker needs the raw/review import closure as well as its own object.
+        checker = sandbox_adapter(base, group["auditModule"], output, object_imports, checker=True)
+        run_sandbox("kernel-literal-" + group["id"], checker, ["bash", str(checker), str(fc), str(source), str(seconds), str(memory_mb), "400000"])
+        code = run("std3-" + group["id"], [sys.executable, str(auditor), "--contract", str(contract_path), "--group", group["id"],
+                                   "--log", str(EVIDENCE / ("literal-" + group["id"] + ".log")),
+                                   "--output", str(EVIDENCE / ("STD3-" + group["id"] + ".json"))], allow_failure=True)
+        std3 = json.loads((EVIDENCE / ("STD3-" + group["id"] + ".json")).read_text())
+        if code not in (0, 1) or std3["group"] != group["id"] or std3["passed"] != (code == 0):
+            raise RuntimeError("independent Std3 audit execution failed")
+        if code:
+            raise LeafStageFailure("std3-" + group["id"], code)
+        shutil.copytree(output, object_imports, dirs_exist_ok=True)
+        return {"id": group["id"], "memoryMiB": memory_mb, "fileTimeoutSeconds": seconds,"platformTimeoutCeilingSeconds":900,
+                        "hardDeadlineUtc":lease.isoformat(),"budgetClipped":seconds<900,
+                        "literalSourceSha256": digest(source), "literalExpectedType": group.get("literalExpectedType"),
+                        "objects": {str(path.relative_to(output)): digest(path) for path in output.rglob("*") if path.is_file()},
+                        "producerPrintsUsedForAxiomAcceptance": False}
+    results = collect_groups(selected_groups, execute_group)
+    (EVIDENCE / "SUCCESS.json").write_text(json.dumps({"groups": len(results), "completeOriginalProblem": False,
+        "formalizedPartialSet": contract["expectedWholeSet"] if full_s else None,
+        "selectedGroupIds": [group["id"] for group in selected_groups if "sourcePath" in group],
+        "fullS": full_s, "fullSetCombinationExecuted": full_s,
+        "productionIdentityRewardMetadataChecked": False,
+        "kernelReplay": "built-in leanchecker, same pinned Lean kernel; not an independent kernel implementation"}, indent=2) + "\n")
+
+
+if __name__ == "__main__":
+    def stop_owned(signum,frame):
+        raise KeyboardInterrupt('verification interrupted; owned container cleanup')
+    signal.signal(signal.SIGTERM,stop_owned)
+    try:
+        main()
+    except BaseException as error:
+        (EVIDENCE / "FAILURE.json").write_text(json.dumps({"error": str(error), "proofAccepted": False,
+                                                          "stagesCompleted": len(stages)}, indent=2) + "\n")
+        print(json.dumps({"status": "failed", "error": str(error)}), flush=True)
+        sys.exit(1)

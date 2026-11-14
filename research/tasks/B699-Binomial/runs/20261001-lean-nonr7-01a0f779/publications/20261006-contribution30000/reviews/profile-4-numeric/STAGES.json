@@ -1,0 +1,393 @@
+[
+  {
+    "label": "source-policy",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/check-source-policy.py",
+      "/home/runner/work/_temp/b699-profile-work/contribution",
+      "/home/runner/work/_temp/b699-profile-evidence/SOURCE-POLICY.json",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleDecodeTail.lean",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleBasisScan4473.lean",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleBareGcd.lean",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleFuelGcd.lean",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/HighPreludeNoExample.lean"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:32:59.456548+00:00",
+    "exitCode": 0,
+    "log": "source-policy.log",
+    "logSha256": "c27e248493f108f445af429415d4e04a3b71565d32cc719bf5a2a22950fc6d6a",
+    "executedScriptSha256": {
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/check-source-policy.py": "2bf87605742156e77aafabadb85b6049be284aebf84e21a8485c6f5a21aa5393"
+    }
+  },
+  {
+    "label": "fixed-fc-source",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/bootstrap-platform.py",
+      "/home/runner/work/_temp/b699-profile-work",
+      "/home/runner/work/_temp/b699-profile-evidence/FIXED-SOURCE.json"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:32:59.591274+00:00",
+    "exitCode": 0,
+    "log": "fixed-fc-source.log",
+    "logSha256": "9d34a4edd9160a59ad5b684f8389274324270a7844a16a7daabd35b3eefb78b6",
+    "executedScriptSha256": {
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/bootstrap-platform.py": "0c9482d20e5b300b5be8c3a8367a6cc189830d0fff76d38a06204eb49bfa8a3b"
+    }
+  },
+  {
+    "label": "toolchain-extract",
+    "command": [
+      "tar",
+      "--zstd",
+      "-xf",
+      "/home/runner/work/_temp/b699-profile-work/lean-4.33.1-linux.tar.zst",
+      "-C",
+      "/home/runner/work/_temp/b699-profile-work"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:33:03.699426+00:00",
+    "exitCode": 0,
+    "log": "toolchain-extract.log",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "executedScriptSha256": {}
+  },
+  {
+    "label": "lake-fixed-environment",
+    "command": [
+      "/home/runner/work/_temp/b699-profile-work/lean-4.33.1-linux/bin/lake",
+      "env",
+      "lean",
+      "--version"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+    "startedAt": "2026-10-06T19:33:09.384160+00:00",
+    "exitCode": 0,
+    "log": "lake-fixed-environment.log",
+    "logSha256": "ccddebcc1c824dd580b3da4b68c3f1b140c07194588f12b75faa03d94c4f4b31",
+    "executedScriptSha256": {}
+  },
+  {
+    "label": "docker-image",
+    "command": [
+      "docker",
+      "pull",
+      "debian:bookworm-slim@sha256:88200866dfff7ea7f5cbcb6ec7c8a701889efe6fe859fe64d6990e4b07ea4171"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:34:03.976790+00:00",
+    "exitCode": 0,
+    "log": "docker-image.log",
+    "logSha256": "775a39b382621660a7ddc2e7cc7aa38fd4f3afe33d0c9cbd73b7f722077f8b6a",
+    "executedScriptSha256": {}
+  },
+  {
+    "label": "cache-tool-serial",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/build-cache-interpreter.py",
+      "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+      "/home/runner/work/_temp/b699-profile-work/lean-4.33.1-linux",
+      "/home/runner/work/_temp/b699-profile-evidence/CACHE-TOOL.json"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:34:05.858421+00:00",
+    "exitCode": 0,
+    "log": "cache-tool-serial.log",
+    "logSha256": "1e1206b6de5c54ec76bbb938ca30143a875fef03a063e31f5594da21e1b6144d",
+    "executedScriptSha256": {
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/build-cache-interpreter.py": "1e1aaa9931096ef200c8a531bccc960adb0fc8da43dc70bf863505829e69bb0a"
+    }
+  },
+  {
+    "label": "focused-cache-download",
+    "command": [
+      "/home/runner/work/_temp/b699-profile-work/lean-4.33.1-linux/bin/lake",
+      "env",
+      "lean",
+      "--memory=1536",
+      "--threads=1",
+      "--run",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/FocusedCacheGet.lean",
+      "Mathlib.Algebra.BigOperators.Group.Finset.Powerset",
+      "Mathlib.Algebra.BigOperators.Intervals",
+      "Mathlib.Algebra.Group.Nat.Defs",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+      "Mathlib.Algebra.Ring.Int.Defs",
+      "Mathlib.Analysis.Complex.ExponentialBounds",
+      "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+      "Mathlib.Combinatorics.Enumerative.InclusionExclusion",
+      "Mathlib.Data.Int.Basic",
+      "Mathlib.Data.List.Range",
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Choose.Dvd",
+      "Mathlib.Data.Nat.Choose.Factorization",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Nat.Factorial.SuperFactorial",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Data.Nat.GCD.BigOperators",
+      "Mathlib.Data.Nat.Prime.Basic",
+      "Mathlib.Data.Nat.Prime.Factorial",
+      "Mathlib.Data.Nat.Sqrt",
+      "Mathlib.Data.Real.Basic",
+      "Mathlib.NumberTheory.PrimeCounting",
+      "Mathlib.Tactic.Convert",
+      "Mathlib.Tactic.FieldSimp",
+      "Mathlib.Tactic.Linarith",
+      "Mathlib.Tactic.Linarith.Frontend",
+      "Mathlib.Tactic.NormNum.Basic",
+      "Mathlib.Tactic.NormNum.Ineq",
+      "Mathlib.Tactic.NormNum.Inv",
+      "Mathlib.Tactic.Positivity",
+      "Mathlib.Tactic.Positivity.Basic",
+      "Mathlib.Tactic.Ring",
+      "Mathlib.Tactic.Ring.Basic"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+    "startedAt": "2026-10-06T19:34:18.712665+00:00",
+    "exitCode": 0,
+    "log": "focused-cache-download.log",
+    "logSha256": "19a9b429ab5cb935e1545eac3d185e88a47f5022da112109e3e137391953acdc",
+    "executedScriptSha256": {}
+  },
+  {
+    "label": "focused-cache-plan",
+    "command": [
+      "/home/runner/work/_temp/b699-profile-work/lean-4.33.1-linux/bin/lake",
+      "env",
+      "lean",
+      "--memory=1536",
+      "--threads=1",
+      "--run",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/CacheExtractPlan.lean",
+      "/home/runner/work/_temp/b699-profile-work/focused-extract.json",
+      "Mathlib.Algebra.BigOperators.Group.Finset.Powerset",
+      "Mathlib.Algebra.BigOperators.Intervals",
+      "Mathlib.Algebra.Group.Nat.Defs",
+      "Mathlib.Algebra.Order.BigOperators.Group.Finset",
+      "Mathlib.Algebra.Ring.Int.Defs",
+      "Mathlib.Analysis.Complex.ExponentialBounds",
+      "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+      "Mathlib.Combinatorics.Enumerative.InclusionExclusion",
+      "Mathlib.Data.Int.Basic",
+      "Mathlib.Data.List.Range",
+      "Mathlib.Data.Nat.Choose.Basic",
+      "Mathlib.Data.Nat.Choose.Dvd",
+      "Mathlib.Data.Nat.Choose.Factorization",
+      "Mathlib.Data.Nat.Factorial.BigOperators",
+      "Mathlib.Data.Nat.Factorial.SuperFactorial",
+      "Mathlib.Data.Nat.Factorization.Basic",
+      "Mathlib.Data.Nat.GCD.Basic",
+      "Mathlib.Data.Nat.GCD.BigOperators",
+      "Mathlib.Data.Nat.Prime.Basic",
+      "Mathlib.Data.Nat.Prime.Factorial",
+      "Mathlib.Data.Nat.Sqrt",
+      "Mathlib.Data.Real.Basic",
+      "Mathlib.NumberTheory.PrimeCounting",
+      "Mathlib.Tactic.Convert",
+      "Mathlib.Tactic.FieldSimp",
+      "Mathlib.Tactic.Linarith",
+      "Mathlib.Tactic.Linarith.Frontend",
+      "Mathlib.Tactic.NormNum.Basic",
+      "Mathlib.Tactic.NormNum.Ineq",
+      "Mathlib.Tactic.NormNum.Inv",
+      "Mathlib.Tactic.Positivity",
+      "Mathlib.Tactic.Positivity.Basic",
+      "Mathlib.Tactic.Ring",
+      "Mathlib.Tactic.Ring.Basic"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+    "startedAt": "2026-10-06T19:34:23.577368+00:00",
+    "exitCode": 0,
+    "log": "focused-cache-plan.log",
+    "logSha256": "35b23809d99d33ac9c26291705b48802b8186a1a48bcec7d10ccf2e467d010dc",
+    "executedScriptSha256": {}
+  },
+  {
+    "label": "focused-cache-extract",
+    "command": [
+      "/usr/bin/python3",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/extract-cache.py",
+      "/home/runner/work/_temp/b699-profile-work/lean-4.33.1-linux/bin/leantar",
+      "/home/runner/work/_temp/b699-profile-work/focused-extract.json"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+    "startedAt": "2026-10-06T19:34:25.492022+00:00",
+    "exitCode": 0,
+    "log": "focused-cache-extract.log",
+    "logSha256": "97b7c6aa6fc5d67840f709b83ddb58457fa7b2a53bbb27406c4751fb4653e7b1",
+    "executedScriptSha256": {
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/environment/extract-cache.py": "010e350882a4dc4228e50c335d02db5b4e0c1797b8d99fc9890dd87420bf69b3"
+    }
+  },
+  {
+    "label": "official-workspace-validate",
+    "command": [
+      "bash",
+      "/home/runner/work/_temp/b699-profile-work/contribution/scripts/lean_workspace.sh",
+      "6a786f997e18e8f095762a2830d191b7e25e505e"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:34:40.499793+00:00",
+    "exitCode": 0,
+    "log": "official-workspace-validate.log",
+    "logSha256": "c22a87a8154988ca6006c651aca548573bcf743c99e9c242904ee3b9246189a5",
+    "executedScriptSha256": {
+      "/home/runner/work/_temp/b699-profile-work/contribution/scripts/lean_workspace.sh": "dd5b7ce19856bdbf9f5f4ad5e31b8eb7064c8f72e768c9d6fc772218b43aabc1"
+    }
+  },
+  {
+    "label": "official-cli-frozen",
+    "command": [
+      "uv",
+      "sync",
+      "--project",
+      "/home/runner/work/_temp/b699-profile-work/contribution",
+      "--frozen",
+      "--no-dev",
+      "--no-editable",
+      "--python",
+      "3.11",
+      "--managed-python",
+      "--no-build-package",
+      "bittensor-core",
+      "--no-build-package",
+      "cryptography",
+      "--no-build-package",
+      "cffi"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:34:40.585974+00:00",
+    "exitCode": 0,
+    "log": "official-cli-frozen.log",
+    "logSha256": "48e3d3a12b91e056adaa696d1c157f4b9f1ec2dcae5fd88361b70d7edf7ccc24",
+    "executedScriptSha256": {}
+  },
+  {
+    "label": "official-cli-version",
+    "command": [
+      "uv",
+      "run",
+      "--project",
+      "/home/runner/work/_temp/b699-profile-work/contribution",
+      "--frozen",
+      "contrib",
+      "--version"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work/contribution",
+    "startedAt": "2026-10-06T19:34:42.708472+00:00",
+    "exitCode": 0,
+    "log": "official-cli-version.log",
+    "logSha256": "283bda9eff31f82713264f107a2758d1b8a065360f7b454be4d65014e36561d6",
+    "executedScriptSha256": {}
+  },
+  {
+    "label": "probe-MiddleDecodeTail",
+    "command": [
+      "bash",
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleDecodeTail.sh",
+      "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleDecodeTail.lean",
+      "180",
+      "13568",
+      "400000"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:34:44.024457+00:00",
+    "elapsedSeconds": 6.154124390000021,
+    "exitCode": 0,
+    "log": "probe-MiddleDecodeTail.log",
+    "logSha256": "137bef9eb9a46fef66b0781059b30d35ca8937323f45e5e7f64d4b61897859b4",
+    "executedScriptSha256": {
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleDecodeTail.sh": "7b178412df26fa4935a885e406c2683d810eb698ad4e1eb0ee7fd56429943135"
+    }
+  },
+  {
+    "label": "probe-MiddleBasisScan4473",
+    "command": [
+      "bash",
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleBasisScan4473.sh",
+      "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleBasisScan4473.lean",
+      "180",
+      "13568",
+      "400000"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:34:50.274484+00:00",
+    "elapsedSeconds": 25.987235389999995,
+    "exitCode": 0,
+    "log": "probe-MiddleBasisScan4473.log",
+    "logSha256": "7beb4282e745e030bc2576e0f47c8bf5f78038092a1d5eca42ebc0a7a66efec4",
+    "executedScriptSha256": {
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleBasisScan4473.sh": "722c2daf07feb4c1df3413715be4ab783e36555eee1f224e17143480befa0d78"
+    }
+  },
+  {
+    "label": "probe-MiddleBareGcd",
+    "command": [
+      "bash",
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleBareGcd.sh",
+      "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleBareGcd.lean",
+      "180",
+      "13824",
+      "400000"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:35:16.358552+00:00",
+    "elapsedSeconds": 3.1193502190000117,
+    "exitCode": 0,
+    "log": "probe-MiddleBareGcd.log",
+    "logSha256": "337187a6ab6d26afb7b20e474e4a189a3a3b83a56f12933e2f9326e95915b0af",
+    "executedScriptSha256": {
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleBareGcd.sh": "81d005e9104297cc97bfc00df5787a61bde0d15fde7d9b3c2f194830c64b90fe"
+    }
+  },
+  {
+    "label": "probe-MiddleFuelGcd",
+    "command": [
+      "bash",
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleFuelGcd.sh",
+      "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/MiddleFuelGcd.lean",
+      "180",
+      "13824",
+      "400000"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:35:19.572686+00:00",
+    "elapsedSeconds": 3.1194174360000204,
+    "exitCode": 0,
+    "log": "probe-MiddleFuelGcd.log",
+    "logSha256": "c61109e023836fd751369563ed38970624d1c6f7c2791dff1b84f56e5f89fa22",
+    "executedScriptSha256": {
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_MiddleFuelGcd.sh": "63a957e9efae1d95e22952d5ad15af942d3199b4c78b3894725fa83359c8b35c"
+    }
+  },
+  {
+    "label": "probe-HighPreludeNoExample",
+    "command": [
+      "bash",
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_HighPreludeNoExample.sh",
+      "/home/runner/work/_temp/b699-profile-work/formal-conjectures",
+      "/home/runner/work/lean-math-lab/lean-math-lab/research/tasks/B699-Binomial/runs/20261001-lean-nonr7-01a0f779/publications/20261006-contribution30000/implementation/range-tail/repairs/20261007-ci7/numeric/probes/HighPreludeNoExample.lean",
+      "180",
+      "13824",
+      "400000"
+    ],
+    "cwd": "/home/runner/work/_temp/b699-profile-work",
+    "startedAt": "2026-10-06T19:35:22.787300+00:00",
+    "elapsedSeconds": 51.201580581,
+    "exitCode": 0,
+    "log": "probe-HighPreludeNoExample.log",
+    "logSha256": "20f22dcd91c977f6cd7d2ae1657f458c9968ad5609018a7c01178b9e6c7c0755",
+    "executedScriptSha256": {
+      "/home/runner/work/_temp/b699-profile-work/sandbox-object-Frozen.Diag_HighPreludeNoExample.sh": "8725384a9cf1a375f0b5556fbc384615d296b9be10064f920fb77c19d313384c"
+    }
+  }
+]
